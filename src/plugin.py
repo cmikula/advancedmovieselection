@@ -389,7 +389,7 @@ class MoviePlayerExtended(MoviePlayer, CutListSupport):
             
     def openInfoView(self):
         from AdvancedMovieSelectionEventView import EventViewSimple
-        from ServiceReference import ServiceReference
+        # from ServiceReference import ServiceReference
         serviceref = self.session.nav.getCurrentlyPlayingServiceReference()
         from enigma import eServiceCenter
         serviceHandler = eServiceCenter.getInstance()

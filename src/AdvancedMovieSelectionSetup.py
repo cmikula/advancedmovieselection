@@ -396,15 +396,15 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
 
     def pluginsavailable(self):
         if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
-             self["IMDbtxt"].setText(_("IMDb plugin installed. Assign function to info button is possible."))
+            self["IMDbtxt"].setText(_("IMDb plugin installed. Assign function to info button is possible."))
         else:
             self["IMDbtxt"].setText(_("IMDb plugin NOT installed. Assign function to info button is NOT possible."))
         if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/OFDb/plugin.pyo"):
-             self["OFDbtxt"].setText(_("OFDb plugin installed. Assign function to info button is possible."))
+            self["OFDbtxt"].setText(_("OFDb plugin installed. Assign function to info button is possible."))
         else:
             self["OFDbtxt"].setText(_("OFDb plugin NOT installed. Assign function to info button is NOT possible."))
         if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/TMDb/plugin.pyo"):
-             self["TMDbtxt"].setText(_("TMDb plugin installed. Assign function to info button is possible."))
+            self["TMDbtxt"].setText(_("TMDb plugin installed. Assign function to info button is possible."))
         else:
             self["TMDbtxt"].setText(_("TMDb plugin NOT installed. Assign function to info button is NOT possible.")) 
 

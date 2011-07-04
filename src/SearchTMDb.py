@@ -433,7 +433,7 @@ class TMDbMain(Screen):
                 self["extended"].show()
                 for movie in movielist:
                     extended = ""
-                    movie_id =  movie["id"]
+                    # movie_id =  movie["id"]
                     name =  movie["name"].encode('utf-8','ignore')
                     description =  movie["overview"]
                     released = movie["released"]
@@ -446,7 +446,7 @@ class TMDbMain(Screen):
                     cur = self["list"].getCurrent()
                     cover = cur[4]
                     if cover:
-                        parts = cover.split("/")
+                        # parts = cover.split("/")
                         filename = os_path.join(IMAGE_TEMPFILE ,name + '.jpg')
                         if not os_path.exists(filename):
                             download(cover,filename).addErrback(self.errorCoverDownload).addCallback(self.finishedCoverDownload, filename)
@@ -505,7 +505,7 @@ class TMDbMain(Screen):
             return
         #self["status"].setText(_("Download and save movie info and cover, please wait..."))
         from EventInformationTable import createEIT
-        from ServiceProvider import ServiceCenter
+        #from ServiceProvider import ServiceCenter
         cur = self["list"].getCurrent()
         title = cur[1].encode('utf-8','ignore')
         #title = ServiceCenter.getInstance().info(self.service).getName(self.service)

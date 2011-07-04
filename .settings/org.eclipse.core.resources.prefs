@@ -1,0 +1,18 @@
+#Mon Jul 04 19:16:09 CEST 2011
+eclipse.preferences.version=1
+encoding//src/About.py=utf-8
+encoding//src/AdvancedMovieSelectionEventView.py=utf-8
+encoding//src/AdvancedMovieSelectionSetup.py=utf-8
+encoding//src/DownloadMovies.py=utf-8
+encoding//src/EventInformationTable.py=utf-8
+encoding//src/MoveCopy.py=utf-8
+encoding//src/MovieList.py=utf-8
+encoding//src/MoviePreview.py=utf-8
+encoding//src/MovieSearch.py=utf-8
+encoding//src/MovieSelection.py=utf-8
+encoding//src/NTIVirtualKeyBoard.py=utf-8
+encoding//src/RecordPaths.py=utf-8
+encoding//src/Rename.py=utf-8
+encoding//src/SearchTMDb.py=utf-8
+encoding//src/plugin.py=utf-8
+encoding//src/tmdb.py=utf-8
