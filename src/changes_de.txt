@@ -1,0 +1,48 @@
+# -*- coding: utf-8 -*- #
+
+version 0.1
+* erste beta :)
+
+version 0.2
+* fix: crash bei farbtasten einstellungen
+* neu: coveranzeige
+
+version: 0.3
+* neu: filminfo suche über tmdb
+* neu: filminfo/cover download über tmdb
+
+version: 0.4
+* diverse optische veränderungen
+
+version: 0.5
+* neu: eigenen filminfo screen (info taste)
+* neu: filminfo/cover können nun auch bei nicht *.ts inhalten während des abspielens angezeigt werden
+* neu: lcd/oled screens
+* neu: manuelle suche unter herunterladen und speichern von filminfo/cover
+* geändert: viel in der abteilung skin ;(
+
+version: 0.6
+* fix: crash bei der suche über den menüpunkt tmdb suche
+* neu: es können mehr services im lcd/oled angezeigt werden
+* neu: Filminfo/Cover Optionen im Menü der Filmliste anzeigen:
+
+version: 0.7
+* neu: *.cutsr und *.gm werden auch gelöscht wenn vorhanden
+* fix: anzeige der filmbeschreibung wenn ein ordner ausgewählt ist
+* fix: tmdb suche bei utf8
+* neu: mit lange info kann wenn installiert der merlinepg während der filmwiedergabe aufgerufen werden
+* neu: verhalten bei film start/stop/ende unter einstellungen konfigurierbar
+* fix: crash wenn das abspielen über den gp3 dateimanager mit exit beendet wird
+
+version: 0.8
+* fix: hoffentlich nun endlich das mit den *.cutsr und *.gm dateien :)
+* neu: bei der Filminfoleiste ist nun die position einstellbar
+
+version: 0.9
+* neu: erweiterung ist nun zu 100% übersetzt
+* neu: mit lange info kann wenn installiert der cooltvguide während der filmwiedergabe aufgerufen werden
+* geändert: lcd/oled anzeige,filminfo mit cover anzeige und lange info funktion auch wenn die coveranzeige in der filmliste ausgeschalten ist
+* fix: crash beim umbenennen
+
+
+
