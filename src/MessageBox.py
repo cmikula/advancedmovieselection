@@ -18,7 +18,7 @@ class MessageBox(Screen):
 		
 		self.msgBoxID = msgBoxID
 
-		self["text"] = Label(text)
+ 		self["text"] = Label(text)
 		self["Text"] = StaticText(text)
 		self["selectedChoice"] = StaticText()
 

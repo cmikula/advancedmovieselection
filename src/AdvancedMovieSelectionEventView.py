@@ -42,6 +42,7 @@ from ServiceProvider import ServiceEvent
 
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS, SCOPE_LANGUAGE
 from Components.Language import language
+import os
 from os import environ
 import gettext
 from skin import loadSkin

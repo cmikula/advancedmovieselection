@@ -213,7 +213,7 @@ class TMDbList(GUIComponent, object):
                 png = LoadPixmap(cached=True, path=filename)
                 res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 1, 92, 138, png))
         res.append((eListboxPythonMultiContent.TYPE_TEXT, 100, 5, width - 100 , 20, 0, RT_HALIGN_LEFT|RT_VALIGN_CENTER, "%s" % name.encode('utf-8','ignore')))
-        res.append((eListboxPythonMultiContent.TYPE_TEXT, width - 110, 5, 100 , 20, 1, RT_HALIGN_RIGHT|RT_VALIGN_CENTER, "%s" % released_text))
+        res.append((eListboxPythonMultiContent.TYPE_TEXT, width - 140, 5, 130 , 20, 1, RT_HALIGN_RIGHT|RT_VALIGN_CENTER, "%s" % released_text))
         res.append((eListboxPythonMultiContent.TYPE_TEXT, 100, 30, width - 100, 100, 1, RT_WRAP, "%s" % description))
         return res
         
@@ -433,7 +433,7 @@ class TMDbMain(Screen):
                 self["extended"].show()
                 for movie in movielist:
                     extended = ""
-                    # movie_id =  movie["id"]
+                    movie_id =  movie["id"]
                     name =  movie["name"].encode('utf-8','ignore')
                     description =  movie["overview"]
                     released = movie["released"]
@@ -446,7 +446,7 @@ class TMDbMain(Screen):
                     cur = self["list"].getCurrent()
                     cover = cur[4]
                     if cover:
-                        # parts = cover.split("/")
+                        parts = cover.split("/")
                         filename = os_path.join(IMAGE_TEMPFILE ,name + '.jpg')
                         if not os_path.exists(filename):
                             download(cover,filename).addErrback(self.errorCoverDownload).addCallback(self.finishedCoverDownload, filename)
@@ -505,7 +505,7 @@ class TMDbMain(Screen):
             return
         #self["status"].setText(_("Download and save movie info and cover, please wait..."))
         from EventInformationTable import createEIT
-        #from ServiceProvider import ServiceCenter
+        from ServiceProvider import ServiceCenter
         cur = self["list"].getCurrent()
         title = cur[1].encode('utf-8','ignore')
         #title = ServiceCenter.getInstance().info(self.service).getName(self.service)

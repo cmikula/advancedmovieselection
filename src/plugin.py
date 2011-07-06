@@ -92,10 +92,10 @@ localeInit()
 language.addCallback(localeInit)
 
 config.AdvancedMovieSelection = ConfigSubsection()
-config.AdvancedMovieSelection.showdate = ConfigYesNo(default=True)
-config.AdvancedMovieSelection.color1 = ConfigSelection(default= "yellow" , choices = [( "yellow" , _("default")),( "blue" , _("Blue")),( "red" , _("Red")), ( "black" , _("Black")), ( "green" , _("Green"))])
-config.AdvancedMovieSelection.color2 = ConfigSelection(default= "green" , choices = [( "green" , _("default")),( "blue" , _("Blue")),( "red" , _("Red")), ( "black" , _("Black")), ( "yellow" , _("Yellow"))])
-config.AdvancedMovieSelection.color3 = ConfigSelection(default= "red" , choices = [( "red" , _("default")),( "blue" , _("Blue")),( "green" , _("Green")), ( "black" , _("Black")), ( "yellow" , _("Yellow"))])
+config.AdvancedMovieSelection.dateformat = ConfigSelection(default= "6" , choices = [( "6" , _("German (without Year)")),( "1" , _("German (with Year)")),( "3" , _("German (with Starttime)")),( "2" , _("Enigma 2 default")),( "7" , _("English (without Year)")),( "4" , _("English (with Year)")), ( "5" , _("English (with Starttime)"))])
+config.AdvancedMovieSelection.color1 = ConfigSelection(default= "yellow" , choices = [( "yellow" , _("Yellow")),( "blue" , _("Blue")),( "red" , _("Red")), ( "black" , _("Black")), ( "green" , _("Green"))])
+config.AdvancedMovieSelection.color2 = ConfigSelection(default= "green" , choices = [( "green" , _("Green")),( "blue" , _("Blue")),( "red" , _("Red")), ( "black" , _("Black")), ( "yellow" , _("Yellow"))])
+config.AdvancedMovieSelection.color3 = ConfigSelection(default= "red" , choices = [( "red" , _("Red")),( "blue" , _("Blue")),( "green" , _("Green")), ( "black" , _("Black")), ( "yellow" , _("Yellow"))])
 config.AdvancedMovieSelection.moviepercentseen = ConfigInteger(default = 80, limits=(50,100))
 config.AdvancedMovieSelection.showfoldersinmovielist = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.showprogessbarinmovielist = ConfigYesNo(default=False)
@@ -389,7 +389,7 @@ class MoviePlayerExtended(MoviePlayer, CutListSupport):
             
     def openInfoView(self):
         from AdvancedMovieSelectionEventView import EventViewSimple
-        # from ServiceReference import ServiceReference
+        from ServiceReference import ServiceReference
         serviceref = self.session.nav.getCurrentlyPlayingServiceReference()
         from enigma import eServiceCenter
         serviceHandler = eServiceCenter.getInstance()
@@ -491,8 +491,8 @@ def pluginOpen(session, **kwargs):
     session.open(AdvancedMovieSelectionSetup)
 
 def Setup(menuid, **kwargs):
-    if menuid == "system":
-            return [(_("Setup Advanced Movie Selection"), pluginOpen, "pluginOpen", None)]
+    if menuid == "setup":
+            return [(_("Setup Advanced Movie Selection"), pluginOpen, "SetupAdvancedMovieSelection", None)]
     return []
 
 def nostart(reason, **kwargs):

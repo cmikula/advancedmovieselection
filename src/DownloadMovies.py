@@ -36,6 +36,7 @@ from Screens.InputBox import InputBox
 from Components.Input import Input
 
 import tmdb, urllib
+import os
 
 from Components.config import config
 from Screens.VirtualKeyBoard import VirtualKeyBoard

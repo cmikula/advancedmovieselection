@@ -134,6 +134,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.Color1 = None
         self.Color2 = None
         self.Color3 = None
+        self.Dateformat = None
         self.needsRestartFlag = False
         self.needsReopenFlag = False
         self["setupActions"] = ActionMap(["ColorActions", "OkCancelActions", "MenuActions", "EPGSelectActions"],
@@ -246,11 +247,10 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.MovieStop = getConfigListEntry(_("Behavior when a movie is stopped:"), config.usage.on_movie_stop)
         self.MovieEnd = getConfigListEntry(_("Behavior when a movie reaches the end:"), config.usage.on_movie_eof)
         self.ShowMoviebarPosition = getConfigListEntry(_("Show Moviebar position setup in extensions menu from movielist:"), config.AdvancedMovieSelection.show_infobar_position)
-        
         self.Color1 = getConfigListEntry(_("Color for not ready seen movies:"), config.AdvancedMovieSelection.color1)
         self.Color2 = getConfigListEntry(_("Color for ready seen movies:"), config.AdvancedMovieSelection.color2)
         self.Color3 = getConfigListEntry(_("Color for recording movies:"), config.AdvancedMovieSelection.color3)
-        
+        self.Dateformat = getConfigListEntry(_("Assign the date format for movielist:"), config.AdvancedMovieSelection.dateformat)
         self.list.append( self.OnOff )
         self.list.append( self.Startwith )
         self.list.append( self.StartDir )
@@ -308,6 +308,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.list.append( self.Color1 )
             self.list.append( self.Color2 )
             self.list.append( self.Color3 )
+        self.list.append( self.Dateformat )
         self["config"].list = self.list
         self["config"].l.setList(self.list)
         if not self.selectionChanged in self["config"].onSelectionChanged:
@@ -393,18 +394,20 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self["help"].setText(_("With this option you can assign what color should displayed for ready seen movies in movie list."))
         elif current == self.Color3:
             self["help"].setText(_("With this option you can assign what color should displayed for recording movies in movie list."))
+        elif current == self.Dateformat:
+            self["help"].setText(_("With this option you can assign the date format in movie list (7 different sizes are available)."))
 
     def pluginsavailable(self):
         if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
-            self["IMDbtxt"].setText(_("IMDb plugin installed. Assign function to info button is possible."))
+             self["IMDbtxt"].setText(_("IMDb plugin installed. Assign function to info button is possible."))
         else:
             self["IMDbtxt"].setText(_("IMDb plugin NOT installed. Assign function to info button is NOT possible."))
         if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/OFDb/plugin.pyo"):
-            self["OFDbtxt"].setText(_("OFDb plugin installed. Assign function to info button is possible."))
+             self["OFDbtxt"].setText(_("OFDb plugin installed. Assign function to info button is possible."))
         else:
             self["OFDbtxt"].setText(_("OFDb plugin NOT installed. Assign function to info button is NOT possible."))
         if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/TMDb/plugin.pyo"):
-            self["TMDbtxt"].setText(_("TMDb plugin installed. Assign function to info button is possible."))
+             self["TMDbtxt"].setText(_("TMDb plugin installed. Assign function to info button is possible."))
         else:
             self["TMDbtxt"].setText(_("TMDb plugin NOT installed. Assign function to info button is NOT possible.")) 
 
@@ -452,7 +455,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
     def RecPathSettings(self):
         self.session.open(RecordPathsSettings)
         
-class AdvancedMovieSelectionButtonSetup(Screen,ConfigListScreen):
+class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
     def __init__(self, session, args = None):
         Screen.__init__(self, session)
         try:
@@ -465,6 +468,7 @@ class AdvancedMovieSelectionButtonSetup(Screen,ConfigListScreen):
             self.skinName = ["AdvancedMovieSelectionButtonSetupXD"]
         else:
             self.skinName = ["AdvancedMovieSelectionButtonSetupSD"]
+        self["important"] = StaticText(_("IMPORTANT: If changes are made here the Advanced Movie Selection must be completely closed so the changes can be adopted !!"))
         self["key_red"] = Button(_("Cancel"))
         self["key_green"] = Button(_("Save/Close"))
         self["key_yellow"] = Button(_("Own button description"))
