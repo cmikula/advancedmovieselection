@@ -58,7 +58,8 @@ version: 1.0
 * fix: tastenzuordnung sortieren
 ACHTUNG an die skinner, die screens AdvancedMovieSelectionButtonSetupSD, AdvancedMovieSelectionButtonSetupXD, AdvancedMovieSelectionButtonSetupHD haben sich geändert
 
-
+version: 1.1
+* neu: sendername ein/aus in der in der erweiterten einzeiligen listenansicht
 
 
 

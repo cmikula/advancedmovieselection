@@ -107,6 +107,7 @@ config.movielist.second_tags = ConfigText(default="")
 config.movielist.last_selected_tags = ConfigSet([], default=[])
 config.movielist.showtime = ConfigInteger(default=MovieList.SHOW_TIME)
 config.movielist.showdate = ConfigInteger(default=MovieList.SHOW_DATE)
+config.movielist.showservice = ConfigInteger(default=MovieList.SHOW_SERVICE)
 
 def setPreferredTagEditor(te):
     global preferredTagEditor
@@ -173,6 +174,11 @@ class MovieContextMenu(Screen):
                 (_("List style Advanced Movie Selection single line"), boundFunction(self.listType, MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection)),
                 (_("List style single line"), boundFunction(self.listType, MovieList.LISTTYPE_MINIMAL))
             ))
+        if config.AdvancedMovieSelection.showliststyle.value and config.movielist.listtype.value == MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection:
+            if config.movielist.showservice.value == MovieList.SHOW_SERVICE:
+                menu.append((_("Hide broadcaster"), boundFunction(self.showService, MovieList.HIDE_SERVICE)))
+            else:
+                menu.append((_("Show broadcaster"), boundFunction(self.showService, MovieList.SHOW_SERVICE)))
         if config.AdvancedMovieSelection.showliststyle.value:
             if config.movielist.description.value == MovieList.SHOW_DESCRIPTION:
                 menu.append((_("Hide extended description"), boundFunction(self.showDescription, MovieList.HIDE_DESCRIPTION)))
@@ -349,6 +355,13 @@ class MovieContextMenu(Screen):
         config.movielist.showtime.value = value
         config.movielist.showtime.save()
         self.csel.showTime(value)
+        self.csel.reloadList()
+        self.close()
+        
+    def showService(self,value):
+        config.movielist.showservice.value = value
+        config.movielist.showservice.save()
+        self.csel.showService(value)
         self.csel.reloadList()
         self.close()
 
@@ -914,6 +927,9 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview):
         
     def showTime(self,value):
         self["list"].showTime(value)
+        
+    def showService(self,value):
+        self["list"].showService(value)
 
     def reloadList(self, sel = None, home = False):
         if not fileExists(config.movielist.last_videodir.value):

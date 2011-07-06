@@ -113,8 +113,10 @@ class MovieList(GUIComponent):
     SHOW_DATE = 2
     HIDE_TIME = 1
     SHOW_TIME = 2
+    HIDE_SERVICE = 1
+    SHOW_SERVICE = 2
 
-    def __init__(self, root, list_type=None, sort_type=None, descr_state=None, show_folders = False, show_progressbar = False, show_statusicon = False, show_statuscolor = False, show_date = True, show_time = True):
+    def __init__(self, root, list_type=None, sort_type=None, descr_state=None, show_folders = False, show_progressbar = False, show_statusicon = False, show_statuscolor = False, show_date = True, show_time = True, show_service = True):
         GUIComponent.__init__(self)
         self.list_type = list_type or self.LISTTYPE_ORIGINAL
         self.descr_state = descr_state or self.HIDE_DESCRIPTION
@@ -128,6 +130,8 @@ class MovieList(GUIComponent):
         self.show_date = show_date or self.SHOW_DATE
         self.show_time = show_time or self.HIDE_TIME
         self.show_time = show_time or self.SHOW_TIME
+        self.show_service = show_service or self.HIDE_SERVICE
+        self.show_service = show_service or self.SHOW_SERVICE
         self.l = eListboxPythonMultiContent()
         self.tags = set()
         
@@ -215,6 +219,9 @@ class MovieList(GUIComponent):
         
     def showTime(self, val):
         self.show_time = val
+        
+    def showService(self, val):
+        self.show_service = val
 
     def redrawList(self):
         if self.list_type == MovieList.LISTTYPE_ORIGINAL:
@@ -495,7 +502,7 @@ class MovieList(GUIComponent):
             else:
                 res.append(MultiContentEntryText(pos=(0, 2), size=(0, 20), font = 0, flags=RT_HALIGN_LEFT, color = color))
             offsetServiceName = 0
-            if service is not None:
+            if service is not None and self.show_service == MovieList.SHOW_SERVICE:
                 servicename = str(service.getServiceName())
                 res.append(MultiContentEntryText(pos=(width-170, 2), size=(170, 20), font = 0, flags = RT_HALIGN_RIGHT, text = servicename, color = color))
                 if servicename:
