@@ -63,6 +63,10 @@ if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/TMDb/plugin.pyo"):
     TMDbPresent=True
 else:
     TMDbPresent=False
+if fileExists("/usr/lib/enigma2/python/Plugins/Bp/geminimain/plugin.pyo"):
+    GP3Present=True
+else:
+    GP3Present=False
 
 def localeInit():
     lang = language.getLanguage()
@@ -135,6 +139,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.Color2 = None
         self.Color3 = None
         self.Dateformat = None
+        self.Shownew = None
         self.needsRestartFlag = False
         self.needsReopenFlag = False
         self["setupActions"] = ActionMap(["ColorActions", "OkCancelActions", "MenuActions", "EPGSelectActions"],
@@ -251,6 +256,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.Color2 = getConfigListEntry(_("Color for ready seen movies:"), config.AdvancedMovieSelection.color2)
         self.Color3 = getConfigListEntry(_("Color for recording movies:"), config.AdvancedMovieSelection.color3)
         self.Dateformat = getConfigListEntry(_("Assign the date format for movielist:"), config.AdvancedMovieSelection.dateformat)
+        self.Shownew = getConfigListEntry(_("Show new recordings icon:"), config.AdvancedMovieSelection.shownew)
         self.list.append( self.OnOff )
         self.list.append( self.Startwith )
         self.list.append( self.StartDir )
@@ -309,6 +315,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.list.append( self.Color2 )
             self.list.append( self.Color3 )
         self.list.append( self.Dateformat )
+        if GP3Present and config.AdvancedMovieSelection.showfoldersinmovielist.value:
+            self.list.append( self.Shownew )
         self["config"].list = self.list
         self["config"].l.setList(self.list)
         if not self.selectionChanged in self["config"].onSelectionChanged:
@@ -396,6 +404,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self["help"].setText(_("With this option you can assign what color should displayed for recording movies in movie list."))
         elif current == self.Dateformat:
             self["help"].setText(_("With this option you can assign the date format in movie list (7 different sizes are available)."))
+        elif current == self.Shownew:
+            self["help"].setText(_("With this option you can display a icon for new recordings."))
 
     def pluginsavailable(self):
         if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):

@@ -255,7 +255,18 @@ class MovieList(GUIComponent):
             extension = extension[-1].lower()
             offset = 25
             if MEDIAEXTENSIONS.has_key(extension):
-                png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + MEDIAEXTENSIONS[extension] + ".png"))
+                filename = os.path.realpath(serviceref.getPath())
+                if os.path.exists("%s.gm" % filename) and config.AdvancedMovieSelection.shownew.value:
+                    if environ["LANGUAGE"] == "de":                    
+                        png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "movie_de_new.png"))
+                    elif environ["LANGUAGE"] == "de_DE":                    
+                        png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "movie_de_new.png"))
+                    elif environ["LANGUAGE"] == "en":
+                        png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "movie_en_new.png"))
+                    else:
+                        png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "movie_new.png"))
+                else:
+                    png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + MEDIAEXTENSIONS[extension] + ".png"))
             else:
                 if isinstance(serviceref, eServiceReferenceDvd):
                     png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "dvd_watching.png"))

@@ -92,6 +92,7 @@ localeInit()
 language.addCallback(localeInit)
 
 config.AdvancedMovieSelection = ConfigSubsection()
+config.AdvancedMovieSelection.shownew = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.dateformat = ConfigSelection(default= "6" , choices = [( "6" , _("German (without Year)")),( "1" , _("German (with Year)")),( "3" , _("German (with Starttime)")),( "2" , _("Enigma 2 default")),( "7" , _("English (without Year)")),( "4" , _("English (with Year)")), ( "5" , _("English (with Starttime)"))])
 config.AdvancedMovieSelection.color1 = ConfigSelection(default= "yellow" , choices = [( "yellow" , _("Yellow")),( "blue" , _("Blue")),( "red" , _("Red")), ( "black" , _("Black")), ( "green" , _("Green"))])
 config.AdvancedMovieSelection.color2 = ConfigSelection(default= "green" , choices = [( "green" , _("Green")),( "blue" , _("Blue")),( "red" , _("Red")), ( "black" , _("Black")), ( "yellow" , _("Yellow"))])
