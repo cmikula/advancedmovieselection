@@ -63,6 +63,7 @@ version: 1.1
 * neu: icon in der filmlist für neue aufnahmen (nur aktiv wenn gp3 installiert)
 * neu: icon in der filmlist für neue aufnahmen kann ein/aus geschalten werden in den einstellungen (nur aktiv wenn gp3 installiert)
 * geändert: nl übersetzung
+* neu: cover anzeige bei ordnern (folder.jpg muss im ordner/pfad vorhanden sein)
 
 
 

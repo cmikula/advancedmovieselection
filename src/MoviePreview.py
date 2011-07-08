@@ -64,7 +64,7 @@ class MoviePreview():
             if not os.path.isdir(path):
                 path = os.path.splitext(path)[0] + ".jpg"
             else:
-                path = path + ".jpg"
+                path = path + "folder.jpg"
             
             if fileExists(path):
                 self.showDialog()
