@@ -647,7 +647,8 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview):
             config.AdvancedMovieSelection.showiconstatusinmovielist.value,
             config.AdvancedMovieSelection.showcolorstatusinmovielist.value,
             config.movielist.showdate.value,
-            config.movielist.showtime.value)
+            config.movielist.showtime.value,
+            config.movielist.showservice.value)
 
         self.list = self["list"]
         self.selectedmovie = selectedmovie
@@ -867,6 +868,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview):
         config.movielist.description.save()
         config.movielist.showdate.save()
         config.movielist.showtime.save()
+        config.movielist.showservice.save()
 
     def getTagDescription(self, tag):
         # TODO: access the tag database
