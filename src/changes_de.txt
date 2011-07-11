@@ -67,7 +67,8 @@ version: 1.1
 
 version: 1.2
 * neu: mini tv kann ein/aus geschalten werden
-* fix: überschneiden von texten in der filmliste bei "komischen" schriften
+* fix: überschneiden von texten in der filmliste bei "komischen" schriften :)
+* fix: einstellung des sendernamens wurde nicht permanent gespeichert
 ACHTUNG an die skinner, neue screens sind dazu gekommen
 
 

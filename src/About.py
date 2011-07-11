@@ -71,7 +71,7 @@ class AdvancedMovieSelectionAbout(Screen):
             "back": self.exit,
             "ok": self.exit,
         }, -1)
-        self["version"] = StaticText(_("Version:\n") + '  1.1')
+        self["version"] = StaticText(_("Version:\n") + '  1.2')
         self["author"] = StaticText(_("Developer:\n  JackDaniel, cmikula"))
         self["translation"] = StaticText(_("Thanks for translation to:\n") + '  nl=Bschaar')
         self["license"] = StaticText(_("This plugin may only executed on hardware which is licensed by Dream Multimedia GmbH."))
