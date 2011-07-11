@@ -27,6 +27,7 @@ from enigma import ePicLoad
 from Tools.Directories import fileExists
 from enigma import getDesktop
 import os
+from Components.config import config
 
 from skin import loadSkin
 loadSkin("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/skin/skin.xml")
@@ -36,16 +37,28 @@ nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/im
 class MovielistPreview(Screen):
     def __init__(self, session):
         Screen.__init__(self, session)
-        try:
-            sz_w = getDesktop(0).size().width()
-        except:
-            sz_w = 720
-        if sz_w == 1280:
-            self.skinName = ["AdvancedMovieSelectionCoverHD"]
-        elif sz_w == 1024:
-            self.skinName = ["AdvancedMovieSelectionCoverXD"]
-        else:
-            self.skinName = ["AdvancedMovieSelectionCoverSD"]
+        if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.minitv.value:
+            try:
+                sz_w = getDesktop(0).size().width()
+            except:
+                sz_w = 720
+            if sz_w == 1280:
+                self.skinName = ["AdvancedMovieSelectionCoverHD"]
+            elif sz_w == 1024:
+                self.skinName = ["AdvancedMovieSelectionCoverXD"]
+            else:
+                self.skinName = ["AdvancedMovieSelectionCoverSD"]
+        if config.AdvancedMovieSelection.showpreview.value and not config.AdvancedMovieSelection.minitv.value:
+            try:
+                sz_w = getDesktop(0).size().width()
+            except:
+                sz_w = 720
+            if sz_w == 1280:
+                self.skinName = ["AdvancedMovieSelectionCover_noMiniTV_HD"]
+            elif sz_w == 1024:
+                self.skinName = ["AdvancedMovieSelectionCover_noMiniTV_XD"]
+            else:
+                self.skinName = ["AdvancedMovieSelectionCover_noMiniTV_SD"]        
         self["background"] = Label("")
         self["preview"] = Pixmap()
             

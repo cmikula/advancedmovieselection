@@ -140,6 +140,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.Color3 = None
         self.Dateformat = None
         self.Shownew = None
+        self.MiniTV = None
         self.needsRestartFlag = False
         self.needsReopenFlag = False
         self["setupActions"] = ActionMap(["ColorActions", "OkCancelActions", "MenuActions", "EPGSelectActions"],
@@ -184,6 +185,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             config.AdvancedMovieSelection.showcolorstatusinmovielist.value = False
         elif config.AdvancedMovieSelection.color1.isChanged() or config.AdvancedMovieSelection.color2.isChanged() or config.AdvancedMovieSelection.color3.isChanged(): 
             self.needsReopenFlag = True
+        elif config.AdvancedMovieSelection.minitv.isChanged():
+            self.needsReopenFlag = True
 
     def keyRight(self):
         ConfigListScreen.keyRight(self)
@@ -199,6 +202,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             config.AdvancedMovieSelection.showiconstatusinmovielist.value = False
             config.AdvancedMovieSelection.showcolorstatusinmovielist.value = False
         elif config.AdvancedMovieSelection.color1.isChanged() or config.AdvancedMovieSelection.color2.isChanged() or config.AdvancedMovieSelection.color3.isChanged():
+            self.needsReopenFlag = True
+        elif config.AdvancedMovieSelection.minitv.isChanged():
             self.needsReopenFlag = True
 
     def createSetup(self):
@@ -257,6 +262,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.Color3 = getConfigListEntry(_("Color for recording movies:"), config.AdvancedMovieSelection.color3)
         self.Dateformat = getConfigListEntry(_("Assign the date format for movielist:"), config.AdvancedMovieSelection.dateformat)
         self.Shownew = getConfigListEntry(_("Show new recordings icon:"), config.AdvancedMovieSelection.shownew)
+        self.MiniTV =  getConfigListEntry(_("Show Mini TV:"), config.AdvancedMovieSelection.minitv)
         self.list.append( self.OnOff )
         self.list.append( self.Startwith )
         self.list.append( self.StartDir )
@@ -317,6 +323,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append( self.Dateformat )
         if GP3Present and config.AdvancedMovieSelection.showfoldersinmovielist.value:
             self.list.append( self.Shownew )
+        self.list.append( self.MiniTV )
         self["config"].list = self.list
         self["config"].l.setList(self.list)
         if not self.selectionChanged in self["config"].onSelectionChanged:
@@ -406,6 +413,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self["help"].setText(_("With this option you can assign the date format in movie list (7 different sizes are available)."))
         elif current == self.Shownew:
             self["help"].setText(_("With this option you can display a icon for new recordings."))
+        elif current == self.MiniTV:
+            self["help"].setText(_("With this option you can switch on/off the Mini TV in the movie list."))
 
     def pluginsavailable(self):
         if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
