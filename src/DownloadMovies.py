@@ -24,20 +24,19 @@ from Screens.MessageBox import MessageBox
 from Components.Label import Label
 from Components.Button import Button
 from Components.Pixmap import Pixmap
-from Components.ScrollLabel import ScrollLabel 
+#from Components.ScrollLabel import ScrollLabel 
 from Components.ActionMap import ActionMap
 from Components.AVSwitch import AVSwitch
 from threading import Thread
-from enigma import eTimer, eServiceReference, ePicLoad, getDesktop
+from enigma import eServiceReference, ePicLoad, getDesktop
+from timer import eTimer
 from Components.MenuList import MenuList
 from ServiceProvider import ServiceCenter
 from EventInformationTable import createEIT
-from Screens.InputBox import InputBox
-from Components.Input import Input
-
+#from Screens.InputBox import InputBox
+#from Components.Input import Input
 import tmdb, urllib
-import os
-
+#import os
 from Components.config import config
 from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS, SCOPE_LANGUAGE
