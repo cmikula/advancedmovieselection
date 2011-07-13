@@ -19,47 +19,40 @@
 #  modify it (if you keep the license), but it may not be commercially 
 #  distributed other than under the conditions noted above.
 #
-from . import _
-from __init__ import _
-from enigma import *
+from enigma import ePoint
 from Screens.Screen import Screen
 from RecordPaths import RecordPathsSettings
 from About import AdvancedMovieSelectionAbout
 from Components.Pixmap import Pixmap
 from Components.PluginComponent import plugins
 from Plugins.Plugin import PluginDescriptor
-from Components.config import config, ConfigSubsection, ConfigText, ConfigYesNo, ConfigDirectory, ConfigInteger, ConfigSelection, getConfigListEntry, configfile
+from Components.config import config, ConfigSelection, getConfigListEntry, configfile
 from Components.Sources.StaticText import StaticText
 from Components.Button import Button
 from Components.ConfigList import ConfigListScreen
-from Components.Label import Label
 from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Screens.LocationBox import MovieLocationBox
 from Components.UsageConfig import preferredPath
 from MessageBox import MessageBox
 from Components.Sources.List import List
-from Components.ActionMap import HelpableActionMap, ActionMap
+from Components.ActionMap import ActionMap
 from enigma import getDesktop, quitMainloop
 from Tools.Directories import fileExists, resolveFilename, SCOPE_PLUGINS, SCOPE_LANGUAGE
 from Components.Language import language
-import os
 from os import environ
 import gettext
 from skin import loadSkin
 loadSkin("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/skin/skin.xml")
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
-    from Plugins.Extensions.IMDb.plugin import IMDB
     IMDbPresent=True
 else:
     IMDbPresent=False
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/OFDb/plugin.pyo"):
-    from Plugins.Extensions.OFDb.plugin import OFDB
     OFDbPresent=True
 else:
     OFDbPresent=False
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/TMDb/plugin.pyo"):
-    from Plugins.Extensions.TMDb.plugin import TMDbMain
     TMDbPresent=True
 else:
     TMDbPresent=False
@@ -418,15 +411,15 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
 
     def pluginsavailable(self):
         if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
-             self["IMDbtxt"].setText(_("IMDb plugin installed. Assign function to info button is possible."))
+            self["IMDbtxt"].setText(_("IMDb plugin installed. Assign function to info button is possible."))
         else:
             self["IMDbtxt"].setText(_("IMDb plugin NOT installed. Assign function to info button is NOT possible."))
         if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/OFDb/plugin.pyo"):
-             self["OFDbtxt"].setText(_("OFDb plugin installed. Assign function to info button is possible."))
+            self["OFDbtxt"].setText(_("OFDb plugin installed. Assign function to info button is possible."))
         else:
             self["OFDbtxt"].setText(_("OFDb plugin NOT installed. Assign function to info button is NOT possible."))
         if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/TMDb/plugin.pyo"):
-             self["TMDbtxt"].setText(_("TMDb plugin installed. Assign function to info button is possible."))
+            self["TMDbtxt"].setText(_("TMDb plugin installed. Assign function to info button is possible."))
         else:
             self["TMDbtxt"].setText(_("TMDb plugin NOT installed. Assign function to info button is NOT possible.")) 
 
@@ -709,7 +702,8 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
                 tmp = config.movielist.videodirs.value
                 
     def keySave(self):
-        currentry = self["config"].getCurrent()
+        self["config"].getCurrent()
+        #currentry = self["config"].getCurrent()
         config.AdvancedMovieSelection.buttoncaption.value = self.entryguilist3[int(self.buttoncaptionchoice.value)][1]
         config.AdvancedMovieSelection.homepath.value = self.homepath_dirname.value
         config.AdvancedMovieSelection.bookmark1path.value = self.bookmark1_dirname.value
