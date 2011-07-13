@@ -20,26 +20,14 @@
 #  distributed other than under the conditions noted above.
 #
 from Screens.Screen import Screen
-from Screens.TimerEdit import TimerSanityConflict
-from Screens.MessageBox import MessageBox
 from Components.ActionMap import ActionMap
-from Components.Button import Button
 from Components.Label import Label
-from Components.ScrollLabel import ScrollLabel
 from Components.Pixmap import Pixmap
-from Components.TimerList import TimerList
-from Components.UsageConfig import preferredTimerPath
-from enigma import eEPGCache, eTimer, eServiceReference, getDesktop, ePicLoad
-from RecordTimer import RecordTimerEntry, parseEvent, AFTEREVENT
-from Screens.TimerEntry import TimerEntry
-from time import localtime
+from enigma import getDesktop, ePicLoad
 from Components.config import config
-import os
 from Components.AVSwitch import AVSwitch
 from Tools.Directories import fileExists
-from ServiceReference import ServiceReference
 from ServiceProvider import ServiceEvent
-
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS, SCOPE_LANGUAGE
 from Components.Language import language
 import os

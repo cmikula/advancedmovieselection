@@ -22,9 +22,7 @@
 from Screens.Screen import Screen
 from Components.Sources.StaticText import StaticText
 from Screens.Console import Console
-from Tools.Directories import *
-import os
-from Components.Label import Label
+from Tools.Directories import fileExists, resolveFilename, SCOPE_PLUGINS, SCOPE_LANGUAGE
 from Components.Pixmap import Pixmap
 from Components.ActionMap import ActionMap
 from enigma import getDesktop
@@ -32,20 +30,21 @@ from os import environ
 import gettext
 from Components.Language import language
 from skin import loadSkin
+
 loadSkin("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/skin/skin.xml")
 
 def localeInit():
-	lang = language.getLanguage()
-	environ["LANGUAGE"] = lang[:2]
-	gettext.bindtextdomain("enigma2", resolveFilename(SCOPE_LANGUAGE))
-	gettext.textdomain("enigma2")
-	gettext.bindtextdomain("AdvancedMovieSelection", "%s%s" % (resolveFilename(SCOPE_PLUGINS), "Extensions/AdvancedMovieSelection/locale/"))
+    lang = language.getLanguage()
+    environ["LANGUAGE"] = lang[:2]
+    gettext.bindtextdomain("enigma2", resolveFilename(SCOPE_LANGUAGE))
+    gettext.textdomain("enigma2")
+    gettext.bindtextdomain("AdvancedMovieSelection", "%s%s" % (resolveFilename(SCOPE_PLUGINS), "Extensions/AdvancedMovieSelection/locale/"))
 
 def _(txt):
-	t = gettext.dgettext("AdvancedMovieSelection", txt)
-	if t == txt:
-		t = gettext.gettext(txt)
-	return t
+    t = gettext.dgettext("AdvancedMovieSelection", txt)
+    if t == txt:
+        t = gettext.gettext(txt)
+    return t
 
 localeInit()
 language.addCallback(localeInit)
