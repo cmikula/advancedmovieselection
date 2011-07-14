@@ -19,35 +19,18 @@
 #  modify it (if you keep the license), but it may not be commercially 
 #  distributed other than under the conditions noted above.
 #
+from __init__ import _
 from Screens.Screen import Screen
 from Components.Sources.StaticText import StaticText
 from Screens.Console import Console
-from Tools.Directories import fileExists, resolveFilename, SCOPE_PLUGINS, SCOPE_LANGUAGE
+from Tools.Directories import fileExists
 from Components.Pixmap import Pixmap
 from Components.ActionMap import ActionMap
 from enigma import getDesktop
-from os import environ
-import gettext
-from Components.Language import language
 from skin import loadSkin
 
 loadSkin("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/skin/skin.xml")
 
-def localeInit():
-    lang = language.getLanguage()
-    environ["LANGUAGE"] = lang[:2]
-    gettext.bindtextdomain("enigma2", resolveFilename(SCOPE_LANGUAGE))
-    gettext.textdomain("enigma2")
-    gettext.bindtextdomain("AdvancedMovieSelection", "%s%s" % (resolveFilename(SCOPE_PLUGINS), "Extensions/AdvancedMovieSelection/locale/"))
-
-def _(txt):
-    t = gettext.dgettext("AdvancedMovieSelection", txt)
-    if t == txt:
-        t = gettext.gettext(txt)
-    return t
-
-localeInit()
-language.addCallback(localeInit)
 changestxt = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/changes_de.txt"
 
 class AdvancedMovieSelectionAbout(Screen):
@@ -86,7 +69,7 @@ class AdvancedMovieSelectionAbout(Screen):
 
     def showchanges(self):
         if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/changes_de.txt"):
-            self.session.open(Console, title = _("Advanced Movie Selection - History"), cmdlist = ["cat %s" % changestxt])
+            self.session.open(Console, title=_("Advanced Movie Selection - History"), cmdlist=["cat %s" % changestxt])
         else:
             pass
 

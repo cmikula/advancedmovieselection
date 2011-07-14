@@ -19,6 +19,7 @@
 #  modify it (if you keep the license), but it may not be commercially 
 #  distributed other than under the conditions noted above.
 #
+from __init__ import _
 from Screens.Screen import Screen
 from Components.ActionMap import ActionMap
 from Components.Label import Label
@@ -28,31 +29,12 @@ from Components.config import config
 from Components.AVSwitch import AVSwitch
 from Tools.Directories import fileExists
 from ServiceProvider import ServiceEvent
-from Tools.Directories import resolveFilename, SCOPE_PLUGINS, SCOPE_LANGUAGE
-from Components.Language import language
 import os
-from os import environ
-import gettext
 from skin import loadSkin
+
 loadSkin("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/skin/skin.xml")
 
 nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_info.jpg")
-
-def localeInit():
-    lang = language.getLanguage()
-    environ["LANGUAGE"] = lang[:2]
-    gettext.bindtextdomain("enigma2", resolveFilename(SCOPE_LANGUAGE))
-    gettext.textdomain("enigma2")
-    gettext.bindtextdomain("AdvancedMovieSelection", "%s%s" % (resolveFilename(SCOPE_PLUGINS), "Extensions/AdvancedMovieSelection/locale/"))
-
-def _(txt):
-    t = gettext.dgettext("AdvancedMovieSelection", txt)
-    if t == txt:
-        t = gettext.gettext(txt)
-    return t
-
-localeInit()
-language.addCallback(localeInit)
 
 class EventViewBase:    
     def __init__(self, Event, Ref, callback=None, similarEPGCB=None):

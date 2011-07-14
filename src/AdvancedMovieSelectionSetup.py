@@ -19,6 +19,7 @@
 #  modify it (if you keep the license), but it may not be commercially 
 #  distributed other than under the conditions noted above.
 #
+from __init__ import _
 from enigma import ePoint
 from Screens.Screen import Screen
 from RecordPaths import RecordPathsSettings
@@ -37,45 +38,27 @@ from MessageBox import MessageBox
 from Components.Sources.List import List
 from Components.ActionMap import ActionMap
 from enigma import getDesktop, quitMainloop
-from Tools.Directories import fileExists, resolveFilename, SCOPE_PLUGINS, SCOPE_LANGUAGE
-from Components.Language import language
-from os import environ
-import gettext
+from Tools.Directories import fileExists
 from skin import loadSkin
+
 loadSkin("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/skin/skin.xml")
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
-    IMDbPresent=True
+    IMDbPresent = True
 else:
-    IMDbPresent=False
+    IMDbPresent = False
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/OFDb/plugin.pyo"):
-    OFDbPresent=True
+    OFDbPresent = True
 else:
-    OFDbPresent=False
+    OFDbPresent = False
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/TMDb/plugin.pyo"):
-    TMDbPresent=True
+    TMDbPresent = True
 else:
-    TMDbPresent=False
+    TMDbPresent = False
 if fileExists("/usr/lib/enigma2/python/Plugins/Bp/geminimain/plugin.pyo"):
-    GP3Present=True
+    GP3Present = True
 else:
-    GP3Present=False
-
-def localeInit():
-    lang = language.getLanguage()
-    environ["LANGUAGE"] = lang[:2]
-    gettext.bindtextdomain("enigma2", resolveFilename(SCOPE_LANGUAGE))
-    gettext.textdomain("enigma2")
-    gettext.bindtextdomain("AdvancedMovieSelection", "%s%s" % (resolveFilename(SCOPE_PLUGINS), "Extensions/AdvancedMovieSelection/locale/"))
-
-def _(txt):
-    t = gettext.dgettext("AdvancedMovieSelection", txt)
-    if t == txt:
-        t = gettext.gettext(txt)
-    return t
-
-localeInit()
-language.addCallback(localeInit)
+    GP3Present = False
 
 class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
     def __init__(self, session):
@@ -147,7 +130,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             "info":     self.about,
         }, -2)
         self.list = []
-        ConfigListScreen.__init__(self, self.list, session = self.session)
+        ConfigListScreen.__init__(self, self.list, session=self.session)
         self["key_red"] = StaticText(_("Close"))
         self["key_green"] = StaticText(_("Save"))
         self["key_yellow"] = StaticText(_("Color key settings"))
@@ -255,68 +238,68 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.Color3 = getConfigListEntry(_("Color for recording movies:"), config.AdvancedMovieSelection.color3)
         self.Dateformat = getConfigListEntry(_("Assign the date format for movielist:"), config.AdvancedMovieSelection.dateformat)
         self.Shownew = getConfigListEntry(_("Show new recordings icon:"), config.AdvancedMovieSelection.shownew)
-        self.MiniTV =  getConfigListEntry(_("Show Mini TV:"), config.AdvancedMovieSelection.minitv)
-        self.list.append( self.OnOff )
-        self.list.append( self.Startwith )
-        self.list.append( self.StartDir )
-        self.list.append( self.StartFirst )
-        self.list.append( self.ShowMenu )
-        self.list.append( self.ShowColorkeys )
-        self.list.append( self.ShowSetup )
+        self.MiniTV = getConfigListEntry(_("Show Mini TV:"), config.AdvancedMovieSelection.minitv)
+        self.list.append(self.OnOff)
+        self.list.append(self.Startwith)
+        self.list.append(self.StartDir)
+        self.list.append(self.StartFirst)
+        self.list.append(self.ShowMenu)
+        self.list.append(self.ShowColorkeys)
+        self.list.append(self.ShowSetup)
         if config.usage.load_length_of_movies_in_moviellist.value:
-            self.list.append( self.Showextras )
-        self.list.append( self.ShowSort )
-        self.list.append( self.ShowListstyle )
+            self.list.append(self.Showextras)
+        self.list.append(self.ShowSort)
+        self.list.append(self.ShowListstyle)
         if config.usage.load_length_of_movies_in_moviellist.value:
-            self.list.append( self.ShowMark )
-        self.list.append( self.ShowDel )
-        self.list.append( self.ShowMove )
-        self.list.append( self.ShowSearch )
-        self.list.append( self.ShowPreview )
+            self.list.append(self.ShowMark)
+        self.list.append(self.ShowDel)
+        self.list.append(self.ShowMove)
+        self.list.append(self.ShowSearch)
+        self.list.append(self.ShowPreview)
         if config.AdvancedMovieSelection.showpreview.value:
-            self.list.append( self.Coversize )
-            self.list.append( self.ShowCoverOptions )
-            self.list.append( self.ShowDelInfoCover )
-            self.list.append( self.ShowDelCover )
-            self.list.append( self.ShowDelInfo )            
-        self.list.append( self.ShowRename )
-        self.list.append( self.ShowTMDb )
-        self.list.append( self.MovieLength )
+            self.list.append(self.Coversize)
+            self.list.append(self.ShowCoverOptions)
+            self.list.append(self.ShowDelInfoCover)
+            self.list.append(self.ShowDelCover)
+            self.list.append(self.ShowDelInfo)            
+        self.list.append(self.ShowRename)
+        self.list.append(self.ShowTMDb)
+        self.list.append(self.MovieLength)
         if config.usage.load_length_of_movies_in_moviellist.value:
-            self.list.append( self.Percentmark )
-        self.list.append( self.AskDelete )
+            self.list.append(self.Percentmark)
+        self.list.append(self.AskDelete)
         if IMDbPresent and OFDbPresent and TMDbPresent:
-            self.list.append( self.Eventinfotyp )
+            self.list.append(self.Eventinfotyp)
         else:
             if IMDbPresent and not OFDbPresent and not TMDbPresent:
-                self.list.append( self.Eventinfotyp2 )
+                self.list.append(self.Eventinfotyp2)
             else:
                 if OFDbPresent and not IMDbPresent and not TMDbPresent:
-                    self.list.append( self.Eventinfotyp3 )
+                    self.list.append(self.Eventinfotyp3)
                 else:
                     if TMDbPresent and not OFDbPresent and not IMDbPresent:
-                        self.list.append( self.Eventinfotyp4 )
+                        self.list.append(self.Eventinfotyp4)
                     else:
                         if TMDbPresent and not OFDbPresent and IMDbPresent:
-                            self.list.append( self.Eventinfotyp5 )
+                            self.list.append(self.Eventinfotyp5)
                         else:
                             if TMDbPresent and OFDbPresent and not IMDbPresent:
-                                self.list.append( self.Eventinfotyp6 )
+                                self.list.append(self.Eventinfotyp6)
                             else:
                                 if not TMDbPresent and OFDbPresent and IMDbPresent:
-                                    self.list.append( self.Eventinfotyp7 )
-        self.list.append( self.MovieStart )
-        self.list.append( self.MovieStop )
-        self.list.append( self.MovieEnd )
-        self.list.append( self.ShowMoviebarPosition )
+                                    self.list.append(self.Eventinfotyp7)
+        self.list.append(self.MovieStart)
+        self.list.append(self.MovieStop)
+        self.list.append(self.MovieEnd)
+        self.list.append(self.ShowMoviebarPosition)
         if config.AdvancedMovieSelection.showcolorstatusinmovielist.value:
-            self.list.append( self.Color1 )
-            self.list.append( self.Color2 )
-            self.list.append( self.Color3 )
-        self.list.append( self.Dateformat )
+            self.list.append(self.Color1)
+            self.list.append(self.Color2)
+            self.list.append(self.Color3)
+        self.list.append(self.Dateformat)
         if GP3Present and config.AdvancedMovieSelection.showfoldersinmovielist.value:
-            self.list.append( self.Shownew )
-        self.list.append( self.MiniTV )
+            self.list.append(self.Shownew)
+        self.list.append(self.MiniTV)
         self["config"].list = self.list
         self["config"].l.setList(self.list)
         if not self.selectionChanged in self["config"].onSelectionChanged:
@@ -438,16 +421,16 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
 
     def keySave(self):
         if self.needsRestartFlag == True:
-            self.session.openWithCallback(self.exitAnswer, MessageBox, _("Some settings changes require a restart to take effect.\nIf you  use a skin without PiG (Picture in Graphic) you have to restart the box (not only Enigma 2)!\nWith YES only Enigma 2 starts new, with NO the box make a restart."), type = MessageBox.TYPE_YESNO)
+            self.session.openWithCallback(self.exitAnswer, MessageBox, _("Some settings changes require a restart to take effect.\nIf you  use a skin without PiG (Picture in Graphic) you have to restart the box (not only Enigma 2)!\nWith YES only Enigma 2 starts new, with NO the box make a restart."), type=MessageBox.TYPE_YESNO)
         else:
             if self.needsReopenFlag == True:
-                self.session.openWithCallback(self.save, MessageBox, _("Some settings changes require close/reopen the movielist to take effect."), type = MessageBox.TYPE_INFO)
+                self.session.openWithCallback(self.save, MessageBox, _("Some settings changes require close/reopen the movielist to take effect."), type=MessageBox.TYPE_INFO)
             else:
                 self.save()
 
     def exitAnswer(self, result):
         if result is None:
-            self.session.open(MessageBox,_("Aborted by user !!"),  MessageBox.TYPE_ERROR)
+            self.session.open(MessageBox, _("Aborted by user !!"), MessageBox.TYPE_ERROR)
         if result is False:
             self.save()
             quitMainloop(2)
@@ -455,7 +438,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.save()
             quitMainloop(3)
 
-    def save(self, retval = None):
+    def save(self, retval=None):
         ConfigListScreen.keySave(self)
             
     def about(self):
@@ -468,7 +451,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.session.open(RecordPathsSettings)
         
 class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
-    def __init__(self, session, args = None):
+    def __init__(self, session, args=None):
         Screen.__init__(self, session)
         try:
             sz_w = getDesktop(0).size().width()
@@ -487,34 +470,34 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         self["OKIcon"] = Pixmap()
         self["OKIcon"].hide()
         self.entryguilist = []
-        self.entryguilist.append(("0",_("Nothing")))
-        self.entryguilist.append(("1",_("Delete")))
-        self.entryguilist.append(("2",_("Home")))
-        self.entryguilist.append(("3",_("Sort")))
-        self.entryguilist.append(("4",_("Bookmark 1")))
-        self.entryguilist.append(("5",_("Bookmark 2")))
-        self.entryguilist.append(("6",_("Bookmark 3")))
+        self.entryguilist.append(("0", _("Nothing")))
+        self.entryguilist.append(("1", _("Delete")))
+        self.entryguilist.append(("2", _("Home")))
+        self.entryguilist.append(("3", _("Sort")))
+        self.entryguilist.append(("4", _("Bookmark 1")))
+        self.entryguilist.append(("5", _("Bookmark 2")))
+        self.entryguilist.append(("6", _("Bookmark 3")))
         index = 7
         self.entryguilist2 = []
-        self.entryguilist2.append(("0",_("Nothing")))
-        self.entryguilist2.append(("1",_("DM-600PVR")))
-        self.entryguilist2.append(("2",_("DM-7000")))
-        self.entryguilist2.append(("3",_("DM-7025")))
-        self.entryguilist2.append(("4",_("DM-8000HD")))
-        self.entryguilist2.append(("5",_("DM-500HD")))
-        self.entryguilist2.append(("6",_("DM-800HD")))
-        self.entryguilist2.append(("7",_("DM-800HDse")))
-        self.entryguilist2.append(("8",_("DM-7020HD")))
-        self.entryguilist2.append(("9",_("internal HDD")))
-        self.entryguilist2.append(("10",_("NAS")))
-        self.entryguilist2.append(("11",_("NAS-Movies")))
-        self.entryguilist2.append(("12",(config.AdvancedMovieSelection.homeowntext.value)))
-        self.entryguilist2.append(("13",(config.AdvancedMovieSelection.bookmark1owntext.value)))
-        self.entryguilist2.append(("14",(config.AdvancedMovieSelection.bookmark2owntext.value)))
-        self.entryguilist2.append(("15",(config.AdvancedMovieSelection.bookmark3owntext.value)))
+        self.entryguilist2.append(("0", _("Nothing")))
+        self.entryguilist2.append(("1", _("DM-600PVR")))
+        self.entryguilist2.append(("2", _("DM-7000")))
+        self.entryguilist2.append(("3", _("DM-7025")))
+        self.entryguilist2.append(("4", _("DM-8000HD")))
+        self.entryguilist2.append(("5", _("DM-500HD")))
+        self.entryguilist2.append(("6", _("DM-800HD")))
+        self.entryguilist2.append(("7", _("DM-800HDse")))
+        self.entryguilist2.append(("8", _("DM-7020HD")))
+        self.entryguilist2.append(("9", _("internal HDD")))
+        self.entryguilist2.append(("10", _("NAS")))
+        self.entryguilist2.append(("11", _("NAS-Movies")))
+        self.entryguilist2.append(("12", (config.AdvancedMovieSelection.homeowntext.value)))
+        self.entryguilist2.append(("13", (config.AdvancedMovieSelection.bookmark1owntext.value)))
+        self.entryguilist2.append(("14", (config.AdvancedMovieSelection.bookmark2owntext.value)))
+        self.entryguilist2.append(("15", (config.AdvancedMovieSelection.bookmark3owntext.value)))
         self.entryguilist3 = []
-        self.entryguilist3.append(("0",_("Display plugin name")))
-        self.entryguilist3.append(("1",_("Display plugin description")))        
+        self.entryguilist3.append(("0", _("Display plugin name")))
+        self.entryguilist3.append(("1", _("Display plugin description")))        
 
         red_selectedindex = self.getStaticName(config.AdvancedMovieSelection.red.value)
         green_selectedindex = self.getStaticName(config.AdvancedMovieSelection.green.value)
@@ -526,8 +509,8 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         bookmark2buttontext_selectedindex = self.getStaticName2(config.AdvancedMovieSelection.bookmark2text.value)
         bookmark3buttontext_selectedindex = self.getStaticName2(config.AdvancedMovieSelection.bookmark3text.value)
         
-        for p in plugins.getPlugins(where = [PluginDescriptor.WHERE_MOVIELIST]):
-            self.entryguilist.append((str(index),str(p.name)))
+        for p in plugins.getPlugins(where=[PluginDescriptor.WHERE_MOVIELIST]):
+            self.entryguilist.append((str(index), str(p.name)))
             if config.AdvancedMovieSelection.red.value == str(p.name):
                 red_selectedindex = str(index)
             if config.AdvancedMovieSelection.green.value == str(p.name):
@@ -538,15 +521,15 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
                 blue_selectedindex = str(index)
             index = index + 1
         
-        self.redchoice = ConfigSelection(default = red_selectedindex, choices = self.entryguilist)
-        self.greenchoice = ConfigSelection(default = green_selectedindex, choices = self.entryguilist)
-        self.yellowchoice = ConfigSelection(default = yellow_selectedindex, choices = self.entryguilist)
-        self.bluechoice = ConfigSelection(default = blue_selectedindex, choices = self.entryguilist)
-        self.buttoncaptionchoice = ConfigSelection(default = buttoncaptionchoice_selectedindex, choices = self.entryguilist3)
-        self.homebuttontextchoice = ConfigSelection(default = hometext_selectedindex, choices = self.entryguilist2)
-        self.bookmark1buttontextchoice = ConfigSelection(default = bookmark1buttontext_selectedindex, choices = self.entryguilist2)
-        self.bookmark2buttontextchoice = ConfigSelection(default = bookmark2buttontext_selectedindex, choices = self.entryguilist2)
-        self.bookmark3buttontextchoice = ConfigSelection(default = bookmark3buttontext_selectedindex, choices = self.entryguilist2)
+        self.redchoice = ConfigSelection(default=red_selectedindex, choices=self.entryguilist)
+        self.greenchoice = ConfigSelection(default=green_selectedindex, choices=self.entryguilist)
+        self.yellowchoice = ConfigSelection(default=yellow_selectedindex, choices=self.entryguilist)
+        self.bluechoice = ConfigSelection(default=blue_selectedindex, choices=self.entryguilist)
+        self.buttoncaptionchoice = ConfigSelection(default=buttoncaptionchoice_selectedindex, choices=self.entryguilist3)
+        self.homebuttontextchoice = ConfigSelection(default=hometext_selectedindex, choices=self.entryguilist2)
+        self.bookmark1buttontextchoice = ConfigSelection(default=bookmark1buttontext_selectedindex, choices=self.entryguilist2)
+        self.bookmark2buttontextchoice = ConfigSelection(default=bookmark2buttontext_selectedindex, choices=self.entryguilist2)
+        self.bookmark3buttontextchoice = ConfigSelection(default=bookmark3buttontext_selectedindex, choices=self.entryguilist2)
         
         ConfigListScreen.__init__(self, [])
         self.initConfigList()
@@ -569,7 +552,7 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         if homedefault not in hometmp:
             hometmp = hometmp[:]
             hometmp.append(homedefault)
-        self.homepath_dirname = ConfigSelection(default = homedefault, choices = hometmp)
+        self.homepath_dirname = ConfigSelection(default=homedefault, choices=hometmp)
         hometmp = config.movielist.videodirs.value
         homedefault = config.AdvancedMovieSelection.homepath.value
 
@@ -578,7 +561,7 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         if book1default not in book1tmp:
             book1tmp = book1tmp[:]
             book1tmp.append(book1default)
-        self.bookmark1_dirname = ConfigSelection(default = book1default, choices = book1tmp)
+        self.bookmark1_dirname = ConfigSelection(default=book1default, choices=book1tmp)
         book1tmp = config.movielist.videodirs.value
         book1default = config.AdvancedMovieSelection.bookmark1path.value
 
@@ -587,7 +570,7 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         if book2default not in book2tmp:
             book2tmp = book2tmp[:]
             book2tmp.append(book2default)
-        self.bookmark2_dirname = ConfigSelection(default = book2default, choices = book2tmp)
+        self.bookmark2_dirname = ConfigSelection(default=book2default, choices=book2tmp)
         book2tmp = config.movielist.videodirs.value
         book2default = config.AdvancedMovieSelection.bookmark2path.value
 
@@ -596,7 +579,7 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         if book3default not in book3tmp:
             book3tmp = book3tmp[:]
             book3tmp.append(book3default)
-        self.bookmark3_dirname = ConfigSelection(default = book3default, choices = book3tmp)
+        self.bookmark3_dirname = ConfigSelection(default=book3default, choices=book3tmp)
         book3tmp = config.movielist.videodirs.value
         book3default = config.AdvancedMovieSelection.bookmark3path.value
 
@@ -657,16 +640,16 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         self.lastvideodirs = config.movielist.videodirs.value
         if currentry == self.homepath:
             self.entrydirname = self.homepath_dirname
-            self.session.openWithCallback(self.dirnameSelected,MovieLocationBox,_("Movie Quick Button Home path"),preferredPath(self.homepath_dirname.value))
+            self.session.openWithCallback(self.dirnameSelected, MovieLocationBox, _("Movie Quick Button Home path"), preferredPath(self.homepath_dirname.value))
         elif currentry == self.bookmark1:
             self.entrydirname = self.bookmark1_dirname
-            self.session.openWithCallback(self.dirnameSelected,MovieLocationBox,_("Movie Quick Button Bookmark 1 path"),preferredPath(self.bookmark1_dirname.value))
+            self.session.openWithCallback(self.dirnameSelected, MovieLocationBox, _("Movie Quick Button Bookmark 1 path"), preferredPath(self.bookmark1_dirname.value))
         elif currentry == self.bookmark2:
             self.entrydirname = self.bookmark2_dirname 
-            self.session.openWithCallback(self.dirnameSelected,MovieLocationBox,_("Movie Quick Button Bookmark 2 path"),preferredPath(self.bookmark2_dirname.value))     
+            self.session.openWithCallback(self.dirnameSelected, MovieLocationBox, _("Movie Quick Button Bookmark 2 path"), preferredPath(self.bookmark2_dirname.value))     
         elif currentry == self.bookmark3:
             self.entrydirname = self.bookmark3_dirname
-            self.session.openWithCallback(self.dirnameSelected,MovieLocationBox,_("Movie Quick Button Bookmark 3 path"),preferredPath(self.bookmark3_dirname.value))                 
+            self.session.openWithCallback(self.dirnameSelected, MovieLocationBox, _("Movie Quick Button Bookmark 3 path"), preferredPath(self.bookmark3_dirname.value))                 
 
     def dirnameSelected(self, res):
         if res is not None:
@@ -734,7 +717,7 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         configfile.save()
         self.close()
 
-    def getStaticName(self,value):
+    def getStaticName(self, value):
         if value == _("Delete"):
             return "1"
         elif value == _("Home"):
@@ -750,7 +733,7 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         else:
             return "0"
 
-    def getStaticName2(self,value):
+    def getStaticName2(self, value):
         if value == _("DM-600PVR"):
             return "1"
         elif value == _("DM-7000"):
@@ -784,7 +767,7 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         else:
             return "0"
 
-    def getStaticName3(self,value):
+    def getStaticName3(self, value):
         if value == _("Display plugin name"):
             return "0"
         elif value == _("Display plugin description"):
@@ -826,7 +809,7 @@ class AdvancedMovieSelectionOwnButtonName(Screen, ConfigListScreen):
             "showVirtualKeyboard": self.KeyText,
         }, -1)
         self.list = []
-        ConfigListScreen.__init__(self, self.list,session = self.session)
+        ConfigListScreen.__init__(self, self.list, session=self.session)
         self["menu"] = List(self.list)
         self["help"] = StaticText()
         self["key_red"] = StaticText(_("Save/Close"))
@@ -837,7 +820,7 @@ class AdvancedMovieSelectionOwnButtonName(Screen, ConfigListScreen):
         self.onShown.append(self.setWindowTitle)
         self.createSetup()
 
-    def setWindowTitle(self, retval = None):
+    def setWindowTitle(self, retval=None):
         self.setTitle(_("Movie Quick Button Name Setup"))
 
     def keyLeft(self):
@@ -850,44 +833,44 @@ class AdvancedMovieSelectionOwnButtonName(Screen, ConfigListScreen):
 
     def KeyText(self):
         if self["config"].getCurrent() == self.homebutton:
-            self.session.openWithCallback(self.homebuttonCallback, VirtualKeyBoard, title = (_("Enter Home button descrition:")), text = config.AdvancedMovieSelection.homeowntext.value)
+            self.session.openWithCallback(self.homebuttonCallback, VirtualKeyBoard, title=(_("Enter Home button descrition:")), text=config.AdvancedMovieSelection.homeowntext.value)
         if self["config"].getCurrent() == self.bookmark1button:
-            self.session.openWithCallback(self.bookmark1buttonCallback, VirtualKeyBoard, title = (_("Enter Bookmark 1 button descrition:")), text = config.AdvancedMovieSelection.bookmark1owntext.value)
+            self.session.openWithCallback(self.bookmark1buttonCallback, VirtualKeyBoard, title=(_("Enter Bookmark 1 button descrition:")), text=config.AdvancedMovieSelection.bookmark1owntext.value)
         if self["config"].getCurrent() == self.bookmark2button:
-            self.session.openWithCallback(self.bookmark2buttonCallback, VirtualKeyBoard, title = (_("Enter Bookmark 2 button descrition:")), text = config.AdvancedMovieSelection.bookmark2owntext.value)
+            self.session.openWithCallback(self.bookmark2buttonCallback, VirtualKeyBoard, title=(_("Enter Bookmark 2 button descrition:")), text=config.AdvancedMovieSelection.bookmark2owntext.value)
         if self["config"].getCurrent() == self.bookmark3button:
-            self.session.openWithCallback(self.bookmark3buttonCallback, VirtualKeyBoard, title = (_("Enter Bookmark 3 button descrition:")), text = config.AdvancedMovieSelection.bookmark3owntext.value)
+            self.session.openWithCallback(self.bookmark3buttonCallback, VirtualKeyBoard, title=(_("Enter Bookmark 3 button descrition:")), text=config.AdvancedMovieSelection.bookmark3owntext.value)
 
-    def homebuttonCallback(self, callback = None):
+    def homebuttonCallback(self, callback=None):
         if callback is not None and len(callback):
             config.AdvancedMovieSelection.homeowntext.setValue(callback)
             self["config"].invalidate(self.homebutton)
 
-    def bookmark1buttonCallback(self, callback = None):
+    def bookmark1buttonCallback(self, callback=None):
         if callback is not None and len(callback):
             config.AdvancedMovieSelection.bookmark1owntext.setValue(callback)
             self["config"].invalidate(self.bookmark1button)
 
-    def bookmark2buttonCallback(self, callback = None):
+    def bookmark2buttonCallback(self, callback=None):
         if callback is not None and len(callback):
             config.AdvancedMovieSelection.bookmark2owntext.setValue(callback)
             self["config"].invalidate(self.bookmark2button)
 
-    def bookmark3buttonCallback(self, callback = None):
+    def bookmark3buttonCallback(self, callback=None):
         if callback is not None and len(callback):
             config.AdvancedMovieSelection.bookmark3owntext.setValue(callback)
             self["config"].invalidate(self.bookmark3button)
         
-    def createSetup(self, retval = None):
+    def createSetup(self, retval=None):
         self.list = []
         self.homebutton = getConfigListEntry(_("Home button description:"), config.AdvancedMovieSelection.homeowntext)
         self.bookmark1button = getConfigListEntry(_("Bookmark 1 button description:"), config.AdvancedMovieSelection.bookmark1owntext)
         self.bookmark2button = getConfigListEntry(_("Bookmark 2 button description:"), config.AdvancedMovieSelection.bookmark2owntext)
         self.bookmark3button = getConfigListEntry(_("Bookmark 3 button description:"), config.AdvancedMovieSelection.bookmark3owntext)
-        self.list.append( self.homebutton )
-        self.list.append( self.bookmark1button )
-        self.list.append( self.bookmark2button )
-        self.list.append( self.bookmark3button )
+        self.list.append(self.homebutton)
+        self.list.append(self.bookmark1button)
+        self.list.append(self.bookmark2button)
+        self.list.append(self.bookmark3button)
         self["config"].list = self.list
         self["config"].l.setList(self.list)
         if not self.selectionChanged in self["config"].onSelectionChanged:
@@ -920,13 +903,13 @@ class AdvancedMovieSelectionOwnButtonName(Screen, ConfigListScreen):
         self["VKeyIcon"].hide()
         self["VirtualKB"].setEnabled(False)
 
-    def showKeypad(self, retval = None):
+    def showKeypad(self, retval=None):
         current = self["config"].getCurrent()
         helpwindowpos = self["HelpWindow"].getPosition()
         if hasattr(current[1], 'help_window'):
             if current[1].help_window.instance is not None:
                 current[1].help_window.instance.show()
-                current[1].help_window.instance.move(ePoint(helpwindowpos[0],helpwindowpos[1]))
+                current[1].help_window.instance.move(ePoint(helpwindowpos[0], helpwindowpos[1]))
 
     def hideKeypad(self):
         current = self["config"].getCurrent()

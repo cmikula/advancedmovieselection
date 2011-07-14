@@ -37,13 +37,11 @@ class eServiceReferenceDvd(eServiceReference):
 		eServiceReference.__init__(self, "4097:0:0:0:0:0:0:0:0:0:" + serviceref.getPath())
 		self.dvdStruct = dvdStruct
 		if dvdStruct is True:
-			tempDir = self.getPath()
-			parts = tempDir.split("/")
-			dirName = parts[-2]
-			self.setName(dirName)
-			self.setPath(tempDir[0:-1])
-		else:  
-			self.setName(os.path.basename(serviceref.getPath()).split('.')[0])
+			# remove trailing slash
+			self.setPath(self.getPath()[0:-1])
+			self.setName(os.path.basename(self.getPath()))
+		else:
+			self.setName(os.path.basename(os.path.splitext(self.getPath())[0]))
 			
 	def getDVD(self):
 		if self.dvdStruct is True:
@@ -142,7 +140,7 @@ def checkCreateMetaFile(ref):
 	file = ref.getPath() + ".ts.meta"
 	if not os.path.exists(file):
 		if os.path.isfile(ref.getPath()):
-			title = os.path.basename(ref.getPath()).split('.')[0]
+			title = os.path.basename(os.path.splitext(ref.getPath())[0])
 		else:
 			title = ref.getName()
 		sid = ""

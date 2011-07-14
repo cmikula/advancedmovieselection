@@ -12,13 +12,13 @@ class MessageBox(Screen):
 	TYPE_WARNING = 2
 	TYPE_ERROR = 3
 
-	def __init__(self, session, text, type = TYPE_YESNO, timeout = -1, close_on_any_key = False, default = True, enable_input = True, msgBoxID = None):
+	def __init__(self, session, text, type=TYPE_YESNO, timeout= -1, close_on_any_key=False, default=True, enable_input=True, msgBoxID=None):
 		self.type = type
 		Screen.__init__(self, session)
 		
 		self.msgBoxID = msgBoxID
 
- 		self["text"] = Label(text)
+		self["text"] = Label(text)
 		self["Text"] = StaticText(text)
 		self["selectedChoice"] = StaticText()
 
@@ -50,7 +50,7 @@ class MessageBox(Screen):
 		self["list"] = MenuList(self.list)
 
 		if enable_input:
-			self["actions"] = ActionMap(["MsgBoxActions", "DirectionActions"], 
+			self["actions"] = ActionMap(["MsgBoxActions", "DirectionActions"],
 				{
 					"cancel": self.cancel,
 					"ok": self.ok,

@@ -19,6 +19,7 @@
 #  modify it (if you keep the license), but it may not be commercially 
 #  distributed other than under the conditions noted above.
 #
+from __init__ import _
 from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
 from Components.Label import Label
@@ -35,29 +36,10 @@ from EventInformationTable import createEIT
 import tmdb, urllib
 from Components.config import config
 from Screens.VirtualKeyBoard import VirtualKeyBoard
-from Tools.Directories import resolveFilename, SCOPE_PLUGINS, SCOPE_LANGUAGE
-from Components.Language import language
 import os
-from os import environ
-import gettext
 from skin import loadSkin
+
 loadSkin("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/skin/skin.xml")
-
-def localeInit():
-    lang = language.getLanguage()
-    environ["LANGUAGE"] = lang[:2]
-    gettext.bindtextdomain("enigma2", resolveFilename(SCOPE_LANGUAGE))
-    gettext.textdomain("enigma2")
-    gettext.bindtextdomain("AdvancedMovieSelection", "%s%s" % (resolveFilename(SCOPE_PLUGINS), "Extensions/AdvancedMovieSelection/locale/"))
-
-def _(txt):
-    t = gettext.dgettext("AdvancedMovieSelection", txt)
-    if t == txt:
-        t = gettext.gettext(txt)
-    return t
-
-localeInit()
-language.addCallback(localeInit)
 
 is_hidden = False
 this_session = None
@@ -68,7 +50,7 @@ movie_title = ""
 tmdb_logodir = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images"
 
 class DownloadMovies(Screen):
-    def __init__(self, session, items, coverSize, service = None):
+    def __init__(self, session, items, coverSize, service=None):
         Screen.__init__(self, session)
         try:
             sz_w = getDesktop(0).size().width()
@@ -210,7 +192,7 @@ class DownloadMovies(Screen):
         global movie_title
         current = self["list"].l.getCurrentSelection()
         if self.service is not None and current:
-            createEIT(self.service.getPath(), movie_title, self.coversize, movie = current[1])
+            createEIT(self.service.getPath(), movie_title, self.coversize, movie=current[1])
         self.__hide()        
     
     def selectionChanged(self):
@@ -219,7 +201,7 @@ class DownloadMovies(Screen):
         if current:
             try:
                 movie = current[1]
-                self["description"].setText("%s - %s\n\n%s"%(str(movie['name']), str(movie['released']), str(movie['overview'])) )
+                self["description"].setText("%s - %s\n\n%s" % (str(movie['name']), str(movie['released']), str(movie['overview'])))
                 jpg_file = "/tmp/preview.jpg"
                 cover_url = movie['images'][0]['cover']
                 urllib.urlretrieve (cover_url, jpg_file)
@@ -237,7 +219,7 @@ class DownloadMovies(Screen):
         
     def editTitle(self):
         global movie_title
-        self.session.openWithCallback(self.newTitle, VirtualKeyBoard, title = _("Enter new moviename to search for"), text = movie_title)
+        self.session.openWithCallback(self.newTitle, VirtualKeyBoard, title=_("Enter new moviename to search for"), text=movie_title)
         #self.session.openWithCallback(self.newTitle, InputBox, title=_("Enter the new Movie title!"), text=movie_title+" "*80, maxSize=55, type=Input.TEXT)
         
     def newTitle(self, newTitle):

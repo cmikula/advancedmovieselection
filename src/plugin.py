@@ -19,129 +19,101 @@
 #  modify it (if you keep the license), but it may not be commercially 
 #  distributed other than under the conditions noted above.
 #
+from __init__ import _, localeInit
 from Plugins.Plugin import PluginDescriptor
-from MoveCopy import MovieMove
 from Components.PluginComponent import plugins
-from Screens.Screen import Screen
 from Components.Button import Button
-from Components.ActionMap import HelpableActionMap, ActionMap
-from Components.Sources.StaticText import StaticText
+from Components.ActionMap import HelpableActionMap
 from MovieSelection import MovieSelection, MovieContextMenu
 from MovieList import eServiceReferenceDvd, MovieList
 from ServiceProvider import CutListSupport
-from Components.ConfigList import ConfigListScreen
 from MessageBox import MessageBox
 from Screens.InfoBar import InfoBar, MoviePlayer
-from Tools.Directories import fileExists, resolveFilename, SCOPE_PLUGINS, SCOPE_LANGUAGE, SCOPE_HDD
-from Components.config import config, ConfigSubsection, ConfigText, ConfigYesNo, ConfigDirectory, ConfigInteger, ConfigSelection, getConfigListEntry, ConfigLocations
-from Components.Language import language
-import os
-from os import environ
-import gettext
+from Tools.Directories import fileExists, resolveFilename, SCOPE_HDD
+from Components.config import config, ConfigSubsection, ConfigText, ConfigYesNo, ConfigInteger, ConfigSelection
 from AdvancedMovieSelectionSetup import AdvancedMovieSelectionSetup
-from Components.Label import Label
-from Components.Pixmap import Pixmap
-from enigma import ePicLoad, ePoint, eServiceReference, eSize, eTimer, getDesktop, quitMainloop
-from Components.AVSwitch import AVSwitch
-from MovieSearch import MovieSearchScreen
+from enigma import ePoint, eTimer
 from Rename import MovieRetitle
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
     from Plugins.Extensions.IMDb.plugin import IMDB
-    IMDbPresent=True
+    IMDbPresent = True
 else:
-    IMDbPresent=False
+    IMDbPresent = False
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/OFDb/plugin.pyo"):
     from Plugins.Extensions.OFDb.plugin import OFDB
-    OFDbPresent=True
+    OFDbPresent = True
 else:
-    OFDbPresent=False
+    OFDbPresent = False
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedProgramGuide/plugin.pyo"):
     if config.plugins.AdvancedProgramGuide.Columns.value:
         from Plugins.Extensions.AdvancedProgramGuide.plugin import AdvancedProgramGuideII
     else:
         from Plugins.Extensions.AdvancedProgramGuide.plugin import AdvancedProgramGuide
-    AdvancedProgramGuidePresent=True
+    AdvancedProgramGuidePresent = True
 else:
-    AdvancedProgramGuidePresent=False
+    AdvancedProgramGuidePresent = False
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/MerlinEPG/plugin.pyo"):
     from Plugins.Extensions.MerlinEPG.plugin import Merlin_PGII, Merlin_PGd
-    MerlinEPGPresent=True
+    MerlinEPGPresent = True
 else:
-    MerlinEPGPresent=False
+    MerlinEPGPresent = False
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/CoolTVGuide/plugin.pyo"):
-    CoolTVGuidePresent=True
+    CoolTVGuidePresent = True
 else:
-    CoolTVGuidePresent=False
-
-
-def localeInit():
-    lang = language.getLanguage()
-    environ["LANGUAGE"] = lang[:2]
-    gettext.bindtextdomain("enigma2", resolveFilename(SCOPE_LANGUAGE))
-    gettext.textdomain("enigma2")
-    gettext.bindtextdomain("AdvancedMovieSelection", "%s%s" % (resolveFilename(SCOPE_PLUGINS), "Extensions/AdvancedMovieSelection/locale/"))
-
-def _(txt):
-    t = gettext.dgettext("AdvancedMovieSelection", txt)
-    if t == txt:
-        t = gettext.gettext(txt)
-    return t
-
-localeInit()
-language.addCallback(localeInit)
+    CoolTVGuidePresent = False
 
 config.AdvancedMovieSelection = ConfigSubsection()
 config.AdvancedMovieSelection.minitv = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.shownew = ConfigYesNo(default=True)
-config.AdvancedMovieSelection.dateformat = ConfigSelection(default= "6" , choices = [( "6" , _("German (without Year)")),( "1" , _("German (with Year)")),( "3" , _("German (with Starttime)")),( "2" , _("Enigma 2 default")),( "7" , _("English (without Year)")),( "4" , _("English (with Year)")), ( "5" , _("English (with Starttime)"))])
-config.AdvancedMovieSelection.color1 = ConfigSelection(default= "yellow" , choices = [( "yellow" , _("Yellow")),( "blue" , _("Blue")),( "red" , _("Red")), ( "black" , _("Black")), ( "green" , _("Green"))])
-config.AdvancedMovieSelection.color2 = ConfigSelection(default= "green" , choices = [( "green" , _("Green")),( "blue" , _("Blue")),( "red" , _("Red")), ( "black" , _("Black")), ( "yellow" , _("Yellow"))])
-config.AdvancedMovieSelection.color3 = ConfigSelection(default= "red" , choices = [( "red" , _("Red")),( "blue" , _("Blue")),( "green" , _("Green")), ( "black" , _("Black")), ( "yellow" , _("Yellow"))])
-config.AdvancedMovieSelection.moviepercentseen = ConfigInteger(default = 80, limits=(50,100))
+config.AdvancedMovieSelection.dateformat = ConfigSelection(default="6" , choices=[("6" , _("German (without Year)")), ("1" , _("German (with Year)")), ("3" , _("German (with Starttime)")), ("2" , _("Enigma 2 default")), ("7" , _("English (without Year)")), ("4" , _("English (with Year)")), ("5" , _("English (with Starttime)"))])
+config.AdvancedMovieSelection.color1 = ConfigSelection(default="yellow" , choices=[("yellow" , _("Yellow")), ("blue" , _("Blue")), ("red" , _("Red")), ("black" , _("Black")), ("green" , _("Green"))])
+config.AdvancedMovieSelection.color2 = ConfigSelection(default="green" , choices=[("green" , _("Green")), ("blue" , _("Blue")), ("red" , _("Red")), ("black" , _("Black")), ("yellow" , _("Yellow"))])
+config.AdvancedMovieSelection.color3 = ConfigSelection(default="red" , choices=[("red" , _("Red")), ("blue" , _("Blue")), ("green" , _("Green")), ("black" , _("Black")), ("yellow" , _("Yellow"))])
+config.AdvancedMovieSelection.moviepercentseen = ConfigInteger(default=80, limits=(50, 100))
 config.AdvancedMovieSelection.showfoldersinmovielist = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.showprogessbarinmovielist = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.showiconstatusinmovielist = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.showcolorstatusinmovielist = ConfigYesNo(default=False)
-config.AdvancedMovieSelection.about = ConfigSelection(default = "1", choices = [("1", " ")])
-config.AdvancedMovieSelection.ml_disable = ConfigYesNo(default = False)
-config.AdvancedMovieSelection.showmenu = ConfigYesNo(default = True)
-config.AdvancedMovieSelection.pluginmenu_list = ConfigYesNo(default = False)
-config.AdvancedMovieSelection.red = ConfigText(default = _("Delete"), visible_width = 50, fixed_size = False)
-config.AdvancedMovieSelection.green = ConfigText(default = _("Nothing"), visible_width = 50, fixed_size = False)
-config.AdvancedMovieSelection.yellow = ConfigText(default = _("Nothing"), visible_width = 50, fixed_size = False)
-config.AdvancedMovieSelection.blue = ConfigText(default = _("Nothing"), visible_width = 50, fixed_size = False)
-config.AdvancedMovieSelection.bookmark1text = ConfigText(default = _("Bookmark 1"), visible_width = 50, fixed_size = False)
-config.AdvancedMovieSelection.bookmark2text = ConfigText(default = _("Bookmark 2"), visible_width = 50, fixed_size = False)
-config.AdvancedMovieSelection.bookmark3text = ConfigText(default = _("Bookmark 3"), visible_width = 50, fixed_size = False)
-config.AdvancedMovieSelection.hometext = ConfigText(default = _("Home"), visible_width = 50, fixed_size = False)
-config.AdvancedMovieSelection.homepath = ConfigText(default = "/hdd/movie/")
-config.AdvancedMovieSelection.bookmark1path = ConfigText(default = "/hdd/movie/")
-config.AdvancedMovieSelection.bookmark2path = ConfigText(default = "/hdd/movie/")
-config.AdvancedMovieSelection.bookmark3path = ConfigText(default = "/hdd/movie/")
-config.AdvancedMovieSelection.buttoncaption = ConfigText(default = "Display plugin name")
-config.AdvancedMovieSelection.homeowntext = ConfigText(default = _("Homebutton"), visible_width = 50, fixed_size = False)
-config.AdvancedMovieSelection.bookmark1owntext = ConfigText(default = _("Own text 1"), visible_width = 50, fixed_size = False)
-config.AdvancedMovieSelection.bookmark1owntext = ConfigText(default = _("Own text 2"), visible_width = 50, fixed_size = False)
-config.AdvancedMovieSelection.bookmark2owntext = ConfigText(default = _("Own text 3"), visible_width = 50, fixed_size = False)
-config.AdvancedMovieSelection.bookmark3owntext = ConfigText(default = _("Own text 4"), visible_width = 50, fixed_size = False)
+config.AdvancedMovieSelection.about = ConfigSelection(default="1", choices=[("1", " ")])
+config.AdvancedMovieSelection.ml_disable = ConfigYesNo(default=False)
+config.AdvancedMovieSelection.showmenu = ConfigYesNo(default=True)
+config.AdvancedMovieSelection.pluginmenu_list = ConfigYesNo(default=False)
+config.AdvancedMovieSelection.red = ConfigText(default=_("Delete"), visible_width=50, fixed_size=False)
+config.AdvancedMovieSelection.green = ConfigText(default=_("Nothing"), visible_width=50, fixed_size=False)
+config.AdvancedMovieSelection.yellow = ConfigText(default=_("Nothing"), visible_width=50, fixed_size=False)
+config.AdvancedMovieSelection.blue = ConfigText(default=_("Nothing"), visible_width=50, fixed_size=False)
+config.AdvancedMovieSelection.bookmark1text = ConfigText(default=_("Bookmark 1"), visible_width=50, fixed_size=False)
+config.AdvancedMovieSelection.bookmark2text = ConfigText(default=_("Bookmark 2"), visible_width=50, fixed_size=False)
+config.AdvancedMovieSelection.bookmark3text = ConfigText(default=_("Bookmark 3"), visible_width=50, fixed_size=False)
+config.AdvancedMovieSelection.hometext = ConfigText(default=_("Home"), visible_width=50, fixed_size=False)
+config.AdvancedMovieSelection.homepath = ConfigText(default="/hdd/movie/")
+config.AdvancedMovieSelection.bookmark1path = ConfigText(default="/hdd/movie/")
+config.AdvancedMovieSelection.bookmark2path = ConfigText(default="/hdd/movie/")
+config.AdvancedMovieSelection.bookmark3path = ConfigText(default="/hdd/movie/")
+config.AdvancedMovieSelection.buttoncaption = ConfigText(default="Display plugin name")
+config.AdvancedMovieSelection.homeowntext = ConfigText(default=_("Homebutton"), visible_width=50, fixed_size=False)
+config.AdvancedMovieSelection.bookmark1owntext = ConfigText(default=_("Own text 1"), visible_width=50, fixed_size=False)
+config.AdvancedMovieSelection.bookmark1owntext = ConfigText(default=_("Own text 2"), visible_width=50, fixed_size=False)
+config.AdvancedMovieSelection.bookmark2owntext = ConfigText(default=_("Own text 3"), visible_width=50, fixed_size=False)
+config.AdvancedMovieSelection.bookmark3owntext = ConfigText(default=_("Own text 4"), visible_width=50, fixed_size=False)
 launch_choices = [    ("None", _("No override")),
                             ("showMovies", _("Video-button")),
                             ("showTv", _("TV-button")),
                             ("showRadio", _("Radio-button")),
                             #("openQuickbutton", _("Quick-button")),
                             ("timeshiftStart", _("Timeshift-button"))]
-config.AdvancedMovieSelection.movie_launch = ConfigSelection(default = "showMovies", choices = launch_choices)
-config.AdvancedMovieSelection.askdelete = ConfigYesNo(default = True)
-config.AdvancedMovieSelection.moviepercentseen = ConfigInteger(default = 85, limits = (50,100))
+config.AdvancedMovieSelection.movie_launch = ConfigSelection(default="showMovies", choices=launch_choices)
+config.AdvancedMovieSelection.askdelete = ConfigYesNo(default=True)
+config.AdvancedMovieSelection.moviepercentseen = ConfigInteger(default=85, limits=(50, 100))
 config.AdvancedMovieSelection.AskEventinfo = ConfigYesNo(default=True)
-config.AdvancedMovieSelection.Eventinfotyp = ConfigSelection(choices=[("Ei", _("Advanced Movie Selection info")), ("Ti", _("TMDb info")), ("Ii", _("IMDb info")), ("Oi", _("OFDb info"))], default = "Ei")
-config.AdvancedMovieSelection.Eventinfotyp2 = ConfigSelection(choices=[("Ei", _("Advanced Movie Selection info")), ("Ii", _("IMDb info"))], default = "Ei")
-config.AdvancedMovieSelection.Eventinfotyp3 = ConfigSelection(choices=[("Ei", _("Advanced Movie Selection info")), ("Oi", _("OFDb info"))], default = "Ei")
-config.AdvancedMovieSelection.Eventinfotyp4 = ConfigSelection(choices=[("Ei", _("Advanced Movie Selection info")), ("Ti", _("TMDb info"))], default = "Ei")
-config.AdvancedMovieSelection.Eventinfotyp5 = ConfigSelection(choices=[("Ei", _("Advanced Movie Selection info")), ("Ti", _("TMDb info")), ("Ii", _("IMDb info"))], default = "Ei")
-config.AdvancedMovieSelection.Eventinfotyp6 = ConfigSelection(choices=[("Ei", _("Advanced Movie Selection info")), ("Ti", _("TMDb info")), ("Oi", _("OFDb info"))], default = "Ei")
-config.AdvancedMovieSelection.Eventinfotyp7 = ConfigSelection(choices=[("Ei", _("Advanced Movie Selection info")), ("Ii", _("IMDb info")), ("Oi", _("OFDb info"))], default = "Ei")
+config.AdvancedMovieSelection.Eventinfotyp = ConfigSelection(choices=[("Ei", _("Advanced Movie Selection info")), ("Ti", _("TMDb info")), ("Ii", _("IMDb info")), ("Oi", _("OFDb info"))], default="Ei")
+config.AdvancedMovieSelection.Eventinfotyp2 = ConfigSelection(choices=[("Ei", _("Advanced Movie Selection info")), ("Ii", _("IMDb info"))], default="Ei")
+config.AdvancedMovieSelection.Eventinfotyp3 = ConfigSelection(choices=[("Ei", _("Advanced Movie Selection info")), ("Oi", _("OFDb info"))], default="Ei")
+config.AdvancedMovieSelection.Eventinfotyp4 = ConfigSelection(choices=[("Ei", _("Advanced Movie Selection info")), ("Ti", _("TMDb info"))], default="Ei")
+config.AdvancedMovieSelection.Eventinfotyp5 = ConfigSelection(choices=[("Ei", _("Advanced Movie Selection info")), ("Ti", _("TMDb info")), ("Ii", _("IMDb info"))], default="Ei")
+config.AdvancedMovieSelection.Eventinfotyp6 = ConfigSelection(choices=[("Ei", _("Advanced Movie Selection info")), ("Ti", _("TMDb info")), ("Oi", _("OFDb info"))], default="Ei")
+config.AdvancedMovieSelection.Eventinfotyp7 = ConfigSelection(choices=[("Ei", _("Advanced Movie Selection info")), ("Ii", _("IMDb info")), ("Oi", _("OFDb info"))], default="Ei")
 config.AdvancedMovieSelection.showcolorkey = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.showliststyle = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.showextras = ConfigYesNo(default=True)
@@ -157,17 +129,17 @@ config.AdvancedMovieSelection.showsearch = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.showcoveroptions = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.showpreview = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.showrename = ConfigYesNo(default=True)
-config.AdvancedMovieSelection.coversize = ConfigSelection(default = "cover", choices = [("original", _("Original (1000x1500)")), ("mid", _("Mid (500x750)")), ("cover", _("Cover (185x278)")), ("thumb", _("Thumb (92x138)"))])
+config.AdvancedMovieSelection.coversize = ConfigSelection(default="cover", choices=[("original", _("Original (1000x1500)")), ("mid", _("Mid (500x750)")), ("cover", _("Cover (185x278)")), ("thumb", _("Thumb (92x138)"))])
 config.AdvancedMovieSelection.description = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.showtmdb = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.show_info_cover_del = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.show_info_del = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.show_cover_del = ConfigYesNo(default=True)
-config.usage.on_movie_start = ConfigSelection(default = "ask", choices = [("ask", _("Ask user")), ("resume", _("Resume from last position")), ("beginning", _("Start from the beginning"))])
-config.usage.on_movie_stop = ConfigSelection(default = "movielist", choices = [("ask", _("Ask user")), ("movielist", _("Return to movie list")), ("quit", _("Return to previous service"))])
-config.usage.on_movie_eof = ConfigSelection(default = "quit", choices = [("ask", _("Ask user")), ("movielist", _("Return to movie list")), ("quit", _("Return to previous service")), ("pause", _("Pause movie at end"))])
-config.AdvancedMovieSelection.movieplayer_infobar_position_offset_x = ConfigInteger(default = 0)
-config.AdvancedMovieSelection.movieplayer_infobar_position_offset_y = ConfigInteger(default = 0)
+config.usage.on_movie_start = ConfigSelection(default="ask", choices=[("ask", _("Ask user")), ("resume", _("Resume from last position")), ("beginning", _("Start from the beginning"))])
+config.usage.on_movie_stop = ConfigSelection(default="movielist", choices=[("ask", _("Ask user")), ("movielist", _("Return to movie list")), ("quit", _("Return to previous service"))])
+config.usage.on_movie_eof = ConfigSelection(default="quit", choices=[("ask", _("Ask user")), ("movielist", _("Return to movie list")), ("quit", _("Return to previous service")), ("pause", _("Pause movie at end"))])
+config.AdvancedMovieSelection.movieplayer_infobar_position_offset_x = ConfigInteger(default=0)
+config.AdvancedMovieSelection.movieplayer_infobar_position_offset_y = ConfigInteger(default=0)
 config.AdvancedMovieSelection.show_infobar_position = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.jump_first_mark = ConfigYesNo(default=True)
 
@@ -189,7 +161,7 @@ def MovieSelectionInit(self):
         MovieSelection.bluepressed = bluepressed
         MovieSelection.getPluginCaption = getPluginCaption
 
-def MovieSelection__init__(self, session, selectedmovie = None):
+def MovieSelection__init__(self, session, selectedmovie=None):
         baseMovieSelection__init__ (self, session, selectedmovie)
         self["key_red"] = Button(self.getPluginCaption(str(config.AdvancedMovieSelection.red.value)))
         self["key_green"] = Button(self.getPluginCaption(str(config.AdvancedMovieSelection.green.value)))
@@ -204,18 +176,18 @@ def MovieSelection__init__(self, session, selectedmovie = None):
         })
 
 def redpressed(self):
-        startPlugin(self,str(config.AdvancedMovieSelection.red.value),0)
+        startPlugin(self, str(config.AdvancedMovieSelection.red.value), 0)
 
 def greenpressed(self):
-        startPlugin(self,str(config.AdvancedMovieSelection.green.value),1)
+        startPlugin(self, str(config.AdvancedMovieSelection.green.value), 1)
 
 def yellowpressed(self):
-        startPlugin(self,str(config.AdvancedMovieSelection.yellow.value),2)
+        startPlugin(self, str(config.AdvancedMovieSelection.yellow.value), 2)
 
 def bluepressed(self):
-        startPlugin(self,str(config.AdvancedMovieSelection.blue.value),3)
+        startPlugin(self, str(config.AdvancedMovieSelection.blue.value), 3)
 
-def getPluginCaption(self,pname):
+def getPluginCaption(self, pname):
         if pname != _("Nothing"):
             if pname == _("Delete"):
                 return _("Delete")
@@ -237,7 +209,7 @@ def getPluginCaption(self,pname):
                         if config.movielist.moviesort.value == MovieList.SORT_DATE_ASC:
                             return _("Sort alphabetically")
             else:
-                for p in plugins.getPlugins(where = [PluginDescriptor.WHERE_MOVIELIST]):
+                for p in plugins.getPlugins(where=[PluginDescriptor.WHERE_MOVIELIST]):
                     if pname == str(p.name):
                         if config.AdvancedMovieSelection.buttoncaption.value == "1":
                             return p.description
@@ -245,7 +217,7 @@ def getPluginCaption(self,pname):
                             return p.name
         return ""
 
-def startPlugin(self,pname, index):
+def startPlugin(self, pname, index):
         home = config.AdvancedMovieSelection.homepath.value
         bookmark1 = config.AdvancedMovieSelection.bookmark1path.value
         bookmark2 = config.AdvancedMovieSelection.bookmark2path.value
@@ -257,7 +229,7 @@ def startPlugin(self,pname, index):
         if current is not None:
             if pname != _("Nothing"):
                 if pname == _("Delete"):
-                    MCM = MovieContextMenu(self.session,self,current)
+                    MCM = MovieContextMenu(self.session, self, current)
                     MCM.delete()
                     no_plugin = False
                 elif pname == _("Home"):
@@ -275,11 +247,11 @@ def startPlugin(self,pname, index):
                 elif pname == _("Sort"):
                     if config.movielist.moviesort.value == MovieList.SORT_ALPHANUMERIC:
                         newType = MovieList.SORT_DATE_DESC
-                        newCaption =  _("Sort by Date (9->1)")
+                        newCaption = _("Sort by Date (9->1)")
                     else:
                         if config.movielist.moviesort.value == MovieList.SORT_DATE_DESC:
                             newType = MovieList.SORT_DATE_ASC
-                            newCaption =  _("Sort alphabetically")
+                            newCaption = _("Sort alphabetically")
                         else:
                             if config.movielist.moviesort.value == MovieList.SORT_DATE_ASC:
                                 newType = MovieList.SORT_ALPHANUMERIC
@@ -297,21 +269,21 @@ def startPlugin(self,pname, index):
                         self["key_blue"].setText(newCaption)
                     no_plugin = False
                 else:
-                    for p in plugins.getPlugins(where = [PluginDescriptor.WHERE_MOVIELIST]):
+                    for p in plugins.getPlugins(where=[PluginDescriptor.WHERE_MOVIELIST]):
                         if pname == str(p.name):
                             plugin = p
                     if plugin is not None:
                         try:
                             plugin(self.session, current)
                             no_plugin = False
-                        except Exception, e:
+                        except:
                             msgText = _("Error!\nError Text: %s %e")
                     else: 
                         msgText = _("Plugin not found!")
             else:
                 msgText = _("No plugin assigned!")
             if no_plugin:
-                self.session.open(MessageBox,msgText, MessageBox.TYPE_INFO)
+                self.session.open(MessageBox, msgText, MessageBox.TYPE_INFO)
 
 def noUpdateTages(self):
         pass
@@ -391,7 +363,6 @@ class MoviePlayerExtended(MoviePlayer, CutListSupport):
             
     def openInfoView(self):
         from AdvancedMovieSelectionEventView import EventViewSimple
-        from ServiceReference import ServiceReference
         serviceref = self.session.nav.getCurrentlyPlayingServiceReference()
         from enigma import eServiceCenter
         serviceHandler = eServiceCenter.getInstance()
@@ -450,7 +421,7 @@ def movieSelected(self, service):
                 class DVDPlayerExtended(DVDPlayer, CutListSupport):
                     def __init__(self, session, service):
                         CutListSupport.__init__(self, service)
-                        DVDPlayer.__init__(self, session, dvd_filelist = service.getDVD())
+                        DVDPlayer.__init__(self, session, dvd_filelist=service.getDVD())
                         self.addPlayerEvents()
                         self.skinName = "DVDPlayer"
                 try:
@@ -504,10 +475,10 @@ def nostart(reason, **kwargs):
 def Plugins(**kwargs):
     localeInit()
     if not config.AdvancedMovieSelection.ml_disable.value:
-        descriptors = [PluginDescriptor(where = PluginDescriptor.WHERE_SESSIONSTART, fnc = autostart)]
-        descriptors.append( PluginDescriptor(name="MovieRetitle", description=_("Rename"), where = PluginDescriptor.WHERE_MOVIELIST, fnc=rename) )
-        descriptors.append( PluginDescriptor(where = PluginDescriptor.WHERE_MENU, fnc = Setup) )
+        descriptors = [PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=autostart)]
+        descriptors.append(PluginDescriptor(name="MovieRetitle", description=_("Rename"), where=PluginDescriptor.WHERE_MOVIELIST, fnc=rename))
+        descriptors.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, fnc=Setup))
     else:
-        descriptors = [PluginDescriptor(where = PluginDescriptor.WHERE_SESSIONSTART, fnc = nostart)]
-        descriptors.append( PluginDescriptor(where = PluginDescriptor.WHERE_MENU, fnc = Setup) )
+        descriptors = [PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=nostart)]
+        descriptors.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, fnc=Setup))
     return descriptors

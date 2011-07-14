@@ -285,7 +285,9 @@ class ComponentDescriptor:
 def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=False, movie=None):
     file = None
     try:
-        print "Fetching info for movie: " + title
+        if title:
+            title = title.replace('#', '')
+        print "Fetching info for movie: " + str(title)
         # DVD directory
         if not os.path.isdir(file_name):
             file_name = os.path.splitext(file_name)[0]
@@ -295,18 +297,31 @@ def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=Fa
         jpg_file = file_name + ".jpg"
         
         if (os.path.exists(jpg_file) and overwrite_jpg == False) and (os.path.exists(eit_file) and overwrite_eit == False):
+            print "Info's already exists, download skipped!"
             return True
         
         if movie == None:
             results = tmdb.search(title)
             if len(results) == 0:
-                print "No info found for: " + title
+                print "No info found for: " + str(title)
                 return False
             searchResult = results[0]
             movie = tmdb.getMovieInfo(searchResult['id'])
         
-        if movie['name'] == None or movie['overview'] == None:
-            print "No info found for: " + title
+        name = movie['name']
+        overview = movie['overview']
+        runtime = movie['runtime']
+        genre = ""
+        if len(movie['categories']):
+            genre = " ".join(movie['categories']['genre'])
+
+        # Checking valid movie name
+        if not name or len(name) == 0:
+            print "tmdb search results no valid movie name"
+            return False
+        # Checking valid movie overview
+        if not overview or len(overview) == 0:
+            print "tmdb search results no valid movie overview"
             return False
 
         print "Movie title: " + str(movie['name'])
@@ -315,7 +330,7 @@ def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=Fa
         if len(images) > 0:
             cover_url = movie['images'][0][coverSize]
         if not cover_url:
-            print "No Cover found for", title, "\n"
+            print "No Cover found for", str(title), "\n"
         else:    
             if os.path.exists(jpg_file) and overwrite_jpg == False:
                 print "File '%s' already exists, jpg download skipped!" % (jpg_file)
@@ -325,48 +340,52 @@ def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=Fa
         if os.path.exists(eit_file) and overwrite_eit == False:
             print "File '%s' already exists, eit creation skipped!" % (eit_file)
             return True 
-        
-        original_name = movie['original_name']
-        print "Original name:"
-        print " " * 4, str(original_name)
-        
-        released = movie['released']
-        print "Released:"
-        print " " * 4, str(released)
 
-        cast = movie['cast']
-        if cast:
-            has_director = False
-            has_producer = False
-            has_author = False
-            has_actor = False
-            for ca in cast:
-                if ca == "director": has_director = True
-                elif ca == "producer": has_producer = True
-                elif ca == "author": has_author = True
-                elif ca == "actor": has_actor = True
-            if has_author:
-                print "Authors:"
-                for prodr in cast['author']:
-                    print " " * 4, prodr['name']
-            if has_director:
-                print "Directors:"
-                for prodr in cast['director']:
-                    print " " * 4, prodr['name']
-            if has_producer:
-                print "Producers:"
-                for prodr in cast['producer']:
-                    print " " * 4, prodr['name']
-            if has_actor:
-                print "Actors:"
-                for prodr in cast['actor']:
-                    print " " * 4, prodr['name']
-          
-        genre = ""
-        if len(movie['categories']):
-            genre = " ".join(movie['categories']['genre'])
+        # print out extended movie informations
+        try:
+            original_name = movie['original_name']
+            print "Original name:"
+            print " " * 4, str(original_name)
+            
+            released = movie['released']
+            print "Released:"
+            print " " * 4, str(released)
     
-        runtime = movie['runtime']
+            cast = movie['cast']
+            if cast:
+                has_director = False
+                has_producer = False
+                has_author = False
+                has_actor = False
+                for ca in cast:
+                    if ca == "director": has_director = True
+                    elif ca == "producer": has_producer = True
+                    elif ca == "author": has_author = True
+                    elif ca == "actor": has_actor = True
+                if has_author:
+                    print "Authors:"
+                    for prodr in cast['author']:
+                        print " " * 4, prodr['name']
+                if has_director:
+                    print "Directors:"
+                    for prodr in cast['director']:
+                        print " " * 4, prodr['name']
+                if has_producer:
+                    print "Producers:"
+                    for prodr in cast['producer']:
+                        print " " * 4, prodr['name']
+                if has_actor:
+                    print "Actors:"
+                    for prodr in cast['actor']:
+                        print " " * 4, prodr['name']
+        except Exception, e:
+            print e
+    
+        data = []
+        ShortEventDescriptor.encode(data, name, genre)
+        ExtendedEventDescriptor.encode(data, overview)
+        data = "".join(data)
+
         if runtime:
             rt = int(runtime)
             h = rt / 60
@@ -374,15 +393,6 @@ def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=Fa
             runtime = (h << 8) | (m / 10) << 4 | (m % 10)
         else:
             runtime = 0x0130
-            
-        name = movie['name']
-        overview = movie['overview']
-        if len(name) <= 2 or len(overview) <= 2:
-            return False
-        data = []
-        ShortEventDescriptor.encode(data, name, genre)
-        ExtendedEventDescriptor.encode(data, overview)
-        data = "".join(data)
         
         event_id = 0x0000
         mjd = toMJD(released)
@@ -510,67 +520,139 @@ class EventInformationTable:
     def getBeginTimeString(self):
         return "%s, %s" % (self.date, self.start_time) 
 
+# Debug only 
+def detectDVDStructure(loadPath):
+    if not os.path.isdir(loadPath):
+        return None
+    if os.path.exists(loadPath + "VIDEO_TS.IFO"):
+        return loadPath + "VIDEO_TS.IFO"
+    if os.path.exists(loadPath + "VIDEO_TS/VIDEO_TS.IFO"):
+        return loadPath + "VIDEO_TS/VIDEO_TS.IFO"
+    return None
 
-def createEIT1(file_name, event_name, event_description, extended_description, components=[]):
-    file = None
-    try:
-        print "Creating eit: " + file_name
-        data = []
-        ShortEventDescriptor.encode(data, event_name, event_description)
-        ExtendedEventDescriptor.encode(data, extended_description)
-        for descr in components:
-            ComponentDescriptor.encode(data, descr)
-
-        event_id = 0x27e5
-        mjd = 0xd943
-        start_time = 0x1915
-        duration = 0x0155
-        data = "".join(data)
-        id = len(data) & 0x0fff
-        header = pack('>HHHBHBH', event_id, mjd, start_time, 0, duration, 0, id)
-        
-        file = open(file_name + ".eit", "wb")
-        file.write(header)
-        file.write(data)
-        file.close()
-    except:
-        if file is not None:
-            file.close()
-        printStackTrace()
-
-def test():
-    #movie_info = tmdb.getInfo(id[0])
-    #imdb_data = tmdb.imdbResults(IMDB_TTID)
-    #imdb_images = tmdb.imdbImages(IMDB_TTID)
-    #tmdb_images = tmdb.tmdbImages(TMDB_MOVIE_ID)
-    
-    descr = ExtendedEventDescriptor("1", "2", "3")
-    print str(descr.descriptor_length)
-    descr = ShortEventDescriptor("1", "2")
-    print str(descr.descriptor_length)
+class eServiceReference():
+    def __init__(self, dummy_self, file=None):
+        if file == None:
+            file = dummy_self
+        self.file = str(file).split("4097:0:0:0:0:0:0:0:0:0:")[1]
+        self.name = os.path.basename(self.file).rsplit(".")[0]
+        if os.path.isdir(self.file) and self.file[-1] != '/':
+            self.file += "/"
             
+    def getPath(self):
+        return self.file
+
+    def setPath(self, path):
+        self.file = path
+
+    def getName(self):
+        return self.name
+
+    def setName(self, name):
+        self.name = name
+
+class eServiceReferenceDvd(eServiceReference):
+    def __init__(self, serviceref, dvdStruct=False):
+        eServiceReference.__init__(self, "4097:0:0:0:0:0:0:0:0:0:" + serviceref.getPath())
+        self.dvdStruct = dvdStruct
+        if dvdStruct is True:
+            # remove trailing slash
+            self.setPath(self.getPath()[0:-1])
+
+        self.setName(os.path.basename(os.path.splitext(serviceref.getPath())[0]))
+            
+    def getDVD(self):
+        if self.dvdStruct is True:
+            return [self.getPath() + "/"]
+        else:
+            return [self.getPath()]
+
+def checkCreateMetaFile(ref):
+    file = ref.getPath() + ".ts.meta"
+    if not os.path.exists(file):
+        if os.path.isfile(ref.getPath()):
+            title = os.path.basename(os.path.splitext(ref.getPath())[0])
+        else:
+            title = ref.getName()
+        sid = ""
+        descr = ""
+        time = ""
+        tags = ""
+        metafile = open(file, "w")
+        metafile.write("%s\r\n%s\r\n%s\r\n%s\r\n%s" % (sid, title, descr, time, tags))
+        metafile.close()
+
+class ServiceInfo:
+    def __init__(self, serviceref):
+        self.servicename = ""
+        self.description = ""
+        self.tags = ""
+        try:
+            try:
+                checkCreateMetaFile(serviceref)
+            except Exception, e:
+                print e
+                if os.path.isfile(serviceref.getPath()):
+                    self.name = os.path.basename(serviceref.getPath()).split('.')[0]
+                else:
+                    self.name = serviceref.getName()
+                return
+            if os.path.exists(serviceref.getPath() + ".ts.meta"):
+                file = open(serviceref.getPath() + ".ts.meta", "r")
+                file.readline()
+                self.name = file.readline().rstrip("\r\n")
+                self.description = file.readline().rstrip("\r\n")
+                file.readline()
+                self.tags = file.readline().rstrip("\r\n")
+                file.close()
+        except Exception, e:
+            print "Exception in load meta data: " + str(e)
+
+    def getServiceName(self):
+        return self.servicename
+
+    def getName(self):
+        return self.name
+
+    def getDescription(self):
+        return self.description
+
+    def getTags(self):
+        return self.tags
+
+# ~ Debug only
+    
 
 if __name__ == '__main__':
-    #test()
+    supported = ["ts", "iso", "mkv"]
     path = "./tmp/"
     dirList = os.listdir(path)
     for file_name in dirList:
-        if os.path.splitext(file_name)[1] == ".meta":
-            file = open(path + file_name)
-            file.readline()
-            title = file.readline()
-            file.close()
-            createEIT(path + "test1", title, "cover", overwrite_eit=True)
-        if os.path.splitext(file_name)[1] == ".eit":
-            print file_name
-            eit = EventInformationTable(path + file_name)
-            print "ID:0x%04X %s %s" % (eit.event_id, eit.start_time, eit.duration)
-            print eit.event_name
-            print eit.short_description
-            print eit.extended_description
-            print eit.getBeginTimeString()
-            print eit.duration / 60
-            print "Length: " + str(eit.descriptors_loop_length)
-            print "\n"
-            #createEIT1(path + "test", eit.event_name, eit.short_description, eit.extended_description, eit.components)
+        file_name = path + file_name
+        # only process supported file extensions and directories
+        basename, ext = os.path.splitext(file_name)
+        ext = ext.lower().replace('.', '')
+        if not os.path.isdir(file_name):
+            if not ext in supported:
+                if os.path.splitext(file_name)[1] == ".eit":
+                    print "\nEIT info for: " + file_name
+                    eit = EventInformationTable(file_name)
+                    print "ID:0x%04X %s %s" % (eit.event_id, eit.start_time, eit.duration)
+                    print eit.event_name
+                    print eit.short_description
+                    print eit.extended_description
+                    print eit.getBeginTimeString()
+                    print eit.duration / 60
+                    print "Length: " + str(eit.descriptors_loop_length)
+                    print "\n"
+                continue
+
+        serviceref = eServiceReference(None, "4097:0:0:0:0:0:0:0:0:0:" + file_name)
+        dvd = detectDVDStructure(serviceref.getPath())
+        if dvd is not None:
+            serviceref = eServiceReferenceDvd(serviceref, True)
+        if ext == "iso":
+            serviceref = eServiceReferenceDvd(serviceref)
+        info = ServiceInfo(serviceref)
+        createEIT(serviceref.getPath(), info.getName(), "cover", overwrite_eit=False)
 

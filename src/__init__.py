@@ -6,9 +6,9 @@ import gettext
 def localeInit():
     lang = language.getLanguage()[:2] # getLanguage returns e.g. "fi_FI" for "language_country"
     os_environ["LANGUAGE"] = lang # Enigma doesn't set this (or LC_ALL, LC_MESSAGES, LANG). gettext needs it!
-    gettext.bindtextdomain("MediaPlayerExtended", resolveFilename(SCOPE_PLUGINS, "Extensions/MediaPlayerExtended/locale"))
+    gettext.bindtextdomain("AdvancedMovieSelection", resolveFilename(SCOPE_PLUGINS, "Extensions/AdvancedMovieSelection/locale/"))
 
-_ = lambda txt: gettext.dgettext("MediaPlayerExtended", txt)
+_ = lambda txt: gettext.dgettext("AdvancedMovieSelection", txt)
 
 localeInit()
 language.addCallback(localeInit)

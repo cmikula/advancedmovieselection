@@ -28,6 +28,7 @@ from Tools.Directories import fileExists
 from enigma import getDesktop
 import os
 from Components.config import config
+from ServiceProvider import eServiceReferenceDvd
 
 from skin import loadSkin
 loadSkin("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/skin/skin.xml")
@@ -73,11 +74,17 @@ class MoviePreview():
         self.hideDialog()
         if serviceref:
             path = serviceref.getPath()
+            print "Preview " + path
             # DVD directory
-            if not os.path.isdir(path):
+            if os.path.isfile(path):
                 path = os.path.splitext(path)[0] + ".jpg"
+                print "Preview 1" + path
+            elif isinstance(serviceref, eServiceReferenceDvd):
+                path = path + ".jpg"
+                print "Preview 2" + path
             else:
                 path = path + "folder.jpg"
+                print "Preview 3" + path
             
             if fileExists(path):
                 self.showDialog()

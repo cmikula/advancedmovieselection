@@ -19,17 +19,18 @@
 #  modify it (if you keep the license), but it may not be commercially 
 #  distributed other than under the conditions noted above.
 #
+from __init__ import _
 from twisted.internet import defer
 import xml.etree.cElementTree
 from twisted.web.client import downloadPage, getPage
-from enigma import RT_WRAP, RT_VALIGN_CENTER, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, RT_HALIGN_CENTER, gFont, eListbox,eListboxPythonMultiContent
+from enigma import RT_WRAP, RT_VALIGN_CENTER, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, RT_HALIGN_CENTER, gFont, eListbox, eListboxPythonMultiContent
 from Components.GUIComponent import GUIComponent
 from Screens.Screen import Screen
 from Components.ActionMap import ActionMap
 from Components.Sources.StaticText import StaticText
 from Components.Pixmap import Pixmap
 from urllib import quote as urllib_quote
-from os import path as os_path, mkdir as os_mkdir, rename as os_rename, remove as os_remove
+from os import path as os_path, mkdir as os_mkdir, rename as os_rename
 from Tools.LoadPixmap import LoadPixmap
 from enigma import ePicLoad
 from Components.Label import Label
@@ -38,35 +39,12 @@ from Components.AVSwitch import AVSwitch
 from Screens.MessageBox import MessageBox
 from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Components.config import config
-from shutil import rmtree as shutil_rmtree, copy2 as shutil_copy2, copy as shutil_copy
+from shutil import rmtree as shutil_rmtree
 from enigma import getDesktop
 from collections import defaultdict
-from Tools.Directories import resolveFilename, SCOPE_PLUGINS, SCOPE_LANGUAGE
-from Tools.Directories import copyfile
-from Components.Language import language
-import os
-from os import environ
-import gettext
-from Components.config import config
 
 from skin import loadSkin
 loadSkin("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/skin/skin.xml")
-
-def localeInit():
-    lang = language.getLanguage()
-    environ["LANGUAGE"] = lang[:2]
-    gettext.bindtextdomain("enigma2", resolveFilename(SCOPE_LANGUAGE))
-    gettext.textdomain("enigma2")
-    gettext.bindtextdomain("AdvancedMovieSelection", "%s%s" % (resolveFilename(SCOPE_PLUGINS), "Extensions/AdvancedMovieSelection/locale/"))
-
-def _(txt):
-    t = gettext.dgettext("AdvancedMovieSelection", txt)
-    if t == txt:
-        t = gettext.gettext(txt)
-    return t
-
-localeInit()
-language.addCallback(localeInit)
 
 tmdb_logodir = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images"
 IMAGE_TEMPFILE = "/tmp/cover_temp"
@@ -145,12 +123,12 @@ class TMDb(object):
     def searchForMovies(self, title, callback):
         self.callback = callback
         url = API_THEMOVIEDB + API_THEMOVIEDB_VERSION + API_THEMOVIEDB_SEARCH + self.language + "/xml/" + API_THEMOVIEDB_DEVELOPERKEY + urllib_quote(title)
-        getPage(url, timeout = 10).addCallback(self.callbackRequest).addErrback(self.callbackRequestError)        
+        getPage(url, timeout=10).addCallback(self.callbackRequest).addErrback(self.callbackRequestError)        
 
     def getMovieInfo(self, movie_id, callback):
         self.callback = callback
         url = API_THEMOVIEDB + API_THEMOVIEDB_VERSION + API_THEMOVIEDB_MOVIEINFO + self.language + "/xml/" + API_THEMOVIEDB_DEVELOPERKEY + movie_id
-        getPage(url, timeout = 10).addCallback(self.callbackRequest).addErrback(self.callbackRequestError)    
+        getPage(url, timeout=10).addCallback(self.callbackRequest).addErrback(self.callbackRequestError)    
 
     def callbackRequest(self, xmlstring):
         cur_movie_list = []
@@ -186,16 +164,16 @@ class TMDb(object):
                     cur_movie_list.append((cur_movie),)
         self.callback(cur_movie_list, None)
 
-    def callbackRequestError(self, error = None):
+    def callbackRequestError(self, error=None):
         if error is not None:
             self.callback([], str(error.getErrorMessage()))
 
 class TMDbList(GUIComponent, object):
-    def buildMovieSelectionListEntry(self, movie_id,name,description,released,cover,thumb):
+    def buildMovieSelectionListEntry(self, movie_id, name, description, released, cover, thumb):
         width = self.l.getItemSize().width()
         res = [ None ]
         if description:
-            description = description.encode('utf-8','ignore')
+            description = description.encode('utf-8', 'ignore')
         else:
             description = ""
         if released:
@@ -204,16 +182,16 @@ class TMDbList(GUIComponent, object):
             released_text = ""
         if thumb:
             parts = thumb.split("/")
-            filename = os_path.join(IMAGE_TEMPFILE ,movie_id + parts[-1])
+            filename = os_path.join(IMAGE_TEMPFILE , movie_id + parts[-1])
             if not os_path.exists(filename):
                 index = self.getCurrentIndex()
                 temp_filename = filename + ".tmp"
-                download(thumb, temp_filename).addErrback(self.errorThumbDownload).addCallback(self.finishedThumbDownload,temp_filename, filename, index)
+                download(thumb, temp_filename).addErrback(self.errorThumbDownload).addCallback(self.finishedThumbDownload, temp_filename, filename, index)
             else:
                 png = LoadPixmap(cached=True, path=filename)
                 res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 1, 92, 138, png))
-        res.append((eListboxPythonMultiContent.TYPE_TEXT, 100, 5, width - 100 , 20, 0, RT_HALIGN_LEFT|RT_VALIGN_CENTER, "%s" % name.encode('utf-8','ignore')))
-        res.append((eListboxPythonMultiContent.TYPE_TEXT, width - 140, 5, 130 , 20, 1, RT_HALIGN_RIGHT|RT_VALIGN_CENTER, "%s" % released_text))
+        res.append((eListboxPythonMultiContent.TYPE_TEXT, 100, 5, width - 100 , 20, 0, RT_HALIGN_LEFT | RT_VALIGN_CENTER, "%s" % name.encode('utf-8', 'ignore')))
+        res.append((eListboxPythonMultiContent.TYPE_TEXT, width - 140, 5, 130 , 20, 1, RT_HALIGN_RIGHT | RT_VALIGN_CENTER, "%s" % released_text))
         res.append((eListboxPythonMultiContent.TYPE_TEXT, 100, 30, width - 100, 100, 1, RT_WRAP, "%s" % description))
         return res
         
@@ -227,9 +205,9 @@ class TMDbList(GUIComponent, object):
         if not os_path.exists(IMAGE_TEMPFILE):
             os_mkdir(IMAGE_TEMPFILE)
 
-    def errorThumbDownload(self, error = None):
+    def errorThumbDownload(self, error=None):
         if error is not None:
-            print "[TMDbList] Error: ",  str(error.getErrorMessage())
+            print "[TMDbList] Error: ", str(error.getErrorMessage())
 
     def finishedThumbDownload(self, result, temp_filename, filename, index):
         try: # if you scroll too fast, a thumb-download is started twice...
@@ -256,7 +234,7 @@ class TMDbList(GUIComponent, object):
         return self.l.getCurrentSelection()
 
 class Moviecover(Pixmap):
-    def __init__(self, callback = None):
+    def __init__(self, callback=None):
         Pixmap.__init__(self)
         self.coverFileName = ""
         if callback:
@@ -348,10 +326,10 @@ class TMDbMain(Screen):
                 tmpList = []
                 for movie in movielist:
                     if movie.has_key("id") and movie.has_key("name"):
-                        movie_id =  movie["id"]
-                        name =  movie["name"]
+                        movie_id = movie["id"]
+                        name = movie["name"]
                         if movie.has_key("overview"):
-                            description =  movie["overview"]
+                            description = movie["overview"]
                         else:
                             description = ""
                         if movie.has_key("released"):
@@ -366,7 +344,7 @@ class TMDbMain(Screen):
                         for id in movie["images"]["thumb"]["92"]:
                             thumb = movie["images"]['thumb']['92'][id]
                             break
-                        tmpList.append((movie_id,name,description,released,cover,thumb),)
+                        tmpList.append((movie_id, name, description, released, cover, thumb),)
                 if not errorString:
                     self["key_green"].text = _("Save movie info/cover")
                 else:
@@ -400,9 +378,9 @@ class TMDbMain(Screen):
             self.red_pressed()
 
     def yellow_pressed(self):
-        self.session.openWithCallback(self.newSearchFinished, VirtualKeyBoard, title = _("Enter new moviename to search for"), text = self.searchTitle)
+        self.session.openWithCallback(self.newSearchFinished, VirtualKeyBoard, title=_("Enter new moviename to search for"), text=self.searchTitle)
 
-    def newSearchFinished(self, text = None):
+    def newSearchFinished(self, text=None):
         if text:
             self.searchTitle = text
             self.searchForMovies()
@@ -416,10 +394,10 @@ class TMDbMain(Screen):
         cur = self["list"].getCurrent()
         if cur is not None:
                 self["list"].hide()
-                self["status"].setText(_("Getting movie information for '%s' from TMDb...") % cur[1].encode('utf-8','ignore'))
+                self["status"].setText(_("Getting movie information for '%s' from TMDb...") % cur[1].encode('utf-8', 'ignore'))
                 self["status"].show()
                 tmdb = TMDb()
-                tmdb.getMovieInfo(cur[0],self.getMovieInfoCallback)
+                tmdb.getMovieInfo(cur[0], self.getMovieInfoCallback)
 
     def getMovieInfoCallback(self, movielist, errorString):
         if not errorString:
@@ -433,35 +411,35 @@ class TMDbMain(Screen):
                 self["extended"].show()
                 for movie in movielist:
                     extended = ""
-                    movie_id =  movie["id"]
-                    name =  movie["name"].encode('utf-8','ignore')
-                    description =  movie["overview"]
+                    #movie_id = movie["id"]
+                    name = movie["name"].encode('utf-8', 'ignore')
+                    description = movie["overview"]
                     released = movie["released"]
                     self.setTitle(_("TMDb movie info for: %s") % name)
                     if description:
-                        description_text = description.encode('utf-8','ignore')
+                        description_text = description.encode('utf-8', 'ignore')
                         self["description"].setText(name + "\n\n" + description_text)
                     else:
                         self["description"].setText(name)
                     cur = self["list"].getCurrent()
                     cover = cur[4]
                     if cover:
-                        parts = cover.split("/")
-                        filename = os_path.join(IMAGE_TEMPFILE ,name + '.jpg')
+                        #parts = cover.split("/")
+                        filename = os_path.join(IMAGE_TEMPFILE , name + '.jpg')
                         if not os_path.exists(filename):
-                            download(cover,filename).addErrback(self.errorCoverDownload).addCallback(self.finishedCoverDownload, filename)
+                            download(cover, filename).addErrback(self.errorCoverDownload).addCallback(self.finishedCoverDownload, filename)
                         else:
                             self["cover"].updatecover(filename)
                     if released:
                         extended = (_("Appeared: %s\n") % released)
                     categories = ""
                     for id in movie["categories"]:
-                        categories +=  movie["categories"][id] + ", "
+                        categories += movie["categories"][id] + ", "
                     if categories:
                         extended += _("Genre: %s\n") % categories[:-2] 
                     studios = ""
                     for id in movie["studios"]:
-                        studios +=  movie["studios"][id] + ", "
+                        studios += movie["studios"][id] + ", "
                     if studios:
                         extended += _("Studio: %s\n") % studios[:-2]
                     else:
@@ -469,7 +447,7 @@ class TMDbMain(Screen):
                     director = ""                    
                     for id in movie["cast"]:
                         if movie["cast"][id]["job"] == "Director":
-                            director += movie["cast"][id]["name"]  + ", "
+                            director += movie["cast"][id]["name"] + ", "
                     if director:
                         extended += _("Director: %s") % director[:-2]
                     if extended:
@@ -480,9 +458,9 @@ class TMDbMain(Screen):
         else:
             self["status"].setText(_("Error!\n%s" % errorString))
 
-    def errorCoverDownload(self, error = None):
+    def errorCoverDownload(self, error=None):
         if error is not None:
-            print "[TMDb] Error: ",  str(error.getErrorMessage())
+            print "[TMDb] Error: ", str(error.getErrorMessage())
         self["cover"].hide()
 
     def finishedCoverDownload(self, result, filename):
@@ -505,9 +483,8 @@ class TMDbMain(Screen):
             return
         #self["status"].setText(_("Download and save movie info and cover, please wait..."))
         from EventInformationTable import createEIT
-        from ServiceProvider import ServiceCenter
         cur = self["list"].getCurrent()
-        title = cur[1].encode('utf-8','ignore')
+        title = cur[1].encode('utf-8', 'ignore')
         #title = ServiceCenter.getInstance().info(self.service).getName(self.service)
         if createEIT(self.service.getPath(), title, config.AdvancedMovieSelection.coversize.value) == True:
             self.close(False)
