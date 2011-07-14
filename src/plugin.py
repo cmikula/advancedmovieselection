@@ -27,7 +27,7 @@ from Components.ActionMap import HelpableActionMap
 from MovieSelection import MovieSelection, MovieContextMenu
 from MovieList import eServiceReferenceDvd, MovieList
 from ServiceProvider import CutListSupport
-from MessageBox import MessageBox
+from Screens.MessageBox import MessageBox
 from Screens.InfoBar import InfoBar, MoviePlayer
 from Tools.Directories import fileExists, resolveFilename, SCOPE_HDD
 from Components.config import config, ConfigSubsection, ConfigText, ConfigYesNo, ConfigInteger, ConfigSelection
