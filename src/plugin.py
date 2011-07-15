@@ -19,7 +19,7 @@
 #  modify it (if you keep the license), but it may not be commercially 
 #  distributed other than under the conditions noted above.
 #
-from __init__ import _, localeInit
+from __init__ import _
 from Plugins.Plugin import PluginDescriptor
 from Components.PluginComponent import plugins
 from Components.Button import Button
@@ -32,16 +32,16 @@ from Screens.InfoBar import InfoBar, MoviePlayer
 from Tools.Directories import fileExists, resolveFilename, SCOPE_HDD
 from Components.config import config, ConfigSubsection, ConfigText, ConfigYesNo, ConfigInteger, ConfigSelection
 from AdvancedMovieSelectionSetup import AdvancedMovieSelectionSetup
-from enigma import ePoint, eTimer
+from enigma import ePoint 
 from Rename import MovieRetitle
+#from skin import loadSkin
+#loadSkin("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/skin/skin.xml")
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
-    from Plugins.Extensions.IMDb.plugin import IMDB
     IMDbPresent = True
 else:
     IMDbPresent = False
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/OFDb/plugin.pyo"):
-    from Plugins.Extensions.OFDb.plugin import OFDB
     OFDbPresent = True
 else:
     OFDbPresent = False
@@ -101,7 +101,6 @@ launch_choices = [    ("None", _("No override")),
                             ("showMovies", _("Video-button")),
                             ("showTv", _("TV-button")),
                             ("showRadio", _("Radio-button")),
-                            #("openQuickbutton", _("Quick-button")),
                             ("timeshiftStart", _("Timeshift-button"))]
 config.AdvancedMovieSelection.movie_launch = ConfigSelection(default="showMovies", choices=launch_choices)
 config.AdvancedMovieSelection.askdelete = ConfigYesNo(default=True)
@@ -473,7 +472,7 @@ def nostart(reason, **kwargs):
     pass
 
 def Plugins(**kwargs):
-    localeInit()
+#    localeInit()
     if not config.AdvancedMovieSelection.ml_disable.value:
         descriptors = [PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=autostart)]
         descriptors.append(PluginDescriptor(name="MovieRetitle", description=_("Rename"), where=PluginDescriptor.WHERE_MOVIELIST, fnc=rename))

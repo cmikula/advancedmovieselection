@@ -24,14 +24,15 @@ from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
 from Screens.ChoiceBox import ChoiceBox
 from Screens.LocationBox import MovieLocationBox
-from enigma import eServiceCenter, iServiceInformation, eConsoleAppContainer
+from enigma import eServiceCenter, iServiceInformation
+from Screens.Console import Console as eConsoleAppContainer
 from Components.config import config
 from Components.UsageConfig import defaultMoviePath
 from Tools.Directories import createDir
 import os
 
 class MovieMove(Screen):
-    def __init__(self, session, service): #, args = 0):
+    def __init__(self, session, service):
         self.session = session
         self.service = service
         Screen.__init__(self, session)
@@ -55,8 +56,6 @@ class MovieMove(Screen):
         cbkeys.append("blue")
         listpath.append((_("Directory Selection"), _("Directory Selection"), "", ""))
         cbkeys.append("yellow")
-        #listpath.append((_("Create new directory"),_("Create new directory"),"",""))
-        #cbkeys.append("green")
         listpath.append((_("Show active move/copy processes"), _("Show active move/copy processes"), "", ""))
         cbkeys.append("green")
 
@@ -64,7 +63,6 @@ class MovieMove(Screen):
             listpath.append((_("Remove ' %s '") % config.movielist.last_videodir.value, ("Verzeichnis entfernen ...", "", "")))
             cbkeys.append("red")
         self.session.openWithCallback(self.SelectPathConfirmed, ChoiceBox, title=(_("Where to ' %s ' are moved/copied ?") % (self.name)), list=listpath, keys=cbkeys)
-        #self.listpath_pathes = listpath
 
     def SelectPathConfirmed(self, answer):
         if answer is not None:
@@ -72,8 +70,6 @@ class MovieMove(Screen):
                 self.gotFilename(config.AdvancedMovieSelection.movecopydirs.value)
             elif answer[0] == _("Directory Selection"):
                 self.session.openWithCallback(self.gotFilename, MovieLocationBox, _("Please select the move/copy destination"), config.movielist.last_videodir.value)
-            #elif answer[0]== _("Create new directory"):
-            #    self.session.openWithCallback(self.SelectedParentDir,ChoiceBox, title=_("In which directory to the subdirectory created ?"), list = self.listpath_pathes)
             elif answer[0] == _("Show active move/copy processes"):
                 tmp_out = os.popen("ps -ef | grep -e \"   [c]p /\" -e \"   [m]v /\"").readlines()
                 tmpline = ""
@@ -92,11 +88,6 @@ class MovieMove(Screen):
                 self.gotFilename(defaultMoviePath())
             else:
                 self.gotFilename(answer[1][2])
-
-#    def SelectedParentDir(self,SelectedParent):
-#        if SelectedParent is not None and SelectedParent <> "":
-#            self.ParentDir = SelectedParent[1][2]
-#            self.session.openWithCallback(self.CreateConfirmedPath,InputBox,(_("Create in ' %s '") % self.ParentDir), text=_("New Directory"))
                                     
     def CreateConfirmedPath(self, DirToCreate):
         if DirToCreate is not None and DirToCreate <> "":
@@ -131,7 +122,6 @@ class MovieMove(Screen):
                 elif confirmed[1] == "VH":
                     self.container = eConsoleAppContainer()
                     self.container.execute("mv \"%s/%s.\"* \"%s\" &" % (self.sourcepath, self.moviename, self.destinationpath))
-                    #os.system("mv \"%s/%s.\"* \"%s\" &" % (self.sourcepath,self.moviename,self.destinationpath))
                     self.session.openWithCallback(self.DoneBackground, MessageBox, _("Moving in the background.\n\nThe movie list appears updated after full completion."), MessageBox.TYPE_INFO, timeout=12)
                 elif confirmed[1] == "KS":
                     os.system("cp \"%s/%s.\"* \"%s\"" % (self.sourcepath, self.moviename, self.destinationpath))

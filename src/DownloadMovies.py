@@ -37,9 +37,8 @@ import tmdb, urllib
 from Components.config import config
 from Screens.VirtualKeyBoard import VirtualKeyBoard
 import os
-from skin import loadSkin
-
-loadSkin("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/skin/skin.xml")
+#from skin import loadSkin
+#loadSkin("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/skin/skin.xml")
 
 is_hidden = False
 this_session = None

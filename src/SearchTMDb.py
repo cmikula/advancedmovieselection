@@ -20,10 +20,9 @@
 #  distributed other than under the conditions noted above.
 #
 from __init__ import _
-from twisted.internet import defer
 import xml.etree.cElementTree
 from twisted.web.client import downloadPage, getPage
-from enigma import RT_WRAP, RT_VALIGN_CENTER, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, RT_HALIGN_CENTER, gFont, eListbox, eListboxPythonMultiContent
+from enigma import RT_WRAP, RT_VALIGN_CENTER, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, gFont, eListbox, eListboxPythonMultiContent
 from Components.GUIComponent import GUIComponent
 from Screens.Screen import Screen
 from Components.ActionMap import ActionMap
@@ -42,9 +41,6 @@ from Components.config import config
 from shutil import rmtree as shutil_rmtree
 from enigma import getDesktop
 from collections import defaultdict
-
-from skin import loadSkin
-loadSkin("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/skin/skin.xml")
 
 tmdb_logodir = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images"
 IMAGE_TEMPFILE = "/tmp/cover_temp"

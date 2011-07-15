@@ -29,9 +29,8 @@ from enigma import getDesktop
 import os
 from Components.config import config
 from ServiceProvider import eServiceReferenceDvd
-
-from skin import loadSkin
-loadSkin("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/skin/skin.xml")
+#from skin import loadSkin
+#loadSkin("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/skin/skin.xml")
 
 nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover.jpg")
 

@@ -29,7 +29,9 @@ from Components.config import config, ConfigText, ConfigSelection, getConfigList
 from Components.ActionMap import ActionMap
 from Components.ConfigList import ConfigListScreen
 from Components.Sources.StaticText import StaticText
-from enigma import eTimer, eServiceCenter, iServiceInformation, eConsoleAppContainer
+from enigma import  eServiceCenter, iServiceInformation
+from Screens.Console import eConsoleAppContainer
+from timer import eTimer
 from os import path as os_path, rename as os_rename, unlink as os_unlink
 
 class MovieRetitle(Screen, ConfigListScreen):
@@ -267,7 +269,8 @@ class MovieRetitleBackgroundMover:
 			self.moveMovieFilesBackground(self.queue[0])
 
 	def runDone(self, retval):
-		ele = self.queue[0]
+		self.queue[0]
+#		ele = self.queue[0]
 		self.queue = self.queue[1:]
 		self.runNext()
 

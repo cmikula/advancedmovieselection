@@ -30,9 +30,8 @@ from Components.AVSwitch import AVSwitch
 from Tools.Directories import fileExists
 from ServiceProvider import ServiceEvent
 import os
-from skin import loadSkin
-
-loadSkin("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/skin/skin.xml")
+#from skin import loadSkin
+#loadSkin("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/skin/skin.xml")
 
 nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_info.jpg")
 

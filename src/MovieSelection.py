@@ -26,7 +26,6 @@ from Screens.Screen import Screen
 from Components.Button import Button
 from Components.ActionMap import HelpableActionMap, ActionMap, NumberActionMap
 from Components.MenuList import MenuList
-from Components.Sources.List import List
 from Components.Sources.StaticText import StaticText
 from Screens.HelpMenu import HelpableScreen
 from MovieList import MovieList
@@ -34,23 +33,26 @@ from MovieSearch import MovieSearchScreen
 from Components.DiskInfo import DiskInfo
 from Components.Pixmap import Pixmap
 from Components.Label import Label
-from Components.config import config, ConfigSubsection, ConfigText, ConfigInteger, ConfigLocations, ConfigSet, ConfigYesNo, ConfigSelection, getConfigListEntry, configfile
+from Components.config import config, ConfigSubsection, ConfigText, ConfigInteger, ConfigLocations, ConfigSet
 from Components.UsageConfig import defaultMoviePath
 from Plugins.Plugin import PluginDescriptor
-from Components.ConfigList import ConfigList, ConfigListScreen
 from Screens.MessageBox import MessageBox
 from Screens.ChoiceBox import ChoiceBox
 from Screens.LocationBox import MovieLocationBox
 from AdvancedMovieSelectionSetup import AdvancedMovieSelectionSetup, AdvancedMovieSelectionButtonSetup
-from Tools.Directories import *
 from Tools.BoundFunction import boundFunction
-from enigma import eServiceReference, eServiceCenter, eSize, ePoint, eTimer, eConsoleAppContainer
+from Tools.Directories import resolveFilename, fileExists, SCOPE_HDD
+from enigma import eServiceReference, eServiceCenter, eSize, ePoint
+from Screens.Console import eConsoleAppContainer
+from timer import eTimer
 from ServiceProvider import ServiceEvent
 from MoveCopy import MovieMove
 from Rename import MovieRetitle
 from SearchTMDb import TMDbMain as TMDbMainsave
 from MoviePreview import MoviePreview
 from DownloadMovies import DownloadMovies
+#from skin import loadSkin
+#loadSkin("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/skin/skin.xml")
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
     from Plugins.Extensions.IMDb.plugin import IMDB
@@ -67,9 +69,6 @@ if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/TMDb/plugin.pyo"):
     TMDbPresent = True
 else:
     TMDbPresent = False
-
-from skin import loadSkin
-loadSkin("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/skin/skin.xml")
 
 config.movielist = ConfigSubsection()
 config.movielist.moviesort = ConfigInteger(default=MovieList.SORT_ALPHANUMERIC)

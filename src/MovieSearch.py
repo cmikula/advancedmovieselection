@@ -29,7 +29,7 @@ class MovieSearchScreen:
     def __init__(self, session):
         try:
             csel = session.current_dialog.csel
-            movieList = csel["list"].list # just to check for existence
+#            movieList = csel["list"].list # just to check for existence
         except Exception:
             csel = None
 
