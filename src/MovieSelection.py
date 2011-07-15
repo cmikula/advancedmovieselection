@@ -365,8 +365,12 @@ class MovieContextMenu(Screen):
         try:
             eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".cuts")
             eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".eit")
-            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".ts.meta")
             eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".jpg")
+            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".ts.meta")
+            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".ts.cutsr")
+            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".ts.gm")
+            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".ts.sc")
+            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".ts.ap")
             eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath())
         except Exception, e:
             print "Exception deleting files: " + str(e)
@@ -374,17 +378,21 @@ class MovieContextMenu(Screen):
         title = self.service.getPath()
         if title.endswith(".ts"):
             movietitle = title[:-3]
-        elif title.endswith(".mp4"):
+        elif title.endswith(".mp4") or title.endswith(".avi") or title.endswith(".mkv") or title.endswith(".mov") or title.endswith(".flv") or title.endswith(".m4v") or title.endswith(".mpg") or title.endswith(".iso"):
             movietitle = title[:-4]
         elif title.endswith(".divx") or title.endswith(".m2ts") or title.endswith(".mpeg"):
             movietitle = title[:-5]
         else:
             movietitle = title
         container = eConsoleAppContainer()
+        eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".cuts")
         eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".eit")
         eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".jpg")
+        eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".ts.meta")
         eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".ts.cutsr")
-        eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".ts.gm")
+        eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".ts.gm")        
+        eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".ts.sc")
+        eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".ts.ap")
         eConsoleAppContainer().execute("rm -f '%s'" % movietitle)
         if eServiceReferenceDvd.mustDescent:
             container = eConsoleAppContainer()
@@ -437,7 +445,7 @@ class MovieContextMenu(Screen):
             title = self.service.getPath()
             if title.endswith(".ts"):
                 movietitle = title[:-3]
-            elif title.endswith(".mp4"):
+            elif title.endswith(".mp4") or title.endswith(".avi") or title.endswith(".mkv") or title.endswith(".mov") or title.endswith(".flv") or title.endswith(".m4v") or title.endswith(".mpg") or title.endswith(".iso"):
                 movietitle = title[:-4]
             elif title.endswith(".divx") or title.endswith(".m2ts") or title.endswith(".mpeg"):
                 movietitle = title[:-5]
@@ -480,7 +488,7 @@ class MovieContextMenu(Screen):
             title = self.service.getPath()
             if title.endswith(".ts"):
                 movietitle = title[:-3]
-            elif title.endswith(".mp4"):
+            elif title.endswith(".mp4") or title.endswith(".avi") or title.endswith(".mkv") or title.endswith(".mov") or title.endswith(".flv") or title.endswith(".m4v") or title.endswith(".mpg") or title.endswith(".iso"):
                 movietitle = title[:-4]
             elif title.endswith(".divx") or title.endswith(".m2ts") or title.endswith(".mpeg"):
                 movietitle = title[:-5]
@@ -522,7 +530,7 @@ class MovieContextMenu(Screen):
             title = self.service.getPath()
             if title.endswith(".ts"):
                 movietitle = title[:-3]
-            elif title.endswith(".mp4"):
+            elif title.endswith(".mp4") or title.endswith(".avi") or title.endswith(".mkv") or title.endswith(".mov") or title.endswith(".flv") or title.endswith(".m4v") or title.endswith(".mpg") or title.endswith(".iso"):
                 movietitle = title[:-4]
             elif title.endswith(".divx") or title.endswith(".m2ts") or title.endswith(".mpeg"):
                 movietitle = title[:-5]
@@ -711,19 +719,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview):
             self["list"].instance.resize(eSize(self.listWidth, self.listHeight))
 
     def showEventInformation(self):
-#        event = self["list"].getCurrentEvent()
-#        if event is not None and config.AdvancedMovieSelection.AskEventinfo.value and IMDbPresent and OFDbPresent and TMDbPresent:
-#            self.session.openWithCallback(self.showConfirmedInfo, ChoiceBox, title=(_("Select Info type...")), list=[(_("Standard EPG info"),"Ei"),(_("TMDb info"),"Ti"),(_("IMDb info"),"Ii"),(_("OFDb info"),"Oi")])      
-#        else:
-#            if event is not None and config.AdvancedMovieSelection.AskEventinfo.value and IMDbPresent and not OFDbPresent and not TMDbPresent:
-#                self.session.openWithCallback(self.showConfirmedInfo, ChoiceBox, title=(_("Select Info type...")), list=[(_("Standard EPG info"), "Ei"),(_("IMDb info"), "Ii")])
-#            else:
-#                if event is not None and config.AdvancedMovieSelection.AskEventinfo.value and OFDbPresent and not IMDbPresent and not TMDbPresent:
-#                    self.session.openWithCallback(self.showConfirmedInfo, ChoiceBox, title=(_("Select Info type...")), list=[(_("Standard EPG info"), "Ei"),(_("OFDb info"), "Oi")])  
-#                else:
-#                    if event is not None and config.AdvancedMovieSelection.AskEventinfo.value and TMDbPresent and not IMDbPresent and not OFDbPresent:
-#                        self.session.openWithCallback(self.showConfirmedInfo, ChoiceBox, title=(_("Select Info type...")), list=[(_("Standard EPG info"), "Ei"),(_("TMDb info"), "Ti")])
-#                    else:
         if IMDbPresent and OFDbPresent and TMDbPresent and config.AdvancedMovieSelection.Eventinfotyp.value == "Ei":
             self.showConfirmedInfo([None, "Ei"])
         elif IMDbPresent and OFDbPresent and TMDbPresent and config.AdvancedMovieSelection.Eventinfotyp.value == "Ti":
@@ -776,19 +771,12 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview):
         answer = answer and answer[1]
         if answer == "Ei":
             if event is not None:
-                #if config.AdvancedMovieSelection.showpreview.value:
                 from AdvancedMovieSelectionEventView import EventViewSimple
                 from ServiceReference import ServiceReference
                 serviceref = self.getCurrent()
                 evt = self["list"].getCurrentEvent()
                 if evt:
                     self.session.open(EventViewSimple, evt, serviceref, ServiceReference(self.getCurrent()))
-                #else:
-                    #from Screens.EventView import EventViewSimple
-                    #from ServiceReference import ServiceReference
-                    #evt = self["list"].getCurrentEvent()
-                    #if evt:
-                        #self.session.open(EventViewSimple, evt, ServiceReference(self.getCurrent()))
         if answer == "Ii":
             if event is not None:
                 IeventName = event.getEventName()
