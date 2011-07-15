@@ -51,6 +51,7 @@ from Rename import MovieRetitle
 from SearchTMDb import TMDbMain as TMDbMainsave
 from MoviePreview import MoviePreview
 from DownloadMovies import DownloadMovies
+from ServiceProvider import eServiceReferenceDvd
 #from skin import loadSkin
 #loadSkin("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/skin/skin.xml")
 
@@ -366,31 +367,40 @@ class MovieContextMenu(Screen):
             eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".eit")
             eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".ts.meta")
             eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".jpg")
+            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath())
         except Exception, e:
             print "Exception deleting files: " + str(e)
         result = False
         title = self.service.getPath()
         if title.endswith(".ts"):
             movietitle = title[:-3]
+        elif title.endswith(".mp4"):
+            movietitle = title[:-4]
         elif title.endswith(".divx") or title.endswith(".m2ts") or title.endswith(".mpeg"):
             movietitle = title[:-5]
         else:
-            movietitle = title[:-4]
+            movietitle = title
         container = eConsoleAppContainer()
         eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".eit")
         eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".jpg")
         eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".ts.cutsr")
         eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".ts.gm")
-        if self.service.flags & eServiceReference.mustDescent:
+        eConsoleAppContainer().execute("rm -f '%s'" % movietitle)
+        if eServiceReferenceDvd.mustDescent:
             container = eConsoleAppContainer()
             container.execute("rm -rf '%s'" % self.service.getPath())
             result = True
         else:
-            serviceHandler = eServiceCenter.getInstance()
-            offline = serviceHandler.offlineOperations(self.service)
-            if offline is not None:
-                if not offline.deleteFromDisk(0):
-                    result = True
+            if self.service.flags & eServiceReference.mustDescent:
+                container = eConsoleAppContainer()
+                container.execute("rm -rf '%s'" % self.service.getPath())
+                result = True
+            else:
+                serviceHandler = eServiceCenter.getInstance()
+                offline = serviceHandler.offlineOperations(self.service)
+                if offline is not None:
+                    if not offline.deleteFromDisk(0):
+                        result = True
         if result == False:
             self.session.openWithCallback(self.close, MessageBox, _("Delete failed!"), MessageBox.TYPE_ERROR)
         else:
@@ -427,10 +437,12 @@ class MovieContextMenu(Screen):
             title = self.service.getPath()
             if title.endswith(".ts"):
                 movietitle = title[:-3]
+            elif title.endswith(".mp4"):
+                movietitle = title[:-4]
             elif title.endswith(".divx") or title.endswith(".m2ts") or title.endswith(".mpeg"):
                 movietitle = title[:-5]
             else:
-                movietitle = title[:-4]
+                movietitle = title
             eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".eit")
             eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".jpg")
             self.csel.updateDescription()
@@ -455,7 +467,7 @@ class MovieContextMenu(Screen):
                     result = True
         if result == True:
             if config.AdvancedMovieSelection.askdelete.value:
-                self.session.openWithCallback(self.deletecoverConfirmed, MessageBox, _("Do you really want to delete info/cover from:\n%s ?") % (name))
+                self.session.openWithCallback(self.deletecoverConfirmed, MessageBox, _("Do you really want to delete cover from:\n%s ?") % (name))
             else:
                 self.deletecoverConfirmed(True)
         else:
@@ -468,10 +480,12 @@ class MovieContextMenu(Screen):
             title = self.service.getPath()
             if title.endswith(".ts"):
                 movietitle = title[:-3]
+            elif title.endswith(".mp4"):
+                movietitle = title[:-4]
             elif title.endswith(".divx") or title.endswith(".m2ts") or title.endswith(".mpeg"):
                 movietitle = title[:-5]
             else:
-                movietitle = title[:-4]
+                movietitle = title
             eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".jpg")
             self.csel.updateDescription()
             self.csel["freeDiskSpace"].update()
@@ -495,7 +509,7 @@ class MovieContextMenu(Screen):
                     result = True
         if result == True:
             if config.AdvancedMovieSelection.askdelete.value:
-                self.session.openWithCallback(self.deleteinfosConfirmed, MessageBox, _("Do you really want to delete info/cover from:\n%s ?") % (name))
+                self.session.openWithCallback(self.deleteinfosConfirmed, MessageBox, _("Do you really want to delete movie info from:\n%s ?") % (name))
             else:
                 self.deleteinfosConfirmed(True)
         else:
@@ -508,10 +522,12 @@ class MovieContextMenu(Screen):
             title = self.service.getPath()
             if title.endswith(".ts"):
                 movietitle = title[:-3]
+            elif title.endswith(".mp4"):
+                movietitle = title[:-4]
             elif title.endswith(".divx") or title.endswith(".m2ts") or title.endswith(".mpeg"):
                 movietitle = title[:-5]
             else:
-                movietitle = title[:-4]
+                movietitle = title
             eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".eit")
             self.csel.updateDescription()
             self.csel["freeDiskSpace"].update()
