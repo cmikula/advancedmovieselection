@@ -838,7 +838,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview):
                 self.gotFilename(current.getPath())
             else:
                 self.saveconfig()
-                from plugin import eServiceReferenceDvd, PlayerInstance
+                from plugin import PlayerInstance
                 if isinstance(current, eServiceReferenceDvd):
                     from plugin import movieSelected
                     movieSelected(self, current)
