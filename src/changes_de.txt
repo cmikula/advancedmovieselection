@@ -69,6 +69,9 @@ version: 1.2
 * neu: mini tv kann ein/aus geschalten werden
 * fix: überschneiden von texten in der filmliste bei "komischen" schriften :)
 * fix: einstellung des sendernamens wurde nicht permanent gespeichert
+* fix: coveranzeige bei dvd dateistruktur
+* fix: meta datei wurde bei dvd dateistruktur falsch erzeugt
+* fix: eit datei erstellung wenn titel <= 2 ziffern/buchstaben
 ACHTUNG an die skinner, neue screens sind dazu gekommen
 
 
