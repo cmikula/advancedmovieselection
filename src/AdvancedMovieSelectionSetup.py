@@ -35,7 +35,7 @@ from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Screens.LocationBox import MovieLocationBox
 from Components.UsageConfig import preferredPath
 from Screens.MessageBox import MessageBox
-from MessageBox import MessageBox as MessageBoxEx
+from MessageBoxEx import MessageBoxEx
 from Components.Sources.List import List
 from Components.ActionMap import ActionMap
 from enigma import getDesktop, quitMainloop
