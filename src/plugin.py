@@ -290,8 +290,6 @@ class MoviePlayerExtended(MoviePlayer, CutListSupport):
     def __init__(self, session, service):
         CutListSupport.__init__(self, service)
         MoviePlayer.__init__(self, session, service)
-        MoviePlayer.showMovies = self.showMovies
-        MoviePlayer.leavePlayerConfirmed = self.leavePlayerConfirmed
         self.skinName = "MoviePlayer"
         self.addPlayerEvents()
         global PlayerInstance
