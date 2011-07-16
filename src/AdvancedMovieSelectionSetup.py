@@ -117,6 +117,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.Dateformat = None
         self.Shownew = None
         self.MiniTV = None
+        self.UseFolderName = None
         self.needsRestartFlag = False
         self.needsReopenFlag = False
         self["setupActions"] = ActionMap(["ColorActions", "OkCancelActions", "MenuActions", "EPGSelectActions"],
@@ -239,6 +240,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.Dateformat = getConfigListEntry(_("Assign the date format for movielist:"), config.AdvancedMovieSelection.dateformat)
         self.Shownew = getConfigListEntry(_("Show new recordings icon:"), config.AdvancedMovieSelection.shownew)
         self.MiniTV = getConfigListEntry(_("Show Mini TV:"), config.AdvancedMovieSelection.minitv)
+        self.UseFolderName = getConfigListEntry(_("Use folder name for display covers:"), config.AdvancedMovieSelection.usefoldername)
         self.list.append(self.OnOff)
         self.list.append(self.Startwith)
         self.list.append(self.StartDir)
@@ -258,10 +260,11 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append(self.ShowPreview)
         if config.AdvancedMovieSelection.showpreview.value:
             self.list.append(self.Coversize)
+            self.list.append(self.UseFolderName)
             self.list.append(self.ShowCoverOptions)
             self.list.append(self.ShowDelInfoCover)
             self.list.append(self.ShowDelCover)
-            self.list.append(self.ShowDelInfo)            
+            self.list.append(self.ShowDelInfo)
         self.list.append(self.ShowRename)
         self.list.append(self.ShowTMDb)
         self.list.append(self.MovieLength)
@@ -391,6 +394,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self["help"].setText(_("With this option you can display a icon for new recordings."))
         elif current == self.MiniTV:
             self["help"].setText(_("With this option you can switch on/off the Mini TV in the movie list."))
+        elif current == self.UseFolderName:
+            self["help"].setText(_("With this option you can use the foldername instead of folder.jpg to display covers in folders."))
 
     def pluginsavailable(self):
         if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):

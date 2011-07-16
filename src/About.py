@@ -27,8 +27,6 @@ from Tools.Directories import fileExists
 from Components.Pixmap import Pixmap
 from Components.ActionMap import ActionMap
 from enigma import getDesktop
-#from skin import loadSkin
-#loadSkin("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/skin/skin.xml")
 
 changestxt = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/changes_de.txt"
 
@@ -52,7 +50,7 @@ class AdvancedMovieSelectionAbout(Screen):
             "back": self.exit,
             "ok": self.exit,
         }, -1)
-        self["version"] = StaticText(_("Version:\n") + '  1.2')
+        self["version"] = StaticText(_("Version:\n") + '  1.3')
         self["author"] = StaticText(_("Developer:\n  JackDaniel, cmikula"))
         self["translation"] = StaticText(_("Thanks for translation to:\n") + '  nl=Bschaar')
         self["license"] = StaticText(_("This plugin may only executed on hardware which is licensed by Dream Multimedia GmbH."))

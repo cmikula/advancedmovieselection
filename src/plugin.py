@@ -34,8 +34,6 @@ from Components.config import config, ConfigSubsection, ConfigText, ConfigYesNo,
 from AdvancedMovieSelectionSetup import AdvancedMovieSelectionSetup
 from enigma import ePoint 
 from Rename import MovieRetitle
-#from skin import loadSkin
-#loadSkin("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/skin/skin.xml")
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
     IMDbPresent = True
@@ -64,6 +62,7 @@ else:
     CoolTVGuidePresent = False
 
 config.AdvancedMovieSelection = ConfigSubsection()
+config.AdvancedMovieSelection.usefoldername = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.minitv = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.shownew = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.dateformat = ConfigSelection(default="6" , choices=[("6" , _("German (without Year)")), ("1" , _("German (with Year)")), ("3" , _("German (with Starttime)")), ("2" , _("Enigma 2 default")), ("7" , _("English (without Year)")), ("4" , _("English (with Year)")), ("5" , _("English (with Starttime)"))])
@@ -451,7 +450,6 @@ def autostart(reason, **kwargs):
                 if value == "showMovies": InfoBar.showMovies = showMovies
                 elif value == "showTv": InfoBar.showTv = showMovies
                 elif value == "showRadio": InfoBar.showRadio = showMovies
-                #elif value == "openQuickbutton": InfoBar.openQuickbutton = showMovies
                 elif value == "timeshiftStart": InfoBar.startTimeshift = showMovies
             except:
                 pass
@@ -472,7 +470,6 @@ def nostart(reason, **kwargs):
     pass
 
 def Plugins(**kwargs):
-#    localeInit()
     if not config.AdvancedMovieSelection.ml_disable.value:
         descriptors = [PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=autostart)]
         descriptors.append(PluginDescriptor(name="MovieRetitle", description=_("Rename"), where=PluginDescriptor.WHERE_MOVIELIST, fnc=rename))

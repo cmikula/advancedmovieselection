@@ -29,9 +29,6 @@ from enigma import getDesktop
 import os
 from Components.config import config
 from ServiceProvider import eServiceReferenceDvd
-#from skin import loadSkin
-#loadSkin("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/skin/skin.xml")
-
 nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover.jpg")
 
 class MovielistPreview(Screen):
@@ -73,18 +70,22 @@ class MoviePreview():
         self.hideDialog()
         if serviceref:
             path = serviceref.getPath()
-            print "Preview " + path
-            # DVD directory
+            #print "Preview " + path
             if os.path.isfile(path):
                 path = os.path.splitext(path)[0] + ".jpg"
-                print "Preview 1" + path
+                #print "Preview 1" + path
             elif isinstance(serviceref, eServiceReferenceDvd):
                 path = path + ".jpg"
-                print "Preview 2" + path
+                #print "Preview 2" + path
+            elif config.AdvancedMovieSelection.usefoldername.value:
+                path = path
+                #print "Preview 3" + path
+                if path.endswith("/"):
+                    path = path[:-1] + ".jpg"
             else:
                 path = path + "folder.jpg"
-                print "Preview 3" + path
-            
+                #print "Preview 4" + path                
+        
             if fileExists(path):
                 self.showDialog()
                 self.working = True
@@ -103,7 +104,7 @@ class MoviePreview():
                 self.picload.setPara((self.dialog["preview"].instance.size().width(), self.dialog["preview"].instance.size().height(), sc[0], sc[1], False, 1, "#00000000"))
                 self.dialog.hide()
                 self.picload.startDecode(nocover)
-            
+                
     def showPreviewCallback(self, picInfo=None):
         if picInfo and self.working:
             ptr = self.picload.getData()
