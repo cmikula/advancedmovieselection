@@ -328,7 +328,7 @@ class CutListSupport:
 	def __init__(self, service):
 		self.currentService = service
 		self.downloadCuesheet = self.downloadCutList
-		self.uploadCuesheet = self.uploadCutList
+		#self.uploadCuesheet = self.uploadCutList
 
 	def getCuesheet(self):
 		service = self.session.nav.getCurrentService()
@@ -360,12 +360,15 @@ class CutListSupport:
 			if seek is None:
 				print "upload failed, no seek interface"
 				return
-			self.modifyCutListEnries(seek)
+			self.modifyCutListEnries()
 			writeCutList(self.currentService.getPath(), self.cut_list)
 		except Exception, e:
 			print "uploadCutList exception:\n" + str(e)
 
-	def modifyCutListEnries(self, seek):
+	def modifyCutListEnries(self):
+		seek = self.session.nav.getCurrentService().seek()
+		if seek is None:
+			return
 		stopPosition = seek.getPlayPosition()[1]
 		length = seek.getLength()[1]
 		if(stopPosition > length):
@@ -402,7 +405,8 @@ class CutListSupport:
 				if service:
 					self.currentService = service
 				return
-			self.uploadCutList()
+			self.modifyCutListEnries()
+			writeCutList(self.currentService.getPath(), self.cut_list)
 			if service:
 				self.currentService = service
 		except Exception, e:
