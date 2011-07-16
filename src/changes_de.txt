@@ -75,8 +75,9 @@ version: 1.2
 ACHTUNG an die skinner, neue screens sind dazu gekommen
 
 version: 1.3
-* neu: ordnername anstelle von folder.jpg fŸr das anzeigen der covers bei ordnern (kann ein/aus geschalten werden)
+* neu: ordnername anstelle von folder.jpg fŸr das anzeigen der covers bei ordnern (kann in den einstellungen ein/aus geschalten werden)
 * fix: crash beim abspielen Ÿber den gp3 dateimanager wenn zuvor ein film mit der erweiterten filmliste wiedergegeben wurde
-
+* fix: marker wurden nicht angezeigt die mit der taste 0 angelegt wurden
+* fix: bei der e2 standard datumsanzeige in der filmliste wurden das jahr abgeschnitten
 
 

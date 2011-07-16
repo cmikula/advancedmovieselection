@@ -108,7 +108,7 @@ class MovieList(GUIComponent):
         if config.AdvancedMovieSelection.color1.value == "yellow":
             newcolor1 = 0xffcc00
         if config.AdvancedMovieSelection.color1.value == "blue":
-            newcolor1 = 0x0000cd
+            newcolor1 = 0x8585ff
         if config.AdvancedMovieSelection.color1.value == "red":
             newcolor1 = 0xff4A3C
         if config.AdvancedMovieSelection.color1.value == "black":
@@ -118,7 +118,7 @@ class MovieList(GUIComponent):
         if config.AdvancedMovieSelection.color2.value == "yellow":
             newcolor2 = 0xffcc00
         if config.AdvancedMovieSelection.color2.value == "blue":
-            newcolor2 = 0x0000cd
+            newcolor2 = 0x8585ff
         if config.AdvancedMovieSelection.color2.value == "red":
             newcolor2 = 0xff4A3C
         if config.AdvancedMovieSelection.color2.value == "black":
@@ -128,7 +128,7 @@ class MovieList(GUIComponent):
         if config.AdvancedMovieSelection.color3.value == "yellow":
             newcolor3 = 0xffcc00
         if config.AdvancedMovieSelection.color3.value == "blue":
-            newcolor3 = 0x0000cd
+            newcolor3 = 0x8585ff
         if config.AdvancedMovieSelection.color3.value == "red":
             newcolor3 = 0xff4A3C
         if config.AdvancedMovieSelection.color3.value == "black":
@@ -398,11 +398,11 @@ class MovieList(GUIComponent):
             if self.tags:
                 res.append(MultiContentEntryText(pos=(width - 180, 0), size=(180, 30), font=2, flags=RT_HALIGN_RIGHT, text=tags, color=color))
                 if service is not None:
-                    res.append(MultiContentEntryText(pos=(300, 50), size=(200, 20), font=1, flags=RT_HALIGN_LEFT, text=service.getServiceName(), color=color))
+                    res.append(MultiContentEntryText(pos=(300, 50), size=(200, 25), font=1, flags=RT_HALIGN_LEFT, text=service.getServiceName(), color=color))
             else:
                 if service is not None:
                     res.append(MultiContentEntryText(pos=(width - 180, 0), size=(180, 30), font=2, flags=RT_HALIGN_RIGHT, text=service.getServiceName(), color=color))
-                res.append(MultiContentEntryText(pos=(0 + offset, 28), size=(width, 20), font=1, flags=RT_HALIGN_LEFT, text=description, color=color))
+                res.append(MultiContentEntryText(pos=(0 + offset, 28), size=(width, 25), font=1, flags=RT_HALIGN_LEFT, text=description, color=color))
             if self.show_date == MovieList.SHOW_DATE and self.show_time == MovieList.SHOW_TIME:
                 res.append(MultiContentEntryText(pos=(0 + offset, 55), size=(200, 20), font=1, flags=RT_HALIGN_LEFT, text=begin_string, color=color))
                 res.append(MultiContentEntryText(pos=(width - 200, 55), size=(198, 20), font=1, flags=RT_HALIGN_RIGHT, text=len, color=color))
@@ -417,10 +417,10 @@ class MovieList(GUIComponent):
             res.append(MultiContentEntryText(pos=(0 + offset, 22), size=(width - 212, 17), font=1, flags=RT_HALIGN_LEFT, text=description, color=color))
             if self.show_date == MovieList.SHOW_DATE and config.AdvancedMovieSelection.dateformat.value == "1":
                 res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 170, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
-                res.append(MultiContentEntryText(pos=(width - 80, 4), size=(80, 20), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))                
+                res.append(MultiContentEntryText(pos=(width - 80, 4), size=(80, 20), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))                            
             if self.show_date == MovieList.SHOW_DATE and config.AdvancedMovieSelection.dateformat.value == "2":
                 res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 170, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
-                res.append(MultiContentEntryText(pos=(width - 90, 4), size=(90, 20), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))                
+                res.append(MultiContentEntryText(pos=(width - 130, 4), size=(130, 20), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))                            
             if self.show_date == MovieList.SHOW_DATE and config.AdvancedMovieSelection.dateformat.value == "3":
                 res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 220, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
                 res.append(MultiContentEntryText(pos=(width - 130, 4), size=(130, 20), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))                
@@ -501,7 +501,7 @@ class MovieList(GUIComponent):
             if self.show_date == MovieList.SHOW_DATE and config.AdvancedMovieSelection.dateformat.value == "1":
                 res.append(MultiContentEntryText(pos=(0 + offset + 100, 2), size=(width - (0 + offset + 100 + offsetServiceName) , 25), font=0, flags=RT_HALIGN_LEFT, text=displaytext, color=color))
             if self.show_date == MovieList.SHOW_DATE and config.AdvancedMovieSelection.dateformat.value == "2":
-                res.append(MultiContentEntryText(pos=(0 + offset + 105, 2), size=(width - (0 + offset + 105 + offsetServiceName) , 25), font=0, flags=RT_HALIGN_LEFT, text=displaytext, color=color))
+                res.append(MultiContentEntryText(pos=(0 + offset + 140, 2), size=(width - (0 + offset + 140 + offsetServiceName) , 25), font=0, flags=RT_HALIGN_LEFT, text=displaytext, color=color))
             if self.show_date == MovieList.SHOW_DATE and config.AdvancedMovieSelection.dateformat.value == "3":
                 res.append(MultiContentEntryText(pos=(0 + offset + 165, 2), size=(width - (0 + offset + 165 + offsetServiceName) , 25), font=0, flags=RT_HALIGN_LEFT, text=displaytext, color=color))
             if self.show_date == MovieList.SHOW_DATE and config.AdvancedMovieSelection.dateformat.value == "4":
@@ -526,11 +526,11 @@ class MovieList(GUIComponent):
             if self.show_date == MovieList.SHOW_DATE and self.show_time == MovieList.SHOW_TIME and config.AdvancedMovieSelection.dateformat.value == "1":
                 res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 235, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
                 res.append(MultiContentEntryText(pos=(width - 145, 5), size=(80, 25), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))
-                res.append(MultiContentEntryText(pos=(width - 60, 5), size=(60, 25), font=1, flags=RT_HALIGN_RIGHT, text=len2, color=color))                             
+                res.append(MultiContentEntryText(pos=(width - 60, 5), size=(60, 25), font=1, flags=RT_HALIGN_RIGHT, text=len2, color=color))                                                     
             if self.show_date == MovieList.SHOW_DATE and self.show_time == MovieList.SHOW_TIME and config.AdvancedMovieSelection.dateformat.value == "2":
                 res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 240, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
-                res.append(MultiContentEntryText(pos=(width - 155, 5), size=(90, 25), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))
-                res.append(MultiContentEntryText(pos=(width - 60, 5), size=(60, 25), font=1, flags=RT_HALIGN_RIGHT, text=len2, color=color))                            
+                res.append(MultiContentEntryText(pos=(width - 190, 5), size=(125, 25), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))
+                res.append(MultiContentEntryText(pos=(width - 60, 5), size=(60, 25), font=1, flags=RT_HALIGN_RIGHT, text=len2, color=color))                                                    
             if self.show_date == MovieList.SHOW_DATE and self.show_time == MovieList.SHOW_TIME and config.AdvancedMovieSelection.dateformat.value == "3":
                 res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 295, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
                 res.append(MultiContentEntryText(pos=(width - 205, 5), size=(140, 25), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))
@@ -573,28 +573,6 @@ class MovieList(GUIComponent):
             if self.show_date == MovieList.SHOW_DATE and self.show_time == MovieList.HIDE_TIME and config.AdvancedMovieSelection.dateformat.value == "7":
                 res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 130, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
                 res.append(MultiContentEntryText(pos=(width - 50, 4), size=(50, 20), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))             
-            
-#            if self.show_time == MovieList.HIDE_TIME and self.show_date == MovieList.SHOW_DATE and config.AdvancedMovieSelection.dateformat.value == "1":
-#                res.append(MultiContentEntryText(pos=(0+offset, 0), size=(width-90, 25), font = 0, flags = RT_HALIGN_LEFT, text = txt, color = color))
-#                res.append(MultiContentEntryText(pos=(width-80, 4), size=(80, 20), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color = color))                  
-#            if self.show_time == MovieList.HIDE_TIME and self.show_date == MovieList.SHOW_DATE and config.AdvancedMovieSelection.dateformat.value == "2":
-#                res.append(MultiContentEntryText(pos=(0+offset, 0), size=(width-100, 25), font = 0, flags = RT_HALIGN_LEFT, text = txt, color = color))
-#                res.append(MultiContentEntryText(pos=(width-90, 4), size=(90, 20), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color = color))
-#            if self.show_time == MovieList.HIDE_TIME and self.show_date == MovieList.SHOW_DATE and config.AdvancedMovieSelection.dateformat.value == "3":
-#                res.append(MultiContentEntryText(pos=(0+offset, 0), size=(width-150, 25), font = 0, flags = RT_HALIGN_LEFT, text = txt, color = color))
-#                res.append(MultiContentEntryText(pos=(width-140, 4), size=(140, 20), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color = color))
-#            if self.show_time == MovieList.HIDE_TIME and self.show_date == MovieList.SHOW_DATE and config.AdvancedMovieSelection.dateformat.value == "4":
-#                res.append(MultiContentEntryText(pos=(0+offset, 0), size=(width-90, 25), font = 0, flags = RT_HALIGN_LEFT, text = txt, color = color))
-#                res.append(MultiContentEntryText(pos=(width-80, 4), size=(80, 20), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color = color))                 
-#            if self.show_time == MovieList.HIDE_TIME and self.show_date == MovieList.SHOW_DATE and config.AdvancedMovieSelection.dateformat.value == "5":
-#                res.append(MultiContentEntryText(pos=(0+offset, 0), size=(width-150, 25), font = 0, flags = RT_HALIGN_LEFT, text = txt, color = color))
-#                res.append(MultiContentEntryText(pos=(width-140, 4), size=(140, 20), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color = color))           
-#            if self.show_time == MovieList.HIDE_TIME and self.show_date == MovieList.SHOW_DATE and config.AdvancedMovieSelection.dateformat.value == "6":
-#                res.append(MultiContentEntryText(pos=(0+offset, 0), size=(width-60, 25), font = 0, flags = RT_HALIGN_LEFT, text = txt, color = color))
-#                res.append(MultiContentEntryText(pos=(width-50, 4), size=(50, 20), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color = color)) 
-#            if self.show_time == MovieList.HIDE_TIME and self.show_date == MovieList.SHOW_DATE and config.AdvancedMovieSelection.dateformat.value == "7":
-#                res.append(MultiContentEntryText(pos=(0+offset, 0), size=(width-60, 25), font = 0, flags = RT_HALIGN_LEFT, text = txt, color = color))
-#                res.append(MultiContentEntryText(pos=(width-50, 4), size=(50, 20), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color = color)) 
  
             if self.show_time == MovieList.SHOW_TIME and self.show_date == MovieList.HIDE_DATE:
                 res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 150, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
