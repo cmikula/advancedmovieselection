@@ -25,7 +25,7 @@ from Screens.MessageBox import MessageBox
 from Screens.ChoiceBox import ChoiceBox
 from Screens.LocationBox import MovieLocationBox
 from enigma import eServiceCenter, iServiceInformation
-from Screens.Console import Console as eConsoleAppContainer
+from Screens.Console import eConsoleAppContainer
 from Components.config import config
 from Components.UsageConfig import defaultMoviePath
 from Tools.Directories import createDir
