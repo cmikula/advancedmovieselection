@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-07-16 08:15+0100\n"
-"PO-Revision-Date: 2011-07-16 08:21+0100\n"
+"PO-Revision-Date: 2011-07-17 10:15+0100\n"
 "Last-Translator: JackDanie <JackDaniel@i-have-a-dreambox.com>\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
@@ -222,7 +222,7 @@ msgstr "Verhalten beim Filmende:"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:236
 msgid "Show Moviebar position setup in extensions menu from movielist:"
-msgstr "Position ändern der Filminfoleiste im Menü der Filmliste anzeigen:"
+msgstr "Filminfoleiste ändern im Menü der Filmliste anzeigen:"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:237
 msgid "Color for not ready seen movies:"
