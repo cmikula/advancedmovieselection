@@ -40,8 +40,6 @@ from Components.Sources.List import List
 from Components.ActionMap import ActionMap
 from enigma import getDesktop, quitMainloop
 from Tools.Directories import fileExists
-#from skin import loadSkin
-#loadSkin("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/skin/skin.xml")
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
     IMDbPresent = True
@@ -482,7 +480,8 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         self.entryguilist.append(("4", _("Bookmark 1")))
         self.entryguilist.append(("5", _("Bookmark 2")))
         self.entryguilist.append(("6", _("Bookmark 3")))
-        index = 7
+        self.entryguilist.append(("7", _("Show Tags")))
+        index = 8
         self.entryguilist2 = []
         self.entryguilist2.append(("0", _("Nothing")))
         self.entryguilist2.append(("1", _("DM-600PVR")))
@@ -735,6 +734,8 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
             return "5"
         elif value == _("Bookmark 3"):
             return "6"
+        elif value == _("Show Tags"):
+            return "7"
         else:
             return "0"
 

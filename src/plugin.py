@@ -206,6 +206,8 @@ def getPluginCaption(self, pname):
                     else:
                         if config.movielist.moviesort.value == MovieList.SORT_DATE_ASC:
                             return _("Sort alphabetically")
+            elif pname == _("Show Tags"):
+                return _("Show Tags")
             else:
                 for p in plugins.getPlugins(where=[PluginDescriptor.WHERE_MOVIELIST]):
                     if pname == str(p.name):
@@ -241,6 +243,10 @@ def startPlugin(self, pname, index):
                     no_plugin = False
                 elif pname == _("Bookmark 3"):
                     self.gotFilename(bookmark3)
+                    no_plugin = False
+                elif pname == _("Show Tags"):
+                    MCM = MovieSelection(self.session, self) #, current)
+                    MCM.showTagsSelect()
                     no_plugin = False
                 elif pname == _("Sort"):
                     if config.movielist.moviesort.value == MovieList.SORT_ALPHANUMERIC:
