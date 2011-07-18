@@ -52,8 +52,7 @@ from SearchTMDb import TMDbMain as TMDbMainsave
 from MoviePreview import MoviePreview
 from DownloadMovies import DownloadMovies
 from ServiceProvider import eServiceReferenceDvd
-#from skin import loadSkin
-#loadSkin("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/skin/skin.xml")
+from MovieTags import MovieTags
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
     from Plugins.Extensions.IMDb.plugin import IMDB
@@ -204,6 +203,8 @@ class MovieContextMenu(Screen):
                 menu.append((_("Delete movie info"), boundFunction(self.deleteinfos)))
         if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.showcoveroptions.value:
             menu.append((_("Download and save movie info/cover for all movies"), boundFunction(self.downloadMovieInfoAll)))
+        if config.AdvancedMovieSelection.showmovietags.value and not service.flags & eServiceReference.mustDescent:
+            menu.append((_("Movie tags"), boundFunction(self.movietags)))
         if config.AdvancedMovieSelection.showmenu.value:
             menu.append((_("Setup"), boundFunction(self.menusetup)))
         if config.AdvancedMovieSelection.showmenu.value and config.AdvancedMovieSelection.show_infobar_position.value:
@@ -252,6 +253,9 @@ class MovieContextMenu(Screen):
 
     def movecopy(self):
         MovieMove(session=self.session, service=self.service)
+
+    def movietags(self):
+        self.session.open(MovieTags, service=self.service)
 
     def searchmovie(self):
         MovieSearchScreen(session=self.session)
