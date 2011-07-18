@@ -20,7 +20,6 @@
 #  distributed other than under the conditions noted above.
 #
 from __init__ import _
-from Plugins.Plugin import PluginDescriptor
 from Screens.Screen import Screen
 from Components.Label import Label
 from Components.MenuList import MenuList
@@ -29,8 +28,8 @@ from Screens.InputBox import InputBox
 from Screens.MessageBox import MessageBox
 from Components.ActionMap import ActionMap
 from Components.MultiContent import MultiContentEntryText
-from enigma import eServiceReference, eListboxPythonMultiContent, eListbox, eServiceCenter, gFont, iServiceInformation, eServiceReference, getDesktop
-from Tools.Directories import *
+from enigma import eListboxPythonMultiContent, eServiceCenter, gFont, iServiceInformation, eServiceReference, getDesktop
+from Tools.Directories import pathExists, resolveFilename, SCOPE_HDD
 
 class MovieTags(Screen):
     currList = None
@@ -204,7 +203,7 @@ class MovieTags(Screen):
             self.serviceHandler = eServiceCenter.getInstance()
             root = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + resolveFilename(SCOPE_HDD))
             list = self.serviceHandler.list(root)
-            tags = set()
+            set()
             if list is None:
                 pass
             else:

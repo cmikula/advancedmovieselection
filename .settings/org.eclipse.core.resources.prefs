@@ -1,4 +1,4 @@
-#Thu Jul 14 20:44:15 CEST 2011
+#Mon Jul 18 18:05:23 CEST 2011
 eclipse.preferences.version=1
 encoding//src/About.py=utf-8
 encoding//src/AdvancedMovieSelectionEventView.py=utf-8
@@ -10,6 +10,7 @@ encoding//src/MovieList.py=utf-8
 encoding//src/MoviePreview.py=utf-8
 encoding//src/MovieSearch.py=utf-8
 encoding//src/MovieSelection.py=utf-8
+encoding//src/MovieTags.py=utf-8
 encoding//src/NTIVirtualKeyBoard.py=utf-8
 encoding//src/RecordPaths.py=utf-8
 encoding//src/Rename.py=utf-8
