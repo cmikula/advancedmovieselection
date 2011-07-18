@@ -398,7 +398,7 @@ class MovieList(GUIComponent):
             if self.tags:
                 res.append(MultiContentEntryText(pos=(width - 180, 0), size=(180, 30), font=2, flags=RT_HALIGN_RIGHT, text=tags, color=color))
                 if service is not None:
-                    res.append(MultiContentEntryText(pos=(300, 50), size=(200, 25), font=1, flags=RT_HALIGN_LEFT, text=service.getServiceName(), color=color))
+                    res.append(MultiContentEntryText(pos=(300, 55), size=(200, 25), font=1, flags=RT_HALIGN_LEFT, text=service.getServiceName(), color=color))
             else:
                 if service is not None:
                     res.append(MultiContentEntryText(pos=(width - 180, 0), size=(180, 30), font=2, flags=RT_HALIGN_RIGHT, text=service.getServiceName(), color=color))
@@ -462,7 +462,7 @@ class MovieList(GUIComponent):
             if self.tags:
                 res.append(MultiContentEntryText(pos=(width - 200, 22), size=(200, 17), font=1, flags=RT_HALIGN_RIGHT, text=tags, color=color))
                 if service is not None:
-                    res.append(MultiContentEntryText(pos=(200, 22), size=(200, 17), font=1, flags=RT_HALIGN_LEFT, text=service.getServiceName(), color=color))
+                    res.append(MultiContentEntryText(pos=(250, 22), size=(200, 17), font=1, flags=RT_HALIGN_LEFT, text=service.getServiceName(), color=color))
             else:
                 if service is not None:
                     res.append(MultiContentEntryText(pos=(width - 200, 22), size=(200, 17), font=1, flags=RT_HALIGN_RIGHT, text=service.getServiceName(), color=color))        
