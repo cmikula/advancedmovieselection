@@ -1279,76 +1279,59 @@
 		</widget>
 		<widget name="freeDiskSpace" position="10,425" size="540,20" font="Regular;19" valign="center" halign="right"/>
 	</screen>  
-            <screen name="AdvancedMovieSelectionMovieTagsHD" position="center,center" size="1280,720" title=" " flags="wfNoBorder">
-		<widget source="Title" render="Label" position="60,72" size="840,26" zPosition="3" font="Regular;20" foregroundColor="#ffcc00"/>
-		<widget source="global.CurrentTime" render="Label" position="1140,40" size="80,26" font="Regular;26" halign="right" transparent="1">
+            <screen name="AdvancedMovieSelectionTagEditorHD" position="center,center" size="1280,720" flags="wfNoBorder">
+		<widget source="Title" render="Label" position="60,72" size="900,30" zPosition="3" font="Regular;26" foregroundColor="#ffcc00"/>
+		<widget source="global.CurrentTime" render="Label" position="60,40" size="1160,26" font="Regular;26" halign="right" transparent="1">
 			<convert type="ClockToText">Default</convert>
 		</widget>
-		<widget source="global.CurrentTime" render="Label" position="910,72" size="310,26" font="Regular;20" halign="right" transparent="1">
+		<widget source="global.CurrentTime" render="Label" position="60,72" size="1160,26" font="Regular;20" halign="right" transparent="1">
 			<convert type="ClockToText">Date</convert>
 		</widget>
 		<widget source="session.VideoPicture" render="Pig" position="65,115" size="256,144" zPosition="3" backgroundColor="#ff000000"/>
-                <widget name="moviename" position="450,110" size="770,60" valign="top" font="Regular;24"/>
-                <widget name="assignedTags" position="450,170" size="260,30" valign="top" halign="left" zPosition="2" foregroundColor="white" font="Regular;22"/>
-                <widget name="cTaglist" position="450,205" size="300,350" scrollbarMode="showOnDemand" enableWrapAround="1"/>
-                <widget name="definedTags" position="850,170" size="290,30" valign="top" halign="left" zPosition="2" foregroundColor="white" font="Regular;22"/>
-                <widget name="aTaglist" position="850,205" size="350,350" scrollbarMode="showOnDemand" enableWrapAround="1"/>
-                <widget name="usedTag" position="450,600" size="250,50" valign="top" halign="center" zPosition="2" foregroundColor="#ffff00" font="Regular;22"/>
-                <widget name="userTag" position="700,600" size="300,50" valign="top" halign="center" zPosition="2" foregroundColor="#ff0000" font="Regular;22"/>
-                <widget name="preTag" position="1000,600" size="250,50" valign="top" halign="center" zPosition="2" foregroundColor="#00ff00" font="Regular;22"/>
                 <ePixmap pixmap="skin_default/buttons/button_red.png" position="60,330" size="21,21" alphatest="blend"/>
 		<ePixmap pixmap="skin_default/buttons/button_green.png" position="60,380" size="21,21" alphatest="blend"/>
                 <ePixmap pixmap="skin_default/buttons/button_yellow.png" position="60,430" size="21,21" alphatest="blend"/>
                 <ePixmap pixmap="skin_default/buttons/button_blue.png" position="60,480" size="21,21" alphatest="blend"/>
-                <widget name="buttonred" position="90,328" size="300,26" font="Regular;20" halign="left" valign="top" transparent="1"/>
-                <widget name="buttongreen" position="90,378" size="300,26" font="Regular;20" halign="left" valign="top" transparent="1"/>
-                <widget name="buttonyellow" position="90,428" size="300,26" font="Regular;20" halign="left" valign="top" transparent="1"/>
-                <widget name="buttonblue" position="90,478" size="300,26" font="Regular;20" halign="left" valign="top" transparent="1"/>
-        </screen>
-            <screen name="AdvancedMovieSelectionMovieTagsXD" position="center,center" size="1024,576" title=" " flags="wfNoBorder">
-		<widget source="Title" render="Label" position="60,72" size="600,26" zPosition="3" font="Regular;20" foregroundColor="#ffcc00"/>
-		<widget source="global.CurrentTime" render="Label" position="60,40" size="904,26" font="Regular;26" halign="right" transparent="1">
+		<widget source="key_red" render="Label"  position="90,328" size="300,28" font="Regular;24" halign="left" valign="top" transparent="1"/>
+		<widget source="key_green" render="Label" position="90,378" size="300,28" font="Regular;24" halign="left" valign="top" transparent="1"/>
+		<widget source="key_yellow" render="Label" position="90,428" size="300,28" font="Regular;24" halign="left" valign="top" transparent="1"/>
+		<widget source="key_blue" render="Label" position="90,478" size="300,28" font="Regular;24" halign="left" valign="top" transparent="1"/>
+		<ePixmap pixmap="dmm-HDr2/buttons/key_menu.png" position="60,530" size="35,25" alphatest="blend"/>
+		<widget source="info" render="Label" position="450,110" size="770,28" font="Regular;24" halign="center" valign="top" transparent="1"/>
+		<widget name="list" position="450,170" size="770,480" scrollbarMode="showOnDemand" transparent="1" enableWrapAround="1"/>
+	</screen>
+            <screen name="AdvancedMovieSelectionTagEditorXD" position="center,center" size="1024,576" flags="wfNoBorder">
+		<widget source="Title" render="Label" position="60,72" size="700,30" zPosition="3" font="Regular;22" foregroundColor="#ffcc00"/>
+		<widget source="global.CurrentTime" render="Label" position="60,40" size="904,26" font="Regular;22" halign="right" transparent="1">
 			<convert type="ClockToText">Default</convert>
 		</widget>
 		<widget source="global.CurrentTime" render="Label" position="60,72" size="904,26" font="Regular;20" halign="right" transparent="1">
 			<convert type="ClockToText">Date</convert>
 		</widget>
 		<widget source="session.VideoPicture" render="Pig" position="65,115" size="256,144" zPosition="3" backgroundColor="#ff000000"/>
-                <widget name="moviename" position="400,110" size="770,60" valign="top" font="Regular;26"/>
-                <widget name="assignedTags" position="400,170" size="200,30" valign="top" halign="left" zPosition="2" foregroundColor="white" font="Regular;20"/>
-                <widget name="cTaglist" position="400,205" size="200,250" scrollbarMode="showOnDemand" enableWrapAround="1"/>
-                <widget name="definedTags" position="620,170" size="200,30" valign="top" halign="left" zPosition="2" foregroundColor="white" font="Regular;20"/>
-                <widget name="aTaglist" position="620,205" size="350,250" scrollbarMode="showOnDemand" enableWrapAround="1"/>
-                <widget name="usedTag" position="250,500" size="200,50" valign="top" halign="left" zPosition="2" foregroundColor="#ffff00" font="Regular;20"/>
-                <widget name="userTag" position="450,500" size="300,50" valign="top" halign="left" zPosition="2" foregroundColor="#ff0000" font="Regular;20"/>
-                <widget name="preTag" position="750,500" size="250,50" valign="top" halign="left" zPosition="2" foregroundColor="#00ff00" font="Regular;20"/>
-                <ePixmap pixmap="skin_default/buttons/button_red.png" position="60,300" size="21,21" alphatest="blend"/>
-		<ePixmap pixmap="skin_default/buttons/button_green.png" position="60,350" size="21,21" alphatest="blend"/>
-                <ePixmap pixmap="skin_default/buttons/button_yellow.png" position="60,400" size="21,21" alphatest="blend"/>
-                <ePixmap pixmap="skin_default/buttons/button_blue.png" position="60,450" size="21,21" alphatest="blend"/>
-                <widget name="buttonred" position="90,295" size="300,26" font="Regular;22" halign="left" valign="top" transparent="1"/>
-                <widget name="buttongreen" position="90,345" size="300,26" font="Regular;22" halign="left" valign="top" transparent="1"/>
-                <widget name="buttonyellow" position="90,395" size="300,26" font="Regular;22" halign="left" valign="top" transparent="1"/>
-                <widget name="buttonblue" position="90,445" size="300,26" font="Regular;22" halign="left" valign="top" transparent="1"/>
-        </screen>
-            <screen name="AdvancedMovieSelectionMovieTagsSD" position="center,center" size="600,460" title="Movie Tagger">
-                <widget name="moviename" position="10,0" size="580,60" valign="top" font="Regular;25"/>
-                <ePixmap pixmap="skin_default/div-h.png" position="0,62" zPosition="1" size="600,2"/>
-                <widget name="assignedTags" position="10,65" size="260,30" valign="top" halign="left" zPosition="2" foregroundColor="white" font="Regular;23"/>
-                <widget name="cTaglist" position="10,100" size="260,250" scrollbarMode="showOnDemand"/>
-                <widget name="definedTags" position="300,65" size="290,30" valign="top" halign="left" zPosition="2" foregroundColor="white" font="Regular;23"/>
-                <widget name="aTaglist" position="290,100" size="300,250" scrollbarMode="showOnDemand"/>        
-                <ePixmap pixmap="skin_default/div-h.png" position="0,358" zPosition="1" size="600,2"/>
-                <widget name="usedTag" position="10,365" size="185,50" valign="top" halign="center" zPosition="2" foregroundColor="#ffff00" font="Regular;21"/>
-                <widget name="userTag" position="200,365" size="185,50" valign="top" halign="center" zPosition="2" foregroundColor="#ff0000" font="Regular;21"/>
-                <widget name="preTag" position="400,365" size="190,50" valign="top" halign="center" zPosition="2" foregroundColor="#00ff00" font="Regular;21"/>
-                <ePixmap pixmap="skin_default/buttons/red.png" position="0,420" zPosition="0" size="140,40" transparent="1" alphatest="on"/>
-                <ePixmap pixmap="skin_default/buttons/green.png" position="155,420" zPosition="0" size="140,40" transparent="1" alphatest="on"/>
-                <ePixmap pixmap="skin_default/buttons/yellow.png" position="305,420" zPosition="0" size="140,40" transparent="1" alphatest="on"/>
-                <ePixmap pixmap="skin_default/buttons/blue.png" position="455,420" zPosition="0" size="140,40" transparent="1" alphatest="on"/>
-                <widget name="buttonred" position="0,420" size="140,40" valign="center" halign="center" zPosition="2" foregroundColor="white" transparent="1" font="Regular;18"/>
-                <widget name="buttongreen" position="155,420" size="140,40" valign="center" halign="center" zPosition="2" foregroundColor="white" transparent="1" font="Regular;18"/>
-                <widget name="buttonyellow" position="305,420" size="140,40" valign="center" halign="center" zPosition="2" foregroundColor="white" transparent="1" font="Regular;18"/>
-                <widget name="buttonblue" position="455,420" size="140,40" valign="center" halign="center" zPosition="2" foregroundColor="white" transparent="1" font="Regular;18"/>
-        </screen>
+                <ePixmap pixmap="skin_default/buttons/button_red.png" position="60,330" size="21,21" alphatest="blend"/>
+		<ePixmap pixmap="skin_default/buttons/button_green.png" position="60,380" size="21,21" alphatest="blend"/>
+                <ePixmap pixmap="skin_default/buttons/button_yellow.png" position="60,430" size="21,21" alphatest="blend"/>
+                <ePixmap pixmap="skin_default/buttons/button_blue.png" position="60,480" size="21,21" alphatest="blend"/>
+		<widget source="key_red" render="Label"  position="90,328" size="300,28" font="Regular;22" halign="left" valign="top" transparent="1"/>
+		<widget source="key_green" render="Label" position="90,378" size="300,28" font="Regular;22" halign="left" valign="top" transparent="1"/>
+		<widget source="key_yellow" render="Label" position="90,428" size="300,28" font="Regular;22" halign="left" valign="top" transparent="1"/>
+		<widget source="key_blue" render="Label" position="90,478" size="300,28" font="Regular;22" halign="left" valign="top" transparent="1"/>
+		<ePixmap pixmap="dmm-HDr2/buttons/key_menu.png" position="60,530" size="35,25" alphatest="blend"/>
+		<widget source="info" render="Label" position="450,110" size="514,28" font="Regular;20" halign="center" valign="top" transparent="1"/>
+		<widget name="list" position="450,170" size="514,346" scrollbarMode="showOnDemand" transparent="1" enableWrapAround="1"/>
+	</screen>
+            <screen name="AdvancedMovieSelectionTagEditorSD" position="center,center" size="600,310">
+		<ePixmap position="0,0" size="140,40" pixmap="skin_default/buttons/red.png" transparent="1" alphatest="on"/>
+		<ePixmap position="140,0" size="140,40" pixmap="skin_default/buttons/green.png" transparent="1" alphatest="on"/>
+		<ePixmap position="280,0" size="140,40" pixmap="skin_default/buttons/yellow.png" transparent="1" alphatest="on"/>
+		<ePixmap position="420,0" size="140,40" pixmap="skin_default/buttons/blue.png" transparent="1" alphatest="on"/>
+		<widget source="key_red" render="Label" position="0,0" zPosition="1" size="140,40" valign="center" halign="center" font="Regular;21" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1"/>
+		<widget source="key_green" render="Label" position="140,0" zPosition="1" size="140,40" valign="center" halign="center" font="Regular;21" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1"/>
+		<widget source="key_yellow" render="Label" position="280,0" zPosition="1" size="140,40" valign="center" halign="center" font="Regular;21" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1"/>
+		<widget source="key_blue" render="Label" position="420,0" zPosition="1" size="140,40" valign="center" halign="center" font="Regular;21" transparent="1" foregroundColor="white" shadowColor="black" shadowOffset="-1,-1"/>
+		<ePixmap position="562,10" size="35,25" pixmap="skin_default/buttons/key_menu.png" alphatest="on"/>
+		<widget source="info" render="Label" position="5,40" size="590,28" font="Regular;18" halign="center" valign="top" transparent="1"/>
+		<widget name="list" position="5,70" size="590,240" scrollbarMode="showOnDemand" enableWrapAround="1"/>
+	</screen>
 </skin>

@@ -52,7 +52,7 @@ from SearchTMDb import TMDbMain as TMDbMainsave
 from MoviePreview import MoviePreview
 from DownloadMovies import DownloadMovies
 from ServiceProvider import eServiceReferenceDvd
-from MovieTags import MovieTags
+from TagEditor import MovieTagEditor
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
     from Plugins.Extensions.IMDb.plugin import IMDB
@@ -255,7 +255,7 @@ class MovieContextMenu(Screen):
         MovieMove(session=self.session, service=self.service)
 
     def movietags(self):
-        self.session.open(MovieTags, service=self.service)
+        self.session.open(MovieTagEditor, service=self.service, parent = self.session.current_dialog)
 
     def searchmovie(self):
         MovieSearchScreen(session=self.session)

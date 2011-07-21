@@ -34,6 +34,7 @@ from Components.config import config, ConfigSubsection, ConfigText, ConfigYesNo,
 from AdvancedMovieSelectionSetup import AdvancedMovieSelectionSetup
 from enigma import ePoint 
 from Rename import MovieRetitle
+from TagEditor import TagEditor, MovieTagEditor
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
     IMDbPresent = True
@@ -459,6 +460,9 @@ def autostart(reason, **kwargs):
             except:
                 pass
 
+def tageditor(session, service, **kwargs):
+    session.open(MovieTagEditor, service, session.current_dialog, **kwargs)
+
 def rename(session, service, **kwargs):
     session.open(MovieRetitle, service, session.current_dialog, **kwargs)
 
@@ -475,9 +479,15 @@ def nostart(reason, **kwargs):
     pass
 
 def Plugins(**kwargs):
+    try:
+            from Screens.MovieSelection import setPreferredTagEditor
+            setPreferredTagEditor(TagEditor)
+    except Exception:
+            pass
     if not config.AdvancedMovieSelection.ml_disable.value:
         descriptors = [PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=autostart)]
         descriptors.append(PluginDescriptor(name="MovieRetitle", description=_("Rename"), where=PluginDescriptor.WHERE_MOVIELIST, fnc=rename))
+        descriptors.append(PluginDescriptor(name = "TagEditor", description = _("Tag Editor"), where = PluginDescriptor.WHERE_MOVIELIST, fnc = tageditor))
         descriptors.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, fnc=Setup))
     else:
         descriptors = [PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=nostart)]

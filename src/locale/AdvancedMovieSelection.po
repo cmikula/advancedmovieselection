@@ -2,12 +2,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-18 17:07+0100\n"
-"PO-Revision-Date: 2011-07-20 12:25+0100\n"
+"POT-Creation-Date: 2011-07-21 20:08+0100\n"
+"PO-Revision-Date: 2011-07-21 20:09+0100\n"
 "Last-Translator: JackDanie <JackDaniel@i-have-a-dreambox.com>\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: _;gettext;gettext_noop\n"
 "X-Poedit-Basepath: /Users/JackDaniel/Übersetzungen/AdvancedMovieSelection/\n"
@@ -64,8 +64,8 @@ msgstr "Erweiterte Filmauswahl - Geschichte"
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:427
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:470
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:512
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:373
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:388
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:374
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:389
 msgid "this recording"
 msgstr "this recording"
 
@@ -81,6 +81,7 @@ msgid "Movie location: %s"
 msgstr "Speicherort: %s"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:135
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/RecordPaths.py:46
 msgid "Save"
 msgstr "Speichern"
 
@@ -465,6 +466,8 @@ msgstr "WICHTIG: Wenn Sie hier Änderungen vornehmen muss zum übernehmen dieser
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:475
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:74
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/RecordPaths.py:45
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:58
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -479,68 +482,68 @@ msgstr "Eigene Tastenbezeichnung"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:481
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:491
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:83
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:84
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:85
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:190
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:231
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:86
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:191
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:232
 msgid "Nothing"
 msgstr "nichts Zugeordnet"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:482
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:730
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:121
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:82
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:191
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:83
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:192
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:232
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:193
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:233
 msgid "Delete"
 msgstr "Löschen"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:483
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:732
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:89
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:193
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:236
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:90
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:194
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:237
 msgid "Home"
 msgstr "Heimverzeichnis"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:484
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:734
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:201
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:252
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:202
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:253
 msgid "Sort"
 msgstr "Sortieren"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:485
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:736
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:86
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:195
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:239
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:87
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:196
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:240
 msgid "Bookmark 1"
 msgstr "Lesezeichen 1"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:486
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:738
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:87
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:197
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:242
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:88
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:198
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:243
 msgid "Bookmark 2"
 msgstr "Lesezeichen 2"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:487
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:740
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:88
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:199
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:245
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:89
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:200
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:246
 msgid "Bookmark 3"
 msgstr "Lesezeichen 3"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:488
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:742
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:210
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:211
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:248
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:212
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:249
 msgid "Show Tags"
 msgstr "Tags anzeigen"
 
@@ -614,22 +617,22 @@ msgid "Movie Quick Button Setup"
 msgstr "Farbtasten Einst."
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:596
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:171
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:172
 msgid "Assigned to red key"
 msgstr "Zuordnung rote Taste:"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:598
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:172
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:173
 msgid "Assigned to green key"
 msgstr "Zuordnung grüne Taste:"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:600
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:173
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:174
 msgid "Assigned to yellow key"
 msgstr "Zuordnung gelbe Taste:"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:602
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:174
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:175
 msgid "Assigned to blue key"
 msgstr "Zuordnung blaue Taste:"
 
@@ -785,6 +788,7 @@ msgstr "Automatisches suchen und speichern nach %s ist abgeschlossen."
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:151
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:170
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:57
 msgid "OK"
 msgstr "OK"
 
@@ -816,16 +820,6 @@ msgstr "Bitte Filmnamen für die Suche eingeben "
 #, python-format
 msgid "Download and save from movie infos and covers to %s complete."
 msgstr "Herunterladen und speichern der Filminfos/Covers nach %s abgeschlossen."
-
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MessageBox.py:44
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MessageBox.py:46
-msgid "yes"
-msgstr "ja"
-
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MessageBox.py:44
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MessageBox.py:46
-msgid "no"
-msgstr "nein"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:55
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:69
@@ -1004,7 +998,7 @@ msgid "Mark movie as unseen"
 msgstr "Film als ungesehen markieren"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:130
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:480
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:489
 msgid "Rename"
 msgstr "Umbenennen"
 
@@ -1127,16 +1121,16 @@ msgid "Download and save movie info/cover for all movies"
 msgstr "Herunterladen und speichern der Filminfos/Covers für alle Filme"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:207
+msgid "Movie tags"
+msgstr "Filmtags zuordnen"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:209
 msgid "Setup"
 msgstr "Einstellungen"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:209
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:211
 msgid "Setup Moviebar position"
 msgstr "Position der Filminfoleiste einstellen"
-
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:211
-msgid "Movie tags"
-msgstr "Filmtags zuordnen"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:216
 msgid "Advanced Movie Selection Menu"
@@ -1147,7 +1141,7 @@ msgid "No internet connection available !"
 msgstr "Keine Internetverbindung vorhanden !"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:360
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:391
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:392
 #, python-format
 msgid "Do you really want to delete %s?"
 msgstr "%s wirklich löschen ?"
@@ -1156,7 +1150,7 @@ msgstr "%s wirklich löschen ?"
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:443
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:486
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:528
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:396
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:397
 msgid "You cannot delete this!"
 msgstr "Das kann nicht gelöscht werden !"
 
@@ -1208,7 +1202,7 @@ msgid "menu"
 msgstr "menu"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:685
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:306
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:307
 msgid "show event details"
 msgstr "show event details"
 
@@ -1291,272 +1285,199 @@ msgstr ""
 "Die OK Taste zum speichern oder die EXIT-Taste zum abbrechen.\n"
 "Mit der roten Taste wird die Originalposition wiederhergestellt."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieTags.py:55
-msgid "Moviename:"
-msgstr "Film:"
-
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieTags.py:173
-msgid "Can't write movietags, because no meta-file found!"
-msgstr "Konnte Filmtags nicht anlegen weil keine *.meta Datei gefunden wurde !"
-
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieTags.py:251
-msgid "Whitepace will be replaced by \"_\""
-msgstr "Leerstellen werden durch ein \"_\" ersetzt."
-
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieTags.py:251
-msgid "Enter the new Tag"
-msgstr "Neuen Tag hier angeben:"
-
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieTags.py:255
-msgid ""
-"Clear all Tags?\n"
-"\n"
-"This will delete ALL tags in ALL recodings!\n"
-"Are you sure?"
-msgstr ""
-"Alle Tags löschen ?\n"
-"\n"
-"ACHTUNG: Dies löscht alle Tags aus allen Aufnahmen !\n"
-"Sind Sie sich sicher ?"
-
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieTags.py:258
-msgid "Set movie tags"
-msgstr "Filmtags anlegen"
-
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieTags.py:259
-msgid "Assigned Tags"
-msgstr "Zugeordnete Tags:"
-
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieTags.py:260
-msgid "Specified Tags"
-msgstr "Vorhandene Tags:"
-
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieTags.py:261
-msgid "Used Tag"
-msgstr "Verwendeter Tag"
-
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieTags.py:262
-msgid "User-specific Tag"
-msgstr "Benutzerdefinierter Tag"
-
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieTags.py:263
-msgid "Predefined Tag"
-msgstr "Standard Tag"
-
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieTags.py:267
-msgid "Remove Tag"
-msgstr "Tag entfernen"
-
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieTags.py:268
-msgid "Create new Tag"
-msgstr "Neuen Tag erstellen"
-
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieTags.py:270
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieTags.py:278
-msgid "Toggle List"
-msgstr "Liste wechseln"
-
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieTags.py:275
-msgid "Add Tag"
-msgstr "Tag hinzufügen"
-
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieTags.py:277
-msgid "Clear all Tags"
-msgstr "Alle Tags löschen"
-
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:69
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:70
 msgid "German (without Year)"
 msgstr "Deutsch (ohne Jahr)"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:69
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:70
 msgid "German (with Year)"
 msgstr "Deutsch (mit Jahr)"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:69
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:70
 msgid "German (with Starttime)"
 msgstr "Deutsch (mit Startzeit)"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:69
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:70
 msgid "Enigma 2 default"
 msgstr "E2 Standard"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:69
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:70
 msgid "English (without Year)"
 msgstr "Englisch (ohne Jahr)"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:69
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:70
 msgid "English (with Year)"
 msgstr "Englisch (mit Jahr)"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:69
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:70
 msgid "English (with Starttime)"
 msgstr "Englisch (mit Startzeit)"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:70
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:71
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:72
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:73
 msgid "Yellow"
 msgstr "Gelb"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:70
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:71
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:72
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:73
 msgid "Blue"
 msgstr "Blau"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:70
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:71
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:72
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:73
 msgid "Red"
 msgstr "Rot"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:70
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:71
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:72
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:73
 msgid "Black"
 msgstr "Schwarz"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:70
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:71
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:72
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:73
 msgid "Green"
 msgstr "Grün"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:95
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:96
 msgid "Homebutton"
 msgstr "Heimtaste"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:96
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:97
 msgid "Own text 1"
 msgstr "eigener Text 1"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:97
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:98
 msgid "Own text 2"
 msgstr "eigener Text 2"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:98
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:99
 msgid "Own text 3"
 msgstr "eigener Text 3"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:99
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:100
 msgid "Own text 4"
 msgstr "eigener Text 4"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:100
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:101
 msgid "No override"
 msgstr "keine Zuordnung"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:101
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:102
 msgid "Video-button"
 msgstr "Video-Taste"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:102
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:103
 msgid "TV-button"
 msgstr "TV-Taste"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:103
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:104
 msgid "Radio-button"
 msgstr "Radio-Taste"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:104
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:105
 msgid "Timeshift-button"
 msgstr "Timeshift-Taste"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:109
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:110
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:111
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:112
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:113
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:114
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:115
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:116
 msgid "Advanced Movie Selection info"
 msgstr "Erweiterte Filmauswahl Info"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:109
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:112
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:110
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:113
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:114
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:115
 msgid "TMDb info"
 msgstr "TMDb Info"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:109
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:110
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:113
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:115
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:111
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:114
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:116
 msgid "IMDb info"
 msgstr "IMDb Info"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:109
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:111
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:114
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:110
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:112
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:115
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:116
 msgid "OFDb info"
 msgstr "OFDb Info"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:131
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:132
 msgid "Original (1000x1500)"
 msgstr "Original (1000x1500)"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:131
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:132
 msgid "Mid (500x750)"
 msgstr "Mittel (500x750)"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:131
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:132
 msgid "Cover (185x278)"
 msgstr "Cover (185x278)"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:131
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:132
 msgid "Thumb (92x138)"
 msgstr "Minibild (92x138)"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:137
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:138
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:139
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:140
 msgid "Ask user"
 msgstr "Benutzer fragen"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:137
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:138
 msgid "Resume from last position"
 msgstr "An letzter Position fortsetzen"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:137
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:138
 msgid "Start from the beginning"
 msgstr "Am Anfang starten"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:138
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:139
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:140
 msgid "Return to movie list"
 msgstr "Zurück zur Filmliste"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:138
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:139
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:140
 msgid "Return to previous service"
 msgstr "Zurück zum LiveTV"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:139
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:140
 msgid "Pause movie at end"
 msgstr "Am Filmende pausieren"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:203
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:263
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:204
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:264
 msgid "Sort by Date (1->9)"
 msgstr "Sort. Datum (1->9)"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:206
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:255
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:207
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:256
 msgid "Sort by Date (9->1)"
 msgstr "Sort. Datum (9->1)"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:209
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:259
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:210
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:260
 msgid "Sort alphabetically"
 msgstr "Sort. alphabetisch"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:228
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:229
 msgid "Unknown Error"
 msgstr "Unbekannter Fehler"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:285
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:286
 #, python-format
 msgid ""
 "Error!\n"
@@ -1565,19 +1486,19 @@ msgstr ""
 "Error!\n"
 "Error Text: %s %e"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:287
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:288
 msgid "Plugin not found!"
 msgstr "Erweiterung nicht gefunden !"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:289
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:290
 msgid "No plugin assigned!"
 msgstr "Keine Erweiterung zugeordnet !"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:307
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:308
 msgid "open servicelist"
 msgstr "open servicelist"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:357
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:358
 msgid ""
 "Not possible !\n"
 "MerlinEPG and CoolTVGuide present or neither installed from this two plugins."
@@ -1585,13 +1506,17 @@ msgstr ""
 "Nicht möglich !\n"
 "MerlinEPG und CoolTVGuide sind beide installiert, oder keines von beiden ist installiert."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:442
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:443
 msgid "No DVD-Player found!"
 msgstr "DVD-Player Erweiterung nicht gefunden !"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:470
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:474
 msgid "Setup Advanced Movie Selection"
 msgstr "Erw. Filmauswahl Einstellungen"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:490
+msgid "Tag Editor"
+msgstr "Tag Editor"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/RecordPaths.py:61
 msgid "Record Paths Settings"
@@ -1785,7 +1710,146 @@ msgstr "Produzent: %s"
 msgid "Sorry, no info/cover found for title: %s"
 msgstr "Leider keine Filminfo/Cover für %s gefunden."
 
-#~ msgid "Add new Tag"
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/TagEditor.py:51
+msgid "Create new Tag"
+msgstr "Neuen Tag erstellen"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/TagEditor.py:53
+msgid "Load Tag(s) from movies"
+msgstr "Tag(s) aus den Filmen laden"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/TagEditor.py:54
+msgid "Use the OK Button for the selection."
+msgstr "Mit der OK Taste können die Tags ausgewählt werden."
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/TagEditor.py:78
+msgid "Add Tag(s) for Recordings/Timer or AutoTimer"
+msgstr "Tag(s) hinzufügen für Aufnahmen/Timer oder AutoTimer"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/TagEditor.py:82
+#, python-format
+msgid "Edit Tag(s) for: %s"
+msgstr "Tag(s) ändern für: %s"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/TagEditor.py:96
+msgid "Please enter here the new tag:"
+msgstr "Neuen Tag hier angeben:"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/TagEditor.py:203
+msgid ""
+"Do you really want to delete unused tags from default taglist ?\n"
+"(Note that 'Cancel' will not undo this!)"
+msgstr ""
+"Wirklich alle nicht verwendeten Tags aus der standard Tagliste löschen ?\n"
+"(Achtung das kann nicht mehr rückgängig gemacht werden !)"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/TagEditor.py:228
+#, python-format
+msgid ""
+"Rename tag \"%s\" in movies and default taglist ?\n"
+"(Note that 'Cancel' will not undo this!)"
+msgstr ""
+"Tag \"%s\" umbenennen bei den Filmen und in der standard Tagliste ?\n"
+"(Achtung das kann nicht mehr rückgängig gemacht werden !)"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/TagEditor.py:244
+#, python-format
+msgid ""
+"Do you really want to delete tag \"%s\" from movies and default taglist ?\n"
+"(Caution can not be undone !)"
+msgstr ""
+"Wollen Sie wirklich den Tag \"%s\" aus allen Filmen und aus der standard Tagliste entfernen ?\n"
+"(Achtung das kann nicht mehr rückgängig gemacht werden !)"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/TagEditor.py:262
+msgid ""
+"Do you really want to delete all tags from movies and default taglist ?\n"
+"(Caution can not be undones !)"
+msgstr ""
+"Wirklich alle Tags aus den Filmen und der standard Tagliste löschen ?\n"
+"(Achtung das kann nicht mehr rückgängig gemacht werden !)"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/TagEditor.py:279
+msgid "Add new tag"
+msgstr "Tag hinzufügen"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/TagEditor.py:280
+msgid "Rename this tag"
+msgstr "Diesen Tag umbenennen"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/TagEditor.py:281
+msgid "Delete this tag"
+msgstr "Diesen Tag löschen"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/TagEditor.py:282
+msgid "Delete unused tags from default taglist"
+msgstr "Nicht verwendete Tags aus der standard Tagliste löschen"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/TagEditor.py:283
+msgid "Delete all tags"
+msgstr "Alle Tags löschen"
+
+#~ msgid "Reload default Taglist"
+#~ msgstr "Std. Tagliste erneut laden"
+
+#~ msgid "Rename tag \"%s\" in movies and default taglist ?"
+#~ msgstr "Tag \"%s\" bei den Filmen und in der standard Tagliste umbenennen ?"
+
+#~ msgid "Load"
+#~ msgstr "Laden"
+
+#~ msgid "yes"
+#~ msgstr "ja"
+
+#~ msgid "no"
+#~ msgstr "nein"
+
+#~ msgid "Moviename:"
+#~ msgstr "Film:"
+
+#~ msgid "Can't write movietags, because no meta-file found!"
+#~ msgstr ""
+#~ "Konnte Filmtags nicht anlegen weil keine *.meta Datei gefunden wurde !"
+
+#~ msgid "Whitepace will be replaced by \"_\""
+#~ msgstr "Leerstellen werden durch ein \"_\" ersetzt."
+
+#~ msgid ""
+#~ "Clear all Tags?\n"
+#~ "\n"
+#~ "This will delete ALL tags in ALL recodings!\n"
+#~ "Are you sure?"
+#~ msgstr ""
+#~ "Alle Tags löschen ?\n"
+#~ "\n"
+#~ "ACHTUNG: Dies löscht alle Tags aus allen Aufnahmen !\n"
+#~ "Sind Sie sich sicher ?"
+
+#~ msgid "Set movie tags"
+#~ msgstr "Filmtags anlegen"
+
+#~ msgid "Assigned Tags"
+#~ msgstr "Zugeordnete Tags:"
+
+#~ msgid "Specified Tags"
+#~ msgstr "Vorhandene Tags:"
+
+#~ msgid "Used Tag"
+#~ msgstr "Verwendeter Tag"
+
+#~ msgid "User-specific Tag"
+#~ msgstr "Benutzerdefinierter Tag"
+
+#~ msgid "Predefined Tag"
+#~ msgstr "Standard Tag"
+
+#~ msgid "Remove Tag"
+#~ msgstr "Tag entfernen"
+
+#~ msgid "Toggle List"
+#~ msgstr "Liste wechseln"
+
+#~ msgid "Add Tag"
 #~ msgstr "Tag hinzufügen"
 
 #~ msgid "Sorry, no info/cover found for movie: %s"
