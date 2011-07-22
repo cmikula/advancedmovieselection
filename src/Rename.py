@@ -252,7 +252,7 @@ class MovieRetitleBackgroundMover:
 
 	def enqueue(self, cb, session, fr, to):
 		self.currid += 1
-		mess = _("The movie is moved in the background from %s to %s.") % (os_path.dirname(fr), os_path.dirname(to))
+		mess = (_("The movie is moved in the background from %s") % os_path.dirname(fr) + ' ' + (_("to %s.") % os_path.dirname(to)))
 		self.message(session, self.currid, cb, mess)
 		self.queue.append((session, self.currid, fr, to))
 		if not self.running:
@@ -294,14 +294,14 @@ class MovieRetitleBackgroundMover:
 			for suff in self.sufflst2:
 				if os_path.exists(self.ele[3] + suff) and os_path.exists(self.ele[2] + suff):
 					os_unlink(self.ele[3] + suff)
-			mess = _("Failed to move the movie %s to %s in the background") % (self.ele[2], self.ele[3])
+			mess = (_("Failed to move the movie %s" % self.ele[2] + ' ' + (_("to %s in the background") % self.ele[3])))
 			self.message(self.ele[0], self.ele[1], None, mess)
 			self.runDone(1)
 		else:
 			for suff in self.sufflst2:
 				if os_path.exists(self.ele[2] + suff) and os_path.exists(self.ele[3] + suff):
 					os_unlink(self.ele[2] + suff)
-			mess = _("Successfully moved the movie %s") % (self.ele[2])
+			mess = (_("Successfully moved the movie %s") % (self.ele[2]))
 			self.message(self.ele[0], self.ele[1], None, mess)
 			self.runDone(0)
 

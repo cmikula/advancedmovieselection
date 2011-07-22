@@ -283,7 +283,7 @@ def startPlugin(self, pname, index):
                             plugin(self.session, current)
                             no_plugin = False
                         except:
-                            msgText = _("Error!\nError Text: %s %e")
+                            msgText = _("Unknown error!")
                     else: 
                         msgText = _("Plugin not found!")
             else:

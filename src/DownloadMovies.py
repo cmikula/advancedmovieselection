@@ -37,8 +37,6 @@ import tmdb, urllib
 from Components.config import config
 from Screens.VirtualKeyBoard import VirtualKeyBoard
 import os
-#from skin import loadSkin
-#loadSkin("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/skin/skin.xml")
 
 is_hidden = False
 this_session = None
@@ -141,9 +139,9 @@ class DownloadMovies(Screen):
     def updateProgress(self):
         self.setTitle(_("Automatic search and save, please wait..."))
         global current, movie_title, total, fetchingMovies
-        self["info"].setText(_("Processing: %d/%d") % (current, total))
+        self["info"].setText(_("Processing: %s") % current + ' ' + (_("/ %s") % total))
         if fetchingMovies is not None:
-            self["title"].setText(_("Current Movie: %s") % (movie_title))
+            self["title"].setText(_("Current Movie: %s") % movie_title)
         else:
             self.setTitle(_("Automatic search and save"))
             path = config.movielist.last_videodir.value

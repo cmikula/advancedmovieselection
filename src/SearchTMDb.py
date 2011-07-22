@@ -344,7 +344,7 @@ class TMDbMain(Screen):
                 if not errorString:
                     self["key_green"].text = _("Save movie info/cover")
                 else:
-                    self["key_green"].text = _("")
+                    self["key_green"].text = _()
                 self["key_blue"].text = _("Extended Info")
                 self["status"].setText("")
                 self["status"].hide()

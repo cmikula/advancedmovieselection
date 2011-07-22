@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-22 20:00+0100\n"
-"PO-Revision-Date: 2011-07-22 20:07+0100\n"
+"POT-Creation-Date: 2011-07-22 22:49+0100\n"
+"PO-Revision-Date: 2011-07-22 22:50+0100\n"
 "Last-Translator: JackDanie <JackDaniel@i-have-a-dreambox.com>\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
@@ -473,7 +473,7 @@ msgid "IMPORTANT: If changes are made here the Advanced Movie Selection must be 
 msgstr "WICHTIG: Wenn Sie hier Änderungen vornehmen muss zum übernehmen dieser die Erweiterte Filmliste komplett geschlossen werden !!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:480
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:74
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:72
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/RecordPaths.py:45
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:58
 msgid "Cancel"
@@ -752,79 +752,84 @@ msgstr "Hier können Sie die Tastenbezeichnung für das Lesezeichen 3 ändern. N
 msgid "Really close without saving settings ?"
 msgstr "Wirklich ohne Speichern schließen ?"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:77
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:75
 msgid "Manual search"
 msgstr "Manuelle suche"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:79
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:176
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:77
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:174
 msgid "Save infos/cover"
 msgstr "Infos/Cover speichern"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:81
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:79
 msgid "Background"
 msgstr "Hintergrund"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:121
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:226
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:119
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:224
 #, python-format
 msgid "Search for %s, please wait..."
 msgstr "Suche nach %s, bitte warten ..."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:142
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:140
 msgid "Automatic search and save, please wait..."
 msgstr "Automatisches suchen und speichern, bitte warten ..."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:144
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:142
 #, python-format
-msgid "Processing: %d/%d"
-msgstr "Fortschritt: %d/%d"
+msgid "Processing: %s"
+msgstr "Fortschritt: %s"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:146
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:142
+#, python-format
+msgid "/ %s"
+msgstr "/ %s"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:144
 #, python-format
 msgid "Current Movie: %s"
 msgstr "Aktueller Film: %s"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:148
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:146
 msgid "Automatic search and save"
 msgstr "Automatisches suchen und speichern"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:150
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:148
 #, python-format
 msgid "Automatic search and save to %s finised."
 msgstr "Automatisches suchen und speichern nach %s ist abgeschlossen."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:151
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:170
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:149
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:168
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:57
 msgid "OK"
 msgstr "OK"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:161
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:159
 #, python-format
 msgid "Searchtitle: %s"
 msgstr "Gesuchter Titel: %s"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:162
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:160
 #, python-format
 msgid "Filename: %s"
 msgstr "Dateiname: %s"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:163
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:161
 #, python-format
 msgid "Search result(s) for %s"
 msgstr "Ergebnis(se) für: %s"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:169
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:167
 #, python-format
 msgid "Nothing found for: %s"
 msgstr "Nichts gefunden für: %s"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:221
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:219
 msgid "Enter new moviename to search for"
 msgstr "Bitte Filmnamen für die Suche eingeben "
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:266
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:264
 #, python-format
 msgid "Download and save from movie infos and covers to %s complete."
 msgstr "Herunterladen und speichern der Filminfos/Covers nach %s abgeschlossen."
@@ -882,11 +887,16 @@ msgstr ""
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:85
 #, python-format
+msgid "The following %s"
+msgstr "Diese %s"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:85
+#, python-format
 msgid ""
-"The following %s files are being moved or copied currently:\n"
+"files are being moved or copied currently:\n"
 "%s"
 msgstr ""
-"Die folgenden %s Dateien werden gerade verschoben/kopiert:\n"
+"Dateien werden gerade kopiert:\n"
 "%s"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:97
@@ -920,8 +930,18 @@ msgstr "Abbrechen"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:110
 #, python-format
-msgid "How to ' %s ' from %s to %s be moved/copied ?"
-msgstr "Wie soll ' %s ' von %s nach %s verschoben/kopiert werden ?"
+msgid "How to ' %s '"
+msgstr "Wie soll ' %s '"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:110
+#, python-format
+msgid "from %s"
+msgstr "von %s"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:110
+#, python-format
+msgid "to %s be moved/copied ?"
+msgstr "nach %s verschoben/kopiert werden ?"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:118
 msgid "File already exists"
@@ -1494,13 +1514,8 @@ msgid "Unknown Error"
 msgstr "Unbekannter Fehler"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:286
-#, python-format
-msgid ""
-"Error!\n"
-"Error Text: %s %e"
-msgstr ""
-"Error!\n"
-"Error Text: %s %e"
+msgid "Unknown error!"
+msgstr "Unbekannter Fehler"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:288
 msgid "Plugin not found!"
@@ -1634,13 +1649,23 @@ msgstr "The target directory is not found. The file is not renamed."
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:255
 #, python-format
-msgid "The movie is moved in the background from %s to %s."
-msgstr "The movie is moved in the background from %s to %s."
+msgid "The movie is moved in the background from %s"
+msgstr "Der Film wird im Hintergrund von %s"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:255
+#, python-format
+msgid "to %s."
+msgstr "nach %s verschoben."
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:297
 #, python-format
-msgid "Failed to move the movie %s to %s in the background"
-msgstr "Failed to move the movie %s to %s in the background"
+msgid "to %s in the background"
+msgstr "nach %s im Hintergrund ist fehlgeschlagen."
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:297
+#, python-format
+msgid "Failed to move the movie %s"
+msgstr "Verschieben des Filmes %s"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:304
 #, python-format
@@ -1804,6 +1829,19 @@ msgstr "Nicht verwendete Tags aus der standard Tagliste löschen"
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/TagEditor.py:282
 msgid "Delete all tags"
 msgstr "Alle Tags löschen"
+
+#~ msgid "How to ' %s ' from %s to %s be moved/copied ?"
+#~ msgstr "Wie soll ' %s ' von %s nach %s verschoben/kopiert werden ?"
+
+#~ msgid "/%d"
+#~ msgstr "/%d"
+
+#~ msgid ""
+#~ "Error!\n"
+#~ "Error Text: %s %e"
+#~ msgstr ""
+#~ "Error!\n"
+#~ "Error Text: %s %e"
 
 #~ msgid "Reload default Taglist"
 #~ msgstr "Std. Tagliste erneut laden"

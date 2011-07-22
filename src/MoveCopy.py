@@ -82,7 +82,7 @@ class MovieMove(Screen):
                 elif tmpcount == 1:
                     self.session.open(MessageBox, (_("The following file is being moved or copied currently:\n%s") % tmpline), MessageBox.TYPE_INFO)
                 else:
-                    self.session.open(MessageBox, (_("The following %s files are being moved or copied currently:\n%s") % (str(tmpcount), tmpline)), MessageBox.TYPE_INFO)					
+                    self.session.open(MessageBox, (_("The following %s") % str(tmpcount) + ' ' + _("files are being moved or copied currently:\n%s") % tmpline, MessageBox.TYPE_INFO))					
             elif answer[0] == (_("Remove ' %s '") % config.movielist.last_videodir.value):
                 os.rmdir(config.movielist.last_videodir.value)
                 self.gotFilename(defaultMoviePath())
@@ -107,7 +107,7 @@ class MovieMove(Screen):
             self.destinationpath = destinationpath
             self.sourcepath = self.path.rsplit('/', 1)[0]
             listtmp = [(_("Move (in the background)"), "VH"), (_("Move (in the foreground)"), "VS"), (_("Copy (in the background)"), "KH"), (_("Copy (in the foreground)"), "KS"), (_("Abort"), "AB") ]
-            self.session.openWithCallback(self.DoMove, ChoiceBox, title=(_("How to ' %s ' from %s to %s be moved/copied ?") % (self.name, self.sourcepath, self.destinationpath)), list=listtmp)
+            self.session.openWithCallback(self.DoMove, ChoiceBox, title=(_("How to ' %s '") % (self.name) + ' ' + _("from %s") % (self.sourcepath) + ' ' + _("to %s be moved/copied ?") % (self.destinationpath)), list=listtmp)
     
     def DoMove(self, confirmed):
         if confirmed is not None:
