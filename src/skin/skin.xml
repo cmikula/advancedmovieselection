@@ -1296,7 +1296,7 @@
 		<widget source="key_green" render="Label" position="90,378" size="300,28" font="Regular;24" halign="left" valign="top" transparent="1"/>
 		<widget source="key_yellow" render="Label" position="90,428" size="300,28" font="Regular;24" halign="left" valign="top" transparent="1"/>
 		<widget source="key_blue" render="Label" position="90,478" size="300,28" font="Regular;24" halign="left" valign="top" transparent="1"/>
-		<ePixmap pixmap="dmm-HDr2/buttons/key_menu.png" position="60,530" size="35,25" alphatest="blend"/>
+		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" position="60,530" size="35,25" alphatest="blend"/>
 		<widget source="info" render="Label" position="450,110" size="770,28" font="Regular;24" halign="center" valign="top" transparent="1"/>
 		<widget name="list" position="450,170" size="770,480" scrollbarMode="showOnDemand" transparent="1" enableWrapAround="1"/>
 	</screen>
@@ -1317,7 +1317,7 @@
 		<widget source="key_green" render="Label" position="90,378" size="300,28" font="Regular;22" halign="left" valign="top" transparent="1"/>
 		<widget source="key_yellow" render="Label" position="90,428" size="300,28" font="Regular;22" halign="left" valign="top" transparent="1"/>
 		<widget source="key_blue" render="Label" position="90,478" size="300,28" font="Regular;22" halign="left" valign="top" transparent="1"/>
-		<ePixmap pixmap="dmm-HDr2/buttons/key_menu.png" position="60,530" size="35,25" alphatest="blend"/>
+		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" position="60,530" size="35,25" alphatest="blend"/>
 		<widget source="info" render="Label" position="450,110" size="514,28" font="Regular;20" halign="center" valign="top" transparent="1"/>
 		<widget name="list" position="450,170" size="514,346" scrollbarMode="showOnDemand" transparent="1" enableWrapAround="1"/>
 	</screen>
