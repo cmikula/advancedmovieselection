@@ -64,7 +64,6 @@ else:
 
 config.AdvancedMovieSelection = ConfigSubsection()
 config.AdvancedMovieSelection.jump_first_mark = ConfigYesNo(default=True)
-#config.AdvancedMovieSelection.showmovietags = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.showmovietagsinmenu = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.usefoldername = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.minitv = ConfigYesNo(default=True)
@@ -143,7 +142,6 @@ config.usage.on_movie_eof = ConfigSelection(default="quit", choices=[("ask", _("
 config.AdvancedMovieSelection.movieplayer_infobar_position_offset_x = ConfigInteger(default=0)
 config.AdvancedMovieSelection.movieplayer_infobar_position_offset_y = ConfigInteger(default=0)
 config.AdvancedMovieSelection.show_infobar_position = ConfigYesNo(default=True)
-config.AdvancedMovieSelection.jump_first_mark = ConfigYesNo(default=True)
 
 PlayerInstance = None
 baseMovieSelection__init__ = None
@@ -296,7 +294,7 @@ def startPlugin(self, pname, index):
 def noUpdateTages(self):
         pass
 
-class MoviePlayerExtended(MoviePlayer, CutListSupport):
+class MoviePlayerExtended(CutListSupport, MoviePlayer):
     def __init__(self, session, service):
         CutListSupport.__init__(self, service)
         MoviePlayer.__init__(self, session, service)
@@ -424,7 +422,7 @@ def movieSelected(self, service):
         if isinstance(service, eServiceReferenceDvd):
             if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/DVDPlayer/plugin.py"):
                 from Plugins.Extensions.DVDPlayer.plugin import DVDPlayer
-                class DVDPlayerExtended(DVDPlayer, CutListSupport):
+                class DVDPlayerExtended(CutListSupport, DVDPlayer):
                     def __init__(self, session, service):
                         CutListSupport.__init__(self, service)
                         DVDPlayer.__init__(self, session, dvd_filelist=service.getDVD())

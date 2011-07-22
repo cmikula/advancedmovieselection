@@ -27,6 +27,8 @@ from Components.Sources.ServiceEvent import ServiceEvent as eServiceEvent
 from enigma import eServiceCenter, iServiceInformation, eServiceReference
 from Tools.Directories import fileExists
 from EventInformationTable import EventInformationTable
+from Components.config import config
+from Screens.InfoBarGenerics import InfoBarCueSheetSupport
 import struct
 import os
 
@@ -351,6 +353,10 @@ class CutListSupport:
 				#	self.cut_list = [(0, 3)]
 			else:
 				self.cut_list = cue.getCutList()
+			
+			if config.usage.on_movie_start.value == "beginning" and config.AdvancedMovieSelection.jump_first_mark.value == True:
+				self.jumpToFirstMark()
+
 		except Exception, e:
 			print "DownloadCutList exception:\n" + str(e)
 
@@ -412,3 +418,21 @@ class CutListSupport:
 		except Exception, e:
 			print "playerClosed exception:\n" + str(e)
 
+	def jumpToFirstMark(self):
+		firstMark = None
+		for (pts, what) in self.cut_list:
+			if what == self.CUT_TYPE_MARK:
+				firstMark = pts
+				current_pos = self.cueGetCurrentPosition()
+				#increase current_pos by 2 seconds to make sure we get the correct mark
+				current_pos = current_pos + 180000
+				if firstMark == None or current_pos < firstMark:
+					break
+		if firstMark is not None:
+			self.start_point = firstMark
+			self.doSeek(self.start_point)
+
+	def playLastCB(self, answer):
+		if answer == False and config.AdvancedMovieSelection.jump_first_mark.value == True:
+			self.jumpToFirstMark()
+		InfoBarCueSheetSupport.playLastCB(self, answer)

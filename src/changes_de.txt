@@ -85,6 +85,7 @@ version 1.4
 * neu: tageditor fix in der erweiterung (kann in den einstellungen ein/aus geschalten werden)
 * neu: tags kšnnen nun auch bei timern und autotimern zugeordnet werden
 * neu: tags kšnnen ein/aus geschalten werden in der filmliste (funktion verfŸgbar in der standard/kompakten und bei der erweiterten listenansicht nur wenn die sendernamen abgeschalten sind)
+* neu: wiedergabe kann automatisch beim ersten marker starten (kann natŸrlich ein/aus geschalten werden)
 
 
 
