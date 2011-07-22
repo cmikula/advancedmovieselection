@@ -83,6 +83,7 @@ config.movielist.last_selected_tags = ConfigSet([], default=[])
 config.movielist.showtime = ConfigInteger(default=MovieList.SHOW_TIME)
 config.movielist.showdate = ConfigInteger(default=MovieList.SHOW_DATE)
 config.movielist.showservice = ConfigInteger(default=MovieList.SHOW_SERVICE)
+config.movielist.showtags = ConfigInteger(default=MovieList.HIDE_TAGS)
 
 def setPreferredTagEditor(te):
     global preferredTagEditor
@@ -154,6 +155,11 @@ class MovieContextMenu(Screen):
                 menu.append((_("Hide broadcaster"), boundFunction(self.showService, MovieList.HIDE_SERVICE)))
             else:
                 menu.append((_("Show broadcaster"), boundFunction(self.showService, MovieList.SHOW_SERVICE)))
+        if config.movielist.listtype.value == MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection or config.movielist.listtype.value == MovieList.LISTTYPE_ORIGINAL or config.movielist.listtype.value == MovieList.LISTTYPE_COMPACT and config.movielist.showservice.value == MovieList.HIDE_SERVICE:
+            if config.movielist.showtags.value == MovieList.SHOW_TAGS:
+                menu.append((_("Hide tags in movielist"), boundFunction(self.showTags, MovieList.HIDE_TAGS)))
+            else:
+                menu.append((_("Show tags in movielist"), boundFunction(self.showTags, MovieList.SHOW_TAGS)))
         if config.AdvancedMovieSelection.showliststyle.value:
             if config.movielist.description.value == MovieList.SHOW_DESCRIPTION:
                 menu.append((_("Hide extended description"), boundFunction(self.showDescription, MovieList.HIDE_DESCRIPTION)))
@@ -203,7 +209,7 @@ class MovieContextMenu(Screen):
                 menu.append((_("Delete movie info"), boundFunction(self.deleteinfos)))
         if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.showcoveroptions.value:
             menu.append((_("Download and save movie info/cover for all movies"), boundFunction(self.downloadMovieInfoAll)))
-        if config.AdvancedMovieSelection.showmovietags.value and not service.flags & eServiceReference.mustDescent:
+        if config.AdvancedMovieSelection.showmovietagsinmenu.value and not service.flags & eServiceReference.mustDescent:
             menu.append((_("Movie tags"), boundFunction(self.movietags)))
         if config.AdvancedMovieSelection.showmenu.value:
             menu.append((_("Setup"), boundFunction(self.menusetup)))
@@ -327,6 +333,13 @@ class MovieContextMenu(Screen):
         config.movielist.showtime.value = value
         config.movielist.showtime.save()
         self.csel.showTime(value)
+        self.csel.reloadList()
+        self.close()
+
+    def showTags(self, value):
+        config.movielist.showtags.value = value
+        config.movielist.showtags.save()
+        self.csel.showTags(value)
         self.csel.reloadList()
         self.close()
         
@@ -662,7 +675,8 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview):
             config.AdvancedMovieSelection.showcolorstatusinmovielist.value,
             config.movielist.showdate.value,
             config.movielist.showtime.value,
-            config.movielist.showservice.value)
+            config.movielist.showservice.value,
+            config.movielist.showtags.value)
 
         self.list = self["list"]
         self.selectedmovie = selectedmovie
@@ -863,6 +877,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview):
         config.movielist.showdate.save()
         config.movielist.showtime.save()
         config.movielist.showservice.save()
+        config.movielist.showtags.save()
 
     def getTagDescription(self, tag):
         # TODO: access the tag database
@@ -926,6 +941,9 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview):
         
     def showService(self, value):
         self["list"].showService(value)
+
+    def showTags(self, value):
+        self["list"].showTags(value)
 
     def reloadList(self, sel=None, home=False):
         if not fileExists(config.movielist.last_videodir.value):

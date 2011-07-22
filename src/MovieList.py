@@ -77,8 +77,10 @@ class MovieList(GUIComponent):
     SHOW_TIME = 2
     HIDE_SERVICE = 1
     SHOW_SERVICE = 2
+    HIDE_TAGS = 1
+    SHOW_TAGS = 2
 
-    def __init__(self, root, list_type=None, sort_type=None, descr_state=None, show_folders=False, show_progressbar=False, show_statusicon=False, show_statuscolor=False, show_date=True, show_time=True, show_service=True):
+    def __init__(self, root, list_type=None, sort_type=None, descr_state=None, show_folders=False, show_progressbar=False, show_statusicon=False, show_statuscolor=False, show_date=True, show_time=True, show_service=True, show_tags=False):
         GUIComponent.__init__(self)
         self.list_type = list_type or self.LISTTYPE_ORIGINAL
         self.descr_state = descr_state or self.HIDE_DESCRIPTION
@@ -94,6 +96,8 @@ class MovieList(GUIComponent):
         self.show_time = show_time or self.SHOW_TIME
         self.show_service = show_service or self.HIDE_SERVICE
         self.show_service = show_service or self.SHOW_SERVICE
+        self.show_tags = show_tags or self.HIDE_TAGS
+        self.show_tags = show_tags or self.SHOW_TAGS
         self.l = eListboxPythonMultiContent()
         self.tags = set()
         
@@ -184,6 +188,9 @@ class MovieList(GUIComponent):
         
     def showService(self, val):
         self.show_service = val
+
+    def showTags(self, val):
+        self.show_tags = val
 
     def redrawList(self):
         if self.list_type == MovieList.LISTTYPE_ORIGINAL:
@@ -369,7 +376,6 @@ class MovieList(GUIComponent):
                     begin_string = (_("Records"))        
         else:
             if config.AdvancedMovieSelection.dateformat.value == "2" and begin > 0:
-            #if begin > 0:
                 t = FuzzyTime(begin)
                 begin_string = t[0] + ", " + t[1]
             elif config.AdvancedMovieSelection.dateformat.value == "1":
@@ -395,8 +401,8 @@ class MovieList(GUIComponent):
             if self.show_folders:
                 res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 29, 20, 20, png))
             res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 265, 30), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
-            if self.tags:
-                res.append(MultiContentEntryText(pos=(width - 180, 0), size=(180, 30), font=2, flags=RT_HALIGN_RIGHT, text=tags, color=color))
+            if self.tags and self.show_tags == MovieList.SHOW_TAGS:
+                res.append(MultiContentEntryText(pos=(width - 250, 0), size=(250, 30), font=2, flags=RT_HALIGN_RIGHT, text=tags, color=color))
                 if service is not None:
                     res.append(MultiContentEntryText(pos=(300, 55), size=(200, 25), font=1, flags=RT_HALIGN_LEFT, text=service.getServiceName(), color=color))
             else:
@@ -459,7 +465,7 @@ class MovieList(GUIComponent):
             if self.show_date == MovieList.HIDE_DATE and self.show_time == MovieList.SHOW_TIME:
                 res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 155, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
                 res.append(MultiContentEntryText(pos=(width - 75, 0), size=(75, 20), font=0, flags=RT_HALIGN_RIGHT, text=len, color=color))            
-            if self.tags:
+            if self.tags and self.show_tags == MovieList.SHOW_TAGS:
                 res.append(MultiContentEntryText(pos=(width - 200, 22), size=(200, 17), font=1, flags=RT_HALIGN_RIGHT, text=tags, color=color))
                 if service is not None:
                     res.append(MultiContentEntryText(pos=(250, 22), size=(200, 17), font=1, flags=RT_HALIGN_LEFT, text=service.getServiceName(), color=color))
@@ -479,7 +485,11 @@ class MovieList(GUIComponent):
                 servicename = str(service.getServiceName())
                 res.append(MultiContentEntryText(pos=(width - 170, 2), size=(170, 20), font=0, flags=RT_HALIGN_RIGHT, text=servicename, color=color))
                 if servicename:
-                    offsetServiceName = 150
+                    offsetServiceName = 175
+
+            if self.tags and self.show_tags == MovieList.SHOW_TAGS and self.show_service == MovieList.HIDE_SERVICE:
+                res.append(MultiContentEntryText(pos=(width - 170, 2), size=(170, 20), font=0, flags=RT_HALIGN_RIGHT, text=tags, color=color))
+                offsetServiceName = 175
 
             displaytext = txt
             if description and self.show_date == MovieList.SHOW_DATE:

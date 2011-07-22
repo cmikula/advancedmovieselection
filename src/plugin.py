@@ -63,7 +63,9 @@ else:
     CoolTVGuidePresent = False
 
 config.AdvancedMovieSelection = ConfigSubsection()
-config.AdvancedMovieSelection.showmovietags = ConfigYesNo(default=False)
+config.AdvancedMovieSelection.jump_first_mark = ConfigYesNo(default=True)
+#config.AdvancedMovieSelection.showmovietags = ConfigYesNo(default=False)
+config.AdvancedMovieSelection.showmovietagsinmenu = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.usefoldername = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.minitv = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.shownew = ConfigYesNo(default=True)

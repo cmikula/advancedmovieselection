@@ -116,7 +116,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.Shownew = None
         self.MiniTV = None
         self.UseFolderName = None
-        self.ShowMovieTags = None
+        #self.ShowMovieTags = None
+        self.ShowMovieTagsinMenu = None
         self.needsRestartFlag = False
         self.needsReopenFlag = False
         self["setupActions"] = ActionMap(["ColorActions", "OkCancelActions", "MenuActions", "EPGSelectActions"],
@@ -206,7 +207,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.ShowDelInfo = getConfigListEntry(_("Show delete movie info in extensions menu from movielist:"), config.AdvancedMovieSelection.show_info_del)      
         self.ShowRename = getConfigListEntry(_("Show rename in extensions menu from movielist:"), config.AdvancedMovieSelection.showrename)
         self.ShowTMDb = getConfigListEntry(_("Show TMDb search in extensions menu from movielist:"), config.AdvancedMovieSelection.showtmdb)
-        self.ShowMovieTags = getConfigListEntry(_("Show movie tags in extensions menu from movielist:"), config.AdvancedMovieSelection.showmovietags)
+        #self.ShowMovieTags = getConfigListEntry(_("Show movie tags in movielist:"), config.AdvancedMovieSelection.showmovietags)
+        self.ShowMovieTagsinMenu = getConfigListEntry(_("Show movie tags in extensions menu from movielist:"), config.AdvancedMovieSelection.showmovietagsinmenu)
         self.MovieLength = getConfigListEntry(_("Load Length of Movies in Movielist:"), config.usage.load_length_of_movies_in_moviellist)
         self.Percentmark = getConfigListEntry(_("Mark movie as seen at position (in percent):"), config.AdvancedMovieSelection.moviepercentseen)
         self.AskDelete = getConfigListEntry(_("Ask before delete:"), config.AdvancedMovieSelection.askdelete)
@@ -267,7 +269,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.list.append(self.ShowDelInfo)
         self.list.append(self.ShowRename)
         self.list.append(self.ShowTMDb)
-        self.list.append(self.ShowMovieTags)
+        #self.list.append(self.ShowMovieTags)
+        self.list.append(self.ShowMovieTagsinMenu)
         self.list.append(self.MovieLength)
         if config.usage.load_length_of_movies_in_moviellist.value:
             self.list.append(self.Percentmark)
@@ -397,8 +400,10 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self["help"].setText(_("With this option you can switch on/off the Mini TV in the movie list."))
         elif current == self.UseFolderName:
             self["help"].setText(_("With this option you can use the foldername instead of folder.jpg to display covers in folders."))
-        elif current == self.ShowMovieTags:
+        elif current == self.ShowMovieTagsinMenu:
             self["help"].setText(_("Displays movie tags function in the menu at the movie list."))
+#        elif current == self.ShowMovieTags:
+#            self["help"].setText(_("Displays the available movie tags in movie list."))
 
     def pluginsavailable(self):
         if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):

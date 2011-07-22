@@ -84,6 +84,7 @@ version 1.4
 * fix: kompakte ansicht der filmliste wenn tags vorhanden sind
 * neu: tageditor fix in der erweiterung (kann in den einstellungen ein/aus geschalten werden)
 * neu: tags kšnnen nun auch bei timern und autotimern zugeordnet werden
+* neu: tags kšnnen ein/aus geschalten werden in der filmliste (funktion verfŸgbar in der standard/kompakten und erweiterten listenansicht)
 
 
 
