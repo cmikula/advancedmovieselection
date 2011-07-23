@@ -354,7 +354,7 @@ class CutListSupport:
 			else:
 				self.cut_list = cue.getCutList()
 			
-			if config.usage.on_movie_start.value == "beginning" and config.AdvancedMovieSelection.jump_first_mark.value == True:
+			if config.usage.on_movie_start.value == "beginning" or config.usage.on_movie_start.value == "ask" and config.AdvancedMovieSelection.jump_first_mark.value == True:
 				self.jumpToFirstMark()
 
 		except Exception, e:
@@ -425,7 +425,7 @@ class CutListSupport:
 				firstMark = pts
 				current_pos = self.cueGetCurrentPosition()
 				#increase current_pos by 2 seconds to make sure we get the correct mark
-				current_pos = current_pos + 180000
+				current_pos = current_pos+180000
 				if firstMark == None or current_pos < firstMark:
 					break
 		if firstMark is not None:
