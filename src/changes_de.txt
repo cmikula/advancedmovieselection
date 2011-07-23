@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*- #
+Ôªø# -*- coding: utf-8 -*- #
 
 version 0.1
 * erste beta :)
@@ -8,29 +8,29 @@ version 0.2
 * neu: coveranzeige
 
 version: 0.3
-* neu: filminfo suche über tmdb
-* neu: filminfo/cover download über tmdb
+* neu: filminfo suche √ºber tmdb
+* neu: filminfo/cover download √ºber tmdb
 
 version: 0.4
-* diverse optische veränderungen
+* diverse optische ver√§nderungen
 
 version: 0.5
 * neu: eigenen filminfo screen (info taste)
-* neu: filminfo/cover können nun auch bei nicht *.ts inhalten während des abspielens angezeigt werden
+* neu: filminfo/cover k√∂nnen nun auch bei nicht *.ts inhalten w√§hrend des abspielens angezeigt werden
 * neu: lcd/oled screens
 * neu: manuelle suche unter herunterladen und speichern von filminfo/cover
-* geändert: viel in der abteilung skin ;(
+* ge√§ndert: viel in der abteilung skin ;(
 
 version: 0.6
-* fix: crash bei der suche über den menüpunkt tmdb suche
-* neu: es können mehr services im lcd/oled angezeigt werden
-* neu: Filminfo/Cover Optionen im Menü der Filmliste anzeigen:
+* fix: crash bei der suche √ºber den men√ºpunkt tmdb suche
+* neu: es k√∂nnen mehr services im lcd/oled angezeigt werden
+* neu: Filminfo/Cover Optionen im Men√º der Filmliste anzeigen:
 
 version: 0.7
-* neu: *.cutsr und *.gm werden auch gelöscht wenn vorhanden
-* fix: anzeige der filmbeschreibung wenn ein ordner ausgewählt ist
+* neu: *.cutsr und *.gm werden auch gel√∂scht wenn vorhanden
+* fix: anzeige der filmbeschreibung wenn ein ordner ausgew√§hlt ist
 * fix: tmdb suche bei utf8
-* neu: mit lange info kann wenn installiert der merlinepg während der filmwiedergabe aufgerufen werden
+* neu: mit lange info kann wenn installiert der merlinepg w√§hrend der filmwiedergabe aufgerufen werden
 * neu: verhalten bei film start/stop/ende unter einstellungen konfigurierbar
 
 version: 0.8
@@ -38,54 +38,55 @@ version: 0.8
 * neu: bei der Filminfoleiste ist nun die position einstellbar
 
 version: 0.9
-* neu: erweiterung ist nun zu 100% übersetzt
-* neu: mit lange info kann wenn installiert der cooltvguide während der filmwiedergabe aufgerufen werden
-* geändert: lcd/oled anzeige,filminfo mit cover anzeige und lange info funktion auch wenn die coveranzeige in der filmliste ausgeschalten ist
+* neu: erweiterung ist nun zu 100% √ºbersetzt
+* neu: mit lange info kann wenn installiert der cooltvguide w√§hrend der filmwiedergabe aufgerufen werden
+* ge√§ndert: lcd/oled anzeige,filminfo mit cover anzeige und lange info funktion auch wenn die coveranzeige in der filmliste ausgeschalten ist
 * fix: crash beim umbenennen
 
 version: 1.0
-* geändert: plugin einstellungen von menü->einstellungen->system nach men√ü->einstellungen geändert
-* geändert: einige texte wegen den skins
+* ge√§ndert: plugin einstellungen von men√º->einstellungen->system nach men√º->einstellungen ge√§ndert
+* ge√§ndert: einige texte wegen den skins
 * neu: abfrage wenn plugin deaktiviert wird ob kompl. oder nur e2 neu gestartet werden soll
-* geändert: listenhöhe für skins
-* neu: farbe vom filmstatus in der filmliste kann verändert werden
+* ge√§ndert: listenh√∂he f√ºr skins
+* neu: farbe vom filmstatus in der filmliste kann ver√§ndert werden
 * neu: datum in der filmliste kann ein/aus geschalten werden
-* neu: filmlänge in der filmliste kann ein/aus geschalten werden
-* neu: datumsformat in der filmliste kann verändert werden
-* neu: nl übersetzung (thx @ Bschaar)
-* geändert: blaues sel.png anstatt graues beim standard skin für die filmauswahl (thx @ Joachim_Ernst)
+* neu: filml√§nge in der filmliste kann ein/aus geschalten werden
+* neu: datumsformat in der filmliste kann verÀÆdert werden
+* neu: nl √ºbersetzung (thx @ Bschaar)
+* ge√§ndert: blaues sel.png anstatt graues beim standard skin f√ºr die filmauswahl (thx @ Joachim_Ernst)
 * fix: tastenzuordnung sortieren
-ACHTUNG an die skinner, die screens AdvancedMovieSelectionButtonSetupSD, AdvancedMovieSelectionButtonSetupXD, AdvancedMovieSelectionButtonSetupHD haben sich geändert
+ACHTUNG an die skinner, die screens AdvancedMovieSelectionButtonSetupSD, AdvancedMovieSelectionButtonSetupXD, AdvancedMovieSelectionButtonSetupHD haben sich ge√§ndert
 
 version: 1.1
 * neu: sendername ein/aus in der in der erweiterten einzeiligen listenansicht
-* neu: icon in der filmlist für neue aufnahmen (nur aktiv wenn gp3 installiert)
-* neu: icon in der filmlist für neue aufnahmen kann ein/aus geschalten werden in den einstellungen (nur aktiv wenn gp3 installiert)
-* geändert: nl übersetzung
+* neu: icon in der filmlist f√ºr neue aufnahmen (nur aktiv wenn gp3 installiert)
+* neu: icon in der filmlist f√ºr neue aufnahmen kann ein/aus geschalten werden in den einstellungen (nur aktiv wenn gp3 installiert)
+* ge√§ndert: nl √ºbersetzung
 * neu: cover anzeige bei ordnern (folder.jpg muss im ordner/pfad vorhanden sein)
 
 version: 1.2
 * neu: mini tv kann ein/aus geschalten werden
-* fix: überschneiden von texten in der filmliste bei "komischen" schriften :)
+* fix: √ºberschneiden von texten in der filmliste bei "komischen" schriften :)
 * fix: einstellung des sendernamens wurde nicht permanent gespeichert
 * fix: coveranzeige bei dvd dateistruktur
 * fix: meta datei wurde bei dvd dateistruktur falsch erzeugt
 * fix: eit datei erstellung wenn titel <= 2 ziffern/buchstaben
-* fix: löschen ganzer dvd, sowie l√∂schen von cover,filminfo bei dvd dateistruktur
+* fix: l√∂schen ganzer dvd, sowie l√∂schen von cover,filminfo bei dvd dateistruktur
 ACHTUNG an die skinner, neue screens sind dazu gekommen
 
 version: 1.3
-* neu: ordnername anstelle von folder.jpg für das anzeigen der covers bei ordnern (kann in den einstellungen ein/aus geschalten werden)
-* fix: crash beim abspielen über den gp3 dateimanager wenn zuvor ein film mit der erweiterten filmliste wiedergegeben wurde
+* neu: ordnername anstelle von folder.jpg f√ºr das anzeigen der covers bei ordnern (kann in den einstellungen ein/aus geschalten werden)
+* fix: crash beim abspielen √ºber den gp3 dateimanager wenn zuvor ein film mit der erweiterten filmliste wiedergegeben wurde
 * fix: marker wurden nicht angezeigt die mit der taste 0 angelegt wurden
 * fix: bei der e2 standard datumsanzeige in der filmliste wurden das jahr abgeschnitten
 
 version 1.4
 * fix: kompakte ansicht der filmliste wenn tags vorhanden sind
 * neu: tageditor fix in der erweiterung (kann in den einstellungen ein/aus geschalten werden)
-* neu: tags können nun auch bei timern und autotimern zugeordnet werden
-* neu: tags können ein/aus geschalten werden in der filmliste (funktion verfügbar in der standard/kompakten und bei der erweiterten listenansicht nur wenn die sendernamen abgeschalten sind)
-* neu: wiedergabe kann automatisch beim ersten marker starten (kann natürlich ein/aus geschalten werden)
+* neu: tags k√∂nnen nun auch bei timern und autotimern zugeordnet werden
+* neu: tags k√∂nnen ein/aus geschalten werden in der filmliste (funktion verf√ºgbar in der standard/kompakten und bei der erweiterten listenansicht nur wenn die sendernamen abgeschalten sind)
+* neu: wiedergabe kann automatisch beim ersten marker starten (kann nat√ºrlich ein/aus geschalten werden)
+
 
 
 
