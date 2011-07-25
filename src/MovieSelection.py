@@ -85,6 +85,8 @@ config.movielist.showdate = ConfigInteger(default=MovieList.SHOW_DATE)
 config.movielist.showservice = ConfigInteger(default=MovieList.SHOW_SERVICE)
 config.movielist.showtags = ConfigInteger(default=MovieList.HIDE_TAGS)
 
+SHOW_ALL_MOVIES = "Show all movies"
+
 def setPreferredTagEditor(te):
     global preferredTagEditor
     try:
@@ -261,7 +263,7 @@ class MovieContextMenu(Screen):
         MovieMove(session=self.session, service=self.service)
 
     def movietags(self):
-        self.session.open(MovieTagEditor, service=self.service, parent = self.session.current_dialog)
+        self.session.open(MovieTagEditor, service=self.service, parent=self.session.current_dialog)
 
     def searchmovie(self):
         MovieSearchScreen(session=self.session)
@@ -632,7 +634,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview):
             elif sz_w == 1024:
                 self.skinName = ["AdvancedMovieSelection1_noMiniTV_XD"]
             else:
-                self.skinName = ["AdvancedMovieSelection1_noMiniTV_SD"] 
+                self.skinName = ["AdvancedMovieSelection1_noMiniTV_SD"]
         self.tags = [ ]
         if selectedmovie:
             self.selected_tags = config.movielist.last_selected_tags.value
@@ -886,7 +888,9 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview):
     def updateTags(self):
         # get a list of tags available in this list
         self.tags = list(self["list"].tags)
-
+        # insert text for selecting all movies
+        self.tags.insert(0, _(SHOW_ALL_MOVIES))
+        
         if not self.tags:
             # by default, we do not display any filtering options
             self.tag_first = ""
@@ -902,15 +906,16 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview):
                 self.tag_second = tmp
             else:
                 self.tag_second = "<" + _("Tag 2") + ">"
-        self["key_green"].text = self.tag_first
-        self["key_yellow"].text = self.tag_second
+
+        #self["key_green"].text = self.tag_first
+        #self["key_yellow"].text = self.tag_second
         
         # the rest is presented in a list, available on the
         # fourth ("blue") button
-        if self.tags:
-            self["key_blue"].text = _("Tags") + "..."
-        else:
-            self["key_blue"].text = ""
+        #if self.tags:
+        #    self["key_blue"].text = _("Tags") + "..."
+        #else:
+        #    self["key_blue"].text = ""
 
     def setListType(self, type):
         self["list"].setListType(type)
@@ -1023,6 +1028,9 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview):
         self.showTagsN(None)
 
     def tagChosen(self, tag):
+        if tag and tag[0] == _(SHOW_ALL_MOVIES):
+            self.showAll()
+            return
         if tag is not None:
             self.selected_tags = set([tag[0]])
             if self.selected_tags_ele:

@@ -351,6 +351,8 @@ class MovieTagEditor(TagEditor):
         # A proper way to do this should be provided in enigma2.
         try:
             parentscreen = self.parent
+            # TODO: this only works if parent is MovieContextMenu. 
+            # FIXME: if TagEditor is opened with quick button, parent is MovieSelection and update will be failed 
             parentscreen.csel.reloadList()
             parentscreen.close()
         except AttributeError:
