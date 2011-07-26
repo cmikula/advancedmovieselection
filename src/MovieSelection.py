@@ -85,7 +85,7 @@ config.movielist.showdate = ConfigInteger(default=MovieList.SHOW_DATE)
 config.movielist.showservice = ConfigInteger(default=MovieList.SHOW_SERVICE)
 config.movielist.showtags = ConfigInteger(default=MovieList.HIDE_TAGS)
 
-SHOW_ALL_MOVIES = "Show all movies"
+SHOW_ALL_MOVIES = _("Show all movies")
 
 def setPreferredTagEditor(te):
     global preferredTagEditor
@@ -157,7 +157,7 @@ class MovieContextMenu(Screen):
                 menu.append((_("Hide broadcaster"), boundFunction(self.showService, MovieList.HIDE_SERVICE)))
             else:
                 menu.append((_("Show broadcaster"), boundFunction(self.showService, MovieList.SHOW_SERVICE)))
-        if config.movielist.listtype.value == MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection or config.movielist.listtype.value == MovieList.LISTTYPE_ORIGINAL or config.movielist.listtype.value == MovieList.LISTTYPE_COMPACT and config.movielist.showservice.value == MovieList.HIDE_SERVICE:
+        if config.AdvancedMovieSelection.showliststyle.value and config.movielist.listtype.value == MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection or config.movielist.listtype.value == MovieList.LISTTYPE_ORIGINAL or config.movielist.listtype.value == MovieList.LISTTYPE_COMPACT and config.movielist.showservice.value == MovieList.HIDE_SERVICE:
             if config.movielist.showtags.value == MovieList.SHOW_TAGS:
                 menu.append((_("Hide tags in movielist"), boundFunction(self.showTags, MovieList.HIDE_TAGS)))
             else:
@@ -213,6 +213,8 @@ class MovieContextMenu(Screen):
             menu.append((_("Download and save movie info/cover for all movies"), boundFunction(self.downloadMovieInfoAll)))
         if config.AdvancedMovieSelection.showmovietagsinmenu.value and not service.flags & eServiceReference.mustDescent:
             menu.append((_("Movie tags"), boundFunction(self.movietags)))
+        if config.AdvancedMovieSelection.showfiltertags.value:
+            menu.append((_("Filter by Tags"), boundFunction(self.filterbytags)))
         if config.AdvancedMovieSelection.showmenu.value:
             menu.append((_("Setup"), boundFunction(self.menusetup)))
         if config.AdvancedMovieSelection.showmenu.value and config.AdvancedMovieSelection.show_infobar_position.value:
@@ -264,6 +266,11 @@ class MovieContextMenu(Screen):
 
     def movietags(self):
         self.session.open(MovieTagEditor, service=self.service, parent=self.session.current_dialog)
+
+    def filterbytags(self):
+        self.csel.showTagsSelect()
+        self.csel.reloadList()
+        self.close()
 
     def searchmovie(self):
         MovieSearchScreen(session=self.session)

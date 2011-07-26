@@ -64,6 +64,7 @@ else:
 
 config.AdvancedMovieSelection = ConfigSubsection()
 config.AdvancedMovieSelection.jump_first_mark = ConfigYesNo(default=True)
+config.AdvancedMovieSelection.showfiltertags = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.showmovietagsinmenu = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.usefoldername = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.minitv = ConfigYesNo(default=True)
@@ -204,8 +205,8 @@ def getPluginCaption(self, pname):
                 else:
                     if config.movielist.moviesort.value == MovieList.SORT_DATE_ASC:
                         return _("Sort alphabetically")
-        elif pname == _("Show Tags"):
-            return _("Show Tags")
+        elif pname == _("Filter by Tags"):
+            return _("Filter by Tags")
         else:
             for p in plugins.getPlugins(where=[PluginDescriptor.WHERE_MOVIELIST]):
                 if pname == str(p.name):
@@ -242,7 +243,7 @@ def startPlugin(self, pname, index):
             elif pname == _("Bookmark 3"):
                 self.gotFilename(bookmark3)
                 no_plugin = False
-            elif pname == _("Show Tags"):
+            elif pname == _("Filter by Tags"):
                 self.showTagsSelect()
                 no_plugin = False
             elif pname == _("Sort"):
@@ -478,8 +479,8 @@ def Plugins(**kwargs):
         print e
     if not config.AdvancedMovieSelection.ml_disable.value:
         descriptors = [PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=autostart)]
-        descriptors.append(PluginDescriptor(name="MovieRetitle", description=_("Rename"), where=PluginDescriptor.WHERE_MOVIELIST, fnc=rename))
-        descriptors.append(PluginDescriptor(name="TagEditor", description=_("Tag Editor"), where=PluginDescriptor.WHERE_MOVIELIST, fnc=tageditor))
+        descriptors.append(PluginDescriptor(name="Movie Retitle", description=_("Rename"), where=PluginDescriptor.WHERE_MOVIELIST, fnc=rename))
+        descriptors.append(PluginDescriptor(name="Tag Editor", description=_("Tag Editor"), where=PluginDescriptor.WHERE_MOVIELIST, fnc=tageditor))
         descriptors.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, fnc=Setup))
     else:
         descriptors = [PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=nostart)]

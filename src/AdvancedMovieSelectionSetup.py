@@ -118,6 +118,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.UseFolderName = None
         self.Jump2Mark = None
         self.ShowMovieTagsinMenu = None
+        self.ShowFilterbyTags = None
         self.needsRestartFlag = False
         self.needsReopenFlag = False
         self["setupActions"] = ActionMap(["ColorActions", "OkCancelActions", "MenuActions", "EPGSelectActions"],
@@ -209,6 +210,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.ShowTMDb = getConfigListEntry(_("Show TMDb search in extensions menu from movielist:"), config.AdvancedMovieSelection.showtmdb)
         self.Jump2Mark = getConfigListEntry(_("Jump to first mark when starts playing movie:"), config.AdvancedMovieSelection.jump_first_mark)
         self.ShowMovieTagsinMenu = getConfigListEntry(_("Show movie tags in extensions menu from movielist:"), config.AdvancedMovieSelection.showmovietagsinmenu)
+        self.ShowFilterbyTags = getConfigListEntry(_("Show filter by tags in extensions menu from movielist:"), config.AdvancedMovieSelection.showfiltertags)
         self.MovieLength = getConfigListEntry(_("Load Length of Movies in Movielist:"), config.usage.load_length_of_movies_in_moviellist)
         self.Percentmark = getConfigListEntry(_("Mark movie as seen at position (in percent):"), config.AdvancedMovieSelection.moviepercentseen)
         self.AskDelete = getConfigListEntry(_("Ask before delete:"), config.AdvancedMovieSelection.askdelete)
@@ -270,6 +272,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append(self.ShowRename)
         self.list.append(self.ShowTMDb)
         self.list.append(self.ShowMovieTagsinMenu)
+        self.list.append(self.ShowFilterbyTags)
         self.list.append(self.MovieLength)
         if config.usage.load_length_of_movies_in_moviellist.value:
             self.list.append(self.Percentmark)
@@ -404,6 +407,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self["help"].setText(_("Displays movie tags function in the menu at the movie list."))
         elif current == self.Jump2Mark:
             self["help"].setText(_("If this option is activated automatically when a movie does not start from the last position, the movie starts at the first marker."))
+        elif current == self.ShowFilterbyTags:
+            self["help"].setText(_("Displays filter by tags function in the menu at the movie list."))
 
     def pluginsavailable(self):
         if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
@@ -490,7 +495,7 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         self.entryguilist.append(("4", _("Bookmark 1")))
         self.entryguilist.append(("5", _("Bookmark 2")))
         self.entryguilist.append(("6", _("Bookmark 3")))
-        self.entryguilist.append(("7", _("Show Tags")))
+        self.entryguilist.append(("7", _("Filter by Tags")))
         index = 8
         self.entryguilist2 = []
         self.entryguilist2.append(("0", _("Nothing")))
@@ -744,7 +749,7 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
             return "5"
         elif value == _("Bookmark 3"):
             return "6"
-        elif value == _("Show Tags"):
+        elif value == _("Filter by Tags"):
             return "7"
         else:
             return "0"
