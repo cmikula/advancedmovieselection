@@ -61,8 +61,14 @@ if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/CoolTVGuide/plugin.pyo
     CoolTVGuidePresent = True
 else:
     CoolTVGuidePresent = False
+if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/YTTrailer/plugin.pyo"):
+    from Plugins.Extensions.YTTrailer.plugin import YTTrailerList
+    YTTrailerPresent=True
+else:
+    YTTrailerPresent=False
 
 config.AdvancedMovieSelection = ConfigSubsection()
+config.AdvancedMovieSelection.showtrailer = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.jump_first_mark = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.showfiltertags = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.showmovietagsinmenu = ConfigYesNo(default=False)
@@ -207,6 +213,8 @@ def getPluginCaption(self, pname):
                         return _("Sort alphabetically")
         elif pname == _("Filter by Tags"):
             return _("Filter by Tags")
+        elif pname == _("Trailer search"):
+            return _("Trailer search")       
         else:
             for p in plugins.getPlugins(where=[PluginDescriptor.WHERE_MOVIELIST]):
                 if pname == str(p.name):
@@ -246,6 +254,9 @@ def startPlugin(self, pname, index):
             elif pname == _("Filter by Tags"):
                 self.showTagsSelect()
                 no_plugin = False
+            elif pname == _("Trailer search"):
+                self.showTrailer()
+                no_plugin = False            
             elif pname == _("Sort"):
                 if config.movielist.moviesort.value == MovieList.SORT_ALPHANUMERIC:
                     newType = MovieList.SORT_DATE_DESC

@@ -88,8 +88,8 @@ version 1.4
 * neu: wiedergabe kann automatisch beim ersten marker starten (kann natürlich ein/aus geschalten werden)
 * neu: nach tags filtern kann einer farbtaste zugeordnet werden, und/oder im menü der filmliste angezeigt werden
 
-
-
+version: 1.5
+* neu: die yttrailer erweiterung kann wenn installiert über das menü der filmliste aufgerufen werden (kann natürlich ein/aus geschalten werden), oder einer farbtaste zugeordnet werden
 
 
 

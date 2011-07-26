@@ -57,6 +57,10 @@ if fileExists("/usr/lib/enigma2/python/Plugins/Bp/geminimain/plugin.pyo"):
     GP3Present = True
 else:
     GP3Present = False
+if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/YTTrailer/plugin.pyo"):
+    YTTrailerPresent=True
+else:
+    YTTrailerPresent=False
 
 class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
     def __init__(self, session):
@@ -119,6 +123,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.Jump2Mark = None
         self.ShowMovieTagsinMenu = None
         self.ShowFilterbyTags = None
+        self.ShowTrailer = None
         self.needsRestartFlag = False
         self.needsReopenFlag = False
         self["setupActions"] = ActionMap(["ColorActions", "OkCancelActions", "MenuActions", "EPGSelectActions"],
@@ -138,6 +143,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self["key_yellow"] = StaticText(_("Color key settings"))
         self["key_blue"] = StaticText(_("Default paths"))
         self["help"] = StaticText("")
+        self["Trailertxt"] = StaticText("")
         self["TMDbtxt"] = StaticText("")
         self["IMDbtxt"] = StaticText("")
         self["OFDbtxt"] = StaticText("")
@@ -211,6 +217,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.Jump2Mark = getConfigListEntry(_("Jump to first mark when starts playing movie:"), config.AdvancedMovieSelection.jump_first_mark)
         self.ShowMovieTagsinMenu = getConfigListEntry(_("Show movie tags in extensions menu from movielist:"), config.AdvancedMovieSelection.showmovietagsinmenu)
         self.ShowFilterbyTags = getConfigListEntry(_("Show filter by tags in extensions menu from movielist:"), config.AdvancedMovieSelection.showfiltertags)
+        self.ShowTrailer = getConfigListEntry(_("Show search trailer on web in extensions menu from movielist:"), config.AdvancedMovieSelection.showtrailer)
         self.MovieLength = getConfigListEntry(_("Load Length of Movies in Movielist:"), config.usage.load_length_of_movies_in_moviellist)
         self.Percentmark = getConfigListEntry(_("Mark movie as seen at position (in percent):"), config.AdvancedMovieSelection.moviepercentseen)
         self.AskDelete = getConfigListEntry(_("Ask before delete:"), config.AdvancedMovieSelection.askdelete)
@@ -273,6 +280,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append(self.ShowTMDb)
         self.list.append(self.ShowMovieTagsinMenu)
         self.list.append(self.ShowFilterbyTags)
+        self.list.append(self.ShowTrailer)
         self.list.append(self.MovieLength)
         if config.usage.load_length_of_movies_in_moviellist.value:
             self.list.append(self.Percentmark)
@@ -409,6 +417,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self["help"].setText(_("If this option is activated automatically when a movie does not start from the last position, the movie starts at the first marker."))
         elif current == self.ShowFilterbyTags:
             self["help"].setText(_("Displays filter by tags function in the menu at the movie list."))
+        elif current == self.ShowTrailer:
+            self["help"].setText(_("Displays search trailer on web function in the menu at the movie list."))
 
     def pluginsavailable(self):
         if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
@@ -423,6 +433,11 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self["TMDbtxt"].setText(_("TMDb plugin installed. Assign function to info button is possible."))
         else:
             self["TMDbtxt"].setText(_("TMDb plugin NOT installed. Assign function to info button is NOT possible.")) 
+        if  YTTrailerPresent == True:
+             self["Trailertxt"].setText(_("YTTrailer plugin installed. Search for trailers on the Web is possible."))
+        else:
+            self["Trailertxt"].setText(_("YTTrailer plugin NOT installed. Search for trailers on the Web is NOT possible."))           
+
 
     def cancelConfirm(self, result):
         if not result:
@@ -496,7 +511,11 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         self.entryguilist.append(("5", _("Bookmark 2")))
         self.entryguilist.append(("6", _("Bookmark 3")))
         self.entryguilist.append(("7", _("Filter by Tags")))
-        index = 8
+        if YTTrailerPresent == True:
+            self.entryguilist.append(("8", _("Trailer search")))
+            index = 9
+        else:
+            index = 8
         self.entryguilist2 = []
         self.entryguilist2.append(("0", _("Nothing")))
         self.entryguilist2.append(("1", _("DM-600PVR")))
@@ -751,6 +770,8 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
             return "6"
         elif value == _("Filter by Tags"):
             return "7"
+        elif value == _("Trailer search"):
+            return "8"
         else:
             return "0"
 

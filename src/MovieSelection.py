@@ -69,6 +69,11 @@ if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/TMDb/plugin.pyo"):
     TMDbPresent = True
 else:
     TMDbPresent = False
+if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/YTTrailer/plugin.pyo"):
+    from Plugins.Extensions.YTTrailer.plugin import YTTrailerList
+    YTTrailerPresent=True
+else:
+    YTTrailerPresent=False
 
 config.movielist = ConfigSubsection()
 config.movielist.moviesort = ConfigInteger(default=MovieList.SORT_ALPHANUMERIC)
@@ -215,15 +220,25 @@ class MovieContextMenu(Screen):
             menu.append((_("Movie tags"), boundFunction(self.movietags)))
         if config.AdvancedMovieSelection.showfiltertags.value:
             menu.append((_("Filter by Tags"), boundFunction(self.filterbytags)))
-        if config.AdvancedMovieSelection.showmenu.value:
-            menu.append((_("Setup"), boundFunction(self.menusetup)))
         if config.AdvancedMovieSelection.showmenu.value and config.AdvancedMovieSelection.show_infobar_position.value:
             menu.append((_("Setup Moviebar position"), self.moviebarsetup))
+        if YTTrailerPresent == True and config.AdvancedMovieSelection.showtrailer.value and not (self.service.flags & eServiceReference.mustDescent): 
+            menu.append((_("Search Trailer on web"), boundFunction(self.showTrailer)))
+        if config.AdvancedMovieSelection.showmenu.value:
+            menu.append((_("Setup"), boundFunction(self.menusetup)))
         self["menu"] = MenuList(menu)
         self.onShown.append(self.setWindowTitle)
 
     def setWindowTitle(self):
         self.setTitle(_("Advanced Movie Selection Menu"))
+
+    def showTrailer(self):
+        if YTTrailerPresent == True:
+            from ServiceProvider import ServiceCenter
+            eventname = ServiceCenter.getInstance().info(self.service).getName(self.service)
+            self.session.open(YTTrailerList, eventname)
+        else:
+            pass
 
     def moviebarsetup(self):
         self.session.open(MoviebarPositionSetup)
@@ -887,6 +902,17 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview):
         config.movielist.showtime.save()
         config.movielist.showservice.save()
         config.movielist.showtags.save()
+
+    def showTrailer(self):
+        if YTTrailerPresent == True:
+            event = self["list"].getCurrentEvent()
+            if event is not None:
+                eventname = event.getEventName()
+                self.session.open(YTTrailerList, eventname)
+            else:
+                pass
+        else:
+            pass
 
     def getTagDescription(self, tag):
         # TODO: access the tag database
