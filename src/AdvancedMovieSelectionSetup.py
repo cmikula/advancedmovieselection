@@ -771,9 +771,9 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
             return "6"
         elif value == _("Filter by Tags"):
             return "7"
-        elif value == _("Trailer search"):
-            return "8"
         elif value == _("Move-Copy"):
+            return "8"
+        elif value == _("Trailer search"):
             return "9"
         else:
             return "0"
