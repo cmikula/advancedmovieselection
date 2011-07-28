@@ -70,39 +70,27 @@ class MoviePreview():
         self.hideDialog()
         if serviceref:
             path = serviceref.getPath()
-            #print "Preview " + path
             if os.path.isfile(path):
                 path = os.path.splitext(path)[0] + ".jpg"
-                #print "Preview 1" + path
             elif isinstance(serviceref, eServiceReferenceDvd):
                 path = path + ".jpg"
-                #print "Preview 2" + path
             elif config.AdvancedMovieSelection.usefoldername.value:
                 path = path
-                #print "Preview 3" + path
                 if path.endswith("/"):
                     path = path[:-1] + ".jpg"
             else:
                 path = path + "folder.jpg"
-                #print "Preview 4" + path                
         
+            self.showDialog()
+            self.working = True
+            sc = AVSwitch().getFramebufferScale()
+            self.picload = ePicLoad()
+            self.picload.PictureData.get().append(self.showPreviewCallback)
+            self.picload.setPara((self.dialog["preview"].instance.size().width(), self.dialog["preview"].instance.size().height(), sc[0], sc[1], False, 1, "#00000000"))
+            self.dialog.hide()
             if fileExists(path):
-                self.showDialog()
-                self.working = True
-                sc = AVSwitch().getFramebufferScale()
-                self.picload = ePicLoad()
-                self.picload.PictureData.get().append(self.showPreviewCallback)
-                self.picload.setPara((self.dialog["preview"].instance.size().width(), self.dialog["preview"].instance.size().height(), sc[0], sc[1], False, 1, "#00000000"))
-                self.dialog.hide()
                 self.picload.startDecode(path)
             else:
-                self.showDialog()
-                self.working = True
-                sc = AVSwitch().getFramebufferScale()
-                self.picload = ePicLoad()
-                self.picload.PictureData.get().append(self.showPreviewCallback)
-                self.picload.setPara((self.dialog["preview"].instance.size().width(), self.dialog["preview"].instance.size().height(), sc[0], sc[1], False, 1, "#00000000"))
-                self.dialog.hide()
                 self.picload.startDecode(nocover)
                 
     def showPreviewCallback(self, picInfo=None):

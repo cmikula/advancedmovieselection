@@ -75,7 +75,6 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.skinName = ["AdvancedMovieSelectionSetupXD"]
         else:
             self.skinName = ["AdvancedMovieSelectionSetupSD"]
-        self.session = session        
         self.OnOff = None
         self.Startwith = None
         self.StartDir = None
@@ -434,7 +433,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         else:
             self["TMDbtxt"].setText(_("TMDb plugin NOT installed. Assign function to info button is NOT possible.")) 
         if  YTTrailerPresent == True:
-             self["Trailertxt"].setText(_("YTTrailer plugin installed. Search for trailers on the Web is possible."))
+            self["Trailertxt"].setText(_("YTTrailer plugin installed. Search for trailers on the Web is possible."))
         else:
             self["Trailertxt"].setText(_("YTTrailer plugin NOT installed. Search for trailers on the Web is NOT possible."))           
 
@@ -839,7 +838,6 @@ class AdvancedMovieSelectionOwnButtonName(Screen, ConfigListScreen):
             self.skinName = ["AdvancedMovieSelectionOwnButtonNameXD"]
         else:
             self.skinName = ["AdvancedMovieSelectionOwnButtonNameSD"]
-        self.session = session
         self.homebutton = None
         self.bookmark1button = None
         self.bookmark2button = None

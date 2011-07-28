@@ -272,7 +272,6 @@ class TMDbMain(Screen):
             self.skinName = ["TMDbMainXD"]
         else:
             self.skinName = ["TMDbMainSD"]
-        self.session = session
         self.service = service
         self["list"] = TMDbList()
         self["actions"] = ActionMap(["WizardActions", "DirectionActions", "ColorActions", "EPGSelectActions", "InfobarActions"],

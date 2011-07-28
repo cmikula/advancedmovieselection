@@ -278,7 +278,7 @@ class MovieContextMenu(Screen):
 
     def movecopy(self):
         if not (self.service.flags & eServiceReference.mustDescent):
-            MovieMove(session=self.session, service=self.service)
+            self.session.open(MovieMove, self.csel, self.service)
         else:
             self.session.open(MessageBox, _("Move/Copy not possible here !"), MessageBox.TYPE_INFO)
 

@@ -35,6 +35,7 @@ from AdvancedMovieSelectionSetup import AdvancedMovieSelectionSetup
 from enigma import ePoint 
 from Rename import MovieRetitle
 from TagEditor import TagEditor, MovieTagEditor
+from MoveCopy import MovieMove
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
     IMDbPresent = True
@@ -260,8 +261,7 @@ def startPlugin(self, pname, index):
                 self.showTrailer()
                 no_plugin = False 
             elif pname == _("Move-Copy"):
-                MCM = MovieContextMenu(self.session, self, current)
-                MCM.movecopy()
+                self.session.open(MovieMove, self, current)
                 no_plugin = False 
             elif pname == _("Sort"):
                 if config.movielist.moviesort.value == MovieList.SORT_ALPHANUMERIC:

@@ -20,7 +20,6 @@
 #  distributed other than under the conditions noted above.
 #
 from __init__ import _
-from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
 from Screens.ChoiceBox import ChoiceBox
 from Screens.LocationBox import MovieLocationBox
@@ -31,11 +30,10 @@ from Components.UsageConfig import defaultMoviePath
 from Tools.Directories import createDir
 import os
 
-class MovieMove(Screen):
-    def __init__(self, session, service):
-        self.session = session
+class MovieMove(ChoiceBox):
+    def __init__(self, session, csel, service):
+        self.csel = csel
         self.service = service
-        Screen.__init__(self, session)
         serviceHandler = eServiceCenter.getInstance()
         info = serviceHandler.info(self.service)
         self.path = self.service.getPath()
@@ -52,43 +50,43 @@ class MovieMove(Screen):
                 cbkeys.append(str(element))
             else:
                 cbkeys.append("")
-        listpath.append((_("To adjusted move/copy location"), _("To adjusted move/copy location"), "", ""))
+        listpath.append((_("To adjusted move/copy location"), "CALLFUNC", self.selectedLocation))
         cbkeys.append("blue")
-        listpath.append((_("Directory Selection"), _("Directory Selection"), "", ""))
+        listpath.append((_("Directory Selection"), "CALLFUNC", self.selectDir))
         cbkeys.append("yellow")
-        listpath.append((_("Show active move/copy processes"), _("Show active move/copy processes"), "", ""))
+        listpath.append((_("Show active move/copy processes"), "CALLFUNC", self.showActive))
         cbkeys.append("green")
 
         if len(os.listdir(config.movielist.last_videodir.value)) == 0 and defaultMoviePath() <> config.movielist.last_videodir.value:
-            listpath.append((_("Remove ' %s '") % config.movielist.last_videodir.value, ("Verzeichnis entfernen ...", "", "")))
+            listpath.append((_("Remove ' %s '") % config.movielist.last_videodir.value, "CALLFUNC", self.remove))
             cbkeys.append("red")
-        self.session.openWithCallback(self.SelectPathConfirmed, ChoiceBox, title=(_("Where to ' %s ' are moved/copied ?") % (self.name)), list=listpath, keys=cbkeys)
 
-    def SelectPathConfirmed(self, answer):
-        if answer is not None:
-            if answer[0] == _("To adjusted move/copy location"):
-                self.gotFilename(config.AdvancedMovieSelection.movecopydirs.value)
-            elif answer[0] == _("Directory Selection"):
-                self.session.openWithCallback(self.gotFilename, MovieLocationBox, _("Please select the move/copy destination"), config.movielist.last_videodir.value)
-            elif answer[0] == _("Show active move/copy processes"):
-                tmp_out = os.popen("ps -ef | grep -e \"   [c]p /\" -e \"   [m]v /\"").readlines()
-                tmpline = ""
-                tmpcount = 0
-                for line in tmp_out:
-                    tmpcount = tmpcount + 1
-                    tmpline = tmpline + "\n" + line.replace(" cp ", _("|Copy:\n"), 1).replace(" mv ", _("|Move:\n") , 1).split("|", 1)[1].rsplit(".", 1)[0]
-                if tmpcount == 0:
-                    self.session.open(MessageBox, _("There are currently no files are moved or copied."), MessageBox.TYPE_INFO, 5)
-                elif tmpcount == 1:
-                    self.session.open(MessageBox, (_("The following file is being moved or copied currently:\n%s") % tmpline), MessageBox.TYPE_INFO)
-                else:
-                    self.session.open(MessageBox, (_("The following %s") % str(tmpcount) + ' ' + _("files are being moved or copied currently:\n%s") % tmpline, MessageBox.TYPE_INFO))					
-            elif answer[0] == (_("Remove ' %s '") % config.movielist.last_videodir.value):
-                os.rmdir(config.movielist.last_videodir.value)
-                self.gotFilename(defaultMoviePath())
-            else:
-                self.gotFilename(answer[1][2])
-                                    
+        ChoiceBox.__init__(self, session, list=listpath, keys=cbkeys)
+
+    def selectedLocation(self, arg):
+        self.gotFilename(config.AdvancedMovieSelection.movecopydirs.value)
+
+    def selectDir(self, arg):
+        self.session.openWithCallback(self.gotFilename, MovieLocationBox, _("Please select the move/copy destination"), config.movielist.last_videodir.value)
+
+    def showActive(self, arg):
+        tmp_out = os.popen("ps -ef | grep -e \"   [c]p /\" -e \"   [m]v /\"").readlines()
+        tmpline = ""
+        tmpcount = 0
+        for line in tmp_out:
+            tmpcount = tmpcount + 1
+            tmpline = tmpline + "\n" + line.replace(" cp ", _("|Copy:\n"), 1).replace(" mv ", _("|Move:\n") , 1).split("|", 1)[1].rsplit(".", 1)[0]
+        if tmpcount == 0:
+            self.session.open(MessageBox, _("There are currently no files are moved or copied."), MessageBox.TYPE_INFO, 5)
+        elif tmpcount == 1:
+            self.session.open(MessageBox, (_("The following file is being moved or copied currently:\n%s") % tmpline), MessageBox.TYPE_INFO)
+        else:
+            self.session.open(MessageBox, (_("The following %s") % str(tmpcount) + ' ' + _("files are being moved or copied currently:\n%s") % tmpline, MessageBox.TYPE_INFO))                    
+
+    def remove(self, arg):
+        os.rmdir(config.movielist.last_videodir.value)
+        self.gotFilename(defaultMoviePath())
+
     def CreateConfirmedPath(self, DirToCreate):
         if DirToCreate is not None and DirToCreate <> "":
             if createDir(self.ParentDir + DirToCreate.strip()):
@@ -118,26 +116,23 @@ class MovieMove(Screen):
                     self.skipMoveFile(_("File already exists"))
                 elif confirmed[1] == "VS":
                     os.system("mv \"%s/%s.\"* \"%s\"" % (self.sourcepath, self.moviename, self.destinationpath))
-                    self.session.openWithCallback(self.DoneForeground, MessageBox, _("The move was successful."), MessageBox.TYPE_INFO, timeout=3)
+                    self.session.openWithCallback(self.__doClose, MessageBox, _("The move was successful."), MessageBox.TYPE_INFO, timeout=3)
                 elif confirmed[1] == "VH":
                     self.container = eConsoleAppContainer()
                     self.container.execute("mv \"%s/%s.\"* \"%s\" &" % (self.sourcepath, self.moviename, self.destinationpath))
-                    self.session.openWithCallback(self.DoneBackground, MessageBox, _("Moving in the background.\n\nThe movie list appears updated after full completion."), MessageBox.TYPE_INFO, timeout=12)
+                    self.session.openWithCallback(self.__doClose, MessageBox, _("Moving in the background.\n\nThe movie list appears updated after full completion."), MessageBox.TYPE_INFO, timeout=12)
                 elif confirmed[1] == "KS":
                     os.system("cp \"%s/%s.\"* \"%s\"" % (self.sourcepath, self.moviename, self.destinationpath))
-                    self.session.openWithCallback(self.DoneForeground, MessageBox, _("The copying was successful."), MessageBox.TYPE_INFO, timeout=3)
+                    self.session.openWithCallback(self.__doClose, MessageBox, _("The copying was successful."), MessageBox.TYPE_INFO, timeout=3)
                 elif confirmed[1] == "KH":
                     os.system("cp \"%s/%s.\"* \"%s\" &" % (self.sourcepath, self.moviename, self.destinationpath))
-                    self.session.openWithCallback(self.DoneBackground, MessageBox, _("Copying in the background.\n\nThe movie list appears updated after full completion."), MessageBox.TYPE_INFO, timeout=12)
+                    self.session.openWithCallback(self.__doClose, MessageBox, _("Copying in the background.\n\nThe movie list appears updated after full completion."), MessageBox.TYPE_INFO, timeout=12)
             else:
                 MovieMove(session=self.session, service=self.service)
 
-    def DoneForeground(self, confirmed):
-        self.session.current_dialog.close()
-        self.session.current_dialog.csel.reloadList()
+    def __doClose(self, confirmed):
+        self.csel.reloadList()
+        self.close()
 
-    def DoneBackground(self, confirmed):
-        self.session.current_dialog.close()
-            
     def skipMoveFile(self, reason):
         self.session.open(MessageBox, (_("Move/Copy aborted due to:\n%s") % reason), MessageBox.TYPE_INFO)
