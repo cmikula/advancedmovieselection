@@ -277,7 +277,10 @@ class MovieContextMenu(Screen):
         self.session.open(AdvancedMovieSelectionButtonSetup)
 
     def movecopy(self):
-        MovieMove(session=self.session, service=self.service)
+        if not (self.service.flags & eServiceReference.mustDescent):
+            MovieMove(session=self.session, service=self.service)
+        else:
+            self.session.open(MessageBox, _("Move/Copy not possible here !"), MessageBox.TYPE_INFO)
 
     def movietags(self):
         self.session.open(MovieTagEditor, service=self.service, parent=self.session.current_dialog)

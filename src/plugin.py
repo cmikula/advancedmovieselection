@@ -214,7 +214,9 @@ def getPluginCaption(self, pname):
         elif pname == _("Filter by Tags"):
             return _("Filter by Tags")
         elif pname == _("Trailer search"):
-            return _("Trailer search")       
+            return _("Trailer search")
+        elif pname == _("Move-Copy"):
+            return _("Move-Copy") 
         else:
             for p in plugins.getPlugins(where=[PluginDescriptor.WHERE_MOVIELIST]):
                 if pname == str(p.name):
@@ -256,7 +258,11 @@ def startPlugin(self, pname, index):
                 no_plugin = False
             elif pname == _("Trailer search"):
                 self.showTrailer()
-                no_plugin = False            
+                no_plugin = False 
+            elif pname == _("Move-Copy"):
+                MCM = MovieContextMenu(self.session, self, current)
+                MCM.movecopy()
+                no_plugin = False 
             elif pname == _("Sort"):
                 if config.movielist.moviesort.value == MovieList.SORT_ALPHANUMERIC:
                     newType = MovieList.SORT_DATE_DESC

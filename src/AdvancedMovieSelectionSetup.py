@@ -511,11 +511,12 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         self.entryguilist.append(("5", _("Bookmark 2")))
         self.entryguilist.append(("6", _("Bookmark 3")))
         self.entryguilist.append(("7", _("Filter by Tags")))
+        self.entryguilist.append(("8", _("Move-Copy")))
         if YTTrailerPresent == True:
-            self.entryguilist.append(("8", _("Trailer search")))
-            index = 9
+            self.entryguilist.append(("9", _("Trailer search")))
+            index = 10
         else:
-            index = 8
+            index = 9
         self.entryguilist2 = []
         self.entryguilist2.append(("0", _("Nothing")))
         self.entryguilist2.append(("1", _("DM-600PVR")))
@@ -772,6 +773,8 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
             return "7"
         elif value == _("Trailer search"):
             return "8"
+        elif value == _("Move-Copy"):
+            return "9"
         else:
             return "0"
 
