@@ -30,8 +30,8 @@ from Components.AVSwitch import AVSwitch
 from Tools.Directories import fileExists
 from ServiceProvider import ServiceEvent
 import os
-#from skin import loadSkin
-#loadSkin("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/skin/skin.xml")
+from Components.ScrollLabel import ScrollLabel
+from Components.MenuList import MenuList
 
 nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_info.jpg")
 
@@ -42,11 +42,14 @@ class EventViewBase:
         self.currentService = Ref
         self.event = Event
         self["Location"] = Label()
+        self["epg_description"] = ScrollLabel()
         self["Service"] = ServiceEvent()
         self["actions"] = ActionMap(["OkCancelActions", "EventViewActions"],
             {
                 "cancel": self.close,
                 "ok": self.close,
+                "pageUp": self.pageUp,
+                "pageDown": self.pageDown
             })
         self.onShown.append(self.onCreate)
 
@@ -58,6 +61,8 @@ class EventViewBase:
         if event is None:
             return
         ref = self.currentService
+        description = event.getExtendedDescription()
+        self["epg_description"].setText(description)
         from enigma import eServiceCenter
         serviceHandler = eServiceCenter.getInstance()
         info = serviceHandler.info(ref)
@@ -74,6 +79,12 @@ class EventViewBase:
         self["Location"].setText(_("Movie location: %s") % (config.movielist.last_videodir.value))
         serviceref = self.currentService
         self["Service"].newService(serviceref)
+
+    def pageUp(self):
+        self["epg_description"].pageUp()
+
+    def pageDown(self):
+        self["epg_description"].pageDown()
 
 class MovielistInfoPreview(Screen):
     def __init__(self, session):
@@ -101,7 +112,6 @@ class MovieInfoPreview():
 class EventViewSimple(Screen, EventViewBase, MovieInfoPreview):
     def __init__(self, session, Event, Ref, callback=None, similarEPGCB=None):
         Screen.__init__(self, session)
-        #if config.AdvancedMovieSelection.showpreview.value == True:
         try:
             sz_w = getDesktop(0).size().width()
         except:
@@ -112,10 +122,7 @@ class EventViewSimple(Screen, EventViewBase, MovieInfoPreview):
             self.skinName = ["AdvancedMovieSelectionEventViewXD"]
         else:
             self.skinName = ["AdvancedMovieSelectionEventViewSD"]
-        #else:
-            #self.skinName = ["EventView"]
         EventViewBase.__init__(self, Event, Ref, callback, similarEPGCB)
-        #if config.AdvancedMovieSelection.showpreview.value == True:
         MovieInfoPreview.__init__(self, session)
         serviceref = self.currentService
         self.loadInfoPreview(serviceref)

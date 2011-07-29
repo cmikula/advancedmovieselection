@@ -28,7 +28,7 @@ from Components.Pixmap import Pixmap
 from Components.ActionMap import ActionMap
 from Components.AVSwitch import AVSwitch
 from threading import Thread
-from enigma import eServiceReference, ePicLoad, getDesktop
+from enigma import eServiceReference, ePicLoad, getDesktop, eListboxPythonMultiContent
 from timer import eTimer
 from Components.MenuList import MenuList
 from ServiceProvider import ServiceCenter
@@ -37,6 +37,7 @@ import tmdb, urllib
 from Components.config import config
 from Screens.VirtualKeyBoard import VirtualKeyBoard
 import os
+from Components.ScrollLabel import ScrollLabel
 
 is_hidden = False
 this_session = None
@@ -67,8 +68,7 @@ class DownloadMovies(Screen):
         self["title"] = Label()
         self["poster"] = Pixmap()
         self["poster"].hide()
-        self["description"] = Label()
-        #self["description"] = ScrollLabel()
+        self["description"] = ScrollLabel()
         self["key_red"] = Button(_("Cancel"))
         self["key_green"] = Button("")
         self["key_yellow"] = Button("")
@@ -86,6 +86,8 @@ class DownloadMovies(Screen):
           "red": self.__cancel,
           "yellow": self.editTitle,
           "cancel": self.__cancel,
+          "left": self.scrollLabelPageUp,
+          "right": self.scrollLabelPageDown
           }, -1)
         self.onShown.append(self.setWindowTitle)
       
@@ -118,7 +120,13 @@ class DownloadMovies(Screen):
     def setWindowTitle(self):
         self.setTitle(_("Search for %s, please wait...") % (movie_title))
         self["logo"].instance.setPixmapFromFile("%s/tmdb_logo.png" % tmdb_logodir)  
-        
+
+    def scrollLabelPageUp(self):
+            self["description"].pageUp()
+
+    def scrollLabelPageDown(self):
+            self["description"].pageDown()
+    
     def paintPosterPixmap(self, picInfo=None):
         ptr = self.picload.getData()
         if ptr != None:
