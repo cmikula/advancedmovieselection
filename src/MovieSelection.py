@@ -718,24 +718,24 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview):
         self["freeDiskSpace"] = self.diskinfo = DiskInfo(config.movielist.last_videodir.value, DiskInfo.FREE, update=False)
         self["InfobarActions"] = HelpableActionMap(self, "InfobarActions",
             {
-                "showMovies": (self.doPathSelect, _("select the movie path")),
+                "showMovies": (self.doPathSelect, _("Select the movie path")),
             })
         self["MovieSelectionActions"] = HelpableActionMap(self, "MovieSelectionActions",
             {
-                "contextMenu": (self.doContext, _("menu")),
-                "showEventInfo": (self.showEventInformation, _("show event details")),
+                "contextMenu": (self.doContext, _("Advanced movielist menu")),
+                "showEventInfo": (self.showEventInformation, _("Show event details")),
             })
         self["ColorActions"] = HelpableActionMap(self, "ColorActions",
             {
-                "red": (self.showAll, _("show all")),
-                "green": (self.showTagsFirst, _("show first selected tag")),
-                "yellow": (self.showTagsSecond, _("show second selected tag")),
-                "blue": (self.showTagsSelect, _("show tag menu")),
+                "red": (self.showAll),
+                "green": (self.showTagsFirst),
+                "yellow": (self.showTagsSecond),
+                "blue": (self.showTagsSelect)
             })
         self["OkCancelActions"] = HelpableActionMap(self, "OkCancelActions",
             {
-                "cancel": (self.abort, _("exit movielist")),
-                "ok": (self.movieSelected, _("select movie")),
+                "cancel": (self.abort, _("Exit movielist")),
+                "ok": (self.movieSelected, _("Select movie")),
             })
         self.onShown.append(self.go)
         self.onLayoutFinish.append(self.saveListsize)

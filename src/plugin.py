@@ -69,6 +69,7 @@ else:
     YTTrailerPresent=False
 
 config.AdvancedMovieSelection = ConfigSubsection()
+config.AdvancedMovieSelection.exitkey = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.showtrailer = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.jump_first_mark = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.showfiltertags = ConfigYesNo(default=False)
@@ -173,10 +174,10 @@ def MovieSelection__init__(self, session, selectedmovie=None):
     self["key_blue"] = Button(self.getPluginCaption(str(config.AdvancedMovieSelection.blue.value)))
     self["ColorActions"] = HelpableActionMap(self, "ColorActions",
     {
-        "red": (self.redpressed, _("Assigned to red key")),
-        "green": (self.greenpressed, _("Assigned to green key")),
-        "yellow": (self.yellowpressed, _("Assigned to yellow key")),
-        "blue": (self.bluepressed, _("Assigned to blue key")),
+        "red": (self.redpressed, _("Assigned function for red key")),
+        "green": (self.greenpressed, _("Assigned function for green key")),
+        "yellow": (self.yellowpressed, _("Assigned function for yellow key")),
+        "blue": (self.bluepressed, _("Assigned function for blue key")),
     })
 
 def redpressed(self):
@@ -314,9 +315,14 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer):
         PlayerInstance = self
         self["EPGActions"] = HelpableActionMap(self, "InfobarEPGActions",
             {
-                "showEventInfo": (self.openInfoView, _("show event details")),
-                "showEventInfoPlugin": (self.openServiceList, _("open servicelist")),
+                "showEventInfo": (self.openInfoView, _("Show event details")),
+                "showEventInfoPlugin": (self.openServiceList, _("Open servicelist")),
             })
+        if config.AdvancedMovieSelection.exitkey.value:
+            self["closeactions"] = HelpableActionMap(self, "WizardActions",
+                {
+                    "back": (self.close, _("Leave movie player"))
+                })
         self.firstime = True
         self.onExecBegin.append(self.__onExecBegin)
 

@@ -123,6 +123,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.ShowMovieTagsinMenu = None
         self.ShowFilterbyTags = None
         self.ShowTrailer = None
+        self.Exitkey = None
         self.needsRestartFlag = False
         self.needsReopenFlag = False
         self["setupActions"] = ActionMap(["ColorActions", "OkCancelActions", "MenuActions", "EPGSelectActions"],
@@ -251,6 +252,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.Shownew = getConfigListEntry(_("Show new recordings icon:"), config.AdvancedMovieSelection.shownew)
         self.MiniTV = getConfigListEntry(_("Show Mini TV:"), config.AdvancedMovieSelection.minitv)
         self.UseFolderName = getConfigListEntry(_("Use folder name for display covers:"), config.AdvancedMovieSelection.usefoldername)
+        self.Exitkey = getConfigListEntry(_("Close with EXIT key:"), config.AdvancedMovieSelection.exitkey)
         self.list.append(self.OnOff)
         self.list.append(self.Startwith)
         self.list.append(self.StartDir)
@@ -317,6 +319,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.list.append(self.Shownew)
         self.list.append(self.MiniTV)
         self.list.append(self.Jump2Mark)
+        self.list.append(self.Exitkey)
         self["config"].list = self.list
         self["config"].l.setList(self.list)
         if not self.selectionChanged in self["config"].onSelectionChanged:
@@ -418,6 +421,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self["help"].setText(_("Displays filter by tags function in the menu at the movie list."))
         elif current == self.ShowTrailer:
             self["help"].setText(_("Displays search trailer on web function in the menu at the movie list."))
+        elif current == self.Exitkey:
+            self["help"].setText(_("If this option is enabled you can stop play a movie with the EXIT button, and the Advanced Movie Selection plugin will also be closed immediately."))
 
     def pluginsavailable(self):
         if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
