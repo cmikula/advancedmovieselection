@@ -676,60 +676,41 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             else:
                 self.deleteConfirmed(True)
         else:
-            self.session.openWithCallback(self.close, MessageBox, _("You cannot delete this!"), MessageBox.TYPE_ERROR)
+            self.session.open(MessageBox, _("You cannot delete this!"), MessageBox.TYPE_ERROR)
 
     def deleteConfirmed(self, confirmed):
         if not confirmed:
-            return self.close()
-        try:
-            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".cuts")
-            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".eit")
-            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".jpg")
-            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".ts.meta")
-            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".ts.cutsr")
-            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".ts.gm")
-            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".ts.sc")
-            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".ts.ap")
-            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath())
-        except Exception, e:
-            print "Exception deleting files: " + str(e)
+            return
+
         result = False
-        title = self.service.getPath()
-        if title.endswith(".ts"):
-            movietitle = title[:-3]
-        elif title.endswith(".mp4") or title.endswith(".avi") or title.endswith(".mkv") or title.endswith(".mov") or title.endswith(".flv") or title.endswith(".m4v") or title.endswith(".mpg") or title.endswith(".iso"):
-            movietitle = title[:-4]
-        elif title.endswith(".divx") or title.endswith(".m2ts") or title.endswith(".mpeg"):
-            movietitle = title[:-5]
-        else:
-            movietitle = title
-        container = eConsoleAppContainer()
-        eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".cuts")
-        eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".eit")
-        eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".jpg")
-        eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".ts.meta")
-        eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".ts.cutsr")
-        eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".ts.gm")        
-        eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".ts.sc")
-        eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".ts.ap")
-        eConsoleAppContainer().execute("rm -f '%s'" % movietitle)
-        if eServiceReferenceDvd.mustDescent:
-            container = eConsoleAppContainer()
-            container.execute("rm -rf '%s'" % self.service.getPath())
-            result = True
-        else:
-            if self.service.flags & eServiceReference.mustDescent:
-                container = eConsoleAppContainer()
-                container.execute("rm -rf '%s'" % self.service.getPath())
-                result = True
-            else:
+        try:
+            title = self.service.getPath()
+            if path.isfile(self.service.getPath()):
+                title = path.splitext(self.service.getPath())[0]
                 serviceHandler = eServiceCenter.getInstance()
                 offline = serviceHandler.offlineOperations(self.service)
                 if offline is not None:
                     if not offline.deleteFromDisk(0):
                         result = True
+            else:
+                eConsoleAppContainer().execute("rm -rf '%s'" % self.service.getPath())
+            print title
+
+            eConsoleAppContainer().execute("rm -f '%s'" % title + ".cuts")
+            eConsoleAppContainer().execute("rm -f '%s'" % title + ".eit")
+            eConsoleAppContainer().execute("rm -f '%s'" % title + ".jpg")
+            eConsoleAppContainer().execute("rm -f '%s'" % title + "*.ts.meta")
+            eConsoleAppContainer().execute("rm -f '%s'" % title + ".ts.cutsr")
+            eConsoleAppContainer().execute("rm -f '%s'" % title + ".ts.gm")        
+            eConsoleAppContainer().execute("rm -f '%s'" % title + ".ts.sc")
+            eConsoleAppContainer().execute("rm -f '%s'" % title + ".ts.ap")
+            eConsoleAppContainer().execute("rm -f '%s'" % title)
+            result = True
+        except Exception, e:
+            print "Exception deleting files: " + str(e)
+
         if result == False:
-            self.session.openWithCallback(self.close, MessageBox, _("Delete failed!"), MessageBox.TYPE_ERROR)
+            self.session.open(MessageBox, _("Delete failed!"), MessageBox.TYPE_ERROR)
         else:
             self["list"].removeService(self.service)
             self["freeDiskSpace"].update()
