@@ -31,16 +31,15 @@ from Tools.Directories import fileExists
 from ServiceProvider import ServiceEvent
 import os
 from Components.ScrollLabel import ScrollLabel
-from Components.MenuList import MenuList
 
 nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_info.jpg")
 
 class EventViewBase:    
-    def __init__(self, Event, Ref, callback=None, similarEPGCB=None):
+    def __init__(self, event, ref, callback=None, similarEPGCB=None):
         self.similarEPGCB = similarEPGCB
         self.cbFunc = callback
-        self.currentService = Ref
-        self.event = Event
+        self.currentService = ref
+        self.event = event
         self["Location"] = Label()
         self["epg_description"] = ScrollLabel()
         self["Service"] = ServiceEvent()
@@ -110,7 +109,7 @@ class MovieInfoPreview():
         self.picParam = None
 
 class EventViewSimple(Screen, EventViewBase, MovieInfoPreview):
-    def __init__(self, session, Event, Ref, callback=None, similarEPGCB=None):
+    def __init__(self, session, event, ref, callback=None, similarEPGCB=None):
         Screen.__init__(self, session)
         try:
             sz_w = getDesktop(0).size().width()
@@ -122,7 +121,7 @@ class EventViewSimple(Screen, EventViewBase, MovieInfoPreview):
             self.skinName = ["AdvancedMovieSelectionEventViewXD"]
         else:
             self.skinName = ["AdvancedMovieSelectionEventViewSD"]
-        EventViewBase.__init__(self, Event, Ref, callback, similarEPGCB)
+        EventViewBase.__init__(self, event, ref, callback, similarEPGCB)
         MovieInfoPreview.__init__(self, session)
         serviceref = self.currentService
         self.loadInfoPreview(serviceref)

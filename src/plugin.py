@@ -22,10 +22,9 @@
 from __init__ import _
 from Plugins.Plugin import PluginDescriptor
 from Components.PluginComponent import plugins
-from Components.Button import Button
 from Components.ActionMap import HelpableActionMap
-from MovieSelection import MovieSelection, MovieContextMenu
-from MovieList import eServiceReferenceDvd, MovieList
+from MovieSelection import MovieSelection
+from MovieList import eServiceReferenceDvd
 from ServiceProvider import CutListSupport
 from Screens.MessageBox import MessageBox
 from Screens.InfoBar import InfoBar, MoviePlayer
@@ -35,7 +34,6 @@ from AdvancedMovieSelectionSetup import AdvancedMovieSelectionSetup
 from enigma import ePoint 
 from Rename import MovieRetitle
 from TagEditor import TagEditor, MovieTagEditor
-from MoveCopy import MovieMove
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
     IMDbPresent = True
@@ -153,157 +151,6 @@ config.AdvancedMovieSelection.movieplayer_infobar_position_offset_y = ConfigInte
 config.AdvancedMovieSelection.show_infobar_position = ConfigYesNo(default=True)
 
 PlayerInstance = None
-baseMovieSelection__init__ = None
-
-def MovieSelectionInit(self):
-    global baseMovieSelection__init__
-    if baseMovieSelection__init__ is None:
-        baseMovieSelection__init__ = MovieSelection.__init__
-    MovieSelection.__init__ = MovieSelection__init__
-    MovieSelection.redpressed = redpressed
-    MovieSelection.greenpressed = greenpressed
-    MovieSelection.yellowpressed = yellowpressed
-    MovieSelection.bluepressed = bluepressed
-    MovieSelection.getPluginCaption = getPluginCaption
-
-def MovieSelection__init__(self, session, selectedmovie=None):
-    baseMovieSelection__init__ (self, session, selectedmovie)
-    self["key_red"] = Button(self.getPluginCaption(str(config.AdvancedMovieSelection.red.value)))
-    self["key_green"] = Button(self.getPluginCaption(str(config.AdvancedMovieSelection.green.value)))
-    self["key_yellow"] = Button(self.getPluginCaption(str(config.AdvancedMovieSelection.yellow.value)))
-    self["key_blue"] = Button(self.getPluginCaption(str(config.AdvancedMovieSelection.blue.value)))
-    self["ColorActions"] = HelpableActionMap(self, "ColorActions",
-    {
-        "red": (self.redpressed, _("Assigned function for red key")),
-        "green": (self.greenpressed, _("Assigned function for green key")),
-        "yellow": (self.yellowpressed, _("Assigned function for yellow key")),
-        "blue": (self.bluepressed, _("Assigned function for blue key")),
-    })
-
-def redpressed(self):
-    startPlugin(self, str(config.AdvancedMovieSelection.red.value), 0)
-
-def greenpressed(self):
-    startPlugin(self, str(config.AdvancedMovieSelection.green.value), 1)
-
-def yellowpressed(self):
-    startPlugin(self, str(config.AdvancedMovieSelection.yellow.value), 2)
-
-def bluepressed(self):
-    startPlugin(self, str(config.AdvancedMovieSelection.blue.value), 3)
-
-def getPluginCaption(self, pname):
-    if pname != _("Nothing"):
-        if pname == _("Delete"):
-            return _("Delete")
-        elif pname == _("Home"):
-            return _(config.AdvancedMovieSelection.hometext.value)
-        elif pname == _("Bookmark 1"):
-            return _(config.AdvancedMovieSelection.bookmark1text.value)
-        elif pname == _("Bookmark 2"):
-            return _(config.AdvancedMovieSelection.bookmark2text.value)
-        elif pname == _("Bookmark 3"):
-            return _(config.AdvancedMovieSelection.bookmark3text.value)
-        elif pname == _("Sort"):
-            if config.movielist.moviesort.value == MovieList.SORT_ALPHANUMERIC:
-                return _("Sort by Date (1->9)")
-            else:
-                if config.movielist.moviesort.value == MovieList.SORT_DATE_DESC:
-                    return _("Sort by Date (9->1)")
-                else:
-                    if config.movielist.moviesort.value == MovieList.SORT_DATE_ASC:
-                        return _("Sort alphabetically")
-        elif pname == _("Filter by Tags"):
-            return _("Filter by Tags")
-        elif pname == _("Trailer search"):
-            return _("Trailer search")
-        elif pname == _("Move-Copy"):
-            return _("Move-Copy") 
-        else:
-            for p in plugins.getPlugins(where=[PluginDescriptor.WHERE_MOVIELIST]):
-                if pname == str(p.name):
-                    if config.AdvancedMovieSelection.buttoncaption.value == "1":
-                        return p.description
-                    else:
-                        return p.name
-    return ""
-
-def startPlugin(self, pname, index):
-    home = config.AdvancedMovieSelection.homepath.value
-    bookmark1 = config.AdvancedMovieSelection.bookmark1path.value
-    bookmark2 = config.AdvancedMovieSelection.bookmark2path.value
-    bookmark3 = config.AdvancedMovieSelection.bookmark3path.value
-    plugin = None
-    no_plugin = True
-    msgText = _("Unknown Error")
-    current = self.getCurrent()
-    if current is not None:
-        if pname != _("Nothing"):
-            if pname == _("Delete"):
-                MCM = MovieContextMenu(self.session, self, current)
-                MCM.delete()
-                no_plugin = False
-            elif pname == _("Home"):
-                self.gotFilename(home)
-                no_plugin = False
-            elif pname == _("Bookmark 1"):
-                self.gotFilename(bookmark1)
-                no_plugin = False
-            elif pname == _("Bookmark 2"):
-                self.gotFilename(bookmark2)
-                no_plugin = False
-            elif pname == _("Bookmark 3"):
-                self.gotFilename(bookmark3)
-                no_plugin = False
-            elif pname == _("Filter by Tags"):
-                self.showTagsSelect()
-                no_plugin = False
-            elif pname == _("Trailer search"):
-                self.showTrailer()
-                no_plugin = False 
-            elif pname == _("Move-Copy"):
-                self.session.open(MovieMove, self, current)
-                no_plugin = False 
-            elif pname == _("Sort"):
-                if config.movielist.moviesort.value == MovieList.SORT_ALPHANUMERIC:
-                    newType = MovieList.SORT_DATE_DESC
-                    newCaption = _("Sort by Date (9->1)")
-                else:
-                    if config.movielist.moviesort.value == MovieList.SORT_DATE_DESC:
-                        newType = MovieList.SORT_DATE_ASC
-                        newCaption = _("Sort alphabetically")
-                    else:
-                        if config.movielist.moviesort.value == MovieList.SORT_DATE_ASC:
-                            newType = MovieList.SORT_ALPHANUMERIC
-                            newCaption = _("Sort by Date (1->9)")
-                config.movielist.moviesort.value = newType
-                self.setSortType(newType)
-                self.reloadList()
-                if index == 0:
-                    self["key_red"].setText(newCaption)
-                elif index == 1:
-                    self["key_green"].setText(newCaption)
-                elif index == 2:
-                    self["key_yellow"].setText(newCaption)
-                elif index == 3:
-                    self["key_blue"].setText(newCaption)
-                no_plugin = False
-            else:
-                for p in plugins.getPlugins(where=[PluginDescriptor.WHERE_MOVIELIST]):
-                    if pname == str(p.name):
-                        plugin = p
-                if plugin is not None:
-                    try:
-                        plugin(self.session, current)
-                        no_plugin = False
-                    except:
-                        msgText = _("Unknown error!")
-                else: 
-                    msgText = _("Plugin not found!")
-        else:
-            msgText = _("No plugin assigned!")
-        if no_plugin:
-            self.session.open(MessageBox, msgText, MessageBox.TYPE_INFO)
 
 class MoviePlayerExtended(CutListSupport, MoviePlayer):
     def __init__(self, session, service):
@@ -384,10 +231,9 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer):
     def openInfoView(self):
         from AdvancedMovieSelectionEventView import EventViewSimple
         serviceref = self.session.nav.getCurrentlyPlayingServiceReference()
-        from enigma import eServiceCenter
-        serviceHandler = eServiceCenter.getInstance()
-        info = serviceHandler.info(serviceref)
-        evt = info and info.getName(serviceref) or _("this recording")
+        from ServiceProvider import ServiceCenter
+        info = ServiceCenter.getInstance().info(serviceref)
+        evt = info.getEvent(serviceref)
         if evt:
             self.session.open(EventViewSimple, evt, serviceref)
 
@@ -418,7 +264,7 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer):
             self.playerClosed()
             ref = self.session.nav.getCurrentlyPlayingServiceReference()
             self.returning = True
-            self.session.openWithCallback(self.movieSelected, MovieSelection, ref)
+            self.session.openWithCallback(self.movieSelected, MovieSelection, ref, True)
             self.session.nav.stopService()
             self.session.nav.playService(self.lastservice)
         elif answer == "restart":
@@ -452,7 +298,7 @@ def movieSelected(self, service):
                         PlayerInstance.close()
                         PlayerInstance = None
                 except Exception, e:
-                    print "********** Player instance closed exception: " + str(e) 
+                    print "Player instance closed exception: " + str(e) 
 
                 self.session.open(DVDPlayerExtended, service)
             else:
@@ -466,7 +312,6 @@ def autostart(reason, **kwargs):
         session.currentSelection = None
         if not config.AdvancedMovieSelection.ml_disable.value:
             try:
-                MovieSelectionInit(None)
                 InfoBar.movieSelected = movieSelected
                 value = config.AdvancedMovieSelection.movie_launch.value
                 if value == "showMovies": InfoBar.showMovies = showMovies

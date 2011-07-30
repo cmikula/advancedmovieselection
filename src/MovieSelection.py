@@ -23,7 +23,6 @@ from __init__ import _
 from enigma import getDesktop
 from Components.PluginComponent import plugins
 from Screens.Screen import Screen
-from Components.Button import Button
 from Components.ActionMap import HelpableActionMap, ActionMap, NumberActionMap
 from Components.MenuList import MenuList
 from Components.Sources.StaticText import StaticText
@@ -53,6 +52,8 @@ from MoviePreview import MoviePreview
 from DownloadMovies import DownloadMovies
 from ServiceProvider import eServiceReferenceDvd
 from TagEditor import MovieTagEditor
+from QuickButton import QuickButton
+from os import path
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
     from Plugins.Extensions.IMDb.plugin import IMDB
@@ -71,9 +72,9 @@ else:
     TMDbPresent = False
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/YTTrailer/plugin.pyo"):
     from Plugins.Extensions.YTTrailer.plugin import YTTrailerList
-    YTTrailerPresent=True
+    YTTrailerPresent = True
 else:
-    YTTrailerPresent=False
+    YTTrailerPresent = False
 
 config.movielist = ConfigSubsection()
 config.movielist.moviesort = ConfigInteger(default=MovieList.SORT_ALPHANUMERIC)
@@ -382,84 +383,9 @@ class MovieContextMenu(Screen):
             plugin(session=self.session, service=self.service)
 
     def delete(self):
-        serviceHandler = eServiceCenter.getInstance()
-        offline = serviceHandler.offlineOperations(self.service)
-        info = serviceHandler.info(self.service)
-        name = info and info.getName(self.service) or _("this recording")
-        result = False
-        if self.service.flags & eServiceReference.mustDescent:
-            if self.service.getName() != "..":
-                result = True
-                name = self.service.getPath()
-        else:
-            if offline is not None:
-                if not offline.deleteFromDisk(1):
-                    result = True
-        if result == True:
-            if config.AdvancedMovieSelection.askdelete.value:
-                self.session.openWithCallback(self.deleteConfirmed, MessageBox, _("Do you really want to delete %s?") % (name))
-            else:
-                self.deleteConfirmed(True)
-        else:
-            self.session.openWithCallback(self.close, MessageBox, _("You cannot delete this!"), MessageBox.TYPE_ERROR)
+        self.csel.delete()
+        self.close()
 
-    def deleteConfirmed(self, confirmed):
-        if not confirmed:
-            return self.close()
-        try:
-            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".cuts")
-            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".eit")
-            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".jpg")
-            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".ts.meta")
-            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".ts.cutsr")
-            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".ts.gm")
-            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".ts.sc")
-            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".ts.ap")
-            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath())
-        except Exception, e:
-            print "Exception deleting files: " + str(e)
-        result = False
-        title = self.service.getPath()
-        if title.endswith(".ts"):
-            movietitle = title[:-3]
-        elif title.endswith(".mp4") or title.endswith(".avi") or title.endswith(".mkv") or title.endswith(".mov") or title.endswith(".flv") or title.endswith(".m4v") or title.endswith(".mpg") or title.endswith(".iso"):
-            movietitle = title[:-4]
-        elif title.endswith(".divx") or title.endswith(".m2ts") or title.endswith(".mpeg"):
-            movietitle = title[:-5]
-        else:
-            movietitle = title
-        container = eConsoleAppContainer()
-        eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".cuts")
-        eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".eit")
-        eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".jpg")
-        eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".ts.meta")
-        eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".ts.cutsr")
-        eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".ts.gm")        
-        eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".ts.sc")
-        eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".ts.ap")
-        eConsoleAppContainer().execute("rm -f '%s'" % movietitle)
-        if eServiceReferenceDvd.mustDescent:
-            container = eConsoleAppContainer()
-            container.execute("rm -rf '%s'" % self.service.getPath())
-            result = True
-        else:
-            if self.service.flags & eServiceReference.mustDescent:
-                container = eConsoleAppContainer()
-                container.execute("rm -rf '%s'" % self.service.getPath())
-                result = True
-            else:
-                serviceHandler = eServiceCenter.getInstance()
-                offline = serviceHandler.offlineOperations(self.service)
-                if offline is not None:
-                    if not offline.deleteFromDisk(0):
-                        result = True
-        if result == False:
-            self.session.openWithCallback(self.close, MessageBox, _("Delete failed!"), MessageBox.TYPE_ERROR)
-        else:
-            self.csel["list"].removeService(self.service)
-            self.csel["freeDiskSpace"].update()
-            self.close()
-            
     def deleteinfocover(self):
         serviceHandler = eServiceCenter.getInstance()
         offline = serviceHandler.offlineOperations(self.service)
@@ -611,16 +537,16 @@ class SelectionEventInfo:
         if config.AdvancedMovieSelection.showpreview.value == True:
             self.loadPreview(serviceref)
 
-class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview):
-    def __init__(self, session, selectedmovie=None):
+class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, QuickButton):
+    def __init__(self, session, selectedmovie=None, showLastDir=False):
         Screen.__init__(self, session)
         HelpableScreen.__init__(self)
         MoviePreview.__init__(self, session)
+        try:
+            sz_w = getDesktop(0).size().width()
+        except:
+            sz_w = 720
         if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.minitv.value:
-            try:
-                sz_w = getDesktop(0).size().width()
-            except:
-                sz_w = 720
             if sz_w == 1280:
                 self.skinName = ["AdvancedMovieSelectionHD"]
             elif sz_w == 1024:
@@ -628,10 +554,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview):
             else:
                 self.skinName = ["AdvancedMovieSelectionSD"]
         if not config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.minitv.value:
-            try:
-                sz_w = getDesktop(0).size().width()
-            except:
-                sz_w = 720
             if sz_w == 1280:
                 self.skinName = ["AdvancedMovieSelection1HD"]
             elif sz_w == 1024:
@@ -639,10 +561,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview):
             else:
                 self.skinName = ["AdvancedMovieSelection1SD"]            
         if config.AdvancedMovieSelection.showpreview.value and not config.AdvancedMovieSelection.minitv.value:
-            try:
-                sz_w = getDesktop(0).size().width()
-            except:
-                sz_w = 720
             if sz_w == 1280:
                 self.skinName = ["AdvancedMovieSelection_noMiniTV_HD"]
             elif sz_w == 1024:
@@ -650,10 +568,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview):
             else:
                 self.skinName = ["AdvancedMovieSelection_noMiniTV_SD"]
         if not config.AdvancedMovieSelection.showpreview.value and not config.AdvancedMovieSelection.minitv.value:
-            try:
-                sz_w = getDesktop(0).size().width()
-            except:
-                sz_w = 720
             if sz_w == 1280:
                 self.skinName = ["AdvancedMovieSelection1_noMiniTV_HD"]
             elif sz_w == 1024:
@@ -679,18 +593,16 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview):
         self["MoviePreview"] = Pixmap()
         self["MoviePreview"].hide()
 
-        #self.service = service
+        if not config.AdvancedMovieSelection.startdir.value and not showLastDir:
+            if path.exists(config.movielist.last_videodir.value):
+                config.movielist.last_videodir.value = defaultMoviePath()
+                config.movielist.last_videodir.save()
+        # Go to /media if path not exists
+        if not path.exists(config.movielist.last_videodir.value):
+            config.movielist.last_videodir.value = "/media/"
+            config.movielist.last_videodir.save()
 
-        if config.AdvancedMovieSelection.startdir.value:
-            if not fileExists(config.movielist.last_videodir.value):
-                config.movielist.last_videodir.value = defaultMoviePath()
-                config.movielist.last_videodir.save()
-            self.current_ref = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + config.movielist.last_videodir.value)
-        else:
-            if fileExists(config.movielist.last_videodir.value):
-                config.movielist.last_videodir.value = defaultMoviePath()
-                config.movielist.last_videodir.save()
-            self.current_ref = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + config.movielist.last_videodir.value)            
+        self.current_ref = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + config.movielist.last_videodir.value)            
 
         self["list"] = MovieList(None,
             config.movielist.listtype.value,
@@ -711,10 +623,10 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview):
         self["MovieService"] = ServiceEvent()
         self["Movietitle"] = StaticText()
         self["Movielocation"] = StaticText()
-        self["key_red"] = Button(_("All"))
-        self["key_green"] = Button("")
-        self["key_yellow"] = Button("")
-        self["key_blue"] = Button("")
+        #self["key_red"] = Button(_("All"))
+        #self["key_green"] = Button("")
+        #self["key_yellow"] = Button("")
+        #self["key_blue"] = Button("")
         self["freeDiskSpace"] = self.diskinfo = DiskInfo(config.movielist.last_videodir.value, DiskInfo.FREE, update=False)
         self["InfobarActions"] = HelpableActionMap(self, "InfobarActions",
             {
@@ -725,22 +637,103 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview):
                 "contextMenu": (self.doContext, _("Advanced movielist menu")),
                 "showEventInfo": (self.showEventInformation, _("Show event details")),
             })
-        self["ColorActions"] = HelpableActionMap(self, "ColorActions",
-            {
-                "red": (self.showAll),
-                "green": (self.showTagsFirst),
-                "yellow": (self.showTagsSecond),
-                "blue": (self.showTagsSelect)
-            })
+        #self["ColorActions"] = HelpableActionMap(self, "ColorActions",
+        #    {
+        #        "red": (self.showAll),
+        #        "green": (self.showTagsFirst),
+        #        "yellow": (self.showTagsSecond),
+        #        "blue": (self.showTagsSelect)
+        #    })
         self["OkCancelActions"] = HelpableActionMap(self, "OkCancelActions",
             {
                 "cancel": (self.abort, _("Exit movielist")),
                 "ok": (self.movieSelected, _("Select movie")),
             })
+
+        QuickButton.__init__(self)
         self.onShown.append(self.go)
         self.onLayoutFinish.append(self.saveListsize)
         self.inited = False
 
+    def delete(self):
+        self.service = self.getCurrent()
+        serviceHandler = eServiceCenter.getInstance()
+        offline = serviceHandler.offlineOperations(self.service)
+        info = serviceHandler.info(self.service)
+        name = info and info.getName(self.service) or _("this recording")
+        result = False
+        if self.service.flags & eServiceReference.mustDescent:
+            if self.service.getName() != "..":
+                result = True
+                name = self.service.getPath()
+        else:
+            if offline is not None:
+                if not offline.deleteFromDisk(1):
+                    result = True
+        if result == True:
+            if config.AdvancedMovieSelection.askdelete.value:
+                self.session.openWithCallback(self.deleteConfirmed, MessageBox, _("Do you really want to delete %s?") % (name))
+            else:
+                self.deleteConfirmed(True)
+        else:
+            self.session.openWithCallback(self.close, MessageBox, _("You cannot delete this!"), MessageBox.TYPE_ERROR)
+
+    def deleteConfirmed(self, confirmed):
+        if not confirmed:
+            return self.close()
+        try:
+            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".cuts")
+            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".eit")
+            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".jpg")
+            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".ts.meta")
+            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".ts.cutsr")
+            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".ts.gm")
+            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".ts.sc")
+            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath() + ".ts.ap")
+            eConsoleAppContainer().execute("rm -f '%s'" % self.service.getPath())
+        except Exception, e:
+            print "Exception deleting files: " + str(e)
+        result = False
+        title = self.service.getPath()
+        if title.endswith(".ts"):
+            movietitle = title[:-3]
+        elif title.endswith(".mp4") or title.endswith(".avi") or title.endswith(".mkv") or title.endswith(".mov") or title.endswith(".flv") or title.endswith(".m4v") or title.endswith(".mpg") or title.endswith(".iso"):
+            movietitle = title[:-4]
+        elif title.endswith(".divx") or title.endswith(".m2ts") or title.endswith(".mpeg"):
+            movietitle = title[:-5]
+        else:
+            movietitle = title
+        container = eConsoleAppContainer()
+        eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".cuts")
+        eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".eit")
+        eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".jpg")
+        eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".ts.meta")
+        eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".ts.cutsr")
+        eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".ts.gm")        
+        eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".ts.sc")
+        eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".ts.ap")
+        eConsoleAppContainer().execute("rm -f '%s'" % movietitle)
+        if eServiceReferenceDvd.mustDescent:
+            container = eConsoleAppContainer()
+            container.execute("rm -rf '%s'" % self.service.getPath())
+            result = True
+        else:
+            if self.service.flags & eServiceReference.mustDescent:
+                container = eConsoleAppContainer()
+                container.execute("rm -rf '%s'" % self.service.getPath())
+                result = True
+            else:
+                serviceHandler = eServiceCenter.getInstance()
+                offline = serviceHandler.offlineOperations(self.service)
+                if offline is not None:
+                    if not offline.deleteFromDisk(0):
+                        result = True
+        if result == False:
+            self.session.openWithCallback(self.close, MessageBox, _("Delete failed!"), MessageBox.TYPE_ERROR)
+        else:
+            self["list"].removeService(self.service)
+            self["freeDiskSpace"].update()
+            
     def updateName(self):
         location = (_("Movie location: %s") % config.movielist.last_videodir.value)
         self["Movielocation"].setText(location)
