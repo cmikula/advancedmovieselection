@@ -204,6 +204,7 @@ class MovieContextMenu(Screen):
         if config.AdvancedMovieSelection.showcolorkey.value:        
             menu.append((_("Color key settings"), self.setupbutton))
         if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.showcoveroptions.value:
+            menu.append((_("Download and save movie info/cover for all movies"), boundFunction(self.downloadMovieInfoAll)))
             if not service.flags & eServiceReference.mustDescent:
                 menu.append((_("Download and save movie info/cover"), self.downloadMovieInfo))
         if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.show_info_cover_del.value:
@@ -215,8 +216,6 @@ class MovieContextMenu(Screen):
         if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.show_info_del.value:
             if not service.flags & eServiceReference.mustDescent:
                 menu.append((_("Delete movie info"), boundFunction(self.deleteinfos)))
-        if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.showcoveroptions.value:
-            menu.append((_("Download and save movie info/cover for all movies"), boundFunction(self.downloadMovieInfoAll)))
         if config.AdvancedMovieSelection.showmovietagsinmenu.value and not service.flags & eServiceReference.mustDescent:
             menu.append((_("Movie tags"), boundFunction(self.movietags)))
         if config.AdvancedMovieSelection.showfiltertags.value:

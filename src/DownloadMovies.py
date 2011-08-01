@@ -28,7 +28,7 @@ from Components.Pixmap import Pixmap
 from Components.ActionMap import ActionMap
 from Components.AVSwitch import AVSwitch
 from threading import Thread
-from enigma import eServiceReference, ePicLoad, getDesktop, eListboxPythonMultiContent
+from enigma import eServiceReference, ePicLoad, getDesktop
 from timer import eTimer
 from Components.MenuList import MenuList
 from ServiceProvider import ServiceCenter
@@ -102,7 +102,7 @@ class DownloadMovies(Screen):
 
         if self.service is not None:
             global movie_title
-            movie_title = ServiceCenter.getInstance().info(self.service).getName(self.service)
+            movie_title = ServiceCenter.getInstance().info(self.service).getName(self.service).encode("utf-8")
             self.refreshTimer.start(1, True)
             return
         
@@ -122,10 +122,10 @@ class DownloadMovies(Screen):
         self["logo"].instance.setPixmapFromFile("%s/tmdb_logo.png" % tmdb_logodir)  
 
     def scrollLabelPageUp(self):
-            self["description"].pageUp()
+        self["description"].pageUp()
 
     def scrollLabelPageDown(self):
-            self["description"].pageDown()
+        self["description"].pageDown()
     
     def paintPosterPixmap(self, picInfo=None):
         ptr = self.picload.getData()
@@ -187,9 +187,9 @@ class DownloadMovies(Screen):
             except:
                 pass
             if released:
-                self.l.append((movie['name'] + " - " + released, movie))
+                self.l.append((movie['name'].encode("utf-8") + " - " + released, movie))
             else:
-                self.l.append((movie['name'], movie))
+                self.l.append((movie['name'].encode("utf-8"), movie))
 
         self["list"].setList(self.l)
 
@@ -256,7 +256,7 @@ class FetchingMovies(Thread):
                 total = total - 1
                 continue
             current = current + 1 
-            movie_title = ServiceCenter.getInstance().info(service).getName(service)
+            movie_title = ServiceCenter.getInstance().info(service).getName(service).encode("utf-8")
             createEIT(service.getPath(), movie_title, self.coversize)
         
         self.finish()
