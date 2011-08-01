@@ -329,8 +329,6 @@ class EventName(Converter, object):
 class CutListSupport:
 	def __init__(self, service):
 		self.currentService = service
-		self.downloadCuesheet = self.downloadCutList
-		#self.uploadCuesheet = self.uploadCutList
 
 	def getCuesheet(self):
 		service = self.session.nav.getCurrentService()
@@ -338,7 +336,7 @@ class CutListSupport:
 			return None
 		return service.cueSheet()
 
-	def downloadCutList(self):
+	def downloadCuesheet(self):
 		try:
 			cue = self.getCuesheet()
 			if cue is None or isinstance(self.currentService, eServiceReferenceDvd):
@@ -360,7 +358,7 @@ class CutListSupport:
 		except Exception, e:
 			print "DownloadCutList exception:\n" + str(e)
 
-	def uploadCutList(self):
+	def __uploadCuesheet__(self):
 		try:
 			seek = self.session.nav.getCurrentService().seek()
 			if seek is None:
