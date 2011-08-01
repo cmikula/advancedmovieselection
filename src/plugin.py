@@ -168,7 +168,7 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer):
         if config.AdvancedMovieSelection.exitkey.value:
             self["closeactions"] = HelpableActionMap(self, "WizardActions",
                 {
-                    "back": (self.close, _("Leave movie player"))
+                    "back": (self.leavePlayer, _("Leave movie player"))
                 })
         self.firstime = True
         self.onExecBegin.append(self.__onExecBegin)
