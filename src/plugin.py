@@ -69,7 +69,7 @@ else:
 config.AdvancedMovieSelection = ConfigSubsection()
 config.AdvancedMovieSelection.exitkey = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.showtrailer = ConfigYesNo(default=False)
-config.AdvancedMovieSelection.jump_first_mark = ConfigYesNo(default=True)
+config.AdvancedMovieSelection.jump_first_mark = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.showfiltertags = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.showmovietagsinmenu = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.usefoldername = ConfigYesNo(default=True)
