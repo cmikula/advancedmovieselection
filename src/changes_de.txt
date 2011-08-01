@@ -98,7 +98,8 @@ version: 1.6
 * neu: filmbeschreibung unter info kann nun gescrollt werden
 * neu: exit taste kann für das beenden während der wiedergabe aktiviert werden
 * fix: hilfetexte
-ACHTUNG an die skinner, die screens AdvancedMovieSelectionEventViewSD, AdvancedMovieSelectionButtonEventViewXD, AdvancedMovieSelectionButtonEventViewHD haben sich geändert
+* fix: so manch internes :)
+ACHTUNG an die skinner, die screens AdvancedMovieSelectionEventViewSD, AdvancedMovieSelectionEventViewXD, AdvancedMovieSelectionEventViewHD haben sich geändert
 
 
 

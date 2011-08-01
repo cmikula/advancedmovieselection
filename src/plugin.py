@@ -67,6 +67,7 @@ else:
     YTTrailerPresent=False
 
 config.AdvancedMovieSelection = ConfigSubsection()
+config.AdvancedMovieSelection.exitprompt = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.exitkey = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.showtrailer = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.jump_first_mark = ConfigYesNo(default=False)
@@ -165,10 +166,15 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer):
                 "showEventInfo": (self.openInfoView, _("Show event details")),
                 "showEventInfoPlugin": (self.openServiceList, _("Open servicelist")),
             })
-        if config.AdvancedMovieSelection.exitkey.value:
+        if config.AdvancedMovieSelection.exitkey.value and config.AdvancedMovieSelection.exitprompt.value:
             self["closeactions"] = HelpableActionMap(self, "WizardActions",
                 {
                     "back": (self.leavePlayer, _("Leave movie player"))
+                })
+        if config.AdvancedMovieSelection.exitkey.value and not config.AdvancedMovieSelection.exitprompt.value: 
+            self["closeactions"] = HelpableActionMap(self, "WizardActions",
+                {
+                    "back": (self.close, _("Leave movie player"))
                 })
         self.firstime = True
         self.onExecBegin.append(self.__onExecBegin)

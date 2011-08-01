@@ -124,6 +124,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.ShowFilterbyTags = None
         self.ShowTrailer = None
         self.Exitkey = None
+        self.Exitprompt = None
         self.needsRestartFlag = False
         self.needsReopenFlag = False
         self["setupActions"] = ActionMap(["ColorActions", "OkCancelActions", "MenuActions", "EPGSelectActions"],
@@ -253,6 +254,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.MiniTV = getConfigListEntry(_("Show Mini TV:"), config.AdvancedMovieSelection.minitv)
         self.UseFolderName = getConfigListEntry(_("Use folder name for display covers:"), config.AdvancedMovieSelection.usefoldername)
         self.Exitkey = getConfigListEntry(_("Close with EXIT key:"), config.AdvancedMovieSelection.exitkey)
+        self.Exitprompt = getConfigListEntry(_("Use behavior when a movie is stopped:"), config.AdvancedMovieSelection.exitprompt)
         self.list.append(self.OnOff)
         self.list.append(self.Startwith)
         self.list.append(self.StartDir)
@@ -320,6 +322,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append(self.MiniTV)
         self.list.append(self.Jump2Mark)
         self.list.append(self.Exitkey)
+        if config.AdvancedMovieSelection.exitkey.value:
+            self.list.append(self.Exitprompt)
         self["config"].list = self.list
         self["config"].l.setList(self.list)
         if not self.selectionChanged in self["config"].onSelectionChanged:
@@ -422,7 +426,9 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         elif current == self.ShowTrailer:
             self["help"].setText(_("Displays search trailer on web function in the menu at the movie list."))
         elif current == self.Exitkey:
-            self["help"].setText(_("If this option is enabled you can stop play a movie with the EXIT button, and the Advanced Movie Selection plugin will also be closed immediately."))
+            self["help"].setText(_("If this option is enabled you can stop play a movie with the EXIT button, and the Advanced Movie Selection plugin will also be closed immediately (if the next option is disabled)."))
+        elif current == self.Exitprompt:
+            self["help"].setText(_("If this option is activated the behavior when stop a film also will used when you use the EXIT button."))
 
     def pluginsavailable(self):
         if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
