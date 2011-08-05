@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-01 16:06+0100\n"
-"PO-Revision-Date: 2011-08-01 16:11+0100\n"
+"POT-Creation-Date: 2011-08-02 12:54+0100\n"
+"PO-Revision-Date: 2011-08-02 12:54+0100\n"
 "Last-Translator: JackDanie <JackDaniel@i-have-a-dreambox.com>\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
@@ -60,10 +60,10 @@ msgstr "Erweiterte Filmauswahl - Geschichte"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionEventView.py:68
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionEventView.py:76
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:393
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:436
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:478
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:663
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:392
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:435
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:477
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:662
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:257
 msgid "this recording"
 msgstr "this recording"
@@ -74,7 +74,7 @@ msgid "Infos for: %s"
 msgstr "Info für: %s"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionEventView.py:78
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:719
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:718
 #, python-format
 msgid "Movie location: %s"
 msgstr "Speicherort: %s"
@@ -587,7 +587,7 @@ msgstr "Lesezeichen 3"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:523
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:782
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:223
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:222
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:32
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:33
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:100
@@ -896,28 +896,38 @@ msgstr "Verzeichnisauswahl"
 msgid "Show active move/copy processes"
 msgstr "Aktive Verschiebe/Kopiervorgänge anzeigen"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:61
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:60
 #, python-format
 msgid "Remove ' %s '"
 msgstr "Remove ' %s '"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:70
-msgid "Please select the move/copy destination"
-msgstr "Bitte wählen Sie das Verzeichnis für das Verschieben/Kopieren"
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:66
+#, python-format
+msgid "Move/Copy from: %s"
+msgstr "Verschieben/Kopieren von: %s"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:78
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:72
+#, python-format
+msgid "Move/Copy %s"
+msgstr "Verschieben/Kopieren von %s"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:72
+msgid "to:"
+msgstr "nach:"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:80
 msgid "|Copy:\n"
 msgstr "|Kopieren:\n"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:78
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:80
 msgid "|Move:\n"
 msgstr "|Verschiebe:\n"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:80
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:82
 msgid "There are currently no files are moved or copied."
 msgstr "Derzeit gibt es keine Dateien die verschoben oder kopiert werden."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:82
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:84
 #, python-format
 msgid ""
 "The following file is being moved or copied currently:\n"
@@ -926,12 +936,12 @@ msgstr ""
 "Die folgende Datei wird gerade verschoben/kopiert:\n"
 "%s"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:84
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:86
 #, python-format
 msgid "The following %s"
 msgstr "Diese %s"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:84
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:86
 #, python-format
 msgid ""
 "files are being moved or copied currently:\n"
@@ -940,59 +950,59 @@ msgstr ""
 "Dateien werden gerade kopiert:\n"
 "%s"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:95
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:97
 #, python-format
 msgid "The directory ' %s 'could not be created !"
 msgstr "The directory ' %s 'could not be created !"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:101
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:103
 msgid "Directory selection has been canceled"
 msgstr "Verzeichnisauswahl wurde abgebrochen"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:107
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:109
 msgid "Move (in the background)"
 msgstr "Verschieben (im Hintergrund)"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:107
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:109
 msgid "Move (in the foreground)"
 msgstr "Verschieben (im Vordergrund)"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:107
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:109
 msgid "Copy (in the background)"
 msgstr "Kopieren (im Hintergrund)"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:107
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:109
 msgid "Copy (in the foreground)"
 msgstr "Kopieren (im Vordergrund)"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:107
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:109
 msgid "Abort"
 msgstr "Abbrechen"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:108
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:110
 #, python-format
 msgid "How to ' %s '"
 msgstr "Wie soll ' %s '"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:108
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:110
 #, python-format
 msgid "from %s"
 msgstr "von %s"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:108
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:110
 #, python-format
 msgid "to %s be moved/copied ?"
 msgstr "nach %s verschoben/kopiert werden ?"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:116
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:118
 msgid "File already exists"
 msgstr "Datei existiert schon im Zielverzeichnis"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:119
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:121
 msgid "The move was successful."
 msgstr "Das Verschieben war erfolgreich."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:123
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:125
 msgid ""
 "Moving in the background.\n"
 "\n"
@@ -1002,11 +1012,11 @@ msgstr ""
 "\n"
 "Die Filmliste kann erst nach dem vollständigen verschieben aktualisiert werden."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:126
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:128
 msgid "The copying was successful."
 msgstr "Das Kopieren war erfolgreich."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:129
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:131
 msgid ""
 "Copying in the background.\n"
 "\n"
@@ -1016,7 +1026,7 @@ msgstr ""
 "\n"
 "Die Filmliste kann erst nach dem vollständigen kopieren aktualisiert werden."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:138
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:140
 #, python-format
 msgid ""
 "Move/Copy aborted due to:\n"
@@ -1181,55 +1191,55 @@ msgstr "Filmstatus nicht in Farbe in der Filmliste anzeigen"
 msgid "Show movie color status in movielist"
 msgstr "Filmstatus in Farbe in der Filmliste anzeigen"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:208
-msgid "Download and save movie info/cover"
-msgstr "Herunterladen und speichern von Filminfo/Cover"
-
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:211
-msgid "Delete movie info and cover"
-msgstr "Filminfo und Cover löschen"
-
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:214
-msgid "Delete cover"
-msgstr "Cover löschen"
-
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:217
-msgid "Delete movie info"
-msgstr "Filminfo löschen"
-
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:219
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:207
 msgid "Download and save movie info/cover for all movies"
 msgstr "Herunterladen und speichern der Filminfos/Covers für alle Filme"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:221
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:209
+msgid "Download and save movie info/cover"
+msgstr "Herunterladen und speichern von Filminfo/Cover"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:212
+msgid "Delete movie info and cover"
+msgstr "Filminfo und Cover löschen"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:215
+msgid "Delete cover"
+msgstr "Cover löschen"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:218
+msgid "Delete movie info"
+msgstr "Filminfo löschen"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:220
 msgid "Movie tags"
 msgstr "Filmtags zuordnen"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:225
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:224
 msgid "Setup Moviebar position"
 msgstr "Position der Filminfoleiste einstellen"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:227
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:226
 msgid "Search Trailer on web"
 msgstr "Trailer im Web suchen"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:229
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:228
 msgid "Setup"
 msgstr "Einstellungen"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:234
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:233
 msgid "Advanced Movie Selection Menu"
 msgstr "Erweiterte Filmauswahl Menü"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:253
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:252
 msgid "No internet connection available !"
 msgstr "Keine Internetverbindung vorhanden !"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:284
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:283
 msgid "Move/Copy not possible here !"
 msgstr "Verschieben/Kopieren hier nicht möglich !"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:405
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:404
 #, python-format
 msgid ""
 "Do you really want to delete info/cover from:\n"
@@ -1238,15 +1248,15 @@ msgstr ""
 "Die Filminfo und das Cover wirklich löschen von:\n"
 "%s  ?"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:409
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:452
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:494
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:679
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:408
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:451
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:493
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:678
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:265
 msgid "You cannot delete this!"
 msgstr "Das kann nicht gelöscht werden !"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:448
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:447
 #, python-format
 msgid ""
 "Do you really want to delete cover from:\n"
@@ -1255,7 +1265,7 @@ msgstr ""
 "Das Cover wirklich löschen von:\n"
 "%s  ?"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:490
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:489
 #, python-format
 msgid ""
 "Do you really want to delete movie info from:\n"
@@ -1264,46 +1274,46 @@ msgstr ""
 "Die Filminfo wirklich löschen von:\n"
 "%s  ?"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:590
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:589
 msgid "Please wait... Loading list..."
 msgstr "Lade Filmliste, bitte warten ..."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:633
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:632
 msgid "Select the movie path"
 msgstr "Lesezeichen Menü"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:637
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:636
 msgid "Advanced movielist menu"
 msgstr "Erw. Filmauswahl Menü"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:638
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:637
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:166
 msgid "Show event details"
 msgstr "Filminfos anzeigen"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:649
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:648
 msgid "Exit movielist"
 msgstr "Erw. Filmauswahl beenden"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:650
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:649
 msgid "Select movie"
 msgstr "Film auswählen"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:675
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:674
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:260
 #, python-format
 msgid "Do you really want to delete %s?"
 msgstr "%s wirklich löschen ?"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:713
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:712
 msgid "Delete failed!"
 msgstr "Löschen fehlgeschlagen !"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:728
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:727
 msgid "Advanced Movie Selection"
 msgstr "Erweiterte Filmauswahl"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:867
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:866
 msgid ""
 "Load Length of Movies in Movielist has been disabled.\n"
 "Close and reopen Movielist is required to apply the setting."
@@ -1311,36 +1321,36 @@ msgstr ""
 "Anzeigen der Spielzeit in der Filmliste wurde deaktiviert.\n"
 "Das schließen und wieder öffnen der Filmliste ist erforderlich damit die Einstellungen übernommen werden."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:913
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:912
 msgid "Tag 1"
 msgstr "Markierung 1"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:918
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:917
 msgid "Tag 2"
 msgstr "Markierung 2"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:973
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:972
 msgid "Movie location:"
 msgstr "Speicherort:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:989
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:988
 msgid "Please select the movie path..."
 msgstr "Please select the movie path..."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1011
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1010
 #, python-format
 msgid "Directory %s nonexistent."
 msgstr "Directory %s nonexistent."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1054
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1053
 msgid "Please select tag to filter..."
 msgstr "Please select tag to filter..."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1057
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1056
 msgid "No tags are set on these movies."
 msgstr "No tags are set on these movies."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1072
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1071
 msgid ""
 "Use direction keys to move the Moviebar.\n"
 "Press OK button for save or the EXIT button to cancel.\n"
@@ -1880,6 +1890,9 @@ msgstr "Nicht verwendete Tags aus der standard Tagliste löschen"
 msgid "Delete all tags"
 msgstr "Alle Tags löschen"
 
+#~ msgid "Please select the move/copy destination"
+#~ msgstr "Bitte wählen Sie das Verzeichnis für das Verschieben/Kopieren"
+
 #~ msgid "All"
 #~ msgstr "Alles"
 
@@ -2150,9 +2163,6 @@ msgstr "Alle Tags löschen"
 
 #~ msgid "Copy (immediately)"
 #~ msgstr "Kopieren (sofort)"
-
-#~ msgid "Move/Copy from ' %s ' ?"
-#~ msgstr "Verschieben/Kopieren von ' %s ' ?"
 
 #~ msgid "Create new directory"
 #~ msgstr "Neues Verzeichnis erstellen"

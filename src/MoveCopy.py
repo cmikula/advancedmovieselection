@@ -56,18 +56,20 @@ class MovieMove(ChoiceBox):
         cbkeys.append("yellow")
         listpath.append((_("Show active move/copy processes"), "CALLFUNC", self.showActive))
         cbkeys.append("green")
-
         if len(os.listdir(config.movielist.last_videodir.value)) == 0 and defaultMoviePath() <> config.movielist.last_videodir.value:
             listpath.append((_("Remove ' %s '") % config.movielist.last_videodir.value, "CALLFUNC", self.remove))
             cbkeys.append("red")
-
         ChoiceBox.__init__(self, session, list=listpath, keys=cbkeys)
+        self.onShown.append(self.setWindowTitle)
+
+    def setWindowTitle(self):
+        self.setTitle(_("Move/Copy from: %s") % self.name)
 
     def selectedLocation(self, arg):
         self.gotFilename(config.AdvancedMovieSelection.movecopydirs.value)
 
     def selectDir(self, arg):
-        self.session.openWithCallback(self.gotFilename, MovieLocationBox, _("Please select the move/copy destination"), config.movielist.last_videodir.value)
+        self.session.openWithCallback(self.gotFilename, MovieLocationBox, (_("Move/Copy %s") % self.name) + ' ' + _("to:"), config.movielist.last_videodir.value)
 
     def showActive(self, arg):
         tmp_out = os.popen("ps -ef | grep -e \"   [c]p /\" -e \"   [m]v /\"").readlines()
