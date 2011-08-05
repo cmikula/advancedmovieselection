@@ -202,20 +202,21 @@ class MovieContextMenu(Screen):
             else:
                 menu.append((_("Show movie color status in movielist"), boundFunction(self.showStatusColor, True)))
         if config.AdvancedMovieSelection.showcolorkey.value:        
-            menu.append((_("Color key settings"), self.setupbutton))
-        if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.showcoveroptions.value:
+            menu.append((_("Color key settings"), self.setupbutton))     
+        if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.showcoveroptions.value and config.AdvancedMovieSelection.showcoveroptions2.value:
             menu.append((_("Download and save movie info/cover for all movies"), boundFunction(self.downloadMovieInfoAll)))
+        if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.showcoveroptions.value:
             if not service.flags & eServiceReference.mustDescent:
-                menu.append((_("Download and save movie info/cover"), self.downloadMovieInfo))
-        if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.show_info_cover_del.value:
-            if not service.flags & eServiceReference.mustDescent:
-                menu.append((_("Delete movie info and cover"), boundFunction(self.deleteinfocover)))
+                menu.append((_("Download and save movie info/cover"), self.downloadMovieInfo))              
         if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.show_cover_del.value:
             if not service.flags & eServiceReference.mustDescent:
                 menu.append((_("Delete cover"), boundFunction(self.deletecover)))
         if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.show_info_del.value:
             if not service.flags & eServiceReference.mustDescent:
                 menu.append((_("Delete movie info"), boundFunction(self.deleteinfos)))
+        if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.show_info_cover_del.value:
+            if not service.flags & eServiceReference.mustDescent:
+                menu.append((_("Delete movie info and cover"), boundFunction(self.deleteinfocover)))   
         if config.AdvancedMovieSelection.showmovietagsinmenu.value and not service.flags & eServiceReference.mustDescent:
             menu.append((_("Movie tags"), boundFunction(self.movietags)))
         if config.AdvancedMovieSelection.showfiltertags.value:
@@ -255,12 +256,17 @@ class MovieContextMenu(Screen):
     def downloadMovieInfo(self):
         if self.checkConnection() == False:
             return        
-        self.session.open(DownloadMovies, self.csel.list.list, config.AdvancedMovieSelection.coversize.value, self.service)
+        self.session.openWithCallback(self.closeafterfinish, DownloadMovies, self.csel.list.list, config.AdvancedMovieSelection.coversize.value, self.service)
+
+    def closeafterfinish(self, retval = None):
+        self.csel.updateDescription()
+        self.csel.reloadList()
+        self.close()        
 
     def downloadMovieInfoAll(self):
         if self.checkConnection() == False:
             return
-        self.session.open(DownloadMovies, self.csel.list.list, config.AdvancedMovieSelection.coversize.value)
+        self.session.openWithCallback(self.closeafterfinish, DownloadMovies, self.csel.list.list, config.AdvancedMovieSelection.coversize.value)
 
     def retitel(self, session, service):
         self.session.open(MovieRetitle, service, session.current_dialog)
@@ -268,7 +274,7 @@ class MovieContextMenu(Screen):
     def imdbsearch(self):
         from ServiceProvider import ServiceCenter
         searchTitle = ServiceCenter.getInstance().info(self.service).getName(self.service)
-        self.session.open(TMDbMainsave, searchTitle, service=self.service)
+        self.session.openWithCallback(self.closeafterfinish, TMDbMainsave, searchTitle, service=self.service)
 
     def menusetup(self):
         self.session.openWithCallback(self.cancelClick, AdvancedMovieSelectionSetup)

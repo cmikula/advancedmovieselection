@@ -51,6 +51,7 @@ API_THEMOVIEDB_SEARCH = "Movie.search/"
 API_THEMOVIEDB_MOVIEINFO = "Movie.getInfo/"
 #API_THEMOVIEDB_DEVELOPERKEY = "5280daef249da5c45994c9b523ec7e7a/" #key von dr.best
 API_THEMOVIEDB_DEVELOPERKEY = "1f834eb425728133b9a2c1c0c82980eb/"
+movie_title = ""
 
 def download(url, filename):
     return downloadPage(url, file(filename, 'wb'))
@@ -476,12 +477,13 @@ class TMDbMain(Screen):
     def green_pressed(self):
         if self.checkConnection() == False:
             return
-        #self["status"].setText(_("Download and save movie info and cover, please wait..."))
+        from ServiceProvider import ServiceCenter
         from EventInformationTable import createEIT
-        cur = self["list"].getCurrent()
-        title = cur[1].encode('utf-8', 'ignore')
-        #title = ServiceCenter.getInstance().info(self.service).getName(self.service)
-        if createEIT(self.service.getPath(), title, config.AdvancedMovieSelection.coversize.value) == True:
+        global movie_title
+        movie_title = ServiceCenter.getInstance().info(self.service).getName(self.service).encode("utf-8")
+        #current = self["list"].getCurrent()
+        if self.service is not None: # and current:
+            createEIT(self.service.getPath(), movie_title, config.AdvancedMovieSelection.coversize.value) #, movie=current[1])
             self.close(False)
         else:
             self.session.openWithCallback(self.close, MessageBox, _("Sorry, no info/cover found for title: %s") % (title), MessageBox.TYPE_ERROR)

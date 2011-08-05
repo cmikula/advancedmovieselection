@@ -67,6 +67,7 @@ else:
     YTTrailerPresent=False
 
 config.AdvancedMovieSelection = ConfigSubsection()
+config.AdvancedMovieSelection.showcoveroptions2 = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.exitprompt = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.exitkey = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.showtrailer = ConfigYesNo(default=False)

@@ -97,6 +97,9 @@ version: 1.6
 * neu: filmbeschreibung beim suchen/herunterladen von covers/infos kann nun gescrollt werden (pfeiltasten links/rechts)
 * neu: filmbeschreibung unter info kann nun gescrollt werden
 * neu: exit taste kann für das beenden während der wiedergabe aktiviert werden
+* neu: option herunterladen von covers/infos ALLER filme kann nun in den einstellungen ein/aus geschalten werden
+* neu: bei der info/coversuche wird nach dem beenden/speichern automatisch zur filmliste zurückgekehrt
+* fix: speichern von filminfo/cover bei der option tmdb suche
 * fix: hilfetexte
 * fix: so manch internes :)
 ACHTUNG an die skinner, die screens AdvancedMovieSelectionEventViewSD, AdvancedMovieSelectionEventViewXD, AdvancedMovieSelectionEventViewHD haben sich geändert

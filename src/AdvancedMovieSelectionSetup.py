@@ -125,6 +125,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.ShowTrailer = None
         self.Exitkey = None
         self.Exitprompt = None
+        self.ShowCoverOptions2 = None
         self.needsRestartFlag = False
         self.needsReopenFlag = False
         self["setupActions"] = ActionMap(["ColorActions", "OkCancelActions", "MenuActions", "EPGSelectActions"],
@@ -210,6 +211,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.ShowPreview = getConfigListEntry(_("Show covers in movielist:"), config.AdvancedMovieSelection.showpreview)
         self.Coversize = getConfigListEntry(_("Set coversize:"), config.AdvancedMovieSelection.coversize)
         self.ShowCoverOptions = getConfigListEntry(_("Show D/L and store info/cover in movielist extensions menu:"), config.AdvancedMovieSelection.showcoveroptions)
+        self.ShowCoverOptions2 = getConfigListEntry(_("Show D/L and store ALL info/cover in movielist extensions menu:"), config.AdvancedMovieSelection.showcoveroptions2)
         self.ShowDelInfoCover = getConfigListEntry(_("Show delete info and cover in extensions menu from movielist:"), config.AdvancedMovieSelection.show_info_cover_del)
         self.ShowDelCover = getConfigListEntry(_("Show delete cover in extensions menu from movielist:"), config.AdvancedMovieSelection.show_cover_del)
         self.ShowDelInfo = getConfigListEntry(_("Show delete movie info in extensions menu from movielist:"), config.AdvancedMovieSelection.show_info_del)      
@@ -276,6 +278,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.list.append(self.Coversize)
             self.list.append(self.UseFolderName)
             self.list.append(self.ShowCoverOptions)
+            if config.AdvancedMovieSelection.showcoveroptions.value:
+                self.list.append(self.ShowCoverOptions2)
             self.list.append(self.ShowDelInfoCover)
             self.list.append(self.ShowDelCover)
             self.list.append(self.ShowDelInfo)
@@ -429,6 +433,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self["help"].setText(_("If this option is enabled you can stop play a movie with the EXIT button, and the Advanced Movie Selection plugin will also be closed immediately (if the next option is disabled)."))
         elif current == self.Exitprompt:
             self["help"].setText(_("If this option is activated the behavior when stop a film also will used when you use the EXIT button."))
+        elif current == self.ShowCoverOptions2:
+            self["help"].setText(_("Displays download and save movie info/cover for all movies options in the menu at the movie list."))
 
     def pluginsavailable(self):
         if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
