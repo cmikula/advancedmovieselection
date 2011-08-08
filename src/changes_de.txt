@@ -102,7 +102,7 @@ version: 1.6
 * geändert: umbennen um dateitypen erweitert
 * geändert: umbennen taucht nun nicht mehr unter den filmlisten erweiterungen auf
 * geändert: nl übersetzung (thx @ Bschaar)
-* entfernt: speichern von filminfo/cover bei der option tmdb suche
+* fix: speichern von filminfo/cover bei der option tmdb suche
 * fix: hilfetexte
 * fix: so manch internes :)
 ACHTUNG an die skinner, die screens AdvancedMovieSelectionEventViewSD, AdvancedMovieSelectionEventViewXD, AdvancedMovieSelectionEventViewHD haben sich geändert
