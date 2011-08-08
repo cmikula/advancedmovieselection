@@ -279,7 +279,7 @@ class TMDbMain(Screen):
         {
             "ok": self.blue_pressed,
             "back": self.red_pressed,
-            "green": self.green_pressed,
+            #"green": self.green_pressed,
             "red": self.red_pressed,
             "blue": self.blue_pressed,
             "yellow": self.yellow_pressed,
@@ -341,10 +341,10 @@ class TMDbMain(Screen):
                             thumb = movie["images"]['thumb']['92'][id]
                             break
                         tmpList.append((movie_id, name, description, released, cover, thumb),)
-                if not errorString:
-                    self["key_green"].text = _("Save movie info/cover")
-                else:
-                    self["key_green"].text = _()
+                #if not errorString:
+                #self["key_green"].text = _("Save movie info/cover")
+                #else:
+                self["key_green"].text = ""
                 self["key_blue"].text = _("Extended Info")
                 self["status"].setText("")
                 self["status"].hide()
@@ -401,7 +401,8 @@ class TMDbMain(Screen):
                 self["status"].hide()
                 self["list"].hide()
                 self["key_blue"].text = _("Extended Info")
-                self["key_green"].text = _("Save movie info/cover")
+                self["key_green"].text = ""
+                #self["key_green"].text = _("Save movie info/cover")
                 self["key_yellow"].text = _("Manual search")
                 self["description"].show()
                 self["extended"].show()
@@ -479,11 +480,12 @@ class TMDbMain(Screen):
             return
         from ServiceProvider import ServiceCenter
         from EventInformationTable import createEIT
-        global movie_title
-        movie_title = ServiceCenter.getInstance().info(self.service).getName(self.service).encode("utf-8")
-        #current = self["list"].getCurrent()
-        if self.service is not None: # and current:
-            createEIT(self.service.getPath(), movie_title, config.AdvancedMovieSelection.coversize.value) #, movie=current[1])
+        #global movie_title
+        #movie_title = self["list"].getCurrent()
+        current = ServiceCenter.getInstance().info(self.service).getName(self.service).encode("utf-8")
+        movie_title = self["list"].getCurrent()
+        if self.service is not None and current:
+            createEIT(self.service.getPath(), movie_title, config.AdvancedMovieSelection.coversize.value, movie=current[1])
             self.close(False)
         else:
             self.session.openWithCallback(self.close, MessageBox, _("Sorry, no info/cover found for title: %s") % (title), MessageBox.TYPE_ERROR)
