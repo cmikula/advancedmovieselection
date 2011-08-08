@@ -99,6 +99,9 @@ version: 1.6
 * neu: exit taste kann für das beenden während der wiedergabe aktiviert werden
 * neu: option herunterladen von covers/infos ALLER filme kann nun in den einstellungen ein/aus geschalten werden
 * neu: bei der info/coversuche wird nach dem beenden/speichern automatisch zur filmliste zurückgekehrt
+* geändert: umbennen um dateitypen erweitert
+* geändert: umbennen taucht nun nicht mehr unter den filmlisten erweiterungen auf
+* geändert: nl übersetzung (thx @ Bschaar)
 * fix: speichern von filminfo/cover bei der option tmdb suche
 * fix: hilfetexte
 * fix: so manch internes :)

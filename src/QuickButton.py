@@ -7,6 +7,7 @@ from Components.PluginComponent import plugins
 from Plugins.Plugin import PluginDescriptor
 from MoveCopy import MovieMove
 from Screens.MessageBox import MessageBox
+from Rename import MovieRetitle
 
 def getPluginCaption(pname):
     if pname != _("Nothing"):
@@ -34,7 +35,9 @@ def getPluginCaption(pname):
         elif pname == _("Trailer search"):
             return _("Trailer search")
         elif pname == _("Move-Copy"):
-            return _("Move-Copy") 
+            return _("Move-Copy")
+        elif pname == _("Rename"):
+            return _("Rename") 
         else:
             for p in plugins.getPlugins(where=[PluginDescriptor.WHERE_MOVIELIST]):
                 if pname == str(p.name):
@@ -80,6 +83,7 @@ class QuickButton:
         no_plugin = True
         msgText = _("Unknown Error")
         current = self.getCurrent()
+        service = self.getCurrent()
         if current is not None:
             if pname != _("Nothing"):
                 if pname == _("Delete"):
@@ -105,6 +109,9 @@ class QuickButton:
                     no_plugin = False 
                 elif pname == _("Move-Copy"):
                     self.session.open(MovieMove, self, current)
+                    no_plugin = False 
+                elif pname == _("Rename"):
+                    self.session.openWithCallback(self.reload, MovieRetitle, service, current)
                     no_plugin = False 
                 elif pname == _("Sort"):
                     if config.movielist.moviesort.value == MovieList.SORT_ALPHANUMERIC:
@@ -146,3 +153,6 @@ class QuickButton:
                 msgText = _("No plugin assigned!")
             if no_plugin:
                 self.session.open(MessageBox, msgText, MessageBox.TYPE_INFO)
+    
+    def reload(self):
+        self.reloadList()

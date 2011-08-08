@@ -54,7 +54,7 @@ class MovieRetitle(Screen, ConfigListScreen):
 			self.orig_title = self.name
 		self.descr = info.getInfoString(service, iServiceInformation.sDescription)
 
-		self["key_green"] = StaticText(_("OK"))
+		self["key_green"] = StaticText(_("Save"))
 		self["key_red"] = StaticText(_("Cancel"))
 
 		self.input_file = ConfigText(default=self.file, fixed_size=False, visible_width=82)
@@ -155,7 +155,8 @@ class MovieRetitle(Screen, ConfigListScreen):
 			global_background_mover.enqueue(self.exitDialog, self.session, fr, to)
 		else:
 			print "Moving in foreground"
-			for suff in (".ts.meta", ".ts.cuts", ".ts.ap", ".ts.sc", ".eit"):
+			for suff in (".ts.meta", ".ts.cuts", ".ts.imdb", ".ts.info", ".ts.png", ".jpg", ".ts.ap", ".ts.sc", ".ts.gm", ".eit"):
+			#for suff in (".ts.meta", ".ts.cuts", ".ts.ap", ".ts.sc", ".eit"):
 				if os_path.exists(fr + suff):
 					os_rename(fr + suff, to + suff)
 			self.exitDialog()
@@ -276,7 +277,8 @@ class MovieRetitleBackgroundMover:
 
 	def moveMovieFilesBackground(self, ele):
 		self.ele = ele
-		self.sufflst = (".ts.meta", ".ts.cuts", ".ts.ap", ".ts.sc", ".eit", ".ts")
+		self.sufflst = (".ts.meta", ".ts.cuts", ".ts.imdb", ".ts.info", ".ts.png", ".jpg", ".ts.ap", ".ts.sc", ".ts.gm", ".eit")
+		#self.sufflst = (".ts.meta", ".ts.cuts", ".ts.ap", ".ts.sc", ".eit", ".ts")
 		self.sufflst2 = self.sufflst
 		self.moveNextSuffBG(0)
 
