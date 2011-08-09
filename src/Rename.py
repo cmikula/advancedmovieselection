@@ -277,7 +277,7 @@ class MovieRetitleBackgroundMover:
 
 	def moveMovieFilesBackground(self, ele):
 		self.ele = ele
-		self.sufflst = (".ts.meta", ".ts.cuts", ".ts.imdb", ".ts.info", ".ts.png", ".jpg", ".ts.ap", ".ts.sc", ".ts.gm", ".eit")
+		self.sufflst = (".ts.meta", ".ts.cuts", ".ts.ap", ".ts.sc", ".eit", ".ts", ".ts.imdb", ".ts.info", ".ts.png", ".jpg", ".ts.gm")
 		#self.sufflst = (".ts.meta", ".ts.cuts", ".ts.ap", ".ts.sc", ".eit", ".ts")
 		self.sufflst2 = self.sufflst
 		self.moveNextSuffBG(0)
