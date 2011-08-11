@@ -280,7 +280,7 @@ class MovieList(GUIComponent):
             if serviceref.flags & eServiceReference.mustDescent:
                 res = [ None ]
                 if isinstance(serviceref, eServiceReferenceVDir):
-                    png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "movie_new.png"))
+                    png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "bookmark.png"))
                 else:
                     png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "directory.png"))
                 res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 2, 20, 20, png))
