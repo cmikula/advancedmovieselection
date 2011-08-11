@@ -56,6 +56,9 @@ MEDIAEXTENSIONS = {
         "mov": "movie"
     }
 
+class eServiceReferenceVDir(eServiceReference):
+    pass
+
 class MovieList(GUIComponent):
     SORT_ALPHANUMERIC = 1
     SORT_RECORDED = 2
@@ -276,7 +279,10 @@ class MovieList(GUIComponent):
         if self.show_folders:
             if serviceref.flags & eServiceReference.mustDescent:
                 res = [ None ]
-                png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "directory.png"))
+                if isinstance(serviceref, eServiceReferenceVDir):
+                    png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "movie_new.png"))
+                else:
+                    png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "directory.png"))
                 res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 2, 20, 20, png))
                 res.append(MultiContentEntryText(pos=(25, 0), size=(width - 40, 30), font=0, flags=RT_HALIGN_LEFT, text=serviceref.getName()))
                 return res
@@ -741,6 +747,20 @@ class MovieList(GUIComponent):
 #            self.list.sort(key=lambda x: -x[2])
 
         if self.show_folders:
+            if config.AdvancedMovieSelection.show_bookmarks.value:
+                vdirs = []
+                root_path = root.getPath()
+                for dir in config.movielist.videodirs.value:
+                    if dir != root_path and not self.isInList(dir, dirs):
+                        parts = dir.split("/")
+                        dirName = parts[-2]
+                        tt = eServiceReferenceVDir(eServiceReference.idFile, eServiceReference.flagDirectory, dir)
+                        tt.setName(dirName)
+                        vdirs.append((tt, None, -1, -1))
+                vdirs.sort(self.sortFolders)
+                for servicedirs in vdirs:
+                    self.list.insert(0, servicedirs)
+
             dirs.sort(self.sortFolders)
             for servicedirs in dirs:
                 self.list.insert(0, servicedirs)
@@ -757,6 +777,12 @@ class MovieList(GUIComponent):
         # finally, store a list of all tags which were found. these can be presented
         # to the user to filter the list
         self.tags = tags
+
+    def isInList(self, a, b):
+        for ref in b:
+            if a == ref[0].getPath():
+                return True
+        return False
 
     def sortbyDateAsc(self, a, b):
         return cmp(a[2], b[2])

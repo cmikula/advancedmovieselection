@@ -307,6 +307,7 @@ class MovieContextMenu(Screen):
         self["menu"].getCurrent()[1]()
 
     def cancelClick(self):
+        self.csel.reloadList()
         self.close(False)
 
     def sortBy(self, newType):

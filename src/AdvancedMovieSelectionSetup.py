@@ -328,6 +328,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append(self.Exitkey)
         if config.AdvancedMovieSelection.exitkey.value:
             self.list.append(self.Exitprompt)
+        self.list.append(getConfigListEntry(_("Show bookmarks in movielist:"), config.AdvancedMovieSelection.show_bookmarks))
         self["config"].list = self.list
         self["config"].l.setList(self.list)
         if not self.selectionChanged in self["config"].onSelectionChanged:

@@ -151,6 +151,7 @@ config.usage.on_movie_eof = ConfigSelection(default="quit", choices=[("ask", _("
 config.AdvancedMovieSelection.movieplayer_infobar_position_offset_x = ConfigInteger(default=0)
 config.AdvancedMovieSelection.movieplayer_infobar_position_offset_y = ConfigInteger(default=0)
 config.AdvancedMovieSelection.show_infobar_position = ConfigYesNo(default=True)
+config.AdvancedMovieSelection.show_bookmarks = ConfigYesNo(default=True)
 
 PlayerInstance = None
 

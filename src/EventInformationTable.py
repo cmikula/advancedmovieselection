@@ -315,15 +315,6 @@ def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=Fa
         if len(movie['categories']):
             genre = " ".join(movie['categories']['genre'])
 
-        # Checking valid movie name
-        if not name or len(name) == 0:
-            print "tmdb search results no valid movie name"
-            return False
-        # Checking valid movie overview
-        if not overview or len(overview) == 0:
-            print "tmdb search results no valid movie overview"
-            return False
-
         print "Movie title: " + str(movie['name'])
         images = movie['images']
         cover_url = None
@@ -340,6 +331,15 @@ def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=Fa
         if os.path.exists(eit_file) and overwrite_eit == False:
             print "File '%s' already exists, eit creation skipped!" % (eit_file)
             return True 
+
+        # Checking valid movie name
+        if not name or len(name) == 0:
+            print "tmdb search results no valid movie name"
+            return False
+        # Checking valid movie overview
+        if not overview or len(overview) == 0:
+            print "tmdb search results no valid movie overview"
+            return False
 
         # print out extended movie informations
         try:
