@@ -753,7 +753,10 @@ class MovieList(GUIComponent):
                 for dir in config.movielist.videodirs.value:
                     if dir != root_path and not self.isInList(dir, dirs):
                         parts = dir.split("/")
-                        dirName = parts[-2]
+                        if len(parts) > 2:
+                            dirName = parts[-3] + "/" + parts[-2]
+                        else: 
+                            dirName = parts[-2]
                         tt = eServiceReferenceVDir(eServiceReference.idFile, eServiceReference.flagDirectory, dir)
                         tt.setName(dirName)
                         vdirs.append((tt, None, -1, -1))
