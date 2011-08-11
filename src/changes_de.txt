@@ -107,6 +107,9 @@ version: 1.6
 * fix: so manch internes :)
 ACHTUNG an die skinner, die screens AdvancedMovieSelectionEventViewSD, AdvancedMovieSelectionEventViewXD, AdvancedMovieSelectionEventViewHD haben sich geändert
 
+version: 1.7
+* neu: angelegte lesezeichen können nun in der filmliste angezeigt werden
+* geändert: nl übersetzung (thx @ Bschaar)
 
 
 

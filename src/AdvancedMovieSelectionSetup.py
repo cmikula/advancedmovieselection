@@ -126,6 +126,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.Exitkey = None
         self.Exitprompt = None
         self.ShowCoverOptions2 = None
+        self.ShowBookmarks = None
         self.needsRestartFlag = False
         self.needsReopenFlag = False
         self["setupActions"] = ActionMap(["ColorActions", "OkCancelActions", "MenuActions", "EPGSelectActions"],
@@ -257,6 +258,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.UseFolderName = getConfigListEntry(_("Use folder name for display covers:"), config.AdvancedMovieSelection.usefoldername)
         self.Exitkey = getConfigListEntry(_("Close with EXIT key:"), config.AdvancedMovieSelection.exitkey)
         self.Exitprompt = getConfigListEntry(_("Use behavior when a movie is stopped:"), config.AdvancedMovieSelection.exitprompt)
+        self.ShowBookmarks = getConfigListEntry(_("Show bookmarks in movielist:"), config.AdvancedMovieSelection.show_bookmarks)
         self.list.append(self.OnOff)
         self.list.append(self.Startwith)
         self.list.append(self.StartDir)
@@ -328,7 +330,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append(self.Exitkey)
         if config.AdvancedMovieSelection.exitkey.value:
             self.list.append(self.Exitprompt)
-        self.list.append(getConfigListEntry(_("Show bookmarks in movielist:"), config.AdvancedMovieSelection.show_bookmarks))
+        self.list.append(self.ShowBookmarks)
         self["config"].list = self.list
         self["config"].l.setList(self.list)
         if not self.selectionChanged in self["config"].onSelectionChanged:
@@ -436,6 +438,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self["help"].setText(_("If this option is activated the behavior when stop a film also will used when you use the EXIT button."))
         elif current == self.ShowCoverOptions2:
             self["help"].setText(_("Displays download and save movie info/cover for all movies options in the menu at the movie list."))
+        elif current == self.ShowBookmarks:
+            self["help"].setText(_("When enabled all created bookmarks appear in the movie list."))
 
     def pluginsavailable(self):
         if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
