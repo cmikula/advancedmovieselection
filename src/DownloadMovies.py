@@ -179,17 +179,16 @@ class DownloadMovies(Screen):
 
         self.l = []
         for searchResult in results:
-            self["key_green"].setText(_("Save infos/cover"))
-            movie = tmdb.getMovieInfo(searchResult['id'])
-            released = None
             try:
+                self["key_green"].setText(_("Save infos/cover"))
+                movie = tmdb.getMovieInfo(searchResult['id'])
                 released = movie['released'][:4]
+                if released:
+                    self.l.append((movie['name'].encode("utf-8") + " - " + released, movie))
+                else:
+                    self.l.append((movie['name'].encode("utf-8"), movie))
             except:
                 pass
-            if released:
-                self.l.append((movie['name'].encode("utf-8") + " - " + released, movie))
-            else:
-                self.l.append((movie['name'].encode("utf-8"), movie))
 
         self["list"].setList(self.l)
 
