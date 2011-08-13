@@ -558,15 +558,15 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         self.entryguilist3.append(("0", _("Display plugin name")))
         self.entryguilist3.append(("1", _("Display plugin description")))        
 
-        red_selectedindex = self.getStaticName(config.AdvancedMovieSelection.red.value)
-        green_selectedindex = self.getStaticName(config.AdvancedMovieSelection.green.value)
-        yellow_selectedindex = self.getStaticName(config.AdvancedMovieSelection.yellow.value)
-        blue_selectedindex = self.getStaticName(config.AdvancedMovieSelection.blue.value)
-        buttoncaptionchoice_selectedindex = self.getStaticName3(config.AdvancedMovieSelection.buttoncaption.value)
-        hometext_selectedindex = self.getStaticName2(config.AdvancedMovieSelection.hometext.value)
-        bookmark1buttontext_selectedindex = self.getStaticName2(config.AdvancedMovieSelection.bookmark1text.value)
-        bookmark2buttontext_selectedindex = self.getStaticName2(config.AdvancedMovieSelection.bookmark2text.value)
-        bookmark3buttontext_selectedindex = self.getStaticName2(config.AdvancedMovieSelection.bookmark3text.value)
+        red_selectedindex = self.getStaticName(self.entryguilist, config.AdvancedMovieSelection.red.value)
+        green_selectedindex = self.getStaticName(self.entryguilist, config.AdvancedMovieSelection.green.value)
+        yellow_selectedindex = self.getStaticName(self.entryguilist, config.AdvancedMovieSelection.yellow.value)
+        blue_selectedindex = self.getStaticName(self.entryguilist, config.AdvancedMovieSelection.blue.value)
+        hometext_selectedindex = self.getStaticName(self.entryguilist2, config.AdvancedMovieSelection.hometext.value)
+        bookmark1buttontext_selectedindex = self.getStaticName(self.entryguilist2, config.AdvancedMovieSelection.bookmark1text.value)
+        bookmark2buttontext_selectedindex = self.getStaticName(self.entryguilist2, config.AdvancedMovieSelection.bookmark2text.value)
+        bookmark3buttontext_selectedindex = self.getStaticName(self.entryguilist2, config.AdvancedMovieSelection.bookmark3text.value)
+        buttoncaptionchoice_selectedindex = self.getStaticName(self.entryguilist3, config.AdvancedMovieSelection.buttoncaption.value)
 
         index = len(self.entryguilist)        
         for p in plugins.getPlugins(where=[PluginDescriptor.WHERE_MOVIELIST]):
@@ -777,71 +777,11 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         configfile.save()
         self.close()
 
-    def getStaticName(self, value):
-        if value == _("Delete"):
-            return "1"
-        elif value == _("Home"):
-            return "2"
-        elif value == _("Sort"):
-            return "3"
-        elif value == _("Bookmarks"):
-            return "4"
-        elif value == _("Bookmark 1"):
-            return "5"
-        elif value == _("Bookmark 2"):
-            return "6"
-        elif value == _("Bookmark 3"):
-            return "7"
-        elif value == _("Filter by Tags"):
-            return "8"
-        elif value == _("Move-Copy"):
-            return "9"
-        elif value == _("Trailer search"):
-            return "10"
-        else:
-            return "0"
-
-    def getStaticName2(self, value):
-        if value == _("DM-600PVR"):
-            return "1"
-        elif value == _("DM-7000"):
-            return "2"
-        elif value == _("DM-7025"):
-            return "3"
-        elif value == _("DM-8000HD"):
-            return "4"
-        elif value == _("DM-500HD"):
-            return "5"
-        elif value == _("DM-800HD"):
-            return "6"
-        elif value == _("DM-800HDse"):
-            return "7"
-        elif value == _("DM-7020HD"):
-            return "8"
-        elif value == _("internal HDD"):
-            return "9"
-        elif value == _("NAS"):
-            return "10"
-        elif value == _("NAS-Movies"):
-            return "11"
-        elif value == (config.AdvancedMovieSelection.homeowntext.value):
-            return "12"
-        elif value == (config.AdvancedMovieSelection.bookmark1owntext.value):
-            return "13"
-        elif value == (config.AdvancedMovieSelection.bookmark2owntext.value):
-            return "14"
-        elif value == (config.AdvancedMovieSelection.bookmark3owntext.value):
-            return "15"
-        else:
-            return "0"
-
-    def getStaticName3(self, value):
-        if value == _("Display plugin name"):
-            return "0"
-        elif value == _("Display plugin description"):
-            return "1"
-        else:
-            return "0"
+    def getStaticName(self, list, value):
+        for index, text in list:
+            if text == value:
+                return index
+        return 0
 
     def cancel(self):
         self.close()
