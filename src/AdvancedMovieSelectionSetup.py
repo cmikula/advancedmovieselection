@@ -528,16 +528,15 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         self.entryguilist.append(("1", _("Delete")))
         self.entryguilist.append(("2", _("Home")))
         self.entryguilist.append(("3", _("Sort")))
-        self.entryguilist.append(("4", _("Bookmark 1")))
-        self.entryguilist.append(("5", _("Bookmark 2")))
-        self.entryguilist.append(("6", _("Bookmark 3")))
-        self.entryguilist.append(("7", _("Filter by Tags")))
-        self.entryguilist.append(("8", _("Move-Copy")))
+        self.entryguilist.append(("4", _("Bookmarks")))
+        self.entryguilist.append(("5", _("Bookmark 1")))
+        self.entryguilist.append(("6", _("Bookmark 2")))
+        self.entryguilist.append(("7", _("Bookmark 3")))
+        self.entryguilist.append(("8", _("Filter by Tags")))
+        self.entryguilist.append(("9", _("Move-Copy")))
         if YTTrailerPresent == True:
-            self.entryguilist.append(("9", _("Trailer search")))
-            index = 10
-        else:
-            index = 9
+            self.entryguilist.append(("10", _("Trailer search")))
+
         self.entryguilist2 = []
         self.entryguilist2.append(("0", _("Nothing")))
         self.entryguilist2.append(("1", _("DM-600PVR")))
@@ -568,7 +567,8 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         bookmark1buttontext_selectedindex = self.getStaticName2(config.AdvancedMovieSelection.bookmark1text.value)
         bookmark2buttontext_selectedindex = self.getStaticName2(config.AdvancedMovieSelection.bookmark2text.value)
         bookmark3buttontext_selectedindex = self.getStaticName2(config.AdvancedMovieSelection.bookmark3text.value)
-        
+
+        index = len(self.entryguilist)        
         for p in plugins.getPlugins(where=[PluginDescriptor.WHERE_MOVIELIST]):
             self.entryguilist.append((str(index), str(p.name)))
             if config.AdvancedMovieSelection.red.value == str(p.name):
@@ -784,18 +784,20 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
             return "2"
         elif value == _("Sort"):
             return "3"
-        elif value == _("Bookmark 1"):
+        elif value == _("Bookmarks"):
             return "4"
-        elif value == _("Bookmark 2"):
+        elif value == _("Bookmark 1"):
             return "5"
-        elif value == _("Bookmark 3"):
+        elif value == _("Bookmark 2"):
             return "6"
-        elif value == _("Filter by Tags"):
+        elif value == _("Bookmark 3"):
             return "7"
-        elif value == _("Move-Copy"):
+        elif value == _("Filter by Tags"):
             return "8"
-        elif value == _("Trailer search"):
+        elif value == _("Move-Copy"):
             return "9"
+        elif value == _("Trailer search"):
+            return "10"
         else:
             return "0"
 

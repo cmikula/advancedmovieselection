@@ -11,9 +11,7 @@ from Rename import MovieRetitle
 
 def getPluginCaption(pname):
     if pname != _("Nothing"):
-        if pname == _("Delete"):
-            return _("Delete")
-        elif pname == _("Home"):
+        if pname == _("Home"):
             return _(config.AdvancedMovieSelection.hometext.value)
         elif pname == _("Bookmark 1"):
             return _(config.AdvancedMovieSelection.bookmark1text.value)
@@ -30,14 +28,6 @@ def getPluginCaption(pname):
                 else:
                     if config.movielist.moviesort.value == MovieList.SORT_DATE_ASC:
                         return _("Sort alphabetically")
-        elif pname == _("Filter by Tags"):
-            return _("Filter by Tags")
-        elif pname == _("Trailer search"):
-            return _("Trailer search")
-        elif pname == _("Move-Copy"):
-            return _("Move-Copy")
-        elif pname == _("Rename"):
-            return _("Rename") 
         else:
             for p in plugins.getPlugins(where=[PluginDescriptor.WHERE_MOVIELIST]):
                 if pname == str(p.name):
@@ -45,6 +35,7 @@ def getPluginCaption(pname):
                         return p.description
                     else:
                         return p.name
+        return pname
     return ""
 
 
@@ -63,56 +54,49 @@ class QuickButton:
         })
 
     def redpressed(self):
-        self.startPlugin(str(config.AdvancedMovieSelection.red.value), 0)
+        self.startPlugin(str(config.AdvancedMovieSelection.red.value), self["key_red"])
     
     def greenpressed(self):
-        self.startPlugin(str(config.AdvancedMovieSelection.green.value), 1)
+        self.startPlugin(str(config.AdvancedMovieSelection.green.value), self["key_green"])
     
     def yellowpressed(self):
-        self.startPlugin(str(config.AdvancedMovieSelection.yellow.value), 2)
+        self.startPlugin(str(config.AdvancedMovieSelection.yellow.value), self["key_yellow"])
     
     def bluepressed(self):
-        self.startPlugin(str(config.AdvancedMovieSelection.blue.value), 3)
+        self.startPlugin(str(config.AdvancedMovieSelection.blue.value), self["key_blue"])
     
-    def startPlugin(self, pname, index):
+    def startPlugin(self, pname, key_number):
         home = config.AdvancedMovieSelection.homepath.value
         bookmark1 = config.AdvancedMovieSelection.bookmark1path.value
         bookmark2 = config.AdvancedMovieSelection.bookmark2path.value
         bookmark3 = config.AdvancedMovieSelection.bookmark3path.value
         plugin = None
-        no_plugin = True
-        msgText = _("Unknown Error")
+        errorText = None
         current = self.getCurrent()
         service = self.getCurrent()
         if current is not None:
             if pname != _("Nothing"):
                 if pname == _("Delete"):
                     self.delete()
-                    no_plugin = False
                 elif pname == _("Home"):
                     self.gotFilename(home)
-                    no_plugin = False
+                elif pname == _("Bookmarks"):
+                    config.AdvancedMovieSelection.show_bookmarks.value = not config.AdvancedMovieSelection.show_bookmarks.value
+                    self.reload()
                 elif pname == _("Bookmark 1"):
                     self.gotFilename(bookmark1)
-                    no_plugin = False
                 elif pname == _("Bookmark 2"):
                     self.gotFilename(bookmark2)
-                    no_plugin = False
                 elif pname == _("Bookmark 3"):
                     self.gotFilename(bookmark3)
-                    no_plugin = False
                 elif pname == _("Filter by Tags"):
                     self.showTagsSelect()
-                    no_plugin = False
                 elif pname == _("Trailer search"):
                     self.showTrailer()
-                    no_plugin = False 
                 elif pname == _("Move-Copy"):
                     self.session.open(MovieMove, self, current)
-                    no_plugin = False 
                 elif pname == _("Rename"):
                     self.session.openWithCallback(self.reload, MovieRetitle, service, current)
-                    no_plugin = False 
                 elif pname == _("Sort"):
                     if config.movielist.moviesort.value == MovieList.SORT_ALPHANUMERIC:
                         newType = MovieList.SORT_DATE_DESC
@@ -128,15 +112,7 @@ class QuickButton:
                     config.movielist.moviesort.value = newType
                     self.setSortType(newType)
                     self.reloadList()
-                    if index == 0:
-                        self["key_red"].setText(newCaption)
-                    elif index == 1:
-                        self["key_green"].setText(newCaption)
-                    elif index == 2:
-                        self["key_yellow"].setText(newCaption)
-                    elif index == 3:
-                        self["key_blue"].setText(newCaption)
-                    no_plugin = False
+                    key_number.setText(newCaption)
                 else:
                     for p in plugins.getPlugins(where=[PluginDescriptor.WHERE_MOVIELIST]):
                         if pname == str(p.name):
@@ -144,15 +120,14 @@ class QuickButton:
                     if plugin is not None:
                         try:
                             plugin(self.session, current)
-                            no_plugin = False
                         except:
-                            msgText = _("Unknown error!")
+                            errorText = _("Unknown error!")
                     else: 
-                        msgText = _("Plugin not found!")
+                        errorText = _("Plugin not found!")
             else:
-                msgText = _("No plugin assigned!")
-            if no_plugin:
-                self.session.open(MessageBox, msgText, MessageBox.TYPE_INFO)
+                errorText = _("No plugin assigned!")
+            if errorText:
+                self.session.open(MessageBox, errorText, MessageBox.TYPE_INFO)
     
     def reload(self):
         self.reloadList()
