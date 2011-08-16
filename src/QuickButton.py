@@ -99,7 +99,10 @@ class QuickButton:
                 elif pname == _("Move-Copy"):
                     self.session.open(MovieMove, self, current)
                 elif pname == _("Rename"):
-                    self.session.openWithCallback(self.reload, MovieRetitle, service, current)
+                    if not (service.flags):
+                        self.session.openWithCallback(self.reload, MovieRetitle, service, current)
+                    else:
+                        self.session.open(MessageBox, _("Rename here not possible, please select a movie !"), MessageBox.TYPE_INFO)        
                 elif pname == _("TMDb search & D/L"):
                     if not (service.flags):
                         from SearchTMDb import TMDbMain as TMDbMainsave
@@ -107,7 +110,7 @@ class QuickButton:
                         searchTitle = ServiceCenter.getInstance().info(service).getName(service)
                         self.session.openWithCallback(self.reload, TMDbMainsave, searchTitle, service)
                     else:
-                        self.session.open(MessageBox, _("TMDb search here not possible, please select a movie !"), MessageBox.TYPE_INFO)
+                        self.session.open(MessageBox, _("TMDb search here not possible, please select a movie !"), MessageBox.TYPE_INFO)               
                 elif pname == _("Sort"):
                     if config.movielist.moviesort.value == MovieList.SORT_ALPHANUMERIC:
                         newType = MovieList.SORT_DATE_DESC

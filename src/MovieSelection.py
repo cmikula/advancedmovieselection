@@ -75,6 +75,10 @@ if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/YTTrailer/plugin.pyo")
     YTTrailerPresent = True
 else:
     YTTrailerPresent = False
+if fileExists("/usr/lib/enigma2/python/Plugins/Bp/geminimain/plugin.pyo"):
+    GP3Present = True
+else:
+    GP3Present = False
 
 config.movielist = ConfigSubsection()
 config.movielist.moviesort = ConfigInteger(default=MovieList.SORT_ALPHANUMERIC)
@@ -132,9 +136,11 @@ class MovieContextMenu(Screen):
             menu.append((_("Move/Copy"), self.movecopy))
         if config.AdvancedMovieSelection.showsearch.value:
             menu.append((_("Movie search"), boundFunction(self.searchmovie)))
-        if config.AdvancedMovieSelection.showmark.value and config.usage.load_length_of_movies_in_moviellist.value:
+        if config.AdvancedMovieSelection.showmark.value and config.usage.load_length_of_movies_in_moviellist.value and not (self.service.flags & eServiceReference.mustDescent):
             menu.append((_("Mark movie as seen"), boundFunction(self.setMovieStatus, 1)))
             menu.append((_("Mark movie as unseen"), boundFunction(self.setMovieStatus, 0)))
+        if GP3Present and config.AdvancedMovieSelection.marknewicon.value and not (self.service.flags & eServiceReference.mustDescent):
+            menu.append((_("Mark movie with new recordings icon"), boundFunction(self.marknewicon, service)))
         if config.AdvancedMovieSelection.showrename.value:
             menu.append((_("Rename"), boundFunction(self.retitel, session, service)))
         if config.AdvancedMovieSelection.pluginmenu_list.value:
@@ -233,6 +239,21 @@ class MovieContextMenu(Screen):
     def setWindowTitle(self):
         self.setTitle(_("Advanced Movie Selection Menu"))
 
+    def marknewicon(self, service):
+        moviename = self.service.getPath() 
+        if moviename.endswith(".ts"):
+            movietitle = moviename + ".gm"
+            filehandle = open(movietitle,"w")
+            filehandle.write(movietitle)
+            filehandle.close
+            self.close()
+        elif moviename.endswith(".mp4") or moviename.endswith(".avi") or moviename.endswith(".mkv") or moviename.endswith(".mov") or moviename.endswith(".flv") or moviename.endswith(".m4v") or moviename.endswith(".mpg") or moviename.endswith(".iso"):
+            self.close
+        elif moviename.endswith(".divx") or moviename.endswith(".m2ts") or moviename.endswith(".mpeg"):    
+            self.close 
+        else:
+            self.session.openWithCallback(self.close, MessageBox, _("Only Dreambox recordings ar possible to mark with new recordings icon !"), MessageBox.TYPE_INFO)
+               
     def showTrailer(self):
         if YTTrailerPresent == True:
             from ServiceProvider import ServiceCenter
@@ -301,6 +322,8 @@ class MovieContextMenu(Screen):
 
     def setMovieStatus(self, status):
         self.csel.setMovieStatus(status)
+        if config.AdvancedMovieSelection.shownew2.value and status == 0:
+            self.marknewicon(service=self.service)
         self.close()
 
     def okbuttonClick(self):

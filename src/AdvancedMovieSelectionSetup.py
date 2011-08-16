@@ -117,6 +117,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.Color3 = None
         self.Dateformat = None
         self.Shownew = None
+        self.Shownew2 = None
         self.MiniTV = None
         self.UseFolderName = None
         self.Jump2Mark = None
@@ -127,6 +128,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.Exitprompt = None
         self.ShowCoverOptions2 = None
         self.ShowBookmarks = None
+        self.MarkNewIcon = None
         self.needsRestartFlag = False
         self.needsReopenFlag = False
         self["setupActions"] = ActionMap(["ColorActions", "OkCancelActions", "MenuActions", "EPGSelectActions"],
@@ -254,6 +256,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.Color3 = getConfigListEntry(_("Color for recording movies:"), config.AdvancedMovieSelection.color3)
         self.Dateformat = getConfigListEntry(_("Assign the date format for movielist:"), config.AdvancedMovieSelection.dateformat)
         self.Shownew = getConfigListEntry(_("Show new recordings icon:"), config.AdvancedMovieSelection.shownew)
+        self.Shownew2 = getConfigListEntry(_("Show new recordings icon by mark movie as unseen:"), config.AdvancedMovieSelection.shownew2)
+        self.MarkNewIcon = getConfigListEntry(_("Show mark movie with new recordings icon in menu from movielist:"), config.AdvancedMovieSelection.marknewicon)
         self.MiniTV = getConfigListEntry(_("Show Mini TV:"), config.AdvancedMovieSelection.minitv)
         self.UseFolderName = getConfigListEntry(_("Use folder name for display covers:"), config.AdvancedMovieSelection.usefoldername)
         self.Exitkey = getConfigListEntry(_("Close with EXIT key:"), config.AdvancedMovieSelection.exitkey)
@@ -325,6 +329,10 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append(self.Dateformat)
         if GP3Present and config.AdvancedMovieSelection.showfoldersinmovielist.value:
             self.list.append(self.Shownew)
+        if GP3Present and config.AdvancedMovieSelection.showfoldersinmovielist.value and config.AdvancedMovieSelection.shownew.value:
+            self.list.append(self.MarkNewIcon)
+        if GP3Present and config.AdvancedMovieSelection.showfoldersinmovielist.value and config.AdvancedMovieSelection.shownew.value:
+            self.list.append(self.Shownew2)
         self.list.append(self.MiniTV)
         self.list.append(self.Jump2Mark)
         self.list.append(self.Exitkey)
@@ -440,6 +448,10 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self["help"].setText(_("Displays download and save movie info/cover for all movies options in the menu at the movie list."))
         elif current == self.ShowBookmarks:
             self["help"].setText(_("When enabled all created bookmarks appear in the movie list."))
+        elif current == self.MarkNewIcon:
+            self["help"].setText(_("Displays mark movie with new recordings icon function in the menu at the movie list. Only Dreambox recordings ar possible to mark with this icon."))
+        elif current == self.Shownew2:
+            self["help"].setText(_("If this option is activated automatically display the icon for new recordings when the mark movie as unseen function is used. Only original Dreambox recordings become this icon."))
 
     def pluginsavailable(self):
         if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
