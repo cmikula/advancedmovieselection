@@ -780,8 +780,7 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         for index, text in list:
             if text == value:
                 return index
-        else:
-            return "0"
+        return "0"
 
     def cancel(self):
         self.close()
