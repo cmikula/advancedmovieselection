@@ -284,7 +284,7 @@ class MovieList(GUIComponent):
                 else:
                     png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "directory.png"))
                 res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 2, 20, 20, png))
-                res.append(MultiContentEntryText(pos=(25, 0), size=(width - 40, 30), font=0, flags=RT_HALIGN_LEFT, text=serviceref.getName()))
+                res.append(MultiContentEntryText(pos=(25, 3), size=(width - 40, 30), font=0, flags=RT_HALIGN_LEFT, text=serviceref.getName()))
                 return res
             extension = serviceref.toString().split('.')
             extension = extension[-1].lower()
