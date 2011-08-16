@@ -110,9 +110,10 @@ ACHTUNG an die skinner, die screens AdvancedMovieSelectionEventViewSD, AdvancedM
 version: 1.7
 * neu: angelegte lesezeichen können nun in der filmliste angezeigt werden
 * neu: lesezeichen in der filmliste anzeigen/ausblenden kann auf eine farbtaste gelegt werden
+* neu: TMDb suche und das speichern der cover/filminfo einzelner filme kann über die farbtasten gestartet werden
 * geändert: nl übersetzung (thx @ Bschaar)
 * geändert: cover werden auch wenn keine filmbeschreibung verfügbar gespeichert
-* fix: möglicher crash beim cover/info herunterladen wenn service nicht erreichbar
+* fix: möglicher crash beim cover/info herunterladen wenn der service per internet nicht erreichbar ist
 
 
 

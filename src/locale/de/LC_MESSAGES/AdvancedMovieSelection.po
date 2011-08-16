@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-16 11:02+0100\n"
-"PO-Revision-Date: 2011-08-16 11:02+0100\n"
+"POT-Creation-Date: 2011-08-16 19:26+0100\n"
+"PO-Revision-Date: 2011-08-16 19:26+0100\n"
 "Last-Translator: JackDanie <JackDaniel@i-have-a-dreambox.com>\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
@@ -543,7 +543,7 @@ msgid "Own button description"
 msgstr "Eigene Tastenbezeichnung"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:527
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:541
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:542
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:94
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:95
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:96
@@ -568,7 +568,7 @@ msgstr "Heimverzeichnis"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:530
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:22
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:100
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:108
 msgid "Sort"
 msgstr "Sortieren"
 
@@ -609,132 +609,143 @@ msgstr "Nach Tags filtern"
 msgid "Move-Copy"
 msgstr "Versch. / Kopieren"
 
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:537
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:139
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:98
+msgid "Rename"
+msgstr "Umbenennen"
+
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:538
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:100
+msgid "TMDb search & D/L"
+msgstr "TMDb suche & D/L"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:540
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:94
 msgid "Trailer search"
 msgstr "Trailer suchen"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:542
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:543
 msgid "DM-600PVR"
 msgstr "DM-600PVR"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:543
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:544
 msgid "DM-7000"
 msgstr "DM-7000"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:544
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:545
 msgid "DM-7025"
 msgstr "DM-7025"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:545
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:546
 msgid "DM-8000HD"
 msgstr "DM-8000HD"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:546
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:547
 msgid "DM-500HD"
 msgstr "DM-500HD"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:547
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:548
 msgid "DM-800HD"
 msgstr "DM-800HD"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:548
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:549
 msgid "DM-800HDse"
 msgstr "DM-800HDse"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:549
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:550
 msgid "DM-7020HD"
 msgstr "DM-7020HD"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:550
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:551
 msgid "internal HDD"
 msgstr "interne HDD"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:551
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:552
 msgid "NAS"
 msgstr "NAS"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:552
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:553
 msgid "NAS-Movies"
 msgstr "NAS-Filme"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:558
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:559
 msgid "Display plugin name"
 msgstr "Erweiterungsnamen"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:559
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:560
 msgid "Display plugin description"
 msgstr "Erweiterungsbeschreibung"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:607
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:608
 msgid "Movie Quick Button Setup"
 msgstr "Farbtasten Einst."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:647
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:648
 msgid "Assigned to red key"
 msgstr "Zuordnung rote Taste:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:649
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:650
 msgid "Assigned to green key"
 msgstr "Zuordnung grüne Taste:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:651
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:652
 msgid "Assigned to yellow key"
 msgstr "Zuordnung gelbe Taste:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:653
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:654
 msgid "Assigned to blue key"
 msgstr "Zuordnung blaue Taste:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:655
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:656
 msgid "Button caption"
 msgstr "Tastenbezeichnung bei Erweiterungen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:657
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:658
 msgid "Home button text"
 msgstr "Heimverzeichnis Tastenbezeichnung:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:659
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:660
 msgid "Bookmark 1 button text"
 msgstr "Lesezeichen 1 Tastenbezeichnung:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:661
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:662
 msgid "Bookmark 2 button text"
 msgstr "Lesezeichen 2 Tastenbezeichnung:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:663
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:664
 msgid "Bookmark 3 button text"
 msgstr "Lesezeichen 3 Tastenbezeichnung:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:665
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:666
 msgid "Home path"
 msgstr "Heimverzeichnis:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:667
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:668
 msgid "Bookmark 1 path"
 msgstr "Lesezeichen 1 Speicherort:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:669
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:670
 msgid "Bookmark 2 path"
 msgstr "Lesezeichen 2 Speicherort:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:671
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:672
 msgid "Bookmark 3 path"
 msgstr "Lesezeichen 3 Speicherort:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:703
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:704
 msgid "Movie Quick Button Home path"
 msgstr "Auswahl des Heimverzeichnisses"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:706
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:707
 msgid "Movie Quick Button Bookmark 1 path"
 msgstr "Auswahl Lesezeichen 1 Verzeichnis"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:709
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:710
 msgid "Movie Quick Button Bookmark 2 path"
 msgstr "Auswahl Lesezeichen 2 Verzeichnis"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:712
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:713
 msgid "Movie Quick Button Bookmark 3 path"
 msgstr "Auswahl Lesezeichen 3 Verzeichnis"
 
@@ -1070,11 +1081,6 @@ msgstr "Film als gesehen markieren"
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:137
 msgid "Mark movie as unseen"
 msgstr "Film als ungesehen markieren"
-
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:139
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:98
-msgid "Rename"
-msgstr "Umbenennen"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:145
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:152
@@ -1554,17 +1560,17 @@ msgid "Tag Editor"
 msgstr "Tag Editor"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:24
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:111
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:119
 msgid "Sort by Date (1->9)"
 msgstr "Sort. Datum (1->9)"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:27
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:103
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:111
 msgid "Sort by Date (9->1)"
 msgstr "Sort. Datum (9->1)"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:30
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:107
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:115
 msgid "Sort alphabetically"
 msgstr "Sort. alphabetisch"
 
@@ -1584,15 +1590,19 @@ msgstr "Selbst zugeordnete Funktion"
 msgid "Assigned function for blue key"
 msgstr "Selbst zugeordnete Funktion"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:124
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:107
+msgid "TMDb search here not possible, please select a movie !"
+msgstr "TMDb suche hier nicht möglich, wählen sie dafür einen Film aus !"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:132
 msgid "Unknown error!"
 msgstr "Unbekannter Fehler"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:126
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:134
 msgid "Plugin not found!"
 msgstr "Erweiterung nicht gefunden !"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:128
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:136
 msgid "No plugin assigned!"
 msgstr "Keine Erweiterung zugeordnet !"
 
