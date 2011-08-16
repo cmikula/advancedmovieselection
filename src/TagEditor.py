@@ -107,7 +107,8 @@ class TagEditor(Screen):
     def loadTagsFile(self):
         try:
             file = open("/etc/enigma2/movietags")
-            tags = [x.rstrip() for x in file.readlines()]
+            tags = [x.rstrip() for x in file]
+            #tags = [x.rstrip() for x in file.readlines()]
             while "" in tags:
                 tags.remove("")
             file.close()
