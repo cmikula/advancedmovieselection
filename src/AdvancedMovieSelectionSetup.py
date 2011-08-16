@@ -528,7 +528,7 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         self.entryguilist.append(("1", _("Delete")))
         self.entryguilist.append(("2", _("Home")))
         self.entryguilist.append(("3", _("Sort")))
-        self.entryguilist.append(("4", _("Bookmarks")))
+        self.entryguilist.append(("4", _("Bookmark(s) on/off")))
         self.entryguilist.append(("5", _("Bookmark 1")))
         self.entryguilist.append(("6", _("Bookmark 2")))
         self.entryguilist.append(("7", _("Bookmark 3")))
@@ -746,7 +746,6 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
                 
     def keySave(self):
         self["config"].getCurrent()
-        #currentry = self["config"].getCurrent()
         config.AdvancedMovieSelection.buttoncaption.value = self.entryguilist3[int(self.buttoncaptionchoice.value)][1]
         config.AdvancedMovieSelection.homepath.value = self.homepath_dirname.value
         config.AdvancedMovieSelection.bookmark1path.value = self.bookmark1_dirname.value
@@ -781,7 +780,8 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         for index, text in list:
             if text == value:
                 return index
-        return 0
+        else:
+            return "0"
 
     def cancel(self):
         self.close()

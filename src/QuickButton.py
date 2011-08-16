@@ -80,7 +80,7 @@ class QuickButton:
                     self.delete()
                 elif pname == _("Home"):
                     self.gotFilename(home)
-                elif pname == _("Bookmarks"):
+                elif pname == _("Bookmark(s) on/off"):
                     config.AdvancedMovieSelection.show_bookmarks.value = not config.AdvancedMovieSelection.show_bookmarks.value
                     self.reload()
                 elif pname == _("Bookmark 1"):

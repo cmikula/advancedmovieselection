@@ -109,7 +109,10 @@ ACHTUNG an die skinner, die screens AdvancedMovieSelectionEventViewSD, AdvancedM
 
 version: 1.7
 * neu: angelegte lesezeichen können nun in der filmliste angezeigt werden
+* neu: lesezeichen in der filmliste anzeigen/ausblenden kann auf eine farbtaste gelegt werden
 * geändert: nl übersetzung (thx @ Bschaar)
+* fix: möglicher crash beim cover/info herunterladen wenn service nicht erreichbar
+
 
 
 
