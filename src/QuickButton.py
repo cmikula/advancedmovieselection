@@ -77,7 +77,10 @@ class QuickButton:
         if current is not None:
             if pname != _("Nothing"):
                 if pname == _("Delete"):
-                    self.delete()
+                    if not (service.flags):
+                        self.delete()
+                    else:
+                        self.session.open(MessageBox, _("You cannot delete this!"), MessageBox.TYPE_ERROR)
                 elif pname == _("Home"):
                     self.gotFilename(home)
                 elif pname == _("Bookmark(s) on/off"):
