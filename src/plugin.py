@@ -67,6 +67,7 @@ else:
     YTTrailerPresent=False
 
 config.AdvancedMovieSelection = ConfigSubsection()
+config.AdvancedMovieSelection.showinfo = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.shownew2 = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.marknewicon = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.showcoveroptions2 = ConfigYesNo(default=False)

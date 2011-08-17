@@ -112,6 +112,8 @@ version: 1.7
 * neu: lesezeichen in der filmliste anzeigen/ausblenden kann auf eine farbtaste gelegt werden
 * neu: TMDb suche und das speichern der cover/filminfo einzelner filme kann über die farbtasten gestartet werden
 * neu: icon in der filmlist für neue aufnahmen kann nachträglich wieder gesetzt werden über das menü der filmliste, oder wenn aktiviert wird es automatisch bei der funktion film als ungesehen markieren erledigt (nur aktiv wenn gp3 installiert)
+* neu: film als gesehen/ungesehen markieren kann den farbtasten zugeordnet werden, sowie das erneute anzeigen des neue aufnahme icons
+* neu: info nachrichten können ein/aus geschalten werden
 * geändert: film als gesehen/ungesehen markieren funktion wird nun nur mehr bei filmen angezeigt
 * geändert: nl übersetzung (thx @ Bschaar)
 * geändert: cover werden auch wenn keine filmbeschreibung verfügbar gespeichert

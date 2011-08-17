@@ -645,17 +645,12 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             config.movielist.showtime.value,
             config.movielist.showservice.value,
             config.movielist.showtags.value)
-
         self.list = self["list"]
         self.selectedmovie = selectedmovie
         SelectionEventInfo.__init__(self)
         self["MovieService"] = ServiceEvent()
         self["Movietitle"] = StaticText()
         self["Movielocation"] = StaticText()
-        #self["key_red"] = Button(_("All"))
-        #self["key_green"] = Button("")
-        #self["key_yellow"] = Button("")
-        #self["key_blue"] = Button("")
         self["freeDiskSpace"] = self.diskinfo = DiskInfo(config.movielist.last_videodir.value, DiskInfo.FREE, update=False)
         self["InfobarActions"] = HelpableActionMap(self, "InfobarActions",
             {
@@ -666,19 +661,11 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                 "contextMenu": (self.doContext, _("Advanced movielist menu")),
                 "showEventInfo": (self.showEventInformation, _("Show event details")),
             })
-        #self["ColorActions"] = HelpableActionMap(self, "ColorActions",
-        #    {
-        #        "red": (self.showAll),
-        #        "green": (self.showTagsFirst),
-        #        "yellow": (self.showTagsSecond),
-        #        "blue": (self.showTagsSelect)
-        #    })
         self["OkCancelActions"] = HelpableActionMap(self, "OkCancelActions",
             {
                 "cancel": (self.abort, _("Exit movielist")),
                 "ok": (self.movieSelected, _("Select movie")),
             })
-
         QuickButton.__init__(self)
         self.onShown.append(self.go)
         self.onLayoutFinish.append(self.saveListsize)
@@ -863,9 +850,35 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         return self.session.currentSelection
 
     def setMovieStatus(self, status):
+        if config.AdvancedMovieSelection.shownew2.value and status == 0:
+            self.marknewicon()
         current = self.getCurrent()
         if current is not None:
             self["list"].setMovieStatus(current, status)
+
+    def marknewicon(self):
+        self.service = self.getCurrent()
+        moviename = self.service.getPath()
+        if moviename.endswith(".ts"):
+            movietitle = moviename + ".gm"
+            filehandle = open(movietitle,"w")
+            filehandle.write(movietitle)
+            filehandle.close
+        elif moviename.endswith(".mp4") or moviename.endswith(".avi") or moviename.endswith(".mkv") or moviename.endswith(".mov") or moviename.endswith(".flv") or moviename.endswith(".m4v") or moviename.endswith(".mpg") or moviename.endswith(".iso"):
+            if config.AdvancedMovieSelection.showinfo.value:
+                self.session.open(MessageBox, _("Only Dreambox recordings ar possible to mark with new recordings icon !"), MessageBox.TYPE_INFO)
+            else:
+                pass
+        elif moviename.endswith(".divx") or moviename.endswith(".m2ts") or moviename.endswith(".mpeg"):    
+            if config.AdvancedMovieSelection.showinfo.value:
+                self.session.open(MessageBox, _("Only Dreambox recordings ar possible to mark with new recordings icon !"), MessageBox.TYPE_INFO)
+            else:
+                pass
+        else:
+            if config.AdvancedMovieSelection.showinfo.value:
+                self.session.open(MessageBox, _("Only Dreambox recordings ar possible to mark with new recordings icon !"), MessageBox.TYPE_INFO)
+            else:
+                pass
 
     def movieSelected(self):
         current = self.getCurrent()

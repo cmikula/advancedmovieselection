@@ -129,6 +129,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.ShowCoverOptions2 = None
         self.ShowBookmarks = None
         self.MarkNewIcon = None
+        self.ShowInfos = None
         self.needsRestartFlag = False
         self.needsReopenFlag = False
         self["setupActions"] = ActionMap(["ColorActions", "OkCancelActions", "MenuActions", "EPGSelectActions"],
@@ -263,6 +264,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.Exitkey = getConfigListEntry(_("Close with EXIT key:"), config.AdvancedMovieSelection.exitkey)
         self.Exitprompt = getConfigListEntry(_("Use behavior when a movie is stopped:"), config.AdvancedMovieSelection.exitprompt)
         self.ShowBookmarks = getConfigListEntry(_("Show bookmarks in movielist:"), config.AdvancedMovieSelection.show_bookmarks)
+        self.ShowInfos = getConfigListEntry(_("Show info messages:"), config.AdvancedMovieSelection.showinfo)
         self.list.append(self.OnOff)
         self.list.append(self.Startwith)
         self.list.append(self.StartDir)
@@ -339,6 +341,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         if config.AdvancedMovieSelection.exitkey.value:
             self.list.append(self.Exitprompt)
         self.list.append(self.ShowBookmarks)
+        self.list.append(self.ShowInfos)
         self["config"].list = self.list
         self["config"].l.setList(self.list)
         if not self.selectionChanged in self["config"].onSelectionChanged:
@@ -452,6 +455,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self["help"].setText(_("Displays mark movie with new recordings icon function in the menu at the movie list. Only Dreambox recordings ar possible to mark with this icon."))
         elif current == self.Shownew2:
             self["help"].setText(_("If this option is activated automatically display the icon for new recordings when the mark movie as unseen function is used. Only original Dreambox recordings become this icon."))
+        elif current == self.ShowInfos:
+            self["help"].setText(_("If this option is activated will be displayed different info message. This should help with the operation of the extension."))
 
     def pluginsavailable(self):
         if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
@@ -548,8 +553,11 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         self.entryguilist.append(("9", _("Move-Copy")))
         self.entryguilist.append(("10", _("Rename")))
         self.entryguilist.append(("11", _("TMDb search & D/L")))
+        self.entryguilist.append(("12", _("Mark as seen")))
+        self.entryguilist.append(("13", _("Mark as unseen")))
+        self.entryguilist.append(("14", _("Show new icon")))
         if YTTrailerPresent == True:
-            self.entryguilist.append(("12", _("Trailer search")))
+            self.entryguilist.append(("15", _("Trailer search")))
         self.entryguilist2 = []
         self.entryguilist2.append(("0", _("Nothing")))
         self.entryguilist2.append(("1", _("DM-600PVR")))
