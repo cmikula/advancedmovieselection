@@ -21,18 +21,17 @@
 #
 from __init__ import _
 from Components.ActionMap import ActionMap
-from Components.config import config, ConfigInteger, ConfigNumber, ConfigSelection, ConfigSubsection, ConfigYesNo, getConfigListEntry
+from Components.config import config, ConfigNumber, ConfigSelection, getConfigListEntry
 from Components.ConfigList import ConfigListScreen
 from Components.Label import Label
 from Components.Pixmap import MovingPixmap
 from enigma import eTimer, getDesktop
 from keyids import KEYIDS
-from os import environ
 from Screens.InfoBar import MoviePlayer
 from Screens.Screen import Screen
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS, fileExists
 from Tools.KeyBindings import addKeyBinding
-import gettext, keymapparser
+import keymapparser
 
 class Seekbar(ConfigListScreen, Screen):
     def __init__(self, session, instance, fwd):
