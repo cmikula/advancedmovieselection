@@ -97,24 +97,24 @@ config.movielist.showtags = ConfigInteger(default=MovieList.HIDE_TAGS)
 
 SHOW_ALL_MOVIES = _("Show all movies")
 
-def setPreferredTagEditor(te):
-    global preferredTagEditor
-    try:
-        if preferredTagEditor == None:
-            preferredTagEditor = te
-            print "Preferred tag editor changed to ", preferredTagEditor
-        else:
-            print "Preferred tag editor already set to ", preferredTagEditor
-            print "ignoring ", te
-    except:
-        preferredTagEditor = te
-        print "Preferred tag editor set to ", preferredTagEditor
+#def setPreferredTagEditor(te):
+#    global preferredTagEditor
+#    try:
+#        if preferredTagEditor == None:
+#            preferredTagEditor = te
+#            print "Preferred tag editor changed to ", preferredTagEditor
+#        else:
+#            print "Preferred tag editor already set to ", preferredTagEditor
+#            print "ignoring ", te
+#    except:
+#        preferredTagEditor = te
+#        print "Preferred tag editor set to ", preferredTagEditor
 
-def getPreferredTagEditor():
-    global preferredTagEditor
-    return preferredTagEditor
+#def getPreferredTagEditor():
+#    global preferredTagEditor
+#    return preferredTagEditor
 
-setPreferredTagEditor(None)
+#setPreferredTagEditor(None)
 
 class MovieContextMenu(Screen):
     def __init__(self, session, csel, service):
@@ -246,13 +246,12 @@ class MovieContextMenu(Screen):
             filehandle = open(movietitle,"w")
             filehandle.write(movietitle)
             filehandle.close
-            self.close()
-        elif moviename.endswith(".mp4") or moviename.endswith(".avi") or moviename.endswith(".mkv") or moviename.endswith(".mov") or moviename.endswith(".flv") or moviename.endswith(".m4v") or moviename.endswith(".mpg") or moviename.endswith(".iso"):
-            self.close
-        elif moviename.endswith(".divx") or moviename.endswith(".m2ts") or moviename.endswith(".mpeg"):    
-            self.close 
+            self.close() 
         else:
-            self.session.openWithCallback(self.close, MessageBox, _("Only Dreambox recordings ar possible to mark with new recordings icon !"), MessageBox.TYPE_INFO)
+            if config.AdvancedMovieSelection.askdelete.value:
+                self.session.openWithCallback(self.close, MessageBox, _("Only Dreambox recordings ar possible to mark with new recordings icon !"), MessageBox.TYPE_INFO)
+            else:
+                self.close()
                
     def showTrailer(self):
         if YTTrailerPresent == True:
@@ -626,7 +625,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             if path.exists(config.movielist.last_videodir.value):
                 config.movielist.last_videodir.value = defaultMoviePath()
                 config.movielist.last_videodir.save()
-        # Go to /media if path not exists
         if not path.exists(config.movielist.last_videodir.value):
             config.movielist.last_videodir.value = "/media/"
             config.movielist.last_videodir.save()
@@ -864,21 +862,9 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             filehandle = open(movietitle,"w")
             filehandle.write(movietitle)
             filehandle.close
-        elif moviename.endswith(".mp4") or moviename.endswith(".avi") or moviename.endswith(".mkv") or moviename.endswith(".mov") or moviename.endswith(".flv") or moviename.endswith(".m4v") or moviename.endswith(".mpg") or moviename.endswith(".iso"):
-            if config.AdvancedMovieSelection.showinfo.value:
-                self.session.open(MessageBox, _("Only Dreambox recordings ar possible to mark with new recordings icon !"), MessageBox.TYPE_INFO)
-            else:
-                pass
-        elif moviename.endswith(".divx") or moviename.endswith(".m2ts") or moviename.endswith(".mpeg"):    
-            if config.AdvancedMovieSelection.showinfo.value:
-                self.session.open(MessageBox, _("Only Dreambox recordings ar possible to mark with new recordings icon !"), MessageBox.TYPE_INFO)
-            else:
-                pass
         else:
             if config.AdvancedMovieSelection.showinfo.value:
                 self.session.open(MessageBox, _("Only Dreambox recordings ar possible to mark with new recordings icon !"), MessageBox.TYPE_INFO)
-            else:
-                pass
 
     def movieSelected(self):
         current = self.getCurrent()
@@ -1097,6 +1083,10 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
 
     def showTagWarning(self):
         self.session.open(MessageBox, _("No tags are set on these movies."), MessageBox.TYPE_ERROR)
+        
+    def movietags(self):
+        service = self.getCurrent()
+        self.session.openWithCallback(self.reloadList, MovieTagEditor, service, parent=self.session.current_dialog)
         
 class MoviebarPositionSetupText(Screen):
     def __init__(self, session):

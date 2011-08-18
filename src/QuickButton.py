@@ -81,40 +81,44 @@ class QuickButton:
                         self.delete()
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
-                            self.session.open(MessageBox, _("This cannot deleted, please select a movie for !"), MessageBox.TYPE_INFO)
-                        else:
-                            pass
+                            self.session.open(MessageBox, _("This cannot deleted, please select a movie for!"), MessageBox.TYPE_INFO)
                 elif pname == _("Home"):
                     self.gotFilename(home)
-                elif pname == _("Bookmark(s) on/off"):
-                    config.AdvancedMovieSelection.show_bookmarks.value = not config.AdvancedMovieSelection.show_bookmarks.value
-                    self.reload()
                 elif pname == _("Bookmark 1"):
                     self.gotFilename(bookmark1)
                 elif pname == _("Bookmark 2"):
                     self.gotFilename(bookmark2)
                 elif pname == _("Bookmark 3"):
                     self.gotFilename(bookmark3)
+                elif pname == _("Bookmark(s) on/off"):
+                    config.AdvancedMovieSelection.show_bookmarks.value = not config.AdvancedMovieSelection.show_bookmarks.value
+                    self.reload()
                 elif pname == _("Filter by Tags"):
                     self.showTagsSelect()
+                elif pname == _("Tag Editor"):
+                    if not (service.flags):
+                        self.movietags()
+                    else:
+                        if config.AdvancedMovieSelection.showinfo.value:
+                            self.session.open(MessageBox, _("Set tag here not possible, please select a movie for!"), MessageBox.TYPE_INFO)
                 elif pname == _("Trailer search"):
-                    self.showTrailer()
+                    if not (service.flags):
+                        self.showTrailer()
+                    else:
+                        if config.AdvancedMovieSelection.showinfo.value:
+                            self.session.open(MessageBox, _("Trailer search here not possible, please select a movie!"), MessageBox.TYPE_INFO) 
                 elif pname == _("Move-Copy"):
                     if not (service.flags):
                         self.session.open(MovieMove, self, current)
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
-                            self.session.open(MessageBox, _("Move/Copy from complete directory/symlink not possible, please select a single movie !"), MessageBox.TYPE_INFO)
-                        else:
-                            pass
+                            self.session.open(MessageBox, _("Move/Copy from complete directory/symlink not possible, please select a single movie!"), MessageBox.TYPE_INFO)
                 elif pname == _("Rename"):
                     if not (service.flags):
                         self.session.openWithCallback(self.reload, MovieRetitle, service, current)
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
-                            self.session.open(MessageBox, _("Rename here not possible, please select a movie !"), MessageBox.TYPE_INFO)        
-                        else:
-                            pass
+                            self.session.open(MessageBox, _("Rename here not possible, please select a movie!"), MessageBox.TYPE_INFO)        
                 elif pname == _("TMDb search & D/L"):
                     if not (service.flags):
                         from SearchTMDb import TMDbMain as TMDbMainsave
@@ -123,34 +127,26 @@ class QuickButton:
                         self.session.openWithCallback(self.reload, TMDbMainsave, searchTitle, service)
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
-                            self.session.open(MessageBox, _("TMDb search here not possible, please select a movie !"), MessageBox.TYPE_INFO)               
-                        else:
-                            pass
+                            self.session.open(MessageBox, _("TMDb search here not possible, please select a movie!"), MessageBox.TYPE_INFO)               
                 elif pname == _("Mark as seen"):
                     if not (service.flags):
                         self.setMovieStatus(status = 1)
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
-                            self.session.open(MessageBox, _("This may not be marked as seen !"), MessageBox.TYPE_INFO)
-                        else:
-                            pass
+                            self.session.open(MessageBox, _("This may not be marked as seen!"), MessageBox.TYPE_INFO)
                 elif pname == _("Mark as unseen"):
                     if not (service.flags):
                         self.setMovieStatus(status = 0) 
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
-                            self.session.open(MessageBox, _("This may not be marked as unseen !"), MessageBox.TYPE_INFO)
-                        else:
-                            pass
+                            self.session.open(MessageBox, _("This may not be marked as unseen!"), MessageBox.TYPE_INFO)
                 elif pname == _("Show new icon"):
                     if not (service.flags):
                         self.marknewicon()
                         self.reload() 
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
-                            self.session.open(MessageBox, _("Show new movie icon here not possible, please select a movie !"), MessageBox.TYPE_INFO)
-                        else:
-                            pass
+                            self.session.open(MessageBox, _("Show new movie icon here not possible, please select a movie!"), MessageBox.TYPE_INFO)
                 elif pname == _("Sort"):
                     if config.movielist.moviesort.value == MovieList.SORT_ALPHANUMERIC:
                         newType = MovieList.SORT_DATE_DESC
