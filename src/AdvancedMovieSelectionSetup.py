@@ -130,6 +130,9 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.ShowBookmarks = None
         self.MarkNewIcon = None
         self.ShowInfos = None
+        self.UseSeekbar = None
+        self.SeekbarButtons = None
+        self.SeekbarSensibility = None
         self.needsRestartFlag = False
         self.needsReopenFlag = False
         self["setupActions"] = ActionMap(["ColorActions", "OkCancelActions", "MenuActions", "EPGSelectActions"],
@@ -177,6 +180,10 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.needsReopenFlag = True
         elif config.AdvancedMovieSelection.minitv.isChanged():
             self.needsReopenFlag = True
+        elif config.AdvancedMovieSelection.useseekbar.isChanged():
+            self.needsRestartFlag = True
+        elif config.AdvancedMovieSelection.overwrite_left_right.isChanged():
+            self.needsRestartFlag = True
 
     def keyRight(self):
         ConfigListScreen.keyRight(self)
@@ -195,6 +202,10 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.needsReopenFlag = True
         elif config.AdvancedMovieSelection.minitv.isChanged():
             self.needsReopenFlag = True
+        elif config.AdvancedMovieSelection.useseekbar.isChanged():
+            self.needsRestartFlag = True
+        elif config.AdvancedMovieSelection.overwrite_left_right.isChanged():
+            self.needsRestartFlag = True
 
     def createSetup(self):
         self.list = []
@@ -265,6 +276,9 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.Exitprompt = getConfigListEntry(_("Use behavior when a movie is stopped:"), config.AdvancedMovieSelection.exitprompt)
         self.ShowBookmarks = getConfigListEntry(_("Show bookmarks in movielist:"), config.AdvancedMovieSelection.show_bookmarks)
         self.ShowInfos = getConfigListEntry(_("Show info messages:"), config.AdvancedMovieSelection.showinfo)
+        self.UseSeekbar = getConfigListEntry(_("Use alternative jump function:"), config.AdvancedMovieSelection.useseekbar)
+        self.SeekbarButtons = getConfigListEntry(_("Change function from left/right buttons:"), config.AdvancedMovieSelection.overwrite_left_right)
+        self.SeekbarSensibility = getConfigListEntry(_("Manual jump sensibility:"), config.AdvancedMovieSelection.sensibility)    
         self.list.append(self.OnOff)
         self.list.append(self.Startwith)
         self.list.append(self.StartDir)
@@ -342,6 +356,10 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.list.append(self.Exitprompt)
         self.list.append(self.ShowBookmarks)
         self.list.append(self.ShowInfos)
+        self.list.append(self.UseSeekbar)
+        if config.AdvancedMovieSelection.useseekbar.value:
+            self.list.append(self.SeekbarButtons)
+            self.list.append(self.SeekbarSensibility)
         self["config"].list = self.list
         self["config"].l.setList(self.list)
         if not self.selectionChanged in self["config"].onSelectionChanged:
@@ -457,6 +475,12 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self["help"].setText(_("If this option is activated automatically display the icon for new recordings when the mark movie as unseen function is used. Only original Dreambox recordings become this icon."))
         elif current == self.ShowInfos:
             self["help"].setText(_("If this option is activated will be displayed different info message. This should help with the operation of the extension."))
+        elif current == self.UseSeekbar:
+            self["help"].setText(_("If this option is activated more jump functions ar available. ATTENTION: Enigma 2 restart is necessary!"))
+        elif current == self.SeekbarButtons:
+            self["help"].setText(_("If this option is activated the function of the left/right arrow buttons will changed. Normal you can use the buttons also for winding, if is changed you have quick access to the new jump function. ATTENTION: Enigma 2 restart is necessary!"))
+        elif current == self.SeekbarSensibility:
+            self["help"].setText(_("Here you can adjust the manually jump length relative to the film length in percent."))
 
     def pluginsavailable(self):
         if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):

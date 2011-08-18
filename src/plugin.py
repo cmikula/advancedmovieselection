@@ -32,7 +32,7 @@ from Tools.Directories import fileExists, resolveFilename, SCOPE_HDD
 from Components.config import config, ConfigSubsection, ConfigText, ConfigYesNo, ConfigInteger, ConfigSelection
 from AdvancedMovieSelectionSetup import AdvancedMovieSelectionSetup
 from enigma import ePoint 
-from TagEditor import TagEditor, MovieTagEditor
+from TagEditor import TagEditor #, MovieTagEditor
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
     IMDbPresent = True
@@ -66,6 +66,9 @@ else:
     YTTrailerPresent=False
 
 config.AdvancedMovieSelection = ConfigSubsection()
+config.AdvancedMovieSelection.overwrite_left_right = ConfigYesNo(default=True)
+config.AdvancedMovieSelection.sensibility = ConfigInteger(default=10, limits=(1, 100))
+config.AdvancedMovieSelection.useseekbar = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.showinfo = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.shownew2 = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.marknewicon = ConfigYesNo(default=False)
@@ -331,9 +334,6 @@ def autostart(reason, **kwargs):
             except:
                 pass
 
-#def tageditor(session, service, **kwargs):
-#    session.open(MovieTagEditor, service, session.current_dialog, **kwargs)
-
 def pluginOpen(session, **kwargs):
     session.open(AdvancedMovieSelectionSetup)
 
@@ -343,18 +343,21 @@ def Setup(menuid, **kwargs):
     return []
 
 def nostart(reason, **kwargs):
-    print"[Advanced Movie Selection] -----> disabled"
+    print"[Advanced Movie Selection] -----> Disabled"
     pass
 
 def Plugins(**kwargs):
     try:
-        from Screens.MovieSelection import setPreferredTagEditor
-        setPreferredTagEditor(TagEditor)
+        if not config.AdvancedMovieSelection.ml_disable.value:
+            from Screens.MovieSelection import setPreferredTagEditor
+            setPreferredTagEditor(TagEditor)
+        if not config.AdvancedMovieSelection.ml_disable.value and config.AdvancedMovieSelection.useseekbar.value:
+            from Seekbar import Seekbar
+            session.Seekbar()
     except Exception:
         pass
     if not config.AdvancedMovieSelection.ml_disable.value:
         descriptors = [PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=autostart)]
-        #descriptors.append(PluginDescriptor(name="Tag Editor", description=_("Tag Editor"), where=PluginDescriptor.WHERE_MOVIELIST, fnc=tageditor))
         descriptors.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, fnc=Setup))
     else:
         descriptors = [PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=nostart)]

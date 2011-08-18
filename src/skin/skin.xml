@@ -1331,4 +1331,63 @@
 		<widget source="info" render="Label" position="5,40" size="590,28" font="Regular;18" halign="center" valign="top" transparent="1"/>
 		<widget name="list" position="5,70" size="590,240" scrollbarMode="showOnDemand" enableWrapAround="1"/>
 	</screen>
+            <screen name="AdvancedMovieSelectionSeekbarHD" position="center,500" size="1280,160" flags="wfNoBorder">
+		<!--widget source="Title" render="Label" position="60,5" size="1160,35" zPosition="3" font="Regular;28" halign="center" foregroundColor="#ffcc00"/-->
+		<widget source="session.CurrentService" render="Label" position="60,5" size="1160,35" font="Regular;28" halign="center" foregroundColor="#ffcc00" transparent="1">
+			<convert type="ServiceName">Name</convert>
+		</widget>
+		<widget name="config" position="60,45" size="1160,50" scrollbarMode="showOnDemand" enableWrapAround="1"/>
+                <!--start don't change position or size here-->
+		<widget name="cursor" position="0,100" size="8,18" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/position_arrow.png" alphatest="on"/>
+		<widget source="session.CurrentService" render="PositionGauge" position="60,120" size="1160,10" zPosition="2" pointer="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/position_pointer.png:1150,0" transparent="1" foregroundColor="#20224f">
+			<convert type="ServicePosition">Gauge</convert>
+		</widget>
+                <!--end don't change position or size here-->
+		<widget source="session.CurrentService" render="Label" position="60,130" size="1160,28" font="Regular;24" halign="left" backgroundColor="#4e5a74" transparent="1">
+			<convert type="ServicePosition">Position</convert>
+		</widget>
+                <widget name="time" position="60,130" size="1160,28" font="Regular;24" halign="center" backgroundColor="#4e5a74" transparent="1"/>
+		<widget source="session.CurrentService" render="Label" position="60,130" size="1160,28" font="Regular;24" halign="right" backgroundColor="#4e5a74" transparent="1">
+			<convert type="ServicePosition">Length</convert>
+		</widget>
+	</screen>
+            <screen name="AdvancedMovieSelectionSeekbarXD" position="center,356" size="1024,160" flags="wfNoBorder">
+		<!--widget source="Title" render="Label" position="60,5" size="904,35" zPosition="3" font="Regular;28" halign="center" foregroundColor="#ffcc00"/-->
+		<widget source="session.CurrentService" render="Label" position="60,5" size="904,35" font="Regular;28" halign="center" foregroundColor="#ffcc00" transparent="1">
+			<convert type="ServiceName">Name</convert>
+		</widget>
+		<widget name="config" position="60,45" size="904,50" scrollbarMode="showOnDemand" enableWrapAround="1"/>
+                <!--start don't change position or size here-->
+		<widget name="cursor" position="0,100" size="8,18" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/position_arrow.png" alphatest="on"/>
+		<widget source="session.CurrentService" render="PositionGauge" position="60,120" size="904,10" zPosition="2" pointer="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/position_pointer.png:1150,0" transparent="1" foregroundColor="#20224f">
+			<convert type="ServicePosition">Gauge</convert>
+		</widget>
+                <!--end don't change position or size here-->
+		<widget source="session.CurrentService" render="Label" position="60,130" size="904,28" font="Regular;22" halign="left" backgroundColor="#4e5a74" transparent="1">
+			<convert type="ServicePosition">Position</convert>
+		</widget>
+                <widget name="time" position="60,130" size="904,28" font="Regular;22" halign="center" backgroundColor="#4e5a74" transparent="1"/>
+		<widget source="session.CurrentService" render="Label" position="60,130" size="904,28" font="Regular;22" halign="right" backgroundColor="#4e5a74" transparent="1">
+			<convert type="ServicePosition">Length</convert>
+		</widget>
+	</screen>
+            <screen name="AdvancedMovieSelectionSeekbarSD" position="center,356" size="700,160" flags="wfNoBorder">
+		<widget source="session.CurrentService" render="Label" position="0,5" size="690,35" font="Regular;24" halign="center" foregroundColor="#ffcc00" transparent="1">
+			<convert type="ServiceName">Name</convert>
+		</widget>
+		<widget name="config" position="5,45" size="690,50" scrollbarMode="showOnDemand" enableWrapAround="1"/>
+		<!--start don't change position or size here-->
+		<widget name="cursor" position="5,100" size="8,18" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/position_arrow.png" alphatest="on"/>
+		<widget source="session.CurrentService" render="PositionGauge" position="5,120" size="690,10" zPosition="2" pointer="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/position_pointer.png:1150,0" transparent="1" foregroundColor="#20224f">
+			<convert type="ServicePosition">Gauge</convert>
+		</widget>
+                <!--end don't change position or size here-->
+		<widget source="session.CurrentService" render="Label" position="5,130" size="690,28" font="Regular;20" halign="left" backgroundColor="#4e5a74" transparent="1">
+			<convert type="ServicePosition">Position</convert>
+		</widget>
+                <widget name="time" position="5,130" size="690,28" font="Regular;20" halign="center" backgroundColor="#4e5a74" transparent="1"/>
+		<widget source="session.CurrentService" render="Label" position="5,130" size="690,28" font="Regular;20" halign="right" backgroundColor="#4e5a74" transparent="1">
+			<convert type="ServicePosition">Length</convert>
+		</widget>
+	</screen>
 </skin>
