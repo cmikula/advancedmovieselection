@@ -61,6 +61,10 @@ if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/YTTrailer/plugin.pyo")
     YTTrailerPresent=True
 else:
     YTTrailerPresent=False
+if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/pipzap/plugin.pyo"):
+    PiPZapPresent=True
+else:
+    PiPZapPresent=False
 
 class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
     def __init__(self, session):
@@ -358,7 +362,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append(self.ShowInfos)
         self.list.append(self.UseSeekbar)
         if config.AdvancedMovieSelection.useseekbar.value:
-            self.list.append(self.SeekbarButtons)
+            if config.AdvancedMovieSelection.useseekbar.value and not PiPZapPresent:
+                self.list.append(self.SeekbarButtons)
             self.list.append(self.SeekbarSensibility)
         self["config"].list = self.list
         self["config"].l.setList(self.list)
