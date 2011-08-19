@@ -25,7 +25,7 @@ from Components.config import config, ConfigNumber, ConfigSelection, getConfigLi
 from Components.ConfigList import ConfigListScreen
 from Components.Label import Label
 from Components.Pixmap import MovingPixmap
-from enigma import eTimer, getDesktop
+from enigma import eTimer, getDesktop, ePoint
 from keyids import KEYIDS
 from Screens.InfoBar import MoviePlayer
 from Screens.Screen import Screen
@@ -82,6 +82,14 @@ class Seekbar(ConfigListScreen, Screen):
         self.cursorTimer.start(200, False)
         self.onShown.append(self.setWindowTitle)
         self.onLayoutFinish.append(self.firstStart)
+        self.firstime = True
+        self.onExecBegin.append(self.__onExecBegin)
+
+    def __onExecBegin(self):
+        if self.firstime:
+            orgpos = self.instance.position()    
+            self.instance.move(ePoint(orgpos.x() + config.AdvancedMovieSelection.movieplayer_infobar_position_offset_x.value, orgpos.y() + config.AdvancedMovieSelection.movieplayer_infobar_position_offset_y.value))
+            self.firstime = False
 
     def setWindowTitle(self):
         self.setTitle(_("Advanced Movie Selection Seek"))
