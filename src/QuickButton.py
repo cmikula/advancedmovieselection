@@ -92,6 +92,7 @@ class QuickButton:
                     self.gotFilename(bookmark3)
                 elif pname == _("Bookmark(s) on/off"):
                     config.AdvancedMovieSelection.show_bookmarks.value = not config.AdvancedMovieSelection.show_bookmarks.value
+                    self.saveconfig()
                     self.reload()
                 elif pname == _("Filter by Tags"):
                     self.showTagsSelect()

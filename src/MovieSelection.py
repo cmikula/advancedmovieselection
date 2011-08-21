@@ -907,6 +907,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         config.movielist.showtime.save()
         config.movielist.showservice.save()
         config.movielist.showtags.save()
+        config.AdvancedMovieSelection.show_bookmarks.save()
 
     def showTrailer(self):
         if YTTrailerPresent == True:
