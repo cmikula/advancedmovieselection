@@ -97,25 +97,6 @@ config.movielist.showtags = ConfigInteger(default=MovieList.HIDE_TAGS)
 
 SHOW_ALL_MOVIES = _("Show all movies")
 
-#def setPreferredTagEditor(te):
-#    global preferredTagEditor
-#    try:
-#        if preferredTagEditor == None:
-#            preferredTagEditor = te
-#            print "Preferred tag editor changed to ", preferredTagEditor
-#        else:
-#            print "Preferred tag editor already set to ", preferredTagEditor
-#            print "ignoring ", te
-#    except:
-#        preferredTagEditor = te
-#        print "Preferred tag editor set to ", preferredTagEditor
-
-#def getPreferredTagEditor():
-#    global preferredTagEditor
-#    return preferredTagEditor
-
-#setPreferredTagEditor(None)
-
 class MovieContextMenu(Screen):
     def __init__(self, session, csel, service):
         Screen.__init__(self, session)
@@ -131,7 +112,8 @@ class MovieContextMenu(Screen):
             if not (self.service.flags & eServiceReference.mustDescent):
                 menu.append((_("TMDb search"), boundFunction(self.imdbsearch)))
         if config.AdvancedMovieSelection.showdelete.value:
-            menu.append((_("Delete"), self.delete))
+            if not (self.service.flags & eServiceReference.mustDescent):
+                menu.append((_("Delete"), self.delete))
         if config.AdvancedMovieSelection.showmove.value and not (self.service.flags & eServiceReference.mustDescent):
             menu.append((_("Move/Copy"), self.movecopy))
         if config.AdvancedMovieSelection.showsearch.value:
