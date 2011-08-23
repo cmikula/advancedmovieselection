@@ -40,6 +40,9 @@ from Components.Sources.List import List
 from Components.ActionMap import ActionMap
 from enigma import getDesktop, quitMainloop
 from Tools.Directories import fileExists
+import os
+
+wastelocation = config.movielist.last_videodir.value + _("Wastebasket")
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
     IMDbPresent = True
@@ -137,6 +140,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.UseSeekbar = None
         self.SeekbarButtons = None
         self.SeekbarSensibility = None
+        self.UseWastebasket = None
         self.needsRestartFlag = False
         self.needsReopenFlag = False
         self["setupActions"] = ActionMap(["ColorActions", "OkCancelActions", "MenuActions", "EPGSelectActions"],
@@ -283,6 +287,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.UseSeekbar = getConfigListEntry(_("Use alternative jump function:"), config.AdvancedMovieSelection.useseekbar)
         self.SeekbarButtons = getConfigListEntry(_("Change function from left/right buttons:"), config.AdvancedMovieSelection.overwrite_left_right)
         self.SeekbarSensibility = getConfigListEntry(_("Manual jump sensibility:"), config.AdvancedMovieSelection.sensibility)    
+        self.UseWastebasket = getConfigListEntry(_("Use wastebasket:"), config.AdvancedMovieSelection.use_wastebasket)  
         self.list.append(self.OnOff)
         self.list.append(self.Startwith)
         self.list.append(self.StartDir)
@@ -365,6 +370,15 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             if config.AdvancedMovieSelection.useseekbar.value and not PiPZapPresent:
                 self.list.append(self.SeekbarButtons)
             self.list.append(self.SeekbarSensibility)
+        self.list.append(self.UseWastebasket)
+        if not config.AdvancedMovieSelection.use_wastebasket.value and os.path.exists(wastelocation) is True:
+            try:
+                os.rmdir(wastelocation)
+            except Exception, e:
+                print "Exception deleting files: " + str(e)
+                config.AdvancedMovieSelection.use_wastebasket.value = True
+                config.AdvancedMovieSelection.use_wastebasket.save()
+                self.session.open(MessageBox, (_("Wastbasket function can not be disabled. Wastbasket not empty!\n\nError message:\n%s") % str(e)), MessageBox.TYPE_ERROR)
         self["config"].list = self.list
         self["config"].l.setList(self.list)
         if not self.selectionChanged in self["config"].onSelectionChanged:
@@ -486,6 +500,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self["help"].setText(_("If this option is activated the function of the left/right arrow buttons will changed. Normal you can use the buttons also for winding, if is changed you have quick access to the new jump function. ATTENTION: Enigma 2 restart is necessary!"))
         elif current == self.SeekbarSensibility:
             self["help"].setText(_("Here you can adjust the manually jump length relative to the film length in percent."))
+        elif current == self.UseWastebasket:
+            self["help"].setText(_("If this option is activated the movie will not be deleted but moved into the wastebasket."))
 
     def pluginsavailable(self):
         if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):

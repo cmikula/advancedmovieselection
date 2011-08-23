@@ -121,6 +121,8 @@ version: 1.7
 * fix: möglicher crash beim cover/info herunterladen wenn der service per internet nicht erreichbar ist
 
 version. 1.8
+* neu: zwei neue optionen wenn filmende erreicht (box herunterfahren und box in bereitschaft)
+* neu: papierkorb 
 * fix: speichern von lesezeichen ein/aus wenn über farbtasten diese ein/aus geschalten werden
 * fix: löschen von lesezeichen über die löschfunktion im menü der filmliste
 

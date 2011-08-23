@@ -41,7 +41,7 @@ from Screens.LocationBox import MovieLocationBox
 from AdvancedMovieSelectionSetup import AdvancedMovieSelectionSetup, AdvancedMovieSelectionButtonSetup
 from Tools.BoundFunction import boundFunction
 from Tools.Directories import resolveFilename, fileExists, SCOPE_HDD
-from enigma import eServiceReference, eServiceCenter, eSize, ePoint
+from enigma import eServiceReference, eServiceCenter, eSize, ePoint, eTimer, iServiceInformation
 from Screens.Console import eConsoleAppContainer
 from timer import eTimer
 from ServiceProvider import ServiceEvent
@@ -54,6 +54,12 @@ from ServiceProvider import eServiceReferenceDvd
 from TagEditor import MovieTagEditor
 from QuickButton import QuickButton
 from os import path
+from ServiceReference import ServiceReference
+from time import *
+import time
+import datetime
+import os
+from Wastebasket import Wastebasket
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
     from Plugins.Extensions.IMDb.plugin import IMDB
@@ -114,6 +120,8 @@ class MovieContextMenu(Screen):
         if config.AdvancedMovieSelection.showdelete.value:
             if not (self.service.flags & eServiceReference.mustDescent):
                 menu.append((_("Delete"), self.delete))
+        if config.AdvancedMovieSelection.use_wastebasket.value:
+            menu.append((_("Wastebasket"), self.waste))
         if config.AdvancedMovieSelection.showmove.value and not (self.service.flags & eServiceReference.mustDescent):
             menu.append((_("Move/Copy"), self.movecopy))
         if config.AdvancedMovieSelection.showsearch.value:
@@ -220,6 +228,9 @@ class MovieContextMenu(Screen):
 
     def setWindowTitle(self):
         self.setTitle(_("Advanced Movie Selection Menu"))
+
+    def waste(self):
+        self.session.openWithCallback(self.closeafterfinish, Wastebasket, service=self.service)
 
     def marknewicon(self, service):
         moviename = self.service.getPath() 
@@ -667,9 +678,13 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                 if not offline.deleteFromDisk(1):
                     result = True
         if result == True:
-            if config.AdvancedMovieSelection.askdelete.value:
+            if config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.use_wastebasket.value:
+                self.session.openWithCallback(self.wastebasketConfirmed, MessageBox, _("Do you really want to delete %s?") % (name))
+            elif not config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.use_wastebasket.value:
+                self.wastebasketConfirmed(True)
+            elif config.AdvancedMovieSelection.askdelete.value and not config.AdvancedMovieSelection.use_wastebasket.value:
                 self.session.openWithCallback(self.deleteConfirmed, MessageBox, _("Do you really want to delete %s?") % (name))
-            else:
+            elif not config.AdvancedMovieSelection.askdelete.value and not config.AdvancedMovieSelection.use_wastebasket.value:
                 self.deleteConfirmed(True)
         else:
             self.session.open(MessageBox, _("You cannot delete this!"), MessageBox.TYPE_ERROR)
@@ -710,7 +725,86 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         else:
             self["list"].removeService(self.service)
             self["freeDiskSpace"].update()
-            
+
+    def wastebasketConfirmed(self, confirmed):
+        if not confirmed:
+            return
+        wastelocation = config.movielist.last_videodir.value + _("Wastebasket")
+        if os.path.exists(wastelocation) is False:
+            os.mkdir(wastelocation)        
+        self.service = self.getCurrent()
+        serviceHandler = eServiceCenter.getInstance()
+        info = serviceHandler.info(self.service)
+        name = info and info.getName(self.service) or _("this recording")
+        #service = ServiceReference(info.getInfoString(self.service, iServiceInformation.sServiceref))
+        #station = service.getServiceName()
+        begin = info.getInfo(self.service, iServiceInformation.sTimeCreate)
+        now = time.time()
+        timezone = datetime.datetime.utcnow()
+        delta = (now - time.mktime(timezone.timetuple()))/3600 
+        begin_string = strftime("%Y%m%d" ,gmtime(begin+3600*int(delta)))
+        fullmoviename = "%s - %s" % (begin_string, name)
+        movie = self.service.getPath()
+        movienew = movie + '_' + _("Wastebasket")
+        tsmoview = wastelocation + '/' + fullmoviename + '.ts'
+        moviemeta = movie + '.meta'
+        moviemetanew = movie + '.meta_' + _("Wastebasket")
+#        metamoviewaste = wastelocation + '/' + fullmoviename + '.ts.meta'
+        if movie.endswith(".ts"):
+            moviejpg = movie[:-3]
+        jpgmovie = moviejpg + '.jpg'
+        jpgmovienew = jpgmovie + '_' + _("Wastebasket")
+#        jpgmoviewaste = wastelocation + '/' + fullmoviename + '.jpg'
+        if movie.endswith(".ts"):
+            eitmovie = movie[:-3]
+        movieeit = eitmovie + '.eit'
+        movieeitnew = movieeit + '_' + _("Wastebasket")
+#        movieeitwaste = wastelocation + '/' + fullmoviename + '.eit'
+        movieap = movie + '.ap'
+        movieapnew = movie + '.ap_' + _("Wastebasket")
+#        apmoviewaste = wastelocation + '/' + fullmoviename + '.ts.ap'
+        moviecuts = movie + '.cuts'
+        moviecutsnew = movie + '.cuts_' + _("Wastebasket")
+#        cutsmoviewaste = wastelocation + '/' + fullmoviename + '.ts.cuts'
+        moviegm = movie + '.gm'
+        moviegmnew = movie + '.gm_' + _("Wastebasket")
+#        gmmoviewaste = wastelocation + '/' + fullmoviename + '.ts.gm'
+        moviesc = movie + '.sc'
+        moviescnew = movie + '.sc_' + _("Wastebasket")
+#        scmoviewaste = wastelocation + '/' + fullmoviename + '.ts.sc'
+        if os.path.exists(tsmoview) is not True:
+            os.link(movie, tsmoview)
+        if os.path.exists(movie) is True:
+            os.rename(movie, movienew)
+        if os.path.exists(moviemeta) is True:
+#                os.link(moviemeta, metamoviewaste)
+            os.rename(moviemeta, moviemetanew)
+        if os.path.exists(jpgmovie) is True:
+#                os.link(jpgmovie, jpgmoviewaste)
+            os.rename(jpgmovie, jpgmovienew)
+        if os.path.exists(movieeit) is True:
+#                os.link(movieeit, movieeitwaste)
+            os.rename(movieeit, movieeitnew)
+        if os.path.exists(movieap) is True:
+#                os.link(movieap, apmoviewaste)
+            os.rename(movieap, moviecutsnew)
+        if os.path.exists(moviecuts) is True:
+#                os.link(moviecuts, cutsmoviewaste)
+            os.rename(moviecuts, movieapnew)
+        if os.path.exists(moviegm) is True:
+#                os.link(moviegm, gmmoviewaste)
+            os.rename(moviegm, moviegmnew)
+        if os.path.exists(moviesc) is True:
+#                os.link(moviesc, scmoviewaste)
+            os.rename(moviesc, moviescnew)
+        result = True
+        if result == False:
+            self.session.openWithCallback(self.close, MessageBox, _("Move to wastebasket failed!"), MessageBox.TYPE_ERROR)
+        else:
+            self["list"].removeService(self.service)
+            self["freeDiskSpace"].update()
+            self.reloadList(home=True)
+
     def updateName(self):
         location = (_("Movie location: %s") % config.movielist.last_videodir.value)
         self["Movielocation"].setText(location)

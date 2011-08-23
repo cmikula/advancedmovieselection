@@ -31,8 +31,10 @@ from Screens.InfoBar import InfoBar, MoviePlayer
 from Tools.Directories import fileExists, resolveFilename, SCOPE_HDD
 from Components.config import config, ConfigSubsection, ConfigText, ConfigYesNo, ConfigInteger, ConfigSelection
 from AdvancedMovieSelectionSetup import AdvancedMovieSelectionSetup
-from enigma import ePoint 
-from TagEditor import TagEditor #, MovieTagEditor
+from enigma import ePoint, quitMainloop 
+from TagEditor import TagEditor
+import Screens.Standby
+from Tools import Notifications
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
     IMDbPresent = True
@@ -66,6 +68,7 @@ else:
     YTTrailerPresent=False
 
 config.AdvancedMovieSelection = ConfigSubsection()
+config.AdvancedMovieSelection.use_wastebasket = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.overwrite_left_right = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.sensibility = ConfigInteger(default=10, limits=(1, 100))
 config.AdvancedMovieSelection.useseekbar = ConfigYesNo(default=False)
@@ -152,7 +155,7 @@ config.AdvancedMovieSelection.show_info_del = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.show_cover_del = ConfigYesNo(default=True)
 config.usage.on_movie_start = ConfigSelection(default="ask", choices=[("ask", _("Ask user")), ("resume", _("Resume from last position")), ("beginning", _("Start from the beginning"))])
 config.usage.on_movie_stop = ConfigSelection(default="movielist", choices=[("ask", _("Ask user")), ("movielist", _("Return to movie list")), ("quit", _("Return to previous service"))])
-config.usage.on_movie_eof = ConfigSelection(default="quit", choices=[("ask", _("Ask user")), ("movielist", _("Return to movie list")), ("quit", _("Return to previous service")), ("pause", _("Pause movie at end"))])
+config.usage.on_movie_eof = ConfigSelection(default="quit", choices=[("ask", _("Ask user")), ("movielist", _("Return to movie list")), ("quit", _("Return to previous service")), ("pause", _("Pause movie at end")), ("standby", _("Standby")), ("shutdown", _("Shutdown"))])
 config.AdvancedMovieSelection.movieplayer_infobar_position_offset_x = ConfigInteger(default=0)
 config.AdvancedMovieSelection.movieplayer_infobar_position_offset_y = ConfigInteger(default=0)
 config.AdvancedMovieSelection.show_infobar_position = ConfigYesNo(default=True)
@@ -273,6 +276,12 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer):
                     return
         if answer in ("quit", "quitanddeleteconfirmed"):
             self.close()
+        if answer == "standby":
+            self.session.openWithCallback(self.standby, MessageBox, _("End of the movie is reached, the box now go to standby. Do that now?"), timeout = 20)
+            self.close()
+        if answer == "shutdown":
+            self.session.openWithCallback(self.shutdown, MessageBox, _("End of the movie is reached, the box now go to shut down. Shutdown now?"), timeout = 20)
+            self.close()
         elif answer == "movielist":
             self.playerClosed()
             ref = self.session.nav.getCurrentlyPlayingServiceReference()
@@ -283,6 +292,20 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer):
         elif answer == "restart":
             self.doSeek(0)
             self.setSeekState(self.SEEK_STATE_PLAY)
+
+    def standby(self, answer):
+        if answer is not None:
+            if answer and not Screens.Standby.inStandby:
+                Notifications.AddNotification(Screens.Standby.Standby)
+            else:
+                self.close()
+
+    def shutdown(self, answer):
+        if answer is not None:
+            if answer and not Screens.Standby.inTryQuitMainloop:
+                Notifications.AddNotification(Screens.Standby.TryQuitMainloop, 1)
+            else:
+                self.close()
 
 def showMovies(self):
     global PlayerInstance
