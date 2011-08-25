@@ -41,9 +41,8 @@ from Screens.LocationBox import MovieLocationBox
 from AdvancedMovieSelectionSetup import AdvancedMovieSelectionSetup, AdvancedMovieSelectionButtonSetup
 from Tools.BoundFunction import boundFunction
 from Tools.Directories import resolveFilename, fileExists, SCOPE_HDD
-from enigma import eServiceReference, eServiceCenter, eSize, ePoint, eTimer, iServiceInformation
+from enigma import eServiceReference, eServiceCenter, eSize, ePoint, eTimer
 from Screens.Console import eConsoleAppContainer
-from timer import eTimer
 from ServiceProvider import ServiceEvent
 from MoveCopy import MovieMove
 from Rename import MovieRetitle
@@ -54,12 +53,10 @@ from ServiceProvider import eServiceReferenceDvd
 from TagEditor import MovieTagEditor
 from QuickButton import QuickButton
 from os import path
-from ServiceReference import ServiceReference
-from time import *
-import time
-import datetime
 import os
 from Wastebasket import Wastebasket
+import NavigationInstance
+from timer import TimerEntry
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
     from Plugins.Extensions.IMDb.plugin import IMDB
@@ -663,6 +660,27 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self.inited = False
 
     def delete(self):
+        recording = False
+        if NavigationInstance.instance.getRecordings():
+                for timer in NavigationInstance.instance.RecordTimer.timer_list:
+                        if timer.state == TimerEntry.StateRunning:
+                                try:
+                                        filename = "%s.ts" % timer.Filename
+                                except:
+                                        filename = ""
+                                self.service = self.getCurrent()
+                                serviceHandler = eServiceCenter.getInstance()
+                                info = serviceHandler.info(self.service)
+                                moviename = info and info.getName(self.service) or _("this recording")
+                                serviceref = self.getCurrent()
+                                if filename and os.path.realpath(filename) == os.path.realpath(serviceref.getPath()):
+                                    recording = True
+                                    break
+        if recording == True and config.AdvancedMovieSelection.showinfo.value:
+            self.session.open(MessageBox, (_("Can not delete because %s is currently recording!") % moviename), MessageBox.TYPE_INFO, timeout = 10)
+            return
+        if recording == True and not config.AdvancedMovieSelection.showinfo.value:
+            return        
         self.service = self.getCurrent()
         serviceHandler = eServiceCenter.getInstance()
         offline = serviceHandler.offlineOperations(self.service)
@@ -729,74 +747,66 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
     def wastebasketConfirmed(self, confirmed):
         if not confirmed:
             return
+        lastlocation = config.movielist.last_videodir.value
         wastelocation = config.movielist.last_videodir.value + _("Wastebasket")
         if os.path.exists(wastelocation) is False:
-            os.mkdir(wastelocation)        
-        self.service = self.getCurrent()
-        serviceHandler = eServiceCenter.getInstance()
-        info = serviceHandler.info(self.service)
-        name = info and info.getName(self.service) or _("this recording")
-        #service = ServiceReference(info.getInfoString(self.service, iServiceInformation.sServiceref))
-        #station = service.getServiceName()
-        begin = info.getInfo(self.service, iServiceInformation.sTimeCreate)
-        now = time.time()
-        timezone = datetime.datetime.utcnow()
-        delta = (now - time.mktime(timezone.timetuple()))/3600 
-        begin_string = strftime("%Y%m%d" ,gmtime(begin+3600*int(delta)))
-        fullmoviename = "%s - %s" % (begin_string, name)
-        movie = self.service.getPath()
-        movienew = movie + '_' + _("Wastebasket")
-        tsmoview = wastelocation + '/' + fullmoviename + '.ts'
-        moviemeta = movie + '.meta'
-        moviemetanew = movie + '.meta_' + _("Wastebasket")
-#        metamoviewaste = wastelocation + '/' + fullmoviename + '.ts.meta'
-        if movie.endswith(".ts"):
-            moviejpg = movie[:-3]
-        jpgmovie = moviejpg + '.jpg'
-        jpgmovienew = jpgmovie + '_' + _("Wastebasket")
-#        jpgmoviewaste = wastelocation + '/' + fullmoviename + '.jpg'
-        if movie.endswith(".ts"):
-            eitmovie = movie[:-3]
-        movieeit = eitmovie + '.eit'
-        movieeitnew = movieeit + '_' + _("Wastebasket")
-#        movieeitwaste = wastelocation + '/' + fullmoviename + '.eit'
-        movieap = movie + '.ap'
-        movieapnew = movie + '.ap_' + _("Wastebasket")
-#        apmoviewaste = wastelocation + '/' + fullmoviename + '.ts.ap'
-        moviecuts = movie + '.cuts'
-        moviecutsnew = movie + '.cuts_' + _("Wastebasket")
-#        cutsmoviewaste = wastelocation + '/' + fullmoviename + '.ts.cuts'
-        moviegm = movie + '.gm'
-        moviegmnew = movie + '.gm_' + _("Wastebasket")
-#        gmmoviewaste = wastelocation + '/' + fullmoviename + '.ts.gm'
-        moviesc = movie + '.sc'
-        moviescnew = movie + '.sc_' + _("Wastebasket")
-#        scmoviewaste = wastelocation + '/' + fullmoviename + '.ts.sc'
-        if os.path.exists(tsmoview) is not True:
-            os.link(movie, tsmoview)
-        if os.path.exists(movie) is True:
-            os.rename(movie, movienew)
-        if os.path.exists(moviemeta) is True:
-#                os.link(moviemeta, metamoviewaste)
-            os.rename(moviemeta, moviemetanew)
-        if os.path.exists(jpgmovie) is True:
-#                os.link(jpgmovie, jpgmoviewaste)
-            os.rename(jpgmovie, jpgmovienew)
-        if os.path.exists(movieeit) is True:
-#                os.link(movieeit, movieeitwaste)
-            os.rename(movieeit, movieeitnew)
-        if os.path.exists(movieap) is True:
-#                os.link(movieap, apmoviewaste)
-            os.rename(movieap, moviecutsnew)
-        if os.path.exists(moviecuts) is True:
-#                os.link(moviecuts, cutsmoviewaste)
-            os.rename(moviecuts, movieapnew)
-        if os.path.exists(moviegm) is True:
-#                os.link(moviegm, gmmoviewaste)
-            os.rename(moviegm, moviegmnew)
-        if os.path.exists(moviesc) is True:
-#                os.link(moviesc, scmoviewaste)
-            os.rename(moviesc, moviescnew)
+            os.mkdir(wastelocation)
+        full_movie_name = self.service.getPath()
+        movie_name_with_file_extension = os.path.basename(full_movie_name)
+        movie_name_only = os.path.basename(os.path.splitext(self.service.getPath())[0])
+        eitfile = lastlocation + movie_name_only + '.eit'
+        eitfile_waste = lastlocation + movie_name_only + '.eit_waste'
+        eitfile_move = wastelocation + '/' + movie_name_only + '.eit'
+        jpgfile = lastlocation + movie_name_only + '.jpg'
+        jpgfile_waste = lastlocation + movie_name_only + '.jpg_waste'
+        jpgfile_move = wastelocation + '/' +  movie_name_only + '.jpg'
+        tsfile = full_movie_name
+        tsfile_waste = full_movie_name + '_waste'
+        tsfile_move = wastelocation + '/' + movie_name_with_file_extension
+        apfile = lastlocation + movie_name_with_file_extension + '.ap'
+        apfile_waste = lastlocation + movie_name_only +'.ts.ap_waste'
+        apfile_move = wastelocation + '/' +  movie_name_only + '.ap'
+        cutsfile = lastlocation + movie_name_with_file_extension + '.cuts'
+        cutsfile_waste = lastlocation + movie_name_only + '.ts.cuts_waste'
+        cutsfile_move = wastelocation + '/' +  movie_name_only + '.cuts'
+        gmfile = lastlocation + movie_name_with_file_extension + '.gm'
+        gmfile_waste = lastlocation + movie_name_only + '.ts.gm_waste'
+        gmfile_move = wastelocation + '/' +  movie_name_only + '.gm'
+        if not movie_name_with_file_extension.endswith(".ts"):
+            metafile = lastlocation + movie_name_with_file_extension + '.ts.meta'
+            metafile_waste = lastlocation +  movie_name_with_file_extension + '.ts.meta_waste'
+            metafile_move = wastelocation + '/' +  movie_name_only + '.ts.meta'
+        else:
+            metafile = lastlocation + movie_name_with_file_extension + '.meta'
+            metafile_waste = lastlocation +  movie_name_with_file_extension + '.meta_waste'
+            metafile_move = wastelocation + '/' +  movie_name_only + '.meta'
+        scfile = lastlocation + movie_name_with_file_extension + '.sc'
+        scfile_waste = lastlocation + movie_name_only + '.ts.sc_waste'
+        scfile_move = wastelocation + '/' +  movie_name_only + '.sc'
+        if os.path.exists(eitfile) is True:
+            #os.link(eitfile, eitfile_move)
+            os.rename(eitfile, eitfile_waste)
+        if os.path.exists(jpgfile) is True:
+            #os.link(jpgfile, jpgfile_move)
+            os.rename(jpgfile, jpgfile_waste)
+        if os.path.exists(apfile) is True:
+            #os.link(apfile, apfile_move)
+            os.rename(apfile, apfile_waste)
+        if os.path.exists(cutsfile) is True:
+            #os.link(cutsfile, cutsfile_move)
+            os.rename(cutsfile, cutsfile_waste)
+        if os.path.exists(gmfile) is True:
+            #os.link(gmfile, gmfile_move)
+            os.rename(gmfile, gmfile_waste)
+        if os.path.exists(metafile) is True:
+            #os.link(metafile, metafile_move)
+            os.rename(metafile, metafile_waste)
+        if os.path.exists(scfile) is True:
+            #os.link(scfile, scfile_move)
+            os.rename(scfile, scfile_waste)
+        if os.path.exists(tsfile) is True:
+            os.link(tsfile, tsfile_move)
+            os.rename(tsfile, tsfile_waste)
         result = True
         if result == False:
             self.session.openWithCallback(self.close, MessageBox, _("Move to wastebasket failed!"), MessageBox.TYPE_ERROR)

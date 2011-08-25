@@ -122,7 +122,8 @@ version: 1.7
 
 version. 1.8
 * neu: zwei neue optionen wenn filmende erreicht (box herunterfahren und box in bereitschaft)
-* neu: papierkorb 
+* neu: papierkorb
+* neu: löschen einer aufnahme während diese gerade aufgenommen wird ist nun nicht mehr möglich
 * fix: speichern von lesezeichen ein/aus wenn über farbtasten diese ein/aus geschalten werden
 * fix: löschen von lesezeichen über die löschfunktion im menü der filmliste
 

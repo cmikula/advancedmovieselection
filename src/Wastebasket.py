@@ -22,31 +22,21 @@
 #from Plugins.Plugin import PluginDescriptor
 from __init__ import _
 from Screens.Screen import Screen
-from Screens.InputBox import InputBox
-from Screens.ChoiceBox import ChoiceBox
 from Screens.MessageBox import MessageBox
-from Components.ServicePosition import ServicePositionGauge
-from Components.ActionMap import HelpableActionMap
 from Components.MenuList import MenuList
-from Components.MultiContent import MultiContentEntryText
-from Components.ServiceEventTracker import ServiceEventTracker
 from Components.ActionMap import ActionMap
-from Components.Input import Input
-from Screens.InfoBarGenerics import InfoBarSeek, InfoBarCueSheetSupport
-from Components.GUIComponent import GUIComponent
-from enigma import eListboxPythonMultiContent, eListbox, gFont, iPlayableService, RT_HALIGN_RIGHT, eServiceCenter, eServiceReference, getDesktop
-from Screens.FixedMenu import FixedMenu
+from enigma import getDesktop
 import os
 from Components.config import config
 from Components.Sources.StaticText import StaticText
-from Components.Sources.List import List
-from Components.ScrollLabel import ScrollLabel
+import shutil
+from Components.Pixmap import Pixmap
 
 wastelocation = config.movielist.last_videodir.value + _("Wastebasket")
 lastlocation = config.movielist.last_videodir.value
 
 class Wastebasket(Screen):
-    def __init__(self, session, service, args = 0):
+    def __init__(self, session, service):
         Screen.__init__(self, session)
         try:
             sz_w = getDesktop(0).size().width()
@@ -59,37 +49,52 @@ class Wastebasket(Screen):
         else:
             self.skinName = ["AdvancedMovieSelectionWastebasketSD"]
         self.session = session
-        self.menu = args
-        list = []
-        list.append((_("Empty wastebasket"), "emptywastebasket"))      
-        list.append((_("Restore wastebasket"), "restorewastebasket"))
-        self["menu"] = MenuList(list)
+        self.wastelist = []
+        self["wastelocation"] = StaticText()
+        self["wastelist"] = MenuList(self.wastelist)
         self["wastetxt"] = StaticText("")
-        self["wastelist"] = StaticText("")
         self["emptytxt"] = StaticText("")
-        self["key_red"] = StaticText(_("Close"))
-        self["key_green"] = StaticText(_("OK"))
+        self["key_red"] = StaticText("")
+        self["key_green"] = StaticText("")
+        self["key_yellow"] = StaticText("")
+        self["key_blue"] = StaticText("")
+        self["button_red"] = Pixmap()
+        self["button_red"].hide()
+        self["button_green"] = Pixmap()
+        self["button_green"].hide()
+        self["button_yellow"] = Pixmap()
+        self["button_yellow"].hide()
+        self["button_blue"] = Pixmap()
+        self["button_blue"].hide()
         self["actions"] = ActionMap(["WizardActions", "DirectionActions", "ColorActions"],
-        {       "ok": self.go,
+        {       "ok": self.askdelAll,
                 "back": self.close,
-                "red": self.close,
-                "green": self.go,
+                "red": self.askdelAll,
+                "green": self.askdelSingle,
+                "yellow": self.askResAll,
+                "blue": self.askResSingle,
         },-1)
-        self.onShown.append(self.getList)
+        self.getWasteList()
         self.onShown.append(self.setWindowTitle)
 
-    def getList(self):  #todo   eine richtige liste für den papierkorb inhalt erstellen, sehe den wald vor lauter bäumen nicht :(#
+    def getWasteList(self): # todo -->  papierkorb -inhalt liste zeigt nach dem löschen/wiederherstellen einzelner filme blödsinn an, und *.meta dateien sollten auch nicht angezeigt werden :( #
+        wastelocation = config.movielist.last_videodir.value + _("Wastebasket")
         if os.path.exists(wastelocation) is True:
             for line in os.listdir(wastelocation):
-                if line.endswith(".ts") is True: 
-                    parts = line.rsplit(".ts",1)
-                    wastelist = parts[0]
-                    #print "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", wastelist
-                    self["wastetxt"].setText(_("Wastebasket content"))
-                    self["wastelist"].setText(wastelist)
-
-    def setWindowTitle(self):
-        self.setTitle(_("Advanced Movie Selection wastebasket"))
+                movie_name_only = os.path.basename(os.path.splitext(line)[0])
+                self.wastelist.append(movie_name_only.encode("utf-8"))
+                self["wastelist"].l.setList(self.wastelist)
+                self["wastetxt"].setText(_("Wastebasket content"))
+                self["key_red"].setText(_("Delete all"))
+                self["key_green"].setText(_("Delete from list"))
+                self["key_yellow"].setText(_("Restore all"))
+                self["key_blue"].setText(_("Restore from list"))
+                self["button_red"].show()
+                self["button_green"].show()
+                self["button_yellow"].show()
+                self["button_blue"].show()
+                location = (_("Wastebasket location: %s") % config.movielist.last_videodir.value) + _("Wastebasket")
+                self["wastelocation"].setText(location)
         folder = wastelocation
         folder_size = 0
         for (path, dirs, files) in os.walk(folder):
@@ -98,180 +103,198 @@ class Wastebasket(Screen):
                 folder_size += os.path.getsize(filename)
         if folder_size == 0:
             self["wastetxt"].setText("")
-            self["wastelist"].setText("")
-            self["emptytxt"].setText(_("Nothing contained in the wastebasket!"))
-            wastlocationtfolder = wastelocation
-            if os.path.exists(wastlocationtfolder) is True:
-                os.rmdir(wastlocationtfolder)
-                
-    def go(self):
-        if os.path.exists(wastelocation) is False:
-            self.session.open(MessageBox, _("Nothing to do, no wastebasket available!"), MessageBox.TYPE_INFO, timeout = 10)
-            self.close()
-        else:
-            folder = wastelocation
-            folder_size = 0
-            for (path, dirs, files) in os.walk(folder):
-                for file in files:
-                    filename = os.path.join(path, file)
-                    folder_size += os.path.getsize(filename)
-            if folder_size > 1:
-                returnValue = self["menu"].l.getCurrentSelection()[1]
-                if returnValue is not None:
-                   if returnValue is "emptywastebasket":
-                      EmptyWastebasket(self.session)
-                   elif returnValue is "restorewastebasket":
-                      RestoreWastebasket(self.session)
+            if os.path.exists(wastelocation) is True:
+                self["emptytxt"].setText(_("Nothing contained in the wastebasket!"))
+                location = (_("Wastebasket location: %s") % config.movielist.last_videodir.value) + _("Wastebasket")
+                self["wastelocation"].setText(location)
             else:
-                self.session.open(MessageBox, _("Nothing contained in the wastebasket!"), MessageBox.TYPE_INFO, timeout = 10)
-                self.close()
-                      
-class EmptyWastebasket(Screen):
-    def __init__(self, session):
-        self.session = session
-        self.session.openWithCallback(self.askForEmpty, ChoiceBox, _("Select movie to delete from wastebasket:"), self.getListWastebasket())
+                self["emptytxt"].setText(_("Nothing to do, no wastebasket available!"))
+                self["wastelocation"].setText(_("Wastebasket location: No Wastebasket available"))
 
-    def askForEmpty(self, wastebasket):
-        if wastebasket is None:
-           self.skipEmptyWastebasket(_("Aborted by user !!"))
-        else:
-           self.wastebasket = wastebasket[1]
-           self.session.openWithCallback(self.EmptyWastebasketConfirmed, MessageBox, (_("Are you sure to delete %s from wastebasket?") % self.wastebasket), MessageBox.TYPE_YESNO)
+    def setWindowTitle(self):
+        self.setTitle(_("Advanced Movie Selection wastebasket"))
 
-    def EmptyWastebasketConfirmed(self, answer):
-        if answer is None:
-            self.skipEmptyWastebasket(_("Aborted by user !!"))
-        if answer is False:
-            self.skipEmptyWastebasket(_("User not confirming!"))
+    def askdelAll(self):
+        wastelocation = config.movielist.last_videodir.value + _("Wastebasket")
+        if config.AdvancedMovieSelection.askdelete.value and os.path.exists(wastelocation) is True:
+            self.session.openWithCallback(self.delAll, MessageBox, _("Are you sure to empty wastebasket?"), MessageBox.TYPE_YESNO)
         else:
-            if self.wastebasket == _("all movies"):
+            if os.path.exists(wastelocation) is True:
+                self.delAll(True)
+
+    def delAll(self, answer):
+        if answer is None and config.AdvancedMovieSelection.showinfo.value:
+            self.skipDelWastebasket(_("Aborted by user !!"))
+        if answer is False and config.AdvancedMovieSelection.showinfo.value:
+            self.skipDelWastebasket(_("User not confirming!"))
+        else:
+            wastelocation = config.movielist.last_videodir.value + _("Wastebasket")
+            lastlocation = config.movielist.last_videodir.value
+            try:
                 for filename in os.listdir(wastelocation): 
                     wastlocationts = wastelocation + '/' + filename
                     if os.path.exists(wastlocationts) is True:
                         os.remove(wastlocationts)
-                    lastlocationtsfile = lastlocation + '/' + filename + '_' + _("Wastebasket")
+                    lastlocationtsfile = lastlocation + '/' + filename + '_waste'
                     if os.path.exists(lastlocationtsfile) is True:
                         os.remove(lastlocationtsfile)
-                    if filename.endswith(".ts"):
-                        eitfile = filename[:-3]
-                    lastlocationeitfile = lastlocation + '/' + eitfile + '.eit_' + _("Wastebasket")
+                    nots = os.path.basename(os.path.splitext(filename)[0])
+                    lastlocationeitfile = lastlocation + '/' + nots + '.eit_waste'
                     if os.path.exists(lastlocationeitfile) is True:
                         os.remove(lastlocationeitfile)
-                    if filename.endswith(".ts"):
-                        jpgfile = filename[:-3]
-                    lastlocationjpgfile = lastlocation + '/' + jpgfile + '.jpg_' + _("Wastebasket")
+                    lastlocationjpgfile = lastlocation + '/' + nots + '.jpg_waste'
                     if os.path.exists(lastlocationjpgfile) is True:
                         os.remove(lastlocationjpgfile)
-                    lastlocationapfile = lastlocation + '/' + filename + '.ap_' + _("Wastebasket")
+                    lastlocationapfile = lastlocation + '/' + filename + '.ap_waste'
                     if os.path.exists(lastlocationapfile) is True:
                         os.remove(lastlocationapfile)
-                    lastlocationcutsfile = lastlocation + '/' + filename + '.cuts_' + _("Wastebasket")
+                    lastlocationcutsfile = lastlocation + '/' + filename + '.cuts_waste'
                     if os.path.exists(lastlocationcutsfile) is True:
                         os.remove(lastlocationcutsfile)
-                    lastlocationgmfile = lastlocation + '/' + filename + '.gm_' + _("Wastebasket")
+                    lastlocationgmfile = lastlocation + '/' + filename + '.gm_waste'
                     if os.path.exists(lastlocationgmfile) is True:
                         os.remove(lastlocationgmfile)
-                    lastlocationmetafile = lastlocation + '/' + filename + '.meta_' + _("Wastebasket")
+                    if not filename.endswith(".ts"):
+                        lastlocationmetafile = lastlocation + '/' + filename + '.ts.meta_waste'
+                    else:
+                        lastlocationmetafile = lastlocation + '/' + filename + '.meta_waste'
                     if os.path.exists(lastlocationmetafile) is True:
                         os.remove(lastlocationmetafile)
-                    lastlocationscfile = lastlocation + '/' + filename + '.sc_' + _("Wastebasket")
+                    if not filename.endswith(".ts"):
+                        wastelocationmetafile = wastelocation + '/' + filename + '.ts.meta_waste'
+                    else:
+                        wastelocationmetafile = wastelocation + '/' + filename + '.meta_waste'
+                    if os.path.exists(wastelocationmetafile) is True:
+                        os.remove(wastelocationmetafile)
+                    lastlocationscfile = lastlocation + '/' + filename + '.sc_waste'
                     if os.path.exists(lastlocationscfile) is True:
                         os.remove(lastlocationscfile)
+                    self.getWasteList()
+            except Exception, e:
+                self.session.open(MessageBox, (_("Error by empty wastebasket!\n\nError message:\n%s") % str(e)), MessageBox.TYPE_ERROR)
+                pass
             else:
+                if config.AdvancedMovieSelection.showinfo.value:       
+                    self.session.openWithCallback(self.checkFolderSize, MessageBox, _("Empty wastebasket completed."), MessageBox.TYPE_INFO, timeout = 10)
+                    self.close()
+                else:
+                    self.checkFolderSize()
+
+    def askdelSingle(self):
+        wastelocation = config.movielist.last_videodir.value + _("Wastebasket")
+        if config.AdvancedMovieSelection.askdelete.value and os.path.exists(wastelocation) is True:
+            current = self["wastelist"].l.getCurrentSelection()
+            moviename = os.path.basename(os.path.splitext(current)[0])
+            self.session.openWithCallback(self.delSingle, MessageBox, (_("Are you sure to empty %s from wastebasket?") % moviename), MessageBox.TYPE_YESNO)
+        else:
+            if os.path.exists(wastelocation) is True:
+                self.delSingle(True)
+
+    def delSingle(self, answer):
+        if answer is None and config.AdvancedMovieSelection.showinfo.value:
+            self.skipDelWastebasket(_("Aborted by user !!"))
+        if answer is False and config.AdvancedMovieSelection.showinfo.value:
+            self.skipDelWastebasket(_("User not confirming!"))
+        else:
+            wastelocation = config.movielist.last_videodir.value + _("Wastebasket")
+            lastlocation = config.movielist.last_videodir.value
+            try:
+                current = self["wastelist"].l.getCurrentSelection()
                 for filename in os.listdir(wastelocation): 
-                    if filename.startswith(self.wastebasket) is True:
-                            wastlocationts = wastelocation + '/' + filename
-                            if os.path.exists(wastlocationts) is True:
-                                os.remove(wastlocationts)
-                            lastlocationtsfile = lastlocation + '/' + filename + '_' + _("Wastebasket")
-                            if os.path.exists(lastlocationtsfile) is True:
-                                os.remove(lastlocationtsfile)
-                            if filename.endswith(".ts"):
-                                eitfile = filename[:-3]
-                            lastlocationeitfile = lastlocation + '/' + eitfile + '.eit_' + _("Wastebasket")
-                            if os.path.exists(lastlocationeitfile) is True:
-                                os.remove(lastlocationeitfile)
-                            if filename.endswith(".ts"):
-                                jpgfile = filename[:-3]
-                            lastlocationjpgfile = lastlocation + '/' + jpgfile + '.jpg_' + _("Wastebasket")
-                            if os.path.exists(lastlocationjpgfile) is True:
-                                os.remove(lastlocationjpgfile)
-                            lastlocationapfile = lastlocation + '/' + filename + '.ap_' + _("Wastebasket")
-                            if os.path.exists(lastlocationapfile) is True:
-                                os.remove(lastlocationapfile)
-                            lastlocationcutsfile = lastlocation + '/' + filename + '.cuts_' + _("Wastebasket")
-                            if os.path.exists(lastlocationcutsfile) is True:
-                                os.remove(lastlocationcutsfile)
-                            lastlocationgmfile = lastlocation + '/' + filename + '.gm_' + _("Wastebasket")
-                            if os.path.exists(lastlocationgmfile) is True:
-                                os.remove(lastlocationgmfile)
-                            lastlocationmetafile = lastlocation + '/' + filename + '.meta_' + _("Wastebasket")
-                            if os.path.exists(lastlocationmetafile) is True:
-                                os.remove(lastlocationmetafile)
-                            lastlocationscfile = lastlocation + '/' + filename + '.sc_' + _("Wastebasket")
-                            if os.path.exists(lastlocationscfile) is True:
-                                os.remove(lastlocationscfile)
-            if not self.wastebasket == _("all movies"):
-                if filename.endswith(".ts"):
-                    moviename = filename[:-3]
-                self.session.open(MessageBox, (_("Delete %s from wastebasket completed.") % moviename), MessageBox.TYPE_INFO, timeout = 10)
-            else:
-                self.session.open(MessageBox, _("Empty wastebasket completed."), MessageBox.TYPE_INFO, timeout = 10)
-            
-    def skipEmptyWastebasket(self, reason):
-        if config.AdvancedMovieSelection.showinfo.value:
-            self.session.open(MessageBox, (_("Empty wastebasket was cancelled because:\n%s") % reason), MessageBox.TYPE_INFO, timeout = 10)
+                    if filename.startswith(current) is True:
+                        wastlocationts = wastelocation + '/' + filename
+                        if os.path.exists(wastlocationts) is True:
+                            os.remove(wastlocationts)
+                        lastlocationtsfile = lastlocation + '/' + filename + '_waste'
+                        if os.path.exists(lastlocationtsfile) is True:
+                            os.remove(lastlocationtsfile)
+                        nots = os.path.basename(os.path.splitext(filename)[0])
+                        lastlocationeitfile = lastlocation + '/' + nots + '.eit_waste'
+                        if os.path.exists(lastlocationeitfile) is True:
+                            os.remove(lastlocationeitfile)
+                        lastlocationjpgfile = lastlocation + '/' + nots + '.jpg_waste'
+                        if os.path.exists(lastlocationjpgfile) is True:
+                            os.remove(lastlocationjpgfile)
+                        lastlocationapfile = lastlocation + '/' + filename + '.ap_waste'
+                        if os.path.exists(lastlocationapfile) is True:
+                            os.remove(lastlocationapfile)
+                        lastlocationcutsfile = lastlocation + '/' + filename + '.cuts_waste'
+                        if os.path.exists(lastlocationcutsfile) is True:
+                            os.remove(lastlocationcutsfile)
+                        lastlocationgmfile = lastlocation + '/' + filename + '.gm_waste'
+                        if os.path.exists(lastlocationgmfile) is True:
+                            os.remove(lastlocationgmfile)
+                        if not filename.endswith(".ts"):
+                            lastlocationmetafile = lastlocation + '/' + filename + '.ts.meta_waste'
+                        else:
+                            lastlocationmetafile = lastlocation + '/' + filename + '.meta_waste'
+                        if not filename.endswith(".ts"):
+                            wastelocationmetafile = wastelocation + '/' + filename + '.ts.meta_waste'
+                        else:
+                            wastelocationmetafile = wastelocation + '/' + filename + '.meta_waste'
+                        if os.path.exists(wastelocationmetafile) is True:
+                            os.remove(wastelocationmetafile)
+                        if os.path.exists(lastlocationmetafile) is True:
+                            os.remove(lastlocationmetafile)
+                        lastlocationscfile = lastlocation + '/' + filename + '.sc_waste'
+                        if os.path.exists(lastlocationscfile) is True:
+                            os.remove(lastlocationscfile)
+                        self.getWasteList()
+            except Exception, e:
+                self.session.open(MessageBox, (_("Error by empty wastebasket!\n\nError message:\n%s") % str(e)), MessageBox.TYPE_ERROR)
+                pass
+            else: 
+                if config.AdvancedMovieSelection.showinfo.value: 
+                    self.session.openWithCallback(self.checkFolderSize, MessageBox, (_("Delete %s from wastebasket completed.") % nots), MessageBox.TYPE_INFO, timeout = 10)
+                else:
+                    self.checkFolderSize()
 
-    def getListWastebasket(self):
-        wastebasket = []
-        wastebasket.append((_("All movies"), (_("all movies"))))
-        parts=[]
-        for line in os.listdir(wastelocation):
-            if line.endswith(".ts") is True: 
-                parts=line.rsplit(".ts",1)
-                name=parts[0]
-                wastebasket.append(( name, name ))
-        return wastebasket
-        
-class RestoreWastebasket(Screen):
-    def __init__(self, session):
-        self.session = session
-        self.session.openWithCallback(self.askForRestore, ChoiceBox, _("Select movies to restore from wastebasket:"), self.getListWastebasket())
-
-    def askForRestore(self, wastebasket):
-        if wastebasket is None:
-           self.skipRestoreWastebasket(_("Aborted by user !!"))
+    def askResAll(self):
+        wastelocation = config.movielist.last_videodir.value + _("Wastebasket")
+        if config.AdvancedMovieSelection.askdelete.value and os.path.exists(wastelocation) is True:
+            self.session.openWithCallback(self.resAll, MessageBox, _("Are you sure to restore the whole wastebasket?"), MessageBox.TYPE_YESNO)
         else:
-           self.wastebasket = wastebasket[1]
-           self.session.openWithCallback(self.RestoreWastebasketConfirmed, MessageBox, (_("Are you sure to restore %s?") % self.wastebasket), MessageBox.TYPE_YESNO)
+            if os.path.exists(wastelocation) is True:
+                self.resAll(True)
 
-    def RestoreWastebasketConfirmed(self, answer):
-        if answer is None:
-            self.skipRestoreWastebasket(_("Aborted by user !!"))
-        if answer is False:
-            self.skipRestoreWastebasket(_("User not confirming!"))
+    def resAll(self, answer):
+        if answer is None and config.AdvancedMovieSelection.showinfo.value: 
+            self.skipResWastebasket(_("Aborted by user !!"))
+        if answer is False and config.AdvancedMovieSelection.showinfo.value: 
+            self.skipResWastebasket(_("User not confirming!"))
         else:
-            if self.wastebasket == _("all movies"):
-               for filename in os.listdir(wastelocation): 
-                    tsfile = lastlocation + filename + _("_Wastebasket")
+            try:
+                wastelocation = config.movielist.last_videodir.value + _("Wastebasket")
+                lastlocation = config.movielist.last_videodir.value
+                for filename in os.listdir(wastelocation): 
+                    tsfile = lastlocation + filename + '_waste'
                     tsfilenew = lastlocation + filename
-                    metafile = lastlocation + filename + '.meta' + _("_Wastebasket")
-                    metafilenew = lastlocation + filename + '.meta'
-                    if filename.endswith(".ts"):
-                        nots = filename[:-3]
-                    jpgfile = lastlocation + nots + '.jpg' + _("_Wastebasket")
+                    if not filename.endswith(".ts"):
+                        metafile = lastlocation + filename + '.ts.meta_waste'
+                        metafilenew = lastlocation + filename + '.ts.meta'
+                    else:
+                        metafile = lastlocation + filename + '.meta_waste'
+                        metafilenew = lastlocation + filename + '.meta'
+                    if not filename.endswith(".ts"):
+                        metafile_wastelocation = wastelocation + filename + '.ts.meta_waste'
+                    else:
+                        metafile_wastelocation = wastelocation + filename + '.meta_waste'
+                    nots = os.path.basename(os.path.splitext(filename)[0])
+                    jpgfile = lastlocation + nots + '.jpg_waste'
                     jpgfilenew = lastlocation + nots + '.jpg'
-                    eitfile = lastlocation + nots + '.eit' + _("_Wastebasket")
+                    eitfile = lastlocation + nots + '.eit_waste'
                     eitfilenew = lastlocation + nots + '.eit'
-                    apfile = lastlocation + filename + '.ap' + _("_Wastebasket")
+                    apfile = lastlocation + filename + '.ap_waste'
                     apfilenew = lastlocation + filename + '.ap'
-                    cutsfile = lastlocation + filename + '.cuts' + _("_Wastebasket")
+                    cutsfile = lastlocation + filename + '.cuts_waste'
                     cutsfilenew = lastlocation + filename + '.cuts'
-                    gmfile = lastlocation + filename + '.gm' + _("_Wastebasket")
+                    gmfile = lastlocation + filename + '.gm_waste'
                     gmfilenew = lastlocation + filename + '.gm'
-                    scfile = lastlocation + filename + '.sc' + _("_Wastebasket")
+                    scfile = lastlocation + filename + '.sc_waste'
                     scfilenew = lastlocation + filename + '.sc'
                     wastlocationts = wastelocation + '/' + filename
+                    if os.path.exists(metafile_wastelocation) is True:
+                        os.remove(metafile_wastelocation) 
                     if os.path.exists(tsfile) is True:
                         os.rename(tsfile, tsfilenew)
                     if os.path.exists(metafile) is True:
@@ -290,28 +313,67 @@ class RestoreWastebasket(Screen):
                         os.rename(scfile, scfilenew) 
                     if os.path.exists(wastlocationts) is True:
                         os.remove(wastlocationts)
+                    self.getWasteList()
+            except Exception, e:
+                self.session.open(MessageBox, (_("Error by restore from wastebasket!\n\nError message:\n%s") % str(e)), MessageBox.TYPE_ERROR)
+                pass
             else:
+                if config.AdvancedMovieSelection.showinfo.value:        
+                    self.session.openWithCallback(self.checkFolderSize, MessageBox, _("Restore all from wastebasket completed."), MessageBox.TYPE_INFO, timeout = 10)
+                    self.close()
+                else:
+                    self.checkFolderSize()
+
+    def askResSingle(self):
+        wastelocation = config.movielist.last_videodir.value + _("Wastebasket")
+        if config.AdvancedMovieSelection.askdelete.value and os.path.exists(wastelocation) is True:
+            current = self["wastelist"].l.getCurrentSelection()
+            moviename = os.path.basename(os.path.splitext(current)[0])
+            self.session.openWithCallback(self.resSingle, MessageBox, (_("Are you sure to restore %s from wastebasket?") % moviename), MessageBox.TYPE_YESNO)
+        else:
+            if os.path.exists(wastelocation) is True:
+                self.resSingle(True)
+
+    def resSingle(self, answer):
+        if answer is None and config.AdvancedMovieSelection.showinfo.value: 
+            self.skipResWastebasket(_("Aborted by user !!"))
+        if answer is False and config.AdvancedMovieSelection.showinfo.value: 
+            self.skipResWastebasket(_("User not confirming!"))
+        else:
+            try:
+                wastelocation = config.movielist.last_videodir.value + _("Wastebasket")
+                lastlocation = config.movielist.last_videodir.value
+                current = self["wastelist"].l.getCurrentSelection()
                 for filename in os.listdir(wastelocation): 
-                    if filename.startswith(self.wastebasket) is True: 
-                        tsfile = lastlocation + filename + _("_Wastebasket")
+                    if filename.startswith(current) is True: 
+                        tsfile = lastlocation + filename + '_waste'
                         tsfilenew = lastlocation + filename
-                        metafile = lastlocation + filename + '.meta' + _("_Wastebasket")
-                        metafilenew = lastlocation + filename + '.meta'
-                        if filename.endswith(".ts"):
-                            nots = filename[:-3]
-                        jpgfile = lastlocation + nots + '.jpg' + _("_Wastebasket")
+                        if not filename.endswith(".ts"):
+                            metafile = lastlocation + filename + '.ts.meta_waste'
+                            metafilenew = lastlocation + filename + '.ts.meta'
+                        else:
+                            metafile = lastlocation + filename + '.meta_waste'
+                            metafilenew = lastlocation + filename + '.meta'
+                        if not filename.endswith(".ts"):
+                            metafile_wastelocation = wastelocation + filename + '.ts.meta_waste'
+                        else:
+                            metafile_wastelocation = wastelocation + filename + '.meta_waste'
+                        nots = os.path.basename(os.path.splitext(filename)[0])
+                        jpgfile = lastlocation + nots + '.jpg_waste'
                         jpgfilenew = lastlocation + nots + '.jpg'
-                        eitfile = lastlocation + nots + '.eit' + _("_Wastebasket")
+                        eitfile = lastlocation + nots + '.eit_waste'
                         eitfilenew = lastlocation + nots + '.eit'
-                        apfile = lastlocation + filename + '.ap' + _("_Wastebasket")
+                        apfile = lastlocation + filename + '.ap_waste'
                         apfilenew = lastlocation + filename + '.ap'
-                        cutsfile = lastlocation + filename + '.cuts' + _("_Wastebasket")
+                        cutsfile = lastlocation + filename + '.cuts_waste'
                         cutsfilenew = lastlocation + filename + '.cuts'
-                        gmfile = lastlocation + filename + '.gm' + _("_Wastebasket")
+                        gmfile = lastlocation + filename + '.gm_waste'
                         gmfilenew = lastlocation + filename + '.gm'
-                        scfile = lastlocation + filename + '.sc' + _("_Wastebasket")
+                        scfile = lastlocation + filename + '.sc_waste'
                         scfilenew = lastlocation + filename + '.sc'
                         wastlocationts = wastelocation + '/' + filename
+                        if os.path.exists(metafile_wastelocation) is True:
+                            os.remove(metafile_wastelocation) 
                         if os.path.exists(tsfile) is True:
                             os.rename(tsfile, tsfilenew)
                         if os.path.exists(metafile) is True:
@@ -330,23 +392,33 @@ class RestoreWastebasket(Screen):
                             os.rename(scfile, scfilenew) 
                         if os.path.exists(wastlocationts) is True:
                             os.remove(wastlocationts) 
-            if not self.wastebasket == _("all movies"):
-                self.session.open(MessageBox, (_("Restore %s from wastebasket completed.") % nots), MessageBox.TYPE_INFO, timeout = 10)
+                        self.getWasteList()
+            except Exception, e:
+                self.session.open(MessageBox, (_("Error by restore from wastebasket!\n\nError message:\n%s") % str(e)), MessageBox.TYPE_ERROR)
+                pass
             else:
-                self.session.open(MessageBox, _("Restore all from wastebasket completed."), MessageBox.TYPE_INFO, timeout = 10)
-                       
-    def skipRestoreWastebasket(self, reason):
+                if config.AdvancedMovieSelection.showinfo.value:   
+                    self.session.openWithCallback(self.checkFolderSize, MessageBox, (_("Restore %s from wastebasket completed.") % nots), MessageBox.TYPE_INFO, timeout = 10)
+                else:
+                    self.checkFolderSize()
+
+    def skipDelWastebasket(self, reason):
         if config.AdvancedMovieSelection.showinfo.value:
-            self.session.open(MessageBox, (_("Restore wastebasket was cancelled because:\n%s") % reason), MessageBox.TYPE_INFO)
-                
-    def getListWastebasket(self):
-        wastebasket = []
-        wastebasket.append((_("All movies"), (_("all movies"))))
-        parts=[]
-        for line in os.listdir(wastelocation):
-            if line.endswith(".ts") is True: 
-                parts=line.rsplit(".ts",1)
-                name=parts[0]
-                wastebasket.append(( name, name ))
-        return wastebasket
-        
+            self.session.open(MessageBox, (_("Empty wastebasket was cancelled because:\n%s") % reason), MessageBox.TYPE_INFO, timeout = 10)
+
+    def skipResWastebasket(self, reason):
+        if config.AdvancedMovieSelection.showinfo.value:
+            self.session.open(MessageBox, (_("Restore wastebasket was cancelled because:\n%s") % reason), MessageBox.TYPE_INFO, timeout = 10)
+
+    def checkFolderSize(self, retval = None):
+        wastelocation = config.movielist.last_videodir.value + _("Wastebasket")
+        folder = wastelocation
+        folder_size = 0
+        for (path, dirs, files) in os.walk(folder):
+            for file in files:
+                filename = os.path.join(path, file)
+                folder_size += os.path.getsize(filename)
+        if folder_size == 0:
+            if os.path.exists(wastelocation) is True:
+                shutil.rmtree(wastelocation, ignore_errors=True, onerror=None)
+                self.close()
