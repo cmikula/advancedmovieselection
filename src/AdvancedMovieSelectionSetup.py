@@ -42,8 +42,6 @@ from enigma import getDesktop, quitMainloop
 from Tools.Directories import fileExists
 import os
 
-wastelocation = config.movielist.last_videodir.value + _("Wastebasket")
-
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
     IMDbPresent = True
 else:
@@ -371,6 +369,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
                 self.list.append(self.SeekbarButtons)
             self.list.append(self.SeekbarSensibility)
         self.list.append(self.UseWastebasket)
+        wastelocation = config.movielist.last_videodir.value + _("Wastebasket")
         if not config.AdvancedMovieSelection.use_wastebasket.value and os.path.exists(wastelocation) is True:
             try:
                 os.rmdir(wastelocation)

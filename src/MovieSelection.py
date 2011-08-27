@@ -43,7 +43,7 @@ from Tools.BoundFunction import boundFunction
 from Tools.Directories import resolveFilename, fileExists, SCOPE_HDD
 from enigma import eServiceReference, eServiceCenter, eSize, ePoint, eTimer
 from Screens.Console import eConsoleAppContainer
-from ServiceProvider import ServiceEvent
+from ServiceProvider import ServiceEvent, eServiceReferenceTrash
 from MoveCopy import MovieMove
 from Rename import MovieRetitle
 from SearchTMDb import TMDbMain as TMDbMainsave
@@ -57,6 +57,7 @@ import os
 from Wastebasket import Wastebasket
 import NavigationInstance
 from timer import TimerEntry
+from Trashcan import Trashcan
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
     from Plugins.Extensions.IMDb.plugin import IMDB
@@ -227,7 +228,9 @@ class MovieContextMenu(Screen):
         self.setTitle(_("Advanced Movie Selection Menu"))
 
     def waste(self):
-        self.session.openWithCallback(self.closeafterfinish, Wastebasket, service=self.service)
+        self.csel.reloadList(show_trash=True)
+        self.close()
+        #self.session.openWithCallback(self.closeafterfinish, Wastebasket, service=self.service)
 
     def marknewicon(self, service):
         moviename = self.service.getPath() 
@@ -662,20 +665,21 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
     def delete(self):
         recording = False
         if NavigationInstance.instance.getRecordings():
-                for timer in NavigationInstance.instance.RecordTimer.timer_list:
-                        if timer.state == TimerEntry.StateRunning:
-                                try:
-                                        filename = "%s.ts" % timer.Filename
-                                except:
-                                        filename = ""
-                                self.service = self.getCurrent()
-                                serviceHandler = eServiceCenter.getInstance()
-                                info = serviceHandler.info(self.service)
-                                moviename = info and info.getName(self.service) or _("this recording")
-                                serviceref = self.getCurrent()
-                                if filename and os.path.realpath(filename) == os.path.realpath(serviceref.getPath()):
-                                    recording = True
-                                    break
+            for timer in NavigationInstance.instance.RecordTimer.timer_list:
+                if timer.state == TimerEntry.StateRunning:
+                    try:
+                        filename = "%s.ts" % timer.Filename
+                    except:
+                        filename = ""
+                    self.service = self.getCurrent()
+                    serviceHandler = eServiceCenter.getInstance()
+                    info = serviceHandler.info(self.service)
+                    moviename = info and info.getName(self.service) or _("this recording")
+                    serviceref = self.getCurrent()
+                    if filename and os.path.realpath(filename) == os.path.realpath(serviceref.getPath()):
+                        recording = True
+                        break
+                    
         if recording == True and config.AdvancedMovieSelection.showinfo.value:
             self.session.open(MessageBox, (_("Can not delete because %s is currently recording!") % moviename), MessageBox.TYPE_INFO, timeout = 10)
             return
@@ -696,19 +700,30 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                 if not offline.deleteFromDisk(1):
                     result = True
         if result == True:
-            if config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.use_wastebasket.value:
-                self.session.openWithCallback(self.wastebasketConfirmed, MessageBox, _("Do you really want to delete %s?") % (name))
-            elif not config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.use_wastebasket.value:
-                self.wastebasketConfirmed(True)
-            elif config.AdvancedMovieSelection.askdelete.value and not config.AdvancedMovieSelection.use_wastebasket.value:
+            if config.AdvancedMovieSelection.askdelete.value: 
                 self.session.openWithCallback(self.deleteConfirmed, MessageBox, _("Do you really want to delete %s?") % (name))
-            elif not config.AdvancedMovieSelection.askdelete.value and not config.AdvancedMovieSelection.use_wastebasket.value:
+            else:
                 self.deleteConfirmed(True)
         else:
             self.session.open(MessageBox, _("You cannot delete this!"), MessageBox.TYPE_ERROR)
 
     def deleteConfirmed(self, confirmed):
         if not confirmed:
+            return
+
+        if config.AdvancedMovieSelection.use_wastebasket.value:
+            try:
+                if isinstance(self.service, eServiceReferenceTrash):
+                    Trashcan.trashToMovie(self.service.getPath())
+                    #Trashcan.deleteTrashMovie(self.service.getPath())
+                else:
+                    Trashcan.movieToTrash(self.service.getPath())
+            except Exception, e:
+                print e
+                self.session.open(MessageBox, _("Delete failed!"), MessageBox.TYPE_ERROR)
+                return
+            self["list"].removeService(self.service)
+            self["freeDiskSpace"].update()
             return
 
         result = False
@@ -947,7 +962,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             movietitle = moviename + ".gm"
             filehandle = open(movietitle,"w")
             filehandle.write(movietitle)
-            filehandle.close
+            filehandle.close()
         else:
             if config.AdvancedMovieSelection.showinfo.value:
                 self.session.open(MessageBox, _("Only Dreambox recordings ar possible to mark with new recordings icon !"), MessageBox.TYPE_INFO)
@@ -1075,7 +1090,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
     def showTags(self, value):
         self["list"].showTags(value)
 
-    def reloadList(self, sel=None, home=False):
+    def reloadList(self, sel=None, home=False, show_trash=False):
         if not fileExists(config.movielist.last_videodir.value):
             path = defaultMoviePath()
             config.movielist.last_videodir.value = path
@@ -1084,7 +1099,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             self["freeDiskSpace"].path = path
         if sel is None:
             sel = self.getCurrent()
-        self["list"].reload(self.current_ref, self.selected_tags)
+        self["list"].reload(self.current_ref, self.selected_tags, show_trash)
         title = _("Movie location:")
         #if config.usage.setup_level.index >= 2: # expert+
         title += "  " + config.movielist.last_videodir.value

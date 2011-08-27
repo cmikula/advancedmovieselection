@@ -34,6 +34,11 @@ import os
 
 instance = None
 
+class eServiceReferenceTrash(eServiceReference):
+	def __init__(self, path):
+		eServiceReference.__init__(self, "4097:0:0:0:0:0:0:0:0:0:" + path)
+		self.setName(os.path.basename(self.getPath()))
+
 class eServiceReferenceDvd(eServiceReference):
 	def __init__(self, serviceref, dvdStruct=False):
 		eServiceReference.__init__(self, "4097:0:0:0:0:0:0:0:0:0:" + serviceref.getPath())
@@ -101,6 +106,26 @@ class ServiceEvent(eServiceEvent):
 
 	info = property(getInfo)
 
+def hasLastPosition(service):
+	fileName = service.getPath()
+	file = None
+	if not os.path.exists(fileName + ".cuts"):
+		return False
+	try:
+		file = open(fileName + ".cuts", "rb")
+		while 1:
+			data = file.read(12)
+			if data == '':
+				break
+			what = struct.unpack('>I', data[8:12])
+			if what == InfoBarCueSheetSupport.CUT_TYPE_LAST:
+				return True
+	except:
+		pass
+	finally:
+		if file is not None:
+			file.close()
+	return False
 
 def writeCutList(fileName, cutList):
 	file = None
@@ -160,7 +185,13 @@ class ServiceInfo:
 		self.tags = ""
 		try:
 			try:
-				checkCreateMetaFile(serviceref)
+				if isinstance(serviceref, eServiceReferenceTrash):
+					self.name = serviceref.getName()
+					self.description = serviceref.getPath()
+					return
+				else: 
+					meta_path = serviceref.getPath() + ".ts.meta"
+					checkCreateMetaFile(serviceref)
 			except Exception, e:
 				print e
 				if os.path.isfile(serviceref.getPath()):
@@ -168,8 +199,8 @@ class ServiceInfo:
 				else:
 					self.name = serviceref.getName()
 				return
-			if os.path.exists(serviceref.getPath() + ".ts.meta"):
-				file = open(serviceref.getPath() + ".ts.meta", "r")
+			if os.path.exists(meta_path):
+				file = open(meta_path, "r")
 				file.readline()
 				self.name = file.readline().rstrip("\r\n")
 				self.description = file.readline().rstrip("\r\n")
@@ -381,19 +412,19 @@ class CutListSupport:
 			inList = False
 			endInList = False
 			for index, item in enumerate(self.cut_list):
-				if item[1] == 3:
-					self.cut_list[index] = (stopPosition, 3)
+				if item[1] == InfoBarCueSheetSupport.CUT_TYPE_LAST:
+					self.cut_list[index] = (stopPosition, InfoBarCueSheetSupport.CUT_TYPE_LAST)
 					inList = True
-				if item[1] == 1:
-					self.cut_list[index] = (length, 1)
+				if item[1] == InfoBarCueSheetSupport.CUT_TYPE_OUT:
+					self.cut_list[index] = (length, InfoBarCueSheetSupport.CUT_TYPE_OUT)
 					endInList = True
 			if not inList:
-				self.cut_list.append((stopPosition, 3))
+				self.cut_list.append((stopPosition, InfoBarCueSheetSupport.CUT_TYPE_LAST))
 			if not endInList:
-				self.cut_list.append((length, 1))
+				self.cut_list.append((length, InfoBarCueSheetSupport.CUT_TYPE_OUT))
 		else:
-			self.cut_list = [(stopPosition, 3)]
-			self.cut_list.append((length, 1))
+			self.cut_list = [(stopPosition, InfoBarCueSheetSupport.CUT_TYPE_LAST)]
+			self.cut_list.append((length, InfoBarCueSheetSupport.CUT_TYPE_OUT))
 		
 	def addPlayerEvents(self):
 		try:
