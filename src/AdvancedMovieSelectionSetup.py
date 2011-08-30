@@ -354,7 +354,6 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.list.append(self.Shownew)
         if GP3Present and config.AdvancedMovieSelection.showfoldersinmovielist.value and config.AdvancedMovieSelection.shownew.value:
             self.list.append(self.MarkNewIcon)
-        if GP3Present and config.AdvancedMovieSelection.showfoldersinmovielist.value and config.AdvancedMovieSelection.shownew.value:
             self.list.append(self.Shownew2)
         self.list.append(self.MiniTV)
         self.list.append(self.Jump2Mark)

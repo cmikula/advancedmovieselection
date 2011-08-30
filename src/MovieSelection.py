@@ -54,7 +54,6 @@ from TagEditor import MovieTagEditor
 from QuickButton import QuickButton
 from os import path
 import os
-from Wastebasket import Wastebasket
 import NavigationInstance
 from timer import TimerEntry
 from Trashcan import Trashcan
@@ -758,77 +757,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         else:
             self["list"].removeService(self.service)
             self["freeDiskSpace"].update()
-
-    def wastebasketConfirmed(self, confirmed):
-        if not confirmed:
-            return
-        lastlocation = config.movielist.last_videodir.value
-        wastelocation = config.movielist.last_videodir.value + _("Wastebasket")
-        if os.path.exists(wastelocation) is False:
-            os.mkdir(wastelocation)
-        full_movie_name = self.service.getPath()
-        movie_name_with_file_extension = os.path.basename(full_movie_name)
-        movie_name_only = os.path.basename(os.path.splitext(self.service.getPath())[0])
-        eitfile = lastlocation + movie_name_only + '.eit'
-        eitfile_waste = lastlocation + movie_name_only + '.eit_waste'
-        eitfile_move = wastelocation + '/' + movie_name_only + '.eit'
-        jpgfile = lastlocation + movie_name_only + '.jpg'
-        jpgfile_waste = lastlocation + movie_name_only + '.jpg_waste'
-        jpgfile_move = wastelocation + '/' +  movie_name_only + '.jpg'
-        tsfile = full_movie_name
-        tsfile_waste = full_movie_name + '_waste'
-        tsfile_move = wastelocation + '/' + movie_name_with_file_extension
-        apfile = lastlocation + movie_name_with_file_extension + '.ap'
-        apfile_waste = lastlocation + movie_name_only +'.ts.ap_waste'
-        apfile_move = wastelocation + '/' +  movie_name_only + '.ap'
-        cutsfile = lastlocation + movie_name_with_file_extension + '.cuts'
-        cutsfile_waste = lastlocation + movie_name_only + '.ts.cuts_waste'
-        cutsfile_move = wastelocation + '/' +  movie_name_only + '.cuts'
-        gmfile = lastlocation + movie_name_with_file_extension + '.gm'
-        gmfile_waste = lastlocation + movie_name_only + '.ts.gm_waste'
-        gmfile_move = wastelocation + '/' +  movie_name_only + '.gm'
-        if not movie_name_with_file_extension.endswith(".ts"):
-            metafile = lastlocation + movie_name_with_file_extension + '.ts.meta'
-            metafile_waste = lastlocation +  movie_name_with_file_extension + '.ts.meta_waste'
-            metafile_move = wastelocation + '/' +  movie_name_only + '.ts.meta'
-        else:
-            metafile = lastlocation + movie_name_with_file_extension + '.meta'
-            metafile_waste = lastlocation +  movie_name_with_file_extension + '.meta_waste'
-            metafile_move = wastelocation + '/' +  movie_name_only + '.meta'
-        scfile = lastlocation + movie_name_with_file_extension + '.sc'
-        scfile_waste = lastlocation + movie_name_only + '.ts.sc_waste'
-        scfile_move = wastelocation + '/' +  movie_name_only + '.sc'
-        if os.path.exists(eitfile) is True:
-            #os.link(eitfile, eitfile_move)
-            os.rename(eitfile, eitfile_waste)
-        if os.path.exists(jpgfile) is True:
-            #os.link(jpgfile, jpgfile_move)
-            os.rename(jpgfile, jpgfile_waste)
-        if os.path.exists(apfile) is True:
-            #os.link(apfile, apfile_move)
-            os.rename(apfile, apfile_waste)
-        if os.path.exists(cutsfile) is True:
-            #os.link(cutsfile, cutsfile_move)
-            os.rename(cutsfile, cutsfile_waste)
-        if os.path.exists(gmfile) is True:
-            #os.link(gmfile, gmfile_move)
-            os.rename(gmfile, gmfile_waste)
-        if os.path.exists(metafile) is True:
-            #os.link(metafile, metafile_move)
-            os.rename(metafile, metafile_waste)
-        if os.path.exists(scfile) is True:
-            #os.link(scfile, scfile_move)
-            os.rename(scfile, scfile_waste)
-        if os.path.exists(tsfile) is True:
-            os.link(tsfile, tsfile_move)
-            os.rename(tsfile, tsfile_waste)
-        result = True
-        if result == False:
-            self.session.openWithCallback(self.close, MessageBox, _("Move to wastebasket failed!"), MessageBox.TYPE_ERROR)
-        else:
-            self["list"].removeService(self.service)
-            self["freeDiskSpace"].update()
-            self.reloadList(home=True)
 
     def updateName(self):
         location = (_("Movie location: %s") % config.movielist.last_videodir.value)
