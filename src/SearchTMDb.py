@@ -203,6 +203,12 @@ class TMDbMain(Screen):
         
         try:
             results = tmdb.search(self.searchTitle)
+            # If no result found, Split the search title before " - " and search again 
+            if len(results) == 0 and " - " in self.searchTitle:
+                title = self.searchTitle.split(" - ")[0].strip()
+                results = tmdb.search(title)
+                if len(results) > 0:
+                    self.searchTitle = title
             if len(results) == 0:
                 self["status"].setText(_("No data found at themoviedb.org!"))
                 self.session.openWithCallback(self.askForSearchCallback, MessageBox, _("No data found at themoviedb.org!\nDo you want to edit the search name?"))

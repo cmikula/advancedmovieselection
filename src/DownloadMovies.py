@@ -103,6 +103,8 @@ class DownloadMovies(Screen):
         if self.service is not None:
             global movie_title
             movie_title = ServiceCenter.getInstance().info(self.service).getName(self.service).encode("utf-8")
+            if " - " in movie_title:
+                movie_title = movie_title.split(" - ")[0].strip()
             self.refreshTimer.start(1, True)
             return
         
@@ -256,6 +258,8 @@ class FetchingMovies(Thread):
                 continue
             current = current + 1 
             movie_title = ServiceCenter.getInstance().info(service).getName(service).encode("utf-8")
+            if " - " in movie_title:
+                movie_title = movie_title.split(" - ")[0].strip()
             createEIT(service.getPath(), movie_title, self.coversize)
         
         self.finish()
