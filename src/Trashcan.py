@@ -56,19 +56,19 @@ class Trashcan:
         return list
     
     @staticmethod
-    def movieToTrash(filename):
-        print "movieToTrash: ", filename
+    def trash(filename):
+        print "trash: ", filename
         os.rename(filename, filename + TRASH_NAME)
     
     @staticmethod
-    def trashToMovie(filename):
-        print "trashToMovie: ", filename
+    def restore(filename):
+        print "restore: ", filename
         os.rename(filename, filename.replace(TRASH_NAME, ""))
     
     @staticmethod
-    def deleteTrashMovie(filename):
+    def delete(filename):
         movie_ext = ["gm", "sc", "ap", "cuts"]
-        print "deleteTrashMovie: ", filename
+        print "delete: ", filename
         #path = os.path.split(filename)[0]
         original_name = filename.replace(TRASH_NAME, "")
         if os.path.isfile(filename):

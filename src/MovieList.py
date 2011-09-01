@@ -38,7 +38,7 @@ from math import fabs as math_fabs
 from datetime import datetime
 from ServiceProvider import detectDVDStructure, getCutList, Info, ServiceCenter, eServiceReferenceDvd
 from os import environ
-from Trashcan import Trashcan, TRASH_NAME
+from Trashcan import TRASH_NAME
 
 IMAGE_PATH = "Extensions/AdvancedMovieSelection/images/"
 
@@ -654,11 +654,11 @@ class MovieList(GUIComponent):
         instance.setContent(None)
         instance.selectionChanged.get().remove(self.selectionChanged)
 
-    def reload(self, root=None, filter_tags=None, show_trash=False):
+    def reload(self, root=None, filter_tags=None):
         if root is not None:
-            self.load(root, filter_tags, show_trash)
+            self.load(root, filter_tags)
         else:
-            self.load(self.root, filter_tags, show_trash)
+            self.load(self.root, filter_tags)
         self.l.setList(self.list)
 
     def removeService(self, service):
@@ -670,7 +670,7 @@ class MovieList(GUIComponent):
     def __len__(self):
         return len(self.list)
 
-    def load(self, root, filter_tags, show_trash):
+    def load(self, root, filter_tags):
         # this lists our root service, then building a 
         # nice list
         
@@ -687,15 +687,6 @@ class MovieList(GUIComponent):
         tags = set()
         
         dirs = []
-
-        if show_trash:
-            #trash = Trashcan.listMovies(root.getPath())
-            #trash = Trashcan.listAllMovies(root.getPath())
-            trash = Trashcan.listAllMovies("/media")
-            for service in trash:
-                info = self.serviceHandler.info(service)
-                self.list.append((service, info, -1, -1))
-            return
 
         while 1:
             serviceref = list.getNext()

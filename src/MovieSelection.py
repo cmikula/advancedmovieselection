@@ -43,7 +43,7 @@ from Tools.BoundFunction import boundFunction
 from Tools.Directories import resolveFilename, fileExists, SCOPE_HDD
 from enigma import eServiceReference, eServiceCenter, eSize, ePoint, eTimer
 from Screens.Console import eConsoleAppContainer
-from ServiceProvider import ServiceEvent, eServiceReferenceTrash
+from ServiceProvider import ServiceEvent
 from MoveCopy import MovieMove
 from Rename import MovieRetitle
 from SearchTMDb import TMDbMain as TMDbMainsave
@@ -227,9 +227,8 @@ class MovieContextMenu(Screen):
         self.setTitle(_("Advanced Movie Selection Menu"))
 
     def waste(self):
-        self.csel.reloadList(show_trash=True)
-        self.close()
-        #self.session.openWithCallback(self.closeafterfinish, Wastebasket, service=self.service)
+        from Wastebasket import Wastebasket
+        self.session.open(Wastebasket)
 
     def marknewicon(self, service):
         moviename = self.service.getPath() 
@@ -700,29 +699,29 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                     result = True
         if result == True:
             if config.AdvancedMovieSelection.askdelete.value: 
-                self.session.openWithCallback(self.deleteConfirmed, MessageBox, _("Do you really want to delete %s?") % (name))
+                if config.AdvancedMovieSelection.use_wastebasket.value:
+                    self.session.openWithCallback(self.deleteTrashConfirmed, MessageBox, _("Do you really want to move %s to trashcan?") % (name))
+                else:
+                    self.session.openWithCallback(self.deleteConfirmed, MessageBox, _("Do you really want to delete %s?") % (name))
             else:
                 self.deleteConfirmed(True)
         else:
             self.session.open(MessageBox, _("You cannot delete this!"), MessageBox.TYPE_ERROR)
+    
+    def deleteTrashConfirmed(self, confirmed):
+        if not confirmed:
+            return
+        try:
+            Trashcan.trash(self.service.getPath())
+        except Exception, e:
+            print e
+            self.session.open(MessageBox, _("Delete failed!"), MessageBox.TYPE_ERROR)
+            return
+        self["list"].removeService(self.service)
+        self["freeDiskSpace"].update()
 
     def deleteConfirmed(self, confirmed):
         if not confirmed:
-            return
-
-        if config.AdvancedMovieSelection.use_wastebasket.value:
-            try:
-                if isinstance(self.service, eServiceReferenceTrash):
-                    Trashcan.trashToMovie(self.service.getPath())
-                    #Trashcan.deleteTrashMovie(self.service.getPath())
-                else:
-                    Trashcan.movieToTrash(self.service.getPath())
-            except Exception, e:
-                print e
-                self.session.open(MessageBox, _("Delete failed!"), MessageBox.TYPE_ERROR)
-                return
-            self["list"].removeService(self.service)
-            self["freeDiskSpace"].update()
             return
 
         result = False
@@ -1018,7 +1017,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
     def showTags(self, value):
         self["list"].showTags(value)
 
-    def reloadList(self, sel=None, home=False, show_trash=False):
+    def reloadList(self, sel=None, home=False):
         if not fileExists(config.movielist.last_videodir.value):
             path = defaultMoviePath()
             config.movielist.last_videodir.value = path
@@ -1027,7 +1026,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             self["freeDiskSpace"].path = path
         if sel is None:
             sel = self.getCurrent()
-        self["list"].reload(self.current_ref, self.selected_tags, show_trash)
+        self["list"].reload(self.current_ref, self.selected_tags)
         title = _("Movie location:")
         #if config.usage.setup_level.index >= 2: # expert+
         title += "  " + config.movielist.last_videodir.value
