@@ -229,6 +229,7 @@ class MovieContextMenu(Screen):
     def waste(self):
         from Wastebasket import Wastebasket
         self.session.open(Wastebasket)
+        self.close()
 
     def marknewicon(self, service):
         moviename = self.service.getPath() 
@@ -698,11 +699,12 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                 if not offline.deleteFromDisk(1):
                     result = True
         if result == True:
-            if config.AdvancedMovieSelection.askdelete.value: 
-                if config.AdvancedMovieSelection.use_wastebasket.value:
-                    self.session.openWithCallback(self.deleteTrashConfirmed, MessageBox, _("Do you really want to move %s to trashcan?") % (name))
-                else:
-                    self.session.openWithCallback(self.deleteConfirmed, MessageBox, _("Do you really want to delete %s?") % (name))
+            if config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.use_wastebasket.value:
+                self.session.openWithCallback(self.deleteTrashConfirmed, MessageBox, _("Do you really want to move %s to trashcan?") % (name))
+            elif config.AdvancedMovieSelection.askdelete.value and not config.AdvancedMovieSelection.use_wastebasket.value:
+                self.session.openWithCallback(self.deleteConfirmed, MessageBox, _("Do you really want to delete %s?") % (name))
+            elif not config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.use_wastebasket.value:
+                self.deleteTrashConfirmed(True)
             else:
                 self.deleteConfirmed(True)
         else:
