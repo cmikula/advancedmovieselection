@@ -27,7 +27,8 @@ that they, too, receive or can get the source code. And you must show them these
 '''
 
 from __init__ import _
-from MovieSelection import MovieSelection
+from Screens.Screen import Screen
+from Components.UsageConfig import defaultMoviePath
 from MovieList import MovieList
 from Trashcan import Trashcan
 from Components.config import config
@@ -36,6 +37,9 @@ from Components.Button import Button
 from Components.Label import Label
 from ServiceProvider import ServiceCenter
 from Screens.MessageBox import MessageBox
+from enigma import getDesktop, eTimer, eServiceReference
+from Tools.Directories import fileExists
+from Components.DiskInfo import DiskInfo
 
 class TrashList(MovieList):
     def load(self, root, filter_tags):
@@ -52,38 +56,86 @@ class TrashList(MovieList):
             info = self.serviceHandler.info(service)
             self.list.append((service, info, -1, -1))
 
-class Wastebasket(MovieSelection):
-    def __init__(self, session):
-        MovieSelection.__init__(self, session)
-        self["key_red"] = Button(_("Delete permanent"))
-        self["key_green"] = Button(_("Restore movie"))
-        self["key_yellow"] = Button(_("Delete all"))
-        self["key_blue"] = Button()
-        self["waitingtext"] = Label(_("Please wait... Loading trash list..."))
+class Wastebasket(Screen):
+    def __init__(self, session, selectedmovie=None):
+        Screen.__init__(self, session)
+        try:
+            sz_w = getDesktop(0).size().width()
+        except:
+            sz_w = 720
+        if sz_w == 1280:
+            self.skinName = ["AdvancedMovieSelectionTrashHD"]
+        elif sz_w == 1024:
+            self.skinName = ["AdvancedMovieSelectionTrashXD"]
+        else:
+            self.skinName = ["AdvancedMovieSelectionTrashSD"]
+        self.delayTimer = eTimer()
+        self.delayTimer.callback.append(self.updateHDDData)
+        self.current_ref = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + config.movielist.last_videodir.value)  
         self["ColorActions"] = HelpableActionMap(self, "ColorActions",
         {
             "red": (self.canDelete, _("Delete movie permanent")),
             "green": (self.restore, _("Restore movie")),
             "yellow": (self.canDeleteAll, _("Delete all movies")),
         })
-
+        self["key_red"] = Button(_("Delete permanent"))
+        self["key_green"] = Button(_("Restore movie"))
+        self["key_yellow"] = Button(_("Delete all"))
+        self["key_blue"] = Button()
+        self["waitingtext"] = Label(_("Please wait... Loading trash list..."))
+        self["freeDiskSpace"] = self.diskinfo = DiskInfo(config.movielist.last_videodir.value, DiskInfo.FREE, update=False)
+        self["location"] = Label()
         self["list"] = TrashList(None,
             config.movielist.listtype.value,
-            config.movielist.moviesort.value,
-            config.movielist.description.value,
-            config.AdvancedMovieSelection.showfoldersinmovielist.value,
-            config.AdvancedMovieSelection.showprogessbarinmovielist.value,
-            config.AdvancedMovieSelection.showiconstatusinmovielist.value,
-            config.AdvancedMovieSelection.showcolorstatusinmovielist.value,
-            config.movielist.showdate.value,
-            config.movielist.showtime.value,
-            config.movielist.showservice.value,
-            config.movielist.showtags.value)
+            config.movielist.showdate.value)#,
+            #config.movielist.showservice.value)
         self.list = self["list"]
         self["OkCancelActions"] = HelpableActionMap(self, "OkCancelActions",
             {
-                "cancel": (self.abort, _("Exit movielist"))
+                "cancel": (self.abort, _("Exit wastebasket"))
             })
+        self.selectedmovie = selectedmovie
+        self.onShown.append(self.go)
+        self.inited = False
+        self.onShown.append(self.setWindowTitle)
+
+    def setWindowTitle(self):
+        self.setTitle(_("Advanced Movie Selection Wastebasket"))
+
+    def go(self):
+        if not self.inited:
+        # ouch. this should redraw our "Please wait..."-text.
+        # this is of course not the right way to do this.
+            self.delayTimer.start(10, 1)
+            self.inited = True
+
+    def updateHDDData(self):
+        self.reloadList(self.selectedmovie)
+        self["waitingtext"].visible = False
+
+    def reloadList(self, sel=None, home=False):
+        if not fileExists(config.movielist.last_videodir.value):
+            path = defaultMoviePath()
+            config.movielist.last_videodir.value = path
+            config.movielist.last_videodir.save()
+            self.current_ref = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + path)
+            self["freeDiskSpace"].path = path
+        if sel is None:
+            sel = self.getCurrent()
+        self["list"].reload(self.current_ref) #, self.selected_tags)
+        title = (_("Wastebasket location: %s") % (config.movielist.last_videodir.value))
+        self["location"].setText(title)
+        if not (sel and self["list"].moveTo(sel)):
+            if home:
+                self["list"].moveToIndex(0)
+        self["freeDiskSpace"].update()
+
+    def getCurrent(self):
+        self.session.currentSelection = self["list"].getCurrent()
+        return self.session.currentSelection
+
+    def abort(self):
+        self.close()
 
     def canDelete(self):
         self.service = self.getCurrent()
