@@ -41,9 +41,12 @@ class TrashList(MovieList):
     def load(self, root, filter_tags):
         self.list = [ ]
         self.serviceHandler = ServiceCenter.getInstance()
-        #trash = Trashcan.listMovies(root.getPath())
-        #trash = Trashcan.listAllMovies(root.getPath())
-        trash = Trashcan.listAllMovies("/media")
+        if config.AdvancedMovieSelection.wastelist_buildtype.value == 'listMovies':
+            trash = Trashcan.listMovies(root.getPath())
+        if config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMovies':
+            trash = Trashcan.listAllMovies(root.getPath())
+        if config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMoviesMedia':
+            trash = Trashcan.listAllMovies("/media")
         for service in trash:
             print service.getPath()
             info = self.serviceHandler.info(service)
@@ -86,13 +89,19 @@ class Wastebasket(MovieSelection):
         self.service = self.getCurrent()
         if not self.service:
             return
-        self.session.openWithCallback(self.delete, MessageBox, _("Do you really want to delete %s?") % (self.service.getName()))
+        if config.AdvancedMovieSelection.askdelete.value:
+            self.session.openWithCallback(self.delete, MessageBox, _("Do you really want to delete %s?") % (self.service.getName()))
+        else:
+            self.delete(True)
 
     def canDeleteAll(self):
         self.service = self.getCurrent()
         if not self.service:
             return
-        self.session.openWithCallback(self.deleteAll, MessageBox, _("Do you really want to delete all movies?"))
+        if config.AdvancedMovieSelection.askdelete.value:
+            self.session.openWithCallback(self.deleteAll, MessageBox, _("Do you really want to delete all movies?"))
+        else:
+            self.deleteAll(True)
 
     def delete(self, confirmed):
         if not confirmed:

@@ -228,8 +228,7 @@ class MovieContextMenu(Screen):
 
     def waste(self):
         from Wastebasket import Wastebasket
-        self.session.open(Wastebasket)
-        self.close()
+        self.session.openWithCallback(self.closeafterfinish, Wastebasket)
 
     def marknewicon(self, service):
         moviename = self.service.getPath() 

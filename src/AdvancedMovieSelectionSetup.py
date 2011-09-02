@@ -139,6 +139,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.SeekbarButtons = None
         self.SeekbarSensibility = None
         self.UseWastebasket = None
+        self.WastelistBuildType = None
         self.needsRestartFlag = False
         self.needsReopenFlag = False
         self["setupActions"] = ActionMap(["ColorActions", "OkCancelActions", "MenuActions", "EPGSelectActions"],
@@ -286,6 +287,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.SeekbarButtons = getConfigListEntry(_("Change function from left/right buttons:"), config.AdvancedMovieSelection.overwrite_left_right)
         self.SeekbarSensibility = getConfigListEntry(_("Manual jump sensibility:"), config.AdvancedMovieSelection.sensibility)    
         self.UseWastebasket = getConfigListEntry(_("Use wastebasket:"), config.AdvancedMovieSelection.use_wastebasket)  
+        self.WastelistBuildType = getConfigListEntry(_("Wastebasket file(s):"), config.AdvancedMovieSelection.wastelist_buildtype)  
         self.list.append(self.OnOff)
         self.list.append(self.Startwith)
         self.list.append(self.StartDir)
@@ -368,15 +370,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
                 self.list.append(self.SeekbarButtons)
             self.list.append(self.SeekbarSensibility)
         self.list.append(self.UseWastebasket)
-        wastelocation = config.movielist.last_videodir.value + _("Wastebasket")
-        if not config.AdvancedMovieSelection.use_wastebasket.value and os.path.exists(wastelocation) is True:
-            try:
-                os.rmdir(wastelocation)
-            except Exception, e:
-                print "Exception deleting files: " + str(e)
-                config.AdvancedMovieSelection.use_wastebasket.value = True
-                config.AdvancedMovieSelection.use_wastebasket.save()
-                self.session.open(MessageBox, (_("Wastbasket function can not be disabled. Wastbasket not empty!\n\nError message:\n%s") % str(e)), MessageBox.TYPE_ERROR)
+        if config.AdvancedMovieSelection.use_wastebasket.value:
+            self.list.append(self.WastelistBuildType)
         self["config"].list = self.list
         self["config"].l.setList(self.list)
         if not self.selectionChanged in self["config"].onSelectionChanged:
@@ -500,6 +495,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self["help"].setText(_("Here you can adjust the manually jump length relative to the film length in percent."))
         elif current == self.UseWastebasket:
             self["help"].setText(_("If this option is activated the movie will not be deleted but moved into the wastebasket."))
+        elif current == self.WastelistBuildType:
+            self["help"].setText(_("Here you can select which files to Wastebasket are displayed. ATTENTION: All directorys below '/media' will take very long until the list is displayed!"))
 
     def pluginsavailable(self):
         if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
