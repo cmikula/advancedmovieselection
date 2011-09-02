@@ -28,7 +28,7 @@ that they, too, receive or can get the source code. And you must show them these
 
 from __init__ import _
 from Screens.Screen import Screen
-from Components.UsageConfig import defaultMoviePath
+from MovieSelection import MovieSelection
 from MovieList import MovieList
 from Trashcan import Trashcan
 from Components.config import config
@@ -38,7 +38,7 @@ from Components.Label import Label
 from ServiceProvider import ServiceCenter
 from Screens.MessageBox import MessageBox
 from enigma import getDesktop, eTimer, eServiceReference
-from Tools.Directories import fileExists
+from Tools.Directories import resolveFilename, fileExists, SCOPE_HDD
 from Components.DiskInfo import DiskInfo
 
 class TrashList(MovieList):
@@ -74,21 +74,21 @@ class Wastebasket(Screen):
         self.current_ref = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + config.movielist.last_videodir.value)  
         self["ColorActions"] = HelpableActionMap(self, "ColorActions",
         {
-            "red": (self.canDelete, _("Delete movie permanent")),
+            "red": (self.canDelete, _("Delete selected movie")),
             "green": (self.restore, _("Restore movie")),
-            "yellow": (self.canDeleteAll, _("Delete all movies")),
+            "yellow": (self.canDeleteAll, _("Empty wastbasket")),
         })
-        self["key_red"] = Button(_("Delete permanent"))
+        self["key_red"] = Button(_("Empty Trash (single)"))
         self["key_green"] = Button(_("Restore movie"))
-        self["key_yellow"] = Button(_("Delete all"))
+        self["key_yellow"] = Button(_("Empty Trash"))
         self["key_blue"] = Button()
         self["waitingtext"] = Label(_("Please wait... Loading trash list..."))
         self["freeDiskSpace"] = self.diskinfo = DiskInfo(config.movielist.last_videodir.value, DiskInfo.FREE, update=False)
         self["location"] = Label()
+        self["warning"] = Label()
         self["list"] = TrashList(None,
             config.movielist.listtype.value,
-            config.movielist.showdate.value)#,
-            #config.movielist.showservice.value)
+            config.movielist.showdate.value)
         self.list = self["list"]
         self["OkCancelActions"] = HelpableActionMap(self, "OkCancelActions",
             {
@@ -100,7 +100,9 @@ class Wastebasket(Screen):
         self.onShown.append(self.setWindowTitle)
 
     def setWindowTitle(self):
-        self.setTitle(_("Advanced Movie Selection Wastebasket"))
+        self.setTitle(_("Advanced Movie Selection - Wastebasket"))
+        if not config.AdvancedMovieSelection.askdelete.value:
+            self["warning"].setText("ATTENTION: Ask before delete ist disabled!")
 
     def go(self):
         if not self.inited:
@@ -122,8 +124,8 @@ class Wastebasket(Screen):
             self["freeDiskSpace"].path = path
         if sel is None:
             sel = self.getCurrent()
-        self["list"].reload(self.current_ref) #, self.selected_tags)
-        title = (_("Wastebasket location: %s") % (config.movielist.last_videodir.value))
+        self["list"].reload(self.current_ref)
+        title = (_("Wastebasket: %s") % (config.movielist.last_videodir.value))
         self["location"].setText(title)
         if not (sel and self["list"].moveTo(sel)):
             if home:
