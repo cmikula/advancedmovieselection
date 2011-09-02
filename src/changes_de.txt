@@ -123,10 +123,12 @@ version: 1.7
 version. 1.8
 * neu: zwei neue optionen wenn filmende erreicht (box herunterfahren und box in bereitschaft)
 * neu: papierkorb
+* neu: info in der filmliste und papierkorb wenn nachfragen vor dem löschen deaktiviert ist
 * neu: löschen einer aufnahme während diese gerade aufgenommen wird ist nun nicht mehr möglich
 * fix: speichern von lesezeichen ein/aus wenn über farbtasten diese ein/aus geschalten werden
 * fix: löschen von lesezeichen über die löschfunktion im menü der filmliste
-
+* fix: verbesserung bei der filminfo/cover suche wenn '-' im filmtitel
+ACHTUNG an die skinner, bei allen screens für die filmliste ist etwas dazu gekommen (4 stk. pro auflösung), AdvancedMovieSelectionTrashHD, AdvancedMovieSelectionTrashXD und AdvancedMovieSelectionTrashSD sind neu
 
 
 
