@@ -209,25 +209,26 @@ class TMDbMain(Screen):
                 results = tmdb.search(title)
                 if len(results) > 0:
                     self.searchTitle = title
+
             if len(results) == 0:
                 self["status"].setText(_("No data found at themoviedb.org!"))
                 self.session.openWithCallback(self.askForSearchCallback, MessageBox, _("No data found at themoviedb.org!\nDo you want to edit the search name?"))
                 return
+            
+            self["key_green"].text = _("Save movie info/cover")
+            self["key_blue"].text = _("Extended Info")
+            self["status"].setText("")
+            self["status"].hide()
+            movies = []
+            for searchResult in results:
+                id = searchResult['id']
+                movies.append((tmdb.getMovieInfo(searchResult['id']), id),)
+            self["list"].setList(movies)
+            self["list"].show()
         except Exception, e:
             self["status"].setText(_("Error!\n%s" % e))
             return
         
-        self["key_green"].text = _("Save movie info/cover")
-        self["key_blue"].text = _("Extended Info")
-        self["status"].setText("")
-        self["status"].hide()
-        movies = []
-        for searchResult in results:
-            id = searchResult['id']
-            movies.append((tmdb.getMovieInfo(searchResult['id']), id),)
-        self["list"].setList(movies)
-        self["list"].show()
-
     def pageUp(self):
         self["description"].pageUp()
 
