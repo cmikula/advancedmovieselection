@@ -28,7 +28,6 @@ that they, too, receive or can get the source code. And you must show them these
 
 from __init__ import _
 from Screens.Screen import Screen
-from MovieSelection import MovieSelection
 from MovieList import MovieList
 from Trashcan import Trashcan
 from Components.config import config
@@ -38,8 +37,9 @@ from Components.Label import Label
 from ServiceProvider import ServiceCenter
 from Screens.MessageBox import MessageBox
 from enigma import getDesktop, eTimer, eServiceReference
-from Tools.Directories import resolveFilename, fileExists, SCOPE_HDD
+from Tools.Directories import fileExists
 from Components.DiskInfo import DiskInfo
+from Components.UsageConfig import defaultMoviePath
 
 class TrashList(MovieList):
     def load(self, root, filter_tags):
@@ -52,7 +52,6 @@ class TrashList(MovieList):
         if config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMoviesMedia':
             trash = Trashcan.listAllMovies("/media")
         for service in trash:
-            print service.getPath()
             info = self.serviceHandler.info(service)
             self.list.append((service, info, -1, -1))
 

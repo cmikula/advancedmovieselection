@@ -25,12 +25,40 @@ For example, if you distribute copies of such a program, whether gratis or for a
 must pass on to the recipients the same freedoms that you received. You must make sure 
 that they, too, receive or can get the source code. And you must show them these terms so they know their rights.
 '''
-
+from enigma import eServiceReference
 import os, glob, shutil
-from ServiceProvider import eServiceReferenceTrash
 
 TRASH_NAME = ".trash"
 
+class eServiceReferenceTrash(eServiceReference):
+    def __init__(self, path):
+        eServiceReference.__init__(self, "4097:0:0:0:0:0:0:0:0:0:" + path)
+        self.path = path
+        p = path.replace(TRASH_NAME, "")
+        if(p.endswith(".ts")):
+            meta_path = p[:-3] + ".ts.meta"
+        else:
+            meta_path = p + ".ts.meta"
+        if os.path.exists(meta_path):
+            file = open(meta_path, "r")
+            file.readline()
+            self.setName(file.readline().rstrip("\r\n"))
+            file.close()
+        else:
+            self.setName(os.path.basename(p))
+
+    def setName(self, name):
+        self.name = name
+
+    def getName(self):
+        return self.name
+
+    def setPath(self, path):
+        self.path = path
+
+    def getPath(self):
+        return self.path
+    
 class Trashcan:
     @staticmethod
     def listAllMovies(root):

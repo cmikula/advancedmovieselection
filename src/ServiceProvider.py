@@ -29,15 +29,11 @@ from Tools.Directories import fileExists
 from EventInformationTable import EventInformationTable
 from Components.config import config
 from Screens.InfoBarGenerics import InfoBarCueSheetSupport
+from Trashcan import eServiceReferenceTrash
 import struct
 import os
 
 instance = None
-
-class eServiceReferenceTrash(eServiceReference):
-	def __init__(self, path):
-		eServiceReference.__init__(self, "4097:0:0:0:0:0:0:0:0:0:" + path)
-		self.setName(os.path.basename(self.getPath()))
 
 class eServiceReferenceDvd(eServiceReference):
 	def __init__(self, serviceref, dvdStruct=False):
