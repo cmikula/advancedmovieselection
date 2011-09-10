@@ -28,23 +28,98 @@ that they, too, receive or can get the source code. And you must show them these
 
 from __init__ import _
 from Screens.Screen import Screen
-from MovieList import MovieList
-from Trashcan import Trashcan
+from Trashcan import Trashcan, eServiceReferenceTrash
 from Components.config import config
 from Components.ActionMap import HelpableActionMap
 from Components.Button import Button
 from Components.Label import Label
-from ServiceProvider import ServiceCenter
+from ServiceProvider import detectDVDStructure
 from Screens.MessageBox import MessageBox
-from enigma import getDesktop, eTimer, eServiceReference
+from enigma import getDesktop, eTimer
 from Tools.Directories import fileExists
 from Components.DiskInfo import DiskInfo
 from Components.UsageConfig import defaultMoviePath
+from Components.GUIComponent import GUIComponent
+from enigma import eListboxPythonMultiContent, eListbox, gFont, RT_HALIGN_LEFT, RT_HALIGN_RIGHT
+from Components.MultiContent import MultiContentEntryText
+from datetime import datetime
+from Tools.Directories import getSize as getServiceSize
+import os
 
-class TrashList(MovieList):
-    def load(self, root, filter_tags):
+class TrashMovieList(GUIComponent):
+    def __init__(self, root):
+        GUIComponent.__init__(self)
+        self.l = eListboxPythonMultiContent()
+        
+        if root is not None:
+            self.reload(root)
+        
+        self.l.setFont(0, gFont("Regular", 22))
+        self.l.setFont(1, gFont("Regular", 18))
+        self.l.setItemHeight(44)
+        self.l.setBuildFunc(self.buildMovieListEntry)
+        
+        self.onSelectionChanged = [ ]
+
+    def connectSelChanged(self, fnc):
+        if not fnc in self.onSelectionChanged:
+            self.onSelectionChanged.append(fnc)
+
+    def disconnectSelChanged(self, fnc):
+        if fnc in self.onSelectionChanged:
+            self.onSelectionChanged.remove(fnc)
+
+    def selectionChanged(self):
+        for x in self.onSelectionChanged:
+            x()
+
+    def buildMovieListEntry(self, serviceref, info, begin, length):
+        res = [ None ]
+        width = self.l.getItemSize().width()
+        width_up_r = 200
+        width_up_l = width - width_up_r
+        width_dn_r = width / 2
+        width_dn_l = width - width_dn_r
+        pos_up_r = width - width_up_r 
+        pos_dn_r = width - width_dn_r
+        begin_string = self.getBeginString(serviceref)
+        description = serviceref.getShortDescription()
+        service_info = "%d MB - %s" % (getServiceSize(serviceref.getPath()) / (1024 * 1024), begin_string)
+        res.append(MultiContentEntryText(pos=(0, 0), size=(width_up_l, 30), font=0, flags=RT_HALIGN_LEFT, text=serviceref.getName()))
+        res.append(MultiContentEntryText(pos=(0, 22), size=(width_dn_l, 30), font=1, flags=RT_HALIGN_LEFT, text=os.path.dirname(serviceref.getPath())))
+        res.append(MultiContentEntryText(pos=(pos_up_r, 4), size=(width_up_r, 22), font=1, flags=RT_HALIGN_RIGHT, text=description))
+        res.append(MultiContentEntryText(pos=(pos_dn_r, 22), size=(width_dn_r, 22), font=1, flags=RT_HALIGN_RIGHT, text=service_info))
+        return res
+
+    def moveToIndex(self, index):
+        self.instance.moveSelectionTo(index)
+
+    def getCurrentIndex(self):
+        return self.instance.getCurrentIndex()
+
+    def getCurrentEvent(self):
+        l = self.l.getCurrentSelection()
+        return l and l[0] and l[1] and l[1].getEvent(l[0])
+
+    def getCurrent(self):
+        l = self.l.getCurrentSelection()
+        return l and l[0]
+
+    GUI_WIDGET = eListbox
+
+    def postWidgetCreate(self, instance):
+        instance.setContent(self.l)
+        instance.selectionChanged.get().append(self.selectionChanged)
+
+    def preWidgetRemove(self, instance):
+        instance.setContent(None)
+        instance.selectionChanged.get().remove(self.selectionChanged)
+
+    def load(self, root):
         self.list = [ ]
-        self.serviceHandler = ServiceCenter.getInstance()
+        if not root:
+            return
+        #self.serviceHandler = ServiceCenter.getInstance()
         if config.AdvancedMovieSelection.wastelist_buildtype.value == 'listMovies':
             trash = Trashcan.listMovies(root.getPath())
         if config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMovies':
@@ -52,11 +127,46 @@ class TrashList(MovieList):
         if config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMoviesMedia':
             trash = Trashcan.listAllMovies("/media")
         for service in trash:
-            info = self.serviceHandler.info(service)
-            self.list.append((service, info, -1, -1))
+            #info = self.serviceHandler.info(service)
+            self.list.append((service, None, -1, -1))
+
+    def reload(self, root=None):
+        self.load(root)
+        self.l.setList(self.list)
+
+    def removeService(self, service):
+        for l in self.list[:]:
+            if l[0] == service:
+                self.list.remove(l)
+        self.l.setList(self.list)
+
+    def __len__(self):
+        return len(self.list)
+
+    def moveTo(self, serviceref):
+        count = 0
+        for x in self.list:
+            if x[0] == serviceref:
+                self.instance.moveSelectionTo(count)
+                return True
+            count += 1
+        return False
+    
+    def moveDown(self):
+        self.instance.moveSelection(self.instance.moveDown)
+
+    def getBeginString(self, serviceref):
+        dvd_path = detectDVDStructure(serviceref.getPath() + "/")
+        if dvd_path:
+            begin = long(os.stat(dvd_path).st_mtime)
+        else:
+            begin = long(os.stat(serviceref.getPath()).st_mtime)
+        d = datetime.fromtimestamp(begin)
+        return d.strftime("%d.%m.%Y %H:%M")
+
 
 class Wastebasket(Screen):
-    def __init__(self, session, selectedmovie=None):
+    def __init__(self, session):
         Screen.__init__(self, session)
         try:
             sz_w = getDesktop(0).size().width()
@@ -70,14 +180,16 @@ class Wastebasket(Screen):
             self.skinName = ["AdvancedMovieSelectionTrashSD"]
         self.delayTimer = eTimer()
         self.delayTimer.callback.append(self.updateHDDData)
-        self.current_ref = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + config.movielist.last_videodir.value)  
+        self.deleteTimer = eTimer()
+        self.deleteTimer.callback.append(self.deleteAllMovies)
+        self.current_ref = eServiceReferenceTrash(config.movielist.last_videodir.value)  
         self["ColorActions"] = HelpableActionMap(self, "ColorActions",
         {
             "red": (self.canDelete, _("Delete selected movie")),
             "green": (self.restore, _("Restore movie")),
             "yellow": (self.canDeleteAll, _("Empty wastbasket")),
         })
-        self["key_red"] = Button(_("Empty Trash (single)"))
+        self["key_red"] = Button(_("Delete movie"))
         self["key_green"] = Button(_("Restore movie"))
         self["key_yellow"] = Button(_("Empty Trash"))
         self["key_blue"] = Button()
@@ -85,16 +197,12 @@ class Wastebasket(Screen):
         self["freeDiskSpace"] = self.diskinfo = DiskInfo(config.movielist.last_videodir.value, DiskInfo.FREE, update=False)
         self["location"] = Label()
         self["warning"] = Label()
-        self["list"] = TrashList(None,
-            config.movielist.listtype.value,
-            config.movielist.showdate.value)
+        self["list"] = TrashMovieList(None)
         self.list = self["list"]
         self["OkCancelActions"] = HelpableActionMap(self, "OkCancelActions",
             {
                 "cancel": (self.abort, _("Exit wastebasket"))
             })
-        self.selectedmovie = selectedmovie
-        self.onShown.append(self.go)
         self.inited = False
         self.onShown.append(self.setWindowTitle)
 
@@ -102,29 +210,28 @@ class Wastebasket(Screen):
         self.setTitle(_("Advanced Movie Selection - Wastebasket"))
         if not config.AdvancedMovieSelection.askdelete.value:
             self["warning"].setText(_("ATTENTION: Ask before delete ist disabled!"))
-
-    def go(self):
         if not self.inited:
-        # ouch. this should redraw our "Please wait..."-text.
-        # this is of course not the right way to do this.
-            self.delayTimer.start(10, 1)
+            self.delayTimer.start(0, 1)
             self.inited = True
 
     def updateHDDData(self):
-        self.reloadList(self.selectedmovie)
-        self["waitingtext"].visible = False
+        self.reloadList(self.current_ref)
+        self["waitingtext"].hide()
 
     def reloadList(self, sel=None, home=False):
         if not fileExists(config.movielist.last_videodir.value):
             path = defaultMoviePath()
             config.movielist.last_videodir.value = path
             config.movielist.last_videodir.save()
-            self.current_ref = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + path)
+            self.current_ref = eServiceReferenceTrash(path)
             self["freeDiskSpace"].path = path
         if sel is None:
             sel = self.getCurrent()
         self["list"].reload(self.current_ref)
-        title = (_("Wastebasket: %s") % (config.movielist.last_videodir.value))
+        if config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMoviesMedia':
+            title = _("Wastebasket: %s") % ("/media")
+        else:
+            title = _("Wastebasket: %s") % (config.movielist.last_videodir.value)
         self["location"].setText(title)
         if not (sel and self["list"].moveTo(sel)):
             if home:
@@ -171,6 +278,12 @@ class Wastebasket(Screen):
     def deleteAll(self, confirmed):
         if not confirmed:
             return
+        self["list"].hide()
+        self["waitingtext"].setText(_("Deleting in progress! Please wait..."))
+        self["waitingtext"].show()
+        self.deleteTimer.start(0, 1)
+
+    def deleteAllMovies(self):
         deleted = []
         try:
             for x in self.list.list:
@@ -182,6 +295,8 @@ class Wastebasket(Screen):
             self.session.open(MessageBox, _("Delete failed!"), MessageBox.TYPE_ERROR)
         for service in deleted:
             self["list"].removeService(service)
+        self["waitingtext"].hide()
+        self["list"].show()
         
     def restore(self):
         try:

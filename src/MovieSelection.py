@@ -127,7 +127,7 @@ class MovieContextMenu(Screen):
             menu.append((_("Mark movie as seen"), boundFunction(self.setMovieStatus, 1)))
             menu.append((_("Mark movie as unseen"), boundFunction(self.setMovieStatus, 0)))
         if GP3Present and config.AdvancedMovieSelection.marknewicon.value and not (self.service.flags & eServiceReference.mustDescent):
-            menu.append((_("Mark movie with new recordings icon"), boundFunction(self.marknewicon, service)))
+            menu.append((_("Mark movie with new recordings icon"), boundFunction(self.marknewicon)))
         if config.AdvancedMovieSelection.showrename.value:
             menu.append((_("Rename"), boundFunction(self.retitel, session, service)))
         if config.AdvancedMovieSelection.pluginmenu_list.value:
@@ -230,19 +230,9 @@ class MovieContextMenu(Screen):
         from Wastebasket import Wastebasket
         self.session.openWithCallback(self.closeafterfinish, Wastebasket)
 
-    def marknewicon(self, service):
-        moviename = self.service.getPath() 
-        if moviename.endswith(".ts"):
-            movietitle = moviename + ".gm"
-            filehandle = open(movietitle,"w")
-            filehandle.write(movietitle)
-            filehandle.close
-            self.close() 
-        else:
-            if config.AdvancedMovieSelection.askdelete.value:
-                self.session.openWithCallback(self.close, MessageBox, _("Only Dreambox recordings ar possible to mark with new recordings icon !"), MessageBox.TYPE_INFO)
-            else:
-                self.close()
+    def marknewicon(self):
+        self.csel.marknewicon()
+        self.close() 
                
     def showTrailer(self):
         if YTTrailerPresent == True:
@@ -313,7 +303,7 @@ class MovieContextMenu(Screen):
     def setMovieStatus(self, status):
         self.csel.setMovieStatus(status)
         if config.AdvancedMovieSelection.shownew2.value and status == 0:
-            self.marknewicon(service=self.service)
+            self.marknewicon()
         self.close()
 
     def okbuttonClick(self):
@@ -894,9 +884,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             filehandle = open(movietitle,"w")
             filehandle.write(movietitle)
             filehandle.close()
-        else:
-            if config.AdvancedMovieSelection.showinfo.value:
-                self.session.open(MessageBox, _("Only Dreambox recordings ar possible to mark with new recordings icon !"), MessageBox.TYPE_INFO)
 
     def movieSelected(self):
         current = self.getCurrent()

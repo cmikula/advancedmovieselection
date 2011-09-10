@@ -25,14 +25,13 @@ For example, if you distribute copies of such a program, whether gratis or for a
 must pass on to the recipients the same freedoms that you received. You must make sure 
 that they, too, receive or can get the source code. And you must show them these terms so they know their rights.
 '''
-from enigma import eServiceReference
 import os, glob, shutil
 
 TRASH_NAME = ".trash"
+TRASH_EXCLUDE = ("DUMBO", "TIMOTHY", "swap", "ram", "ba")
 
-class eServiceReferenceTrash(eServiceReference):
+class eServiceReferenceTrash():
     def __init__(self, path):
-        eServiceReference.__init__(self, "4097:0:0:0:0:0:0:0:0:0:" + path)
         self.path = path
         p = path.replace(TRASH_NAME, "")
         if(p.endswith(".ts")):
@@ -43,9 +42,11 @@ class eServiceReferenceTrash(eServiceReference):
             file = open(meta_path, "r")
             file.readline()
             self.setName(file.readline().rstrip("\r\n"))
+            self.short_description = file.readline().rstrip("\r\n")
             file.close()
         else:
             self.setName(os.path.basename(p))
+            self.short_description = ""
 
     def setName(self, name):
         self.name = name
@@ -59,11 +60,20 @@ class eServiceReferenceTrash(eServiceReference):
     def getPath(self):
         return self.path
     
+    def getShortDescription(self):
+        return self.short_description
+    
 class Trashcan:
     @staticmethod
     def listAllMovies(root):
         list = []
         for (path, dirs, files) in os.walk(root):
+            # Skip excluded directories here
+            sp = path.split("/")
+            if len(sp) > 2:
+                if sp[2] in TRASH_EXCLUDE:
+                    continue
+                     
             # This path detection is only for trashed DVD structures
             if path.endswith(TRASH_NAME):
                 service = eServiceReferenceTrash(path)

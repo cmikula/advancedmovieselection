@@ -29,7 +29,6 @@ from Tools.Directories import fileExists
 from EventInformationTable import EventInformationTable
 from Components.config import config
 from Screens.InfoBarGenerics import InfoBarCueSheetSupport
-from Trashcan import eServiceReferenceTrash
 import struct
 import os
 
@@ -181,13 +180,8 @@ class ServiceInfo:
 		self.tags = ""
 		try:
 			try:
-				if isinstance(serviceref, eServiceReferenceTrash):
-					self.name = serviceref.getName()
-					self.description = serviceref.getPath()
-					return
-				else: 
-					meta_path = serviceref.getPath() + ".ts.meta"
-					checkCreateMetaFile(serviceref)
+				meta_path = serviceref.getPath() + ".ts.meta"
+				checkCreateMetaFile(serviceref)
 			except Exception, e:
 				print e
 				if os.path.isfile(serviceref.getPath()):
