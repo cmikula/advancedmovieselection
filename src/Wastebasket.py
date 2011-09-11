@@ -56,7 +56,7 @@ class TrashMovieList(GUIComponent):
         
         self.l.setFont(0, gFont("Regular", 22))
         self.l.setFont(1, gFont("Regular", 18))
-        self.l.setItemHeight(44)
+        self.l.setItemHeight(50)
         self.l.setBuildFunc(self.buildMovieListEntry)
         
         self.onSelectionChanged = [ ]
@@ -76,7 +76,7 @@ class TrashMovieList(GUIComponent):
     def buildMovieListEntry(self, serviceref, info, begin, length):
         res = [ None ]
         width = self.l.getItemSize().width()
-        width_up_r = 200
+        width_up_r = 350
         width_up_l = width - width_up_r
         width_dn_r = width / 2
         width_dn_l = width - width_dn_r
@@ -85,10 +85,10 @@ class TrashMovieList(GUIComponent):
         begin_string = self.getBeginString(serviceref)
         description = serviceref.getShortDescription()
         service_info = "%d MB - %s" % (getServiceSize(serviceref.getPath()) / (1024 * 1024), begin_string)
-        res.append(MultiContentEntryText(pos=(0, 0), size=(width_up_l, 30), font=0, flags=RT_HALIGN_LEFT, text=serviceref.getName()))
-        res.append(MultiContentEntryText(pos=(0, 22), size=(width_dn_l, 30), font=1, flags=RT_HALIGN_LEFT, text=os.path.dirname(serviceref.getPath())))
-        res.append(MultiContentEntryText(pos=(pos_up_r, 4), size=(width_up_r, 22), font=1, flags=RT_HALIGN_RIGHT, text=description))
-        res.append(MultiContentEntryText(pos=(pos_dn_r, 22), size=(width_dn_r, 22), font=1, flags=RT_HALIGN_RIGHT, text=service_info))
+        res.append(MultiContentEntryText(pos=(5, 3), size=(width_up_l, 30), font=0, flags=RT_HALIGN_LEFT, text=serviceref.getName()))
+        res.append(MultiContentEntryText(pos=(5, 28), size=(width_dn_l, 30), font=1, flags=RT_HALIGN_LEFT, text=os.path.dirname(serviceref.getPath())))
+        res.append(MultiContentEntryText(pos=(pos_up_r, 3), size=(width_up_r, 22), font=1, flags=RT_HALIGN_RIGHT, text=description))
+        res.append(MultiContentEntryText(pos=(pos_dn_r, 28), size=(width_dn_r, 22), font=1, flags=RT_HALIGN_RIGHT, text=service_info))
         return res
 
     def moveToIndex(self, index):
