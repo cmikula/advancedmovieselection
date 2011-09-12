@@ -235,7 +235,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.SeekbarSensibility = getConfigListEntry(_("Manual jump sensibility:"), config.AdvancedMovieSelection.sensibility)    
         self.UseWastebasket = getConfigListEntry(_("Use wastebasket:"), config.AdvancedMovieSelection.use_wastebasket)  
         self.WastelistBuildType = getConfigListEntry(_("Wastebasket file(s):"), config.AdvancedMovieSelection.wastelist_buildtype)
-        self.StopBeforeEndTime = getConfigListEntry(_("Start at the beginning depends on end:"), config.AdvancedMovieSelection.stop_before_end_time)
+        self.StopBeforeEndTime = getConfigListEntry(_("Start at the beginning depends on end (in Minutes):"), config.AdvancedMovieSelection.stop_before_end_time)
   
         self.list.append(self.OnOff)
         self.list.append(self.Startwith)
@@ -447,6 +447,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self["help"].setText(_("If this option is activated the movie will not be deleted but moved into the wastebasket."))
         elif current == self.WastelistBuildType:
             self["help"].setText(_("Here you can select which files to Wastebasket are displayed. ATTENTION: All directorys below '/media' will take very long until the list is displayed!"))
+        elif current == self.StopBeforeEndTime:
+            self["help"].setText(_("Here you can set off when a movie to play automatically from the beginning when you start again."))
 
     def pluginsavailable(self):
         if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
