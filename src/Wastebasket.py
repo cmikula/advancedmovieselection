@@ -295,8 +295,9 @@ class Wastebasket(Screen):
             self.session.open(MessageBox, _("Delete failed!"), MessageBox.TYPE_ERROR)
         for service in deleted:
             self["list"].removeService(service)
-        self["waitingtext"].hide()
-        self["list"].show()
+        #self["waitingtext"].hide()
+        #self["list"].show()
+        self.close()
         
     def restore(self):
         try:
