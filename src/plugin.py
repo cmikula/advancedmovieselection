@@ -161,6 +161,7 @@ config.AdvancedMovieSelection.movieplayer_infobar_position_offset_x = ConfigInte
 config.AdvancedMovieSelection.movieplayer_infobar_position_offset_y = ConfigInteger(default=0)
 config.AdvancedMovieSelection.show_infobar_position = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.show_bookmarks = ConfigYesNo(default=True)
+config.AdvancedMovieSelection.stop_before_end_time = ConfigInteger(default=5, limits=(0, 30))
 
 PlayerInstance = None
 

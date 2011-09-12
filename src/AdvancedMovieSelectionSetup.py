@@ -80,30 +80,6 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.skinName = ["AdvancedMovieSelectionSetupXD"]
         else:
             self.skinName = ["AdvancedMovieSelectionSetupSD"]
-        self.OnOff = None
-        self.Startwith = None
-        self.StartDir = None
-        self.StartFirst = None
-        self.ShowMenu = None
-        self.ShowSetup = None
-        self.Showextras = None
-        self.ShowSort = None
-        self.ShowMark = None
-        self.ShowDel = None
-        self.ShowMove = None
-        self.ShowSearch = None
-        self.ShowPreview = None
-        self.Coversize = None
-        self.ShowDelInfoCover = None
-        self.ShowDelCover = None
-        self.ShowDelInfo = None
-        self.ShowRename = None
-        self.ShowTMDb = None
-        self.AskDelete = None
-        self.Percentmark = None
-        self.ShowListstyle = None
-        self.MovieLength = None
-        self.AskEventinfo = None
         self.Eventinfotyp = None
         self.Eventinfotyp2 = None
         self.Eventinfotyp3 = None
@@ -111,35 +87,6 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.Eventinfotyp5 = None
         self.Eventinfotyp6 = None
         self.Eventinfotyp7 = None
-        self.ShowColorkeys = None
-        self.ShowCoverOptions = None
-        self.MovieStart = None
-        self.MovieStop = None
-        self.MovieEnd = None
-        self.ShowMoviebarPosition = None
-        self.Color1 = None
-        self.Color2 = None
-        self.Color3 = None
-        self.Dateformat = None
-        self.Shownew = None
-        self.Shownew2 = None
-        self.MiniTV = None
-        self.UseFolderName = None
-        self.Jump2Mark = None
-        self.ShowMovieTagsinMenu = None
-        self.ShowFilterbyTags = None
-        self.ShowTrailer = None
-        self.Exitkey = None
-        self.Exitprompt = None
-        self.ShowCoverOptions2 = None
-        self.ShowBookmarks = None
-        self.MarkNewIcon = None
-        self.ShowInfos = None
-        self.UseSeekbar = None
-        self.SeekbarButtons = None
-        self.SeekbarSensibility = None
-        self.UseWastebasket = None
-        self.WastelistBuildType = None
         self.needsRestartFlag = False
         self.needsReopenFlag = False
         self["setupActions"] = ActionMap(["ColorActions", "OkCancelActions", "MenuActions", "EPGSelectActions"],
@@ -287,7 +234,9 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.SeekbarButtons = getConfigListEntry(_("Change function from left/right buttons:"), config.AdvancedMovieSelection.overwrite_left_right)
         self.SeekbarSensibility = getConfigListEntry(_("Manual jump sensibility:"), config.AdvancedMovieSelection.sensibility)    
         self.UseWastebasket = getConfigListEntry(_("Use wastebasket:"), config.AdvancedMovieSelection.use_wastebasket)  
-        self.WastelistBuildType = getConfigListEntry(_("Wastebasket file(s):"), config.AdvancedMovieSelection.wastelist_buildtype)  
+        self.WastelistBuildType = getConfigListEntry(_("Wastebasket file(s):"), config.AdvancedMovieSelection.wastelist_buildtype)
+        self.StopBeforeEndTime = getConfigListEntry(_("Start at the beginning depends on end:"), config.AdvancedMovieSelection.stop_before_end_time)
+  
         self.list.append(self.OnOff)
         self.list.append(self.Startwith)
         self.list.append(self.StartDir)
@@ -372,6 +321,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append(self.UseWastebasket)
         if config.AdvancedMovieSelection.use_wastebasket.value:
             self.list.append(self.WastelistBuildType)
+        self.list.append(self.StopBeforeEndTime)
         self["config"].list = self.list
         self["config"].l.setList(self.list)
         if not self.selectionChanged in self["config"].onSelectionChanged:

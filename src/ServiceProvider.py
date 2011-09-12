@@ -375,6 +375,13 @@ class CutListSupport:
 			
 			if config.usage.on_movie_start.value == "beginning" or config.usage.on_movie_start.value == "ask" and config.AdvancedMovieSelection.jump_first_mark.value == True:
 				self.jumpToFirstMark()
+			stop_before_end_time = int(config.AdvancedMovieSelection.stop_before_end_time.value) 
+			if stop_before_end_time > 0:
+				pos = self.getCuePositions()
+				if ((pos[0] - pos[1])/60) < stop_before_end_time:
+					self.ENABLE_RESUME_SUPPORT = False
+				else:
+					self.ENABLE_RESUME_SUPPORT = True
 
 		except Exception, e:
 			print "DownloadCutList exception:\n" + str(e)
@@ -402,20 +409,34 @@ class CutListSupport:
 			inList = False
 			endInList = False
 			for index, item in enumerate(self.cut_list):
-				if item[1] == InfoBarCueSheetSupport.CUT_TYPE_LAST:
-					self.cut_list[index] = (stopPosition, InfoBarCueSheetSupport.CUT_TYPE_LAST)
+				if item[1] == self.CUT_TYPE_LAST:
+					self.cut_list[index] = (stopPosition, self.CUT_TYPE_LAST)
 					inList = True
-				if item[1] == InfoBarCueSheetSupport.CUT_TYPE_OUT:
-					self.cut_list[index] = (length, InfoBarCueSheetSupport.CUT_TYPE_OUT)
+				if item[1] == self.CUT_TYPE_OUT:
+					self.cut_list[index] = (length, self.CUT_TYPE_OUT)
 					endInList = True
 			if not inList:
-				self.cut_list.append((stopPosition, InfoBarCueSheetSupport.CUT_TYPE_LAST))
+				self.cut_list.append((stopPosition, self.CUT_TYPE_LAST))
 			if not endInList:
-				self.cut_list.append((length, InfoBarCueSheetSupport.CUT_TYPE_OUT))
+				self.cut_list.append((length, self.CUT_TYPE_OUT))
 		else:
-			self.cut_list = [(stopPosition, InfoBarCueSheetSupport.CUT_TYPE_LAST)]
-			self.cut_list.append((length, InfoBarCueSheetSupport.CUT_TYPE_OUT))
+			self.cut_list = [(stopPosition, self.CUT_TYPE_LAST)]
+			self.cut_list.append((length, self.CUT_TYPE_OUT))
 		
+	def getCuePositions(self):
+		length = 0
+		last_pos = 0
+		for (pts, what) in self.cut_list:
+			if what == 1 == self.CUT_TYPE_OUT:
+				length = pts / 90000
+			if what == self.CUT_TYPE_LAST:
+				last_pos = pts / 90000
+		if length == 0:
+			info = ServiceCenter.getInstance().info(self.currentService)
+			if info:
+				length = info.getLength(self.currentService)
+		return [length, last_pos]
+
 	def addPlayerEvents(self):
 		try:
 			self.onClose.insert(0, self.playerClosed)
@@ -448,8 +469,7 @@ class CutListSupport:
 				if firstMark == None or current_pos < firstMark:
 					break
 		if firstMark is not None:
-			self.start_point = firstMark
-			self.doSeek(self.start_point)
+			self.doSeek(firstMark)
 
 	def playLastCB(self, answer):
 		if answer == False and config.AdvancedMovieSelection.jump_first_mark.value == True:
