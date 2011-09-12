@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-09-11 11:24+0100\n"
-"PO-Revision-Date: 2011-09-11 11:29+0100\n"
+"POT-Creation-Date: 2011-09-12 17:06+0100\n"
+"PO-Revision-Date: 2011-09-12 17:08+0100\n"
 "Last-Translator: JackDanie <JackDaniel@i-have-a-dreambox.com>\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
@@ -2112,15 +2112,35 @@ msgstr "Erweiterte Filmauswahl - Papierkorb "
 msgid "Wastebasket: %s"
 msgstr "Papierkorb: %s"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Wastebasket.py:262
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Wastebasket.py:264
+msgid ""
+"Recording(s) are in progress or coming up in few seconds!\n"
+"Now movie delete can damage the recording(s)!\n"
+"Realy delete movie ?"
+msgstr ""
+"Zurzeit sind Aufnahmen aktiv oder starten gleich !\n"
+"Das löschen des Filmes kann die Aufnahme beschädigen !\n"
+"Wollen Sie nun wirklich den Film löschen ?"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Wastebasket.py:273
 msgid "Do you really want to delete all movies?"
 msgstr "Wollen Sie wirklich alle Filme löschen ?"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Wastebasket.py:282
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Wastebasket.py:296
+msgid ""
+"Recording(s) are in progress or coming up in few seconds!\n"
+"Now empty the Wastebasket can damage the recording(s)!\n"
+"Realy empty the Wastbasket?"
+msgstr ""
+"Zurzeit sind Aufnahmen aktiv oder starten gleich !\n"
+"Das leeren des Papierkorbes kann die Aufnahme beschädigen !\n"
+"Wollen Sie nun wirklich den Papierkorb leeren ?"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Wastebasket.py:304
 msgid "Deleting in progress! Please wait..."
 msgstr "Papierkorb leeren wird durchgeführt, bitte warten ..."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Wastebasket.py:308
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Wastebasket.py:331
 msgid "Restore failed!"
 msgstr "Wiederherstellen fehlgeschlagen !"
 

@@ -45,6 +45,7 @@ from Components.MultiContent import MultiContentEntryText
 from datetime import datetime
 from Tools.Directories import getSize as getServiceSize
 import os
+from time import time
 
 class TrashMovieList(GUIComponent):
     def __init__(self, root):
@@ -250,7 +251,19 @@ class Wastebasket(Screen):
         if not self.service:
             return
         if config.AdvancedMovieSelection.askdelete.value:
-            self.session.openWithCallback(self.delete, MessageBox, _("Do you really want to delete %s?") % (self.service.getName()))
+            self.session.openWithCallback(self.canDeleteCheckRecord, MessageBox, _("Do you really want to delete %s?") % (self.service.getName()))
+#            self.session.openWithCallback(self.delete, MessageBox, _("Do you really want to delete %s?") % (self.service.getName()))
+        else:
+            self.canDeleteCheckRecord()
+#            self.delete(True)
+
+    def canDeleteCheckRecord(self):
+        recordings = self.session.nav.getRecordings()
+        next_rec_time = -1
+        if not recordings:
+            next_rec_time = self.session.nav.RecordTimer.getNextRecordingTime()	
+        if config.movielist.last_videodir.value == "/hdd/movie/" and recordings or (next_rec_time > 0 and (next_rec_time - time()) < 360):
+            self.session.openWithCallback(self.delete, MessageBox, _("Recording(s) are in progress or coming up in few seconds!\nNow movie delete can damage the recording(s)!\nRealy delete movie ?"))
         else:
             self.delete(True)
 
@@ -259,9 +272,11 @@ class Wastebasket(Screen):
         if not self.service:
             return
         if config.AdvancedMovieSelection.askdelete.value:
-            self.session.openWithCallback(self.deleteAll, MessageBox, _("Do you really want to delete all movies?"))
+            self.session.openWithCallback(self.deleteAllcheckRecord, MessageBox, _("Do you really want to delete all movies?"))
+#            self.session.openWithCallback(self.deleteAll, MessageBox, _("Do you really want to delete all movies?"))
         else:
-            self.deleteAll(True)
+            self.deleteAllcheckRecord()
+#            self.deleteAll(True)
 
     def delete(self, confirmed):
         if not confirmed:
@@ -274,6 +289,16 @@ class Wastebasket(Screen):
             return
         
         self["list"].removeService(self.service)
+
+    def deleteAllcheckRecord(self):
+        recordings = self.session.nav.getRecordings()
+        next_rec_time = -1
+        if not recordings:
+            next_rec_time = self.session.nav.RecordTimer.getNextRecordingTime()	
+        if config.movielist.last_videodir.value == "/hdd/movie/" and recordings or (next_rec_time > 0 and (next_rec_time - time()) < 360):
+            self.session.openWithCallback(self.deleteAll, MessageBox, _("Recording(s) are in progress or coming up in few seconds!\nNow empty the Wastebasket can damage the recording(s)!\nRealy empty the Wastbasket?"))
+        else:
+            self.deleteAll(True)
 
     def deleteAll(self, confirmed):
         if not confirmed:
