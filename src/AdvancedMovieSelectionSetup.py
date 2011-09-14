@@ -30,17 +30,16 @@ from Plugins.Plugin import PluginDescriptor
 from Components.config import config, ConfigSelection, getConfigListEntry, configfile
 from Components.Sources.StaticText import StaticText
 from Components.Button import Button
-from Components.ConfigList import ConfigListScreen
+from Components.ConfigList import ConfigListScreen, ConfigList
 from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Screens.LocationBox import MovieLocationBox
 from Components.UsageConfig import preferredPath
 from Screens.MessageBox import MessageBox
 from MessageBoxEx import MessageBoxEx
 from Components.Sources.List import List
-from Components.ActionMap import ActionMap
+from Components.ActionMap import ActionMap, NumberActionMap
 from enigma import getDesktop, quitMainloop
 from Tools.Directories import fileExists
-import os
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
     IMDbPresent = True
@@ -67,6 +66,62 @@ if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/pipzap/plugin.pyo"):
 else:
     PiPZapPresent=False
 
+class ConfigListEx(ConfigList):
+    def __init__(self, list, session=None):
+        ConfigList.__init__(self, list, session=session)
+    
+    def selectionChanged(self):
+        if isinstance(self.current,tuple) and len(self.current) >= 2:
+            self.current[1].onDeselect(self.session)
+        self.current = self.getCurrent()
+        if isinstance(self.current,tuple) and len(self.current) >= 2:
+            self.current[1].onSelect(self.session)
+        else:
+            return
+        for x in self.onSelectionChanged:
+            x()
+
+class ConfigListScreen(ConfigListScreen):
+    def __init__(self, list, session = None, on_change = None):
+        self["config_actions"] = NumberActionMap(["SetupActions", "InputAsciiActions", "KeyboardInputActions"],
+        {
+            "gotAsciiCode": self.keyGotAscii,
+            "ok": self.keyOK,
+            "left": self.keyLeft,
+            "right": self.keyRight,
+            "home": self.keyHome,
+            "end": self.keyEnd,
+            "deleteForward": self.keyDelete,
+            "deleteBackward": self.keyBackspace,
+            "toggleOverwrite": self.keyToggleOW,
+            "1": self.keyNumberGlobal,
+            "2": self.keyNumberGlobal,
+            "3": self.keyNumberGlobal,
+            "4": self.keyNumberGlobal,
+            "5": self.keyNumberGlobal,
+            "6": self.keyNumberGlobal,
+            "7": self.keyNumberGlobal,
+            "8": self.keyNumberGlobal,
+            "9": self.keyNumberGlobal,
+            "0": self.keyNumberGlobal
+        }, -1) # to prevent left/right overriding the listbox
+
+        self["VirtualKB"] = ActionMap(["VirtualKeyboardActions"],
+        {
+            "showVirtualKeyboard": self.KeyText,
+        }, -2)
+        self["VirtualKB"].setEnabled(False)
+        
+        self["config"] = ConfigListEx(list, session = session)
+        
+        if on_change is not None:
+            self.__changed = on_change
+        else:
+            self.__changed = lambda: None
+        
+        if not self.handleInputHelpers in self["config"].onSelectionChanged:
+            self["config"].onSelectionChanged.append(self.handleInputHelpers)
+
 class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
     def __init__(self, session):
         Screen.__init__(self, session)
@@ -80,13 +135,6 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.skinName = ["AdvancedMovieSelectionSetupXD"]
         else:
             self.skinName = ["AdvancedMovieSelectionSetupSD"]
-        self.Eventinfotyp = None
-        self.Eventinfotyp2 = None
-        self.Eventinfotyp3 = None
-        self.Eventinfotyp4 = None
-        self.Eventinfotyp5 = None
-        self.Eventinfotyp6 = None
-        self.Eventinfotyp7 = None
         self.needsRestartFlag = False
         self.needsReopenFlag = False
         self["setupActions"] = ActionMap(["ColorActions", "OkCancelActions", "MenuActions", "EPGSelectActions"],
@@ -99,8 +147,11 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             "blue":     self.RecPathSettings,
             "info":     self.about,
         }, -2)
-        self.list = []
+        self.list = [ ]
         ConfigListScreen.__init__(self, self.list, session=self.session)
+        if not self.showHelp in self["config"].onSelectionChanged:
+            self["config"].onSelectionChanged.append(self.showHelp)
+        self.createSetup()
         self["key_red"] = StaticText(_("Close"))
         self["key_green"] = StaticText(_("Save"))
         self["key_yellow"] = StaticText(_("Color key settings"))
@@ -111,7 +162,6 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self["IMDbtxt"] = StaticText("")
         self["OFDbtxt"] = StaticText("")
         self.onShown.append(self.setWindowTitle)
-        self.createSetup()
         self.pluginsavailable()
 
     def setWindowTitle(self):
@@ -163,293 +213,91 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
 
     def createSetup(self):
         self.list = []
-        self.OnOff = getConfigListEntry(_("Disable Advanced Movie Selection:"), config.AdvancedMovieSelection.ml_disable)
-        self.Startwith = getConfigListEntry(_("Start Advanced Movie Selection with:"), config.AdvancedMovieSelection.movie_launch)
-        self.StartDir = getConfigListEntry(_("Start on last movie location:"), config.AdvancedMovieSelection.startdir)
-        self.StartFirst = getConfigListEntry(_("Start on first position in movielist:"), config.AdvancedMovieSelection.startonfirst)
-        self.ShowMenu = getConfigListEntry(_("Show plugin config in extensions menu from movielist:"), config.AdvancedMovieSelection.showmenu)
-        self.ShowColorkeys = getConfigListEntry(_("Show color key setup in extensions menu from movielist:"), config.AdvancedMovieSelection.showcolorkey)
-        self.ShowSetup = getConfigListEntry(_("Show movie plugins in extensions menu from movielist:"), config.AdvancedMovieSelection.pluginmenu_list)
-        self.Showextras = getConfigListEntry(_("Show list options in extensions menu from movielist:"), config.AdvancedMovieSelection.showextras)
-        self.ShowSort = getConfigListEntry(_("Show sort options in extensions menu from movielist:"), config.AdvancedMovieSelection.showsort)
-        self.ShowListstyle = getConfigListEntry(_("Show list styles in extensions menu from movielist:"), config.AdvancedMovieSelection.showliststyle)
-        self.ShowMark = getConfigListEntry(_("Show mark movie in extensions menu from movielist:"), config.AdvancedMovieSelection.showmark)
-        self.ShowDel = getConfigListEntry(_("Show delete option in extensions menu from movielist:"), config.AdvancedMovieSelection.showdelete)
-        self.ShowMove = getConfigListEntry(_("Show move/copy option in extensions menu from movielist:"), config.AdvancedMovieSelection.showmove)
-        self.ShowSearch = getConfigListEntry(_("Show movie search in extensions menu from movielist:"), config.AdvancedMovieSelection.showsearch)
-        self.ShowPreview = getConfigListEntry(_("Show covers in movielist:"), config.AdvancedMovieSelection.showpreview)
-        self.Coversize = getConfigListEntry(_("Set coversize:"), config.AdvancedMovieSelection.coversize)
-        self.ShowCoverOptions = getConfigListEntry(_("Show D/L and store info/cover in movielist extensions menu:"), config.AdvancedMovieSelection.showcoveroptions)
-        self.ShowCoverOptions2 = getConfigListEntry(_("Show D/L and store ALL info/cover in movielist extensions menu:"), config.AdvancedMovieSelection.showcoveroptions2)
-        self.ShowDelInfoCover = getConfigListEntry(_("Show delete info and cover in extensions menu from movielist:"), config.AdvancedMovieSelection.show_info_cover_del)
-        self.ShowDelCover = getConfigListEntry(_("Show delete cover in extensions menu from movielist:"), config.AdvancedMovieSelection.show_cover_del)
-        self.ShowDelInfo = getConfigListEntry(_("Show delete movie info in extensions menu from movielist:"), config.AdvancedMovieSelection.show_info_del)      
-        self.ShowRename = getConfigListEntry(_("Show rename in extensions menu from movielist:"), config.AdvancedMovieSelection.showrename)
-        self.ShowTMDb = getConfigListEntry(_("Show TMDb search in extensions menu from movielist:"), config.AdvancedMovieSelection.showtmdb)
-        self.Jump2Mark = getConfigListEntry(_("Jump to first mark when starts playing movie:"), config.AdvancedMovieSelection.jump_first_mark)
-        self.ShowMovieTagsinMenu = getConfigListEntry(_("Show movie tags in extensions menu from movielist:"), config.AdvancedMovieSelection.showmovietagsinmenu)
-        self.ShowFilterbyTags = getConfigListEntry(_("Show filter by tags in extensions menu from movielist:"), config.AdvancedMovieSelection.showfiltertags)
-        self.ShowTrailer = getConfigListEntry(_("Show search trailer on web in extensions menu from movielist:"), config.AdvancedMovieSelection.showtrailer)
-        self.MovieLength = getConfigListEntry(_("Load Length of Movies in Movielist:"), config.usage.load_length_of_movies_in_moviellist)
-        self.Percentmark = getConfigListEntry(_("Mark movie as seen at position (in percent):"), config.AdvancedMovieSelection.moviepercentseen)
-        self.AskDelete = getConfigListEntry(_("Ask before delete:"), config.AdvancedMovieSelection.askdelete)
-        if IMDbPresent and OFDbPresent and TMDbPresent:
-            self.Eventinfotyp = getConfigListEntry(_("INFO button function:"), config.AdvancedMovieSelection.Eventinfotyp)
-        else:
-            if IMDbPresent and not OFDbPresent and not TMDbPresent:
-                self.Eventinfotyp2 = getConfigListEntry(_("INFO button function:"), config.AdvancedMovieSelection.Eventinfotyp2) 
-            else:
-                if OFDbPresent and not TMDbPresent and not IMDbPresent:
-                    self.Eventinfotyp3 = getConfigListEntry(_("INFO button function:"), config.AdvancedMovieSelection.Eventinfotyp3) 
-                else:
-                    if TMDbPresent and not OFDbPresent and not IMDbPresent:
-                        self.Eventinfotyp4 = getConfigListEntry(_("INFO button function:"), config.AdvancedMovieSelection.Eventinfotyp4)
-                    else:
-                        if TMDbPresent and not OFDbPresent and IMDbPresent:
-                            self.Eventinfotyp5 = getConfigListEntry(_("INFO button function:"), config.AdvancedMovieSelection.Eventinfotyp5)
-                        else:
-                            if TMDbPresent and OFDbPresent and not IMDbPresent:
-                                self.Eventinfotyp6 = getConfigListEntry(_("INFO button function:"), config.AdvancedMovieSelection.Eventinfotyp6) 
-                            else:
-                                if not TMDbPresent and OFDbPresent and IMDbPresent:
-                                    self.Eventinfotyp7 = getConfigListEntry(_("INFO button function:"), config.AdvancedMovieSelection.Eventinfotyp7)
-        self.MovieStart = getConfigListEntry(_("Behavior when a movie is started:"), config.usage.on_movie_start)
-        self.MovieStop = getConfigListEntry(_("Behavior when a movie is stopped:"), config.usage.on_movie_stop)
-        self.MovieEnd = getConfigListEntry(_("Behavior when a movie reaches the end:"), config.usage.on_movie_eof)
-        self.ShowMoviebarPosition = getConfigListEntry(_("Show Moviebar position setup in extensions menu from movielist:"), config.AdvancedMovieSelection.show_infobar_position)
-        self.Color1 = getConfigListEntry(_("Color for not ready seen movies:"), config.AdvancedMovieSelection.color1)
-        self.Color2 = getConfigListEntry(_("Color for ready seen movies:"), config.AdvancedMovieSelection.color2)
-        self.Color3 = getConfigListEntry(_("Color for recording movies:"), config.AdvancedMovieSelection.color3)
-        self.Dateformat = getConfigListEntry(_("Assign the date format for movielist:"), config.AdvancedMovieSelection.dateformat)
-        self.Shownew = getConfigListEntry(_("Show new recordings icon:"), config.AdvancedMovieSelection.shownew)
-        self.Shownew2 = getConfigListEntry(_("Show new recordings icon by mark movie as unseen:"), config.AdvancedMovieSelection.shownew2)
-        self.MarkNewIcon = getConfigListEntry(_("Show mark movie with new recordings icon in menu from movielist:"), config.AdvancedMovieSelection.marknewicon)
-        self.MiniTV = getConfigListEntry(_("Show Mini TV:"), config.AdvancedMovieSelection.minitv)
-        self.UseFolderName = getConfigListEntry(_("Use folder name for display covers:"), config.AdvancedMovieSelection.usefoldername)
-        self.Exitkey = getConfigListEntry(_("Close with EXIT key:"), config.AdvancedMovieSelection.exitkey)
-        self.Exitprompt = getConfigListEntry(_("Use behavior when a movie is stopped:"), config.AdvancedMovieSelection.exitprompt)
-        self.ShowBookmarks = getConfigListEntry(_("Show bookmarks in movielist:"), config.AdvancedMovieSelection.show_bookmarks)
-        self.ShowInfos = getConfigListEntry(_("Show info messages:"), config.AdvancedMovieSelection.showinfo)
-        self.UseSeekbar = getConfigListEntry(_("Use alternative jump function:"), config.AdvancedMovieSelection.useseekbar)
-        self.SeekbarButtons = getConfigListEntry(_("Change function from left/right buttons:"), config.AdvancedMovieSelection.overwrite_left_right)
-        self.SeekbarSensibility = getConfigListEntry(_("Manual jump sensibility:"), config.AdvancedMovieSelection.sensibility)    
-        self.UseWastebasket = getConfigListEntry(_("Use wastebasket:"), config.AdvancedMovieSelection.use_wastebasket)  
-        self.WastelistBuildType = getConfigListEntry(_("Wastebasket file(s):"), config.AdvancedMovieSelection.wastelist_buildtype)
-        self.StopBeforeEndTime = getConfigListEntry(_("Start at the beginning depends on end (in Minutes):"), config.AdvancedMovieSelection.stop_before_end_time)
-  
-        self.list.append(self.OnOff)
-        self.list.append(self.Startwith)
-        self.list.append(self.StartDir)
-        self.list.append(self.StartFirst)
-        self.list.append(self.ShowMenu)
-        self.list.append(self.ShowColorkeys)
-        self.list.append(self.ShowSetup)
+        self.list.append(getConfigListEntry(_("Disable Advanced Movie Selection:"), config.AdvancedMovieSelection.ml_disable, _("Switch on/off the Advanced Movie Selection.")))
+        self.list.append(getConfigListEntry(_("Start Advanced Movie Selection with:"), config.AdvancedMovieSelection.movie_launch, _("Select Start button for the Advanced Movie Selection.")))
+        self.list.append(getConfigListEntry(_("Start on last movie location:"), config.AdvancedMovieSelection.startdir, _("Opens the film list on the last used location.")))
+        self.list.append(getConfigListEntry(_("Start on first position in movielist:"), config.AdvancedMovieSelection.startonfirst, _("Always show selection in the first position in the movie list.")))
+        self.list.append(getConfigListEntry(_("Show plugin config in extensions menu from movielist:"), config.AdvancedMovieSelection.showmenu, _("Displays the Settings option in the menu at the movie list.")))
+        self.list.append(getConfigListEntry(_("Show color key setup in extensions menu from movielist:"), config.AdvancedMovieSelection.showcolorkey, _("Displays color key setup option in the menu at the movie list.")))        
+        self.list.append(getConfigListEntry(_("Show movie plugins in extensions menu from movielist:"), config.AdvancedMovieSelection.pluginmenu_list, _("Displays E2 movie list extensions in the menu at the movie list.")))
+        self.list.append(getConfigListEntry(_("Load Length of Movies in Movielist:"), config.usage.load_length_of_movies_in_moviellist, _("This option is for many of the functions from the Advanced Movie Selection necessary. If this option is disabled are many functions not available."))) 
         if config.usage.load_length_of_movies_in_moviellist.value:
-            self.list.append(self.Showextras)
-        self.list.append(self.ShowSort)
-        self.list.append(self.ShowListstyle)
-        if config.usage.load_length_of_movies_in_moviellist.value:
-            self.list.append(self.ShowMark)
-        self.list.append(self.ShowDel)
-        self.list.append(self.ShowMove)
-        self.list.append(self.ShowSearch)
-        self.list.append(self.ShowPreview)
+            self.list.append(getConfigListEntry(_("Show list options in extensions menu from movielist:"), config.AdvancedMovieSelection.showextras, _("Displays the various list view options in the menu at the movie list (Progressbar,View folders...).")))
+            self.list.append(getConfigListEntry(_("Show mark movie in extensions menu from movielist:"), config.AdvancedMovieSelection.showmark, _("Displays mark movie as seen/unseen in the menu at the movie list.")))
+            self.list.append(getConfigListEntry(_("Mark movie as seen at position (in percent):"), config.AdvancedMovieSelection.moviepercentseen, _("With this option you can assign as when a film is marked as seen.")))
+        self.list.append(getConfigListEntry(_("Show sort options in extensions menu from movielist:"), config.AdvancedMovieSelection.showsort, _("Displays sorting function in the menu at the movie list.")))
+        self.list.append(getConfigListEntry(_("Show list styles in extensions menu from movielist:"), config.AdvancedMovieSelection.showliststyle, _("Displays various lists typs in the menu at the movie list (Minimal,Compact...).")))        
+        self.list.append(getConfigListEntry(_("Show delete option in extensions menu from movielist:"), config.AdvancedMovieSelection.showdelete, _("Displays the movie delete function in the menu at the movie list.")))
+        self.list.append(getConfigListEntry(_("Show move/copy option in extensions menu from movielist:"), config.AdvancedMovieSelection.showmove, _("Displays the movie move/copy function in the menu at the movie list.")))
+        self.list.append(getConfigListEntry(_("Show movie search in extensions menu from movielist:"), config.AdvancedMovieSelection.showsearch, _("Displays the movie search function in the menu at the movie list.")))
+        self.list.append(getConfigListEntry(_("Show covers in movielist:"), config.AdvancedMovieSelection.showpreview, _("Displays the cover in the movie list."))) 
         if config.AdvancedMovieSelection.showpreview.value:
-            self.list.append(self.Coversize)
-            self.list.append(self.UseFolderName)
-            self.list.append(self.ShowCoverOptions)
-            if config.AdvancedMovieSelection.showcoveroptions.value:
-                self.list.append(self.ShowCoverOptions2)
-            self.list.append(self.ShowDelInfoCover)
-            self.list.append(self.ShowDelCover)
-            self.list.append(self.ShowDelInfo)
-        self.list.append(self.ShowRename)
-        self.list.append(self.ShowTMDb)
-        self.list.append(self.ShowMovieTagsinMenu)
-        self.list.append(self.ShowFilterbyTags)
-        self.list.append(self.ShowTrailer)
-        self.list.append(self.MovieLength)
-        if config.usage.load_length_of_movies_in_moviellist.value:
-            self.list.append(self.Percentmark)
-        self.list.append(self.AskDelete)
+            self.list.append(getConfigListEntry(_("Set coversize:"), config.AdvancedMovieSelection.coversize, _("Here you can determine the coverfile size for the download/save.")))
+            self.list.append(getConfigListEntry(_("Show D/L and store info/cover in movielist extensions menu:"), config.AdvancedMovieSelection.showcoveroptions, _("Displays movie info/cover options in the menu at the movie list.")))
+            self.list.append(getConfigListEntry(_("Show D/L and store ALL info/cover in movielist extensions menu:"), config.AdvancedMovieSelection.showcoveroptions2, _("Displays download and save movie info/cover for all movies options in the menu at the movie list.")))
+            self.list.append(getConfigListEntry(_("Show delete info and cover in extensions menu from movielist:"), config.AdvancedMovieSelection.show_info_cover_del, _("Displays delete movie info and cover function in the menu at the movie list.")))
+            self.list.append(getConfigListEntry(_("Show delete cover in extensions menu from movielist:"), config.AdvancedMovieSelection.show_cover_del, _("Displays delete cover function in the menu at the movie list.")))
+            self.list.append(getConfigListEntry(_("Show delete movie info in extensions menu from movielist:"), config.AdvancedMovieSelection.show_info_del, _("Displays delete movie info function in the menu at the movie list.")))
+        self.list.append(getConfigListEntry(_("Show rename in extensions menu from movielist:"), config.AdvancedMovieSelection.showrename, _("Displays rename function in the menu at the movie list.")))
+        self.list.append(getConfigListEntry(_("Show TMDb search in extensions menu from movielist:"), config.AdvancedMovieSelection.showtmdb, _("Displays TMDb search in the menu at the movie list.")))
+        self.list.append(getConfigListEntry(_("Jump to first mark when starts playing movie:"), config.AdvancedMovieSelection.jump_first_mark, _("If this option is activated automatically when a movie does not start from the last position, the movie starts at the first marker.")))
+        self.list.append(getConfigListEntry(_("Show movie tags in extensions menu from movielist:"), config.AdvancedMovieSelection.showmovietagsinmenu, _("Displays movie tags function in the menu at the movie list.")))
+        self.list.append(getConfigListEntry(_("Show filter by tags in extensions menu from movielist:"), config.AdvancedMovieSelection.showfiltertags, _("Displays filter by tags function in the menu at the movie list.")))
+        self.list.append(getConfigListEntry(_("Show search trailer on web in extensions menu from movielist:"), config.AdvancedMovieSelection.showtrailer, _("Displays search trailer on web function in the menu at the movie list.")))
+        self.list.append(getConfigListEntry(_("Ask before delete:"), config.AdvancedMovieSelection.askdelete, _("With this option you can turn on/off the security question before delete a movie.")))
         if IMDbPresent and OFDbPresent and TMDbPresent:
-            self.list.append(self.Eventinfotyp)
-        else:
-            if IMDbPresent and not OFDbPresent and not TMDbPresent:
-                self.list.append(self.Eventinfotyp2)
-            else:
-                if OFDbPresent and not IMDbPresent and not TMDbPresent:
-                    self.list.append(self.Eventinfotyp3)
-                else:
-                    if TMDbPresent and not OFDbPresent and not IMDbPresent:
-                        self.list.append(self.Eventinfotyp4)
-                    else:
-                        if TMDbPresent and not OFDbPresent and IMDbPresent:
-                            self.list.append(self.Eventinfotyp5)
-                        else:
-                            if TMDbPresent and OFDbPresent and not IMDbPresent:
-                                self.list.append(self.Eventinfotyp6)
-                            else:
-                                if not TMDbPresent and OFDbPresent and IMDbPresent:
-                                    self.list.append(self.Eventinfotyp7)
-        self.list.append(self.MovieStart)
-        self.list.append(self.MovieStop)
-        self.list.append(self.MovieEnd)
-        self.list.append(self.ShowMoviebarPosition)
+            self.list.append(getConfigListEntry(_("INFO button function:"), config.AdvancedMovieSelection.Eventinfotyp, _("With this option you can assign what function should have the info button. The selection depends on the installed plugins.")))
+        if IMDbPresent and not OFDbPresent and not TMDbPresent:
+            self.list.append(getConfigListEntry(_("INFO button function:"), config.AdvancedMovieSelection.Eventinfotyp2, _("With this option you can assign what function should have the info button. The selection depends on the installed plugins.")))
+        if OFDbPresent and not TMDbPresent and not IMDbPresent:
+            self.list.append(getConfigListEntry(_("INFO button function:"), config.AdvancedMovieSelection.Eventinfotyp3, _("With this option you can assign what function should have the info button. The selection depends on the installed plugins.")))
+        if TMDbPresent and not OFDbPresent and not IMDbPresent:
+            self.list.append(getConfigListEntry(_("INFO button function:"), config.AdvancedMovieSelection.Eventinfotyp4, _("With this option you can assign what function should have the info button. The selection depends on the installed plugins.")))
+        if TMDbPresent and not OFDbPresent and IMDbPresent:
+            self.list.append(getConfigListEntry(_("INFO button function:"), config.AdvancedMovieSelection.Eventinfotyp5, _("With this option you can assign what function should have the info button. The selection depends on the installed plugins.")))
+        if TMDbPresent and OFDbPresent and not IMDbPresent:
+            self.list.append(getConfigListEntry(_("INFO button function:"), config.AdvancedMovieSelection.Eventinfotyp6, _("With this option you can assign what function should have the info button. The selection depends on the installed plugins.")))
+        if not TMDbPresent and OFDbPresent and IMDbPresent:
+            self.list.append(getConfigListEntry(_("INFO button function:"), config.AdvancedMovieSelection.Eventinfotyp7, _("With this option you can assign what function should have the info button. The selection depends on the installed plugins.")))
+        self.list.append(getConfigListEntry(_("Behavior when a movie is started:"), config.usage.on_movie_start, _("With this option you can assign what should happen when a movie start.")))
+        self.list.append(getConfigListEntry(_("Behavior when a movie is stopped:"), config.usage.on_movie_stop, _("With this option you can assign what should happen when a movie stop.")))
+        self.list.append(getConfigListEntry(_("Behavior when a movie reaches the end:"), config.usage.on_movie_eof, _("With this option you can assign what should happen when the end of the films was achieved.")))
+        self.list.append(getConfigListEntry(_("Show Moviebar position setup in extensions menu from movielist:"), config.AdvancedMovieSelection.show_infobar_position, _("Displays the moviebar position setup function in the menu at the movie list.")))
         if config.AdvancedMovieSelection.showcolorstatusinmovielist.value:
-            self.list.append(self.Color1)
-            self.list.append(self.Color2)
-            self.list.append(self.Color3)
-        self.list.append(self.Dateformat)
+            self.list.append(getConfigListEntry(_("Color for not ready seen movies:"), config.AdvancedMovieSelection.color1, _("With this option you can assign what color should displayed for not ready seen movies in movie list.")))
+            self.list.append(getConfigListEntry(_("Color for ready seen movies:"), config.AdvancedMovieSelection.color2, _("With this option you can assign what color should displayed for ready seen movies in movie list.")))
+            self.list.append(getConfigListEntry(_("Color for recording movies:"), config.AdvancedMovieSelection.color3, _("With this option you can assign what color should displayed for recording movies in movie list.")))
+        self.list.append(getConfigListEntry(_("Assign the date format for movielist:"), config.AdvancedMovieSelection.dateformat, _("With this option you can assign the date format in movie list (7 different sizes are available).")))
         if GP3Present and config.AdvancedMovieSelection.showfoldersinmovielist.value:
-            self.list.append(self.Shownew)
+            self.list.append(getConfigListEntry(_("Show new recordings icon:"), config.AdvancedMovieSelection.shownew, _("With this option you can display a icon for new recordings.")))
         if GP3Present and config.AdvancedMovieSelection.showfoldersinmovielist.value and config.AdvancedMovieSelection.shownew.value:
-            self.list.append(self.MarkNewIcon)
-            self.list.append(self.Shownew2)
-        self.list.append(self.MiniTV)
-        self.list.append(self.Jump2Mark)
-        self.list.append(self.Exitkey)
+            self.list.append(getConfigListEntry(_("Show mark movie with new recordings icon in menu from movielist:"), config.AdvancedMovieSelection.marknewicon, _("Displays mark movie with new recordings icon function in the menu at the movie list. Only Dreambox recordings ar possible to mark with this icon.")))
+            self.list.append(getConfigListEntry(_("Show new recordings icon by mark movie as unseen:"), config.AdvancedMovieSelection.shownew2, _("If this option is activated automatically display the icon for new recordings when the mark movie as unseen function is used. Only original Dreambox recordings become this icon.")))
+        self.list.append(getConfigListEntry(_("Show Mini TV:"), config.AdvancedMovieSelection.minitv, _("With this option you can switch on/off the Mini TV in the movie list.")))
+        self.list.append(getConfigListEntry(_("Use folder name for display covers:"), config.AdvancedMovieSelection.usefoldername, _("With this option you can use the foldername instead of folder.jpg to display covers in folders.")))
+        self.list.append(getConfigListEntry(_("Close with EXIT key:"), config.AdvancedMovieSelection.exitkey, _("If this option is enabled you can stop play a movie with the EXIT button, and the Advanced Movie Selection plugin will also be closed immediately (if the next option is disabled).")))
         if config.AdvancedMovieSelection.exitkey.value:
-            self.list.append(self.Exitprompt)
-        self.list.append(self.ShowBookmarks)
-        self.list.append(self.ShowInfos)
-        self.list.append(self.UseSeekbar)
+            self.list.append(getConfigListEntry(_("Use behavior when a movie is stopped:"), config.AdvancedMovieSelection.exitprompt, _("If this option is activated the behavior when stop a film also will used when you use the EXIT button.")))
+        self.list.append(getConfigListEntry(_("Show bookmarks in movielist:"), config.AdvancedMovieSelection.show_bookmarks, _("When enabled all created bookmarks appear in the movie list.")))
+        self.list.append(getConfigListEntry(_("Show info messages:"), config.AdvancedMovieSelection.showinfo, _("If this option is activated will be displayed different info message. This should help with the operation of the extension.")))
+        self.list.append(getConfigListEntry(_("Use alternative jump function:"), config.AdvancedMovieSelection.useseekbar, _("If this option is activated more jump functions ar available. ATTENTION: Enigma 2 restart is necessary!")))
         if config.AdvancedMovieSelection.useseekbar.value:
             if config.AdvancedMovieSelection.useseekbar.value and not PiPZapPresent:
-                self.list.append(self.SeekbarButtons)
-            self.list.append(self.SeekbarSensibility)
-        self.list.append(self.UseWastebasket)
+                self.list.append(getConfigListEntry(_("Change function from left/right buttons:"), config.AdvancedMovieSelection.overwrite_left_right, _("If this option is activated the function of the left/right arrow buttons will changed. Normal you can use the buttons also for winding, if is changed you have quick access to the new jump function. ATTENTION: Enigma 2 restart is necessary!")))
+            self.list.append(getConfigListEntry(_("Manual jump sensibility:"), config.AdvancedMovieSelection.sensibility, _("Here you can adjust the manually jump length relative to the film length in percent.")))
+        self.list.append(getConfigListEntry(_("Use wastebasket:"), config.AdvancedMovieSelection.use_wastebasket, _("If this option is activated the movie will not be deleted but moved into the wastebasket.")))
         if config.AdvancedMovieSelection.use_wastebasket.value:
-            self.list.append(self.WastelistBuildType)
-        self.list.append(self.StopBeforeEndTime)
-        self["config"].list = self.list
-        self["config"].l.setList(self.list)
-        if not self.selectionChanged in self["config"].onSelectionChanged:
-            self["config"].onSelectionChanged.append(self.selectionChanged)
-
-    def selectionChanged(self):
+            self.list.append(getConfigListEntry(_("Wastebasket file(s):"), config.AdvancedMovieSelection.wastelist_buildtype, _("Here you can select which files to Wastebasket are displayed. ATTENTION: All directorys below '/media' will take very long until the list is displayed!")))
+        self.list.append(getConfigListEntry(_("Start at the beginning depends on end (in Minutes):"), config.AdvancedMovieSelection.stop_before_end_time, _("Here you can set off when a movie to play automatically from the beginning when you start again (On settings=0, functions is disabled)."))) 
+        self["config"].setList(self.list)
+            
+    def showHelp(self):
         current = self["config"].getCurrent()
-        if current == self.OnOff:
-            self["help"].setText(_("Switch on/off the Advanced Movie Selection."))
-        elif current == self.Startwith:
-            self["help"].setText(_("Select Start button for the Advanced Movie Selection."))
-        elif current == self.StartDir:
-            self["help"].setText(_("Opens the film list on the last used location."))
-        elif current == self.StartFirst:
-            self["help"].setText(_("Always show selection in the first position in the movie list."))
-        elif current == self.ShowMenu:
-            self["help"].setText(_("Displays the Settings option in the menu at the movie list."))
-        elif current == self.ShowColorkeys:
-            self["help"].setText(_("Displays color key setup option in the menu at the movie list."))
-        elif current == self.ShowSetup:
-            self["help"].setText(_("Displays E2 movie list extensions in the menu at the movie list."))
-        elif current == self.Showextras:
-            self["help"].setText(_("Displays the various list view options in the menu at the movie list (Progressbar,View folders...)."))
-        elif current == self.ShowSort:
-            self["help"].setText(_("Displays sorting function in the menu at the movie list."))
-        elif current == self.ShowListstyle:
-            self["help"].setText(_("Displays various lists typs in the menu at the movie list (Minimal,Compact...)."))
-        elif current == self.ShowMark:
-            self["help"].setText(_("Displays mark movie as seen/unseen in the menu at the movie list."))
-        elif current == self.ShowDel:
-            self["help"].setText(_("Displays the movie delete function in the menu at the movie list."))
-        elif current == self.ShowMove:
-            self["help"].setText(_("Displays the movie move/copy function in the menu at the movie list."))
-        elif current == self.ShowSearch:
-            self["help"].setText(_("Displays the movie search function in the menu at the movie list."))
-        elif current == self.ShowPreview:
-            self["help"].setText(_("Displays the cover in the movie list."))            
-        elif current == self.Coversize:
-            self["help"].setText(_("Here you can determine the coverfile size for the download/save."))
-        elif current == self.ShowCoverOptions:
-            self["help"].setText(_("Displays movie info/cover options in the menu at the movie list."))
-        elif current == self.ShowDelInfoCover:
-            self["help"].setText(_("Displays delete movie info and cover function in the menu at the movie list."))
-        elif current == self.ShowDelCover:
-            self["help"].setText(_("Displays delete cover function in the menu at the movie list."))            
-        elif current == self.ShowDelInfo:
-            self["help"].setText(_("Displays delete movie info function in the menu at the movie list."))                 
-        elif current == self.ShowRename:
-            self["help"].setText(_("Displays rename function in the menu at the movie list."))
-        elif current == self.ShowTMDb:
-            self["help"].setText(_("Displays TMDb search in the menu at the movie list."))            
-        elif current == self.MovieLength:
-            self["help"].setText(_("This option is for many of the functions from the Advanced Movie Selection necessary. If this option is disabled are many functions not available."))
-        elif current == self.Percentmark:
-            self["help"].setText(_("With this option you can assign as when a film is marked as seen."))
-        elif current == self.AskDelete:
-            self["help"].setText(_("With this option you can turn on/off the security question before delete a movie."))
-        elif current == self.Eventinfotyp:
-            self["help"].setText(_("With this option you can assign what function should have the info button. The selection depends on the installed plugins."))
-        elif current == self.Eventinfotyp2:
-            self["help"].setText(_("With this option you can assign what function should have the info button. The selection depends on the installed plugins."))
-        elif current == self.Eventinfotyp3:
-            self["help"].setText(_("With this option you can assign what function should have the info button. The selection depends on the installed plugins."))
-        elif current == self.Eventinfotyp4:
-            self["help"].setText(_("With this option you can assign what function should have the info button. The selection depends on the installed plugins."))
-        elif current == self.Eventinfotyp5:
-            self["help"].setText(_("With this option you can assign what function should have the info button. The selection depends on the installed plugins."))
-        elif current == self.Eventinfotyp6:
-            self["help"].setText(_("With this option you can assign what function should have the info button. The selection depends on the installed plugins."))
-        elif current == self.Eventinfotyp7:
-            self["help"].setText(_("With this option you can assign what function should have the info button. The selection depends on the installed plugins."))
-        elif current == self.MovieStart:
-            self["help"].setText(_("With this option you can assign what should happen when a movie start."))
-        elif current == self.MovieStop:
-            self["help"].setText(_("With this option you can assign what should happen when a movie stop."))
-        elif current == self.MovieEnd:
-            self["help"].setText(_("With this option you can assign what should happen when the end of the films was achieved."))
-        elif current == self.ShowMoviebarPosition:
-            self["help"].setText(_("Displays the moviebar position setup function in the menu at the movie list."))
-        elif current == self.Color1:
-            self["help"].setText(_("With this option you can assign what color should displayed for not ready seen movies in movie list."))
-        elif current == self.Color2:
-            self["help"].setText(_("With this option you can assign what color should displayed for ready seen movies in movie list."))
-        elif current == self.Color3:
-            self["help"].setText(_("With this option you can assign what color should displayed for recording movies in movie list."))
-        elif current == self.Dateformat:
-            self["help"].setText(_("With this option you can assign the date format in movie list (7 different sizes are available)."))
-        elif current == self.Shownew:
-            self["help"].setText(_("With this option you can display a icon for new recordings."))
-        elif current == self.MiniTV:
-            self["help"].setText(_("With this option you can switch on/off the Mini TV in the movie list."))
-        elif current == self.UseFolderName:
-            self["help"].setText(_("With this option you can use the foldername instead of folder.jpg to display covers in folders."))
-        elif current == self.ShowMovieTagsinMenu:
-            self["help"].setText(_("Displays movie tags function in the menu at the movie list."))
-        elif current == self.Jump2Mark:
-            self["help"].setText(_("If this option is activated automatically when a movie does not start from the last position, the movie starts at the first marker."))
-        elif current == self.ShowFilterbyTags:
-            self["help"].setText(_("Displays filter by tags function in the menu at the movie list."))
-        elif current == self.ShowTrailer:
-            self["help"].setText(_("Displays search trailer on web function in the menu at the movie list."))
-        elif current == self.Exitkey:
-            self["help"].setText(_("If this option is enabled you can stop play a movie with the EXIT button, and the Advanced Movie Selection plugin will also be closed immediately (if the next option is disabled)."))
-        elif current == self.Exitprompt:
-            self["help"].setText(_("If this option is activated the behavior when stop a film also will used when you use the EXIT button."))
-        elif current == self.ShowCoverOptions2:
-            self["help"].setText(_("Displays download and save movie info/cover for all movies options in the menu at the movie list."))
-        elif current == self.ShowBookmarks:
-            self["help"].setText(_("When enabled all created bookmarks appear in the movie list."))
-        elif current == self.MarkNewIcon:
-            self["help"].setText(_("Displays mark movie with new recordings icon function in the menu at the movie list. Only Dreambox recordings ar possible to mark with this icon."))
-        elif current == self.Shownew2:
-            self["help"].setText(_("If this option is activated automatically display the icon for new recordings when the mark movie as unseen function is used. Only original Dreambox recordings become this icon."))
-        elif current == self.ShowInfos:
-            self["help"].setText(_("If this option is activated will be displayed different info message. This should help with the operation of the extension."))
-        elif current == self.UseSeekbar:
-            self["help"].setText(_("If this option is activated more jump functions ar available. ATTENTION: Enigma 2 restart is necessary!"))
-        elif current == self.SeekbarButtons:
-            self["help"].setText(_("If this option is activated the function of the left/right arrow buttons will changed. Normal you can use the buttons also for winding, if is changed you have quick access to the new jump function. ATTENTION: Enigma 2 restart is necessary!"))
-        elif current == self.SeekbarSensibility:
-            self["help"].setText(_("Here you can adjust the manually jump length relative to the film length in percent."))
-        elif current == self.UseWastebasket:
-            self["help"].setText(_("If this option is activated the movie will not be deleted but moved into the wastebasket."))
-        elif current == self.WastelistBuildType:
-            self["help"].setText(_("Here you can select which files to Wastebasket are displayed. ATTENTION: All directorys below '/media' will take very long until the list is displayed!"))
-        elif current == self.StopBeforeEndTime:
-            self["help"].setText(_("Here you can set off when a movie to play automatically from the beginning when you start again."))
-
+        if len(current) > 2 and current[2] is not None:
+            self["help"].setText(current[2])
+        else:
+            self["help"].setText(_("No Helptext available!"))
+        
     def pluginsavailable(self):
         if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
             self["IMDbtxt"].setText(_("IMDb plugin installed. Assign function to info button is possible."))
@@ -467,7 +315,6 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self["Trailertxt"].setText(_("YTTrailer plugin installed. Search for trailers on the Web is possible."))
         else:
             self["Trailertxt"].setText(_("YTTrailer plugin NOT installed. Search for trailers on the Web is NOT possible."))           
-
 
     def cancelConfirm(self, result):
         if not result:
