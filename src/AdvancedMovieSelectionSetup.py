@@ -141,6 +141,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.skinName = ["AdvancedMovieSelectionSetupXD"]
         else:
             self.skinName = ["AdvancedMovieSelectionSetupSD"]
+        self.bouquet_length = 13
         self.needsRestartFlag = False
         self.needsReopenFlag = False
         self["setupActions"] = ActionMap(["ColorActions", "OkCancelActions", "MenuActions", "EPGSelectActions"],
@@ -174,11 +175,11 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
 
     def nextBouquet(self):
         print "next"
-        self["config"].setCurrentIndex(max(self["config"].getCurrentIndex() - 8, 0))
+        self["config"].setCurrentIndex(max(self["config"].getCurrentIndex() - self.bouquet_length, 0))
 
     def prevBouquet(self):
         print "pref"
-        self["config"].setCurrentIndex(min(self["config"].getCurrentIndex() + 8, self["config"].__len__() - 1))
+        self["config"].setCurrentIndex(min(self["config"].getCurrentIndex() + self.bouquet_length, len(self["config"].list) - 1))
 
     def setWindowTitle(self):
         self.setTitle(_("Advanced Movie Selection Setup"))
