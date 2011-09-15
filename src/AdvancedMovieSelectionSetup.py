@@ -175,47 +175,33 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
 
     def keyLeft(self):
         ConfigListScreen.keyLeft(self)
-        self.createSetup()
-        if config.AdvancedMovieSelection.ml_disable.isChanged():
-            self.needsRestartFlag = True
-        elif config.AdvancedMovieSelection.movie_launch.isChanged():
-            self.needsRestartFlag = True
-        elif config.AdvancedMovieSelection.showpreview.isChanged():
-            self.needsReopenFlag = True
-        elif config.usage.load_length_of_movies_in_moviellist.isChanged() and config.usage.load_length_of_movies_in_moviellist.value == False:
-            config.AdvancedMovieSelection.showprogessbarinmovielist.value = False
-            config.AdvancedMovieSelection.showiconstatusinmovielist.value = False
-            config.AdvancedMovieSelection.showcolorstatusinmovielist.value = False
-        elif config.AdvancedMovieSelection.color1.isChanged() or config.AdvancedMovieSelection.color2.isChanged() or config.AdvancedMovieSelection.color3.isChanged(): 
-            self.needsReopenFlag = True
-        elif config.AdvancedMovieSelection.minitv.isChanged():
-            self.needsReopenFlag = True
-        elif config.AdvancedMovieSelection.useseekbar.isChanged():
-            self.needsRestartFlag = True
-        elif config.AdvancedMovieSelection.overwrite_left_right.isChanged():
-            self.needsRestartFlag = True
+        self.checkListentrys()
 
     def keyRight(self):
         ConfigListScreen.keyRight(self)
-        self.createSetup()
-        if config.AdvancedMovieSelection.ml_disable.isChanged():
-            self.needsRestartFlag = True
-        elif config.AdvancedMovieSelection.movie_launch.isChanged():
-            self.needsRestartFlag = True
-        elif config.AdvancedMovieSelection.showpreview.isChanged():
+        self.checkListentrys()
+
+    def checkListentrys(self):
+        if config.usage.load_length_of_movies_in_moviellist.isChanged():
+            config.usage.load_length_of_movies_in_moviellist.save()
+            self.createSetup()
+        if config.AdvancedMovieSelection.showpreview.isChanged():
+            config.AdvancedMovieSelection.showpreview.save()
             self.needsReopenFlag = True
-        elif config.usage.load_length_of_movies_in_moviellist.isChanged() and config.usage.load_length_of_movies_in_moviellist.value == False:
-            config.AdvancedMovieSelection.showprogessbarinmovielist.value = False
-            config.AdvancedMovieSelection.showiconstatusinmovielist.value = False
-            config.AdvancedMovieSelection.showcolorstatusinmovielist.value = False
-        elif config.AdvancedMovieSelection.color1.isChanged() or config.AdvancedMovieSelection.color2.isChanged() or config.AdvancedMovieSelection.color3.isChanged():
-            self.needsReopenFlag = True
-        elif config.AdvancedMovieSelection.minitv.isChanged():
-            self.needsReopenFlag = True
-        elif config.AdvancedMovieSelection.useseekbar.isChanged():
+            self.createSetup()
+        if config.AdvancedMovieSelection.showcolorstatusinmovielist.isChanged():
+            config.AdvancedMovieSelection.showcolorstatusinmovielist.save()
+            self.createSetup()
+        if config.AdvancedMovieSelection.exitkey.isChanged():
+            config.AdvancedMovieSelection.exitkey.save()
+            self.createSetup()
+        if config.AdvancedMovieSelection.useseekbar.isChanged():
+            config.AdvancedMovieSelection.useseekbar.save()
             self.needsRestartFlag = True
-        elif config.AdvancedMovieSelection.overwrite_left_right.isChanged():
-            self.needsRestartFlag = True
+            self.createSetup()
+        if config.AdvancedMovieSelection.use_wastebasket.isChanged():
+            config.AdvancedMovieSelection.use_wastebasket.save()
+            self.createSetup()
 
     def createSetup(self):
         self.list = []
@@ -336,6 +322,20 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.close()
 
     def keySave(self):
+        if config.AdvancedMovieSelection.ml_disable.isChanged():
+            self.needsRestartFlag = True
+        elif config.AdvancedMovieSelection.movie_launch.isChanged():
+            self.needsRestartFlag = True
+        elif config.AdvancedMovieSelection.overwrite_left_right.isChanged():
+            self.needsRestartFlag = True        
+        elif config.usage.load_length_of_movies_in_moviellist.isChanged() and config.usage.load_length_of_movies_in_moviellist.value == False:
+            config.AdvancedMovieSelection.showprogessbarinmovielist.value = False
+            config.AdvancedMovieSelection.showiconstatusinmovielist.value = False
+            config.AdvancedMovieSelection.showcolorstatusinmovielist.value = False
+        elif config.AdvancedMovieSelection.color1.isChanged() or config.AdvancedMovieSelection.color2.isChanged() or config.AdvancedMovieSelection.color3.isChanged(): 
+            self.needsReopenFlag = True
+        elif config.AdvancedMovieSelection.minitv.isChanged():
+            self.needsReopenFlag = True
         if self.needsRestartFlag == True:
             self.session.openWithCallback(self.exitAnswer, MessageBoxEx, _("Some settings changes require a restart to take effect.\nIf you  use a skin without PiG (Picture in Graphic) you have to restart the box (not only Enigma 2)!\nWith YES only Enigma 2 starts new, with NO the box make a restart."), type=MessageBox.TYPE_YESNO)
         else:
