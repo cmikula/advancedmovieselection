@@ -30,7 +30,7 @@ from Plugins.Plugin import PluginDescriptor
 from Components.config import config, ConfigSelection, getConfigListEntry, configfile
 from Components.Sources.StaticText import StaticText
 from Components.Button import Button
-from Components.ConfigList import ConfigListScreen, ConfigList
+from Components import ConfigList as eConfigList
 from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Screens.LocationBox import MovieLocationBox
 from Components.UsageConfig import preferredPath
@@ -66,9 +66,9 @@ if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/pipzap/plugin.pyo"):
 else:
     PiPZapPresent=False
 
-class ConfigListEx(ConfigList):
+class ConfigList(eConfigList.ConfigList):
     def __init__(self, list, session=None):
-        ConfigList.__init__(self, list, session=session)
+        eConfigList.ConfigList.__init__(self, list, session=session)
     
     def selectionChanged(self):
         if isinstance(self.current,tuple) and len(self.current) >= 2:
@@ -81,7 +81,13 @@ class ConfigListEx(ConfigList):
         for x in self.onSelectionChanged:
             x()
 
-class ConfigListScreen(ConfigListScreen):
+    def preWidgetRemove(self, instance):
+        if isinstance(self.current,tuple) and len(self.current) >= 2:
+            self.current[1].onDeselect(self.session)
+        instance.selectionChanged.get().remove(self.selectionChanged)
+        instance.setContent(None)
+
+class ConfigListScreen(eConfigList.ConfigListScreen):
     def __init__(self, list, session = None, on_change = None):
         self["config_actions"] = NumberActionMap(["SetupActions", "InputAsciiActions", "KeyboardInputActions"],
         {
@@ -112,7 +118,7 @@ class ConfigListScreen(ConfigListScreen):
         }, -2)
         self["VirtualKB"].setEnabled(False)
         
-        self["config"] = ConfigListEx(list, session = session)
+        self["config"] = ConfigList(list, session = session)
         
         if on_change is not None:
             self.__changed = on_change
