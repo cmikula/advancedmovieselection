@@ -162,6 +162,7 @@ config.AdvancedMovieSelection.movieplayer_infobar_position_offset_y = ConfigInte
 config.AdvancedMovieSelection.show_infobar_position = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.show_bookmarks = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.stop_before_end_time = ConfigInteger(default=5, limits=(0, 30))
+config.AdvancedMovieSelection.debug = ConfigYesNo(default=False)
 
 PlayerInstance = None
 
@@ -373,14 +374,17 @@ def nostart(reason, **kwargs):
 
 def Plugins(**kwargs):
     try:
+        if config.AdvancedMovieSelection.debug.value:
+            config.AdvancedMovieSelection.debug.value = False
+            config.AdvancedMovieSelection.debug.save() 
         if not config.AdvancedMovieSelection.ml_disable.value:
             from Screens.MovieSelection import setPreferredTagEditor
             setPreferredTagEditor(TagEditor)
         if not config.AdvancedMovieSelection.ml_disable.value and config.AdvancedMovieSelection.useseekbar.value:
             from Seekbar import Seekbar
             session.Seekbar()
-    except Exception:
-        pass
+    except Exception, e:
+        print e
     if not config.AdvancedMovieSelection.ml_disable.value:
         descriptors = [PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=autostart)]
         descriptors.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, fnc=Setup))

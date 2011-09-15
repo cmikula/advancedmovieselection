@@ -125,16 +125,38 @@ class Trashcan:
         for ext in movie_ext:
             to_delete = original_name + "." + ext
             if os.path.exists(to_delete):
+                print to_delete
                 os.remove(to_delete)
     
         if os.path.exists(jpg):
+            print jpg
             os.remove(jpg)
 
         if os.path.exists(eit):
+            print eit
             os.remove(eit)
 
         if os.path.exists(filename):
             if os.path.isfile(filename):
+                print filename
                 os.remove(filename)
             else:
                 shutil.rmtree(filename)
+                print filename
+
+from time import localtime
+
+class Debug():
+    def __init__(self, file_name):
+        self.file_name = file_name
+    
+    def debug(self, text):
+        try:
+            ltim = localtime()
+            headerstr = "%04d%02d%02d %02d:%02d: " % (ltim[0], ltim[1], ltim[2], ltim[3], ltim[4])
+            outtxt = headerstr + text + "\r\n"
+            deb = open(self.file_name, "aw")
+            deb.write(outtxt)
+            deb.close()
+        except: 
+            pass

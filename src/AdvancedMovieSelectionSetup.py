@@ -58,23 +58,23 @@ if fileExists("/usr/lib/enigma2/python/Plugins/Bp/geminimain/plugin.pyo"):
 else:
     GP3Present = False
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/YTTrailer/plugin.pyo"):
-    YTTrailerPresent=True
+    YTTrailerPresent = True
 else:
-    YTTrailerPresent=False
+    YTTrailerPresent = False
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/pipzap/plugin.pyo"):
-    PiPZapPresent=True
+    PiPZapPresent = True
 else:
-    PiPZapPresent=False
+    PiPZapPresent = False
 
 class ConfigList(eConfigList.ConfigList):
     def __init__(self, list, session=None):
         eConfigList.ConfigList.__init__(self, list, session=session)
     
     def selectionChanged(self):
-        if isinstance(self.current,tuple) and len(self.current) >= 2:
+        if isinstance(self.current, tuple) and len(self.current) >= 2:
             self.current[1].onDeselect(self.session)
         self.current = self.getCurrent()
-        if isinstance(self.current,tuple) and len(self.current) >= 2:
+        if isinstance(self.current, tuple) and len(self.current) >= 2:
             self.current[1].onSelect(self.session)
         else:
             return
@@ -82,13 +82,13 @@ class ConfigList(eConfigList.ConfigList):
             x()
 
     def preWidgetRemove(self, instance):
-        if isinstance(self.current,tuple) and len(self.current) >= 2:
+        if isinstance(self.current, tuple) and len(self.current) >= 2:
             self.current[1].onDeselect(self.session)
         instance.selectionChanged.get().remove(self.selectionChanged)
         instance.setContent(None)
 
 class ConfigListScreen(eConfigList.ConfigListScreen):
-    def __init__(self, list, session = None, on_change = None):
+    def __init__(self, list, session=None, on_change=None):
         self["config_actions"] = NumberActionMap(["SetupActions", "InputAsciiActions", "KeyboardInputActions"],
         {
             "gotAsciiCode": self.keyGotAscii,
@@ -118,7 +118,7 @@ class ConfigListScreen(eConfigList.ConfigListScreen):
         }, -2)
         self["VirtualKB"].setEnabled(False)
         
-        self["config"] = ConfigList(list, session = session)
+        self["config"] = ConfigList(list, session=session)
         
         if on_change is not None:
             self.__changed = on_change
@@ -152,6 +152,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             "yellow":   self.buttonsetup,
             "blue":     self.RecPathSettings,
             "info":     self.about,
+            "nextBouquet": self.nextBouquet,
+            "prevBouquet": self.prevBouquet,
         }, -2)
         self.list = [ ]
         ConfigListScreen.__init__(self, self.list, session=self.session)
@@ -169,6 +171,14 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self["OFDbtxt"] = StaticText("")
         self.onShown.append(self.setWindowTitle)
         self.pluginsavailable()
+
+    def nextBouquet(self):
+        print "next"
+        self["config"].setCurrentIndex(max(self["config"].getCurrentIndex() - 8, 0))
+
+    def prevBouquet(self):
+        print "pref"
+        self["config"].setCurrentIndex(min(self["config"].getCurrentIndex() + 8, self["config"].__len__() - 1))
 
     def setWindowTitle(self):
         self.setTitle(_("Advanced Movie Selection Setup"))
@@ -202,6 +212,13 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         if config.AdvancedMovieSelection.use_wastebasket.isChanged():
             config.AdvancedMovieSelection.use_wastebasket.save()
             self.createSetup()
+        if config.AdvancedMovieSelection.debug.isChanged():
+            config.AdvancedMovieSelection.debug.save()
+            from Debug import Debug
+            if config.AdvancedMovieSelection.debug:
+                Debug.enable("/tmp/enigma2_stdout.log")
+            else:
+                Debug.disable()
 
     def createSetup(self):
         self.list = []
@@ -280,7 +297,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append(getConfigListEntry(_("Use wastebasket:"), config.AdvancedMovieSelection.use_wastebasket, _("If this option is activated the movie will not be deleted but moved into the wastebasket.")))
         if config.AdvancedMovieSelection.use_wastebasket.value:
             self.list.append(getConfigListEntry(_("Wastebasket file(s):"), config.AdvancedMovieSelection.wastelist_buildtype, _("Here you can select which files to Wastebasket are displayed. ATTENTION: All directorys below '/media' will take very long until the list is displayed!")))
-        self.list.append(getConfigListEntry(_("Start at the beginning depends on end (in Minutes):"), config.AdvancedMovieSelection.stop_before_end_time, _("Here you can set off when a movie to play automatically from the beginning when you start again (On settings=0, functions is disabled)."))) 
+        self.list.append(getConfigListEntry(_("Start at the beginning depends on end (in Minutes):"), config.AdvancedMovieSelection.stop_before_end_time, _("Here you can set off when a movie to play automatically from the beginning when you start again (On settings=0, functions is disabled).")))
+        self.list.append(getConfigListEntry(_("Enable Enigma2 debug:"), config.AdvancedMovieSelection.debug, _("If you enable this function, all standard output from enigma will be stored to /tmp folder")))
         self["config"].setList(self.list)
             
     def showHelp(self):

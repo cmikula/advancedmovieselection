@@ -254,10 +254,12 @@ class Wastebasket(Screen):
             self.session.openWithCallback(self.canDeleteCheckRecord, MessageBox, _("Do you really want to delete %s?") % (self.service.getName()))
 #            self.session.openWithCallback(self.delete, MessageBox, _("Do you really want to delete %s?") % (self.service.getName()))
         else:
-            self.canDeleteCheckRecord()
+            self.canDeleteCheckRecord(True)
 #            self.delete(True)
 
-    def canDeleteCheckRecord(self):
+    def canDeleteCheckRecord(self, confirmed):
+        if not confirmed:
+            return
         recordings = self.session.nav.getRecordings()
         next_rec_time = -1
         if not recordings:
@@ -275,7 +277,7 @@ class Wastebasket(Screen):
             self.session.openWithCallback(self.deleteAllcheckRecord, MessageBox, _("Do you really want to delete all movies?"))
 #            self.session.openWithCallback(self.deleteAll, MessageBox, _("Do you really want to delete all movies?"))
         else:
-            self.deleteAllcheckRecord()
+            self.deleteAllcheckRecord(True)
 #            self.deleteAll(True)
 
     def delete(self, confirmed):
@@ -290,7 +292,9 @@ class Wastebasket(Screen):
         
         self["list"].removeService(self.service)
 
-    def deleteAllcheckRecord(self):
+    def deleteAllcheckRecord(self, confirmed):
+        if not confirmed:
+            return
         recordings = self.session.nav.getRecordings()
         next_rec_time = -1
         if not recordings:
@@ -311,6 +315,7 @@ class Wastebasket(Screen):
     def deleteAllMovies(self):
         deleted = []
         try:
+            print "Start deleting all movies in trash list"
             for x in self.list.list:
                 service = x[0]
                 Trashcan.delete(service.getPath())
