@@ -135,23 +135,16 @@ class EventViewSimple(Screen, EventViewBase, MovieInfoPreview):
             else:
                 path = path + ".jpg"
             
+            self.showDialog()
+            self.working = True
+            sc = AVSwitch().getFramebufferScale()
+            self.picload = ePicLoad()
+            self.picload.PictureData.get().append(self.showPreviewCallback)
+            self.picload.setPara((self.dialog["Infopreview"].instance.size().width(), self.dialog["Infopreview"].instance.size().height(), sc[0], sc[1], False, 1, "#00000000"))
+            self.dialog.hide()
             if fileExists(path):
-                self.showDialog()
-                self.working = True
-                sc = AVSwitch().getFramebufferScale()
-                self.picload = ePicLoad()
-                self.picload.PictureData.get().append(self.showPreviewCallback)
-                self.picload.setPara((self.dialog["Infopreview"].instance.size().width(), self.dialog["Infopreview"].instance.size().height(), sc[0], sc[1], False, 1, "#00000000"))
-                self.dialog.hide()
                 self.picload.startDecode(path)
             else:
-                self.showDialog()
-                self.working = True
-                sc = AVSwitch().getFramebufferScale()
-                self.picload = ePicLoad()
-                self.picload.PictureData.get().append(self.showPreviewCallback)
-                self.picload.setPara((self.dialog["Infopreview"].instance.size().width(), self.dialog["Infopreview"].instance.size().height(), sc[0], sc[1], False, 1, "#00000000"))
-                self.dialog.hide()
                 self.picload.startDecode(nocover)
             
     def showPreviewCallback(self, picInfo=None):

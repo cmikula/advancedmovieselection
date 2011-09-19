@@ -171,7 +171,14 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self["IMDbtxt"] = StaticText("")
         self["OFDbtxt"] = StaticText("")
         self.onShown.append(self.setWindowTitle)
+        self.onLayoutFinish.append(self.saveListsize)
         self.pluginsavailable()
+
+    def saveListsize(self):
+        listsize = self["config"].instance.size()
+        self.listWidth = listsize.width()
+        self.listHeight = listsize.height()
+        self.bouquet_length = int(self.listHeight / 25)
 
     def nextBouquet(self):
         print "next"
