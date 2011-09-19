@@ -126,6 +126,7 @@ version. 1.8
 * neu: info in der filmliste und papierkorb wenn nachfragen vor dem löschen deaktiviert ist
 * neu: löschen einer aufnahme während diese gerade aufgenommen wird ist nun nicht mehr möglich
 * neu: filmwiedergabe von anfang wenn stop x minuten vor filmende
+* neu: senderlogo anzeige bei dreambox aufnahmen wenn kein cover vorhanden
 * fix: speichern von lesezeichen ein/aus wenn über farbtasten diese ein/aus geschalten werden
 * fix: löschen von lesezeichen über die löschfunktion im menü der filmliste
 * fix: verbesserung bei der filminfo/cover suche wenn '-' im filmtitel

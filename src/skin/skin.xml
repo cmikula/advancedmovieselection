@@ -102,10 +102,13 @@
                 <ePixmap position="291,270" size="35,25" zPosition="10" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" transparent="1" alphatest="blend"/>
 		<widget name="DescriptionBorder" position="0,0" size="0,0"/>
                 <widget name="MoviePreview" position="0,0" size="0,0"/>
+                <widget source="Providerlogo" render="AdvancedMovieSelectionPicon" position="70,533" zPosition="2" size="100,60" alphatest="blend">
+                    <convert type="ServiceName">Reference</convert>
+		</widget>
 	</screen>
             <screen name="AdvancedMovieSelectionCoverHD" position="60,473" size="120,180" zPosition="10" flags="wfNoBorder">
                 <widget name="background" position="0,0" size="120,180" zPosition="1" backgroundColor="#00000000"/>
-                <widget name="preview" position="0,0" size="120,180" zPosition="2" alphatest="blend"/>
+                <widget name="preview" position="0,0" size="120,180" zPosition="3" alphatest="blend"/>
         </screen>
             <screen name="AdvancedMovieSelectionXD" position="center,center" size="1024,576" title=" " flags="wfNoBorder">
 		<!--widget source="global.MovieDir" render="Label" position="60,40" size="1050,29" zPosition="3" font="Regular;26" transparent="1"/-->
@@ -159,10 +162,13 @@
                 <ePixmap position="929,516" size="35,25" zPosition="10" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" transparent="1" alphatest="blend"/>
 		<widget name="DescriptionBorder" position="0,0" size="0,0"/>
                 <widget name="MoviePreview" position="0,0" size="0,0"/>
+                <widget source="Providerlogo" render="AdvancedMovieSelectionPicon" position="95,285" zPosition="2" size="100,60" alphatest="blend">
+                    <convert type="ServiceName">Reference</convert>
+		</widget>
 	</screen>
-            <screen name="AdvancedMovieSelectionCoverXD" position="60,225" size="120,180" zPosition="10" flags="wfNoBorder">
+            <screen name="AdvancedMovieSelectionCoverXD" position="85,225" size="120,180" zPosition="10" flags="wfNoBorder">
                 <widget name="background" position="0,0" size="120,180" zPosition="1" backgroundColor="#00000000"/>
-                <widget name="preview" position="0,0" size="120,180" zPosition="2" alphatest="blend"/>
+                <widget name="preview" position="0,0" size="120,180" zPosition="3" alphatest="blend"/>
         </screen>
             <screen name="AdvancedMovieSelectionSD" position="center,center" size="560,445" title=" ">
 		<!--widget source="global.MovieDir" render="Label" position="0,0" size="560,24" zPosition="3" font="Regular;20" foregroundColor="#ffffff" transparent="1"/-->
@@ -195,6 +201,9 @@
 		</widget>
                 <widget source="session.VideoPicture" render="Pig" position="0,70" size="120,80" zPosition="3" backgroundColor="#ff000000"/>
 		<widget name="freeDiskSpace" position="10,425" size="540,20" font="Regular;19" valign="center" halign="right"/>
+                <widget source="Providerlogo" render="AdvancedMovieSelectionPicon" position="15,190" zPosition="2" size="100,60" alphatest="blend">
+                    <convert type="ServiceName">Reference</convert>
+		</widget>
 	</screen>
             <screen name="AdvancedMovieSelectionCoverSD" position="80,230" size="120,150" zPosition="10" flags="wfNoBorder">
                 <widget name="background" position="0,0" size="120,150" zPosition="1" backgroundColor="#000000"/>
@@ -1061,6 +1070,9 @@
                 <ePixmap position="1185,641" size="35,25" zPosition="10" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" transparent="1" alphatest="blend"/>
 		<widget name="DescriptionBorder" position="0,0" size="0,0"/>
                 <widget name="MoviePreview" position="0,0" size="0,0"/>
+                <widget source="Providerlogo" render="AdvancedMovieSelectionPicon" position="70,500" zPosition="2" size="100,60" alphatest="blend">
+                    <convert type="ServiceName">Reference</convert>
+		</widget>
 	</screen>
             <screen name="AdvancedMovieSelectionCover_noMiniTV_HD" position="60,440" size="120,180" zPosition="10" flags="wfNoBorder">
                 <widget name="background" position="0,0" size="120,180" zPosition="1" backgroundColor="#00000000"/>
@@ -1168,6 +1180,9 @@
                 <ePixmap position="929,516" size="35,25" zPosition="10" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" transparent="1" alphatest="blend"/>
 		<widget name="DescriptionBorder" position="0,0" size="0,0"/>
                 <widget name="MoviePreview" position="0,0" size="0,0"/>
+                <widget source="Providerlogo" render="AdvancedMovieSelectionPicon" position="70,400" zPosition="2" size="100,60" alphatest="blend">
+                    <convert type="ServiceName">Reference</convert>
+		</widget>
 	</screen>
             <screen name="AdvancedMovieSelectionCover_noMiniTV_XD" position="60,355" size="120,150" zPosition="10" flags="wfNoBorder">
                 <widget name="background" position="0,0" size="120,150" zPosition="1" backgroundColor="#00000000"/>
@@ -1254,6 +1269,9 @@
 			<convert type="EventName">ExtendedDescription</convert>
 		</widget>
 		<widget name="freeDiskSpace" position="10,425" size="540,20" font="Regular;19" valign="center" halign="right"/>
+                <widget source="Providerlogo" render="AdvancedMovieSelectionPicon" position="15,135" zPosition="2" size="100,60" alphatest="blend">
+                    <convert type="ServiceName">Reference</convert>
+		</widget>
 	</screen>
             <screen name="AdvancedMovieSelectionCover_noMiniTV_SD" position="80,150" size="120,180" zPosition="10" flags="wfNoBorder">
                 <widget name="background" position="0,0" size="120,180" zPosition="1" backgroundColor="#000000"/>
