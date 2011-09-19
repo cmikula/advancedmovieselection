@@ -382,7 +382,6 @@ def Plugins(**kwargs):
             setPreferredTagEditor(TagEditor)
         if not config.AdvancedMovieSelection.ml_disable.value and config.AdvancedMovieSelection.useseekbar.value:
             from Seekbar import Seekbar
-            session.Seekbar()
     except Exception, e:
         print e
     if not config.AdvancedMovieSelection.ml_disable.value:
