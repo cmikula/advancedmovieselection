@@ -144,19 +144,3 @@ class Trashcan:
                 shutil.rmtree(filename)
                 print filename
 
-from time import localtime
-
-class Debug():
-    def __init__(self, file_name):
-        self.file_name = file_name
-    
-    def debug(self, text):
-        try:
-            ltim = localtime()
-            headerstr = "%04d%02d%02d %02d:%02d: " % (ltim[0], ltim[1], ltim[2], ltim[3], ltim[4])
-            outtxt = headerstr + text + "\r\n"
-            deb = open(self.file_name, "aw")
-            deb.write(outtxt)
-            deb.close()
-        except: 
-            pass
