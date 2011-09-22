@@ -39,6 +39,7 @@ from datetime import datetime
 from ServiceProvider import detectDVDStructure, getCutList, Info, ServiceCenter, eServiceReferenceDvd
 from os import environ
 from Trashcan import TRASH_NAME
+from Components.Harddisk import harddiskmanager
 
 IMAGE_PATH = "Extensions/AdvancedMovieSelection/images/"
 
@@ -59,6 +60,9 @@ MEDIAEXTENSIONS = {
     }
 
 class eServiceReferenceVDir(eServiceReference):
+    pass
+
+class eServiceReferenceMount(eServiceReference):
     pass
 
 class MovieList(GUIComponent):
@@ -156,6 +160,7 @@ class MovieList(GUIComponent):
         except: self.finished_color = newcolor2
         try: self.recording_color = parseColor("movieRecording").argb()    
         except: self.recording_color = newcolor3
+        self.getAutomountedDevices()
 
     def onShow(self):
         GUIComponent.onShow(self)
@@ -211,6 +216,18 @@ class MovieList(GUIComponent):
         else: # default if config.AdvancedMovieSelection.dateformat.value == "3":
             self.DATE_TIME_FORMAT = "%d.%m.%Y - %H:%M"
 
+    def getAutomountedDevices(self):
+        import commands
+        self.automounts = []
+        for hdd in harddiskmanager.HDDList():
+            model = hdd[1].model()
+            device_dir = hdd[1].getDeviceDir()
+            #partitions = hdd[1].numPartitions()
+            mount = commands.getoutput('mount | grep ' + device_dir).split()
+            if len(mount) > 2:
+                service = eServiceReferenceMount(eServiceReference.idFile, eServiceReference.flagDirectory, mount[2] + "/")
+                service.setName(model + " - " + hdd[1].capacity())
+                self.automounts.append(service)
 
     def connectSelChanged(self, fnc):
         if not fnc in self.onSelectionChanged:
@@ -282,6 +299,8 @@ class MovieList(GUIComponent):
             if serviceref.flags & eServiceReference.mustDescent:
                 res = [ None ]
                 if isinstance(serviceref, eServiceReferenceVDir):
+                    png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "bookmark.png"))
+                elif isinstance(serviceref, eServiceReferenceMount):
                     png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "bookmark.png"))
                 else:
                     png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "directory.png"))
@@ -767,6 +786,12 @@ class MovieList(GUIComponent):
                 vdirs.sort(self.sortFolders)
                 for servicedirs in vdirs:
                     self.list.insert(0, servicedirs)
+
+            for tt in self.automounts:
+                print tt.getPath()
+                print root_path
+                if tt.getPath() != root_path:
+                    self.list.insert(0, (tt, None, -1, -1))
 
             dirs.sort(self.sortFolders)
             for servicedirs in dirs:
