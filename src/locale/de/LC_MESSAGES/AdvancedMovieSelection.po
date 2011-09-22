@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-09-14 19:12+0100\n"
-"PO-Revision-Date: 2011-09-14 19:13+0100\n"
+"POT-Creation-Date: 2011-09-22 20:52+0100\n"
+"PO-Revision-Date: 2011-09-22 20:52+0100\n"
 "Last-Translator: JackDanie <JackDaniel@i-have-a-dreambox.com>\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
@@ -42,7 +42,7 @@ msgid "Thanks to all other for help and so many very good code."
 msgstr "Danke an alle für die Hilfe und für so manch sehr guten Code :)"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/About.py:58
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:155
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:164
 msgid "Close"
 msgstr "Schließen"
 
@@ -63,9 +63,9 @@ msgstr "Erweiterte Filmauswahl - Geschichte"
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:402
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:445
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:487
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:668
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:683
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:269
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:674
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:689
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:270
 msgid "this recording"
 msgstr "this recording"
 
@@ -75,514 +75,521 @@ msgid "Infos for: %s"
 msgstr "Info für: %s"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionEventView.py:78
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:755
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:761
 #, python-format
 msgid "Movie location: %s"
 msgstr "Speicherort: %s"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:156
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/RecordPaths.py:46
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:165
 msgid "Save"
 msgstr "Speichern"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:157
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:166
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:198
 msgid "Color key settings"
 msgstr "Farbtasten Einst."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:158
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:167
 msgid "Default paths"
 msgstr "Std. Verzeichnisse"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:168
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:192
 msgid "Advanced Movie Selection Setup"
 msgstr "Erweiterte Filmauswahl Einstellungen"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:216
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:233
 msgid "Disable Advanced Movie Selection:"
 msgstr "Erweiterte Filmauswahl deaktivieren:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:216
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:233
 msgid "Switch on/off the Advanced Movie Selection."
 msgstr "Mit dieser Option wird die Erweiterte Filmauswahl ein/aus geschalten."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:217
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:234
 msgid "Start Advanced Movie Selection with:"
 msgstr "Erweiterte Filmauswahl starten mit:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:217
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:234
 msgid "Select Start button for the Advanced Movie Selection."
 msgstr "Mit dieser Option können Sie die Starttaste für die Erweiterte Filmauswahl auswählen."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:218
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:235
 msgid "Start on last movie location:"
 msgstr "Am letzten Speicherort starten:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:218
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:235
 msgid "Opens the film list on the last used location."
 msgstr "Wenn diese Option aktiviert ist wird die Erweiterte Filmliste immer auf dem zuletzt benutztem Speicherort geöffnet."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:219
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:236
 msgid "Start on first position in movielist:"
 msgstr "Auf erster Position in der Filmliste starten:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:219
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:236
 msgid "Always show selection in the first position in the movie list."
 msgstr "Wenn diese Option aktiviert ist wird der Positionsanzeiger immer auf der ersten Stelle in der Erweiterten Filmliste stehen."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:220
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:237
 msgid "Show plugin config in extensions menu from movielist:"
 msgstr "Einstellungen im Menü der Filmliste anzeigen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:220
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:237
 msgid "Displays the Settings option in the menu at the movie list."
 msgstr "Mit dieser Option wird der Menüpunkt Einstellungen im Menü der Filmliste angezeigt."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:221
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:238
 msgid "Show color key setup in extensions menu from movielist:"
 msgstr "Farbtasten Einstellungen im Menü der Filmliste anzeigen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:221
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:238
 msgid "Displays color key setup option in the menu at the movie list."
 msgstr "Mit dieser Option wird der Menüpunkt Farbtasten Einstellungen im Menü der Filmliste angezeigt."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:222
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:239
 msgid "Show movie plugins in extensions menu from movielist:"
 msgstr "Filmlisten Erweiterungen im Menü der Filmliste anzeigen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:222
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:239
 msgid "Displays E2 movie list extensions in the menu at the movie list."
 msgstr "Mit dieser Option werden die Enigma 2 Filmlisten Erweiterungen im Menü der Filmliste angezeigt (Schnitteditor, Auf DVD brennen usw.)."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:223
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:240
 msgid "Load Length of Movies in Movielist:"
 msgstr "Anzeigen der Spielzeit in der Filmliste:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:223
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:240
 msgid "This option is for many of the functions from the Advanced Movie Selection necessary. If this option is disabled are many functions not available."
 msgstr "Diese Option ist für viele Funktionen der Erweiterten Filmauswahl notwendig. Wenn diese Option deaktiviert wird stehen diese Funktionen nicht mehr zur Verfügung (und auch nicht zur Auswahl)."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:225
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:242
 msgid "Show list options in extensions menu from movielist:"
 msgstr "Listen-Ansichtsoptionen im Menü der Filmliste anzeigen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:225
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:242
 msgid "Displays the various list view options in the menu at the movie list (Progressbar,View folders...)."
 msgstr "Mit dieser Option werden die verschiedenen Listenfunktionen im Menü der Filmliste angezeigt (Fortschrittsanzeige, Ordner anzeigen usw.)."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:226
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:243
 msgid "Show mark movie in extensions menu from movielist:"
 msgstr "Markieroption im Menü der Filmliste anzeigen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:226
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:243
 msgid "Displays mark movie as seen/unseen in the menu at the movie list."
 msgstr "Mit dieser Option werden die Funktionen Film als gesehen/ungesehen markieren im Menü der Filmliste angezeigt."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:227
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:244
 msgid "Mark movie as seen at position (in percent):"
 msgstr "Film als gesehen markieren ab Position (in Prozent):"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:227
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:244
 msgid "With this option you can assign as when a film is marked as seen."
 msgstr "Mit dieser Option können Sie bestimmen ab wann ein Film automatisch als gesehen markiert werden soll."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:228
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:245
 msgid "Show sort options in extensions menu from movielist:"
 msgstr "Sortieroptionen im Menü der Filmliste anzeigen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:228
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:245
 msgid "Displays sorting function in the menu at the movie list."
 msgstr "Mit dieser Option werden die Menüpunkte für das Sortieren im Menü der Filmliste angezeigt."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:229
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:246
 msgid "Show list styles in extensions menu from movielist:"
 msgstr "Listenansichten im Menü der Filmliste anzeigen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:229
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:246
 msgid "Displays various lists typs in the menu at the movie list (Minimal,Compact...)."
 msgstr "Mit dieser Option werden die Listenansichten im Menü der Filmliste angezeigt (Minimal, Kompakt usw.)."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:230
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:247
 msgid "Show delete option in extensions menu from movielist:"
 msgstr "Löschen im Menü der Filmliste anzeigen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:230
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:247
 msgid "Displays the movie delete function in the menu at the movie list."
 msgstr "Mit dieser Option wird der Menüpunkt Film löschen im Menü der Filmliste angezeigt."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:231
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:248
 msgid "Show move/copy option in extensions menu from movielist:"
 msgstr "Verschieben/Kopieren im Menü der Filmliste anzeigen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:231
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:248
 msgid "Displays the movie move/copy function in the menu at the movie list."
 msgstr "Mit dieser Option wird der Menüpunkt Verschieben/Kopieren im Menü der Filmliste angezeigt."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:232
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:249
 msgid "Show movie search in extensions menu from movielist:"
 msgstr "Suchfunktion im Menü der Filmliste anzeigen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:232
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:249
 msgid "Displays the movie search function in the menu at the movie list."
 msgstr "Mit dieser Option wird der Menüpunkt Film suchen im Menü der Filmliste angezeigt."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:233
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:250
 msgid "Show covers in movielist:"
 msgstr "Cover in der Filmliste anzeigen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:233
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:250
 msgid "Displays the cover in the movie list."
 msgstr "Mit dieser Option werden die Covers in der Erweiterten Filmliste angezeigt."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:235
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:252
 msgid "Set coversize:"
 msgstr "Covergröße:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:235
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:252
 msgid "Here you can determine the coverfile size for the download/save."
 msgstr "Mit dieser Option können Sie die Größe vom Cover für das Herunterladen/Speichern festlegen."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:236
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:253
 msgid "Show D/L and store info/cover in movielist extensions menu:"
 msgstr "Filminfo/Cover Optionen im Menü der Filmliste anzeigen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:236
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:253
 msgid "Displays movie info/cover options in the menu at the movie list."
 msgstr "Mit dieser Option werden die Menüpunkte für das Herunterladen/Speichern der Filminfo/Cover im Menü der Filmliste angezeigt."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:237
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:254
 msgid "Show D/L and store ALL info/cover in movielist extensions menu:"
 msgstr "Alle Infos/Covers Optionen im Menü der Filmliste anzeigen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:237
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:254
 msgid "Displays download and save movie info/cover for all movies options in the menu at the movie list."
 msgstr "Mit dieser Option wird der Menüpunkt für das Herunterladen/Speichern der Filminfos/Covers aller Filme auf einmal im Menü der Filmliste angezeigt."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:238
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:255
 msgid "Show delete info and cover in extensions menu from movielist:"
 msgstr "Filminfo und Cover löschen im Menü der Filmliste anzeigen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:238
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:255
 msgid "Displays delete movie info and cover function in the menu at the movie list."
 msgstr "Mit dieser Option wird der Menüpunkt Filminfo und Cover löschen im Menü der Filmliste angezeigt."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:239
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:256
 msgid "Show delete cover in extensions menu from movielist:"
 msgstr "Cover löschen im Menü der Filmliste anzeigen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:239
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:256
 msgid "Displays delete cover function in the menu at the movie list."
 msgstr "Mit dieser Option wird der Menüpunkt Cover löschen im Menü der Filmliste angezeigt."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:240
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:257
 msgid "Show delete movie info in extensions menu from movielist:"
 msgstr "Filminfo löschen im Menü der Filmliste anzeigen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:240
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:257
 msgid "Displays delete movie info function in the menu at the movie list."
 msgstr "Mit dieser Option wird der Menüpunkt Filminfo löschen im Menü der Filmliste angezeigt."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:241
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:258
 msgid "Show rename in extensions menu from movielist:"
 msgstr "Umbenennen im Menü der Filmliste anzeigen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:241
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:258
 msgid "Displays rename function in the menu at the movie list."
 msgstr "Mit dieser Option wird der Menüpunkt Umbenennen im Menü der Filmliste angezeigt."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:242
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:259
 msgid "Show TMDb search in extensions menu from movielist:"
 msgstr "TMDb Suche im Menü der Filmliste anzeigen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:242
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:259
 msgid "Displays TMDb search in the menu at the movie list."
 msgstr "Mit dieser Option wird der Menüpunkt TMDb Suche im Menü der Filmliste angezeigt."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:243
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:260
 msgid "Jump to first mark when starts playing movie:"
 msgstr "Beim ersten Marker die Wiedergabe starten:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:243
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:260
 msgid "If this option is activated automatically when a movie does not start from the last position, the movie starts at the first marker."
 msgstr "Wenn diese Option aktiviert ist wird automatisch beim Start eines Filmes wenn nicht auf der letzten Position gestartet wird beim ersten Marker die Wiedergabe gestartet."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:244
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:261
 msgid "Show movie tags in extensions menu from movielist:"
 msgstr "Filmtags zuordnen im Menü der Filmliste anzeigen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:244
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:261
 msgid "Displays movie tags function in the menu at the movie list."
 msgstr "Mit dieser Option wird der Menüpunkte für das zuordnen von Filmtags im Menü der Filmliste angezeigt."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:245
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:262
 msgid "Show filter by tags in extensions menu from movielist:"
 msgstr "Nach Tags filtern im Menü der Filmliste anzeigen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:245
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:262
 msgid "Displays filter by tags function in the menu at the movie list."
 msgstr "Mit dieser Option wird der Menüpunkte für das Filtern von Filmtags im Menü der Filmliste angezeigt."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:246
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:263
 msgid "Show search trailer on web in extensions menu from movielist:"
 msgstr "Trailer im Web suchen im Menü der Filmliste anzeigen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:246
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:263
 msgid "Displays search trailer on web function in the menu at the movie list."
 msgstr "Mit dieser Option wird der Menüpunkt \"Trailer im Web suchen\" im Menü der Filmliste angezeigt."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:247
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:264
 msgid "Ask before delete:"
 msgstr "Vor dem löschen nachfragen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:247
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:264
 msgid "With this option you can turn on/off the security question before delete a movie."
 msgstr "ACHTUNG mit dieser Option können Sie die Sicherheitsabfrage vor dem löschen deaktivieren."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:249
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:251
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:253
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:255
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:257
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:259
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:261
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:266
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:268
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:270
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:272
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:274
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:276
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:278
 msgid "INFO button function:"
 msgstr "INFO-Taste Funktion:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:249
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:251
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:253
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:255
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:257
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:259
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:261
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:266
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:268
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:270
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:272
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:274
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:276
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:278
 msgid "With this option you can assign what function should have the info button. The selection depends on the installed plugins."
 msgstr "Mit dieser Option können Sie der INFO Taste ihre Funktion zuordnen. Die Auswahl ist von den installierten Erweiterungen abhängig."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:262
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:279
 msgid "Behavior when a movie is started:"
 msgstr "Verhalten beim Start eines Filmes:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:262
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:279
 msgid "With this option you can assign what should happen when a movie start."
 msgstr "Mit dieser Option können Sie bestimmen was beim Start eines Filmes für eine Aktion gestartet werden soll."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:263
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:280
 msgid "Behavior when a movie is stopped:"
 msgstr "Verhalten beim Stoppen eines Filmes:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:263
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:280
 msgid "With this option you can assign what should happen when a movie stop."
 msgstr "Mit dieser Option können Sie bestimmen was beim Stoppen eines Filmes für eine Aktion gestartet werden soll."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:264
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:281
 msgid "Behavior when a movie reaches the end:"
 msgstr "Verhalten beim Filmende:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:264
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:281
 msgid "With this option you can assign what should happen when the end of the films was achieved."
 msgstr "Mit dieser Option können Sie bestimmen was für eine Aktion gestartet werden soll wenn das Ende eines Filmes erreicht wurde."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:265
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:282
 msgid "Show Moviebar position setup in extensions menu from movielist:"
 msgstr "Filminfoleiste ändern im Menü der Filmliste anzeigen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:265
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:282
 msgid "Displays the moviebar position setup function in the menu at the movie list."
 msgstr "Mit dieser Option wird der Menüpunkt Position verändern der Filminfoleiste im Menü der Filmliste angezeigt."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:267
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:284
 msgid "Color for not ready seen movies:"
 msgstr "Farbe für nicht zu 100% gesehenen Film: "
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:267
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:284
 msgid "With this option you can assign what color should displayed for not ready seen movies in movie list."
 msgstr "Mit dieser Option können Sie bestimmen welche Farbe die Filmmarkierung bei einem nicht als 100 % gesehenem Film haben soll."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:268
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:285
 msgid "Color for ready seen movies:"
 msgstr "Farbe für 100% gesehenen Film:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:268
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:285
 msgid "With this option you can assign what color should displayed for ready seen movies in movie list."
 msgstr "Mit dieser Option können Sie bestimmen welche Farbe die Filmmarkierung bei einem als 100 % gesehenem Film haben soll."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:269
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:286
 msgid "Color for recording movies:"
 msgstr "Farbe für Aufnahme:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:269
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:286
 msgid "With this option you can assign what color should displayed for recording movies in movie list."
 msgstr "Mit dieser Option können Sie bestimmen welche Farbe die Filmmarkierung bei einer Aufnahme haben soll."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:270
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:287
 msgid "Assign the date format for movielist:"
 msgstr "Datumsformat in der Filmliste:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:270
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:287
 msgid "With this option you can assign the date format in movie list (7 different sizes are available)."
 msgstr "Mit dieser Option können Sie das Datumsformat in der Filmliste ändern (es stehen 7 zur Auswahl)."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:272
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:289
 msgid "Show new recordings icon:"
 msgstr "Neue Aufnahmen Icon anzeigen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:272
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:289
 msgid "With this option you can display a icon for new recordings."
 msgstr "Mit dieser Option können Sie neue Aufnahmen mit einem eigenen Icon in der Filmliste anzeigen."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:274
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:291
 msgid "Show mark movie with new recordings icon in menu from movielist:"
 msgstr "Neue Aufnahmen Icon anzeigen im Menü der Filmliste:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:274
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:291
 msgid "Displays mark movie with new recordings icon function in the menu at the movie list. Only Dreambox recordings ar possible to mark with this icon."
 msgstr "Mit dieser Option wird der Menüpunkt Neue Aufnahmen Icon wieder anzeigen im Menü der Filmliste angezeigt. Nur original Dreambox Aufnahmen können mit dem Icon für neue Aufnahmen markiert werden !"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:275
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:292
 msgid "Show new recordings icon by mark movie as unseen:"
 msgstr "Neue Aufnahmen Icon automatisch wieder anzeigen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:275
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:292
 msgid "If this option is activated automatically display the icon for new recordings when the mark movie as unseen function is used. Only original Dreambox recordings become this icon."
 msgstr "Wenn diese Option aktiviert ist wird automatisch beim markieren von Filmen als ungesehen wieder das neue Aufnahmen Icon angezeigt. Nur bei original Dreambox Aufnahmen wird das Icon angezeigt."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:276
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:293
 msgid "Show Mini TV:"
 msgstr "Mini TV anzeigen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:276
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:293
 msgid "With this option you can switch on/off the Mini TV in the movie list."
 msgstr "Mit dieser Option können Sie die Mini TV Anzeige in der Filmliste ein/aus schalten."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:277
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:294
 msgid "Use folder name for display covers:"
 msgstr "Ordnername anstelle von folder.jpg verwenden:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:277
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:294
 msgid "With this option you can use the foldername instead of folder.jpg to display covers in folders."
 msgstr "Mit dieser Option können Sie bestimmen das für die Cover anzeige von Ordnern der Ordnername anstelle von folder.jpg verwendet wird."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:278
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:295
 msgid "Close with EXIT key:"
 msgstr "Beenden mit der EXIT Taste:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:278
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:295
 msgid "If this option is enabled you can stop play a movie with the EXIT button, and the Advanced Movie Selection plugin will also be closed immediately (if the next option is disabled)."
 msgstr "Wenn diese Option aktiviert ist kann das abspielen eines Films mit der EXIT Taste beendet werden, und die Erweiterte Filmliste wird dabei auch sofort geschlossen (wenn die nächste Option deaktiviert bleibt)."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:280
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:297
 msgid "Use behavior when a movie is stopped:"
 msgstr "Verhalten beim Stoppen eines Filmes verwenden:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:280
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:297
 msgid "If this option is activated the behavior when stop a film also will used when you use the EXIT button."
 msgstr "Wenn aktiviert wird auch beim beenden mit der EXIT Taste das eingestellte Verhalten beim Stoppen eines Filmes verwendet."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:281
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:298
 msgid "Show bookmarks in movielist:"
 msgstr "Lesezeichen in der Filmliste anzeigen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:281
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:298
 msgid "When enabled all created bookmarks appear in the movie list."
 msgstr "Wenn diese Option aktiviert ist werden alle angelegten Lesezeichen in der Filmliste angezeigt."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:282
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:299
 msgid "Show info messages:"
 msgstr "Info Nachrichten anzeigen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:282
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:299
 msgid "If this option is activated will be displayed different info message. This should help with the operation of the extension."
 msgstr "Wenn diese Option aktiviert ist werden verschieden Info Nachrichten angezeigt. Diese sollen die Bedienung der Erweiterten Filmliste vereinfachen."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:283
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:300
 msgid "Use alternative jump function:"
 msgstr "Alternative Sprungfunktionen aktivieren:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:283
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:300
 msgid "If this option is activated more jump functions ar available. ATTENTION: Enigma 2 restart is necessary!"
 msgstr "Wenn diese Option aktiviert ist stehen mehr Sprungfunktionen zur Verfügung. ACHTUNG: Bei einer Änderung dieser Einstellung muss Enigma 2 neu gestartet werden (es kommt beim Speichern ein Abfrage) !"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:286
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:303
 msgid "Change function from left/right buttons:"
 msgstr "Funktion der Pfeiltasten (links/rechts) tauschen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:286
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:303
 msgid "If this option is activated the function of the left/right arrow buttons will changed. Normal you can use the buttons also for winding, if is changed you have quick access to the new jump function. ATTENTION: Enigma 2 restart is necessary!"
 msgstr "Wenn aktiviert ist anstelle vom Spulen das schnelle aufrufen der Sprungfunktion möglich. ACHTUNG: Bei einer Änderung dieser Einstellung muss Enigma 2 neu gestartet werden (es kommt beim Speichern ein Abfrage) !"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:287
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:304
 msgid "Manual jump sensibility:"
 msgstr "Zeit für manuelles Springen (in %):"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:287
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:304
 msgid "Here you can adjust the manually jump length relative to the film length in percent."
 msgstr "Hier können Sie die manuelle Sprunglänge relativ zur Filmlänge in Prozent einstellen."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:288
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:305
 msgid "Use wastebasket:"
 msgstr "Papierkorb benutzen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:288
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:305
 msgid "If this option is activated the movie will not be deleted but moved into the wastebasket."
 msgstr "Wenn diese Option aktiviert ist wird beim löschen eines Filmes dieser nicht gleich gelöscht sondern in den Papierkorb verschoben."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:290
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:307
 msgid "Wastebasket file(s):"
 msgstr "Papierkorb Datei(en):"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:290
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:307
 msgid "Here you can select which files to Wastebasket are displayed. ATTENTION: All directorys below '/media' will take very long until the list is displayed!"
 msgstr "Hier können Sie einstellen wo nach Papierkorb Dateien gesucht werden soll. ACHTUNG: Wenn die Option 'Alles unter /media' verwendet wird, wird das Anzeigen des Papierkorbes sehr lange dauern (1->3 Minuten)."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:291
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:308
 msgid "Start at the beginning depends on end (in Minutes):"
 msgstr "Starte Wiedergabe von Anfang x Minuten bevor Ende erreicht:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:291
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:308
 msgid "Here you can set off when a movie to play automatically from the beginning when you start again (On settings=0, functions is disabled)."
 msgstr "Hier können Sie festlegen ab wieviel Minuten vor Filmende ein Film bei erneutem Start automatisch von Anfang an abgespielt werden soll (bei 0 ist diese Funktion deaktiviert)."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:299
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:309
+msgid "Enable Enigma2 debug:"
+msgstr "Enigma 2 Fehlersuche aktivieren:"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:309
+msgid "If you enable this function, all standard output from enigma will be stored to /tmp folder"
+msgstr "Wenn Sie diese Funktion aktivieren, werden alle Standard-Ausgaben von Enigma 2 im /tmp Ordner gespeichert (bei einem E2 neustart wird es automatisch deaktiviert)."
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:317
 msgid "No Helptext available!"
 msgstr "Kein Hilfstext vorhanden !"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:303
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:321
 msgid "IMDb plugin installed. Assign function to info button is possible."
 msgstr "IMDb Erweiterung ist installiert. Funktion kann der INFO Taste zugewiesen werden."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:305
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:323
 msgid "IMDb plugin NOT installed. Assign function to info button is NOT possible."
 msgstr "IMDb Erweiterung ist NICHT installiert. Funktion kann der INFO Taste NICHT zugewiesen werden."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:307
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:325
 msgid "OFDb plugin installed. Assign function to info button is possible."
 msgstr "OFDb Erweiterung ist installiert. Funktion kann der INFO Taste zugewiesen werden."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:309
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:327
 msgid "OFDb plugin NOT installed. Assign function to info button is NOT possible."
 msgstr "OFDb Erweiterung ist NICHT installiert. Funktion kann der INFO Taste NICHT zugewiesen werden."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:311
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:329
 msgid "TMDb plugin installed. Assign function to info button is possible."
 msgstr "TMDb Erweiterung ist installiert. Funktion kann der INFO Taste zugewiesen werden."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:313
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:331
 msgid "TMDb plugin NOT installed. Assign function to info button is NOT possible."
 msgstr "TMDb Erweiterung ist NICHT installiert. Funktion kann der INFO Taste NICHT zugewiesen werden."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:315
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:333
 msgid "YTTrailer plugin installed. Search for trailers on the Web is possible."
 msgstr "YTTrailer Erweiterung ist installiert. Trailer können im Web gesucht werden."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:317
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:335
 msgid "YTTrailer plugin NOT installed. Search for trailers on the Web is NOT possible."
 msgstr "YTTrailer Erweiterung ist NICHT installiert. Trailer können NICHT im Web gesucht werden."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:328
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:346
 msgid "Really close without saving settings?"
 msgstr "Wirklich ohne Speichern schließen ?"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:334
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:366
 msgid ""
 "Some settings changes require a restart to take effect.\n"
 "If you  use a skin without PiG (Picture in Graphic) you have to restart the box (not only Enigma 2)!\n"
@@ -592,35 +599,34 @@ msgstr ""
 "Wenn Sie einen Skin ohne PiG (Bild in Grafik/MiniTV) verwenden müssen Sie die Box komplett neu starten (Enigma 2 alleine reicht nicht) !\n"
 "Mit JA wird \"nur\" Enigma 2 neu gestartet, mit NEIN die komplette Box."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:337
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:369
 msgid "Some settings changes require close/reopen the movielist to take effect."
 msgstr "Einige Einstellungen benötigen das Schließen und erneutes öffnen der Filmliste um wirksam zu werden."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:343
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:375
 msgid "Aborted by user !!"
 msgstr "Abbruch durch Benutzer !!"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:376
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:408
 msgid "IMPORTANT: If changes are made here the Advanced Movie Selection must be completely closed so the changes can be adopted !!"
 msgstr "WICHTIG: Wenn Sie hier Änderungen vornehmen muss zum übernehmen dieser die Erweiterte Filmliste komplett geschlossen werden !!"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:377
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:409
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:72
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/RecordPaths.py:45
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:378
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:682
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:410
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:714
 msgid "Save/Close"
 msgstr "Speichern/Schließen"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:379
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:411
 msgid "Own button description"
 msgstr "Eigene Tastenbezeichnung"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:383
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:402
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:415
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:434
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:103
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:104
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:105
@@ -629,276 +635,276 @@ msgstr "Eigene Tastenbezeichnung"
 msgid "Nothing"
 msgstr "nichts Zugeordnet"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:384
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:416
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:119
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:102
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:79
 msgid "Delete"
 msgstr "Löschen"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:385
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:417
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:22
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:151
 msgid "Sort"
 msgstr "Sortieren"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:386
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:418
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:109
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:14
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:85
 msgid "Home"
 msgstr "Heimverzeichnis"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:387
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:419
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:106
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:16
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:87
 msgid "Bookmark 1"
 msgstr "Lesezeichen 1"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:388
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:420
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:107
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:18
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:89
 msgid "Bookmark 2"
 msgstr "Lesezeichen 2"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:389
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:421
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:108
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:20
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:91
 msgid "Bookmark 3"
 msgstr "Lesezeichen 3"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:390
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:422
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:93
 msgid "Bookmark(s) on/off"
 msgstr "Lesezeichen ein/aus"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:391
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:423
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:216
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:97
 msgid "Filter by Tags"
 msgstr "Nach Tags filtern"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:392
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:424
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:99
 msgid "Tag Editor"
 msgstr "Tag Editor"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:393
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:425
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:111
 msgid "Move-Copy"
 msgstr "Versch. / Kopieren"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:394
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:426
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:132
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:117
 msgid "Rename"
 msgstr "Umbenennen"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:395
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:427
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:123
 msgid "TMDb search & D/L"
 msgstr "TMDb suche & D/L"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:396
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:428
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:132
 msgid "Mark as seen"
 msgstr "Gesehen markieren"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:397
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:429
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:138
 msgid "Mark as unseen"
 msgstr "Ungesehen mark."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:398
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:430
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:144
 msgid "Show new icon"
 msgstr "Neu Icon anzeigen"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:400
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:432
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:105
 msgid "Trailer search"
 msgstr "Trailer suchen"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:403
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:435
 msgid "DM-600PVR"
 msgstr "DM-600PVR"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:404
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:436
 msgid "DM-7000"
 msgstr "DM-7000"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:405
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:437
 msgid "DM-7025"
 msgstr "DM-7025"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:406
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:438
 msgid "DM-8000HD"
 msgstr "DM-8000HD"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:407
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:439
 msgid "DM-500HD"
 msgstr "DM-500HD"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:408
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:440
 msgid "DM-800HD"
 msgstr "DM-800HD"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:409
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:441
 msgid "DM-800HDse"
 msgstr "DM-800HDse"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:410
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:442
 msgid "DM-7020HD"
 msgstr "DM-7020HD"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:411
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:443
 msgid "internal HDD"
 msgstr "interne HDD"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:412
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:444
 msgid "NAS"
 msgstr "NAS"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:413
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:445
 msgid "NAS-Movies"
 msgstr "NAS-Filme"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:419
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:451
 msgid "Display plugin name"
 msgstr "Erweiterungsnamen"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:420
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:452
 msgid "Display plugin description"
 msgstr "Erweiterungsbeschreibung"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:468
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:500
 msgid "Movie Quick Button Setup"
 msgstr "Farbtasten Einst."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:508
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:540
 msgid "Assigned to red key"
 msgstr "Zuordnung rote Taste:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:510
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:542
 msgid "Assigned to green key"
 msgstr "Zuordnung grüne Taste:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:512
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:544
 msgid "Assigned to yellow key"
 msgstr "Zuordnung gelbe Taste:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:514
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:546
 msgid "Assigned to blue key"
 msgstr "Zuordnung blaue Taste:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:516
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:548
 msgid "Button caption"
 msgstr "Tastenbezeichnung bei Erweiterungen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:518
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:550
 msgid "Home button text"
 msgstr "Heimverzeichnis Tastenbezeichnung:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:520
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:552
 msgid "Bookmark 1 button text"
 msgstr "Lesezeichen 1 Tastenbezeichnung:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:522
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:554
 msgid "Bookmark 2 button text"
 msgstr "Lesezeichen 2 Tastenbezeichnung:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:524
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:556
 msgid "Bookmark 3 button text"
 msgstr "Lesezeichen 3 Tastenbezeichnung:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:526
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:558
 msgid "Home path"
 msgstr "Heimverzeichnis:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:528
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:560
 msgid "Bookmark 1 path"
 msgstr "Lesezeichen 1 Speicherort:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:530
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:562
 msgid "Bookmark 2 path"
 msgstr "Lesezeichen 2 Speicherort:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:532
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:564
 msgid "Bookmark 3 path"
 msgstr "Lesezeichen 3 Speicherort:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:564
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:596
 msgid "Movie Quick Button Home path"
 msgstr "Auswahl des Heimverzeichnisses"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:567
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:599
 msgid "Movie Quick Button Bookmark 1 path"
 msgstr "Auswahl Lesezeichen 1 Verzeichnis"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:570
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:602
 msgid "Movie Quick Button Bookmark 2 path"
 msgstr "Auswahl Lesezeichen 2 Verzeichnis"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:573
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:605
 msgid "Movie Quick Button Bookmark 3 path"
 msgstr "Auswahl Lesezeichen 3 Verzeichnis"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:691
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:723
 msgid "Movie Quick Button Name Setup"
 msgstr "Bezeichnung Farbtasten"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:703
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:735
 msgid "Enter Home button descrition:"
 msgstr "Heimtaste Tastenbezeichnung eingeben:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:705
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:737
 msgid "Enter Bookmark 1 button descrition:"
 msgstr "Lesezeichen 1 Tastenbezeichnung eingeben:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:707
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:739
 msgid "Enter Bookmark 2 button descrition:"
 msgstr "Lesezeichen 2 Tastenbezeichnung eingeben:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:709
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:741
 msgid "Enter Bookmark 3 button descrition:"
 msgstr "Lesezeichen 3 Tastenbezeichnung eingeben:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:733
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:765
 msgid "Home button description:"
 msgstr "Heimtaste Tastenbezeichnung:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:734
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:766
 msgid "Bookmark 1 button description:"
 msgstr "Lesezeichen 1 Tastenbezeichnung:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:735
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:767
 msgid "Bookmark 2 button description:"
 msgstr "Lesezeichen 2 Tastenbezeichnung:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:736
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:768
 msgid "Bookmark 3 button description:"
 msgstr "Lesezeichen 3 Tastenbezeichnung:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:749
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:781
 msgid "Here you can give the home button a special name. After saving the changes color key settings will be closed, reopen it then the changes is to selection."
 msgstr "Hier können Sie die Tastenbezeichnung für das Heimverzeichnis ändern. Nach dem speichern wird die Farbtasten Einstellungen geschlossen, und nach erneutem öffnen stehen die Änderungen zur Auswahl."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:753
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:785
 msgid "Here you can give the bookmark 1 button a special name. After saving the changes color key settings will be closed, reopen it then the changes is to selection."
 msgstr "Hier können Sie die Tastenbezeichnung für das Lesezeichen 1 ändern. Nach dem speichern wird die Farbtasten Einstellungen geschlossen, und nach erneutem öffnen stehen die Änderungen zur Auswahl."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:757
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:789
 msgid "Here you can give the bookmark 2 button a special name. After saving the changes color key settings will be closed, reopen it then the changes is to selection."
 msgstr "Hier können Sie die Tastenbezeichnung für das Lesezeichen 2 ändern. Nach dem speichern wird die Farbtasten Einstellungen geschlossen, und nach erneutem öffnen stehen die Änderungen zur Auswahl."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:761
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:793
 msgid "Here you can give the bookmark 3 button a special name. After saving the changes color key settings will be closed, reopen it then the changes is to selection."
 msgstr "Hier können Sie die Tastenbezeichnung für das Lesezeichen 3 ändern. Nach dem speichern wird die Farbtasten Einstellungen geschlossen, und nach erneutem öffnen stehen die Änderungen zur Auswahl."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:799
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:831
 msgid "Really close without saving settings ?"
 msgstr "Wirklich ohne Speichern schließen ?"
 
@@ -1134,12 +1140,12 @@ msgstr ""
 "Verschieben/Kopieren wurde abgebrochen !\n"
 "%s"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieList.py:417
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieList.py:420
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieList.py:436
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieList.py:439
 msgid "REC"
 msgstr "Aufn."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieList.py:422
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieList.py:441
 msgid "Records"
 msgstr "Aufnahme"
 
@@ -1353,8 +1359,8 @@ msgstr ""
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:418
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:461
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:503
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:703
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:277
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:709
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:278
 msgid "You cannot delete this!"
 msgstr "Das kann nicht gelöscht werden !"
 
@@ -1376,61 +1382,61 @@ msgstr ""
 "Die Filminfo wirklich löschen von:\n"
 "%s  ?"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:599
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:605
 msgid "Please wait... Loading list..."
 msgstr "Lade Filmliste, bitte warten ..."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:606
-msgid "ATTENTION: Ask before delete ist disabled!"
-msgstr "ACHTUNG: Vor dem löschen nachfragen ist deaktiviert !"
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:612
+msgid "ATTENTION: Ask before delete is disabled!"
+msgstr "ACHTUNG: Vor dem löschen nachfragen ist deaktiviert  !"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:639
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:645
 msgid "Select the movie path"
 msgstr "Lesezeichen Menü"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:643
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:649
 msgid "Advanced movielist menu"
 msgstr "Erw. Filmauswahl Menü"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:644
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:178
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:650
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:179
 msgid "Show event details"
 msgstr "Filminfos anzeigen"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:648
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:654
 msgid "Exit movielist"
 msgstr "Erw. Filmauswahl beenden"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:649
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:655
 msgid "Select movie"
 msgstr "Film auswählen"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:675
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:681
 #, python-format
 msgid "Can not delete because %s is currently recording!"
 msgstr "%s kann nicht gelöscht werden weil es gerade aufgenommen wird !"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:695
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:701
 #, python-format
 msgid "Do you really want to move %s to trashcan?"
 msgstr "Wollen Sie wirklich %s in den Papierkorb verschieben ?"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:697
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:272
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:703
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:273
 #, python-format
 msgid "Do you really want to delete %s?"
 msgstr "%s wirklich löschen ?"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:712
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:749
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:718
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:755
 msgid "Delete failed!"
 msgstr "Löschen fehlgeschlagen !"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:764
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:770
 msgid "Advanced Movie Selection"
 msgstr "Erweiterte Filmauswahl"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:914
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:920
 msgid ""
 "Load Length of Movies in Movielist has been disabled.\n"
 "Close and reopen Movielist is required to apply the setting."
@@ -1438,36 +1444,36 @@ msgstr ""
 "Anzeigen der Spielzeit in der Filmliste wurde deaktiviert.\n"
 "Das schließen und wieder öffnen der Filmliste ist erforderlich damit die Einstellungen übernommen werden."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:961
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:967
 msgid "Tag 1"
 msgstr "Markierung 1"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:966
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:972
 msgid "Tag 2"
 msgstr "Markierung 2"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1021
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1027
 msgid "Movie location:"
 msgstr "Speicherort:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1037
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1043
 msgid "Please select the movie path..."
 msgstr "Please select the movie path..."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1059
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1065
 #, python-format
 msgid "Directory %s nonexistent."
 msgstr "Directory %s nonexistent."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1102
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1108
 msgid "Please select tag to filter..."
 msgstr "Please select tag to filter..."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1105
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1111
 msgid "No tags are set on these movies."
 msgstr "No tags are set on these movies."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1124
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1130
 msgid ""
 "Use direction keys to move the Moviebar.\n"
 "Press OK button for save or the EXIT button to cancel.\n"
@@ -1670,16 +1676,16 @@ msgstr "Bereitschaftsbetrieb"
 msgid "Shutdown"
 msgstr "Box ausschalten"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:179
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:180
 msgid "Open servicelist"
 msgstr "EPG anzeigen"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:184
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:189
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:185
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:190
 msgid "Leave movie player"
 msgstr "Abspielen u. Filmliste beenden"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:239
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:240
 msgid ""
 "Not possible !\n"
 "MerlinEPG and CoolTVGuide present or neither installed from this two plugins."
@@ -1687,19 +1693,19 @@ msgstr ""
 "Nicht möglich !\n"
 "MerlinEPG und CoolTVGuide sind beide installiert, oder keines von beiden ist installiert."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:282
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:283
 msgid "End of the movie is reached, the box now go to standby. Do that now?"
 msgstr "Das Ende des Filmes wurde erreicht, die Box fährt nun in den Bereitschaftsmodus. Soll das nun durchgeführt werden ?"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:285
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:286
 msgid "End of the movie is reached, the box now go to shut down. Shutdown now?"
 msgstr "Das Ende des Filmes wurde erreicht, die Box schaltet sich nun aus. Soll das nun durchgeführt werden ?"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:343
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:344
 msgid "No DVD-Player found!"
 msgstr "DVD-Player Erweiterung nicht gefunden !"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:367
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:368
 msgid "Setup Advanced Movie Selection"
 msgstr "Erw. Filmauswahl Einstellungen"
 
@@ -2124,7 +2130,7 @@ msgstr "Erweiterte Filmauswahl - Papierkorb "
 msgid "Wastebasket: %s"
 msgstr "Papierkorb: %s"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Wastebasket.py:266
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Wastebasket.py:268
 msgid ""
 "Recording(s) are in progress or coming up in few seconds!\n"
 "Now movie delete can damage the recording(s)!\n"
@@ -2134,11 +2140,11 @@ msgstr ""
 "Das löschen des Filmes kann die Aufnahme beschädigen !\n"
 "Wollen Sie nun wirklich den Film löschen ?"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Wastebasket.py:275
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Wastebasket.py:277
 msgid "Do you really want to delete all movies?"
 msgstr "Wollen Sie wirklich alle Filme löschen ?"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Wastebasket.py:299
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Wastebasket.py:303
 msgid ""
 "Recording(s) are in progress or coming up in few seconds!\n"
 "Now empty the Wastebasket can damage the recording(s)!\n"
@@ -2148,11 +2154,11 @@ msgstr ""
 "Das leeren des Papierkorbes kann die Aufnahme beschädigen !\n"
 "Wollen Sie nun wirklich den Papierkorb leeren ?"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Wastebasket.py:307
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Wastebasket.py:311
 msgid "Deleting in progress! Please wait..."
 msgstr "Papierkorb leeren wird durchgeführt, bitte warten ..."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Wastebasket.py:334
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Wastebasket.py:339
 msgid "Restore failed!"
 msgstr "Wiederherstellen fehlgeschlagen !"
 
