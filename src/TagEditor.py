@@ -24,7 +24,7 @@ from Tools.Directories import fileExists
 from Screens.Screen import Screen
 from Screens.InputBox import InputBox
 from Screens.ChoiceBox import ChoiceBox
-from MessageBoxEx import MessageBoxEx
+from MessageBoxEx import MessageBox as MessageBoxEx
 from Components.config import config
 from Components.ActionMap import ActionMap
 from Components.Sources.StaticText import StaticText
