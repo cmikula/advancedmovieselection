@@ -129,7 +129,7 @@ class ConfigListScreen(eConfigList.ConfigListScreen):
             self["config"].onSelectionChanged.append(self.handleInputHelpers)
 
 class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
-    def __init__(self, session, csel):
+    def __init__(self, session, csel = None):
         Screen.__init__(self, session)
         self.csel = csel
         try:
@@ -174,12 +174,12 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.onShown.append(self.setWindowTitle)
         self.onLayoutFinish.append(self.saveListsize)
         self.pluginsavailable()
-        if self.csel:
-            self.onHide.append(self.csel["list"].updateSettings)
+        self.onHide.append(self.updateSettings)
 
     def updateSettings(self):
-        self.csel["list"].updateSettings()
-        self.csel.reloadList()
+        if self.csel:
+            self.csel["list"].updateSettings()
+            self.csel.reloadList()
         
     def saveListsize(self):
         listsize = self["config"].instance.size()
