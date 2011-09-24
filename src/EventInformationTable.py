@@ -340,7 +340,8 @@ def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=Fa
         if not overview or len(overview) == 0:
             print "tmdb search results no valid movie overview"
             return False
-
+        directors = []
+        actors = []
         # print out extended movie informations
         try:
             original_name = movie['original_name']
@@ -369,6 +370,7 @@ def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=Fa
                 if has_director:
                     print "Directors:"
                     for prodr in cast['director']:
+                        directors.append(prodr['name'])
                         print " " * 4, prodr['name']
                 if has_producer:
                     print "Producers:"
@@ -377,13 +379,49 @@ def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=Fa
                 if has_actor:
                     print "Actors:"
                     for prodr in cast['actor']:
+                        actors.append(prodr['name'])
                         print " " * 4, prodr['name']
         except Exception, e:
             print e
-    
+
+        ex_info = []
+        if released:
+            try:
+                try:
+                    print movie['countries'].keys()
+                    country = ", ".join(movie['countries'].keys()) + " "
+                    country = country.replace("US", "USA")
+                except:
+                    country = ""
+                year = released[0:4]
+                ex_info.append(country + year) 
+            except Exception, e:
+                print e
+        else:
+            try:
+                country = movie['countries'].items()[0][0]
+                ex_info.append(country) 
+            except:
+                pass
+
+        if runtime:
+            try:
+                rt = str(int(runtime))
+                ex_info.append(rt + " Min") 
+            except Exception, e:
+                print e
+        
+        if has_director:
+            ex_info.append("Von " + ", ".join(directors))
+        if has_actor:
+            ex_info.append("Mit " + ", ".join(actors))
+        extended_info = ". ".join(ex_info)
+        print "Extended info:"
+        print " " * 4, extended_info
+        
         data = []
         ShortEventDescriptor.encode(data, name, genre)
-        ExtendedEventDescriptor.encode(data, overview)
+        ExtendedEventDescriptor.encode(data, overview + "\n" + extended_info)
         data = "".join(data)
 
         if runtime:
