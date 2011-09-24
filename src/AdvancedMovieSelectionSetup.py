@@ -181,11 +181,9 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.bouquet_length = int(self.listHeight / 25)
 
     def nextBouquet(self):
-        print "next"
         self["config"].setCurrentIndex(max(self["config"].getCurrentIndex() - self.bouquet_length, 0))
 
     def prevBouquet(self):
-        print "pref"
         self["config"].setCurrentIndex(min(self["config"].getCurrentIndex() + self.bouquet_length, len(self["config"].list) - 1))
 
     def setWindowTitle(self):
@@ -295,6 +293,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append(getConfigListEntry(_("Close with EXIT key:"), config.AdvancedMovieSelection.exitkey, _("If this option is enabled you can stop play a movie with the EXIT button, and the Advanced Movie Selection plugin will also be closed immediately (if the next option is disabled).")))
         if config.AdvancedMovieSelection.exitkey.value:
             self.list.append(getConfigListEntry(_("Use behavior when a movie is stopped:"), config.AdvancedMovieSelection.exitprompt, _("If this option is activated the behavior when stop a film also will used when you use the EXIT button.")))
+        self.list.append(getConfigListEntry(_("Show hotplug devices:"), config.AdvancedMovieSelection.hotplug, _("Enable this option to use USB-Devices.")))
         self.list.append(getConfigListEntry(_("Show bookmarks in movielist:"), config.AdvancedMovieSelection.show_bookmarks, _("When enabled all created bookmarks appear in the movie list.")))
         self.list.append(getConfigListEntry(_("Show info messages:"), config.AdvancedMovieSelection.showinfo, _("If this option is activated will be displayed different info message. This should help with the operation of the extension.")))
         self.list.append(getConfigListEntry(_("Use alternative jump function:"), config.AdvancedMovieSelection.useseekbar, _("If this option is activated more jump functions ar available. ATTENTION: Enigma 2 restart is necessary!")))

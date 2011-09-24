@@ -27,7 +27,7 @@ from Components.ActionMap import HelpableActionMap, ActionMap, NumberActionMap
 from Components.MenuList import MenuList
 from Components.Sources.StaticText import StaticText
 from Screens.HelpMenu import HelpableScreen
-from MovieList import MovieList
+from MovieList import MovieList, eServiceReferenceHotplug
 from MovieSearch import MovieSearchScreen
 from Components.DiskInfo import DiskInfo
 from Components.Pixmap import Pixmap
@@ -111,6 +111,8 @@ class MovieContextMenu(Screen):
                 "cancel": self.cancelClick
             })
         menu = []
+        if config.AdvancedMovieSelection.hotplug.value and isinstance(service, eServiceReferenceHotplug):
+            menu.append((_("Unmount") + " " + service.getName(), boundFunction(self.unmount)))
         if config.AdvancedMovieSelection.showtmdb.value:
             if not (self.service.flags & eServiceReference.mustDescent):
                 menu.append((_("TMDb search"), boundFunction(self.imdbsearch)))
@@ -226,6 +228,15 @@ class MovieContextMenu(Screen):
     def setWindowTitle(self):
         self.setTitle(_("Advanced Movie Selection Menu"))
 
+    def unmount(self):
+        res = self.csel["list"].unmount(self.service)
+        if res == 0:
+            self.session.open(MessageBox, _("The device '%s' can now removed!") %(self.service.getName()), MessageBox.TYPE_INFO)
+            self.csel.reloadList()
+            self.close()        
+        else:
+            self.session.open(MessageBox, _("Error occurred during unmounting device!"), MessageBox.TYPE_ERROR)
+
     def waste(self):
         from Wastebasket import Wastebasket
         self.session.openWithCallback(self.closeafterfinish, Wastebasket)
@@ -310,6 +321,7 @@ class MovieContextMenu(Screen):
         self["menu"].getCurrent()[1]()
 
     def cancelClick(self):
+        self.csel["list"].updateHotplugDevices()
         self.csel.reloadList()
         self.close(False)
 

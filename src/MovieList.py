@@ -62,7 +62,7 @@ MEDIAEXTENSIONS = {
 class eServiceReferenceVDir(eServiceReference):
     pass
 
-class eServiceReferenceMount(eServiceReference):
+class eServiceReferenceHotplug(eServiceReference):
     pass
 
 class MovieList(GUIComponent):
@@ -160,7 +160,7 @@ class MovieList(GUIComponent):
         except: self.finished_color = newcolor2
         try: self.recording_color = parseColor("movieRecording").argb()    
         except: self.recording_color = newcolor3
-        self.getAutomountedDevices()
+        self.updateHotplugDevices()
 
     def onShow(self):
         GUIComponent.onShow(self)
@@ -216,18 +216,30 @@ class MovieList(GUIComponent):
         else: # default if config.AdvancedMovieSelection.dateformat.value == "3":
             self.DATE_TIME_FORMAT = "%d.%m.%Y - %H:%M"
 
-    def getAutomountedDevices(self):
-        import commands
+    def updateHotplugDevices(self):
         self.automounts = []
-        for hdd in harddiskmanager.HDDList():
-            model = hdd[1].model()
-            device_dir = hdd[1].getDeviceDir()
-            #partitions = hdd[1].numPartitions()
-            mount = commands.getoutput('mount | grep ' + device_dir).split()
-            if len(mount) > 2:
-                service = eServiceReferenceMount(eServiceReference.idFile, eServiceReference.flagDirectory, mount[2] + "/")
-                service.setName(model + " - " + hdd[1].capacity())
-                self.automounts.append(service)
+        if config.AdvancedMovieSelection.hotplug.value == False:
+            return
+        try:
+            import commands
+            for hdd in harddiskmanager.HDDList():
+                model = hdd[1].model()
+                device_dir = hdd[1].getDeviceDir()
+                #partitions = hdd[1].numPartitions()
+                mount = commands.getoutput('mount | grep ' + device_dir).split()
+                if len(mount) > 2:
+                    service = eServiceReferenceHotplug(eServiceReference.idFile, eServiceReference.flagDirectory, mount[2] + "/")
+                    service.setName(model + " - " + hdd[1].capacity())
+                    self.automounts.append(service)
+        except Exception, e:
+            print e
+    
+    def unmount(self, service):
+        from os import system
+        res = system("umount " + service.getPath()) >> 8
+        if res == 0:
+            self.automounts.remove(service)
+        return res
 
     def connectSelChanged(self, fnc):
         if not fnc in self.onSelectionChanged:
@@ -300,8 +312,8 @@ class MovieList(GUIComponent):
                 res = [ None ]
                 if isinstance(serviceref, eServiceReferenceVDir):
                     png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "bookmark.png"))
-                elif isinstance(serviceref, eServiceReferenceMount):
-                    png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "bookmark.png"))
+                elif isinstance(serviceref, eServiceReferenceHotplug):
+                    png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "hotplug.png"))
                 else:
                     png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "directory.png"))
                 res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 2, 20, 20, png))
