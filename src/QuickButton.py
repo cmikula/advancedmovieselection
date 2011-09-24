@@ -41,10 +41,11 @@ def getPluginCaption(pname):
 
 class QuickButton:
     def __init__(self):
-        self["key_red"] = Button(getPluginCaption(str(config.AdvancedMovieSelection.red.value)))
-        self["key_green"] = Button(getPluginCaption(str(config.AdvancedMovieSelection.green.value)))
-        self["key_yellow"] = Button(getPluginCaption(str(config.AdvancedMovieSelection.yellow.value)))
-        self["key_blue"] = Button(getPluginCaption(str(config.AdvancedMovieSelection.blue.value)))
+        self["key_red"] = Button()
+        self["key_green"] = Button()
+        self["key_yellow"] = Button()
+        self["key_blue"] = Button()
+        self.updateButtonText()
         self["ColorActions"] = HelpableActionMap(self, "ColorActions",
         {
             "red": (self.redpressed, _("Assigned function for red key")),
@@ -52,6 +53,12 @@ class QuickButton:
             "yellow": (self.yellowpressed, _("Assigned function for yellow key")),
             "blue": (self.bluepressed, _("Assigned function for blue key")),
         })
+
+    def updateButtonText(self):
+        self["key_red"].setText(getPluginCaption(str(config.AdvancedMovieSelection.red.value)))
+        self["key_green"].setText(getPluginCaption(str(config.AdvancedMovieSelection.green.value)))
+        self["key_yellow"].setText(getPluginCaption(str(config.AdvancedMovieSelection.yellow.value)))
+        self["key_blue"].setText(getPluginCaption(str(config.AdvancedMovieSelection.blue.value)))
 
     def redpressed(self):
         self.startPlugin(str(config.AdvancedMovieSelection.red.value), self["key_red"])

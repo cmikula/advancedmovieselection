@@ -231,7 +231,7 @@ class MovieContextMenu(Screen):
     def unmount(self):
         res = self.csel["list"].unmount(self.service)
         if res == 0:
-            self.session.open(MessageBox, _("The device '%s' can now removed!") %(self.service.getName()), MessageBox.TYPE_INFO)
+            self.session.open(MessageBox, _("The device '%s' can now removed!") % (self.service.getName()), MessageBox.TYPE_INFO)
             self.csel.reloadList()
             self.close()        
         else:
@@ -270,7 +270,7 @@ class MovieContextMenu(Screen):
             return        
         self.session.openWithCallback(self.closeafterfinish, DownloadMovies, self.csel.list.list, config.AdvancedMovieSelection.coversize.value, self.service)
 
-    def closeafterfinish(self, retval = None):
+    def closeafterfinish(self, retval=None):
         self.csel.updateDescription()
         self.csel.reloadList()
         self.close()        
@@ -289,10 +289,10 @@ class MovieContextMenu(Screen):
         self.session.openWithCallback(self.closeafterfinish, TMDbMainsave, searchTitle, service=self.service)
 
     def menusetup(self):
-        self.session.openWithCallback(self.cancelClick, AdvancedMovieSelectionSetup)
+        self.session.openWithCallback(self.cancelClick, AdvancedMovieSelectionSetup, self.csel)
         
     def setupbutton(self):
-        self.session.open(AdvancedMovieSelectionButtonSetup)
+        self.session.open(AdvancedMovieSelectionButtonSetup, self.csel)
 
     def movecopy(self):
         if not (self.service.flags & eServiceReference.mustDescent):
@@ -690,7 +690,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                         break
                     
         if recording == True and config.AdvancedMovieSelection.showinfo.value:
-            self.session.open(MessageBox, (_("Can not delete because %s is currently recording!") % moviename), MessageBox.TYPE_INFO, timeout = 10)
+            self.session.open(MessageBox, (_("Can not delete because %s is currently recording!") % moviename), MessageBox.TYPE_INFO, timeout=10)
             return
         if recording == True and not config.AdvancedMovieSelection.showinfo.value:
             return        
@@ -899,7 +899,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         moviename = self.service.getPath()
         if moviename.endswith(".ts"):
             movietitle = moviename + ".gm"
-            filehandle = open(movietitle,"w")
+            filehandle = open(movietitle, "w")
             filehandle.write(movietitle)
             filehandle.close()
 

@@ -129,8 +129,9 @@ class ConfigListScreen(eConfigList.ConfigListScreen):
             self["config"].onSelectionChanged.append(self.handleInputHelpers)
 
 class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
-    def __init__(self, session):
+    def __init__(self, session, csel):
         Screen.__init__(self, session)
+        self.csel = csel
         try:
             sz_w = getDesktop(0).size().width()
         except:
@@ -173,7 +174,13 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.onShown.append(self.setWindowTitle)
         self.onLayoutFinish.append(self.saveListsize)
         self.pluginsavailable()
+        if self.csel:
+            self.onHide.append(self.csel["list"].updateSettings)
 
+    def updateSettings(self):
+        self.csel["list"].updateSettings()
+        self.csel.reloadList()
+        
     def saveListsize(self):
         listsize = self["config"].instance.size()
         self.listWidth = listsize.width()
@@ -357,8 +364,6 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             config.AdvancedMovieSelection.showprogessbarinmovielist.value = False
             config.AdvancedMovieSelection.showiconstatusinmovielist.value = False
             config.AdvancedMovieSelection.showcolorstatusinmovielist.value = False
-        elif config.AdvancedMovieSelection.color1.isChanged() or config.AdvancedMovieSelection.color2.isChanged() or config.AdvancedMovieSelection.color3.isChanged(): 
-            self.needsReopenFlag = True
         elif config.AdvancedMovieSelection.minitv.isChanged():
             self.needsReopenFlag = True
         if self.needsRestartFlag == True:
@@ -386,14 +391,15 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.session.open(AdvancedMovieSelectionAbout)
         
     def buttonsetup(self):
-        self.session.open(AdvancedMovieSelectionButtonSetup)
+        self.session.open(AdvancedMovieSelectionButtonSetup, self.csel)
             
     def RecPathSettings(self):
         self.session.open(RecordPathsSettings)
         
 class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
-    def __init__(self, session, args=None):
+    def __init__(self, session, csel=None):
         Screen.__init__(self, session)
+        self.csel = csel
         try:
             sz_w = getDesktop(0).size().width()
         except:
@@ -666,6 +672,8 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         config.AdvancedMovieSelection.bookmark3text.save()
         config.AdvancedMovieSelection.save()
         configfile.save()
+        if self.csel:
+            self.csel.updateButtonText()
         self.close()
 
     def getStaticName(self, list, value):

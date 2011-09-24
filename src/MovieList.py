@@ -120,9 +120,14 @@ class MovieList(GUIComponent):
         
         self.redrawList()
         self.l.setBuildFunc(self.buildMovieListEntry)
-        
         self.onSelectionChanged = [ ]
+        self.updateHotplugDevices()
 
+    def onShow(self):
+        GUIComponent.onShow(self)
+        self.updateSettings()
+        
+    def updateSettings(self):
         if config.AdvancedMovieSelection.color1.value == "yellow":
             newcolor1 = 0xffcc00
         if config.AdvancedMovieSelection.color1.value == "blue":
@@ -160,11 +165,7 @@ class MovieList(GUIComponent):
         except: self.finished_color = newcolor2
         try: self.recording_color = parseColor("movieRecording").argb()    
         except: self.recording_color = newcolor3
-        self.updateHotplugDevices()
 
-    def onShow(self):
-        GUIComponent.onShow(self)
-        # TODO: initialize all media player settings here
         if self.show_statusicon and self.show_folders:
             if config.AdvancedMovieSelection.color3.value == "yellow":
                 self.COLOR_MOVIE_ICON = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "yellow_movieicon.png"))
