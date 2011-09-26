@@ -132,6 +132,10 @@ version. 1.8
 * fix: verbesserung bei der filminfo/cover suche wenn '-' im filmtitel
 ACHTUNG an die skinner, bei allen screens für die filmliste ist etwas dazu gekommen (4 stk. pro auflösung), AdvancedMovieSelectionTrashHD, AdvancedMovieSelectionTrashXD und AdvancedMovieSelectionTrashSD sind neu
 
+version. 1.9
+* neu: usb geräte könnenin der filmliste angezeigt werden
+* neu: senderlogo anzeige ein/aus 
+
 
 
 

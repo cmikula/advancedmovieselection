@@ -45,10 +45,7 @@ if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/OFDb/plugin.pyo"):
 else:
     OFDbPresent = False
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedProgramGuide/plugin.pyo"):
-    if config.plugins.AdvancedProgramGuide.Columns.value:
-        from Plugins.Extensions.AdvancedProgramGuide.plugin import AdvancedProgramGuideII
-    else:
-        from Plugins.Extensions.AdvancedProgramGuide.plugin import AdvancedProgramGuide
+    from Plugins.Extensions.AdvancedProgramGuide.plugin import AdvancedProgramGuideII, AdvancedProgramGuide
     AdvancedProgramGuidePresent = True
 else:
     AdvancedProgramGuidePresent = False
@@ -164,6 +161,7 @@ config.AdvancedMovieSelection.show_bookmarks = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.stop_before_end_time = ConfigInteger(default=5, limits=(0, 30))
 config.AdvancedMovieSelection.debug = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.hotplug = ConfigYesNo(default=True)
+config.AdvancedMovieSelection.show_picon = ConfigYesNo(default=True)
 
 PlayerInstance = None
 

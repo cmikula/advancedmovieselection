@@ -68,7 +68,7 @@ class MoviePreview():
 
     def loadPreview(self, serviceref):
         self.hideDialog()
-        if serviceref and not (serviceref.flags & eServiceReference.mustDescent):
+        if serviceref and config.AdvancedMovieSelection.show_picon.value: # and not (serviceref.flags & eServiceReference.mustDescent):
             path = serviceref.getPath()
             if os.path.isfile(path):
                 path = os.path.splitext(path)[0] + ".jpg"

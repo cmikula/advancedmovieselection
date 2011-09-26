@@ -21,6 +21,7 @@
 from Renderer import Renderer
 from enigma import ePixmap, eEnv
 from Tools.Directories import fileExists, SCOPE_PLUGINS, resolveFilename
+from Components.config import config
 
 class AdvancedMovieSelectionPicon(Renderer):
     searchPaths = (eEnv.resolve('${datadir}/enigma2/%s/'), '/media/cf/%s/', '/media/usb/%s/')
@@ -72,6 +73,6 @@ class AdvancedMovieSelectionPicon(Renderer):
     def findPicon(self, serviceName):
         for path in self.searchPaths:
             pngname = (path % self.path) + serviceName + ".png"
-            if fileExists(pngname):
+            if fileExists(pngname) and config.AdvancedMovieSelection.show_picon.value:
                 return pngname
         return ""
