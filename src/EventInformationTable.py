@@ -352,12 +352,12 @@ def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=Fa
             print "Released:"
             print " " * 4, str(released)
     
+            has_director = False
+            has_producer = False
+            has_author = False
+            has_actor = False
             cast = movie['cast']
             if cast:
-                has_director = False
-                has_producer = False
-                has_author = False
-                has_actor = False
                 for ca in cast:
                     if ca == "director": has_director = True
                     elif ca == "producer": has_producer = True
