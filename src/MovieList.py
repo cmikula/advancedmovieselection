@@ -228,7 +228,7 @@ class MovieList(GUIComponent):
                 device_dir = hdd[1].getDeviceDir()
                 #partitions = hdd[1].numPartitions()
                 mount = commands.getoutput('mount | grep ' + device_dir).split()
-                if len(mount) > 2:
+                if len(mount) > 2 and os.path.normpath(mount[2]) != "/media/hdd":
                     service = eServiceReferenceHotplug(eServiceReference.idFile, eServiceReference.flagDirectory, mount[2] + "/")
                     service.setName(model + " - " + hdd[1].capacity())
                     self.automounts.append(service)
