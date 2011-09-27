@@ -783,9 +783,9 @@ class MovieList(GUIComponent):
 #            self.list.sort(key=lambda x: -x[2])
 
         if self.show_folders:
+            root_path = root.getPath()
             if config.AdvancedMovieSelection.show_bookmarks.value:
                 vdirs = []
-                root_path = root.getPath()
                 for dir in config.movielist.videodirs.value:
                     if dir != root_path and not self.isInList(dir, dirs):
                         parts = dir.split("/")
@@ -801,8 +801,6 @@ class MovieList(GUIComponent):
                     self.list.insert(0, servicedirs)
 
             for tt in self.automounts:
-                print tt.getPath()
-                print root_path
                 if tt.getPath() != root_path:
                     self.list.insert(0, (tt, None, -1, -1))
 
