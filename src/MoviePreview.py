@@ -25,7 +25,7 @@ from Components.Pixmap import Pixmap
 from Components.Label import Label
 from enigma import ePicLoad
 from Tools.Directories import fileExists
-from enigma import getDesktop, eServiceReference
+from enigma import getDesktop
 import os
 from Components.config import config
 from ServiceProvider import eServiceReferenceDvd
@@ -68,41 +68,18 @@ class MoviePreview():
 
     def loadPreview(self, serviceref):
         self.hideDialog()
-        if serviceref and config.AdvancedMovieSelection.show_picon.value: # and not (serviceref.flags & eServiceReference.mustDescent):
+        if serviceref:
             path = serviceref.getPath()
             if os.path.isfile(path):
                 path = os.path.splitext(path)[0] + ".jpg"
             elif isinstance(serviceref, eServiceReferenceDvd):
                 path = path + ".jpg"
             elif config.AdvancedMovieSelection.usefoldername.value:
-                path = path
                 if path.endswith("/"):
                     path = path[:-1] + ".jpg"
             else:
                 path = path + "folder.jpg"
         
-            self.showDialog()
-            self.working = True
-            sc = AVSwitch().getFramebufferScale()
-            self.picload = ePicLoad()
-            self.picload.PictureData.get().append(self.showPreviewCallback)
-            self.picload.setPara((self.dialog["preview"].instance.size().width(), self.dialog["preview"].instance.size().height(), sc[0], sc[1], False, 1, "#00000000"))
-            self.dialog.hide()
-            if fileExists(path):
-                self.picload.startDecode(path)
-        else:
-            path = serviceref.getPath()
-            if os.path.isfile(path):
-                path = os.path.splitext(path)[0] + ".jpg"
-            elif isinstance(serviceref, eServiceReferenceDvd):
-                path = path + ".jpg"
-            elif config.AdvancedMovieSelection.usefoldername.value:
-                path = path
-                if path.endswith("/"):
-                    path = path[:-1] + ".jpg"
-            else:
-                path = path + "folder.jpg"
-            
             self.showDialog()
             self.working = True
             sc = AVSwitch().getFramebufferScale()
