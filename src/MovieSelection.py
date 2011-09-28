@@ -557,12 +557,11 @@ class SelectionEventInfo:
                 self["Service"].newService(None)
         self.updateName()
         if config.AdvancedMovieSelection.showpreview.value == True:
-            path = serviceref.getPath()
-            if path.endswith(".ts"):
+            self.loadPreview(serviceref)
+            if serviceref and serviceref.getPath().endswith(".ts"):
                 self["Providerlogo"].newService(serviceref)
             else:
                 self["Providerlogo"].newService(None)
-            self.loadPreview(serviceref)
 
 class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, QuickButton):
     def __init__(self, session, selectedmovie=None, showLastDir=False):
