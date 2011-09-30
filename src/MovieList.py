@@ -65,6 +65,9 @@ class eServiceReferenceVDir(eServiceReference):
 class eServiceReferenceHotplug(eServiceReference):
     pass
 
+class eServiceReferenceBackDir(eServiceReference):
+    pass
+
 class MovieList(GUIComponent):
     SORT_ALPHANUMERIC = 1
     SORT_RECORDED = 2
@@ -315,6 +318,8 @@ class MovieList(GUIComponent):
                     png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "bookmark.png"))
                 elif isinstance(serviceref, eServiceReferenceHotplug):
                     png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "hotplug.png"))
+                elif isinstance(serviceref, eServiceReferenceBackDir):
+                    png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "back.png"))
                 else:
                     png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "directory.png"))
                 res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 2, 20, 20, png))
@@ -809,7 +814,7 @@ class MovieList(GUIComponent):
                 self.list.insert(0, servicedirs)
             tmp = self.root.getPath()
             if len(tmp) > 1:
-                tt = eServiceReference(eServiceReference.idFile, eServiceReference.flagDirectory, "..")
+                tt = eServiceReferenceBackDir(eServiceReference.idFile, eServiceReference.flagDirectory, "..")
                 tt.setName("..")
                 tmpRoot = os.path.dirname(tmp[:-1])
                 if len(tmpRoot) > 1:
