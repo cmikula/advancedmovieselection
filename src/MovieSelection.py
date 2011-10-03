@@ -537,7 +537,6 @@ class MovieContextMenu(Screen):
 class SelectionEventInfo:
     def __init__(self):
         self["Service"] = ServiceEvent()
-        self["Providerlogo"] = ServiceEvent()
         self.list.connectSelChanged(self.__selectionChanged)
         self.timer = eTimer()
         self.timer.callback.append(self.updateEventInfo)
@@ -558,10 +557,6 @@ class SelectionEventInfo:
         self.updateName()
         if config.AdvancedMovieSelection.showpreview.value == True:
             self.loadPreview(serviceref)
-            if serviceref and serviceref.getPath().endswith(".ts"):
-                self["Providerlogo"].newService(serviceref)
-            else:
-                self["Providerlogo"].newService(None)
 
 class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, QuickButton):
     def __init__(self, session, selectedmovie=None, showLastDir=False):

@@ -28,7 +28,7 @@ from Tools.Directories import fileExists
 from enigma import getDesktop
 import os
 from Components.config import config
-from ServiceProvider import eServiceReferenceDvd
+from ServiceProvider import eServiceReferenceDvd, ServiceEvent
 nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover.jpg")
 
 class MovielistPreview(Screen):
@@ -63,6 +63,7 @@ class MoviePreview():
     def __init__(self, session):
         self.dialog = session.instantiateDialog(MovielistPreview)
         self.onHide.append(self.hideDialog)
+        self["Providerlogo"] = ServiceEvent()
         self.working = False
         self.picParam = None
 
@@ -89,7 +90,10 @@ class MoviePreview():
             self.dialog.hide()
             if fileExists(path):
                 self.picload.startDecode(path)
+            elif serviceref and serviceref.getPath().endswith(".ts"):
+                self["Providerlogo"].newService(serviceref)
             else:
+                self["Providerlogo"].newService(None)
                 self.picload.startDecode(nocover)
                 
     def showPreviewCallback(self, picInfo=None):
