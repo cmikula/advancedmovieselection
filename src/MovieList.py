@@ -36,7 +36,7 @@ from stat import ST_MTIME as stat_ST_MTIME
 from time import time as time_time
 from math import fabs as math_fabs
 from datetime import datetime
-from ServiceProvider import detectDVDStructure, getCutList, Info, ServiceCenter, eServiceReferenceDvd
+from ServiceProvider import detectDVDStructure, getCutList, Info, ServiceCenter, eServiceReferenceDvd, readDMconf
 from os import environ
 from Trashcan import TRASH_NAME
 from Components.Harddisk import harddiskmanager
@@ -99,6 +99,7 @@ class MovieList(GUIComponent):
 
     def __init__(self, root, list_type=None, sort_type=None, descr_state=None, show_folders=False, show_progressbar=False, show_statusicon=False, show_statuscolor=False, show_date=True, show_time=True, show_service=True, show_tags=False):
         GUIComponent.__init__(self)
+        self.__hidelist, self.__permlist = readDMconf()
         self.list_type = list_type or self.LISTTYPE_ORIGINAL
         self.descr_state = descr_state or self.HIDE_DESCRIPTION
         self.sort_type = sort_type or self.SORT_DATE_ASC
@@ -745,6 +746,8 @@ class MovieList(GUIComponent):
                         tempDir = serviceref.getPath()
                         parts = tempDir.split("/")
                         dirName = parts[-2]
+                        if dirName in self.__hidelist:
+                            continue
                         serviceref.setName(dirName)
                         dirs.append((serviceref, None, -1, -1))
                         continue

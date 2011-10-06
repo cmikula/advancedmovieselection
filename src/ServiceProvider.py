@@ -31,6 +31,7 @@ from Components.config import config
 from Screens.InfoBarGenerics import InfoBarCueSheetSupport
 import struct
 import os
+DMCONFFILE = "/etc/enigma2/gemini_DateiBrowser.conf"
 
 instance = None
 
@@ -50,6 +51,26 @@ class eServiceReferenceDvd(eServiceReference):
 			return [self.getPath() + "/"]
 		else:
 			return [self.getPath()]
+
+def readDMconf():
+	hiddelist = []
+	permlist = []
+	try:
+		ishidelist = True
+		rfile = open(DMCONFFILE, 'r')
+		for x in rfile.readlines():
+			val = x.strip()
+			if val == "::::":
+				ishidelist = False
+			else:
+				if ishidelist:
+					hiddelist.append(val)
+				else:
+					permlist.append(val)
+		rfile.close()
+	except:
+		pass
+	return hiddelist, permlist
 
 def getFolderSize(loadPath):
 	folder_size = 0
@@ -378,7 +399,7 @@ class CutListSupport:
 			stop_before_end_time = int(config.AdvancedMovieSelection.stop_before_end_time.value) 
 			if stop_before_end_time > 0:
 				pos = self.getCuePositions()
-				if ((pos[0] - pos[1])/60) < stop_before_end_time:
+				if ((pos[0] - pos[1]) / 60) < stop_before_end_time:
 					self.ENABLE_RESUME_SUPPORT = False
 				else:
 					self.ENABLE_RESUME_SUPPORT = True
@@ -465,7 +486,7 @@ class CutListSupport:
 				firstMark = pts
 				current_pos = self.cueGetCurrentPosition()
 				#increase current_pos by 2 seconds to make sure we get the correct mark
-				current_pos = current_pos+180000
+				current_pos = current_pos + 180000
 				if firstMark == None or current_pos < firstMark:
 					break
 		if firstMark is not None:
