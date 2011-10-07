@@ -133,8 +133,10 @@ version. 1.8
 ACHTUNG an die skinner, bei allen screens für die filmliste ist etwas dazu gekommen (4 stk. pro auflösung), AdvancedMovieSelectionTrashHD, AdvancedMovieSelectionTrashXD und AdvancedMovieSelectionTrashSD sind neu
 
 version. 1.9
-* neu: usb geräte könnenin der filmliste angezeigt werden
+* neu: usb geräte können in der filmliste angezeigt werden
 * neu: senderlogo anzeige ein/aus 
+* neu: zurück icon anstatt ordner
+* neu: nicht anzeigen von dateien/ordnern (bei gp3 über die gemini_DateiBrowser.conf und bei cvs images über die AdvancedMovieSelection.conf in /etc/enigma2)
 
 
 

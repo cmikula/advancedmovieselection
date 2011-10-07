@@ -1,27 +1,26 @@
-'''
-Copyright (C) 2011 cmikula
-
-In case of reuse of this source code please do not remove this copyright.
-
-	This program is free software: you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation, either version 3 of the License, or
-	(at your option) any later version.
-
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
-
-	For more information on the GNU General Public License see:
-	<http://www.gnu.org/licenses/>.
-
-For example, if you distribute copies of such a program, whether gratis or for a fee, you 
-must pass on to the recipients the same freedoms that you received. You must make sure 
-that they, too, receive or can get the source code. And you must show them these terms so they know their rights.
-'''
-
-
+#!/usr/bin/python
+# -*- coding: utf-8 -*- 
+#       Copyright (C) 2011 cmikula
+#
+#       In case of reuse of this source code please do not remove this copyright.
+#
+#	This program is free software: you can redistribute it and/or modify
+#	it under the terms of the GNU General Public License as published by
+#	the Free Software Foundation, either version 3 of the License, or
+#	(at your option) any later version.
+#
+#	This program is distributed in the hope that it will be useful,
+#	but WITHOUT ANY WARRANTY; without even the implied warranty of
+#	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#	GNU General Public License for more details.
+#
+#	For more information on the GNU General Public License see:
+#	<http://www.gnu.org/licenses/>.
+#
+#       For example, if you distribute copies of such a program, whether gratis or for a fee, you 
+#       must pass on to the recipients the same freedoms that you received. You must make sure 
+#       that they, too, receive or can get the source code. And you must show them these terms so they know their rights.
+#
 from Components.Element import cached
 from Components.Sources.ServiceEvent import ServiceEvent as eServiceEvent
 from enigma import eServiceCenter, iServiceInformation, eServiceReference
@@ -31,7 +30,20 @@ from Components.config import config
 from Screens.InfoBarGenerics import InfoBarCueSheetSupport
 import struct
 import os
-DMCONFFILE = "/etc/enigma2/gemini_DateiBrowser.conf"
+from Tools.Directories import fileExists
+from shutil import copyfile
+
+CVS_DMCONFFILE = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/AdvancedMovieSelection.conf"
+GP3_DMCONFFILE = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/gemini_DateiBrowser.conf"
+
+if fileExists("/usr/lib/enigma2/python/Plugins/Bp/geminimain/plugin.pyo"):
+    if not fileExists("/etc/enigma2/gemini_DateiBrowser.conf"):
+        copyfile(GP3_DMCONFFILE, "/etc/enigma2/gemini_DateiBrowser.conf")
+    DMCONFFILE = "/etc/enigma2/gemini_DateiBrowser.conf"
+else:
+    if not fileExists("/etc/enigma2/AdvancedMovieSelection.conf"):
+        copyfile(CVS_DMCONFFILE, "/etc/enigma2/AdvancedMovieSelection.conf")
+    DMCONFFILE = "/etc/enigma2/AdvancedMovieSelection.conf"
 
 instance = None
 
