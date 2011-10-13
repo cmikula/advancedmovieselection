@@ -34,17 +34,14 @@ import struct
 import os
 from shutil import copyfile
 
-CVS_DMCONFFILE = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/AdvancedMovieSelection.conf"
-GP3_DMCONFFILE = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/gemini_DateiBrowser.conf"
-
 if fileExists("/usr/lib/enigma2/python/Plugins/Bp/geminimain/plugin.pyo"):
-	if not fileExists("/etc/enigma2/gemini_DateiBrowser.conf"):
-		copyfile(GP3_DMCONFFILE, "/etc/enigma2/gemini_DateiBrowser.conf")
-	DMCONFFILE = "/etc/enigma2/gemini_DateiBrowser.conf"
+	__CONF__ = "/etc/enigma2/gemini_DateiBrowser.conf"
 else:
-	if not fileExists("/etc/enigma2/AdvancedMovieSelection.conf"):
-		copyfile(CVS_DMCONFFILE, "/etc/enigma2/AdvancedMovieSelection.conf")
-	DMCONFFILE = "/etc/enigma2/AdvancedMovieSelection.conf"
+	__CONF__ = "/etc/enigma2/AdvancedMovieSelection.conf"
+
+if not fileExists(__CONF__):
+	copyfile("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/AdvancedMovieSelection.conf", __CONF__)
+DMCONFFILE = __CONF__
 
 instance = None
 

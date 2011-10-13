@@ -232,7 +232,9 @@ class MovieList(GUIComponent):
                 device_dir = hdd[1].getDeviceDir()
                 #partitions = hdd[1].numPartitions()
                 mount = commands.getoutput('mount | grep ' + device_dir).split()
-                if len(mount) > 2 and os.path.normpath(mount[2]) != "/media/hdd":
+                if len(mount) > 2 and os.path.normpath(mount[2]) == "/media/hdd":
+                    continue
+                if len(mount) > 2 and os.path.normpath(mount[0]) not in self.__hidelist:
                     service = eServiceReferenceHotplug(eServiceReference.idFile, eServiceReference.flagDirectory, mount[2] + "/")
                     service.setName(model + " - " + hdd[1].capacity())
                     self.automounts.append(service)
@@ -709,9 +711,7 @@ class MovieList(GUIComponent):
         return len(self.list)
 
     def load(self, root, filter_tags):
-        # this lists our root service, then building a 
-        # nice list
-        
+        # this lists our root service, then building a nice list
         self.list = [ ]
         # cmi self.serviceHandler = eServiceCenter.getInstance()
         self.serviceHandler = ServiceCenter.getInstance()
@@ -754,6 +754,12 @@ class MovieList(GUIComponent):
                 else:
                     if serviceref.flags & eServiceReference.mustDescent:
                         continue
+
+            temp = serviceref.getPath()
+            parts = temp.split("/")
+            file = parts[-1]
+            if file in self.__hidelist:
+                continue
         
             if serviceref.getPath().split(".")[-1].lower() == "iso":
                 serviceref = eServiceReferenceDvd(serviceref)
@@ -824,7 +830,7 @@ class MovieList(GUIComponent):
                     tmpRoot = tmpRoot + "/"
                 tt.setPath(tmpRoot)
                 self.list.insert(0, (tt, None, -1, -1))
-
+            
         # finally, store a list of all tags which were found. these can be presented
         # to the user to filter the list
         self.tags = tags

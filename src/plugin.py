@@ -162,6 +162,8 @@ config.AdvancedMovieSelection.stop_before_end_time = ConfigInteger(default=5, li
 config.AdvancedMovieSelection.debug = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.hotplug = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.show_picon = ConfigYesNo(default=True)
+config.AdvancedMovieSelection.piconsize = ConfigYesNo(default=True)
+config.AdvancedMovieSelection.piconpath = ConfigText(default=("/usr/share/enigma2/picon"), visible_width=50, fixed_size=False)
 
 PlayerInstance = None
 

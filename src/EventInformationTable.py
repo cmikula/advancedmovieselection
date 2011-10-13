@@ -282,6 +282,13 @@ class ComponentDescriptor:
         data.append(descr.text)
           
 
+INV_CHARS = [("Č", "C"), ("č", "c"), ("Ć", "c"), ("ć", "c"), ("Đ", "D"), ("đ", "d"), ("Š", "S"), ("š", "s"), ("Ž", "Z"), ("ž", "z")]
+
+def replaceInvalidChars(text):
+    for ic in INV_CHARS:
+        text = text.replace(ic[0], ic[1])
+    return text
+
 def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=False, movie=None):
     file = None
     try:
@@ -420,6 +427,9 @@ def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=Fa
         print " " * 4, extended_info
         
         data = []
+        name = replaceInvalidChars(name)
+        overview = replaceInvalidChars(overview)
+        extended_info = replaceInvalidChars(extended_info)
         ShortEventDescriptor.encode(data, name, genre)
         ExtendedEventDescriptor.encode(data, overview + "\n" + extended_info)
         data = "".join(data)
@@ -665,32 +675,34 @@ if __name__ == '__main__':
     supported = ["ts", "iso", "mkv"]
     path = "./tmp/"
     dirList = os.listdir(path)
-    for file_name in dirList:
-        file_name = path + file_name
-        # only process supported file extensions and directories
-        basename, ext = os.path.splitext(file_name)
-        ext = ext.lower().replace('.', '')
-        if not os.path.isdir(file_name):
-            if not ext in supported:
-                if os.path.splitext(file_name)[1] == ".eit":
-                    print "\nEIT info for: " + file_name
-                    eit = EventInformationTable(file_name)
-                    print "ID:0x%04X %s %s" % (eit.event_id, eit.start_time, eit.duration)
-                    print eit.event_name
-                    print eit.short_description
-                    print eit.extended_description
-                    print eit.getBeginTimeString()
-                    print eit.duration / 60
-                    print "Length: " + str(eit.descriptors_loop_length)
-                    print "\n"
-                continue
-
-        serviceref = eServiceReference(None, "4097:0:0:0:0:0:0:0:0:0:" + file_name)
-        dvd = detectDVDStructure(serviceref.getPath())
-        if dvd is not None:
-            serviceref = eServiceReferenceDvd(serviceref, True)
-        if ext == "iso":
-            serviceref = eServiceReferenceDvd(serviceref)
-        info = ServiceInfo(serviceref)
-        createEIT(serviceref.getPath(), info.getName(), "cover", overwrite_eit=False)
-
+    createEIT("./tmp/Largo Winch II.ts", "Largo Winch II", "cover", overwrite_eit=True)
+    if False:
+        for file_name in dirList:
+            file_name = path + file_name
+            # only process supported file extensions and directories
+            basename, ext = os.path.splitext(file_name)
+            ext = ext.lower().replace('.', '')
+            if not os.path.isdir(file_name):
+                if not ext in supported:
+                    if os.path.splitext(file_name)[1] == ".eit":
+                        print "\nEIT info for: " + file_name
+                        eit = EventInformationTable(file_name)
+                        print "ID:0x%04X %s %s" % (eit.event_id, eit.start_time, eit.duration)
+                        print eit.event_name
+                        print eit.short_description
+                        print eit.extended_description
+                        print eit.getBeginTimeString()
+                        print eit.duration / 60
+                        print "Length: " + str(eit.descriptors_loop_length)
+                        print "\n"
+                    continue
+    
+            serviceref = eServiceReference(None, "4097:0:0:0:0:0:0:0:0:0:" + file_name)
+            dvd = detectDVDStructure(serviceref.getPath())
+            if dvd is not None:
+                serviceref = eServiceReferenceDvd(serviceref, True)
+            if ext == "iso":
+                serviceref = eServiceReferenceDvd(serviceref)
+            info = ServiceInfo(serviceref)
+            createEIT(serviceref.getPath(), info.getName(), "cover", overwrite_eit=False)
+    

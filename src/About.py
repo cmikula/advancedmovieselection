@@ -27,6 +27,7 @@ from Tools.Directories import fileExists
 from Components.Pixmap import Pixmap
 from Components.ActionMap import ActionMap
 from enigma import getDesktop
+from Version import __version__
 
 changestxt = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/changes_de.txt"
 
@@ -50,7 +51,7 @@ class AdvancedMovieSelectionAbout(Screen):
             "back": self.exit,
             "ok": self.exit,
         }, -1)
-        self["version"] = StaticText(_("Version:\n") + '  1.9')
+        self["version"] = StaticText(_("Version:\n") + "  " + __version__)
         self["author"] = StaticText(_("Developer:\n  JackDaniel, cmikula"))
         self["translation"] = StaticText(_("Thanks for translation to:\n") + '  nl=Bschaar')
         self["license"] = StaticText(_("This plugin may only executed on hardware which is licensed by Dream Multimedia GmbH."))

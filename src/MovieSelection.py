@@ -549,11 +549,10 @@ class SelectionEventInfo:
     def updateEventInfo(self):
         evt = self["list"].getCurrentEvent()
         serviceref = self.getCurrent()
-        if config.movielist.description.value == MovieList.SHOW_DESCRIPTION:
-            if evt:
-                self["Service"].newService(serviceref)
-            else:
-                self["Service"].newService(None)
+        if evt:
+            self["Service"].newService(serviceref)
+        else:
+            self["Service"].newService(None)
         self.updateName()
         if config.AdvancedMovieSelection.showpreview.value == True:
             self.loadPreview(serviceref)
@@ -611,8 +610,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self["waitingtext"] = Label(_("Please wait... Loading list..."))
         self["DescriptionBorder"] = Pixmap()
         self["DescriptionBorder"].hide()
-        self["MoviePreview"] = Pixmap()
-        self["MoviePreview"].hide()
         self["warning"] = Label()
         if not config.AdvancedMovieSelection.askdelete.value:
             self["warning"].setText(_("ATTENTION: Ask before delete is disabled!"))

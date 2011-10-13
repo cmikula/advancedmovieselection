@@ -3,7 +3,7 @@
 #  Advanced Movie Selection for Dreambox-Enigma2
 #
 #  The plugin is developed on the basis from a lot of single plugins (thx for the code @ all)
-#  Coded by JackDaniel (c)2011
+#  Coded by JackDaniel and cmikula (c)2011
 #  Support: www.i-have-a-dreambox.com
 #
 #  This plugin is licensed under the Creative Commons 
@@ -19,53 +19,36 @@
 #  modify it (if you keep the license), but it may not be commercially 
 #  distributed other than under the conditions noted above.
 #
-from Screens.Screen import Screen
 from Components.AVSwitch import AVSwitch
 from Components.Pixmap import Pixmap
-from Components.Label import Label
 from enigma import ePicLoad
 from Tools.Directories import fileExists
-from enigma import getDesktop
 import os
 from Components.config import config
-from ServiceProvider import eServiceReferenceDvd, ServiceEvent
+from ServiceProvider import eServiceReferenceDvd
+from enigma import iServiceInformation, eServiceCenter
 nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover.jpg")
 
-class MovielistPreview(Screen):
-    def __init__(self, session):
-        Screen.__init__(self, session)
-        if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.minitv.value:
-            try:
-                sz_w = getDesktop(0).size().width()
-            except:
-                sz_w = 720
-            if sz_w == 1280:
-                self.skinName = ["AdvancedMovieSelectionCoverHD"]
-            elif sz_w == 1024:
-                self.skinName = ["AdvancedMovieSelectionCoverXD"]
-            else:
-                self.skinName = ["AdvancedMovieSelectionCoverSD"]
-        if config.AdvancedMovieSelection.showpreview.value and not config.AdvancedMovieSelection.minitv.value:
-            try:
-                sz_w = getDesktop(0).size().width()
-            except:
-                sz_w = 720
-            if sz_w == 1280:
-                self.skinName = ["AdvancedMovieSelectionCover_noMiniTV_HD"]
-            elif sz_w == 1024:
-                self.skinName = ["AdvancedMovieSelectionCover_noMiniTV_XD"]
-            else:
-                self.skinName = ["AdvancedMovieSelectionCover_noMiniTV_SD"]        
-        self["background"] = Label("")
-        self["preview"] = Pixmap()
-            
 class MoviePreview():
     def __init__(self, session):
-        self.dialog = session.instantiateDialog(MovielistPreview)
         self.onHide.append(self.hideDialog)
-        self["Providerlogo"] = ServiceEvent()
+        self["CoverPreview"] = Pixmap()
         self.working = False
         self.picParam = None
+        self.picload = ePicLoad()
+        self.picload.PictureData.get().append(self.showPreviewCallback)
+        self.onLayoutFinish.append(self.layoutFinish)
+
+    def layoutFinish(self):
+        sc = AVSwitch().getFramebufferScale()
+        self.picload.setPara((self["CoverPreview"].instance.size().width(), self["CoverPreview"].instance.size().height(), sc[0], sc[1], False, 1, "#00000000"))
+        
+    def getServiceInfoValue(self, ref, what):
+        info = eServiceCenter.getInstance().info(ref)
+        v = ref and info.getInfo(ref, what) or info.getInfo(what)
+        if v != iServiceInformation.resIsString:
+            return ""
+        return ref and info.getInfoString(ref, what) or info.getInfoString(what)
 
     def loadPreview(self, serviceref):
         self.hideDialog()
@@ -81,33 +64,25 @@ class MoviePreview():
             else:
                 path = path + "folder.jpg"
         
-            self.showDialog()
             self.working = True
-            sc = AVSwitch().getFramebufferScale()
-            self.picload = ePicLoad()
-            self.picload.PictureData.get().append(self.showPreviewCallback)
-            self.picload.setPara((self.dialog["preview"].instance.size().width(), self.dialog["preview"].instance.size().height(), sc[0], sc[1], False, 1, "#00000000"))
-            self.dialog.hide()
             if fileExists(path):
                 self.picload.startDecode(path)
-            elif serviceref and serviceref.getPath().endswith(".ts"):
-                self["Providerlogo"].newService(serviceref)
+            elif serviceref and serviceref.getPath().endswith(".ts") and config.AdvancedMovieSelection.show_picon.value:
+                picon = self.getServiceInfoValue(serviceref, iServiceInformation.sServiceref).rstrip(':').replace(':','_') + ".png"
+                piconpath = os.path.join(config.AdvancedMovieSelection.piconpath.value, picon)
+                if os.path.exists(piconpath) and config.AdvancedMovieSelection.piconsize.value:
+                    self["CoverPreview"].instance.setPixmapFromFile(piconpath)
+                else:
+                    self.picload.startDecode(piconpath)
             else:
-                self["Providerlogo"].newService(None)
                 self.picload.startDecode(nocover)
                 
     def showPreviewCallback(self, picInfo=None):
         if picInfo and self.working:
             ptr = self.picload.getData()
             if ptr != None:
-                self.dialog["preview"].instance.setPixmap(ptr)
-                self.dialog.show()
+                self["CoverPreview"].instance.setPixmap(ptr)
         self.working = False
 
     def hideDialog(self):
         self.working = False
-        self.dialog.hide()
-
-    def showDialog(self):
-        self.dialog.show()
-        
