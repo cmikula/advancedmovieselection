@@ -134,10 +134,16 @@ ACHTUNG an die skinner, bei allen screens für die filmliste ist etwas dazu geko
 
 version. 1.9
 * neu: usb geräte können in der filmliste angezeigt werden
-* neu: senderlogo anzeige ein/aus 
+* neu: senderlogo anzeige ein/aus
+* neu: senderlogo gezoomt oder orig. grösse
+* neu: speicherort senderlogo kann eingestellt werden  
 * neu: zurück icon anstatt ordner
-* neu: nicht anzeigen von dateien/ordnern (bei gp3 über die gemini_DateiBrowser.conf und bei cvs images über die AdvancedMovieSelection.conf in /etc/enigma2)
+* neu: ausblenden von dateien/ordnern (bei gp3 über die gemini_DateiBrowser.conf und bei cvs images über die AdvancedMovieSelection.conf in /etc/enigma2)
+* geändert: senderlogo anzeigen funktion (nun ohne eigenen renderer)
+ACHTUNG an die skinner, AdvancedMovieSelectionCoverHD,AdvancedMovieSelectionCoverCD,AdvancedMovieSelectionCoverSD gibt es nicht mehr (dadurch auch änderungen in AdvancedMovieSelectionHD,AdvancedMovieSelectionXD bzw. AdvancedMovieSelectionSD)
 
+version 2.0
+* neu: merhfachauswahl (mit radio taste)
 
 
 
