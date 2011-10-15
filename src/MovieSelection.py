@@ -271,10 +271,7 @@ class MovieContextMenu(Screen):
         if len(self.csel.list.multiSelection) == 0:
             self.session.openWithCallback(self.closeafterfinish, DownloadMovies, self.csel.list.list, config.AdvancedMovieSelection.coversize.value, self.service)
         else:
-            items = []
-            for item in self.csel.list.multiSelection:
-                items.append([item, 0])
-            self.session.openWithCallback(self.closeafterfinish, DownloadMovies, items, config.AdvancedMovieSelection.coversize.value)
+            self.downloadSelectedMovieInfo()
 
     def closeafterfinish(self, retval=None):
         self.csel.updateDescription()
@@ -287,10 +284,13 @@ class MovieContextMenu(Screen):
         if len(self.csel.list.multiSelection) == 0:
             self.session.openWithCallback(self.closeafterfinish, DownloadMovies, self.csel.list.list, config.AdvancedMovieSelection.coversize.value)
         else:
-            items = []
-            for item in self.csel.list.multiSelection:
-                items.append([item, 0])
-            self.session.openWithCallback(self.closeafterfinish, DownloadMovies, items, config.AdvancedMovieSelection.coversize.value)
+            self.downloadSelectedMovieInfo()
+
+    def downloadSelectedMovieInfo(self):
+        items = []
+        for item in self.csel.list.multiSelection:
+            items.append([item, 0])
+        self.session.openWithCallback(self.closeafterfinish, DownloadMovies, items, config.AdvancedMovieSelection.coversize.value)
 
     def retitel(self, session, service):
         self.session.open(MovieRetitle, service, session.current_dialog)
