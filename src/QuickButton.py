@@ -149,7 +149,14 @@ class QuickButton:
                         from SearchTMDb import TMDbMain as TMDbMainsave
                         from ServiceProvider import ServiceCenter
                         searchTitle = ServiceCenter.getInstance().info(service).getName(service)
-                        self.session.openWithCallback(self.updateCurrentSelection, TMDbMainsave, searchTitle, service)
+                        if len(self.list.multiSelection) == 0:
+                            self.session.openWithCallback(self.updateCurrentSelection, TMDbMainsave, searchTitle, service)
+                        else:
+                            from DownloadMovies import DownloadMovies
+                            items = []
+                            for item in self.list.multiSelection:
+                                items.append([item, 0])
+                            self.session.openWithCallback(self.updateCurrentSelection, DownloadMovies, items, config.AdvancedMovieSelection.coversize.value)
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
                             self.session.open(MessageBox, _("TMDb search here not possible, please select a movie!"), MessageBox.TYPE_INFO)               
