@@ -54,6 +54,8 @@ class MovieMove(ChoiceBox):
         cbkeys.append("yellow")
         listpath.append((_("Show active move/copy processes"), "CALLFUNC", self.showActive))
         cbkeys.append("green")
+        listpath.append((_("Abort"), "CALLFUNC", self.close))
+        cbkeys.append("red")        
         if len(os.listdir(config.movielist.last_videodir.value)) == 0 and defaultMoviePath() <> config.movielist.last_videodir.value:
             listpath.append((_("Remove ' %s '") % config.movielist.last_videodir.value, "CALLFUNC", self.remove))
             cbkeys.append("red")
@@ -103,7 +105,7 @@ class MovieMove(ChoiceBox):
         else:
             self.destinationpath = destinationpath
             listtmp = [(_("Move (in the background)"), "VH"), (_("Move (in the foreground)"), "VS"), (_("Copy (in the background)"), "KH"), (_("Copy (in the foreground)"), "KS"), (_("Abort"), "AB") ]
-            self.session.openWithCallback(self.DoMove, ChoiceBox, title=_("How to proceed '%s' from %s to %s be moved/copied?") % (self.name, self.sourcepath, self.destinationpath), list=listtmp)
+            self.session.openWithCallback(self.DoMove, ChoiceBox, title=((_("How to proceed '%s'") % self.name) + ' ' + (_("from %s") % self.sourcepath) + ' ' + (_("to %s") %  self.destinationpath) + ' ' + _("be moved/copied?")),list=listtmp)
     
     def getMovieFileName(self, service):
         filename = service.getPath().rsplit('/', 1)[1]
@@ -137,7 +139,7 @@ class MovieMove(ChoiceBox):
                         os.system("cp \"%s/%s.\"* \"%s\" &" % (self.sourcepath, self.getMovieFileName(service), self.destinationpath))
                     self.session.openWithCallback(self.__doClose, MessageBox, _("Copying in the background.\n\nThe movie list appears updated after full completion."), MessageBox.TYPE_INFO, timeout=12)
             else:
-                MovieMove(session=self.session, service=self.service_list[0])
+                MovieMove(session=self.session, csel=self.csel, service=self.service_list[0])
 
     def __doClose(self, confirmed):
         self.csel.reloadList()
