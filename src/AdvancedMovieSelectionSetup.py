@@ -3,7 +3,7 @@
 #  Advanced Movie Selection for Dreambox-Enigma2
 #
 #  The plugin is developed on the basis from a lot of single plugins (thx for the code @ all)
-#  Coded by JackDaniel (c)2011
+#  Coded by JackDaniel & cmikula(c)2011
 #  Support: www.i-have-a-dreambox.com
 #
 #  This plugin is licensed under the Creative Commons 
@@ -179,6 +179,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
     def updateSettings(self):
         if self.csel:
             self.csel["list"].updateSettings()
+            self.csel["list"].updateHotplugDevices()
             self.csel.reloadList()
         
     def saveListsize(self):

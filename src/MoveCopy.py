@@ -3,7 +3,7 @@
 #  Advanced Movie Selection for Dreambox-Enigma2
 #
 #  The plugin is developed on the basis from a lot of single plugins (thx for the code @ all)
-#  Coded by JackDaniel (c)2011
+#  Coded by JackDaniel & cmikula (c)2011
 #  Support: www.i-have-a-dreambox.com
 #
 #  This plugin is licensed under the Creative Commons 
@@ -23,8 +23,7 @@ from __init__ import _
 from Screens.MessageBox import MessageBox
 from Screens.ChoiceBox import ChoiceBox
 from Screens.LocationBox import MovieLocationBox
-from enigma import eServiceCenter, iServiceInformation
-from Screens.Console import eConsoleAppContainer
+from enigma import eServiceCenter
 from Components.config import config
 from Components.UsageConfig import defaultMoviePath
 from Tools.Directories import createDir
@@ -33,16 +32,15 @@ import os
 class MovieMove(ChoiceBox):
     def __init__(self, session, csel, service):
         self.csel = csel
-        self.service = service
         serviceHandler = eServiceCenter.getInstance()
-        info = serviceHandler.info(self.service)
-        self.path = self.service.getPath()
-        self.name = info.getName(self.service)
-        self.descr = info.getInfoString(self.service, iServiceInformation.sDescription)
-        self.filename = ""
-        self.moviename = ""
-        self.destinationpath = ""
-        self.sourcepath = ""
+        info = serviceHandler.info(service)
+        self.sourcepath = service.getPath().rsplit('/', 1)[0]
+        if len(self.csel.list.multiSelection) == 0:
+            self.name = info.getName(service)
+            self.service_list = [service]
+        else:
+            self.service_list = self.csel.list.multiSelection  
+            self.name = _("Selected movies")
         cbkeys = []
         listpath = [] 
         for element in range(len(listpath)):
@@ -89,48 +87,57 @@ class MovieMove(ChoiceBox):
         os.rmdir(config.movielist.last_videodir.value)
         self.gotFilename(defaultMoviePath())
 
+    # TODO: not used, remove? 
     def CreateConfirmedPath(self, DirToCreate):
         if DirToCreate is not None and DirToCreate <> "":
             if createDir(self.ParentDir + DirToCreate.strip()):
-                MovieMove(session=self.session, service=self.service)
+                MovieMove(session=self.session, service=self.service_list[0])
             else:
-                self.session.openWithCallback(MovieMove(session=self.session, service=self.service), MessageBox, (_("The directory ' %s 'could not be created !") % (config.movielist.last_videodir.value + DirToCreate.lstrip())), MessageBox.TYPE_WARNING)
+                self.session.openWithCallback(MovieMove(session=self.session, service=self.service_list[0]), MessageBox, (_("The directory ' %s 'could not be created !") % (config.movielist.last_videodir.value + DirToCreate.lstrip())), MessageBox.TYPE_WARNING)
         else:
-            MovieMove(session=self.session, service=self.service)	
+            MovieMove(session=self.session, service=self.service_list[0])	
             
     def gotFilename(self, destinationpath, retval=None):
         if destinationpath is None:
             self.skipMoveFile(_("Directory selection has been canceled"))
         else:
-            self.filename = self.path.rsplit('/', 1)[1]
-            self.moviename = self.filename.rsplit(".", 1)[0]
             self.destinationpath = destinationpath
-            self.sourcepath = self.path.rsplit('/', 1)[0]
             listtmp = [(_("Move (in the background)"), "VH"), (_("Move (in the foreground)"), "VS"), (_("Copy (in the background)"), "KH"), (_("Copy (in the foreground)"), "KS"), (_("Abort"), "AB") ]
-            self.session.openWithCallback(self.DoMove, ChoiceBox, title=(_("How to ' %s '") % (self.name) + ' ' + _("from %s") % (self.sourcepath) + ' ' + _("to %s be moved/copied ?") % (self.destinationpath)), list=listtmp)
+            self.session.openWithCallback(self.DoMove, ChoiceBox, title=_("How to proceed '%s' from %s to %s be moved/copied?") % (self.name, self.sourcepath, self.destinationpath), list=listtmp)
+    
+    def getMovieFileName(self, service):
+        filename = service.getPath().rsplit('/', 1)[1]
+        return filename.rsplit(".", 1)[0]
     
     def DoMove(self, confirmed):
         if confirmed is not None:
-            if confirmed[1] <> "AB":
+            if confirmed[1] != "AB":
                 if os.path.exists(self.destinationpath) is False:
                     os.system("mkdir %s" % self.destinationpath)
-                if os.path.exists(self.destinationpath + "/%s" % self.filename) is True:
-                    self.skipMoveFile(_("File already exists"))
-                elif confirmed[1] == "VS":
-                    os.system("mv \"%s/%s.\"* \"%s\"" % (self.sourcepath, self.moviename, self.destinationpath))
+                
+                for service in self.service_list:
+                    if os.path.exists(self.destinationpath + "/%s" % self.getMovieFileName(service)) is True:
+                        self.skipMoveFile(_("File already exists"))
+                        return
+                    
+                if confirmed[1] == "VS":
+                    for service in self.service_list:
+                        os.system("mv \"%s/%s.\"* \"%s\"" % (self.sourcepath, self.getMovieFileName(service), self.destinationpath))
                     self.session.openWithCallback(self.__doClose, MessageBox, _("The move was successful."), MessageBox.TYPE_INFO, timeout=3)
                 elif confirmed[1] == "VH":
-                    self.container = eConsoleAppContainer()
-                    self.container.execute("mv \"%s/%s.\"* \"%s\" &" % (self.sourcepath, self.moviename, self.destinationpath))
+                    for service in self.service_list:
+                        os.system("mv \"%s/%s.\"* \"%s\" &" % (self.sourcepath, self.getMovieFileName(service), self.destinationpath))
                     self.session.openWithCallback(self.__doClose, MessageBox, _("Moving in the background.\n\nThe movie list appears updated after full completion."), MessageBox.TYPE_INFO, timeout=12)
                 elif confirmed[1] == "KS":
-                    os.system("cp \"%s/%s.\"* \"%s\"" % (self.sourcepath, self.moviename, self.destinationpath))
+                    for service in self.service_list:
+                        os.system("cp \"%s/%s.\"* \"%s\"" % (self.sourcepath, self.getMovieFileName(service), self.destinationpath))
                     self.session.openWithCallback(self.__doClose, MessageBox, _("The copying was successful."), MessageBox.TYPE_INFO, timeout=3)
                 elif confirmed[1] == "KH":
-                    os.system("cp \"%s/%s.\"* \"%s\" &" % (self.sourcepath, self.moviename, self.destinationpath))
+                    for service in self.service_list:
+                        os.system("cp \"%s/%s.\"* \"%s\" &" % (self.sourcepath, self.getMovieFileName(service), self.destinationpath))
                     self.session.openWithCallback(self.__doClose, MessageBox, _("Copying in the background.\n\nThe movie list appears updated after full completion."), MessageBox.TYPE_INFO, timeout=12)
             else:
-                MovieMove(session=self.session, service=self.service)
+                MovieMove(session=self.session, service=self.service_list[0])
 
     def __doClose(self, confirmed):
         self.csel.reloadList()
