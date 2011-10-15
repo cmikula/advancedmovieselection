@@ -162,8 +162,23 @@ class MovieList(GUIComponent):
             newcolor3 = 0x000000
         if config.AdvancedMovieSelection.color3.value == "green":
             newcolor3 = 0x38FF48    
+        if config.AdvancedMovieSelection.color4.value == "yellow":
+            newcolor4 = 0xffcc00
+        if config.AdvancedMovieSelection.color4.value == "blue":
+            newcolor4 = 0x8585ff
+        if config.AdvancedMovieSelection.color4.value == "red":
+            newcolor4 = 0xff4A3C
+        if config.AdvancedMovieSelection.color4.value == "black":
+            newcolor4 = 0x000000
+        if config.AdvancedMovieSelection.color4.value == "green":
+            newcolor4 = 0x38FF48  
+        if config.AdvancedMovieSelection.color4.value == "grey":
+            newcolor4 = 0x7F7F7F
+        if config.AdvancedMovieSelection.color4.value == "orange":
+            newcolor4 = 0xffa500 
 
-        self.mark_color = 0xf68706
+        self.mark_color = newcolor4
+        #self.mark_color = 0xf68706
         try: self.watching_color = parseColor("movieWatching").argb()    
         except: self.watching_color = newcolor1
         try: self.finished_color = parseColor("movieFinished").argb()    
@@ -472,7 +487,7 @@ class MovieList(GUIComponent):
         if selection_index > -1:
             if self.show_statuscolor:
                 color = self.mark_color
-            res.append(MultiContentEntryText(pos=(offset , 0), size=(width - 20, 20), font=0, flags=RT_HALIGN_LEFT, text=str(selection_index), color=color))
+            res.append(MultiContentEntryText(pos=(offset , 2), size=(width - 20, 20), font=0, flags=RT_HALIGN_LEFT, text=str(selection_index) + ' - ', color=color))
             offset = offset + 35
 
         if self.list_type == MovieList.LISTTYPE_ORIGINAL:

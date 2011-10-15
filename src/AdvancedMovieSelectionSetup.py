@@ -297,6 +297,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.list.append(getConfigListEntry(_("Color for not ready seen movies:"), config.AdvancedMovieSelection.color1, _("With this option you can assign what color should displayed for not ready seen movies in movie list.")))
             self.list.append(getConfigListEntry(_("Color for ready seen movies:"), config.AdvancedMovieSelection.color2, _("With this option you can assign what color should displayed for ready seen movies in movie list.")))
             self.list.append(getConfigListEntry(_("Color for recording movies:"), config.AdvancedMovieSelection.color3, _("With this option you can assign what color should displayed for recording movies in movie list.")))
+            self.list.append(getConfigListEntry(_("Color for multiple selection:"), config.AdvancedMovieSelection.color4, _("With this option you can assign what color should displayed for multiple selection in movie list.")))
         self.list.append(getConfigListEntry(_("Assign the date format for movielist:"), config.AdvancedMovieSelection.dateformat, _("With this option you can assign the date format in movie list (7 different sizes are available).")))
         if GP3Present and config.AdvancedMovieSelection.showfoldersinmovielist.value:
             self.list.append(getConfigListEntry(_("Show new recordings icon:"), config.AdvancedMovieSelection.shownew, _("With this option you can display a icon for new recordings.")))

@@ -144,6 +144,7 @@ ACHTUNG an die skinner, AdvancedMovieSelectionCoverHD,AdvancedMovieSelectionCove
 
 version 2.0
 * neu: merhfachauswahl (mit radio taste)
+* neu: farbe für mehrfachauswahl kann eingestellt werden
 
 
 
