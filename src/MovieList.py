@@ -3,7 +3,7 @@
 #  Advanced Movie Selection for Dreambox-Enigma2
 #
 #  The plugin is developed on the basis from a lot of single plugins (thx for the code @ all)
-#  Coded by JackDaniel & cmikula (c)2011
+#  Coded by JackDaniel (c)2011
 #  Support: www.i-have-a-dreambox.com
 #
 #  This plugin is licensed under the Creative Commons 
@@ -163,7 +163,6 @@ class MovieList(GUIComponent):
         if config.AdvancedMovieSelection.color3.value == "green":
             newcolor3 = 0x38FF48    
 
-        self.mark_color = 0xf68706
         try: self.watching_color = parseColor("movieWatching").argb()    
         except: self.watching_color = newcolor1
         try: self.finished_color = parseColor("movieFinished").argb()    
@@ -313,7 +312,7 @@ class MovieList(GUIComponent):
                 self.l.setFont(1, gFont("Regular", 16))
                 self.l.setItemHeight(26)
 
-    def buildMovieListEntry(self, serviceref, info, begin, len, selection_index= -1):
+    def buildMovieListEntry(self, serviceref, info, begin, len):
         width = self.l.getItemSize().width()
         if self.show_folders:
             if serviceref.flags & eServiceReference.mustDescent:
@@ -468,12 +467,6 @@ class MovieList(GUIComponent):
             else:
                 d = datetime.fromtimestamp(begin)
                 begin_string = d.strftime(self.DATE_TIME_FORMAT)
-
-        if selection_index > -1:
-            if self.show_statuscolor:
-                color = self.mark_color
-            res.append(MultiContentEntryText(pos=(offset , 0), size=(width - 20, 20), font=0, flags=RT_HALIGN_LEFT, text=str(selection_index), color=color))
-            offset = offset + 35
 
         if self.list_type == MovieList.LISTTYPE_ORIGINAL:
             if self.show_folders:
@@ -720,8 +713,7 @@ class MovieList(GUIComponent):
     def load(self, root, filter_tags):
         # this lists our root service, then building a nice list
         self.list = [ ]
-        self.multiSelection = []
-
+        # cmi self.serviceHandler = eServiceCenter.getInstance()
         self.serviceHandler = ServiceCenter.getInstance()
         
         self.root = root
@@ -839,7 +831,8 @@ class MovieList(GUIComponent):
                 tt.setPath(tmpRoot)
                 self.list.insert(0, (tt, None, -1, -1))
             
-        # finally, store a list of all tags which were found. these can be presented to the user to filter the list
+        # finally, store a list of all tags which were found. these can be presented
+        # to the user to filter the list
         self.tags = tags
 
     def isInList(self, a, b):
@@ -874,38 +867,6 @@ class MovieList(GUIComponent):
     
     def moveDown(self):
         self.instance.moveSelection(self.instance.moveDown)
-        
-    def updateCurrentSelection(self, dummy=None):
-        cur_idx = self.instance.getCurrentIndex()
-        self.l.invalidateEntry(cur_idx)
-
-    def find(self, f, seq):
-        for item in seq:
-            if item == f: 
-                return item
-        return None        
-
-    def toggleSelection(self):
-        x = self.l.getCurrentSelection()
-        service = x[0]
-        if service.flags & eServiceReference.mustDescent and not isinstance(service, eServiceReferenceDvd):
-            return False
-        cur_idx = self.l.getCurrentSelectionIndex()
-        f = self.find(service, self.multiSelection)
-        if f:
-            self.multiSelection.remove(service)
-            idx_num = -1
-            for index, item in enumerate(self.list):
-                if len(item) > 4 and item[4] > x[4]:
-                    self.list[index] = (item[0], item[1], item[2], item[3], item[4] - 1)
-                    self.l.invalidateEntry(index)
-        else:
-            self.multiSelection.append(service)
-            idx_num = len(self.multiSelection)
-        self.list.remove(self.list[cur_idx])
-        self.list.insert(cur_idx, (x[0], x[1], x[2], x[3], idx_num))
-        self.l.invalidateEntry(cur_idx)
-        return True
 
     def setMovieStatus(self, serviceref, status):
         info = self.serviceHandler.info(serviceref)

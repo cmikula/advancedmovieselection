@@ -3,7 +3,7 @@
 #  Advanced Movie Selection for Dreambox-Enigma2
 #
 #  The plugin is developed on the basis from a lot of single plugins (thx for the code @ all)
-#  Coded by JackDaniel & cmikula (c)2011
+#  Coded by JackDaniel (c)2011
 #  Support: www.i-have-a-dreambox.com
 #
 #  This plugin is licensed under the Creative Commons 
@@ -181,16 +181,16 @@ class MovieContextMenu(Screen):
                 menu.append((_("Hide folders in movielist"), boundFunction(self.showFolders, False)))
             else:
                 menu.append((_("Show folders in movielist"), boundFunction(self.showFolders, True)))
-        if config.AdvancedMovieSelection.showextras.value and config.usage.load_length_of_movies_in_moviellist.value:
-            if config.AdvancedMovieSelection.showprogessbarinmovielist.value:
-                menu.append((_("Hide progressbar in movielist"), boundFunction(self.showProgressbar, False)))
-            else:
-                menu.append((_("Show progressbar in movielist"), boundFunction(self.showProgressbar, True)))
         if config.AdvancedMovieSelection.showextras.value and config.AdvancedMovieSelection.showfoldersinmovielist.value and config.usage.load_length_of_movies_in_moviellist.value:
             if config.AdvancedMovieSelection.showiconstatusinmovielist.value:
                 menu.append((_("Hide movie status icon in movielist"), boundFunction(self.showStatusIcon, False)))
             else:
                 menu.append((_("Show movie status icon in movielist"), boundFunction(self.showStatusIcon, True)))
+        if config.AdvancedMovieSelection.showextras.value and config.usage.load_length_of_movies_in_moviellist.value:
+            if config.AdvancedMovieSelection.showprogessbarinmovielist.value:
+                menu.append((_("Hide progressbar in movielist"), boundFunction(self.showProgressbar, False)))
+            else:
+                menu.append((_("Show progressbar in movielist"), boundFunction(self.showProgressbar, True)))
         if config.AdvancedMovieSelection.showextras.value and config.usage.load_length_of_movies_in_moviellist.value:
             if config.AdvancedMovieSelection.showcolorstatusinmovielist.value:
                 menu.append((_("Hide movie color status in movielist"), boundFunction(self.showStatusColor, False)))
@@ -267,11 +267,8 @@ class MovieContextMenu(Screen):
 
     def downloadMovieInfo(self):
         if self.checkConnection() == False:
-            return
-        if len(self.csel.list.multiSelection) == 0:
-            self.session.openWithCallback(self.closeafterfinish, DownloadMovies, self.csel.list.list, config.AdvancedMovieSelection.coversize.value, self.service)
-        else:
-            self.downloadSelectedMovieInfo()
+            return        
+        self.session.openWithCallback(self.closeafterfinish, DownloadMovies, self.csel.list.list, config.AdvancedMovieSelection.coversize.value, self.service)
 
     def closeafterfinish(self, retval=None):
         self.csel.updateDescription()
@@ -281,16 +278,7 @@ class MovieContextMenu(Screen):
     def downloadMovieInfoAll(self):
         if self.checkConnection() == False:
             return
-        if len(self.csel.list.multiSelection) == 0:
-            self.session.openWithCallback(self.closeafterfinish, DownloadMovies, self.csel.list.list, config.AdvancedMovieSelection.coversize.value)
-        else:
-            self.downloadSelectedMovieInfo()
-
-    def downloadSelectedMovieInfo(self):
-        items = []
-        for item in self.csel.list.multiSelection:
-            items.append([item, 0])
-        self.session.openWithCallback(self.closeafterfinish, DownloadMovies, items, config.AdvancedMovieSelection.coversize.value)
+        self.session.openWithCallback(self.closeafterfinish, DownloadMovies, self.csel.list.list, config.AdvancedMovieSelection.coversize.value)
 
     def retitel(self, session, service):
         self.session.open(MovieRetitle, service, session.current_dialog)
@@ -333,8 +321,8 @@ class MovieContextMenu(Screen):
         self["menu"].getCurrent()[1]()
 
     def cancelClick(self):
-        #self.csel["list"].updateHotplugDevices()
-        #self.csel.reloadList()
+        self.csel["list"].updateHotplugDevices()
+        self.csel.reloadList()
         self.close(False)
 
     def sortBy(self, newType):
@@ -658,7 +646,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self["InfobarActions"] = HelpableActionMap(self, "InfobarActions",
             {
                 "showMovies": (self.doPathSelect, _("Select the movie path")),
-                "showRadio": (self.radioButton, _("Multiselection...")),
             })
         self["MovieSelectionActions"] = HelpableActionMap(self, "MovieSelectionActions",
             {
@@ -674,20 +661,8 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self.onShown.append(self.go)
         self.onLayoutFinish.append(self.saveListsize)
         self.inited = False
-    
-    def radioButton(self):
-        if self.list.toggleSelection():
-            #self.list.moveDown()
-            idx = self.list.getCurrentIndex()
-            self.list.moveToIndex(min(idx + 1, len(self.list.list) - 1))
 
     def delete(self):
-        self.service = self.getCurrent()
-        if self.service.flags & eServiceReference.mustDescent and not isinstance(self.service, eServiceReferenceDvd):
-            if config.AdvancedMovieSelection.showinfo.value:
-                self.session.open(MessageBox, _("This cannot deleted, please select a movie for!"), MessageBox.TYPE_INFO)
-                return
-
         recording = False
         if NavigationInstance.instance.getRecordings():
             for timer in NavigationInstance.instance.RecordTimer.timer_list:
@@ -696,6 +671,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                         filename = "%s.ts" % timer.Filename
                     except:
                         filename = ""
+                    self.service = self.getCurrent()
                     serviceHandler = eServiceCenter.getInstance()
                     info = serviceHandler.info(self.service)
                     moviename = info and info.getName(self.service) or _("this recording")
@@ -709,6 +685,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             return
         if recording == True and not config.AdvancedMovieSelection.showinfo.value:
             return        
+        self.service = self.getCurrent()
         serviceHandler = eServiceCenter.getInstance()
         offline = serviceHandler.offlineOperations(self.service)
         info = serviceHandler.info(self.service)
@@ -722,21 +699,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             if offline is not None:
                 if not offline.deleteFromDisk(1):
                     result = True
-                    
-        if len(self.list.multiSelection) > 0:
-            self.to_delete = self.list.multiSelection
-            if config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.use_wastebasket.value:
-                self.session.openWithCallback(self.deleteTrashConfirmed, MessageBox, _("Do you really want to move selected movies to trashcan?"))
-            elif config.AdvancedMovieSelection.askdelete.value and not config.AdvancedMovieSelection.use_wastebasket.value:
-                self.session.openWithCallback(self.deleteConfirmed, MessageBox, _("Do you really want to delete selected movies?"))
-            elif not config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.use_wastebasket.value:
-                self.deleteTrashConfirmed(True)
-            else:
-                self.deleteConfirmed(True)
-            return
-        else:
-            self.to_delete = [self.service]
-        
         if result == True:
             if config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.use_wastebasket.value:
                 self.session.openWithCallback(self.deleteTrashConfirmed, MessageBox, _("Do you really want to move %s to trashcan?") % (name))
@@ -753,55 +715,50 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         if not confirmed:
             return
         try:
-            for item in self.to_delete:
-                Trashcan.trash(item.getPath())
-                self["list"].removeService(item)
+            Trashcan.trash(self.service.getPath())
         except Exception, e:
             print e
             self.session.open(MessageBox, _("Delete failed!"), MessageBox.TYPE_ERROR)
+            return
+        self["list"].removeService(self.service)
         self["freeDiskSpace"].update()
 
     def deleteConfirmed(self, confirmed):
         if not confirmed:
             return
 
-        for item in self.to_delete:
-            result = False
-            try:
-                title = item.getPath()
-                if path.isfile(item.getPath()):
-                    title = path.splitext(item.getPath())[0]
-                    serviceHandler = eServiceCenter.getInstance()
-                    offline = serviceHandler.offlineOperations(item)
-                    if offline is not None:
-                        if not offline.deleteFromDisk(0):
-                            result = True
-                else:
-                    eConsoleAppContainer().execute("rm -rf '%s'" % item.getPath())
-                print title
-    
-                eConsoleAppContainer().execute("rm -f '%s'" % title + ".cuts")
-                eConsoleAppContainer().execute("rm -f '%s'" % title + ".eit")
-                eConsoleAppContainer().execute("rm -f '%s'" % title + ".jpg")
-                eConsoleAppContainer().execute("rm -f '%s'" % title + "*.ts.meta")
-                eConsoleAppContainer().execute("rm -f '%s'" % title + ".ts.cutsr")
-                eConsoleAppContainer().execute("rm -f '%s'" % title + ".ts.gm")        
-                eConsoleAppContainer().execute("rm -f '%s'" % title + ".ts.sc")
-                eConsoleAppContainer().execute("rm -f '%s'" % title + ".ts.ap")
-                eConsoleAppContainer().execute("rm -f '%s'" % title)
-                result = True
-            except Exception, e:
-                print "Exception deleting files: " + str(e)
-    
-            if result == False:
-                self.session.open(MessageBox, _("Delete failed!"), MessageBox.TYPE_ERROR)
-                return
+        result = False
+        try:
+            title = self.service.getPath()
+            if path.isfile(self.service.getPath()):
+                title = path.splitext(self.service.getPath())[0]
+                serviceHandler = eServiceCenter.getInstance()
+                offline = serviceHandler.offlineOperations(self.service)
+                if offline is not None:
+                    if not offline.deleteFromDisk(0):
+                        result = True
             else:
-                self["list"].removeService(item)
-                self["freeDiskSpace"].update()
+                eConsoleAppContainer().execute("rm -rf '%s'" % self.service.getPath())
+            print title
 
-    def updateCurrentSelection(self, dummy=None):
-        self.list.updateCurrentSelection()
+            eConsoleAppContainer().execute("rm -f '%s'" % title + ".cuts")
+            eConsoleAppContainer().execute("rm -f '%s'" % title + ".eit")
+            eConsoleAppContainer().execute("rm -f '%s'" % title + ".jpg")
+            eConsoleAppContainer().execute("rm -f '%s'" % title + "*.ts.meta")
+            eConsoleAppContainer().execute("rm -f '%s'" % title + ".ts.cutsr")
+            eConsoleAppContainer().execute("rm -f '%s'" % title + ".ts.gm")        
+            eConsoleAppContainer().execute("rm -f '%s'" % title + ".ts.sc")
+            eConsoleAppContainer().execute("rm -f '%s'" % title + ".ts.ap")
+            eConsoleAppContainer().execute("rm -f '%s'" % title)
+            result = True
+        except Exception, e:
+            print "Exception deleting files: " + str(e)
+
+        if result == False:
+            self.session.open(MessageBox, _("Delete failed!"), MessageBox.TYPE_ERROR)
+        else:
+            self["list"].removeService(self.service)
+            self["freeDiskSpace"].update()
 
     def updateName(self):
         location = (_("Movie location: %s") % config.movielist.last_videodir.value)

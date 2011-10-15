@@ -1,24 +1,3 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*- 
-#  Advanced Movie Selection for Dreambox-Enigma2
-#
-#  The plugin is developed on the basis from a lot of single plugins (thx for the code @ all)
-#  Coded by JackDaniel & cmikula (c)2011
-#  Support: www.i-have-a-dreambox.com
-#
-#  This plugin is licensed under the Creative Commons 
-#  Attribution-NonCommercial-ShareAlike 3.0 Unported 
-#  License. To view a copy of this license, visit
-#  http://creativecommons.org/licenses/by-nc-sa/3.0/ or send a letter to Creative
-#  Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA.
-#
-#  Alternatively, this plugin may be distributed and executed on hardware which
-#  is licensed by Dream Multimedia GmbH.
-#
-#  This plugin is NOT free software. It is open source, you are allowed to
-#  modify it (if you keep the license), but it may not be commercially 
-#  distributed other than under the conditions noted above.
-#
 from __init__ import _
 from Components.config import config
 from Components.ActionMap import HelpableActionMap
@@ -105,7 +84,11 @@ class QuickButton:
         if current is not None:
             if pname != _("Nothing"):
                 if pname == _("Delete"):
-                    self.delete()
+                    if not (service.flags):
+                        self.delete()
+                    else:
+                        if config.AdvancedMovieSelection.showinfo.value:
+                            self.session.open(MessageBox, _("This cannot deleted, please select a movie for!"), MessageBox.TYPE_INFO)
                 elif pname == _("Home"):
                     self.gotFilename(home)
                 elif pname == _("Bookmark 1"):
@@ -117,7 +100,7 @@ class QuickButton:
                 elif pname == _("Bookmark(s) on/off"):
                     config.AdvancedMovieSelection.show_bookmarks.value = not config.AdvancedMovieSelection.show_bookmarks.value
                     self.saveconfig()
-                    self.reloadList()
+                    self.reload()
                 elif pname == _("Filter by Tags"):
                     self.showTagsSelect()
                 elif pname == _("Tag Editor"):
@@ -140,7 +123,7 @@ class QuickButton:
                             self.session.open(MessageBox, _("Move/Copy from complete directory/symlink not possible, please select a single movie!"), MessageBox.TYPE_INFO)
                 elif pname == _("Rename"):
                     if not (service.flags):
-                        self.session.openWithCallback(self.updateCurrentSelection, MovieRetitle, service, current)
+                        self.session.openWithCallback(self.reload, MovieRetitle, service, current)
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
                             self.session.open(MessageBox, _("Rename here not possible, please select a movie!"), MessageBox.TYPE_INFO)        
@@ -149,14 +132,7 @@ class QuickButton:
                         from SearchTMDb import TMDbMain as TMDbMainsave
                         from ServiceProvider import ServiceCenter
                         searchTitle = ServiceCenter.getInstance().info(service).getName(service)
-                        if len(self.list.multiSelection) == 0:
-                            self.session.openWithCallback(self.updateCurrentSelection, TMDbMainsave, searchTitle, service)
-                        else:
-                            from DownloadMovies import DownloadMovies
-                            items = []
-                            for item in self.list.multiSelection:
-                                items.append([item, 0])
-                            self.session.openWithCallback(self.updateCurrentSelection, DownloadMovies, items, config.AdvancedMovieSelection.coversize.value)
+                        self.session.openWithCallback(self.reload, TMDbMainsave, searchTitle, service)
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
                             self.session.open(MessageBox, _("TMDb search here not possible, please select a movie!"), MessageBox.TYPE_INFO)               
@@ -175,7 +151,7 @@ class QuickButton:
                 elif pname == _("Show new icon"):
                     if not (service.flags):
                         self.marknewicon()
-                        self.updateCurrentSelection() 
+                        self.reload() 
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
                             self.session.open(MessageBox, _("Show new movie icon here not possible, please select a movie!"), MessageBox.TYPE_INFO)
@@ -210,3 +186,6 @@ class QuickButton:
                 errorText = _("No plugin assigned!")
             if errorText:
                 self.session.open(MessageBox, errorText, MessageBox.TYPE_INFO)
+    
+    def reload(self, retval = None):
+        self.reloadList()
