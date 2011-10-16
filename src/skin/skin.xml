@@ -1045,11 +1045,8 @@
                 <ePixmap position="1145,641" size="35,25" zPosition="10" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" transparent="1" alphatest="blend"/>
                 <ePixmap position="1185,641" size="35,25" zPosition="10" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" transparent="1" alphatest="blend"/>
 		<widget name="DescriptionBorder" position="0,0" size="0,0"/>
+                <widget name="CoverPreview" position="60,440" size="120,180" zPosition="2" alphatest="blend"/>
 	</screen>
-            <screen name="AdvancedMovieSelectionCover_noMiniTV_HD" position="60,440" size="120,180" zPosition="10" flags="wfNoBorder">
-                <widget name="background" position="0,0" size="120,180" zPosition="1" backgroundColor="#00000000"/>
-                <widget name="preview" position="0,0" size="120,180" zPosition="2" alphatest="blend"/>
-        </screen>
             <screen name="AdvancedMovieSelection1_noMiniTV_HD" position="center,center" size="1280,720" title=" " flags="wfNoBorder">
 		<!--widget source="global.MovieDir" render="Label" position="60,40" size="1050,29" zPosition="3" font="Regular;26" transparent="1"/-->
 		<widget name="warning" position="400,40" size="875,28" zPosition="3" font="Regular;26" halign="center" foregroundColor="#ffcc00" transparent="1"/>
