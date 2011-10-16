@@ -31,10 +31,11 @@ from Screens.InfoBar import InfoBar, MoviePlayer
 from Tools.Directories import fileExists, resolveFilename, SCOPE_HDD
 from Components.config import config, ConfigSubsection, ConfigText, ConfigYesNo, ConfigInteger, ConfigSelection
 from AdvancedMovieSelectionSetup import AdvancedMovieSelectionSetup
-from enigma import ePoint, quitMainloop 
+from enigma import ePoint, quitMainloop, eTimer 
 from TagEditor import TagEditor
 import Screens.Standby
 from Tools import Notifications
+from Components.Sources.ServiceEvent import ServiceEvent
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
     IMDbPresent = True
@@ -168,11 +169,27 @@ config.AdvancedMovieSelection.piconpath = ConfigText(default=("/usr/share/enigma
 
 PlayerInstance = None
 
-class MoviePlayerExtended(CutListSupport, MoviePlayer):
+class SelectionEventInfo:
+    def __init__(self):
+        self["ServiceEvent"] = ServiceEvent()
+        self.timer = eTimer()
+        self.timer.callback.append(self.updateEventInfo)
+        self.onShown.append(self.__selectionChanged)
+
+    def __selectionChanged(self):
+        if self.execing:
+            self.timer.start(100, True)
+
+    def updateEventInfo(self):
+        cur =  self.session.nav.getCurrentlyPlayingServiceReference()
+        self["ServiceEvent"].newService(cur) 
+        
+class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo):
     def __init__(self, session, service):
         CutListSupport.__init__(self, service)
         MoviePlayer.__init__(self, session, service)
-        self.skinName = "MoviePlayer"
+        SelectionEventInfo.__init__(self)
+        self.skinName = ["MoviePlayerExtended", "MoviePlayer"]
         self.addPlayerEvents()
         global PlayerInstance
         PlayerInstance = self
@@ -193,7 +210,7 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer):
                 })
         self.firstime = True
         self.onExecBegin.append(self.__onExecBegin)
-
+        
     def __onExecBegin(self):
         if self.firstime:
             orgpos = self.instance.position()    
