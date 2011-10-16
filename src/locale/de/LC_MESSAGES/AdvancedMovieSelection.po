@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-10-15 19:55+0100\n"
-"PO-Revision-Date: 2011-10-15 19:57+0100\n"
+"POT-Creation-Date: 2011-10-15 19:59+0100\n"
+"PO-Revision-Date: 2011-10-16 10:40+0100\n"
 "Last-Translator: JackDanie <JackDaniel@i-have-a-dreambox.com>\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
@@ -439,7 +439,7 @@ msgstr "Mit dieser Option können Sie bestimmen welche Farbe die Filmmarkierung 
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:300
 msgid "Color for multiple selection:"
-msgstr "Farvbe für Mehrfachauswahl:"
+msgstr "Farbe für Mehrfachauswahl:"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:300
 msgid "With this option you can assign what color should displayed for multiple selection in movie list."
