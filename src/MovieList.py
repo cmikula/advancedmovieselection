@@ -371,7 +371,7 @@ class MovieList(GUIComponent):
             offset = 0
 
         if info is not None:
-            if len <= 0: #recalc len when not already done
+            if len < 0: #recalc len when not already done
                 cur_idx = self.l.getCurrentSelectionIndex()
                 x = self.list[cur_idx]
                 if config.usage.load_length_of_movies_in_moviellist.value:
