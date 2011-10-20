@@ -146,6 +146,8 @@ version 2.0
 * neu: merhfachauswahl (mit radio taste)
 * neu: farbe für mehrfachauswahl kann eingestellt werden
 * neu: filmbeschreibung wird in der filmwiedergabe infobar angezeigt (wenn entsprechender MoviePlayerExtended screen im skin vorhanden ist)
+* neu: timer löschen abfrage wenn versucht wird eine aktive aufnahme zu löschen
+* neu: automatisches löschen wenn timer beendet wird
 
 
 

@@ -166,6 +166,8 @@ config.AdvancedMovieSelection.hotplug = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.show_picon = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.piconsize = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.piconpath = ConfigText(default=("/usr/share/enigma2/picon"), visible_width=50, fixed_size=False)
+config.AdvancedMovieSelection.timeredit = ConfigYesNo(default=True)
+config.AdvancedMovieSelection.auto_record_delete = ConfigYesNo(default=True)
 
 PlayerInstance = None
 

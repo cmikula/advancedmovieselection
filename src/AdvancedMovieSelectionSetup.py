@@ -206,6 +206,9 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.checkListentrys()
 
     def checkListentrys(self):
+        if config.AdvancedMovieSelection.timeredit.isChanged():
+            config.AdvancedMovieSelection.timeredit.save()
+            self.createSetup()            
         if config.AdvancedMovieSelection.show_picon.isChanged():
             config.AdvancedMovieSelection.show_picon.save()
             self.createSetup()
@@ -321,6 +324,9 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         if config.AdvancedMovieSelection.use_wastebasket.value:
             self.list.append(getConfigListEntry(_("Wastebasket file(s):"), config.AdvancedMovieSelection.wastelist_buildtype, _("Here you can select which files to Wastebasket are displayed. ATTENTION: All directorys below '/media' will take very long until the list is displayed!")))
         self.list.append(getConfigListEntry(_("Start at the beginning depends on end (in Minutes):"), config.AdvancedMovieSelection.stop_before_end_time, _("Here you can set off when a movie to play automatically from the beginning when you start again (On settings=0, functions is disabled).")))
+        self.list.append(getConfigListEntry(_("Ask for Timer edit:"), config.AdvancedMovieSelection.timeredit, _("Enables the timer delete query when trying to delete an active recording.")))
+        if config.AdvancedMovieSelection.timeredit.value:
+            self.list.append(getConfigListEntry(_("Automatic delete:"), config.AdvancedMovieSelection.auto_record_delete, _("Enables the automatic delete function after timer deactivation.")))
         self.list.append(getConfigListEntry(_("Enable Enigma2 debug:"), config.AdvancedMovieSelection.debug, _("If you enable this function, all standard output from enigma will be stored to /tmp folder")))
         self["config"].setList(self.list)
             
