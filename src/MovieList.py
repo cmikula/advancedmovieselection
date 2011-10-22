@@ -724,6 +724,7 @@ class MovieList(GUIComponent):
         self.l.setList(self.list)
 
     def removeService(self, service):
+        self.multiSelection.remove(service)
         for l in self.list[:]:
             if l[0] == service:
                 self.list.remove(l)
