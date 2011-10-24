@@ -148,6 +148,7 @@ version 2.0
 * neu: filmbeschreibung wird in der filmwiedergabe infobar angezeigt (wenn entsprechender MoviePlayerExtended screen im skin vorhanden ist)
 * neu: timer löschen abfrage wenn versucht wird eine aktive aufnahme zu löschen
 * neu: automatisches löschen wenn timer beendet wird
+* geändert: die funktion der einstellung am letzten speicherort starten (nur mehr beim öffnen der filmliste, und nicht mehr wenn filmliste während wiedergabe geöffnet wird, bzw. beim stoppen der wiedergabe)
 * geändert: nl übersetzung
 * geändert: cover anzeige in der filminfo (nun wird wenn kein cover vorhanden und es sich um eine dreambox aufnahme handelt das senderlogo angezeigt)
 ACHTUNG an die skinner, AdvancedMovieSelectionInfoCoverHD,AdvancedMovieSelectionInfoCoverXD,AdvancedMovieSelectionInfoCoverSD gibt es nicht mehr (dadurch auch änderung in AdvancedMovieSelectionEventViewHD,AdvancedMovieSelectionEventViewXD bzw. AdvancedMovieSelectionEventViewSD)
