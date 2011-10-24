@@ -563,10 +563,7 @@
 			<convert type="MovieInfo">FileSize</convert>
 		</widget>
                 <widget name="epg_description" position="345,180" size="875,520" zPosition="1" font="Regular;26" foregroundColor="#ffffff" transparent="1"/>
-	</screen>
-            <screen name="AdvancedMovieSelectionInfoCoverHD" position="60,280" size="256,360" zPosition="10" flags="wfNoBorder">
-                <widget name="Infobackground" position="0,0" size="256,360" zPosition="1" backgroundColor="#00000000"/>
-                <widget name="Infopreview" position="0,0" size="256,360" zPosition="2" alphatest="blend"/>
+                <widget name="CoverPreview" position="60,280" size="256,360" zPosition="2" alphatest="blend"/>
         </screen>
             <screen name="AdvancedMovieSelectionEventViewXD" position="0,0" size="1024,576" title=" " flags="wfNoBorder">
 		<widget source="global.CurrentTime" render="Label" position="60,40" size="904,26" font="Regular;26" halign="right" transparent="1">
@@ -596,36 +593,31 @@
 			<convert type="MovieInfo">FileSize</convert>
 		</widget>
                 <widget name="epg_description" position="345,180" size="619,520" zPosition="1" font="Regular;22" foregroundColor="#ffffff" transparent="1"/>
+                <widget name="CoverPreview" position="60,280" size="256,260" zPosition="2" alphatest="blend"/>
 	</screen>
-            <screen name="AdvancedMovieSelectionInfoCoverXD" position="60,280" size="256,260" zPosition="10" flags="wfNoBorder">
-                <widget name="Infobackground" position="0,0" size="256,260" zPosition="1" backgroundColor="#00000000"/>
-                <widget name="Infopreview" position="0,0" size="256,260" zPosition="2" alphatest="blend"/>
-        </screen>
             <screen name="AdvancedMovieSelectionEventViewSD" position="center,center" title=" " size="560,400">
+		<widget source="session.VideoPicture" render="Pig" position="0,0" size="120,80" zPosition="3" backgroundColor="#ff000000"/>
 		<widget name="Location" position="0,380" size="560,20" zPosition="3" font="Regular;18" foregroundColor="#ffcc00" transparent="1"/>
-		<widget source="Service" render="Label" position="150,0" zPosition="1" size="410,30" font="Regular;18" foregroundColor="#ffffff" halign="left" transparent="1">
+		<widget source="Service" render="Label" position="130,0" zPosition="1" size="430,30" font="Regular;18" foregroundColor="#ffffff" halign="left" transparent="1">
 			<convert type="MovieInfo">RecordServiceName</convert>
 		</widget>
-		<widget source="Service" render="Label" position="150,25" zPosition="1" size="410,30" font="Regular;18" foregroundColor="#ffcc00" halign="left" transparent="1">
+		<widget source="Service" render="Label" position="130,25" zPosition="1" size="330,35" font="Regular;18" foregroundColor="#ffcc00" halign="left" transparent="1">
 			<convert type="MovieInfo">ShortDescription</convert>
 		</widget>
-		<widget source="Service" render="Label" position="150,0" size="410,30" font="Regular;18" foregroundColor="#ffffff" halign="right" transparent="1" zPosition="1">
+		<widget source="Service" render="Label" position="130,0" size="430,30" font="Regular;18" foregroundColor="#ffffff" halign="right" transparent="1" zPosition="1">
 			<convert type="ServiceTime">StartTime</convert>
 			<convert type="ClockToText">Date</convert>
 		</widget>
-		<widget source="Service" render="Label" position="150,25" zPosition="1" size="410,30" font="Regular;18" foregroundColor="#ffcc00" halign="right" transparent="1">
+		<widget source="Service" render="Label" position="130,25" zPosition="1" size="430,30" font="Regular;18" foregroundColor="#ffcc00" halign="right" transparent="1">
 			<convert type="ServiceTime">Duration</convert>
 			<convert type="ClockToText">InMinutes</convert>
 		</widget>
-		<widget source="Service" render="Label" position="150,25" zPosition="1" size="410,30" font="Regular;18" halign="center" foregroundColor="#ffcc00" transparent="1">
+		<widget source="Service" render="Label" position="130,0" zPosition="1" size="430,30" font="Regular;18" halign="center" foregroundColor="#ffcc00" transparent="1">
 			<convert type="MovieInfo">FileSize</convert>
 		</widget>
-                <widget name="epg_description" position="150,50" size="410,320" zPosition="1" font="Regular;18" foregroundColor="#ffffff" transparent="1"/>
+                <widget name="epg_description" position="130,70" size="430,300" zPosition="1" font="Regular;18" foregroundColor="#ffffff" transparent="1"/>
+                <widget name="CoverPreview" position="0,150" size="120,180" zPosition="2" alphatest="blend"/>
 	</screen>
-            <screen name="AdvancedMovieSelectionInfoCoverSD" position="80,150" size="120,180" zPosition="10" flags="wfNoBorder">
-                <widget name="Infobackground" position="0,0" size="120,180" zPosition="1" backgroundColor="#00000000"/>
-                <widget name="Infopreview" position="0,0" size="120,180" zPosition="2" alphatest="on"/>
-        </screen>
             <screen name="AdvancedMovieSelectionHD_summary" position="0,0" size="132,64" id="1">
                 <!--widget source="parent.Movielocation" render="Label" position="2,0" size="128,21" font="LCD;7" halign="center" valign="top"/-->
 		<!--widget source="global.CurrentTime" render="Label" position="2,2" size="128,14" font="Digital;14" halign="center" valign="top">
