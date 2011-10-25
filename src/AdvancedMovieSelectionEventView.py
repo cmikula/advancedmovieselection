@@ -29,8 +29,6 @@ from ServiceProvider import ServiceEvent
 from Components.ScrollLabel import ScrollLabel
 from MoviePreview import MoviePreview
 
-nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_info.jpg")
-
 class EventViewBase:    
     def __init__(self, event, ref, callback=None, similarEPGCB=None):
         self.similarEPGCB = similarEPGCB
