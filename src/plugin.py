@@ -36,6 +36,7 @@ from TagEditor import TagEditor
 import Screens.Standby
 from Tools import Notifications
 from Components.Sources.ServiceEvent import ServiceEvent
+from MoviePreview import MoviePreview
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
     IMDbPresent = True
@@ -183,13 +184,15 @@ class SelectionEventInfo:
             self.timer.start(100, True)
 
     def updateEventInfo(self):
-        cur =  self.session.nav.getCurrentlyPlayingServiceReference()
-        self["ServiceEvent"].newService(cur) 
+        serviceref =  self.session.nav.getCurrentlyPlayingServiceReference()
+        self["ServiceEvent"].newService(serviceref)
+        self.loadPreview(serviceref) 
         
-class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo):
+class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, MoviePreview):
     def __init__(self, session, service):
         CutListSupport.__init__(self, service)
         MoviePlayer.__init__(self, session, service)
+        MoviePreview.__init__(self, session)
         SelectionEventInfo.__init__(self)
         self.skinName = ["MoviePlayerExtended", "MoviePlayer"]
         self.addPlayerEvents()

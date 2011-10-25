@@ -29,6 +29,7 @@ from Plugins.Plugin import PluginDescriptor
 from MoveCopy import MovieMove
 from Screens.MessageBox import MessageBox
 from Rename import MovieRetitle
+from Wastebasket import Wastebasket
 
 def getPluginCaption(pname):
     if pname != _("Nothing"):
@@ -106,6 +107,8 @@ class QuickButton:
             if pname != _("Nothing"):
                 if pname == _("Delete"):
                     self.delete()
+                elif pname == _("Wastebasket"):
+                    self.session.open(Wastebasket)              
                 elif pname == _("Home"):
                     self.gotFilename(home)
                 elif pname == _("Bookmark 1"):
