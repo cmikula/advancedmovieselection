@@ -282,7 +282,7 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
 
     def showMovies(self):
         ref = self.session.nav.getCurrentlyPlayingServiceReference()
-        self.session.openWithCallback(self.movieSelected, MovieSelection, ref)
+        self.session.openWithCallback(self.movieSelected, MovieSelection, ref, True)
 
     def leavePlayerConfirmed(self, answer):
         answer = answer and answer[1]

@@ -628,20 +628,10 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         if not config.AdvancedMovieSelection.askdelete.value:
             self["warning"].setText(_("ATTENTION: Ask before delete is disabled!"))
 
-        from plugin import PlayerInstance
-        if PlayerInstance is not None:
-            play = True
-        else:
-            play = False
-
         if not config.AdvancedMovieSelection.startdir.value and not showLastDir:
-            if path.exists(config.movielist.last_videodir.value) and play == True:
-                config.movielist.last_videodir.value = config.movielist.last_videodir.value
+            if path.exists(config.movielist.last_videodir.value):
+                config.movielist.last_videodir.value = defaultMoviePath()
                 config.movielist.last_videodir.save()
-            else:
-                if path.exists(config.movielist.last_videodir.value) and play == False:
-                    config.movielist.last_videodir.value = defaultMoviePath()
-                    config.movielist.last_videodir.save()
         if not path.exists(config.movielist.last_videodir.value):
             config.movielist.last_videodir.value = "/media/"
             config.movielist.last_videodir.save()
