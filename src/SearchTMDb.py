@@ -346,7 +346,7 @@ class TMDbMain(Screen):
             return False
 
     def green_pressed(self):
-        if self.checkConnection() == False:
+        if self.checkConnection() == False or not self["list"].getCurrent():
             return
         from EventInformationTable import createEIT
         current_movie = self["list"].getCurrent()[0]
