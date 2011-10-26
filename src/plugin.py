@@ -221,6 +221,9 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
             orgpos = self.instance.position()    
             self.instance.move(ePoint(orgpos.x() + config.AdvancedMovieSelection.movieplayer_infobar_position_offset_x.value, orgpos.y() + config.AdvancedMovieSelection.movieplayer_infobar_position_offset_y.value))
             self.firstime = False
+    
+    def standbyCounterChanged(self, configElement):
+        pass # prevent merlin crash, Select last played movie is disabled
 
     def openServiceList(self):
         if AdvancedProgramGuidePresent:
