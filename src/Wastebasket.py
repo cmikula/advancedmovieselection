@@ -189,11 +189,12 @@ class Wastebasket(Screen):
             "red": (self.canDelete, _("Delete selected movie")),
             "green": (self.restore, _("Restore movie")),
             "yellow": (self.canDeleteAll, _("Empty wastbasket")),
+            "blue": (self.restoreAll, _("Restore all movies")),
         })
         self["key_red"] = Button(_("Delete movie"))
         self["key_green"] = Button(_("Restore movie"))
         self["key_yellow"] = Button(_("Empty Trash"))
-        self["key_blue"] = Button()
+        self["key_blue"] = Button(_("Restore all movies"))
         self["waitingtext"] = Label(_("Please wait... Loading trash list..."))
         self["freeDiskSpace"] = self.diskinfo = DiskInfo(config.movielist.last_videodir.value, DiskInfo.FREE, update=False)
         self["location"] = Label()
@@ -313,20 +314,15 @@ class Wastebasket(Screen):
         self.deleteTimer.start(0, 1)
 
     def deleteAllMovies(self):
-        deleted = []
         try:
             print "Start deleting all movies in trash list"
-            for x in self.list.list:
+            for x in self.list.list[:]:
                 service = x[0]
                 Trashcan.delete(service.getPath())
-                deleted.append(service)
+                self["list"].removeService(service)
         except Exception, e:
             print e
             self.session.open(MessageBox, _("Delete failed!"), MessageBox.TYPE_ERROR)
-        for service in deleted:
-            self["list"].removeService(service)
-        #self["waitingtext"].hide()
-        #self["list"].show()
         self.close()
         
     def restore(self):
@@ -340,3 +336,15 @@ class Wastebasket(Screen):
             return
         
         self["list"].removeService(self.getCurrent())
+
+    def restoreAll(self):
+        try:
+            print "Start restoring all movies"
+            for x in self.list.list[:]:
+                service = x[0]
+                Trashcan.restore(service.getPath())
+                self["list"].removeService(service)
+        except Exception, e:
+            print e
+            self.session.open(MessageBox, _("Restore failed!"), MessageBox.TYPE_ERROR)
+        self.close()
