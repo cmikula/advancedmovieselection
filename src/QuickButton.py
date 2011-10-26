@@ -108,7 +108,7 @@ class QuickButton:
                 if pname == _("Delete"):
                     self.delete()
                 elif pname == _("Wastebasket"):
-                    self.session.open(Wastebasket)              
+                    self.session.openWithCallback(self.reloadList, Wastebasket)              
                 elif pname == _("Home"):
                     self.gotFilename(home)
                 elif pname == _("Bookmark 1"):
