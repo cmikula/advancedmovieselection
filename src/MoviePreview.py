@@ -42,7 +42,13 @@ class MoviePreview():
     def layoutFinish(self):
         sc = AVSwitch().getFramebufferScale()
         self.picload.setPara((self["CoverPreview"].instance.size().width(), self["CoverPreview"].instance.size().height(), sc[0], sc[1], False, 1, "#00000000"))
-        
+        self.cpX = self["CoverPreview"].instance.position().x()
+        self.cpY = self["CoverPreview"].instance.position().y()
+        self.cpW = self["CoverPreview"].instance.size().width()
+        self.cpH = self["CoverPreview"].instance.size().height()
+        self.piconX = self.cpX + int(self.cpW / 2) - int(100 / 2)
+        self.piconY = self.cpY + int(self.cpH / 2) - int(60 / 2)
+
     def getServiceInfoValue(self, ref, what):
         info = eServiceCenter.getInstance().info(ref)
         v = ref and info.getInfo(ref, what) or info.getInfo(what)
@@ -65,14 +71,16 @@ class MoviePreview():
                 path = path + "folder.jpg"
         
             self.working = True
+            self["CoverPreview"].setPosition(self.cpX, self.cpY)
             if fileExists(path):
                 self.picload.startDecode(path)
             elif serviceref.getPath().endswith(".ts") and config.AdvancedMovieSelection.show_picon.value:
-                picon = self.getServiceInfoValue(serviceref, iServiceInformation.sServiceref).rstrip(':').replace(':','_') + ".png"
+                picon = self.getServiceInfoValue(serviceref, iServiceInformation.sServiceref).rstrip(':').replace(':', '_') + ".png"
                 piconpath = os.path.join(config.AdvancedMovieSelection.piconpath.value, picon)
                 if os.path.exists(piconpath):
                     if config.AdvancedMovieSelection.piconsize.value:
                         self["CoverPreview"].instance.setPixmapFromFile(piconpath)
+                        self["CoverPreview"].setPosition(self.piconX, self.piconY)
                     else:
                         self.picload.startDecode(piconpath)
                 else:
