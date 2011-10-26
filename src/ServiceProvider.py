@@ -115,7 +115,7 @@ class ServiceCenter:
 	def info(self, serviceref):
 		info = eServiceCenter.getInstance().info(serviceref)
 		if info is not None:
-			if serviceref.getPath().split(".")[-1].lower() == "ts":
+			if serviceref.getPath().endswith(".ts"):
 				info.cueSheet = CueSheet(serviceref) 
 				return info
 			return Info(serviceref)

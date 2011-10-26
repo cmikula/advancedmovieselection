@@ -67,13 +67,16 @@ class MoviePreview():
             self.working = True
             if fileExists(path):
                 self.picload.startDecode(path)
-            elif serviceref and serviceref.getPath().endswith(".ts") and config.AdvancedMovieSelection.show_picon.value:
+            elif serviceref.getPath().endswith(".ts") and config.AdvancedMovieSelection.show_picon.value:
                 picon = self.getServiceInfoValue(serviceref, iServiceInformation.sServiceref).rstrip(':').replace(':','_') + ".png"
                 piconpath = os.path.join(config.AdvancedMovieSelection.piconpath.value, picon)
-                if os.path.exists(piconpath) and config.AdvancedMovieSelection.piconsize.value:
-                    self["CoverPreview"].instance.setPixmapFromFile(piconpath)
+                if os.path.exists(piconpath):
+                    if config.AdvancedMovieSelection.piconsize.value:
+                        self["CoverPreview"].instance.setPixmapFromFile(piconpath)
+                    else:
+                        self.picload.startDecode(piconpath)
                 else:
-                    self.picload.startDecode(piconpath)
+                    self.picload.startDecode(nocover)
             else:
                 self.picload.startDecode(nocover)
                 

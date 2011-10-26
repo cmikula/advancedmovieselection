@@ -485,10 +485,9 @@ class MovieList(GUIComponent):
                 begin_string = d.strftime(self.DATE_TIME_FORMAT)
 
         if selection_index > -1:
+            txt = "%d - %s" %(selection_index, txt)
             if self.show_statuscolor:
                 color = self.mark_color
-            res.append(MultiContentEntryText(pos=(offset , 2), size=(width - 20, 20), font=0, flags=RT_HALIGN_LEFT, text=str(selection_index) + ' - ', color=color))
-            offset = offset + 35
 
         if self.list_type == MovieList.LISTTYPE_ORIGINAL:
             if self.show_folders:

@@ -42,6 +42,8 @@ class eServiceReferenceTrash():
             file = open(meta_path, "r")
             file.readline()
             self.setName(file.readline().rstrip("\r\n"))
+            if len(self.name) == 0:
+                self.setName(os.path.basename(p))
             self.short_description = file.readline().rstrip("\r\n")
             file.close()
         else:

@@ -753,7 +753,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                     result = True
                     
         if len(self.list.multiSelection) > 0:
-            self.to_delete = self.list.multiSelection
+            self.to_delete = self.list.multiSelection[:]
             if config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.use_wastebasket.value:
                 self.session.openWithCallback(self.deleteTrashConfirmed, MessageBox, _("Do you really want to move selected movies to trashcan?"))
             elif config.AdvancedMovieSelection.askdelete.value and not config.AdvancedMovieSelection.use_wastebasket.value:
