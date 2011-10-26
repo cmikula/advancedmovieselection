@@ -121,7 +121,7 @@ class MovieContextMenu(Screen):
         if config.AdvancedMovieSelection.showdelete.value:
             if not (self.service.flags & eServiceReference.mustDescent):
                 menu.append((_("Delete"), self.delete))
-        if config.AdvancedMovieSelection.use_wastebasket.value:
+        if config.AdvancedMovieSelection.use_wastebasket.value and config.AdvancedMovieSelection.show_wastebasket.value:
             menu.append((_("Wastebasket"), self.waste))
         if config.AdvancedMovieSelection.showmove.value and not (self.service.flags & eServiceReference.mustDescent):
             menu.append((_("Move/Copy"), self.movecopy))

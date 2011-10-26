@@ -269,7 +269,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.list.append(getConfigListEntry(_("Show delete movie info in extensions menu from movielist:"), config.AdvancedMovieSelection.show_info_del, _("Displays delete movie info function in the menu at the movie list.")))
             self.list.append(getConfigListEntry(_("Show Provider Logo:"), config.AdvancedMovieSelection.show_picon, _("Displays the Provider Logo when no Cover available.")))      
         if config.AdvancedMovieSelection.show_picon.value:
-            self.list.append(getConfigListEntry(_("Show Provider Logo in original size:"), config.AdvancedMovieSelection.piconsize, _("Displays the Provider Logo in original size. Otherwise, the provider logo be displayed zoomed and centered.")))    
+            self.list.append(getConfigListEntry(_("Show Provider Logo in original size:"), config.AdvancedMovieSelection.piconsize, _("Displays the Provider Logo in original size. Otherwise, the provider logo be displayed zoomed up to cover size.")))    
             self.list.append(getConfigListEntry(_("Provider Logo path:"), config.AdvancedMovieSelection.piconpath, _("Where to look for the provider logos? (Default is /usr/share/enigma2/picon)"))) 
         self.list.append(getConfigListEntry(_("Show rename in extensions menu from movielist:"), config.AdvancedMovieSelection.showrename, _("Displays rename function in the menu at the movie list.")))
         self.list.append(getConfigListEntry(_("Show TMDb search in extensions menu from movielist:"), config.AdvancedMovieSelection.showtmdb, _("Displays TMDb search in the menu at the movie list.")))
@@ -322,6 +322,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.list.append(getConfigListEntry(_("Manual jump sensibility:"), config.AdvancedMovieSelection.sensibility, _("Here you can adjust the manually jump length relative to the film length in percent.")))
         self.list.append(getConfigListEntry(_("Use wastebasket:"), config.AdvancedMovieSelection.use_wastebasket, _("If this option is activated the movie will not be deleted but moved into the wastebasket.")))
         if config.AdvancedMovieSelection.use_wastebasket.value:
+            self.list.append(getConfigListEntry(_("Show Wastebasket in extensions menu from movielist:"), config.AdvancedMovieSelection.show_wastebasket, _("Displays wastebasket function in the menu at the movie list.")))
             self.list.append(getConfigListEntry(_("Wastebasket file(s):"), config.AdvancedMovieSelection.wastelist_buildtype, _("Here you can select which files to Wastebasket are displayed. ATTENTION: All directorys below '/media' will take very long until the list is displayed!")))
         self.list.append(getConfigListEntry(_("Start at the beginning depends on end (in Minutes):"), config.AdvancedMovieSelection.stop_before_end_time, _("Here you can set off when a movie to play automatically from the beginning when you start again (On settings=0, functions is disabled).")))
         self.list.append(getConfigListEntry(_("Ask for Timer edit:"), config.AdvancedMovieSelection.timeredit, _("Enables the timer delete query when trying to delete an active recording.")))

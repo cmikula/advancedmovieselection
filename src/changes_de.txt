@@ -148,7 +148,8 @@ version 2.0
 * neu: filmbeschreibung und cover/senderlogo wird in der filmwiedergabe infobar angezeigt (wenn entsprechender MoviePlayerExtended screen im skin vorhanden ist)
 * neu: timer löschen abfrage wenn versucht wird eine aktive aufnahme zu löschen
 * neu: automatisches löschen wenn timer beendet wird
-* neu: papierkorb funktion kann den farbtasten zugeordnet werden
+* neu: papierkorb funktion kann den farbtasten zugeordnet werden, und auch im menü der filmliste ausgeblendet werden
+* neu: senderlogos werden nun auch in der original grösse zentriert angezeigt
 * geändert: die funktion der einstellung am letzten speicherort starten (nur mehr beim öffnen der filmliste, und nicht mehr wenn filmliste während wiedergabe geöffnet wird, bzw. beim stoppen der wiedergabe)
 * geändert: nl übersetzung
 * geändert: cover anzeige in der filminfo (nun wird wenn kein cover vorhanden und es sich um eine dreambox aufnahme handelt das senderlogo angezeigt)
