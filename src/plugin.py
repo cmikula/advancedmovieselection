@@ -37,6 +37,12 @@ import Screens.Standby
 from Tools import Notifications
 from Components.Sources.ServiceEvent import ServiceEvent
 from MoviePreview import MoviePreview
+from Tools.HardwareInfo import HardwareInfo
+
+file = open("/proc/stb/info/model", "r")
+HardwareInfo.device_name = file.readline().strip()
+file.close()
+boxtype = HardwareInfo.device_name
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
     IMDbPresent = True
@@ -178,7 +184,10 @@ class SelectionEventInfo:
         self["ServiceEvent"] = ServiceEvent()
         self.timer = eTimer()
         self.timer.callback.append(self.updateEventInfo)
-        self.onShown.append(self.__selectionChanged)
+        if boxtype == "dm800":
+            self.onShow.append(self.__selectionChanged)
+        else:
+            self.onShown.append(self.__selectionChanged)
 
     def __selectionChanged(self):
         if self.execing:
