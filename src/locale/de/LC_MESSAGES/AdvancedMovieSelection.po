@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-10-26 16:02+0100\n"
-"PO-Revision-Date: 2011-10-26 16:03+0100\n"
+"PO-Revision-Date: 2011-10-28 08:30+0100\n"
 "Last-Translator: JackDanie <JackDaniel@i-have-a-dreambox.com>\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
@@ -1962,19 +1962,19 @@ msgstr "Verschieben/Kopieren Speicherort:"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/RecordPaths.py:142
 msgid "Default movie location"
-msgstr "Standard Filmverzeichnis:"
+msgstr "Standard Speicherort für Filme hier auswählen:"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/RecordPaths.py:158
 msgid "Initial location in new timers"
-msgstr "Initial location in new timers"
+msgstr "Standard Speicherort für Timeraufnahmen hier auswählen:"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/RecordPaths.py:166
 msgid "Location for instant recordings"
-msgstr "Location for instant recordings"
+msgstr "Standard Speicherort für Sofortaufnahme hier auswählen:"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/RecordPaths.py:181
 msgid "Location for move/copy files"
-msgstr "Location for move/copy files"
+msgstr "Standard Speicherort für Verschieben/Kopieren hier auswählen:"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:75
 msgid "Location"
