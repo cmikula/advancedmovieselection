@@ -57,7 +57,7 @@ import os
 import NavigationInstance
 from timer import TimerEntry
 from Trashcan import Trashcan
-from Screens.TimerEdit import TimerEditList
+from RecordTimer import AFTEREVENT
 from MessageBoxEx import MessageBox as MessageBoxEx
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
@@ -683,16 +683,27 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             idx = self.list.getCurrentIndex()
             self.list.moveToIndex(min(idx + 1, len(self.list.list) - 1))
 
-    def TimerOverview(self, result):
+    def TimerDel(self, result):
         if result is None:
             self.session.open(MessageBox, _("Aborted by user !!"), MessageBox.TYPE_ERROR)
             return
         if result is False:
             return
         if result and config.AdvancedMovieSelection.auto_record_delete.value:
-            self.session.openWithCallback(self.delete, TimerEditList)
+            for timer in self.session.nav.RecordTimer.timer_list:
+                timername = timer.Filename + '.ts'
+                movietitle = self.service.getPath()
+                if timername == movietitle:
+                    timer.afterEvent = AFTEREVENT.NONE
+                    self.session.nav.RecordTimer.removeEntry(timer)
+                    self.delete()
         else:
-            self.session.open(TimerEditList)
+            for timer in self.session.nav.RecordTimer.timer_list:
+                timername = timer.Filename + '.ts'
+                movietitle = self.service.getPath()
+                if timername == movietitle:
+                    timer.afterEvent = AFTEREVENT.NONE
+                    self.session.nav.RecordTimer.removeEntry(timer)
 
     def delete(self):
         self.service = self.getCurrent()
@@ -718,10 +729,10 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                         break
                     
         if recording == True and config.AdvancedMovieSelection.showinfo.value and config.AdvancedMovieSelection.timeredit.value:
-            self.session.openWithCallback(self.TimerOverview, MessageBoxEx, (_("Can not delete because %s is currently recording!") % moviename) + _("\n\nDo you want to delete the timer for stop the recording?"), type=MessageBox.TYPE_YESNO)
+            self.session.openWithCallback(self.TimerDel, MessageBoxEx, (_("Can not delete because %s is currently recording!") % moviename) + _("\n\nDo you want to delete the timer for stop the recording?"), type=MessageBox.TYPE_YESNO)
             return
         if recording == True and not config.AdvancedMovieSelection.showinfo.value and config.AdvancedMovieSelection.timeredit.value:
-            self.session.openWithCallback(self.TimerOverview, MessageBoxEx, (_("Can not delete because %s is currently recording!") % moviename) + _("\n\nDo you want to delete the timer for stop the recording?"), type=MessageBox.TYPE_YESNO)        
+            self.session.openWithCallback(self.TimerDel, MessageBoxEx, (_("Can not delete because %s is currently recording!") % moviename) + _("\n\nDo you want to delete the timer for stop the recording?"), type=MessageBox.TYPE_YESNO)        
             return
         if recording == True and config.AdvancedMovieSelection.showinfo.value and not config.AdvancedMovieSelection.timeredit.value:            
             self.session.open(MessageBox, (_("Can not delete because %s is currently recording!") % moviename), MessageBox.TYPE_INFO, timeout=10)
