@@ -689,21 +689,36 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             return
         if result is False:
             return
-        if result and config.AdvancedMovieSelection.auto_record_delete.value:
-            for timer in self.session.nav.RecordTimer.timer_list:
-                timername = timer.Filename + '.ts'
-                movietitle = self.service.getPath()
-                if timername == movietitle:
-                    timer.afterEvent = AFTEREVENT.NONE
-                    self.session.nav.RecordTimer.removeEntry(timer)
-                    self.delete()
+        if result and config.AdvancedMovieSelection.auto_record_delete.value and NavigationInstance.instance.getRecordings():
+            for timer in NavigationInstance.instance.RecordTimer.timer_list:
+                if timer.state == TimerEntry.StateRunning:
+                    try:
+                        filename = "%s.ts" % timer.Filename
+                    except:
+                        filename = ""
+                    serviceHandler = eServiceCenter.getInstance()
+                    info = serviceHandler.info(self.service)
+                    moviename = info and info.getName(self.service) or _("this recording")
+                    serviceref = self.getCurrent()
+                    if filename and os.path.realpath(filename) == os.path.realpath(serviceref.getPath()):
+                        timer.afterEvent = AFTEREVENT.NONE
+                        self.session.nav.RecordTimer.removeEntry(timer)
+                        self.delete()
         else:
-            for timer in self.session.nav.RecordTimer.timer_list:
-                timername = timer.Filename + '.ts'
-                movietitle = self.service.getPath()
-                if timername == movietitle:
-                    timer.afterEvent = AFTEREVENT.NONE
-                    self.session.nav.RecordTimer.removeEntry(timer)
+            if NavigationInstance.instance.getRecordings():
+                for timer in NavigationInstance.instance.RecordTimer.timer_list:
+                    if timer.state == TimerEntry.StateRunning:
+                        try:
+                            filename = "%s.ts" % timer.Filename
+                        except:
+                            filename = ""
+                        serviceHandler = eServiceCenter.getInstance()
+                        info = serviceHandler.info(self.service)
+                        moviename = info and info.getName(self.service) or _("this recording")
+                        serviceref = self.getCurrent()
+                        if filename and os.path.realpath(filename) == os.path.realpath(serviceref.getPath()):
+                            timer.afterEvent = AFTEREVENT.NONE
+                            self.session.nav.RecordTimer.removeEntry(timer)
 
     def delete(self):
         self.service = self.getCurrent()
