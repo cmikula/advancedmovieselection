@@ -146,8 +146,7 @@ version 2.0
 * neu: merhfachauswahl (mit radio taste)
 * neu: farbe für mehrfachauswahl kann eingestellt werden
 * neu: filmbeschreibung und cover/senderlogo wird in der filmwiedergabe infobar angezeigt (wenn entsprechender MoviePlayerExtended screen im skin vorhanden ist)
-* neu: timer löschen abfrage wenn versucht wird eine aktive aufnahme zu löschen
-* neu: automatisches löschen wenn timer beendet wird
+* neu: aktive aufnahme inkl. timer löschen (mit oder ohne nachfrage natürlich)
 * neu: papierkorb funktion kann den farbtasten zugeordnet werden, und auch im menü der filmliste ausgeblendet werden
 * neu: senderlogos werden nun auch in der original grösse zentriert angezeigt
 * geändert: die funktion der einstellung am letzten speicherort starten (nur mehr beim öffnen der filmliste, und nicht mehr wenn filmliste während wiedergabe geöffnet wird, bzw. beim stoppen der wiedergabe)

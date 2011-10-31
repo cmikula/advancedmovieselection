@@ -37,7 +37,7 @@ import Screens.Standby
 from Tools import Notifications
 from Components.Sources.ServiceEvent import ServiceEvent
 from MoviePreview import MoviePreview
-from Tools.HardwareInfo import HardwareInfo
+#from Tools.HardwareInfo import HardwareInfo
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
     IMDbPresent = True
@@ -168,8 +168,6 @@ config.AdvancedMovieSelection.hotplug = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.show_picon = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.piconsize = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.piconpath = ConfigText(default=("/usr/share/enigma2/picon"), visible_width=50, fixed_size=False)
-config.AdvancedMovieSelection.timeredit = ConfigYesNo(default=True)
-config.AdvancedMovieSelection.auto_record_delete = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.show_wastebasket = ConfigYesNo(default=True)
 
 PlayerInstance = None
@@ -179,10 +177,10 @@ class SelectionEventInfo:
         self["ServiceEvent"] = ServiceEvent()
         self.timer = eTimer()
         self.timer.callback.append(self.updateEventInfo)
-        if "dm800" in HardwareInfo().get_device_name():
-            self.onShow.append(self.__selectionChanged)
-        else:
-            self.onShown.append(self.__selectionChanged)
+#        if "dm800" in HardwareInfo().get_device_name():
+        self.onShow.append(self.__selectionChanged)
+#        else:
+#            self.onShown.append(self.__selectionChanged)
 
     def __selectionChanged(self):
         if self.execing:
