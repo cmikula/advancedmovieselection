@@ -204,8 +204,17 @@ class SelectionEventInfo:
 
     def updateEventInfo(self):
         serviceref = self.session.nav.getCurrentlyPlayingServiceReference()
-        self["ServiceEvent"].newService(serviceref)
-        self.loadPreview(serviceref)
+        if serviceref is not None:
+            self.loadPreview(serviceref)
+            info = ServiceCenter.getInstance().info(serviceref)
+            event = info.getEvent(serviceref)
+            desc = event.getShortDescription()
+            from enigma import eServiceCenter
+            serviceHandler = eServiceCenter.getInstance()
+            info = serviceHandler.info(serviceref)
+            name = info and info.getName(serviceref) or _("this recording")
+            if not name == desc:
+                self["ServiceEvent"].newService(serviceref)
 
 class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, MoviePreview, MoviePlayerExtended_summary):
     def __init__(self, session, service):
@@ -247,7 +256,12 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
             info = ServiceCenter.getInstance().info(serviceref)
             event = info.getEvent(serviceref)
             desc = event.getShortDescription()
-            self.summaries.updateShortDesc(desc)
+            from enigma import eServiceCenter
+            serviceHandler = eServiceCenter.getInstance()
+            info = serviceHandler.info(serviceref)
+            name = info and info.getName(serviceref) or _("this recording")
+            if not name == desc:
+                self.summaries.updateShortDesc(desc)
 
     def __onExecBegin(self):
         if self.firstime:

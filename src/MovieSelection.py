@@ -654,6 +654,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self.selectedmovie = selectedmovie
         SelectionEventInfo.__init__(self)
         self["MovieService"] = ServiceEvent()
+        self["MovieSize"] = ServiceEvent()
         self["Movietitle"] = StaticText()
         self["Movielocation"] = StaticText()
         self["freeDiskSpace"] = self.diskinfo = DiskInfo(config.movielist.last_videodir.value, DiskInfo.FREE, update=False)
@@ -840,11 +841,21 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         if event is not None:
             moviename = event.getEventName()
             self["Movietitle"].setText(moviename)
-            serviceref = self.getCurrent()        
-            self["MovieService"].newService(serviceref)
+            serviceref = self.getCurrent()
+            from ServiceProvider import ServiceCenter
+            info = ServiceCenter.getInstance().info(serviceref)
+            event = info.getEvent(serviceref)
+            desc = event.getShortDescription()        
+            if not moviename == desc:
+                self["MovieService"].newService(serviceref)
+                self["MovieSize"].newService(serviceref)
+            else:
+                self["MovieService"].newService(None)
+                self["MovieSize"].newService(serviceref)
         else:
             self["Movietitle"].setText(_("Advanced Movie Selection"))
             self["MovieService"].newService(None)
+            self["MovieSize"].newService(None)
 
     def updateDescription(self):
         if config.movielist.description.value == MovieList.SHOW_DESCRIPTION:
