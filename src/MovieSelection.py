@@ -582,32 +582,32 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             sz_w = 720
         if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.minitv.value:
             if sz_w == 1280:
-                self.skinName = ["AdvancedMovieSelectionHD"]
+                self.skinName = ["AdvancedMovieSelectionHD", "AdvancedMovieSelection"]
             elif sz_w == 1024:
-                self.skinName = ["AdvancedMovieSelectionXD"]
+                self.skinName = ["AdvancedMovieSelectionXD", "AdvancedMovieSelection"]
             else:
-                self.skinName = ["AdvancedMovieSelectionSD"]
+                self.skinName = ["AdvancedMovieSelectionSD", "AdvancedMovieSelection"]
         if not config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.minitv.value:
             if sz_w == 1280:
-                self.skinName = ["AdvancedMovieSelection1HD"]
+                self.skinName = ["AdvancedMovieSelection1HD", "AdvancedMovieSelection"]
             elif sz_w == 1024:
-                self.skinName = ["AdvancedMovieSelection1XD"]
+                self.skinName = ["AdvancedMovieSelection1XD", "AdvancedMovieSelection"]
             else:
-                self.skinName = ["AdvancedMovieSelection1SD"]            
+                self.skinName = ["AdvancedMovieSelection1SD", "AdvancedMovieSelection"]            
         if config.AdvancedMovieSelection.showpreview.value and not config.AdvancedMovieSelection.minitv.value:
             if sz_w == 1280:
-                self.skinName = ["AdvancedMovieSelection_noMiniTV_HD"]
+                self.skinName = ["AdvancedMovieSelection_noMiniTV_HD", "AdvancedMovieSelection"]
             elif sz_w == 1024:
-                self.skinName = ["AdvancedMovieSelection_noMiniTV_XD"]
+                self.skinName = ["AdvancedMovieSelection_noMiniTV_XD", "AdvancedMovieSelection"]
             else:
-                self.skinName = ["AdvancedMovieSelection_noMiniTV_SD"]
+                self.skinName = ["AdvancedMovieSelection_noMiniTV_SD", "AdvancedMovieSelection"]
         if not config.AdvancedMovieSelection.showpreview.value and not config.AdvancedMovieSelection.minitv.value:
             if sz_w == 1280:
-                self.skinName = ["AdvancedMovieSelection1_noMiniTV_HD"]
+                self.skinName = ["AdvancedMovieSelection1_noMiniTV_HD", "AdvancedMovieSelection"]
             elif sz_w == 1024:
-                self.skinName = ["AdvancedMovieSelection1_noMiniTV_XD"]
+                self.skinName = ["AdvancedMovieSelection1_noMiniTV_XD", "AdvancedMovieSelection"]
             else:
-                self.skinName = ["AdvancedMovieSelection1_noMiniTV_SD"]
+                self.skinName = ["AdvancedMovieSelection1_noMiniTV_SD", "AdvancedMovieSelection"]
         self.tags = [ ]
         if selectedmovie:
             self.selected_tags = config.movielist.last_selected_tags.value

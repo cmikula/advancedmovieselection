@@ -144,6 +144,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.skinName = ["AdvancedMovieSelectionSetupSD"]
         self.bouquet_length = 13
         self.needsRestartFlag = False
+        self.needsE2restartFlag = False
         self.needsReopenFlag = False
         self["setupActions"] = ActionMap(["ColorActions", "OkCancelActions", "MenuActions", "EPGSelectActions"],
         {
@@ -322,7 +323,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.list.append(getConfigListEntry(_("Show Wastebasket in extensions menu from movielist:"), config.AdvancedMovieSelection.show_wastebasket, _("Displays wastebasket function in the menu at the movie list.")))
             self.list.append(getConfigListEntry(_("Wastebasket file(s):"), config.AdvancedMovieSelection.wastelist_buildtype, _("Here you can select which files to Wastebasket are displayed. ATTENTION: All directorys below '/media' will take very long until the list is displayed!")))
         self.list.append(getConfigListEntry(_("Start at the beginning depends on end (in Minutes):"), config.AdvancedMovieSelection.stop_before_end_time, _("Here you can set off when a movie to play automatically from the beginning when you start again (On settings=0, functions is disabled).")))
-        self.list.append(getConfigListEntry(_("Enable Enigma2 debug:"), config.AdvancedMovieSelection.debug, _("If you enable this function, all standard output from enigma will be stored to /tmp folder")))
+        self.list.append(getConfigListEntry(_("Use activ Skin LCD/OLED representation:"), config.AdvancedMovieSelection.use_original_movieplayer_summary, _("If you enable this function, the display summary from aktiv skin will be used.")))
+        self.list.append(getConfigListEntry(_("Enable Enigma2 debug:"), config.AdvancedMovieSelection.debug, _("If you enable this function, all standard output from enigma will be stored to /tmp folder.")))
         self["config"].setList(self.list)
             
     def showHelp(self):
@@ -376,8 +378,12 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             config.AdvancedMovieSelection.showcolorstatusinmovielist.value = False
         elif config.AdvancedMovieSelection.minitv.isChanged():
             self.needsReopenFlag = True
+        elif config.AdvancedMovieSelection.use_original_movieplayer_summary.isChanged():
+            self.needsE2restartFlag = True
         if self.needsRestartFlag == True:
             self.session.openWithCallback(self.exitAnswer, MessageBoxEx, _("Some settings changes require a restart to take effect.\nIf you  use a skin without PiG (Picture in Graphic) you have to restart the box (not only Enigma 2)!\nWith YES only Enigma 2 starts new, with NO the box make a restart."), type=MessageBox.TYPE_YESNO)
+        elif self.needsE2restartFlag == True:
+            self.session.openWithCallback(self.exitAnswer2, MessageBoxEx, _("Some settings changes require a Enigma 2 restart to take effect.\n\nWould you restart Enigma2 now?"), type=MessageBox.TYPE_YESNO)
         else:
             if self.needsReopenFlag == True:
                 self.session.openWithCallback(self.save, MessageBox, _("Some settings changes require close/reopen the movielist to take effect."), type=MessageBox.TYPE_INFO)
@@ -390,6 +396,16 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         if result is False:
             self.save()
             quitMainloop(2)
+        if result:
+            self.save()
+            quitMainloop(3)
+
+    def exitAnswer2(self, result):
+        if result is None:
+            self.session.open(MessageBox, _("Aborted by user !!"), MessageBox.TYPE_ERROR)
+        if result is False:
+            self.save()
+            self.close()
         if result:
             self.save()
             quitMainloop(3)

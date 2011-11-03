@@ -149,6 +149,8 @@ version 2.0
 * neu: aktive aufnahme inkl. timer löschen (mit oder ohne nachfrage natürlich)
 * neu: papierkorb funktion kann den farbtasten zugeordnet werden, und auch im menü der filmliste ausgeblendet werden
 * neu: senderlogos werden nun auch in der original grösse zentriert angezeigt
+* neu: die kurzbeschreibung wird nun wenn vorhanden auch in der filmliste sowie bei der wiedergabe am lcd/oled angezeigt
+* neu: display anzeige bei filmwiedergabe vom aktivem skin oder eigene bzw. die von der erweiterung
 * geändert: die funktion der einstellung am letzten speicherort starten (nur mehr beim öffnen der filmliste, und nicht mehr wenn filmliste während wiedergabe geöffnet wird, bzw. beim stoppen der wiedergabe)
 * geändert: nl übersetzung
 * geändert: cover anzeige in der filminfo (nun wird wenn kein cover vorhanden und es sich um eine dreambox aufnahme handelt das senderlogo angezeigt)

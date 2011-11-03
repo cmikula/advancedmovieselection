@@ -618,7 +618,8 @@
                 <widget name="epg_description" position="130,70" size="430,300" zPosition="1" font="Regular;18" foregroundColor="#ffffff" transparent="1"/>
                 <widget name="CoverPreview" position="0,150" size="120,180" zPosition="2" alphatest="blend"/>
 	</screen>
-            <screen name="AdvancedMovieSelectionHD_summary" position="0,0" size="132,64" id="1">
+<!--LCD/OLED Screens-->
+            <screen name="AdvancedMovieSelection_summary" position="0,0" size="132,64" id="1">
                 <!--widget source="parent.Movielocation" render="Label" position="2,0" size="128,21" font="LCD;7" halign="center" valign="top"/-->
 		<!--widget source="global.CurrentTime" render="Label" position="2,2" size="128,14" font="Digital;14" halign="center" valign="top">
 			<convert type="ClockToText">Format:%H:%M</convert>
@@ -637,347 +638,51 @@
 			<convert type="MovieInfo">FileSize</convert>
                 </widget>
 	</screen>
-            <screen name="AdvancedMovieSelection1HD_summary" position="0,0" size="132,64" id="1">
-                <!--widget source="parent.Movielocation" render="Label" position="2,0" size="128,21" font="LCD;7" halign="center" valign="top"/-->
-		<!--widget source="global.CurrentTime" render="Label" position="2,2" size="128,14" font="Digital;14" halign="center" valign="top">
-			<convert type="ClockToText">Format:%H:%M</convert>
-		</widget-->
-                <widget source="parent.Movietitle" render="Label" position="2,0" size="128,30" font="LCD;10" halign="center" valign="top"/>
-                <eLabel position="0,31" size="132,1" backgroundColor="white"/>
-                <widget source="parent.MovieService" render="Label" position="2,33" size="128,18" font="LCD;9" halign="center" valign="top">
+            <screen name="AdvancedMovieSelection_summary" position="0,0" size="96,64" id="2">
+		<!--widget source="parent.Movielocation" render="Label" position="0,0"  size="96,30" font="LCD;10" halign="center" valign="top" foregroundColor="#FF0000" backgroundColor="#000000"/-->
+		<widget source="parent.Movietitle" render="Label" position="0,0" size="96,22" font="LCD;11" halign="center" valign="top" foregroundColor="#FF0000" backgroundColor="#000000"/>
+		<widget source="parent.MovieService" render="Label" position="0,27" size="96,22" font="LCD;11" halign="center" valign="top" foregroundColor="#0000FF" backgroundColor="#000000">
 			<convert type="MovieInfo">ShortDescription</convert>
-                </widget> 
-                <eLabel position="0,52" size="132,1" backgroundColor="white"/>               
-                <widget source="parent.MovieService" render="Label" position="2,54" size="60,10" font="LCD;10" halign="left" valign="top">
+		</widget>
+                <widget source="parent.MovieService" render="Label" position="0,54" size="40,8" font="LCD;8" halign="left" valign="top" foregroundColor="#ffffff" backgroundColor="#000000">
 			<convert type="ServiceTime">Duration</convert>
 			<convert type="ClockToText">InMinutes</convert>
                 </widget>
-                <widget source="parent.MovieService" render="Label" position="60,54" size="68,10" font="LCD;10" halign="right" valign="top">
+                <widget source="parent.MovieService" render="Label" position="40,54" size="56,8" font="LCD;8" halign="right" valign="top" foregroundColor="#ffffff" backgroundColor="#000000">
 			<convert type="MovieInfo">FileSize</convert>
                 </widget>
 	</screen>
-            <screen name="AdvancedMovieSelectionHD_summary" position="0,0" size="96,64" id="2">
-		<!--widget source="parent.Movielocation" render="Label" position="0,0"  size="96,30" font="LCD;10" halign="center" valign="top" foregroundColor="#FF0000" backgroundColor="#000000"/-->
-		<widget source="parent.Movietitle" render="Label" position="0,0" size="96,48" font="LCD;12" halign="center" valign="top" foregroundColor="#FF0000" backgroundColor="#000000"/>
-                <widget source="parent.MovieService" render="Label" position="0,51" size="40,10" font="LCD;8" halign="left" valign="top" foregroundColor="#0000FF" backgroundColor="#000000">
-			<convert type="ServiceTime">Duration</convert>
-			<convert type="ClockToText">InMinutes</convert>
-                </widget>
-                <widget source="parent.MovieService" render="Label" position="40,51" size="56,10" font="LCD;8" halign="right" valign="top" foregroundColor="#0000FF" backgroundColor="#000000">
-			<convert type="MovieInfo">FileSize</convert>
-                </widget>
-	</screen>
-            <screen name="AdvancedMovieSelection1HD_summary" position="0,0" size="96,64" id="2">
-		<!--widget source="parent.Movielocation" render="Label" position="0,0"  size="96,30" font="LCD;10" halign="center" valign="top" foregroundColor="#FF0000" backgroundColor="#000000"/-->
-		<widget source="parent.Movietitle" render="Label" position="0,0" size="96,48" font="LCD;12" halign="center" valign="top" foregroundColor="#FF0000" backgroundColor="#000000"/>
-                <widget source="parent.MovieService" render="Label" position="0,51" size="40,10" font="LCD;8" halign="left" valign="top" foregroundColor="#0000FF" backgroundColor="#000000">
-			<convert type="ServiceTime">Duration</convert>
-			<convert type="ClockToText">InMinutes</convert>
-                </widget>
-                <widget source="parent.MovieService" render="Label" position="40,51" size="56,10" font="LCD;8" halign="right" valign="top" foregroundColor="#0000FF" backgroundColor="#000000">
-			<convert type="MovieInfo">FileSize</convert>
-                </widget>
-	</screen>
-            <screen name="AdvancedMovieSelection_noMiniTV_HD_summary" position="0,0" size="132,64" id="1">
-                <!--widget source="parent.Movielocation" render="Label" position="2,0" size="128,21" font="LCD;7" halign="center" valign="top"/-->
-		<!--widget source="global.CurrentTime" render="Label" position="2,2" size="128,14" font="Digital;14" halign="center" valign="top">
+            <screen name="MoviePlayerExtended_summary" position="0,0" size="132,64" id="1">
+		<widget source="session.CurrentService" render="Label" position="2,2" size="128,20" font="LCD;10" halign="center" valign="top">
+			<convert type="ServiceName">Name</convert>
+		</widget>
+                <eLabel position="0,25" size="132,1" backgroundColor="white"/>
+                <widget name="ShortDesc" position="2,27" size="128,20" font="LCD;10" halign="center" valign="top"/>
+		<eLabel position="0,50" size="132,1" backgroundColor="white"/>
+		<widget source="session.CurrentService" render="Progress" position="53,53" size="73,10" borderWidth="1">
+			<convert type="ServicePosition">Position</convert>
+		</widget>
+		<widget source="global.CurrentTime" render="Label" position="6,50" size="45,16" font="Digital;16" halign="left" valign="top">
 			<convert type="ClockToText">Format:%H:%M</convert>
-		</widget-->
-                <widget source="parent.Movietitle" render="Label" position="2,0" size="128,30" font="LCD;10" halign="center" valign="top"/>
-                <eLabel position="0,31" size="132,1" backgroundColor="white"/>
-                <widget source="parent.MovieService" render="Label" position="2,33" size="128,18" font="LCD;9" halign="center" valign="top">
-			<convert type="MovieInfo">ShortDescription</convert>
-                </widget> 
-                <eLabel position="0,52" size="132,1" backgroundColor="white"/>               
-                <widget source="parent.MovieService" render="Label" position="2,54" size="60,10" font="LCD;10" halign="left" valign="top">
-			<convert type="ServiceTime">Duration</convert>
-			<convert type="ClockToText">InMinutes</convert>
-                </widget>
-                <widget source="parent.MovieService" render="Label" position="60,54" size="68,10" font="LCD;10" halign="right" valign="top">
-			<convert type="MovieInfo">FileSize</convert>
-                </widget>
+		</widget>
+		<widget source="session.RecordState" render="FixedLabel" text="REC" position="0,51" size="45,16" font="Digital;16" halign="center" valign="top">
+			<convert type="ConfigEntryTest">config.usage.blinking_display_clock_during_recording,True,CheckSourceBoolean</convert>
+			<convert type="ConditionalShowHide">Blink</convert>
+		</widget>
 	</screen>
-            <screen name="AdvancedMovieSelection1_noMiniTV_HD_summary" position="0,0" size="132,64" id="1">
-                <!--widget source="parent.Movielocation" render="Label" position="2,0" size="128,21" font="LCD;7" halign="center" valign="top"/-->
-		<!--widget source="global.CurrentTime" render="Label" position="2,2" size="128,14" font="Digital;14" halign="center" valign="top">
-			<convert type="ClockToText">Format:%H:%M</convert>
-		</widget-->
-                <widget source="parent.Movietitle" render="Label" position="2,0" size="128,30" font="LCD;10" halign="center" valign="top"/>
-                <eLabel position="0,31" size="132,1" backgroundColor="white"/>
-                <widget source="parent.MovieService" render="Label" position="2,33" size="128,18" font="LCD;9" halign="center" valign="top">
-			<convert type="MovieInfo">ShortDescription</convert>
-                </widget> 
-                <eLabel position="0,52" size="132,1" backgroundColor="white"/>               
-                <widget source="parent.MovieService" render="Label" position="2,54" size="60,10" font="LCD;10" halign="left" valign="top">
-			<convert type="ServiceTime">Duration</convert>
-			<convert type="ClockToText">InMinutes</convert>
+            <screen name="MoviePlayerExtended_summary" position="0,0" size="96,64" id="2">
+                <widget source="session.CurrentService" render="Label" position="0,0" size="96,20" font="LCD;10" halign="center" valign="top" foregroundColor="#FF0000" backgroundColor="#000000">
+                        <convert type="ServiceName">Name</convert>
                 </widget>
-                <widget source="parent.MovieService" render="Label" position="60,54" size="68,10" font="LCD;10" halign="right" valign="top">
-			<convert type="MovieInfo">FileSize</convert>
+                <widget name="ShortDesc" position="0,22" size="96,20" font="LCD;10" halign="center" valign="top" foregroundColor="#0000FF" backgroundColor="#000000"/>
+                <widget source="session.CurrentService" render="Progress" position="0,56" size="48,8" borderWidth="1">
+                        <convert type="ServicePosition">Position</convert>
                 </widget>
-	</screen>
-            <screen name="AdvancedMovieSelection_noMiniTV_HD_summary" position="0,0" size="96,64" id="2">
-		<!--widget source="parent.Movielocation" render="Label" position="0,0"  size="96,30" font="LCD;10" halign="center" valign="top" foregroundColor="#FF0000" backgroundColor="#000000"/-->
-		<widget source="parent.Movietitle" render="Label" position="0,0" size="96,48" font="LCD;12" halign="center" valign="top" foregroundColor="#FF0000" backgroundColor="#000000"/>
-                <widget source="parent.MovieService" render="Label" position="0,51" size="40,10" font="LCD;8" halign="left" valign="top" foregroundColor="#0000FF" backgroundColor="#000000">
-			<convert type="ServiceTime">Duration</convert>
-			<convert type="ClockToText">InMinutes</convert>
+                <widget source="session.CurrentService" render="Label" position="48,54" size="48,10" font="Digital;10" halign="center">
+                    <convert type="ServicePosition">Remaining,ShowHours,Negate</convert>
                 </widget>
-                <widget source="parent.MovieService" render="Label" position="40,51" size="56,10" font="LCD;8" halign="right" valign="top" foregroundColor="#0000FF" backgroundColor="#000000">
-			<convert type="MovieInfo">FileSize</convert>
-                </widget>
-	</screen>
-            <screen name="AdvancedMovieSelection1_noMiniTV_HD_summary" position="0,0" size="96,64" id="2">
-		<!--widget source="parent.Movielocation" render="Label" position="0,0"  size="96,30" font="LCD;10" halign="center" valign="top" foregroundColor="#FF0000" backgroundColor="#000000"/-->
-		<widget source="parent.Movietitle" render="Label" position="0,0" size="96,48" font="LCD;12" halign="center" valign="top" foregroundColor="#FF0000" backgroundColor="#000000"/>
-                <widget source="parent.MovieService" render="Label" position="0,51" size="40,10" font="LCD;8" halign="left" valign="top" foregroundColor="#0000FF" backgroundColor="#000000">
-			<convert type="ServiceTime">Duration</convert>
-			<convert type="ClockToText">InMinutes</convert>
-                </widget>
-                <widget source="parent.MovieService" render="Label" position="40,51" size="56,10" font="LCD;8" halign="right" valign="top" foregroundColor="#0000FF" backgroundColor="#000000">
-			<convert type="MovieInfo">FileSize</convert>
-                </widget>
-	</screen>
-            <screen name="AdvancedMovieSelectionXD_summary" position="0,0" size="132,64" id="1">
-                <!--widget source="parent.Movielocation" render="Label" position="2,0" size="128,21" font="LCD;7" halign="center" valign="top"/-->
-		<!--widget source="global.CurrentTime" render="Label" position="2,2" size="128,14" font="Digital;14" halign="center" valign="top">
-			<convert type="ClockToText">Format:%H:%M</convert>
-		</widget-->
-                <widget source="parent.Movietitle" render="Label" position="2,0" size="128,30" font="LCD;10" halign="center" valign="top"/>
-                <eLabel position="0,31" size="132,1" backgroundColor="white"/>
-                <widget source="parent.MovieService" render="Label" position="2,33" size="128,18" font="LCD;9" halign="center" valign="top">
-			<convert type="MovieInfo">ShortDescription</convert>
-                </widget> 
-                <eLabel position="0,52" size="132,1" backgroundColor="white"/>               
-                <widget source="parent.MovieService" render="Label" position="2,54" size="60,10" font="LCD;10" halign="left" valign="top">
-			<convert type="ServiceTime">Duration</convert>
-			<convert type="ClockToText">InMinutes</convert>
-                </widget>
-                <widget source="parent.MovieService" render="Label" position="60,54" size="68,10" font="LCD;10" halign="right" valign="top">
-			<convert type="MovieInfo">FileSize</convert>
-                </widget>
-	</screen>
-            <screen name="AdvancedMovieSelection1XD_summary" position="0,0" size="132,64" id="1">
-                <!--widget source="parent.Movielocation" render="Label" position="2,0" size="128,21" font="LCD;7" halign="center" valign="top"/-->
-		<!--widget source="global.CurrentTime" render="Label" position="2,2" size="128,14" font="Digital;14" halign="center" valign="top">
-			<convert type="ClockToText">Format:%H:%M</convert>
-		</widget-->
-                <widget source="parent.Movietitle" render="Label" position="2,0" size="128,30" font="LCD;10" halign="center" valign="top"/>
-                <eLabel position="0,31" size="132,1" backgroundColor="white"/>
-                <widget source="parent.MovieService" render="Label" position="2,33" size="128,18" font="LCD;9" halign="center" valign="top">
-			<convert type="MovieInfo">ShortDescription</convert>
-                </widget> 
-                <eLabel position="0,52" size="132,1" backgroundColor="white"/>               
-                <widget source="parent.MovieService" render="Label" position="2,54" size="60,10" font="LCD;10" halign="left" valign="top">
-			<convert type="ServiceTime">Duration</convert>
-			<convert type="ClockToText">InMinutes</convert>
-                </widget>
-                <widget source="parent.MovieService" render="Label" position="60,54" size="68,10" font="LCD;10" halign="right" valign="top">
-			<convert type="MovieInfo">FileSize</convert>
-                </widget>
-	</screen>
-            <screen name="AdvancedMovieSelectionXD_summary" position="0,0" size="96,64" id="2">
-		<!--widget source="parent.Movielocation" render="Label" position="0,0"  size="96,30" font="LCD;10" halign="center" valign="top" foregroundColor="#FF0000" backgroundColor="#000000"/-->
-		<widget source="parent.Movietitle" render="Label" position="0,0" size="96,48" font="LCD;12" halign="center" valign="top" foregroundColor="#FF0000" backgroundColor="#000000"/>
-                <widget source="parent.MovieService" render="Label" position="0,51" size="40,10" font="LCD;8" halign="left" valign="top" foregroundColor="#0000FF" backgroundColor="#000000">
-			<convert type="ServiceTime">Duration</convert>
-			<convert type="ClockToText">InMinutes</convert>
-                </widget>
-                <widget source="parent.MovieService" render="Label" position="40,51" size="56,10" font="LCD;8" halign="right" valign="top" foregroundColor="#0000FF" backgroundColor="#000000">
-			<convert type="MovieInfo">FileSize</convert>
-                </widget>
-	</screen>
-            <screen name="AdvancedMovieSelection1XD_summary" position="0,0" size="96,64" id="2">
-		<!--widget source="parent.Movielocation" render="Label" position="0,0"  size="96,30" font="LCD;10" halign="center" valign="top" foregroundColor="#FF0000" backgroundColor="#000000"/-->
-		<widget source="parent.Movietitle" render="Label" position="0,0" size="96,48" font="LCD;12" halign="center" valign="top" foregroundColor="#FF0000" backgroundColor="#000000"/>
-                <widget source="parent.MovieService" render="Label" position="0,51" size="40,10" font="LCD;8" halign="left" valign="top" foregroundColor="#0000FF" backgroundColor="#000000">
-			<convert type="ServiceTime">Duration</convert>
-			<convert type="ClockToText">InMinutes</convert>
-                </widget>
-                <widget source="parent.MovieService" render="Label" position="40,51" size="56,10" font="LCD;8" halign="right" valign="top" foregroundColor="#0000FF" backgroundColor="#000000">
-			<convert type="MovieInfo">FileSize</convert>
-                </widget>
-	</screen>
-            <screen name="AdvancedMovieSelection_noMiniTV_XD_summary" position="0,0" size="132,64" id="1">
-                <!--widget source="parent.Movielocation" render="Label" position="2,0" size="128,21" font="LCD;7" halign="center" valign="top"/-->
-		<!--widget source="global.CurrentTime" render="Label" position="2,2" size="128,14" font="Digital;14" halign="center" valign="top">
-			<convert type="ClockToText">Format:%H:%M</convert>
-		</widget-->
-                <widget source="parent.Movietitle" render="Label" position="2,0" size="128,30" font="LCD;10" halign="center" valign="top"/>
-                <eLabel position="0,31" size="132,1" backgroundColor="white"/>
-                <widget source="parent.MovieService" render="Label" position="2,33" size="128,18" font="LCD;9" halign="center" valign="top">
-			<convert type="MovieInfo">ShortDescription</convert>
-                </widget> 
-                <eLabel position="0,52" size="132,1" backgroundColor="white"/>               
-                <widget source="parent.MovieService" render="Label" position="2,54" size="60,10" font="LCD;10" halign="left" valign="top">
-			<convert type="ServiceTime">Duration</convert>
-			<convert type="ClockToText">InMinutes</convert>
-                </widget>
-                <widget source="parent.MovieService" render="Label" position="60,54" size="68,10" font="LCD;10" halign="right" valign="top">
-			<convert type="MovieInfo">FileSize</convert>
-                </widget>
-	</screen>
-            <screen name="AdvancedMovieSelection1_noMiniTV_XD_summary" position="0,0" size="132,64" id="1">
-                <!--widget source="parent.Movielocation" render="Label" position="2,0" size="128,21" font="LCD;7" halign="center" valign="top"/-->
-		<!--widget source="global.CurrentTime" render="Label" position="2,2" size="128,14" font="Digital;14" halign="center" valign="top">
-			<convert type="ClockToText">Format:%H:%M</convert>
-		</widget-->
-                <widget source="parent.Movietitle" render="Label" position="2,0" size="128,30" font="LCD;10" halign="center" valign="top"/>
-                <eLabel position="0,31" size="132,1" backgroundColor="white"/>
-                <widget source="parent.MovieService" render="Label" position="2,33" size="128,18" font="LCD;9" halign="center" valign="top">
-			<convert type="MovieInfo">ShortDescription</convert>
-                </widget> 
-                <eLabel position="0,52" size="132,1" backgroundColor="white"/>               
-                <widget source="parent.MovieService" render="Label" position="2,54" size="60,10" font="LCD;10" halign="left" valign="top">
-			<convert type="ServiceTime">Duration</convert>
-			<convert type="ClockToText">InMinutes</convert>
-                </widget>
-                <widget source="parent.MovieService" render="Label" position="60,54" size="68,10" font="LCD;10" halign="right" valign="top">
-			<convert type="MovieInfo">FileSize</convert>
-                </widget>
-	</screen>
-            <screen name="AdvancedMovieSelection_noMiniTV_XD_summary" position="0,0" size="96,64" id="2">
-		<!--widget source="parent.Movielocation" render="Label" position="0,0"  size="96,30" font="LCD;10" halign="center" valign="top" foregroundColor="#FF0000" backgroundColor="#000000"/-->
-		<widget source="parent.Movietitle" render="Label" position="0,0" size="96,48" font="LCD;12" halign="center" valign="top" foregroundColor="#FF0000" backgroundColor="#000000"/>
-                <widget source="parent.MovieService" render="Label" position="0,51" size="40,10" font="LCD;8" halign="left" valign="top" foregroundColor="#0000FF" backgroundColor="#000000">
-			<convert type="ServiceTime">Duration</convert>
-			<convert type="ClockToText">InMinutes</convert>
-                </widget>
-                <widget source="parent.MovieService" render="Label" position="40,51" size="56,10" font="LCD;8" halign="right" valign="top" foregroundColor="#0000FF" backgroundColor="#000000">
-			<convert type="MovieInfo">FileSize</convert>
-                </widget>
-	</screen>
-            <screen name="AdvancedMovieSelection1_noMiniTV_XD_summary" position="0,0" size="96,64" id="2">
-		<!--widget source="parent.Movielocation" render="Label" position="0,0"  size="96,30" font="LCD;10" halign="center" valign="top" foregroundColor="#FF0000" backgroundColor="#000000"/-->
-		<widget source="parent.Movietitle" render="Label" position="0,0" size="96,48" font="LCD;12" halign="center" valign="top" foregroundColor="#FF0000" backgroundColor="#000000"/>
-                <widget source="parent.MovieService" render="Label" position="0,51" size="40,10" font="LCD;8" halign="left" valign="top" foregroundColor="#0000FF" backgroundColor="#000000">
-			<convert type="ServiceTime">Duration</convert>
-			<convert type="ClockToText">InMinutes</convert>
-                </widget>
-                <widget source="parent.MovieService" render="Label" position="40,51" size="56,10" font="LCD;8" halign="right" valign="top" foregroundColor="#0000FF" backgroundColor="#000000">
-			<convert type="MovieInfo">FileSize</convert>
-                </widget>
-	</screen>
-            <screen name="AdvancedMovieSelectionSD_summary" position="0,0" size="132,64" id="1">
-                <!--widget source="parent.Movielocation" render="Label" position="2,0" size="128,21" font="LCD;7" halign="center" valign="top"/-->
-		<!--widget source="global.CurrentTime" render="Label" position="2,2" size="128,14" font="Digital;14" halign="center" valign="top">
-			<convert type="ClockToText">Format:%H:%M</convert>
-		</widget-->
-                <widget source="parent.Movietitle" render="Label" position="2,0" size="128,30" font="LCD;10" halign="center" valign="top"/>
-                <eLabel position="0,31" size="132,1" backgroundColor="white"/>
-                <widget source="parent.MovieService" render="Label" position="2,33" size="128,18" font="LCD;9" halign="center" valign="top">
-			<convert type="MovieInfo">ShortDescription</convert>
-                </widget> 
-                <eLabel position="0,52" size="132,1" backgroundColor="white"/>               
-                <widget source="parent.MovieService" render="Label" position="2,54" size="60,10" font="LCD;10" halign="left" valign="top">
-			<convert type="ServiceTime">Duration</convert>
-			<convert type="ClockToText">InMinutes</convert>
-                </widget>
-                <widget source="parent.MovieService" render="Label" position="60,54" size="68,10" font="LCD;10" halign="right" valign="top">
-			<convert type="MovieInfo">FileSize</convert>
-                </widget>
-	</screen>
-            <screen name="AdvancedMovieSelection1SD_summary" position="0,0" size="132,64" id="1">
-                <!--widget source="parent.Movielocation" render="Label" position="2,0" size="128,21" font="LCD;7" halign="center" valign="top"/-->
-		<!--widget source="global.CurrentTime" render="Label" position="2,2" size="128,14" font="Digital;14" halign="center" valign="top">
-			<convert type="ClockToText">Format:%H:%M</convert>
-		</widget-->
-                <widget source="parent.Movietitle" render="Label" position="2,0" size="128,30" font="LCD;10" halign="center" valign="top"/>
-                <eLabel position="0,31" size="132,1" backgroundColor="white"/>
-                <widget source="parent.MovieService" render="Label" position="2,33" size="128,18" font="LCD;9" halign="center" valign="top">
-			<convert type="MovieInfo">ShortDescription</convert>
-                </widget> 
-                <eLabel position="0,52" size="132,1" backgroundColor="white"/>               
-                <widget source="parent.MovieService" render="Label" position="2,54" size="60,10" font="LCD;10" halign="left" valign="top">
-			<convert type="ServiceTime">Duration</convert>
-			<convert type="ClockToText">InMinutes</convert>
-                </widget>
-                <widget source="parent.MovieService" render="Label" position="60,54" size="68,10" font="LCD;10" halign="right" valign="top">
-			<convert type="MovieInfo">FileSize</convert>
-                </widget>
-	</screen>
-            <screen name="AdvancedMovieSelectionSD_summary" position="0,0" size="96,64" id="2">
-		<!--widget source="parent.Movielocation" render="Label" position="0,0"  size="96,30" font="LCD;10" halign="center" valign="top" foregroundColor="#FF0000" backgroundColor="#000000"/-->
-		<widget source="parent.Movietitle" render="Label" position="0,0" size="96,48" font="LCD;12" halign="center" valign="top" foregroundColor="#FF0000" backgroundColor="#000000"/>
-                <widget source="parent.MovieService" render="Label" position="0,51" size="40,10" font="LCD;8" halign="left" valign="top" foregroundColor="#0000FF" backgroundColor="#000000">
-			<convert type="ServiceTime">Duration</convert>
-			<convert type="ClockToText">InMinutes</convert>
-                </widget>
-                <widget source="parent.MovieService" render="Label" position="40,51" size="56,10" font="LCD;8" halign="right" valign="top" foregroundColor="#0000FF" backgroundColor="#000000">
-			<convert type="MovieInfo">FileSize</convert>
-                </widget>
-	</screen>
-           <screen name="AdvancedMovieSelection1SD_summary" position="0,0" size="96,64" id="2">
-		<!--widget source="parent.Movielocation" render="Label" position="0,0"  size="96,30" font="LCD;10" halign="center" valign="top" foregroundColor="#FF0000" backgroundColor="#000000"/-->
-		<widget source="parent.Movietitle" render="Label" position="0,0" size="96,48" font="LCD;12" halign="center" valign="top" foregroundColor="#FF0000" backgroundColor="#000000"/>
-                <widget source="parent.MovieService" render="Label" position="0,51" size="40,10" font="LCD;8" halign="left" valign="top" foregroundColor="#0000FF" backgroundColor="#000000">
-			<convert type="ServiceTime">Duration</convert>
-			<convert type="ClockToText">InMinutes</convert>
-                </widget>
-                <widget source="parent.MovieService" render="Label" position="40,51" size="56,10" font="LCD;8" halign="right" valign="top" foregroundColor="#0000FF" backgroundColor="#000000">
-			<convert type="MovieInfo">FileSize</convert>
-                </widget>
-	</screen>
-            <screen name="AdvancedMovieSelection_noMiniTV_SD_summary" position="0,0" size="132,64" id="1">
-                <!--widget source="parent.Movielocation" render="Label" position="2,0" size="128,21" font="LCD;7" halign="center" valign="top"/-->
-		<!--widget source="global.CurrentTime" render="Label" position="2,2" size="128,14" font="Digital;14" halign="center" valign="top">
-			<convert type="ClockToText">Format:%H:%M</convert>
-		</widget-->
-                <widget source="parent.Movietitle" render="Label" position="2,0" size="128,30" font="LCD;10" halign="center" valign="top"/>
-                <eLabel position="0,31" size="132,1" backgroundColor="white"/>
-                <widget source="parent.MovieService" render="Label" position="2,33" size="128,18" font="LCD;9" halign="center" valign="top">
-			<convert type="MovieInfo">ShortDescription</convert>
-                </widget> 
-                <eLabel position="0,52" size="132,1" backgroundColor="white"/>               
-                <widget source="parent.MovieService" render="Label" position="2,54" size="60,10" font="LCD;10" halign="left" valign="top">
-			<convert type="ServiceTime">Duration</convert>
-			<convert type="ClockToText">InMinutes</convert>
-                </widget>
-                <widget source="parent.MovieService" render="Label" position="60,54" size="68,10" font="LCD;10" halign="right" valign="top">
-			<convert type="MovieInfo">FileSize</convert>
-                </widget>
-	</screen>
-            <screen name="AdvancedMovieSelection1_noMiniTV_SD_summary" position="0,0" size="132,64" id="1">
-                <!--widget source="parent.Movielocation" render="Label" position="2,0" size="128,21" font="LCD;7" halign="center" valign="top"/-->
-		<!--widget source="global.CurrentTime" render="Label" position="2,2" size="128,14" font="Digital;14" halign="center" valign="top">
-			<convert type="ClockToText">Format:%H:%M</convert>
-		</widget-->
-                <widget source="parent.Movietitle" render="Label" position="2,0" size="128,30" font="LCD;10" halign="center" valign="top"/>
-                <eLabel position="0,31" size="132,1" backgroundColor="white"/>
-                <widget source="parent.MovieService" render="Label" position="2,33" size="128,18" font="LCD;9" halign="center" valign="top">
-			<convert type="MovieInfo">ShortDescription</convert>
-                </widget> 
-                <eLabel position="0,52" size="132,1" backgroundColor="white"/>               
-                <widget source="parent.MovieService" render="Label" position="2,54" size="60,10" font="LCD;10" halign="left" valign="top">
-			<convert type="ServiceTime">Duration</convert>
-			<convert type="ClockToText">InMinutes</convert>
-                </widget>
-                <widget source="parent.MovieService" render="Label" position="60,54" size="68,10" font="LCD;10" halign="right" valign="top">
-			<convert type="MovieInfo">FileSize</convert>
-                </widget>
-	</screen>
-            <screen name="AdvancedMovieSelection_noMiniTV_SD_summary" position="0,0" size="96,64" id="2">
-		<!--widget source="parent.Movielocation" render="Label" position="0,0"  size="96,30" font="LCD;10" halign="center" valign="top" foregroundColor="#FF0000" backgroundColor="#000000"/-->
-		<widget source="parent.Movietitle" render="Label" position="0,0" size="96,48" font="LCD;12" halign="center" valign="top" foregroundColor="#FF0000" backgroundColor="#000000"/>
-                <widget source="parent.MovieService" render="Label" position="0,51" size="40,10" font="LCD;8" halign="left" valign="top" foregroundColor="#0000FF" backgroundColor="#000000">
-			<convert type="ServiceTime">Duration</convert>
-			<convert type="ClockToText">InMinutes</convert>
-                </widget>
-                <widget source="parent.MovieService" render="Label" position="40,51" size="56,10" font="LCD;8" halign="right" valign="top" foregroundColor="#0000FF" backgroundColor="#000000">
-			<convert type="MovieInfo">FileSize</convert>
-                </widget>
-	</screen>
-            <screen name="AdvancedMovieSelection1_noMiniTV_SD_summary" position="0,0" size="96,64" id="2">
-		<!--widget source="parent.Movielocation" render="Label" position="0,0"  size="96,30" font="LCD;10" halign="center" valign="top" foregroundColor="#FF0000" backgroundColor="#000000"/-->
-		<widget source="parent.Movietitle" render="Label" position="0,0" size="96,48" font="LCD;12" halign="center" valign="top" foregroundColor="#FF0000" backgroundColor="#000000"/>
-                <widget source="parent.MovieService" render="Label" position="0,51" size="40,10" font="LCD;8" halign="left" valign="top" foregroundColor="#0000FF" backgroundColor="#000000">
-			<convert type="ServiceTime">Duration</convert>
-			<convert type="ClockToText">InMinutes</convert>
-                </widget>
-                <widget source="parent.MovieService" render="Label" position="40,51" size="56,10" font="LCD;8" halign="right" valign="top" foregroundColor="#0000FF" backgroundColor="#000000">
-			<convert type="MovieInfo">FileSize</convert>
-                </widget>
-	</screen>
+        </screen>
+<!--LCD/OLED Screens-->
             <screen name="AdvancedMovieSelectionMoviebarPositionSetupHD" position="0,60" size="1280,100" title=" " flags="wfNoBorder">
                 <widget source="howtotext" render="Label" position="60,0" size="1160,100" zPosition="1" valign="center" halign="center" font="Regular;22" transparent="1" foregroundColor="white"/>
         </screen>

@@ -20,24 +20,27 @@
 #  distributed other than under the conditions noted above.
 #
 from __init__ import _
+from Screens.Screen import Screen
 from Plugins.Plugin import PluginDescriptor
 from Components.PluginComponent import plugins
 from Components.ActionMap import HelpableActionMap
 from MovieSelection import MovieSelection
 from MovieList import eServiceReferenceDvd
-from ServiceProvider import CutListSupport
+from ServiceProvider import CutListSupport, ServiceCenter
 from Screens.MessageBox import MessageBox
 from Screens.InfoBar import InfoBar, MoviePlayer
 from Tools.Directories import fileExists, resolveFilename, SCOPE_HDD
 from Components.config import config, ConfigSubsection, ConfigText, ConfigYesNo, ConfigInteger, ConfigSelection
 from AdvancedMovieSelectionSetup import AdvancedMovieSelectionSetup
-from enigma import ePoint, quitMainloop, eTimer 
+from enigma import ePoint, quitMainloop, eTimer, iPlayableService
 from TagEditor import TagEditor
 import Screens.Standby
 from Tools import Notifications
 from Components.Sources.ServiceEvent import ServiceEvent
 from MoviePreview import MoviePreview
-#from Tools.HardwareInfo import HardwareInfo
+from Components.Label import Label
+from Screens.InfoBarGenerics import InfoBarMoviePlayerSummarySupport
+from Components.ServiceEventTracker import ServiceEventTracker
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
     IMDbPresent = True
@@ -169,29 +172,42 @@ config.AdvancedMovieSelection.show_picon = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.piconsize = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.piconpath = ConfigText(default=("/usr/share/enigma2/picon"), visible_width=50, fixed_size=False)
 config.AdvancedMovieSelection.show_wastebasket = ConfigYesNo(default=True)
+config.AdvancedMovieSelection.use_original_movieplayer_summary = ConfigYesNo(default=False)
 
 PlayerInstance = None
+
+def createSummary(self):        
+    return MoviePlayerExtended_summary
+
+if not config.AdvancedMovieSelection.use_original_movieplayer_summary.value:     
+    InfoBarMoviePlayerSummarySupport.createSummary = createSummary
+
+class MoviePlayerExtended_summary(Screen):
+    def __init__(self, session, retval = None):
+        self.skinName = ["MoviePlayerExtended_summary"]
+        Screen.__init__(self, session)
+        self["ShortDesc"] = Label("")
+
+    def updateShortDesc(self, desc):
+        self["ShortDesc"].setText(desc)
 
 class SelectionEventInfo:
     def __init__(self):
         self["ServiceEvent"] = ServiceEvent()
         self.timer = eTimer()
         self.timer.callback.append(self.updateEventInfo)
-#        if "dm800" in HardwareInfo().get_device_name():
         self.onShow.append(self.__selectionChanged)
-#        else:
-#            self.onShown.append(self.__selectionChanged)
 
     def __selectionChanged(self):
         if self.execing:
             self.timer.start(100, True)
 
     def updateEventInfo(self):
-        serviceref =  self.session.nav.getCurrentlyPlayingServiceReference()
+        serviceref = self.session.nav.getCurrentlyPlayingServiceReference()
         self["ServiceEvent"].newService(serviceref)
-        self.loadPreview(serviceref) 
-        
-class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, MoviePreview):
+        self.loadPreview(serviceref)
+
+class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, MoviePreview, MoviePlayerExtended_summary):
     def __init__(self, session, service):
         CutListSupport.__init__(self, service)
         MoviePlayer.__init__(self, session, service)
@@ -216,9 +232,23 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
                 {
                     "back": (self.close, _("Leave movie player"))
                 })
+        if not config.AdvancedMovieSelection.use_original_movieplayer_summary.value: 
+            self.__event_tracker = ServiceEventTracker(screen=self, eventmap=
+                {
+                        iPlayableService.evUpdatedInfo: self.__updateInfo
+                })
         self.firstime = True
         self.onExecBegin.append(self.__onExecBegin)
-        
+        self.muc = MoviePlayerExtended_summary(self.session)
+
+    def __updateInfo(self):
+        serviceref = self.session.nav.getCurrentlyPlayingServiceReference()
+        if serviceref is not None:
+            info = ServiceCenter.getInstance().info(serviceref)
+            event = info.getEvent(serviceref)
+            desc = event.getShortDescription()
+            self.summaries.updateShortDesc(desc)
+
     def __onExecBegin(self):
         if self.firstime:
             orgpos = self.instance.position()    
