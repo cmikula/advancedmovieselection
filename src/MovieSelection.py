@@ -840,18 +840,27 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         event = self["list"].getCurrentEvent()
         if event is not None:
             moviename = event.getEventName()
-            self["Movietitle"].setText(moviename)
+            if moviename.endswith(".ts"):
+                movietitle = moviename[:-3]
+            elif moviename.endswith(".mp4") or moviename.endswith(".avi") or moviename.endswith(".mkv") or moviename.endswith(".mov") or moviename.endswith(".flv") or moviename.endswith(".m4v") or moviename.endswith(".mpg") or moviename.endswith(".iso"):
+                movietitle = moviename[:-4]
+            elif moviename.endswith(".divx") or moviename.endswith(".m2ts") or moviename.endswith(".mpeg"):
+                movietitle = moviename[:-5]
+            else:
+                movietitle = moviename
+            self["Movietitle"].setText(movietitle)
             serviceref = self.getCurrent()
             from ServiceProvider import ServiceCenter
             info = ServiceCenter.getInstance().info(serviceref)
             event = info.getEvent(serviceref)
-            desc = event.getShortDescription()        
-            if not moviename == desc:
-                self["MovieService"].newService(serviceref)
-                self["MovieSize"].newService(serviceref)
-            else:
-                self["MovieService"].newService(None)
-                self["MovieSize"].newService(serviceref)
+            if event is not None :
+                desc = event.getShortDescription()        
+                if not moviename == desc:
+                    self["MovieService"].newService(serviceref)
+                    self["MovieSize"].newService(serviceref)
+                else:
+                    self["MovieService"].newService(None)
+                    self["MovieSize"].newService(serviceref)
         else:
             self["Movietitle"].setText(_("Advanced Movie Selection"))
             self["MovieService"].newService(None)
