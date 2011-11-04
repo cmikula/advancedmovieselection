@@ -192,9 +192,6 @@ class MoviePlayerExtended_summary(Screen):
     def updateShortDesc(self, desc, title):
         self["Title"].setText(title)
         self["ShortDesc"].setText(desc)
-
-#    def updateTitle(self, title):
-#        self["Title"].setText(title)
     
 class SelectionEventInfo:
     def __init__(self):
@@ -222,7 +219,7 @@ class SelectionEventInfo:
                 if not name == desc:
                     self["ServiceEvent"].newService(serviceref)
 
-class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, MoviePreview): #, MoviePlayerExtended_summary):
+class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, MoviePreview, MoviePlayerExtended_summary):
     def __init__(self, session, service):
         CutListSupport.__init__(self, service)
         MoviePlayer.__init__(self, session, service)
@@ -254,7 +251,7 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
                 })
         self.firstime = True
         self.onExecBegin.append(self.__onExecBegin)
-        #self.muc = MoviePlayerExtended_summary(self.session)
+        self.__updateInfo()
 
     def __updateInfo(self):
         serviceref = self.session.nav.getCurrentlyPlayingServiceReference()
