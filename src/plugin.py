@@ -189,9 +189,11 @@ class MoviePlayerExtended_summary(Screen):
         self["Title"] = Label("")
         self["ShortDesc"] = Label("")
 
-    def updateShortDesc(self, desc, title):
-        self["Title"].setText(title)
+    def updateShortDesc(self, desc):
         self["ShortDesc"].setText(desc)
+
+    def updateTitle(self, title):
+        self["Title"].setText(title)
     
 class SelectionEventInfo:
     def __init__(self):
@@ -273,7 +275,10 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
                 else:
                     title = name
                 if not name == desc:
-                    self.summaries.updateShortDesc(desc, title)
+                    self.summaries.updateShortDesc(desc)
+                    self.summaries.updateTitle(title)
+                else:
+                     self.summaries.updateTitle(title)
 
     def __onExecBegin(self):
         if self.firstime:
