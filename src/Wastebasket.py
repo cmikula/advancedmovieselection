@@ -120,7 +120,6 @@ class TrashMovieList(GUIComponent):
         self.list = [ ]
         if not root:
             return
-        #self.serviceHandler = ServiceCenter.getInstance()
         if config.AdvancedMovieSelection.wastelist_buildtype.value == 'listMovies':
             trash = Trashcan.listMovies(root.getPath())
         if config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMovies':
@@ -128,7 +127,6 @@ class TrashMovieList(GUIComponent):
         if config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMoviesMedia':
             trash = Trashcan.listAllMovies("/media")
         for service in trash:
-            #info = self.serviceHandler.info(service)
             self.list.append((service, None, -1, -1))
 
     def reload(self, root=None):
@@ -253,10 +251,8 @@ class Wastebasket(Screen):
             return
         if config.AdvancedMovieSelection.askdelete.value:
             self.session.openWithCallback(self.canDeleteCheckRecord, MessageBox, _("Do you really want to delete %s?") % (self.service.getName()))
-#            self.session.openWithCallback(self.delete, MessageBox, _("Do you really want to delete %s?") % (self.service.getName()))
         else:
             self.canDeleteCheckRecord(True)
-#            self.delete(True)
 
     def canDeleteCheckRecord(self, confirmed):
         if not confirmed:
@@ -276,10 +272,8 @@ class Wastebasket(Screen):
             return
         if config.AdvancedMovieSelection.askdelete.value:
             self.session.openWithCallback(self.deleteAllcheckRecord, MessageBox, _("Do you really want to delete all movies?"))
-#            self.session.openWithCallback(self.deleteAll, MessageBox, _("Do you really want to delete all movies?"))
         else:
             self.deleteAllcheckRecord(True)
-#            self.deleteAll(True)
 
     def delete(self, confirmed):
         if not confirmed:
@@ -312,6 +306,10 @@ class Wastebasket(Screen):
         self["waitingtext"].setText(_("Deleting in progress! Please wait..."))
         self["waitingtext"].show()
         self.deleteTimer.start(0, 1)
+
+    def AutoDeleteAllMovies(self):# ToDo papierkorb leeren im hintergrund
+        print "papierkorb leeren" * 25
+        pass                    
 
     def deleteAllMovies(self):
         try:

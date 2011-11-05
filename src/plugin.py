@@ -41,6 +41,9 @@ from MoviePreview import MoviePreview
 from Components.Label import Label
 from Screens.InfoBarGenerics import InfoBarMoviePlayerSummarySupport
 from Components.ServiceEventTracker import ServiceEventTracker
+from Wastebasket import Wastebasket
+from time import time, strftime, localtime, mktime
+from datetime import datetime, timedelta
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
     IMDbPresent = True
@@ -173,8 +176,9 @@ config.AdvancedMovieSelection.piconsize = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.piconpath = ConfigText(default=("/usr/share/enigma2/picon"), visible_width=50, fixed_size=False)
 config.AdvancedMovieSelection.show_wastebasket = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.use_original_movieplayer_summary = ConfigYesNo(default=False)
-config.AdvancedMovieSelection.auto_empty_wastebasket = ConfigYesNo(default=False)
-config.AdvancedMovieSelection.empty_wastebasket_time = ConfigClock(default = 03000)
+config.AdvancedMovieSelection.auto_empty_wastebasket = ConfigSelection(default = "1", choices = [("-1",_("Disabled")), ("1",_("Daily")), ("2",_("Every second day")), ("7",_("Weekly")), ("14",_("Every two weeks")), ("30",_("Monthly"))])
+config.AdvancedMovieSelection.empty_wastebasket_time = ConfigClock(default = 10800)
+config.AdvancedMovieSelection.next_auto_empty_wastebasket = ConfigInteger(default = 0)
 
 PlayerInstance = None
 
@@ -442,6 +446,37 @@ def movieSelected(self, service):
         else:
             self.session.open(MoviePlayerExtended, service)
 
+class WastebasketTimer(Wastebasket):
+    def __init__(self, session):
+        self.session = session
+        self.execing = False
+        self.WastebasketTimer = eTimer()
+        self.WastebasketTimer.callback.append(self.AutoDeleteAllMovies)
+        self.startTimer()
+        config.AdvancedMovieSelection.empty_wastebasket_time.addNotifier(self.startTimer, initial_call = False)
+
+    def startTimer(self):
+        value = int(config.AdvancedMovieSelection.auto_empty_wastebasket.value)
+        if not value == -1:
+            nowSec = int(time())           
+            now = localtime(nowSec)
+            dt = datetime(now.tm_year, now.tm_mon, now.tm_mday, config.AdvancedMovieSelection.empty_wastebasket_time.value[0], config.AdvancedMovieSelection.empty_wastebasket_time.value[1])
+            #dt += timedelta(value) # nur zum testen deaktiviert
+            nextUpdateSeconds = int(mktime(dt.timetuple()))
+            config.AdvancedMovieSelection.next_auto_empty_wastebasket.value = nextUpdateSeconds
+            config.AdvancedMovieSelection.next_auto_empty_wastebasket.save()
+            self.WastebasketTimer.startLongTimer(nextUpdateSeconds - nowSec)
+            print "[AdvancedMovieSelection] Next wastebasket auto empty at", dt.strftime("%c")
+        else:
+            if self.WastebasketTimer.isActive():
+                self.WastebasketTimer.stop()
+
+    def configChange(self):
+        if self.WastebasketTimer.isActive():
+            self.WastebasketTimer.stop()
+        print "[AdvancedMovieSelection] Setup values have changed"
+        self.startTimer()
+
 def autostart(reason, **kwargs):
     if reason == 0:
         session = kwargs["session"]
@@ -456,6 +491,13 @@ def autostart(reason, **kwargs):
                 elif value == "timeshiftStart": InfoBar.startTimeshift = showMovies
             except:
                 pass
+        if not config.AdvancedMovieSelection.ml_disable.value:
+            value = int(config.AdvancedMovieSelection.auto_empty_wastebasket.value)
+            if not value == -1:
+                WastebasketTimer(session)
+                print "[AdvancedMovieSelection] Auto empty from wastebasket enabled..."
+            else:
+                print "[AdvancedMovieSelection] Auto empty from wastebasket disabled..."
 
 def pluginOpen(session, **kwargs):
     session.open(AdvancedMovieSelectionSetup)

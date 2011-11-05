@@ -197,6 +197,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
 
     def setWindowTitle(self):
         self.setTitle(_("Advanced Movie Selection Setup"))
+        from plugin import WastebasketTimer
+        self.wastetimer = WastebasketTimer(self.session)
 
     def keyLeft(self):
         ConfigListScreen.keyLeft(self)
@@ -207,6 +209,9 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.checkListentrys()
 
     def checkListentrys(self):          
+        if config.AdvancedMovieSelection.auto_empty_wastebasket.isChanged():
+            config.AdvancedMovieSelection.auto_empty_wastebasket.save()
+            self.createSetup()
         if config.AdvancedMovieSelection.show_picon.isChanged():
             config.AdvancedMovieSelection.show_picon.save()
             self.createSetup()
@@ -322,11 +327,14 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         if config.AdvancedMovieSelection.use_wastebasket.value:
             self.list.append(getConfigListEntry(_("Show Wastebasket in extensions menu from movielist:"), config.AdvancedMovieSelection.show_wastebasket, _("Displays wastebasket function in the menu at the movie list.")))
             self.list.append(getConfigListEntry(_("Wastebasket file(s):"), config.AdvancedMovieSelection.wastelist_buildtype, _("Here you can select which files to Wastebasket are displayed. ATTENTION: All directorys below '/media' will take very long until the list is displayed!")))
+            self.list.append(getConfigListEntry(_("Auto empty wastebasket:"), config.AdvancedMovieSelection.auto_empty_wastebasket, ))
+        if not int(config.AdvancedMovieSelection.auto_empty_wastebasket.value) == -1:
+            self.list.append(getConfigListEntry(_("Auto empty wastebasket time:"), config.AdvancedMovieSelection.empty_wastebasket_time, ))
         self.list.append(getConfigListEntry(_("Start at the beginning depends on end (in Minutes):"), config.AdvancedMovieSelection.stop_before_end_time, _("Here you can set off when a movie to play automatically from the beginning when you start again (On settings=0, functions is disabled).")))
         self.list.append(getConfigListEntry(_("Use activ Skin LCD/OLED representation:"), config.AdvancedMovieSelection.use_original_movieplayer_summary, _("If you enable this function, the display summary from aktiv skin will be used.")))
         self.list.append(getConfigListEntry(_("Enable Enigma2 debug:"), config.AdvancedMovieSelection.debug, _("If you enable this function, all standard output from enigma will be stored to /tmp folder.")))
         self["config"].setList(self.list)
-            
+
     def showHelp(self):
         current = self["config"].getCurrent()
         if len(current) > 2 and current[2] is not None:
@@ -366,6 +374,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.close()
 
     def keySave(self):
+        self.wastetimer.configChange()
         if config.AdvancedMovieSelection.ml_disable.isChanged():
             self.needsRestartFlag = True
         elif config.AdvancedMovieSelection.movie_launch.isChanged():
