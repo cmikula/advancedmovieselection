@@ -156,6 +156,8 @@ version 2.0
 * geändert: cover anzeige in der filminfo (nun wird wenn kein cover vorhanden und es sich um eine dreambox aufnahme handelt das senderlogo angezeigt)
 ACHTUNG an die skinner, AdvancedMovieSelectionInfoCoverHD,AdvancedMovieSelectionInfoCoverXD,AdvancedMovieSelectionInfoCoverSD gibt es nicht mehr (dadurch auch änderung in AdvancedMovieSelectionEventViewHD,AdvancedMovieSelectionEventViewXD bzw. AdvancedMovieSelectionEventViewSD)
  
-
+version 2.1
+* fix: lcd/oled anzeige wenn filmtitel und kurzbeschreibung gleich sind
+* fix: crash wenn tag im timermenü geändert wird
 
 
