@@ -30,7 +30,7 @@ from ServiceProvider import CutListSupport, ServiceCenter
 from Screens.MessageBox import MessageBox
 from Screens.InfoBar import InfoBar, MoviePlayer
 from Tools.Directories import fileExists, resolveFilename, SCOPE_HDD
-from Components.config import config, ConfigSubsection, ConfigText, ConfigYesNo, ConfigInteger, ConfigSelection
+from Components.config import config, ConfigSubsection, ConfigText, ConfigYesNo, ConfigInteger, ConfigSelection, ConfigClock
 from AdvancedMovieSelectionSetup import AdvancedMovieSelectionSetup
 from enigma import ePoint, quitMainloop, eTimer, iPlayableService
 from TagEditor import TagEditor
@@ -173,6 +173,8 @@ config.AdvancedMovieSelection.piconsize = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.piconpath = ConfigText(default=("/usr/share/enigma2/picon"), visible_width=50, fixed_size=False)
 config.AdvancedMovieSelection.show_wastebasket = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.use_original_movieplayer_summary = ConfigYesNo(default=False)
+config.AdvancedMovieSelection.auto_empty_wastebasket = ConfigYesNo(default=False)
+config.AdvancedMovieSelection.empty_wastebasket_time = ConfigClock(default = 03000)
 
 PlayerInstance = None
 
@@ -220,6 +222,8 @@ class SelectionEventInfo:
                 name = info and info.getName(serviceref) or _("this recording")
                 if not name == desc:
                     self["ServiceEvent"].newService(serviceref)
+                else:
+                    self["ServiceEvent"].newService(None)
 
 class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, MoviePreview, MoviePlayerExtended_summary):
     def __init__(self, session, service):
@@ -278,7 +282,9 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
                     self.summaries.updateShortDesc(desc)
                     self.summaries.updateTitle(title)
                 else:
-                     self.summaries.updateTitle(title)
+                    desc = ""
+                    self.summaries.updateShortDesc(desc)
+                    self.summaries.updateTitle(title)
 
     def __onExecBegin(self):
         if self.firstime:
