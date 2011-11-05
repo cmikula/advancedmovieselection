@@ -32,6 +32,7 @@ from Components.SelectionList import SelectionList
 from enigma import eServiceReference, eServiceCenter, iServiceInformation, getDesktop
 from os import path as os_path
 from Screens.Console import eConsoleAppContainer
+from Screens.TimerEntry import TimerEntry
 
 class TagEditor(Screen):
     def __init__(self, session, tags, txt = None, parent = None):
@@ -53,6 +54,7 @@ class TagEditor(Screen):
         self["key_blue"] = StaticText(_("Load Tag(s) from movies"))
         self["info"] = StaticText(_("Use the OK Button for the selection."))
         self["list"] = SelectionList()
+        self.TimerEntry = TimerEntry
         allTags = self.loadTagsFile()
         self.joinTags(allTags, tags)
         self.updateMenuList(allTags, tags)
@@ -77,9 +79,12 @@ class TagEditor(Screen):
         if  tags == []:
             self.setTitle(_("Add Tag(s) for Recordings/Timer or AutoTimer"))
         else:
-            from ServiceProvider import ServiceCenter
-            Title = ServiceCenter.getInstance().info(self.service).getName(self.service)
-            self.setTitle(_("Edit Tag(s) for: %s") % (Title))
+            try:
+                from ServiceProvider import ServiceCenter
+                Title = ServiceCenter.getInstance().info(self.service).getName(self.service)
+                self.setTitle(_("Edit Tag(s) for: %s") % (Title))
+            except:
+                self.setTitle(_("Edit Tag(s)"))
 
     def defaulttaglist(self, tags):
         if not fileExists("/etc/enigma2/movietags"):
@@ -88,8 +93,6 @@ class TagEditor(Screen):
             eConsoleAppContainer().execute("cp \""+sourceDir+"\" \""+targetDir+"\"")
             self.loadTagsFile()
             self.updateMenuList(tags)
-        else:
-            pass
 
     def addCustom(self):
         self.session.openWithCallback(self.addCustomCallback, InputBox, title = _("Please enter here the new tag:"))
