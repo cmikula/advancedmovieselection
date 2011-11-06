@@ -178,6 +178,7 @@ config.AdvancedMovieSelection.show_wastebasket = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.use_original_movieplayer_summary = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.auto_empty_wastebasket = ConfigSelection(default = "1", choices = [("-1",_("Disabled")), ("1",_("Daily")), ("2",_("Every second day")), ("7",_("Weekly")), ("14",_("Every two weeks")), ("30",_("Monthly"))])
 config.AdvancedMovieSelection.empty_wastebasket_time = ConfigClock(default = 10800)
+config.AdvancedMovieSelection.last_auto_empty_wastebasket = ConfigInteger(default = 0)
 config.AdvancedMovieSelection.next_auto_empty_wastebasket = ConfigInteger(default = 0)
 
 PlayerInstance = None
@@ -461,7 +462,7 @@ class WastebasketTimer(Wastebasket):
             nowSec = int(time())           
             now = localtime(nowSec)
             dt = datetime(now.tm_year, now.tm_mon, now.tm_mday, config.AdvancedMovieSelection.empty_wastebasket_time.value[0], config.AdvancedMovieSelection.empty_wastebasket_time.value[1])
-            #dt += timedelta(value) # nur zum testen deaktiviert
+            dt += timedelta(value)
             nextUpdateSeconds = int(mktime(dt.timetuple()))
             config.AdvancedMovieSelection.next_auto_empty_wastebasket.value = nextUpdateSeconds
             config.AdvancedMovieSelection.next_auto_empty_wastebasket.save()

@@ -1073,9 +1073,11 @@
 		<widget source="session.VideoPicture" render="Pig" position="65,115" size="256,144" zPosition="3" backgroundColor="#ff000000"/>
                 <widget name="waitingtext" position="450,130" size="770,375" zPosition="3" font="Regular;26" halign="center" valign="center" transparent="1"/>
 		<widget name="freeDiskSpace" position="345,120" size="875,29" zPosition="3" font="Regular;24" halign="center" transparent="1"/>
-		<widget name="list" position="345,170" size="875,452" zPosition="3" scrollbarMode="showOnDemand" foregroundColorSelected="#ffcc00"
+		<widget name="list" position="345,170" size="875,402" zPosition="3" scrollbarMode="showOnDemand" foregroundColorSelected="#ffcc00"
                         backgroundPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sepmovie.png" transparent="1" enableWrapAround="1"/>
-		<widget name="warning" position="345,660" size="875,28" zPosition="3" font="Regular;24" halign="center" foregroundColor="#ffcc00" transparent="1"/>
+		<widget name="warning" position="345,590" size="875,28" zPosition="3" font="Regular;24" halign="center" foregroundColor="#ffcc00" transparent="1"/>
+                <widget name="autoemptylast" position="345,620" size="875,28" zPosition="3" font="Regular;24" halign="center" foregroundColor="#ffcc00" transparent="1"/>
+                <widget name="autoemptynext" position="345,650" size="875,28" zPosition="3" font="Regular;24" halign="center" foregroundColor="#ffcc00" transparent="1"/>
 		<ePixmap pixmap="skin_default/buttons/button_red.png" position="60,310" size="21,21" alphatest="blend"/>
 		<ePixmap pixmap="skin_default/buttons/button_green.png" position="60,350" size="21,21" alphatest="blend"/>
 		<ePixmap pixmap="skin_default/buttons/button_yellow.png" position="60,390" size="21,21" alphatest="blend"/>
@@ -1083,7 +1085,7 @@
 		<widget name="key_red" position="90,308" size="300,26" font="Regular;24" halign="left" valign="top" transparent="1"/>
 		<widget name="key_green" position="90,336" size="300,54" font="Regular;24" halign="left" valign="top" transparent="1"/>
 		<widget name="key_yellow" position="90,388" size="300,26" font="Regular;24" halign="left" valign="top" transparent="1"/>
-		<widget name="key_blue" position="90,428" size="300,26" font="Regular;24" halign="left" valign="top" transparent="1"/>
+		<widget name="key_blue" position="90,416" size="200,54" font="Regular;24" halign="left" valign="top" transparent="1"/>
 	</screen>
             <screen name="AdvancedMovieSelectionTrashXD" position="center,center" size="1024,576" flags="wfNoBorder">
 		<widget source="Title" render="Label" position="60,40" size="840,26" zPosition="3" font="Regular;20" transparent="1"/>
@@ -1097,9 +1099,11 @@
                 <widget source="session.VideoPicture" render="Pig" position="65,115" size="171,96" zPosition="3" backgroundColor="#ff000000"/>
                 <widget name="waitingtext" position="250,130" size="714,375" zPosition="3" font="Regular;26" halign="center" valign="center" transparent="1"/>
 		<widget name="freeDiskSpace"  position="250,100" size="714,29" zPosition="3" font="Regular;20" halign="center" transparent="1"/>
-		<widget name="list" position="250,130" size="714,352" zPosition="3" scrollbarMode="showOnDemand" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sel.png" 
+		<widget name="list" position="250,130" size="714,302" zPosition="3" scrollbarMode="showOnDemand" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sel.png" 
                         backgroundPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sepmovie.png" transparent="1" enableWrapAround="1"/>
-		<widget name="warning" position="250,500" size="714,28" zPosition="3" font="Regular;20" halign="center" foregroundColor="#ffcc00" transparent="1"/>
+		<widget name="warning" position="250,440" size="714,28" zPosition="3" font="Regular;20" halign="center" foregroundColor="#ffcc00" transparent="1"/>
+                <widget name="autoemptylast" position="250,470" size="714,28" zPosition="3" font="Regular;20" halign="center" foregroundColor="#ffcc00" transparent="1"/>
+                <widget name="autoemptynext" position="250,500" size="714,28" zPosition="3" font="Regular;20" halign="center" foregroundColor="#ffcc00" transparent="1"/>
 		<ePixmap pixmap="skin_default/buttons/button_red.png" position="60,280" size="21,21" alphatest="blend"/>
 		<ePixmap pixmap="skin_default/buttons/button_green.png" position="60,330" size="21,21" alphatest="blend"/>
 		<ePixmap pixmap="skin_default/buttons/button_yellow.png" position="60,380" size="21,21" alphatest="blend"/>
@@ -1121,8 +1125,10 @@
 		<widget name="location" position="0,45" size="560,20" zPosition="3" font="Regular;18" foregroundColor="#ffcc00"/>
 		<widget name="freeDiskSpace" position="0,70" size="560,29" zPosition="3" font="Regular;18" halign="center"/>
                 <widget name="waitingtext" position="0,100" size="560,300" zPosition="3" font="Regular;26" halign="center" valign="center" transparent="1"/>
-		<widget name="list" position="0,95" size="560,302" zPosition="2" scrollbarMode="showOnDemand" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sel.png" 
+		<widget name="list" position="0,95" size="560,252" zPosition="2" scrollbarMode="showOnDemand" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sel.png" 
                         backgroundPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sepmovie.png" transparent="1" enableWrapAround="1"/>
-		<widget name="warning" position="0,420" size="560,22" zPosition="3" font="Regular;18" halign="center" foregroundColor="#ffcc00" transparent="1"/>
+		<widget name="warning" position="0,370" size="560,22" zPosition="3" font="Regular;18" halign="center" foregroundColor="#ffcc00" transparent="1"/>
+                <widget name="autoemptylast" position="0,395" size="560,22" zPosition="3" font="Regular;18" halign="center" foregroundColor="#ffcc00" transparent="1"/>
+                <widget name="autoemptynext" position="0,420" size="560,22" zPosition="3" font="Regular;18" halign="center" foregroundColor="#ffcc00" transparent="1"/>
 	</screen>
 </skin>

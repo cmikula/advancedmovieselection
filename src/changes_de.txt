@@ -159,5 +159,6 @@ ACHTUNG an die skinner, AdvancedMovieSelectionInfoCoverHD,AdvancedMovieSelection
 version 2.1
 * fix: lcd/oled anzeige wenn filmtitel und kurzbeschreibung gleich sind
 * fix: crash wenn tag im timermenü geändert wird
+* neu: automatisches papierkorb leeren
 
 

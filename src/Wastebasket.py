@@ -45,7 +45,8 @@ from Components.MultiContent import MultiContentEntryText
 from datetime import datetime
 from Tools.Directories import getSize as getServiceSize
 import os
-from time import time
+from time import time, strftime, localtime
+#from datetime import datetime, timedelta
 
 class TrashMovieList(GUIComponent):
     def __init__(self, root):
@@ -77,7 +78,7 @@ class TrashMovieList(GUIComponent):
     def buildMovieListEntry(self, serviceref, info, begin, length):
         res = [ None ]
         width = self.l.getItemSize().width()
-        width_up_r = 350
+        width_up_r = 250
         width_up_l = width - width_up_r
         width_dn_r = width / 2
         width_dn_l = width - width_dn_r
@@ -197,6 +198,8 @@ class Wastebasket(Screen):
         self["freeDiskSpace"] = self.diskinfo = DiskInfo(config.movielist.last_videodir.value, DiskInfo.FREE, update=False)
         self["location"] = Label()
         self["warning"] = Label()
+        self["autoemptylast"] = Label()
+        self["autoemptynext"] = Label()
         self["list"] = TrashMovieList(None)
         self.list = self["list"]
         self["OkCancelActions"] = HelpableActionMap(self, "OkCancelActions",
@@ -213,6 +216,19 @@ class Wastebasket(Screen):
         if not self.inited:
             self.delayTimer.start(0, 1)
             self.inited = True
+        value = int(config.AdvancedMovieSelection.auto_empty_wastebasket.value)
+        if not value == -1:
+            if not config.AdvancedMovieSelection.last_auto_empty_wastebasket.value:
+                self["autoemptylast"].setText(_("Last automated wastebasket empty:") + ' ' + _("Never!"))
+            else:
+                t = localtime(int(config.AdvancedMovieSelection.last_auto_empty_wastebasket.value))
+                lastUpdateCheck_time = strftime(("%02d.%02d.%04d" % (t[2], t[1], t[0])) + ' ' + _("at") + ' ' + ("%02d:%02d" % (t[3], t[4])) + ' ' + _("Clock"))
+                self["autoemptylast"].setText(_("Last automated wastebasket empty at %s") % lastUpdateCheck_time)
+            t = localtime(int(config.AdvancedMovieSelection.next_auto_empty_wastebasket.value))
+            nextUpdateCheck_time = strftime(("%02d.%02d.%04d" % (t[2], t[1], t[0])) + ' ' + _("at") + ' ' + ("%02d:%02d" % (t[3], t[4])) + ' ' + _("Clock"))
+            self["autoemptynext"].setText(_("Next automated wastebasket empty at %s") % nextUpdateCheck_time)
+        else:
+            self["autoemptylast"].setText(_("Auto empty wastebasket:") + ' ' + _("Disabled"))
 
     def updateHDDData(self):
         self.reloadList(self.current_ref)
@@ -307,9 +323,32 @@ class Wastebasket(Screen):
         self["waitingtext"].show()
         self.deleteTimer.start(0, 1)
 
-    def AutoDeleteAllMovies(self):# ToDo papierkorb leeren im hintergrund
-        print "papierkorb leeren" * 25
-        pass                    
+    def AutoDeleteAllMovies(self):
+        self.list = [ ]
+        if not fileExists(config.movielist.last_videodir.value):
+            path = defaultMoviePath()
+            config.movielist.last_videodir.value = path
+            config.movielist.last_videodir.save()
+            path = config.movielist.last_videodir.value
+        else:
+            path = config.movielist.last_videodir.value
+        if config.AdvancedMovieSelection.wastelist_buildtype.value == 'listMovies':
+            trash = Trashcan.listMovies(path)
+        if config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMovies':
+            trash = Trashcan.listAllMovies(path)
+        if config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMoviesMedia':
+            trash = Trashcan.listAllMovies("/media")
+        for service in trash:
+            self.list.append((service, None, -1, -1))
+        try:
+            print "Start automated deleting all movies in trash list"
+            for x in self.list:
+                service = x[0]
+                Trashcan.delete(service.getPath())
+            config.AdvancedMovieSelection.last_auto_empty_wastebasket.value = int(time())
+            config.AdvancedMovieSelection.last_auto_empty_wastebasket.save() 
+        except Exception, e:
+            print e                 
 
     def deleteAllMovies(self):
         try:
