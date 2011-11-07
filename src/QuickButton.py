@@ -108,7 +108,8 @@ class QuickButton:
                 if pname == _("Delete"):
                     self.delete()
                 elif pname == _("Wastebasket"):
-                    self.session.openWithCallback(self.reloadList, Wastebasket)              
+                    if config.AdvancedMovieSelection.use_wastebasket.value:
+                        self.session.openWithCallback(self.reloadList, Wastebasket)              
                 elif pname == _("Home"):
                     self.gotFilename(home)
                 elif pname == _("Bookmark 1"):
