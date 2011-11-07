@@ -228,7 +228,7 @@ class Wastebasket(Screen):
             nextUpdateCheck_time = strftime(("%02d.%02d.%04d" % (t[2], t[1], t[0])) + ' ' + _("at") + ' ' + ("%02d:%02d" % (t[3], t[4])) + ' ' + _("Clock"))
             self["autoemptynext"].setText(_("Next automated wastebasket empty at %s") % nextUpdateCheck_time)
         else:
-            self["autoemptylast"].setText(_("Auto empty wastebasket:") + ' ' + _("Disabled"))
+            self["autoemptylast"].setText(_("Auto empty wastebasket is disabled"))
 
     def updateHDDData(self):
         self.reloadList(self.current_ref)
@@ -324,31 +324,49 @@ class Wastebasket(Screen):
         self.deleteTimer.start(0, 1)
 
     def AutoDeleteAllMovies(self):
-        self.list = [ ]
-        if not fileExists(config.movielist.last_videodir.value):
-            path = defaultMoviePath()
-            config.movielist.last_videodir.value = path
-            config.movielist.last_videodir.save()
-            path = config.movielist.last_videodir.value
+        result = None
+        if self.RecTimer.isActive():
+            self.RecTimer.stop
+        recordings = self.session.nav.getRecordings()
+        next_rec_time = -1
+        if not recordings:
+            next_rec_time = self.session.nav.RecordTimer.getNextRecordingTime()	
+        if config.movielist.last_videodir.value == "/hdd/movie/" and recordings or (next_rec_time > 0 and (next_rec_time - time()) < 360):
+            self.RecTimer.callback.append(self.AutoDeleteAllMovies)
+            self.RecTimer.start(config.AdvancedMovieSelection.next_empty_check.value * 60000)
         else:
-            path = config.movielist.last_videodir.value
-        if config.AdvancedMovieSelection.wastelist_buildtype.value == 'listMovies':
-            trash = Trashcan.listMovies(path)
-        if config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMovies':
-            trash = Trashcan.listAllMovies(path)
-        if config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMoviesMedia':
-            trash = Trashcan.listAllMovies("/media")
-        for service in trash:
-            self.list.append((service, None, -1, -1))
-        try:
-            print "Start automated deleting all movies in trash list"
-            for x in self.list:
-                service = x[0]
-                Trashcan.delete(service.getPath())
-            config.AdvancedMovieSelection.last_auto_empty_wastebasket.value = int(time())
-            config.AdvancedMovieSelection.last_auto_empty_wastebasket.save() 
-        except Exception, e:
-            print e                 
+            if self.RecTimer.isActive():
+                self.RecTimer.stop
+            self.list = [ ]
+            if not fileExists(config.movielist.last_videodir.value):
+                path = defaultMoviePath()
+                config.movielist.last_videodir.value = path
+                config.movielist.last_videodir.save()
+                path = config.movielist.last_videodir.value
+            else:
+                path = config.movielist.last_videodir.value
+            if config.AdvancedMovieSelection.wastelist_buildtype.value == 'listMovies':
+                trash = Trashcan.listMovies(path)
+            if config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMovies':
+                trash = Trashcan.listAllMovies(path)
+            if config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMoviesMedia':
+                trash = Trashcan.listAllMovies("/media")
+            for service in trash:
+                self.list.append((service, None, -1, -1))
+            try:
+                print "Start automated deleting all movies in trash list"
+                for x in self.list:
+                    service = x[0]
+                    Trashcan.delete(service.getPath())
+                    result = True
+            except Exception, e:
+                print e
+            if result == True:
+                config.AdvancedMovieSelection.last_auto_empty_wastebasket.value = int(time())
+                config.AdvancedMovieSelection.last_auto_empty_wastebasket.save()
+                from plugin import WastebasketTimer
+                self.wastetimer = WastebasketTimer(self.session)
+                self.wastetimer.configChange()
 
     def deleteAllMovies(self):
         try:

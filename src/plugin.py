@@ -180,6 +180,7 @@ config.AdvancedMovieSelection.auto_empty_wastebasket = ConfigSelection(default =
 config.AdvancedMovieSelection.empty_wastebasket_time = ConfigClock(default = 10800)
 config.AdvancedMovieSelection.last_auto_empty_wastebasket = ConfigInteger(default = 0)
 config.AdvancedMovieSelection.next_auto_empty_wastebasket = ConfigInteger(default = 0)
+config.AdvancedMovieSelection.next_empty_check = ConfigInteger(default = 30, limits = (15, 60))
 
 PlayerInstance = None
 
@@ -287,7 +288,28 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
                     self.summaries.updateShortDesc(desc)
                     self.summaries.updateTitle(title)
                 else:
-                    desc = ""
+                    t = localtime()
+                    for tm_wday in t:
+                        if tm_wday == 0:
+                            self.day = "Montag"
+                        elif tm_wday == 1:
+                            self.day = "Dienstag"
+                        elif tm_wday == 2:
+                            self.day = "Mittwoch"
+                        elif tm_wday == 3:
+                            self.day = "Donnerstag"
+                        elif tm_wday == 4:
+                            self.day = "Freitag"
+                        elif tm_wday == 5:
+                            self.day = "Samstag"
+                        elif tm_wday == 6:
+                            self.day = "Sonntag"
+                        else:
+                            self.day = ""
+                    if config.osd.language.value == "de_DE":
+                        desc = (_("%s-%s-%s\n%s") % (t.tm_mday, t.tm_mon, t.tm_year, self.day))
+                    else:
+                        desc = strftime("%m-%d-%Y\n%A", t)
                     self.summaries.updateShortDesc(desc)
                     self.summaries.updateTitle(title)
 
@@ -451,12 +473,15 @@ class WastebasketTimer(Wastebasket):
     def __init__(self, session):
         self.session = session
         self.execing = False
+        self.RecTimer = eTimer()
         self.WastebasketTimer = eTimer()
         self.WastebasketTimer.callback.append(self.AutoDeleteAllMovies)
         self.startTimer()
         config.AdvancedMovieSelection.empty_wastebasket_time.addNotifier(self.startTimer, initial_call = False)
 
     def startTimer(self):
+        if self.WastebasketTimer.isActive():
+            self.WastebasketTimer.stop()
         value = int(config.AdvancedMovieSelection.auto_empty_wastebasket.value)
         if not value == -1:
             nowSec = int(time())           
@@ -471,6 +496,8 @@ class WastebasketTimer(Wastebasket):
         else:
             if self.WastebasketTimer.isActive():
                 self.WastebasketTimer.stop()
+            if self.RecTimer.isActive():
+                self.RecTimer.stop()
 
     def configChange(self):
         if self.WastebasketTimer.isActive():
