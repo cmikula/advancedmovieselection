@@ -268,14 +268,30 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
     def __updateInfo(self):
         serviceref = self.session.nav.getCurrentlyPlayingServiceReference()
         if serviceref is not None:
-            info = ServiceCenter.getInstance().info(serviceref)
+            from enigma import eServiceCenter
+            serviceHandler = eServiceCenter.getInstance()
+            info = serviceHandler.info(serviceref)
             event = info.getEvent(serviceref)
-            if event is not None :
+            if event is None:
+                name = info.getName(serviceref)
+                if name.endswith(".ts"):
+                    title = name[:-3]
+                elif name.endswith(".mp4") or name.endswith(".avi") or name.endswith(".mkv") or name.endswith(".mov") or name.endswith(".flv") or name.endswith(".m4v") or name.endswith(".mpg") or name.endswith(".iso"):
+                    title = name[:-4]
+                elif name.endswith(".divx") or name.endswith(".m2ts") or name.endswith(".mpeg"):
+                    title = name[:-5]
+                else:
+                    title = name
+                t = localtime()
+                if config.osd.language.value == "de_DE":
+                    desc = strftime("%d-%m-%Y", t)
+                else:
+                    desc = strftime("%m-%d-%Y", t)
+                self.summaries.updateShortDesc(desc)
+                self.summaries.updateTitle(title)
+            else:
                 desc = event.getShortDescription()
-                from enigma import eServiceCenter
-                serviceHandler = eServiceCenter.getInstance()
-                info = serviceHandler.info(serviceref)
-                name = info and info.getName(serviceref) or _("this recording")
+                name = info.getName(serviceref)
                 if name.endswith(".ts"):
                     title = name[:-3]
                 elif name.endswith(".mp4") or name.endswith(".avi") or name.endswith(".mkv") or name.endswith(".mov") or name.endswith(".flv") or name.endswith(".m4v") or name.endswith(".mpg") or name.endswith(".iso"):
@@ -289,27 +305,10 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
                     self.summaries.updateTitle(title)
                 else:
                     t = localtime()
-                    for tm_wday in t:
-                        if tm_wday == 0:
-                            self.day = "Montag"
-                        elif tm_wday == 1:
-                            self.day = "Dienstag"
-                        elif tm_wday == 2:
-                            self.day = "Mittwoch"
-                        elif tm_wday == 3:
-                            self.day = "Donnerstag"
-                        elif tm_wday == 4:
-                            self.day = "Freitag"
-                        elif tm_wday == 5:
-                            self.day = "Samstag"
-                        elif tm_wday == 6:
-                            self.day = "Sonntag"
-                        else:
-                            self.day = ""
                     if config.osd.language.value == "de_DE":
-                        desc = (_("%s-%s-%s\n%s") % (t.tm_mday, t.tm_mon, t.tm_year, self.day))
+                        desc = strftime("%d-%m-%Y", t)
                     else:
-                        desc = strftime("%m-%d-%Y\n%A", t)
+                        desc = strftime("%m-%d-%Y", t)
                     self.summaries.updateShortDesc(desc)
                     self.summaries.updateTitle(title)
 
