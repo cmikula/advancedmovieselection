@@ -272,8 +272,10 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
             serviceHandler = eServiceCenter.getInstance()
             info = serviceHandler.info(serviceref)
             event = info.getEvent(serviceref)
-            if event is None:
-                name = info.getName(serviceref)
+            name = info.getName(serviceref)
+            if event is not None:
+                desc = event.getShortDescription()
+            if event is None or desc == "":
                 if name.endswith(".ts"):
                     title = name[:-3]
                 elif name.endswith(".mp4") or name.endswith(".avi") or name.endswith(".mkv") or name.endswith(".mov") or name.endswith(".flv") or name.endswith(".m4v") or name.endswith(".mpg") or name.endswith(".iso"):
@@ -290,8 +292,6 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
                 self.summaries.updateShortDesc(desc)
                 self.summaries.updateTitle(title)
             else:
-                desc = event.getShortDescription()
-                name = info.getName(serviceref)
                 if name.endswith(".ts"):
                     title = name[:-3]
                 elif name.endswith(".mp4") or name.endswith(".avi") or name.endswith(".mkv") or name.endswith(".mov") or name.endswith(".flv") or name.endswith(".m4v") or name.endswith(".mpg") or name.endswith(".iso"):
