@@ -280,7 +280,27 @@ class ComponentDescriptor:
         data.append(pack('B', descr.component_tag))
         data.append(descr.ISO_639_language_code)
         data.append(descr.text)
-          
+
+def appendShortDescriptionToMeta(service_path, short_descr):
+    try:
+        file = service_path + ".ts.meta"
+        if os.path.exists(file):
+            metafile = open(file, "r")
+            sid = metafile.readline()
+            title = metafile.readline().rstrip()
+            descr = metafile.readline().rstrip()
+            rest = metafile.read()
+            metafile.close()
+            if descr != "":
+                print "Update metafile skipped"
+                return
+            print "Update metafile: ", file
+            descr = short_descr
+            metafile = open(file, "w")
+            metafile.write("%s%s\n%s\n%s" % (sid, title, descr, rest))
+            metafile.close()
+    except Exception, e:
+        print e
 
 INV_CHARS = [("Č", "C"), ("č", "c"), ("Ć", "c"), ("ć", "c"), ("Đ", "D"), ("đ", "d"), ("Š", "S"), ("š", "s"), ("Ž", "Z"), ("ž", "z")]
 
@@ -297,11 +317,11 @@ def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=Fa
         print "Fetching info for movie: " + str(title)
         # DVD directory
         if not os.path.isdir(file_name):
-            file_name = os.path.splitext(file_name)[0]
+            f_name = os.path.splitext(file_name)[0]
         else:
-            file_name = file_name
-        eit_file = file_name + ".eit"
-        jpg_file = file_name + ".jpg"
+            f_name = file_name
+        eit_file = f_name + ".eit"
+        jpg_file = f_name + ".jpg"
         
         if (os.path.exists(jpg_file) and overwrite_jpg == False) and (os.path.exists(eit_file) and overwrite_eit == False):
             print "Info's already exists, download skipped!"
@@ -453,6 +473,7 @@ def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=Fa
         file.write(header)
         file.write(data)
         file.close()
+        appendShortDescriptionToMeta(file_name, genre)
         return True
     except:
         if file is not None:

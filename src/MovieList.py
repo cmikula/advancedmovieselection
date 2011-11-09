@@ -945,3 +945,16 @@ class MovieList(GUIComponent):
                     cutList.append(new)
             cue.setCutList(cutList)
             self.l.invalidateEntry(cur_idx)
+
+    def updateMetaFromEit(self):
+        for item in self.list:
+            serviceref = item[0]
+            file_name = serviceref.getPath()
+            if os.path.isfile(file_name):
+                eit_file = os.path.splitext(file_name)[0] + ".eit"
+            else:
+                eit_file = file_name + ".eit"
+            if os.path.exists(eit_file):
+                from EventInformationTable import EventInformationTable, appendShortDescriptionToMeta
+                eit = EventInformationTable(eit_file)
+                appendShortDescriptionToMeta(serviceref.getPath(), eit.short_description)

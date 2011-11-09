@@ -205,6 +205,7 @@ class MovieContextMenu(Screen):
         if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.showcoveroptions.value:
             if not service.flags & eServiceReference.mustDescent:
                 menu.append((_("Download and save movie info/cover"), self.downloadMovieInfo))              
+        menu.append((_("Update all genre in meta from eit"), boundFunction(self.updateMetaFromEit)))
         if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.show_cover_del.value:
             if not service.flags & eServiceReference.mustDescent:
                 menu.append((_("Delete cover"), boundFunction(self.deletecover)))
@@ -230,6 +231,11 @@ class MovieContextMenu(Screen):
     def setWindowTitle(self):
         self.setTitle(_("Advanced Movie Selection Menu"))
 
+    def updateMetaFromEit(self):
+        self.csel.list.updateMetaFromEit()
+        self.csel.reloadList()
+        self.close()
+        
     def unmount(self):
         res = self.csel["list"].unmount(self.service)
         if res == 0:
