@@ -46,7 +46,7 @@ from datetime import datetime
 from Tools.Directories import getSize as getServiceSize
 import os
 from time import time, strftime, localtime
-#from datetime import datetime, timedelta
+from Screens import Standby
 
 class TrashMovieList(GUIComponent):
     def __init__(self, root):
@@ -327,6 +327,9 @@ class Wastebasket(Screen):
         result = None
         if self.RecTimer.isActive():
             self.RecTimer.stop
+        if Standby.inStandby is None:
+            self.RecTimer.callback.append(self.AutoDeleteAllMovies)
+            self.RecTimer.start(config.AdvancedMovieSelection.next_empty_check.value * 60000)
         recordings = self.session.nav.getRecordings()
         next_rec_time = -1
         if not recordings:
