@@ -43,7 +43,7 @@ from Screens.InfoBarGenerics import InfoBarMoviePlayerSummarySupport
 from Components.ServiceEventTracker import ServiceEventTracker
 from Wastebasket import Wastebasket
 from time import time, strftime, localtime, mktime
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
     IMDbPresent = True
@@ -192,9 +192,9 @@ if not config.AdvancedMovieSelection.use_original_movieplayer_summary.value:
     InfoBarMoviePlayerSummarySupport.createSummary = createSummary
 
 class MoviePlayerExtended_summary(Screen):
-    def __init__(self, session, retval = None):
+    def __init__(self, session, parent):
         self.skinName = ["MoviePlayerExtended_summary"]
-        Screen.__init__(self, session)
+        Screen.__init__(self, session, parent)
         self["Title"] = Label("")
         self["ShortDesc"] = Label("")
 
@@ -207,6 +207,7 @@ class MoviePlayerExtended_summary(Screen):
 class SelectionEventInfo:
     def __init__(self):
         self["ServiceEvent"] = ServiceEvent()
+        self["ShortDesc"] = Label("")
         self.timer = eTimer()
         self.timer.callback.append(self.updateEventInfo)
         self.onShow.append(self.__selectionChanged)
@@ -221,15 +222,14 @@ class SelectionEventInfo:
             self.loadPreview(serviceref)
             info = ServiceCenter.getInstance().info(serviceref)
             event = info.getEvent(serviceref)
+            name = info.getName(serviceref)
             if event is not None :
-                desc = event.getShortDescription()
-                from enigma import eServiceCenter
-                serviceHandler = eServiceCenter.getInstance()
-                info = serviceHandler.info(serviceref)
-                name = info and info.getName(serviceref) or _("this recording")
+                desc = event.getShortDescription() 
                 if not name == desc:
+                    self["ShortDesc"].setText(desc)
                     self["ServiceEvent"].newService(serviceref)
                 else:
+                    self["ShortDesc"].setText("")
                     self["ServiceEvent"].newService(None)
 
 class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, MoviePreview, MoviePlayerExtended_summary):
@@ -267,15 +267,30 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
         self.__updateInfo()
 
     def __updateInfo(self):
+        t = localtime()
+        if t.tm_wday == 0:
+            self.day = "Montag"
+        elif t.tm_wday == 1:
+            self.day = "Dienstag"
+        elif t.tm_wday == 2:
+            self.day = "Mittwoch"
+        elif t.tm_wday == 3:
+            self.day = "Donnerstag"
+        elif t.tm_wday == 4:
+            self.day = "Freitag"
+        elif t.tm_wday == 5:
+            self.day = "Samstag"
+        elif t.tm_wday == 6:
+            self.day = "Sonntag"
+        else:
+            self.day = ""
         serviceref = self.session.nav.getCurrentlyPlayingServiceReference()
         if serviceref is not None:
-            from enigma import eServiceCenter
-            serviceHandler = eServiceCenter.getInstance()
-            info = serviceHandler.info(serviceref)
+            info = ServiceCenter.getInstance().info(serviceref)
             event = info.getEvent(serviceref)
             name = info.getName(serviceref)
-            if event is not None:
-                desc = event.getShortDescription()
+            if event is not None :
+                desc = event.getShortDescription() 
             if event is None or desc == "":
                 if name.endswith(".ts"):
                     title = name[:-3]
@@ -285,11 +300,10 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
                     title = name[:-5]
                 else:
                     title = name
-                t = localtime()
                 if config.osd.language.value == "de_DE":
-                    desc = strftime("%d-%m-%Y", t)
+                    desc = (_("%s-%s-%s\n%s") % (t.tm_mday, t.tm_mon, t.tm_year, self.day))
                 else:
-                    desc = strftime("%m-%d-%Y", t)
+                    desc = strftime("%m-%d-%Y\n%A", t)
                 self.summaries.updateShortDesc(desc)
                 self.summaries.updateTitle(title)
             else:
@@ -305,11 +319,10 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
                     self.summaries.updateShortDesc(desc)
                     self.summaries.updateTitle(title)
                 else:
-                    t = localtime()
                     if config.osd.language.value == "de_DE":
-                        desc = strftime("%d-%m-%Y", t)
+                        desc = (_("%s-%s-%s\n%s") % (t.tm_mday, t.tm_mon, t.tm_year, self.day))
                     else:
-                        desc = strftime("%m-%d-%Y", t)
+                        desc = strftime("%m-%d-%Y\n%A", t)
                     self.summaries.updateShortDesc(desc)
                     self.summaries.updateTitle(title)
 
