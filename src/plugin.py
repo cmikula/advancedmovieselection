@@ -181,6 +181,7 @@ config.AdvancedMovieSelection.empty_wastebasket_time = ConfigClock(default = 108
 config.AdvancedMovieSelection.last_auto_empty_wastebasket = ConfigInteger(default = 0)
 config.AdvancedMovieSelection.next_auto_empty_wastebasket = ConfigInteger(default = 0)
 config.AdvancedMovieSelection.next_empty_check = ConfigInteger(default = 30, limits = (15, 60))
+config.AdvancedMovieSelection.show_update_genre = ConfigYesNo(default=False)
 
 PlayerInstance = None
 

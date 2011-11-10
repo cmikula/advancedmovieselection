@@ -209,6 +209,9 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.checkListentrys()
 
     def checkListentrys(self):          
+        if not config.AdvancedMovieSelection.use_wastebasket.value:
+            config.AdvancedMovieSelection.auto_empty_wastebasket.setValue("-1")
+            config.AdvancedMovieSelection.auto_empty_wastebasket.save()
         if config.AdvancedMovieSelection.auto_empty_wastebasket.isChanged():
             config.AdvancedMovieSelection.auto_empty_wastebasket.save()
             self.createSetup()
@@ -270,7 +273,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.list.append(getConfigListEntry(_("Show delete info and cover in extensions menu from movielist:"), config.AdvancedMovieSelection.show_info_cover_del, _("Displays delete movie info and cover function in the menu at the movie list.")))
             self.list.append(getConfigListEntry(_("Show delete cover in extensions menu from movielist:"), config.AdvancedMovieSelection.show_cover_del, _("Displays delete cover function in the menu at the movie list.")))
             self.list.append(getConfigListEntry(_("Show delete movie info in extensions menu from movielist:"), config.AdvancedMovieSelection.show_info_del, _("Displays delete movie info function in the menu at the movie list.")))
-            self.list.append(getConfigListEntry(_("Show Provider Logo:"), config.AdvancedMovieSelection.show_picon, _("Displays the Provider Logo when no Cover available.")))      
+            self.list.append(getConfigListEntry(_("Show Provider Logo:"), config.AdvancedMovieSelection.show_picon, _("Displays the Provider Logo when no Cover available.")))
+            self.list.append(getConfigListEntry(_("Show update genre in extensions menu from movielist:"), config.AdvancedMovieSelection.show_update_genre, _("Displays Update all genre in meta from eit options in the menu at the movie list.")))     
         if config.AdvancedMovieSelection.show_picon.value:
             self.list.append(getConfigListEntry(_("Show Provider Logo in original size:"), config.AdvancedMovieSelection.piconsize, _("Displays the Provider Logo in original size. Otherwise, the provider logo be displayed zoomed up to cover size.")))    
             self.list.append(getConfigListEntry(_("Provider Logo path:"), config.AdvancedMovieSelection.piconpath, _("Where to look for the provider logos? (Default is /usr/share/enigma2/picon)"))) 
@@ -327,9 +331,10 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         if config.AdvancedMovieSelection.use_wastebasket.value:
             self.list.append(getConfigListEntry(_("Show Wastebasket in extensions menu from movielist:"), config.AdvancedMovieSelection.show_wastebasket, _("Displays wastebasket function in the menu at the movie list.")))
             self.list.append(getConfigListEntry(_("Wastebasket file(s):"), config.AdvancedMovieSelection.wastelist_buildtype, _("Here you can select which files to Wastebasket are displayed. ATTENTION: All directorys below '/media' will take very long until the list is displayed!")))
-            self.list.append(getConfigListEntry(_("Auto empty wastebasket:"), config.AdvancedMovieSelection.auto_empty_wastebasket, ))
-        if not int(config.AdvancedMovieSelection.auto_empty_wastebasket.value) == -1:
-            self.list.append(getConfigListEntry(_("Auto empty wastebasket time:"), config.AdvancedMovieSelection.empty_wastebasket_time, ))
+            self.list.append(getConfigListEntry(_("Auto empty wastebasket:"), config.AdvancedMovieSelection.auto_empty_wastebasket, _("If you enable this function the wastebasket will be emptied automatically at the set time.")))
+            if not int(config.AdvancedMovieSelection.auto_empty_wastebasket.value) == -1:
+                self.list.append(getConfigListEntry(_("Auto empty wastebasket time:"), config.AdvancedMovieSelection.empty_wastebasket_time, _("Here you can define when to empty the wastebasket.")))
+                self.list.append(getConfigListEntry(_("Check again in x minutes:"), config.AdvancedMovieSelection.next_empty_check, _("If recordings are active again after the set time is trying to empty the wastebasket.")))
         self.list.append(getConfigListEntry(_("Start at the beginning depends on end (in Minutes):"), config.AdvancedMovieSelection.stop_before_end_time, _("Here you can set off when a movie to play automatically from the beginning when you start again (On settings=0, functions is disabled).")))
         self.list.append(getConfigListEntry(_("Use activ Skin LCD/OLED representation:"), config.AdvancedMovieSelection.use_original_movieplayer_summary, _("If you enable this function, the display summary from aktiv skin will be used.")))
         self.list.append(getConfigListEntry(_("Enable Enigma2 debug:"), config.AdvancedMovieSelection.debug, _("If you enable this function, all standard output from enigma will be stored to /tmp folder.")))
