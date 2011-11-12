@@ -625,8 +625,10 @@ class MovieList(GUIComponent):
             if self.show_folders:
                 res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 3, 20, 20, png))
             
-            if len:
+            if len > 0:
                 len2 = "- " + len
+            else:
+                len2 = ""
             
             if self.show_date == MovieList.SHOW_DATE:
                 if self.show_time == MovieList.SHOW_TIME:
