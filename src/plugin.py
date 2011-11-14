@@ -22,7 +22,6 @@
 from __init__ import _
 from Screens.Screen import Screen
 from Plugins.Plugin import PluginDescriptor
-from Components.PluginComponent import plugins
 from Components.ActionMap import HelpableActionMap
 from MovieSelection import MovieSelection
 from MovieList import eServiceReferenceDvd
@@ -32,18 +31,18 @@ from Screens.InfoBar import InfoBar, MoviePlayer
 from Tools.Directories import fileExists, resolveFilename, SCOPE_HDD
 from Components.config import config, ConfigSubsection, ConfigText, ConfigYesNo, ConfigInteger, ConfigSelection, ConfigClock
 from AdvancedMovieSelectionSetup import AdvancedMovieSelectionSetup
-from enigma import ePoint, quitMainloop, eTimer, iPlayableService
+from enigma import ePoint, eTimer, iPlayableService, iServiceInformation
 from TagEditor import TagEditor
 import Screens.Standby
 from Tools import Notifications
 from Components.Sources.ServiceEvent import ServiceEvent
 from MoviePreview import MoviePreview
 from Components.Label import Label
-from Screens.InfoBarGenerics import InfoBarMoviePlayerSummarySupport
 from Components.ServiceEventTracker import ServiceEventTracker
 from Wastebasket import Wastebasket
-from time import time, strftime, localtime, mktime
-from datetime import datetime, timedelta, date
+from time import time, localtime, mktime
+from datetime import datetime, timedelta
+from Tools.FuzzyDate import FuzzyTime
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
     IMDbPresent = True
@@ -69,9 +68,9 @@ else:
     CoolTVGuidePresent = False
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/YTTrailer/plugin.pyo"):
     from Plugins.Extensions.YTTrailer.plugin import YTTrailerList
-    YTTrailerPresent=True
+    YTTrailerPresent = True
 else:
-    YTTrailerPresent=False
+    YTTrailerPresent = False
 
 config.AdvancedMovieSelection = ConfigSubsection()
 config.AdvancedMovieSelection.wastelist_buildtype = ConfigSelection(default="listMovies" , choices=[("listMovies", _("Only current location")), ("listAllMovies", _("Current location and all subdirectories")), ("listAllMoviesMedia", _("All directorys below '/media'")) ])
@@ -96,7 +95,7 @@ config.AdvancedMovieSelection.dateformat = ConfigSelection(default="6" , choices
 config.AdvancedMovieSelection.color1 = ConfigSelection(default="yellow" , choices=[("yellow" , _("Yellow")), ("blue" , _("Blue")), ("red" , _("Red")), ("black" , _("Black")), ("green" , _("Green"))])
 config.AdvancedMovieSelection.color2 = ConfigSelection(default="green" , choices=[("green" , _("Green")), ("blue" , _("Blue")), ("red" , _("Red")), ("black" , _("Black")), ("yellow" , _("Yellow"))])
 config.AdvancedMovieSelection.color3 = ConfigSelection(default="red" , choices=[("red" , _("Red")), ("blue" , _("Blue")), ("green" , _("Green")), ("black" , _("Black")), ("yellow" , _("Yellow"))])
-config.AdvancedMovieSelection.color4 = ConfigSelection(default="grey" , choices=[("grey" , _("Grey")), ("red" , _("Red")), ("blue" , _("Blue")), ("green" , _("Green")), ("black" , _("Black")), ("yellow" , _("Yellow")), ("orange" , _("Orange")),])
+config.AdvancedMovieSelection.color4 = ConfigSelection(default="grey" , choices=[("grey" , _("Grey")), ("red" , _("Red")), ("blue" , _("Blue")), ("green" , _("Green")), ("black" , _("Black")), ("yellow" , _("Yellow")), ("orange" , _("Orange")), ])
 config.AdvancedMovieSelection.moviepercentseen = ConfigInteger(default=80, limits=(50, 100))
 config.AdvancedMovieSelection.showfoldersinmovielist = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.showprogessbarinmovielist = ConfigYesNo(default=False)
@@ -176,20 +175,26 @@ config.AdvancedMovieSelection.piconsize = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.piconpath = ConfigText(default=("/usr/share/enigma2/picon"), visible_width=50, fixed_size=False)
 config.AdvancedMovieSelection.show_wastebasket = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.use_original_movieplayer_summary = ConfigYesNo(default=False)
-config.AdvancedMovieSelection.auto_empty_wastebasket = ConfigSelection(default = "-1", choices = [("-1",_("Disabled")), ("1",_("Daily")), ("2",_("Every second day")), ("7",_("Weekly")), ("14",_("Every two weeks")), ("30",_("Monthly"))])
-config.AdvancedMovieSelection.empty_wastebasket_time = ConfigClock(default = 10800)
-config.AdvancedMovieSelection.last_auto_empty_wastebasket = ConfigInteger(default = 0)
-config.AdvancedMovieSelection.next_auto_empty_wastebasket = ConfigInteger(default = 0)
-config.AdvancedMovieSelection.next_empty_check = ConfigInteger(default = 30, limits = (15, 60))
+config.AdvancedMovieSelection.auto_empty_wastebasket = ConfigSelection(default="-1", choices=[("-1", _("Disabled")), ("1", _("Daily")), ("2", _("Every second day")), ("7", _("Weekly")), ("14", _("Every two weeks")), ("30", _("Monthly"))])
+config.AdvancedMovieSelection.empty_wastebasket_time = ConfigClock(default=10800)
+config.AdvancedMovieSelection.last_auto_empty_wastebasket = ConfigInteger(default=0)
+config.AdvancedMovieSelection.next_auto_empty_wastebasket = ConfigInteger(default=0)
+config.AdvancedMovieSelection.next_empty_check = ConfigInteger(default=30, limits=(15, 60))
 config.AdvancedMovieSelection.show_update_genre = ConfigYesNo(default=False)
 
 PlayerInstance = None
 
-def createSummary(self):        
-    return MoviePlayerExtended_summary
-
-if not config.AdvancedMovieSelection.use_original_movieplayer_summary.value:     
-    InfoBarMoviePlayerSummarySupport.createSummary = createSummary
+def getBeginTimeString(info, serviceref):
+    if not info or not serviceref:
+        return ""
+    begin = info.getInfo(serviceref, iServiceInformation.sTimeCreate)
+    if config.AdvancedMovieSelection.dateformat.value == "2":
+        ft = FuzzyTime(begin)
+        desc = ft[0] + ", " + ft[1]
+    else:
+        d = datetime.fromtimestamp(begin)
+        desc = d.strftime("%d.%m.%Y - %H:%M")
+    return desc
 
 class MoviePlayerExtended_summary(Screen):
     def __init__(self, session, parent):
@@ -218,19 +223,21 @@ class SelectionEventInfo:
 
     def updateEventInfo(self):
         serviceref = self.session.nav.getCurrentlyPlayingServiceReference()
-        if serviceref is not None:
+        if serviceref:
             self.loadPreview(serviceref)
             info = ServiceCenter.getInstance().info(serviceref)
             event = info.getEvent(serviceref)
             name = info.getName(serviceref)
-            if event is not None :
+            if event:
+                self["ServiceEvent"].newService(serviceref)
                 desc = event.getShortDescription() 
-                if not name == desc:
+                if name != desc:
                     self["ShortDesc"].setText(desc)
-                    self["ServiceEvent"].newService(serviceref)
                 else:
-                    self["ShortDesc"].setText("")
-                    self["ServiceEvent"].newService(None)
+                    desc = getBeginTimeString(info, serviceref)
+                    self["ShortDesc"].setText(desc)
+            else:
+                self["ServiceEvent"].newService(None)
 
 class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, MoviePreview, MoviePlayerExtended_summary):
     def __init__(self, session, service):
@@ -257,74 +264,35 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
                 {
                     "back": (self.close, _("Leave movie player"))
                 })
-        if not config.AdvancedMovieSelection.use_original_movieplayer_summary.value: 
+        if config.AdvancedMovieSelection.use_original_movieplayer_summary.value == True: 
             self.__event_tracker = ServiceEventTracker(screen=self, eventmap=
                 {
                         iPlayableService.evUpdatedInfo: self.__updateInfo
                 })
         self.firstime = True
         self.onExecBegin.append(self.__onExecBegin)
-        self.__updateInfo()
+
+    def createSummary(self):
+        if config.AdvancedMovieSelection.use_original_movieplayer_summary.value == True:
+            return MoviePlayerExtended_summary
+        return MoviePlayer.createSummary(self)
 
     def __updateInfo(self):
-        t = localtime()
-        if t.tm_wday == 0:
-            self.day = "Montag"
-        elif t.tm_wday == 1:
-            self.day = "Dienstag"
-        elif t.tm_wday == 2:
-            self.day = "Mittwoch"
-        elif t.tm_wday == 3:
-            self.day = "Donnerstag"
-        elif t.tm_wday == 4:
-            self.day = "Freitag"
-        elif t.tm_wday == 5:
-            self.day = "Samstag"
-        elif t.tm_wday == 6:
-            self.day = "Sonntag"
-        else:
-            self.day = ""
         serviceref = self.session.nav.getCurrentlyPlayingServiceReference()
-        if serviceref is not None:
+        if serviceref:
             info = ServiceCenter.getInstance().info(serviceref)
-            event = info.getEvent(serviceref)
             name = info.getName(serviceref)
-            if event is not None :
-                desc = event.getShortDescription() 
-            if event is None or desc == "":
-                if name.endswith(".ts"):
-                    title = name[:-3]
-                elif name.endswith(".mp4") or name.endswith(".avi") or name.endswith(".mkv") or name.endswith(".mov") or name.endswith(".flv") or name.endswith(".m4v") or name.endswith(".mpg") or name.endswith(".iso"):
-                    title = name[:-4]
-                elif name.endswith(".divx") or name.endswith(".m2ts") or name.endswith(".mpeg"):
-                    title = name[:-5]
-                else:
-                    title = name
-                if config.osd.language.value == "de_DE":
-                    desc = (_("%s-%s-%s\n%s") % (t.tm_mday, t.tm_mon, t.tm_year, self.day))
-                else:
-                    desc = strftime("%m-%d-%Y\n%A", t)
-                self.summaries.updateShortDesc(desc)
-                self.summaries.updateTitle(title)
-            else:
-                if name.endswith(".ts"):
-                    title = name[:-3]
-                elif name.endswith(".mp4") or name.endswith(".avi") or name.endswith(".mkv") or name.endswith(".mov") or name.endswith(".flv") or name.endswith(".m4v") or name.endswith(".mpg") or name.endswith(".iso"):
-                    title = name[:-4]
-                elif name.endswith(".divx") or name.endswith(".m2ts") or name.endswith(".mpeg"):
-                    title = name[:-5]
-                else:
-                    title = name
-                if not name == desc:
-                    self.summaries.updateShortDesc(desc)
-                    self.summaries.updateTitle(title)
-                else:
-                    if config.osd.language.value == "de_DE":
-                        desc = (_("%s-%s-%s\n%s") % (t.tm_mday, t.tm_mon, t.tm_year, self.day))
-                    else:
-                        desc = strftime("%m-%d-%Y\n%A", t)
-                    self.summaries.updateShortDesc(desc)
-                    self.summaries.updateTitle(title)
+            if not name or name == "":
+                return
+            event = info.getEvent(serviceref)
+            desc = ""
+            if event:
+                desc = event.getShortDescription()
+            if not event or name == desc:
+                desc = getBeginTimeString(info, serviceref)
+
+            self.summaries.updateTitle(name)
+            self.summaries.updateShortDesc(desc)
 
     def __onExecBegin(self):
         if self.firstime:
@@ -387,7 +355,6 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
     def openInfoView(self):
         from AdvancedMovieSelectionEventView import EventViewSimple
         serviceref = self.session.nav.getCurrentlyPlayingServiceReference()
-        from ServiceProvider import ServiceCenter
         info = ServiceCenter.getInstance().info(serviceref)
         evt = info.getEvent(serviceref)
         if evt:
@@ -417,10 +384,10 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
         if answer in ("quit", "quitanddeleteconfirmed"):
             self.close()
         if answer == "standby":
-            self.session.openWithCallback(self.standby, MessageBox, _("End of the movie is reached, the box now go to standby. Do that now?"), timeout = 20)
+            self.session.openWithCallback(self.standby, MessageBox, _("End of the movie is reached, the box now go to standby. Do that now?"), timeout=20)
             self.close()
         if answer == "shutdown":
-            self.session.openWithCallback(self.shutdown, MessageBox, _("End of the movie is reached, the box now go to shut down. Shutdown now?"), timeout = 20)
+            self.session.openWithCallback(self.shutdown, MessageBox, _("End of the movie is reached, the box now go to shut down. Shutdown now?"), timeout=20)
             self.close()
         elif answer == "movielist":
             self.playerClosed()
@@ -490,7 +457,7 @@ class WastebasketTimer(Wastebasket):
         self.WastebasketTimer = eTimer()
         self.WastebasketTimer.callback.append(self.AutoDeleteAllMovies)
         self.startTimer()
-        config.AdvancedMovieSelection.empty_wastebasket_time.addNotifier(self.startTimer, initial_call = False)
+        config.AdvancedMovieSelection.empty_wastebasket_time.addNotifier(self.startTimer, initial_call=False)
 
     def startTimer(self):
         if self.WastebasketTimer.isActive():
