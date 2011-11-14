@@ -188,6 +188,8 @@ def getBeginTimeString(info, serviceref):
     if not info or not serviceref:
         return ""
     begin = info.getInfo(serviceref, iServiceInformation.sTimeCreate)
+    if not begin: 
+        return ""
     if config.AdvancedMovieSelection.dateformat.value == "2":
         ft = FuzzyTime(begin)
         desc = ft[0] + ", " + ft[1]

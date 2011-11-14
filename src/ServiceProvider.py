@@ -286,7 +286,8 @@ class Info:
 
 	def getInfo(self, serviceref, type):
 		if type == iServiceInformation.sTimeCreate:
-			return long(os.stat(serviceref.getPath()).st_mtime)
+			if os.path.exists(serviceref.getPath()):
+				return long(os.stat(serviceref.getPath()).st_mtime)
 		return None
 	
 	def getInfoObject(self, serviceref, type):
