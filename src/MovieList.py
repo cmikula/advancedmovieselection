@@ -39,7 +39,7 @@ from datetime import datetime
 from ServiceProvider import detectDVDStructure, getCutList, Info, ServiceCenter, eServiceReferenceDvd, readDMconf
 from os import environ
 from Trashcan import TRASH_NAME
-from Components.Harddisk import harddiskmanager
+from Components.Harddisk import Harddisk
 
 IMAGE_PATH = "Extensions/AdvancedMovieSelection/images/"
 
@@ -243,16 +243,17 @@ class MovieList(GUIComponent):
             return
         try:
             import commands
-            for hdd in harddiskmanager.HDDList():
-                model = hdd[1].model()
-                device_dir = hdd[1].getDeviceDir()
-                #partitions = hdd[1].numPartitions()
-                mount = commands.getoutput('mount | grep ' + device_dir).split()
-                if len(mount) > 2 and os.path.normpath(mount[2]) == "/media/hdd":
+            mounts = commands.getoutput('mount | grep /dev/sd').split("\n")
+            for mount in mounts:
+                if len(mount) < 2:
                     continue
-                if len(mount) > 2 and os.path.normpath(mount[0]) not in self.__hidelist:
+                mount = mount.split()
+                if os.path.normpath(mount[2]) == "/media/hdd" or "DUMBO" in mount[2]:
+                    continue
+                if os.path.normpath(mount[2]) not in self.__hidelist:
                     service = eServiceReferenceHotplug(eServiceReference.idFile, eServiceReference.flagDirectory, mount[2] + "/")
-                    service.setName(model + " - " + hdd[1].capacity())
+                    hdd = Harddisk(mount[0].replace("/dev/", "")[:-1])
+                    service.setName(hdd.model() + " - " + hdd.capacity())
                     self.automounts.append(service)
         except Exception, e:
             print e
