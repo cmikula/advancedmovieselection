@@ -197,8 +197,6 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
 
     def setWindowTitle(self):
         self.setTitle(_("Advanced Movie Selection Setup"))
-        from plugin import WastebasketTimer
-        self.wastetimer = WastebasketTimer(self.session)
 
     def keyLeft(self):
         ConfigListScreen.keyLeft(self)
@@ -379,7 +377,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.close()
 
     def keySave(self):
-        self.wastetimer.configChange()
+        from plugin import waste_timer
+        waste_timer.configChange()
         if config.AdvancedMovieSelection.ml_disable.isChanged():
             self.needsRestartFlag = True
         elif config.AdvancedMovieSelection.movie_launch.isChanged():
