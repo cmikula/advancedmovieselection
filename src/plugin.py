@@ -459,7 +459,7 @@ class WastebasketTimer(Wastebasket):
         self.startTimer()
         config.AdvancedMovieSelection.empty_wastebasket_time.addNotifier(self.startTimer, initial_call=False)
 
-    def startTimer(self):
+    def startTimer(self, dummy=None):
         if self.WastebasketTimer.isActive():
             self.WastebasketTimer.stop()
         value = int(config.AdvancedMovieSelection.auto_empty_wastebasket.value)
