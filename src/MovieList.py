@@ -99,7 +99,7 @@ class MovieList(GUIComponent):
 
     def __init__(self, root, list_type=None, sort_type=None, descr_state=None, show_folders=False, show_progressbar=False, show_statusicon=False, show_statuscolor=False, show_date=True, show_time=True, show_service=True, show_tags=False):
         GUIComponent.__init__(self)
-        self.__hidelist, self.__permlist = readDMconf()
+        self.__hidelist, self.__hidehotplug = readDMconf()
         self.list_type = list_type or self.LISTTYPE_ORIGINAL
         self.descr_state = descr_state or self.HIDE_DESCRIPTION
         self.sort_type = sort_type or self.SORT_DATE_ASC
@@ -243,17 +243,19 @@ class MovieList(GUIComponent):
             return
         try:
             import commands
-            mounts = commands.getoutput('mount | grep /dev/sd').split("\n")
-            for mount in mounts:
+            lines = commands.getoutput('mount | grep /dev/sd').split('\n')
+            for mount in lines:
                 if len(mount) < 2:
                     continue
-                mount = mount.split()
-                if os.path.normpath(mount[2]) == "/media/hdd" or "DUMBO" in mount[2]:
+                m = mount.split(' type')[0].split(' on ')
+                m_dev, m_path = m[0], m[1]
+                label = os.path.split(m_path)[-1]
+                if os.path.normpath(m_path) == "/media/hdd" or label == "DUMBO":
                     continue
-                if os.path.normpath(mount[2]) not in self.__hidelist:
-                    service = eServiceReferenceHotplug(eServiceReference.idFile, eServiceReference.flagDirectory, mount[2] + "/")
-                    hdd = Harddisk(mount[0].replace("/dev/", "")[:-1])
-                    service.setName(hdd.model() + " - " + hdd.capacity())
+                if label not in self.__hidehotplug:
+                    service = eServiceReferenceHotplug(eServiceReference.idFile, eServiceReference.flagDirectory, m_path + "/")
+                    hdd = Harddisk(m_dev.replace("/dev/", "")[:-1])
+                    service.setName(label + " - " + hdd.model() + " - " + hdd.capacity())
                     self.automounts.append(service)
         except Exception, e:
             print e
@@ -486,7 +488,7 @@ class MovieList(GUIComponent):
                 begin_string = d.strftime(self.DATE_TIME_FORMAT)
 
         if selection_index > -1:
-            txt = "%d - %s" %(selection_index, txt)
+            txt = "%d - %s" % (selection_index, txt)
             if self.show_statuscolor:
                 color = self.mark_color
 

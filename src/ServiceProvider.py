@@ -64,23 +64,19 @@ class eServiceReferenceDvd(eServiceReference):
 
 def readDMconf():
 	hiddelist = []
-	permlist = []
+	hotplug = []
 	try:
-		ishidelist = True
 		rfile = open(DMCONFFILE, 'r')
 		for x in rfile.readlines():
 			val = x.strip()
-			if val == "::::":
-				ishidelist = False
+			if val.startswith('#'):
+				hotplug.append(val[1:])
 			else:
-				if ishidelist:
-					hiddelist.append(val)
-				else:
-					permlist.append(val)
+				hiddelist.append(val)
 		rfile.close()
 	except:
 		pass
-	return hiddelist, permlist
+	return hiddelist, hotplug
 
 def getFolderSize(loadPath):
 	folder_size = 0
