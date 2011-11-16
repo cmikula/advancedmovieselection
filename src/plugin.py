@@ -39,7 +39,6 @@ from Components.Sources.ServiceEvent import ServiceEvent
 from MoviePreview import MoviePreview
 from Components.Label import Label
 from Components.ServiceEventTracker import ServiceEventTracker
-from Wastebasket import Wastebasket
 from time import time, localtime, mktime
 from datetime import datetime, timedelta
 from Tools.FuzzyDate import FuzzyTime
@@ -474,11 +473,13 @@ class WastebasketTimer():
         if value != -1:
             nowSec = int(time())           
             now = localtime(nowSec)
-            dt = datetime(now.tm_year, now.tm_mon, now.tm_mday, config.AdvancedMovieSelection.empty_wastebasket_time.value[0], config.AdvancedMovieSelection.empty_wastebasket_time.value[1])
-            dt += timedelta(value)
+            w_h = config.AdvancedMovieSelection.empty_wastebasket_time.value[0]
+            w_m = config.AdvancedMovieSelection.empty_wastebasket_time.value[1]
+            dt = datetime(now.tm_year, now.tm_mon, now.tm_mday, w_h, w_m)
             nextUpdateSeconds = int(mktime(dt.timetuple()))
+            if nowSec > nextUpdateSeconds:
+                nextUpdateSeconds = int(mktime((dt + timedelta(value)).timetuple()))   
             config.AdvancedMovieSelection.next_auto_empty_wastebasket.value = nextUpdateSeconds
-            config.AdvancedMovieSelection.next_auto_empty_wastebasket.save()
             self.wastebasketTimer.startLongTimer(nextUpdateSeconds - nowSec)
             print "[AdvancedMovieSelection] Next wastebasket auto empty at", dt.strftime("%c")
         else:
@@ -534,7 +535,6 @@ class WastebasketTimer():
                 print e
             if result == True:
                 config.AdvancedMovieSelection.last_auto_empty_wastebasket.value = int(time())
-                config.AdvancedMovieSelection.last_auto_empty_wastebasket.save()
                 self.configChange()
 
 waste_timer = None
@@ -551,7 +551,7 @@ def autostart(reason, **kwargs):
                 elif value == "showTv": InfoBar.showTv = showMovies
                 elif value == "showRadio": InfoBar.showRadio = showMovies
                 elif value == "timeshiftStart": InfoBar.startTimeshift = showMovies
-
+                global waste_timer
                 waste_timer = WastebasketTimer(session)
                 value = int(config.AdvancedMovieSelection.auto_empty_wastebasket.value)
                 if value != -1:

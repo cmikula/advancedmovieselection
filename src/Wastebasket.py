@@ -216,14 +216,14 @@ class Wastebasket(Screen):
             self.delayTimer.start(0, 1)
             self.inited = True
         value = int(config.AdvancedMovieSelection.auto_empty_wastebasket.value)
-        if not value == -1:
-            if not config.AdvancedMovieSelection.last_auto_empty_wastebasket.value:
+        if value != -1:
+            if config.AdvancedMovieSelection.last_auto_empty_wastebasket.value == 0:
                 self["autoemptylast"].setText(_("Last automated wastebasket empty:") + ' ' + _("Never!"))
             else:
-                t = localtime(int(config.AdvancedMovieSelection.last_auto_empty_wastebasket.value))
+                t = localtime(config.AdvancedMovieSelection.last_auto_empty_wastebasket.value)
                 lastUpdateCheck_time = strftime(("%02d.%02d.%04d" % (t[2], t[1], t[0])) + ' ' + _("at") + ' ' + ("%02d:%02d" % (t[3], t[4])) + ' ' + _("Clock"))
                 self["autoemptylast"].setText(_("Last automated wastebasket empty at %s") % lastUpdateCheck_time)
-            t = localtime(int(config.AdvancedMovieSelection.next_auto_empty_wastebasket.value))
+            t = localtime(config.AdvancedMovieSelection.next_auto_empty_wastebasket.value)
             nextUpdateCheck_time = strftime(("%02d.%02d.%04d" % (t[2], t[1], t[0])) + ' ' + _("at") + ' ' + ("%02d:%02d" % (t[3], t[4])) + ' ' + _("Clock"))
             self["autoemptynext"].setText(_("Next automated wastebasket empty at %s") % nextUpdateCheck_time)
         else:
