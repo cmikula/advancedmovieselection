@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-11-10 08:02+0100\n"
-"PO-Revision-Date: 2011-11-10 08:04+0100\n"
-"Last-Translator: JackDanie <JackDaniel@i-have-a-dreambox.com>\n"
+"PO-Revision-Date: 2011-11-16 15:06+0100\n"
+"Last-Translator: cmikula\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1011,10 +1011,6 @@ msgstr "Hier können Sie die Tastenbezeichnung für das Lesezeichen 2 ändern. N
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:841
 msgid "Here you can give the bookmark 3 button a special name. After saving the changes color key settings will be closed, reopen it then the changes is to selection."
 msgstr "Hier können Sie die Tastenbezeichnung für das Lesezeichen 3 ändern. Nach dem speichern wird die Farbtasten Einstellungen geschlossen, und nach erneutem öffnen stehen die Änderungen zur Auswahl."
-
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:879
-msgid "Really close without saving settings?"
-msgstr "Wirklich ohne Speichern schließen?"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:75
 msgid "Manual search"
@@ -2613,9 +2609,6 @@ msgstr "Wiederherstellen fehlgeschlagen!"
 
 #~ msgid "Sensibility:"
 #~ msgstr "Sensibilität:"
-
-#~ msgid "You cannot delete this!"
-#~ msgstr "Das kann nicht gelöscht werden!"
 
 #~ msgid "Add. new icon"
 #~ msgstr "Neue Aufn. Icon anzeigen"
