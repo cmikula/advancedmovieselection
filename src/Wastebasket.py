@@ -277,7 +277,7 @@ class Wastebasket(Screen):
         if not recordings:
             next_rec_time = self.session.nav.RecordTimer.getNextRecordingTime()	
         if config.movielist.last_videodir.value == "/hdd/movie/" and recordings or (next_rec_time > 0 and (next_rec_time - time()) < 360):
-            self.session.openWithCallback(self.delete, MessageBox, _("Recording(s) are in progress or coming up in few seconds!\nNow movie delete can damage the recording(s)!\nRealy delete movie ?"))
+            self.session.openWithCallback(self.delete, MessageBox, _("Recording(s) are in progress or coming up in few seconds!\nNow movie delete can damage the recording(s)!\nRealy delete movie?"))
         else:
             self.delete(True)
 

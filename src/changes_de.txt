@@ -163,5 +163,6 @@ version 2.1
 * neu: automatisches papierkorb leeren
 * neu: genere wird nun wenn vorhanden in der filmliste angezeigt (nur bei nicht *.ts dateien)
 
-
-
+version 2.2
+* fix: fehler von 2.1 behoben
+* geändert: Plenks

@@ -95,7 +95,7 @@ class MovieMove(ChoiceBox):
             if createDir(self.ParentDir + DirToCreate.strip()):
                 MovieMove(session=self.session, service=self.service_list[0])
             else:
-                self.session.openWithCallback(MovieMove(session=self.session, service=self.service_list[0]), MessageBox, (_("The directory ' %s 'could not be created !") % (config.movielist.last_videodir.value + DirToCreate.lstrip())), MessageBox.TYPE_WARNING)
+                self.session.openWithCallback(MovieMove(session=self.session, service=self.service_list[0]), MessageBox, (_("The directory ' %s 'could not be created!") % (config.movielist.last_videodir.value + DirToCreate.lstrip())), MessageBox.TYPE_WARNING)
         else:
             MovieMove(session=self.session, service=self.service_list[0])	
             

@@ -457,6 +457,7 @@ from Trashcan import Trashcan
 class WastebasketTimer(Wastebasket):
     def __init__(self):
         self.recTimer = eTimer()
+        self.recTimer.callback.append(self.autoDeleteAllMovies)
         self.wastebasketTimer = eTimer()
         self.wastebasketTimer.callback.append(self.autoDeleteAllMovies)
         self.startTimer()
@@ -469,7 +470,7 @@ class WastebasketTimer(Wastebasket):
         if self.wastebasketTimer.isActive():
             self.wastebasketTimer.stop()
         value = int(config.AdvancedMovieSelection.auto_empty_wastebasket.value)
-        if not value == -1:
+        if value != -1:
             nowSec = int(time())           
             now = localtime(nowSec)
             dt = datetime(now.tm_year, now.tm_mon, now.tm_mday, config.AdvancedMovieSelection.empty_wastebasket_time.value[0], config.AdvancedMovieSelection.empty_wastebasket_time.value[1])
@@ -496,14 +497,12 @@ class WastebasketTimer(Wastebasket):
         if self.recTimer.isActive():
             self.recTimer.stop()
         if Standby.inStandby is None:
-            self.recTimer.callback.append(self.AutoDeleteAllMovies)
             self.recTimer.start(config.AdvancedMovieSelection.next_empty_check.value * 60000)
         recordings = self.session.nav.getRecordings()
         next_rec_time = -1
         if not recordings:
             next_rec_time = self.session.nav.RecordTimer.getNextRecordingTime()    
         if config.movielist.last_videodir.value == "/hdd/movie/" and recordings or (next_rec_time > 0 and (next_rec_time - time()) < 360):
-            self.recTimer.callback.append(self.AutoDeleteAllMovies)
             self.recTimer.start(config.AdvancedMovieSelection.next_empty_check.value * 60000)
         else:
             if self.recTimer.isActive():

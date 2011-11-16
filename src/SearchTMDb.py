@@ -342,7 +342,7 @@ class TMDbMain(Screen):
             print socket.gethostbyname('www.google.com')
             return True
         except:
-            self.session.openWithCallback(self.close, MessageBox, _("No internet connection available !"), MessageBox.TYPE_ERROR)
+            self.session.openWithCallback(self.close, MessageBox, _("No internet connection available!"), MessageBox.TYPE_ERROR)
             return False
 
     def green_pressed(self):

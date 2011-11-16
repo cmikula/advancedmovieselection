@@ -875,7 +875,7 @@ class AdvancedMovieSelectionOwnButtonName(Screen, ConfigListScreen):
         print "cancel"
         if self["config"].isChanged():
             self.hideKeypad()
-            self.session.openWithCallback(self.cancelConfirm, MessageBox, _("Really close without saving settings ?"))
+            self.session.openWithCallback(self.cancelConfirm, MessageBox, _("Really close without saving settings?"))
         else:
             self.close()
 

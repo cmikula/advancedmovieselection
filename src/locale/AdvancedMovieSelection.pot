@@ -1004,7 +1004,7 @@ msgid "Here you can give the bookmark 3 button a special name. After saving the 
 msgstr ""
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:879
-msgid "Really close without saving settings ?"
+msgid "Really close without saving settings?"
 msgstr ""
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:75
@@ -1161,7 +1161,7 @@ msgstr ""
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:98
 #, python-format
-msgid "The directory ' %s 'could not be created !"
+msgid "The directory ' %s 'could not be created!"
 msgstr ""
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:104
@@ -1447,18 +1447,18 @@ msgid "Error occurred during unmounting device!"
 msgstr ""
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:274
-msgid "No internet connection available !"
+msgid "No internet connection available!"
 msgstr ""
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:322
-msgid "Move/Copy not possible here !"
+msgid "Move/Copy not possible here!"
 msgstr ""
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:447
 #, python-format
 msgid ""
 "Do you really want to delete info/cover from:\n"
-"%s ?"
+"%s?"
 msgstr ""
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:451
@@ -1473,14 +1473,14 @@ msgstr ""
 #, python-format
 msgid ""
 "Do you really want to delete cover from:\n"
-"%s ?"
+"%s?"
 msgstr ""
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:532
 #, python-format
 msgid ""
 "Do you really want to delete movie info from:\n"
-"%s ?"
+"%s?"
 msgstr ""
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:631
@@ -2323,7 +2323,7 @@ msgstr ""
 msgid ""
 "Recording(s) are in progress or coming up in few seconds!\n"
 "Now movie delete can damage the recording(s)!\n"
-"Realy delete movie ?"
+"Realy delete movie?"
 msgstr ""
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Wastebasket.py:290

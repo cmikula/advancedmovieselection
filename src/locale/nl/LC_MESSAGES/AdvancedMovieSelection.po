@@ -982,7 +982,7 @@ msgid "Here you can give the bookmark 3 button a special name. After saving the 
 msgstr "Hier kan u de naam van de Favoriet3-knop wijzigen. Na het bewaren worden de instellingen gesloten, en na het heropnen zijn de wijzigingen beschikbaar."
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:865
-msgid "Really close without saving settings ?"
+msgid "Really close without saving settings?"
 msgstr "Sluiten zonder te bewaren?"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:75
@@ -1002,11 +1002,11 @@ msgstr "Achtergrond"
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:231
 #, python-format
 msgid "Search for %s, please wait..."
-msgstr "Zoeken naar %s, eventjes geduld ..."
+msgstr "Zoeken naar %s, eventjes geduld..."
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:148
 msgid "Automatic search and save, please wait..."
-msgstr "Automatisch zoeken en bewaren, eventjes geduld ..."
+msgstr "Automatisch zoeken en bewaren, eventjes geduld..."
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:150
 #, python-format
@@ -1143,7 +1143,7 @@ msgstr ""
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:98
 #, python-format
-msgid "The directory ' %s 'could not be created !"
+msgid "The directory ' %s 'could not be created!"
 msgstr "De map ' %s ' kon niet gecreëerd worden!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:104
@@ -1435,18 +1435,18 @@ msgid "Error occurred during unmounting device!"
 msgstr "Fout opgetreden tijdens het unmounten van het medium!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:267
-msgid "No internet connection available !"
+msgid "No internet connection available!"
 msgstr "Geen internetverbinding beschikbaar!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:315
-msgid "Move/Copy not possible here !"
+msgid "Move/Copy not possible here!"
 msgstr "Verplaatsen/kopiëren niet mogelijk!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:440
 #, python-format
 msgid ""
 "Do you really want to delete info/cover from:\n"
-"%s ?"
+"%s?"
 msgstr ""
 "De Filminfo en de Cover van:\n"
 "%s verwijderen?"
@@ -1463,7 +1463,7 @@ msgstr "Dit kan niet verwijderd worden!"
 #, python-format
 msgid ""
 "Do you really want to delete cover from:\n"
-"%s ?"
+"%s?"
 msgstr ""
 "De Cover van:\n"
 "%s verwijderen?"
@@ -1472,14 +1472,14 @@ msgstr ""
 #, python-format
 msgid ""
 "Do you really want to delete movie info from:\n"
-"%s ?"
+"%s?"
 msgstr ""
 "De Filminfo van:\n"
 "%s verwijderen?"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:624
 msgid "Please wait... Loading list..."
-msgstr "Filmlijst laden,eventjes geduld ..."
+msgstr "Filmlijst laden,eventjes geduld..."
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:629
 msgid "ATTENTION: Ask before delete is disabled!"
@@ -2071,7 +2071,7 @@ msgstr "Uitgebreide Info"
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/SearchTMDb.py:192
 #, python-format
 msgid "Searching for '%s' from TMDb..."
-msgstr "Zoeken naar ' %s ' via TMDb ..."
+msgstr "Zoeken naar ' %s ' via TMDb..."
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/SearchTMDb.py:193
 #, python-format
@@ -2107,7 +2107,7 @@ msgstr ""
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/SearchTMDb.py:261
 #, python-format
 msgid "Getting movie information for '%s' from TMDb..."
-msgstr "Filminfos voor ' %s ' wordt via TMDb opgezocht ..."
+msgstr "Filminfos voor ' %s ' wordt via TMDb opgezocht..."
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/SearchTMDb.py:280
 #, python-format
@@ -2290,7 +2290,7 @@ msgstr "Prullemand: %s"
 msgid ""
 "Recording(s) are in progress or coming up in few seconds!\n"
 "Now movie delete can damage the recording(s)!\n"
-"Realy delete movie ?"
+"Realy delete movie?"
 msgstr ""
 "Opnames lopen of zullen binnenkort starten!\n"
 "Filmen nu verwijderen kan de opnames beschadigen!\n"
@@ -2369,7 +2369,7 @@ msgstr "Herstellen mislukt!"
 #~ msgid "Unknown Error"
 #~ msgstr "ongekende fout"
 
-#~ msgid "Where to ' %s ' are moved/copied ?"
+#~ msgid "Where to ' %s ' are moved/copied?"
 #~ msgstr "Naar waar moet ' %s ' verplaatst/gekopieerd worden?"
 
 #~ msgid "yes"
@@ -2378,8 +2378,8 @@ msgstr "Herstellen mislukt!"
 #~ msgid "no"
 #~ msgstr "Nee"
 
-#~ msgid "How to ' %s ' from %s to %s be moved/copied ?"
-#~ msgstr "Hoe moet ' %s ' van %s naar %s verplaatst/gekopieerd worden ?"
+#~ msgid "How to ' %s ' from %s to %s be moved/copied?"
+#~ msgstr "Hoe moet ' %s ' van %s naar %s verplaatst/gekopieerd worden?"
 
 #~ msgid "Tags"
 #~ msgstr "Labels"
@@ -2490,7 +2490,7 @@ msgstr "Herstellen mislukt!"
 #~ msgid "Autocreate of previews aborted due user!"
 #~ msgstr ""
 #~ "Das automatische erstellen der Filmvorschauen wurde durch den Benutzer "
-#~ "abgebrochen !"
+#~ "abgebrochen!"
 
 #~ msgid "Save Cover"
 #~ msgstr "Cover speichern"
@@ -2563,5 +2563,5 @@ msgstr "Herstellen mislukt!"
 #~ msgid "Movie location"
 #~ msgstr "Speicherort:"
 
-#~ msgid "Recording ..."
-#~ msgstr "Opname loopt ..."
+#~ msgid "Recording..."
+#~ msgstr "Opname loopt..."

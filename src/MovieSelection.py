@@ -271,7 +271,7 @@ class MovieContextMenu(Screen):
             print socket.gethostbyname('www.google.com')
             return True
         except:
-            self.session.openWithCallback(self.close, MessageBox, _("No internet connection available !"), MessageBox.TYPE_ERROR)
+            self.session.openWithCallback(self.close, MessageBox, _("No internet connection available!"), MessageBox.TYPE_ERROR)
             return False
 
     def downloadMovieInfo(self):
@@ -319,7 +319,7 @@ class MovieContextMenu(Screen):
         if not (self.service.flags & eServiceReference.mustDescent):
             self.session.openWithCallback(self.closeafterfinish, MovieMove, self.csel, self.service)
         else:
-            self.session.open(MessageBox, _("Move/Copy not possible here !"), MessageBox.TYPE_INFO)
+            self.session.open(MessageBox, _("Move/Copy not possible here!"), MessageBox.TYPE_INFO)
 
     def movietags(self):
         self.session.open(MovieTagEditor, service=self.service, parent=self.session.current_dialog)
@@ -444,7 +444,7 @@ class MovieContextMenu(Screen):
                     result = True
         if result == True:
             if config.AdvancedMovieSelection.askdelete.value:
-                self.session.openWithCallback(self.deleteinfocoverConfirmed, MessageBox, _("Do you really want to delete info/cover from:\n%s ?") % (name))
+                self.session.openWithCallback(self.deleteinfocoverConfirmed, MessageBox, _("Do you really want to delete info/cover from:\n%s?") % (name))
             else:
                 self.deleteinfocoverConfirmed(True)
         else:
@@ -487,7 +487,7 @@ class MovieContextMenu(Screen):
                     result = True
         if result == True:
             if config.AdvancedMovieSelection.askdelete.value:
-                self.session.openWithCallback(self.deletecoverConfirmed, MessageBox, _("Do you really want to delete cover from:\n%s ?") % (name))
+                self.session.openWithCallback(self.deletecoverConfirmed, MessageBox, _("Do you really want to delete cover from:\n%s?") % (name))
             else:
                 self.deletecoverConfirmed(True)
         else:
@@ -529,7 +529,7 @@ class MovieContextMenu(Screen):
                     result = True
         if result == True:
             if config.AdvancedMovieSelection.askdelete.value:
-                self.session.openWithCallback(self.deleteinfosConfirmed, MessageBox, _("Do you really want to delete movie info from:\n%s ?") % (name))
+                self.session.openWithCallback(self.deleteinfosConfirmed, MessageBox, _("Do you really want to delete movie info from:\n%s?") % (name))
             else:
                 self.deleteinfosConfirmed(True)
         else:
