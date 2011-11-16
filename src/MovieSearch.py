@@ -24,6 +24,7 @@ from NTIVirtualKeyBoard import NTIVirtualKeyBoard
 from Tools.BoundFunction import boundFunction
 from Screens.MessageBox import MessageBox
 from enigma import eServiceReference, iStaticServiceInformationPtr
+from ServiceProvider import eServiceReferenceDvd
 
 class MovieSearchScreen:
     def __init__(self, session):
@@ -50,12 +51,10 @@ def vkCallback(movieContextMenu, searchString=None):
         # we have no idea what this input could be, just add it back
         if len(movie) < 2: newList.append(movie)
         else:
-            if isinstance(movie[0], eServiceReference) and isinstance(movie[1], iStaticServiceInformationPtr):
+            if not (movie[0].flags & eServiceReference.mustDescent and not isinstance(movie[0], eServiceReferenceDvd)):
                 name = movie[1].getName(movie[0])
                 if searchString.lower() in name.lower(): # force case-insensitive for now
                     newList.append(movie)
-            else:
-                newList.append(movie)
     csel["list"].list = newList
     csel["list"].l.setList(newList)
     movieContextMenu.close()
