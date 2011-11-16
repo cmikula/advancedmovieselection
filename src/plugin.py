@@ -454,8 +454,9 @@ def movieSelected(self, service):
 from Screens import Standby
 from Components.UsageConfig import defaultMoviePath
 from Trashcan import Trashcan
-class WastebasketTimer(Wastebasket):
-    def __init__(self):
+class WastebasketTimer():
+    def __init__(self, session):
+        self.session = session
         self.recTimer = eTimer()
         self.recTimer.callback.append(self.autoDeleteAllMovies)
         self.wastebasketTimer = eTimer()
@@ -536,7 +537,7 @@ class WastebasketTimer(Wastebasket):
                 config.AdvancedMovieSelection.last_auto_empty_wastebasket.save()
                 self.configChange()
 
-waste_timer = WastebasketTimer()
+waste_timer = None
 
 def autostart(reason, **kwargs):
     if reason == 0:
@@ -550,15 +551,16 @@ def autostart(reason, **kwargs):
                 elif value == "showTv": InfoBar.showTv = showMovies
                 elif value == "showRadio": InfoBar.showRadio = showMovies
                 elif value == "timeshiftStart": InfoBar.startTimeshift = showMovies
+
+                waste_timer = WastebasketTimer(session)
+                value = int(config.AdvancedMovieSelection.auto_empty_wastebasket.value)
+                if value != -1:
+                    print "[AdvancedMovieSelection] Auto empty from wastebasket enabled..."
+                else:
+                    waste_timer.stopTimer()
+                    print "[AdvancedMovieSelection] Auto empty from wastebasket disabled..."
             except:
                 pass
-        if not config.AdvancedMovieSelection.ml_disable.value:
-            value = int(config.AdvancedMovieSelection.auto_empty_wastebasket.value)
-            if value != -1:
-                print "[AdvancedMovieSelection] Auto empty from wastebasket enabled..."
-            else:
-                waste_timer.stopTimer()
-                print "[AdvancedMovieSelection] Auto empty from wastebasket disabled..."
 
 def pluginOpen(session, **kwargs):
     session.open(AdvancedMovieSelectionSetup)
