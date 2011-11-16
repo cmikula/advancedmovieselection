@@ -230,14 +230,13 @@ class SelectionEventInfo:
             event = info.getEvent(serviceref)
             name = info.getName(serviceref)
             if event:
-                self["ServiceEvent"].newService(serviceref)
                 desc = event.getShortDescription() 
-                if name != desc:
-                    self["ShortDesc"].setText(desc)
-                else:
+                if name == desc or desc == "":
                     desc = getBeginTimeString(info, serviceref)
-                    self["ShortDesc"].setText(desc)
+                self["ShortDesc"].setText(desc)
+                self["ServiceEvent"].newService(serviceref)
             else:
+                self["ShortDesc"].setText(getBeginTimeString(info, serviceref))
                 self["ServiceEvent"].newService(None)
 
 class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, MoviePreview, MoviePlayerExtended_summary):
@@ -289,7 +288,7 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
             desc = ""
             if event:
                 desc = event.getShortDescription()
-            if not event or name == desc:
+            if not event or name == desc or desc == "":
                 desc = getBeginTimeString(info, serviceref)
 
             self.summaries.updateTitle(name)
