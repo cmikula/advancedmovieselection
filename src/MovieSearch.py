@@ -23,7 +23,7 @@ from __init__ import _
 from NTIVirtualKeyBoard import NTIVirtualKeyBoard
 from Tools.BoundFunction import boundFunction
 from Screens.MessageBox import MessageBox
-from enigma import eServiceReference, iStaticServiceInformationPtr
+from enigma import eServiceReference
 from ServiceProvider import eServiceReferenceDvd
 
 class MovieSearchScreen:
