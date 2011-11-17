@@ -499,6 +499,7 @@ class WastebasketTimer():
             self.recTimer.stop()
         if Standby.inStandby is None:
             self.recTimer.start(config.AdvancedMovieSelection.next_empty_check.value * 60000)
+            return
         recordings = self.session.nav.getRecordings()
         next_rec_time = -1
         if not recordings:
