@@ -161,8 +161,9 @@ version 2.1
 * fix: crash wenn tag im timermenü geändert wird
 * fix: crash wenn keine filmlänge vorhanden
 * neu: automatisches papierkorb leeren
-* neu: genere wird nun wenn vorhanden in der filmliste angezeigt (nur bei nicht *.ts dateien)
+* neu: genre wird nun wenn vorhanden in der filmliste angezeigt (nur bei nicht *.ts dateien)
 
 version 2.2
 * fix: fehler von 2.1 behoben
 * geändert: Plenks
+* neu: bei der oled/lcd anzeige kann wenn keine kurzbeschreibung verfügbar ist eingestellt werden ob das datum der erstellung oder das aktuelle datum angezeigt werden soll
