@@ -378,7 +378,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
 
     def keySave(self):
         from plugin import waste_timer
-        waste_timer.configChange()
+        if waste_timer:
+            waste_timer.configChange()
         if config.AdvancedMovieSelection.ml_disable.isChanged():
             self.needsRestartFlag = True
         elif config.AdvancedMovieSelection.movie_launch.isChanged():
