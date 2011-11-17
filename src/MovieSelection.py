@@ -698,6 +698,20 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                 self.session.open(MessageBox, _("This cannot deleted, please select a movie for!"), MessageBox.TYPE_INFO)
                 return
 
+        if len(self.list.multiSelection) > 0:
+            self.to_delete = self.list.multiSelection[:]
+            if config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.use_wastebasket.value:
+                self.session.openWithCallback(self.deleteTrashConfirmed, MessageBox, _("Do you really want to move selected movies to trashcan?"))          
+            elif config.AdvancedMovieSelection.askdelete.value and not config.AdvancedMovieSelection.use_wastebasket.value:
+                self.session.openWithCallback(self.deleteConfirmed, MessageBox, _("Do you really want to delete selected movies?"))
+            elif not config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.use_wastebasket.value:
+                self.deleteTrashConfirmed(True)
+            else:
+                self.deleteConfirmed(True)
+            return
+        else:
+            self.to_delete = [self.service]
+
         recording = False
         if NavigationInstance.instance.getRecordings():
             for timer in NavigationInstance.instance.RecordTimer.timer_list:
@@ -706,12 +720,9 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                         filename = "%s.ts" % timer.Filename
                     except:
                         filename = ""
-                    serviceHandler = eServiceCenter.getInstance()
-                    info = serviceHandler.info(self.service)
-                    moviename = info and info.getName(self.service) or _("this recording")
-                    serviceref = self.getCurrent()
-                    if filename and os.path.realpath(filename) == os.path.realpath(serviceref.getPath()):
-                        recording = True
+                    for serviceref in self.to_delete:
+                        if filename and os.path.realpath(filename) == os.path.realpath(serviceref.getPath()):
+                            recording = True
   
         serviceHandler = eServiceCenter.getInstance()
         offline = serviceHandler.offlineOperations(self.service)
@@ -727,20 +738,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                 if not offline.deleteFromDisk(1):
                     result = True
                     
-        if len(self.list.multiSelection) > 0:
-            self.to_delete = self.list.multiSelection[:]
-            if config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.use_wastebasket.value:
-                self.session.openWithCallback(self.deleteTrashConfirmed, MessageBox, _("Do you really want to move selected movies to trashcan?"))          
-            elif config.AdvancedMovieSelection.askdelete.value and not config.AdvancedMovieSelection.use_wastebasket.value:
-                self.session.openWithCallback(self.deleteConfirmed, MessageBox, _("Do you really want to delete selected movies?"))
-            elif not config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.use_wastebasket.value:
-                self.deleteTrashConfirmed(True)
-            else:
-                self.deleteConfirmed(True)
-            return
-        else:
-            self.to_delete = [self.service]
-        
         if result == True:
             if not config.AdvancedMovieSelection.askdelete.value and recording == True:
                 self.TimerDel(True)
@@ -772,20 +769,17 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                         filename = "%s.ts" % timer.Filename
                     except:
                         filename = ""
-                    serviceHandler = eServiceCenter.getInstance()
-                    info = serviceHandler.info(self.service)
-                    moviename = info and info.getName(self.service) or _("this recording")
-                    serviceref = self.getCurrent()
-                    if filename and os.path.realpath(filename) == os.path.realpath(serviceref.getPath()):
-                        timer.afterEvent = AFTEREVENT.NONE
-                        self.session.nav.RecordTimer.removeEntry(timer)
-                        if config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.use_wastebasket.value:
-                            self.deleteTrashConfirmed(True)
-                        elif config.AdvancedMovieSelection.askdelete.value and not config.AdvancedMovieSelection.use_wastebasket.value:
-                            self.deleteConfirmed(True)
-                        else:
-                            if not config.AdvancedMovieSelection.askdelete.value:
-                                self.delete()
+                    for serviceref in self.to_delete:
+                        if filename and os.path.realpath(filename) == os.path.realpath(serviceref.getPath()):
+                            timer.afterEvent = AFTEREVENT.NONE
+                            self.session.nav.RecordTimer.removeEntry(timer)
+                    if config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.use_wastebasket.value:
+                        self.deleteTrashConfirmed(True)
+                    elif config.AdvancedMovieSelection.askdelete.value and not config.AdvancedMovieSelection.use_wastebasket.value:
+                        self.deleteConfirmed(True)
+                    else:
+                        if not config.AdvancedMovieSelection.askdelete.value:
+                            self.delete()
         
     def deleteTrashConfirmed(self, confirmed):
         if not confirmed:
