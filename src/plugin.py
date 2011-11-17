@@ -23,19 +23,20 @@ from __init__ import _
 from Screens.Screen import Screen
 from Plugins.Plugin import PluginDescriptor
 from Components.ActionMap import HelpableActionMap
-from MovieSelection import MovieSelection
+from MovieSelection import MovieSelection, getBeginTimeString, getDateString
 from MovieList import eServiceReferenceDvd
 from ServiceProvider import CutListSupport, ServiceCenter
 from Screens.MessageBox import MessageBox
 from Screens.InfoBar import InfoBar, MoviePlayer
-from Tools.Directories import fileExists, resolveFilename, SCOPE_HDD
+from Tools.Directories import fileExists, resolveFilename, SCOPE_HDD, SCOPE_CURRENT_SKIN
 from Components.config import config, ConfigSubsection, ConfigText, ConfigYesNo, ConfigInteger, ConfigSelection, ConfigClock
 from AdvancedMovieSelectionSetup import AdvancedMovieSelectionSetup
-from enigma import ePoint, eTimer, iPlayableService, iServiceInformation
+from enigma import ePoint, eTimer, iPlayableService #, iServiceInformation
 from TagEditor import TagEditor
 import Screens.Standby
 from Tools import Notifications
 from Components.Sources.ServiceEvent import ServiceEvent
+from Components.Sources.StaticText import StaticText
 from MoviePreview import MoviePreview
 from Components.Label import Label
 from Components.ServiceEventTracker import ServiceEventTracker
@@ -180,22 +181,10 @@ config.AdvancedMovieSelection.last_auto_empty_wastebasket = ConfigInteger(defaul
 config.AdvancedMovieSelection.next_auto_empty_wastebasket = ConfigInteger(default=0)
 config.AdvancedMovieSelection.next_empty_check = ConfigInteger(default=30, limits=(15, 60))
 config.AdvancedMovieSelection.show_update_genre = ConfigYesNo(default=False)
+config.AdvancedMovieSelection.show_begintime = ConfigYesNo(default=False)
+config.AdvancedMovieSelection.show_date_shortdesc = ConfigYesNo(default=False)
 
 PlayerInstance = None
-
-def getBeginTimeString(info, serviceref):
-    if not info or not serviceref:
-        return ""
-    begin = info.getInfo(serviceref, iServiceInformation.sTimeCreate)
-    if not begin: 
-        return ""
-    if config.AdvancedMovieSelection.dateformat.value == "2":
-        ft = FuzzyTime(begin)
-        desc = ft[0] + ", " + ft[1]
-    else:
-        d = datetime.fromtimestamp(begin)
-        desc = d.strftime("%d.%m.%Y - %H:%M")
-    return desc
 
 class MoviePlayerExtended_summary(Screen):
     def __init__(self, session, parent):
@@ -203,12 +192,19 @@ class MoviePlayerExtended_summary(Screen):
         Screen.__init__(self, session, parent)
         self["Title"] = Label("")
         self["ShortDesc"] = Label("")
+        self["Seperator"] = StaticText("")
 
     def updateShortDesc(self, desc):
         self["ShortDesc"].setText(desc)
 
     def updateTitle(self, title):
         self["Title"].setText(title)
+
+    def showSep(self):
+        self["Seperator"].setText(resolveFilename(SCOPE_CURRENT_SKIN, "images/sep_lcd_oled.png"))
+    
+    def NotShowSep(self):
+        self["Seperator"].setText("")   
     
 class SelectionEventInfo:
     def __init__(self):
@@ -229,15 +225,22 @@ class SelectionEventInfo:
             info = ServiceCenter.getInstance().info(serviceref)
             event = info.getEvent(serviceref)
             name = info.getName(serviceref)
+            if not name or name == "":
+                return
+            desc = ""
             if event:
-                desc = event.getShortDescription() 
-                if name == desc or desc == "":
+                desc = event.getShortDescription()              
+            if name == desc or desc == "":
+                if config.AdvancedMovieSelection.show_date_shortdesc.value and config.AdvancedMovieSelection.show_begintime.value:
                     desc = getBeginTimeString(info, serviceref)
-                self["ShortDesc"].setText(desc)
-                self["ServiceEvent"].newService(serviceref)
-            else:
-                self["ShortDesc"].setText(getBeginTimeString(info, serviceref))
-                self["ServiceEvent"].newService(None)
+                    self["ShortDesc"].setText(desc)
+                    self["ServiceEvent"].newService(serviceref)
+                else:
+                    desc = ""
+                    self["ShortDesc"].setText(desc)
+                    self["ServiceEvent"].newService(serviceref)  
+            self["ShortDesc"].setText(desc)
+            self["ServiceEvent"].newService(serviceref)
 
 class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, MoviePreview, MoviePlayerExtended_summary):
     def __init__(self, session, service):
@@ -289,10 +292,25 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
             if event:
                 desc = event.getShortDescription()
             if not event or name == desc or desc == "":
-                desc = getBeginTimeString(info, serviceref)
-
-            self.summaries.updateTitle(name)
-            self.summaries.updateShortDesc(desc)
+                if config.AdvancedMovieSelection.show_date_shortdesc.value and config.AdvancedMovieSelection.show_begintime.value:
+                    desc = getBeginTimeString(info, serviceref)
+                    self.summaries.showSep()
+                    self.summaries.updateTitle(name)
+                    self.summaries.updateShortDesc(desc)
+                elif config.AdvancedMovieSelection.show_date_shortdesc.value and not config.AdvancedMovieSelection.show_begintime.value:
+                    desc = getDateString()
+                    self.summaries.showSep()
+                    self.summaries.updateTitle(name)
+                    self.summaries.updateShortDesc(desc)
+                else:
+                    desc = ""
+                    self.summaries.NotShowSep()
+                    self.summaries.updateTitle(name)
+                    self.summaries.updateShortDesc(desc)
+            else:
+                self.summaries.showSep()
+                self.summaries.updateTitle(name)
+                self.summaries.updateShortDesc(desc)
 
     def __onExecBegin(self):
         if self.firstime:
@@ -312,14 +330,16 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
                     self.session.open(AdvancedProgramGuide)
                 else:
                     if not config.plugins.AdvancedProgramGuide.StartFirst.value and config.plugins.AdvancedProgramGuide.Columns.value:
-                        config.plugins.AdvancedProgramGuide.StartFirst.value = True
-                        config.plugins.AdvancedProgramGuide.StartFirst.save()
-                        self.session.openWithCallback(self.setnew, AdvancedProgramGuideII)
+                        from Screens.InfoBar import InfoBar
+                        if InfoBar.instance:
+                            servicelist = InfoBar.instance.servicelist
+                            self.session.open(AdvancedProgramGuideII, servicelist)
                     else:
                         if not config.plugins.AdvancedProgramGuide.StartFirst.value and not config.plugins.AdvancedProgramGuide.Columns.value:
-                            config.plugins.AdvancedProgramGuide.StartFirst.value = True
-                            config.plugins.AdvancedProgramGuide.StartFirst.save()
-                            self.session.openWithCallback(self.setnew, AdvancedProgramGuide)
+                            from Screens.InfoBar import InfoBar
+                            if InfoBar.instance:
+                                servicelist = InfoBar.instance.servicelist
+                                self.session.open(AdvancedProgramGuide, servicelist)
         else:
             if MerlinEPGPresent and not AdvancedProgramGuidePresent and not CoolTVGuidePresent:
                 if config.plugins.MerlinEPG.StartFirst.value and config.plugins.MerlinEPG.Columns.value:
@@ -329,28 +349,22 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
                         self.session.open(Merlin_PGd)
                     else:
                         if not config.plugins.MerlinEPG.StartFirst.value and config.plugins.MerlinEPG.Columns.value:
-                            config.plugins.MerlinEPG.StartFirst.value = True
-                            config.plugins.MerlinEPG.StartFirst.save()
-                            self.session.openWithCallback(self.setnew2, Merlin_PGII)
+                            from Screens.InfoBar import InfoBar
+                            if InfoBar.instance:
+                                servicelist = InfoBar.instance.servicelist
+                                self.session.open(Merlin_PGII, servicelist)
                         else:
                             if not config.plugins.MerlinEPG.StartFirst.value and not config.plugins.MerlinEPG.Columns.value:
-                                config.plugins.MerlinEPG.StartFirst.value = True
-                                config.plugins.MerlinEPG.StartFirst.save()
-                                self.session.openWithCallback(self.setnew2, Merlin_PGd)
+                                from Screens.InfoBar import InfoBar
+                                if InfoBar.instance:
+                                    servicelist = InfoBar.instance.servicelist
+                                    self.session.open(Merlin_PGd, servicelist)
             else:
                 if CoolTVGuidePresent and not AdvancedProgramGuidePresent and not MerlinEPGPresent:
                     from Plugins.Extensions.CoolTVGuide.plugin import main as ctvmain
                     ctvmain(self.session)
                 else:
                     self.session.open(MessageBox, _("Not possible !\nMerlinEPG and CoolTVGuide present or neither installed from this two plugins."), MessageBox.TYPE_INFO)
-            
-    def setnew(self):
-        config.plugins.AdvancedProgramGuide.StartFirst.value = False
-        config.plugins.AdvancedProgramGuide.StartFirst.save()
-
-    def setnew2(self):
-        config.plugins.MerlinEPG.StartFirst.value = False
-        config.plugins.MerlinEPG.StartFirst.save()
             
     def openInfoView(self):
         from AdvancedMovieSelectionEventView import EventViewSimple
@@ -536,7 +550,7 @@ class WastebasketTimer():
             
             if result == True:
                 config.AdvancedMovieSelection.last_auto_empty_wastebasket.value = int(time())
-                config.AdvancedMovieSelection.last_auto_empty_wastebasket.save()
+                config.AdvancedMovieSelection.next_auto_empty_wastebasket.save()
                 self.configChange()
 
 waste_timer = None

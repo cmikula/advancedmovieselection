@@ -164,6 +164,7 @@ version 2.1
 * neu: genre wird nun wenn vorhanden in der filmliste angezeigt (nur bei nicht *.ts dateien)
 
 version 2.2
-* fix: fehler von 2.1 behoben
-* geändert: Plenks
-* neu: bei der oled/lcd anzeige kann wenn keine kurzbeschreibung verfügbar ist eingestellt werden ob das datum der erstellung oder das aktuelle datum angezeigt werden soll
+* fix: gemeldete fehler von 2.1 behoben
+* geändert: falsch gesetzte leerzeichen
+* neu: bei der oled/lcd anzeige kann wenn keine kurzbeschreibung verfügbar ist eingestellt werden ob das datum der erstellung bzw. aufnahmezeitpunkt oder das aktuelle datum angezeigt werden soll
+ACHTUNG an die skinner, bei den screens AdvancedMovieSelection_summary und MoviePlayerExtended_summary kann nun auch <widget source="Seperator" geskinnt werden

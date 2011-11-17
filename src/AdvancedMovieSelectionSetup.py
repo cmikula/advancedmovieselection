@@ -207,6 +207,12 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.checkListentrys()
 
     def checkListentrys(self):          
+        if config.AdvancedMovieSelection.show_date_shortdesc.isChanged():
+            config.AdvancedMovieSelection.show_date_shortdesc.save()
+            self.createSetup()
+        if config.AdvancedMovieSelection.use_original_movieplayer_summary.isChanged():
+            config.AdvancedMovieSelection.use_original_movieplayer_summary.save()
+            self.createSetup()
         if not config.AdvancedMovieSelection.use_wastebasket.value:
             config.AdvancedMovieSelection.auto_empty_wastebasket.setValue("-1")
             config.AdvancedMovieSelection.auto_empty_wastebasket.save()
@@ -335,6 +341,10 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
                 self.list.append(getConfigListEntry(_("Check again in x minutes:"), config.AdvancedMovieSelection.next_empty_check, _("If recordings are active again after the set time is trying to empty the wastebasket.")))
         self.list.append(getConfigListEntry(_("Start at the beginning depends on end (in Minutes):"), config.AdvancedMovieSelection.stop_before_end_time, _("Here you can set off when a movie to play automatically from the beginning when you start again (On settings=0, functions is disabled).")))
         self.list.append(getConfigListEntry(_("Use activ Skin LCD/OLED representation:"), config.AdvancedMovieSelection.use_original_movieplayer_summary, _("If you enable this function, the display summary from aktiv skin will be used.")))
+        if config.AdvancedMovieSelection.use_original_movieplayer_summary.value:
+            self.list.append(getConfigListEntry(_("Show date:"), config.AdvancedMovieSelection.show_date_shortdesc, _("If this option is activated the date will be displayed on the lcd/oled when no short description is available.")))
+            if config.AdvancedMovieSelection.show_date_shortdesc.value:
+                self.list.append(getConfigListEntry(_("Use date from timestamp:"), config.AdvancedMovieSelection.show_begintime, _("If this option is activated the date from the file create instead today's date will be displayed on the lcd/oled when no short description is available.")))
         self.list.append(getConfigListEntry(_("Enable Enigma2 debug:"), config.AdvancedMovieSelection.debug, _("If you enable this function, all standard output from enigma will be stored to /tmp folder.")))
         self["config"].setList(self.list)
 

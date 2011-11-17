@@ -622,11 +622,16 @@
     <!-- LCD screen (AdvancedMovieSelection) -->
             <screen name="AdvancedMovieSelection_summary" position="0,0" size="132,64" id="1">
                 <widget source="parent.Movietitle" render="Label" position="2,0" size="128,24" font="Display;12" halign="center" valign="top"/>
-                <eLabel position="0,25" size="132,1" backgroundColor="white"/>
-                <widget source="parent.MovieService" render="Label" position="2,27" size="128,24" font="Display;12" halign="center" valign="top">
+		<widget source="Seperator" render="Pixmap" position="0,25" size="132,1" backgroundColor="white">
+			<convert type="ValueToPixmap">Path</convert>
+		</widget>
+                <widget name="ShortDesc" position="2,27" size="128,24" font="Display;12" halign="center" valign="top"/>
+                <!--widget source="parent.MovieService" render="Label" position="2,27" size="128,24" font="Display;12" halign="center" valign="top">
 			<convert type="MovieInfo">ShortDescription</convert>
-                </widget> 
-                <eLabel position="0,52" size="132,1" backgroundColor="white"/>               
+                </widget--> 
+		<widget source="Seperator" render="Pixmap" position="0,50" size="132,1" backgroundColor="white">
+			<convert type="ValueToPixmap">Path</convert>
+		</widget>              
                 <widget source="parent.MovieSize" render="Label" position="2,54" size="64,10" font="Display;10" halign="left" valign="top">
 			<convert type="ServiceTime">Duration</convert>
 			<convert type="ClockToText">InMinutes</convert>
@@ -638,9 +643,10 @@
     <!-- OLED screen (AdvancedMovieSelection) -->
             <screen name="AdvancedMovieSelection_summary" position="0,0" size="96,64" id="2">
 		<widget source="parent.Movietitle" render="Label" position="0,0" size="96,26" font="Display;13" halign="center" valign="top" foregroundColor="#FF0000" backgroundColor="#000000"/>
-		<widget source="parent.MovieService" render="Label" position="0,27" size="96,26" font="Display;13" halign="center" valign="top" foregroundColor="#0000FF" backgroundColor="#000000">
+		<widget name="ShortDesc" position="0,27" size="96,26" font="Display;13" halign="center" valign="top" foregroundColor="#0000FF" backgroundColor="#000000"/>
+		<!--widget source="parent.MovieService" render="Label" position="0,27" size="96,26" font="Display;13" halign="center" valign="top" foregroundColor="#0000FF" backgroundColor="#000000">
 			<convert type="MovieInfo">ShortDescription</convert>
-		</widget>
+		</widget-->
                 <widget source="parent.MovieSize" render="Label" position="0,54" size="40,10" font="Display;10" halign="left" valign="top" foregroundColor="#ffffff" backgroundColor="#000000">
 			<convert type="ServiceTime">Duration</convert>
 			<convert type="ClockToText">InMinutes</convert>
@@ -652,9 +658,13 @@
     <!-- LCD screen (MoviePlayerExtended) -->
             <screen name="MoviePlayerExtended_summary" position="0,0" size="132,64" id="1">
 		<widget name="Title" position="2,0" size="128,24" font="Display;12" halign="center" valign="top"/>
-                <eLabel position="0,25" size="132,1" backgroundColor="white"/>
+		<widget source="Seperator" render="Pixmap" position="0,25" size="132,1" backgroundColor="white">
+			<convert type="ValueToPixmap">Path</convert>
+		</widget>
                 <widget name="ShortDesc" position="2,27" size="128,24" font="Display;12" halign="center" valign="top"/>
-		<eLabel position="0,52" size="132,1" backgroundColor="white"/>
+		<widget source="Seperator" render="Pixmap" position="0,52" size="132,1" backgroundColor="white">
+			<convert type="ValueToPixmap">Path</convert>
+		</widget>
 		<widget source="global.CurrentTime" render="Label" position="2,52" size="40,14" font="Display;14" halign="left" valign="top">
 			<convert type="ClockToText">Format:%H:%M</convert>
 		</widget> 
