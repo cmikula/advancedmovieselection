@@ -479,6 +479,7 @@ class WastebasketTimer():
             if nowSec > nextUpdateSeconds:
                 nextUpdateSeconds = int(mktime((dt + timedelta(value)).timetuple()))   
             config.AdvancedMovieSelection.next_auto_empty_wastebasket.value = nextUpdateSeconds
+            config.AdvancedMovieSelection.next_auto_empty_wastebasket.save()
             self.wastebasketTimer.startLongTimer(nextUpdateSeconds - nowSec)
             print "[AdvancedMovieSelection] Next wastebasket auto empty at", dt.strftime("%c")
         else:
@@ -535,6 +536,7 @@ class WastebasketTimer():
             
             if result == True:
                 config.AdvancedMovieSelection.last_auto_empty_wastebasket.value = int(time())
+                config.AdvancedMovieSelection.last_auto_empty_wastebasket.save()
                 self.configChange()
 
 waste_timer = None
