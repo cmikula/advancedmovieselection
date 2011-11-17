@@ -509,29 +509,29 @@ class WastebasketTimer():
             if self.recTimer.isActive():
                 self.recTimer.stop()
             self.list = [ ]
-            if not fileExists(config.movielist.last_videodir.value):
+            
+            path = config.movielist.last_videodir.value
+            if not fileExists(path):
                 path = defaultMoviePath()
                 config.movielist.last_videodir.value = path
                 config.movielist.last_videodir.save()
-                path = config.movielist.last_videodir.value
-            else:
-                path = config.movielist.last_videodir.value
+                
             if config.AdvancedMovieSelection.wastelist_buildtype.value == 'listMovies':
                 trash = Trashcan.listMovies(path)
-            if config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMovies':
+            elif config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMovies':
                 trash = Trashcan.listAllMovies(path)
-            if config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMoviesMedia':
+            else:
                 trash = Trashcan.listAllMovies("/media")
-            for service in trash:
-                self.list.append((service, None, -1, -1))
+            
+            result = True
             try:
                 print "Start automated deleting all movies in trash list"
-                for x in self.list:
-                    service = x[0]
+                for service in trash:
                     Trashcan.delete(service.getPath())
-                    result = True
             except Exception, e:
+                result = False
                 print e
+            
             if result == True:
                 config.AdvancedMovieSelection.last_auto_empty_wastebasket.value = int(time())
                 self.configChange()
