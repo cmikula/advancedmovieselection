@@ -31,7 +31,7 @@ from Screens.InfoBar import InfoBar, MoviePlayer
 from Tools.Directories import fileExists, resolveFilename, SCOPE_HDD, SCOPE_CURRENT_SKIN
 from Components.config import config, ConfigSubsection, ConfigText, ConfigYesNo, ConfigInteger, ConfigSelection, ConfigClock
 from AdvancedMovieSelectionSetup import AdvancedMovieSelectionSetup
-from enigma import ePoint, eTimer, iPlayableService #, iServiceInformation
+from enigma import ePoint, eTimer, iPlayableService
 from TagEditor import TagEditor
 import Screens.Standby
 from Tools import Notifications
@@ -42,7 +42,6 @@ from Components.Label import Label
 from Components.ServiceEventTracker import ServiceEventTracker
 from time import time, localtime, mktime
 from datetime import datetime, timedelta
-from Tools.FuzzyDate import FuzzyTime
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
     IMDbPresent = True

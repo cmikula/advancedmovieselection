@@ -20,7 +20,6 @@
 #  distributed other than under the conditions noted above.
 #
 from __init__ import _
-#from enigma import getDesktop
 from Components.PluginComponent import plugins
 from Screens.Screen import Screen
 from Components.ActionMap import HelpableActionMap, ActionMap, NumberActionMap
@@ -40,7 +39,7 @@ from Screens.ChoiceBox import ChoiceBox
 from Screens.LocationBox import MovieLocationBox
 from AdvancedMovieSelectionSetup import AdvancedMovieSelectionSetup, AdvancedMovieSelectionButtonSetup
 from Tools.BoundFunction import boundFunction
-from Tools.Directories import resolveFilename, fileExists, SCOPE_HDD
+from Tools.Directories import resolveFilename, fileExists, SCOPE_HDD, SCOPE_CURRENT_SKIN
 from enigma import eServiceReference, eServiceCenter, eSize, ePoint, eTimer, getDesktop, iServiceInformation
 from Screens.Console import eConsoleAppContainer
 from ServiceProvider import ServiceEvent
@@ -58,11 +57,10 @@ import NavigationInstance
 from timer import TimerEntry
 from Trashcan import Trashcan
 from RecordTimer import AFTEREVENT
-from MessageBoxEx import MessageBox as MessageBoxEx
+#from MessageBoxEx import MessageBox as MessageBoxEx
 from time import localtime
 from datetime import datetime
 from Tools.FuzzyDate import FuzzyTime
-from Tools.Directories import resolveFilename, SCOPE_CURRENT_SKIN
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
     from Plugins.Extensions.IMDb.plugin import IMDB
