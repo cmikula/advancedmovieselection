@@ -83,7 +83,7 @@ class MovieMove(ChoiceBox):
         elif tmpcount == 1:
             self.session.open(MessageBox, (_("The following file is being moved or copied currently:\n%s") % tmpline), MessageBox.TYPE_INFO)
         else:
-            self.session.open(MessageBox, (_("The following %s") % str(tmpcount) + ' ' + _("files are being moved or copied currently:\n%s") % tmpline, MessageBox.TYPE_INFO))                    
+            self.session.open(MessageBox, (_("The following %s") % str(tmpcount) + ' ' + _("files are being moved or copied currently:\n%s") % tmpline), MessageBox.TYPE_INFO)                    
 
     def remove(self, arg):
         os.rmdir(config.movielist.last_videodir.value)
@@ -105,7 +105,7 @@ class MovieMove(ChoiceBox):
         else:
             self.destinationpath = destinationpath
             listtmp = [(_("Move (in the background)"), "VH"), (_("Move (in the foreground)"), "VS"), (_("Copy (in the background)"), "KH"), (_("Copy (in the foreground)"), "KS"), (_("Abort"), "AB") ]
-            self.session.openWithCallback(self.DoMove, ChoiceBox, title=((_("How to proceed '%s'") % self.name) + ' ' + (_("from %s") % self.sourcepath) + ' ' + (_("to %s") %  self.destinationpath) + ' ' + _("be moved/copied?")),list=listtmp)
+            self.session.openWithCallback(self.DoMove, ChoiceBox, title=((_("How to proceed '%s'") % self.name) + ' ' + (_("from %s") % self.sourcepath) + ' ' + (_("to %s") % self.destinationpath) + ' ' + _("be moved/copied?")), list=listtmp)
     
     def getMovieFileName(self, service):
         filename = service.getPath().rsplit('/', 1)[1]
