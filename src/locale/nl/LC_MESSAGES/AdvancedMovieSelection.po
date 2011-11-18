@@ -655,7 +655,7 @@ msgid ""
 "With YES only Enigma 2 starts new, with NO the box make a restart."
 msgstr ""
 "Sommige instellingen vereisen een herstart om geactiveerd te worden.\n"
-"Indien een Skin zonder PiG (Beeld in Grafiek/MiniTV) gebruikt wordt, is een volledige herstart van de Box noodzakeleijk (Enigma 2 alleen is onvoldoende) !\n"
+"Indien een Skin zonder PiG (Beeld in Grafiek/MiniTV) gebruikt wordt, is een volledige herstart van de Box noodzakeleijk (Enigma 2 alleen is onvoldoende)!\n"
 "Met JA wordt \"enkel\" Enigma 2 herstart, met NEE de volledige Box."
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:386
@@ -675,12 +675,12 @@ msgstr "Sommige aanpassingen vereisen het stoppen/starten van de filmselectie."
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:395
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:405
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:756
-msgid "Aborted by user !!"
+msgid "Aborted by user!!"
 msgstr "Annulatie door gebruiker!!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:439
-msgid "IMPORTANT: If changes are made here the Advanced Movie Selection must be completely closed so the changes can be adopted !!"
-msgstr "BELANGRIJK: indien hier wijzigingen doorgevoerd worden moet de Geavanceerde FilmSelectie volledig gesloten worden !!"
+msgid "IMPORTANT: If changes are made here the Advanced Movie Selection must be completely closed so the changes can be adopted!!"
+msgstr "BELANGRIJK: indien hier wijzigingen doorgevoerd worden moet de Geavanceerde FilmSelectie volledig gesloten worden!!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:440
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:72
@@ -1842,7 +1842,7 @@ msgstr "Filmpspeler verlaten"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:300
 msgid ""
-"Not possible !\n"
+"Not possible!\n"
 "MerlinEPG and CoolTVGuide present or neither installed from this two plugins."
 msgstr ""
 "Niet mogelijk!\n"
@@ -2190,7 +2190,7 @@ msgstr "Nieuw label ingeven:"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/TagEditor.py:203
 msgid ""
-"Do you really want to delete unused tags from default taglist ?\n"
+"Do you really want to delete unused tags from default taglist?\n"
 "(Note that 'Cancel' will not undo this!)"
 msgstr ""
 "Bent u zeker dat u de ongebruikte labels van de lijst wil verwijderen?\n"
@@ -2199,7 +2199,7 @@ msgstr ""
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/TagEditor.py:228
 #, python-format
 msgid ""
-"Rename tag \"%s\" in movies and default taglist ?\n"
+"Rename tag \"%s\" in movies and default taglist?\n"
 "(Note that 'Cancel' will not undo this!)"
 msgstr ""
 "Label \"%s\" in films en labellijst aanpassen?\n"
@@ -2208,16 +2208,16 @@ msgstr ""
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/TagEditor.py:244
 #, python-format
 msgid ""
-"Do you really want to delete tag \"%s\" from movies and default taglist ?\n"
-"(Caution can not be undone !)"
+"Do you really want to delete tag \"%s\" from movies and default taglist?\n"
+"(Caution can not be undone!)"
 msgstr ""
 "Bent u zeker dat u label \"%s\" van de films en de lijst wil verwijderen?\n"
 "(Opmerking: 'Annuleren' hersteld dit niet!)"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/TagEditor.py:262
 msgid ""
-"Do you really want to delete all tags from movies and default taglist ?\n"
-"(Caution can not be undones !)"
+"Do you really want to delete all tags from movies and default taglist?\n"
+"(Caution can not be undone!)"
 msgstr ""
 "Bent u zeker dat u alle labels van de films en de lijst wil verwijderen?\n"
 "(Opmerking: 'Annuleren' hersteld dit niet!)"

@@ -193,16 +193,16 @@ class MoviePlayerExtended_summary(Screen):
         self["ShortDesc"] = Label("")
         self["Seperator"] = StaticText("")
 
-    def updateShortDesc(self, desc):
+    def updateShortDescription(self, desc):
         self["ShortDesc"].setText(desc)
 
     def updateTitle(self, title):
         self["Title"].setText(title)
 
-    def showSep(self):
+    def showSeperator(self):
         self["Seperator"].setText(resolveFilename(SCOPE_CURRENT_SKIN, "images/sep_lcd_oled.png"))
     
-    def NotShowSep(self):
+    def hideSeperator(self):
         self["Seperator"].setText("")   
     
 class SelectionEventInfo:
@@ -293,23 +293,17 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
             if not event or name == desc or desc == "":
                 if config.AdvancedMovieSelection.show_date_shortdesc.value and config.AdvancedMovieSelection.show_begintime.value:
                     desc = getBeginTimeString(info, serviceref)
-                    self.summaries.showSep()
-                    self.summaries.updateTitle(name)
-                    self.summaries.updateShortDesc(desc)
+                    self.summaries.showSeperator()
                 elif config.AdvancedMovieSelection.show_date_shortdesc.value and not config.AdvancedMovieSelection.show_begintime.value:
                     desc = getDateString()
-                    self.summaries.showSep()
-                    self.summaries.updateTitle(name)
-                    self.summaries.updateShortDesc(desc)
+                    self.summaries.showSeperator()
                 else:
-                    desc = ""
-                    self.summaries.NotShowSep()
-                    self.summaries.updateTitle(name)
-                    self.summaries.updateShortDesc(desc)
+                    self.summaries.hideSeperator()
             else:
-                self.summaries.showSep()
-                self.summaries.updateTitle(name)
-                self.summaries.updateShortDesc(desc)
+                self.summaries.showSeperator()
+
+            self.summaries.updateTitle(name)
+            self.summaries.updateShortDescription(desc)
 
     def __onExecBegin(self):
         if self.firstime:
@@ -363,7 +357,7 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
                     from Plugins.Extensions.CoolTVGuide.plugin import main as ctvmain
                     ctvmain(self.session)
                 else:
-                    self.session.open(MessageBox, _("Not possible !\nMerlinEPG and CoolTVGuide present or neither installed from this two plugins."), MessageBox.TYPE_INFO)
+                    self.session.open(MessageBox, _("Not possible!\nMerlinEPG and CoolTVGuide present or neither installed from this two plugins."), MessageBox.TYPE_INFO)
             
     def openInfoView(self):
         from AdvancedMovieSelectionEventView import EventViewSimple

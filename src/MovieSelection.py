@@ -625,13 +625,13 @@ class AdvancedMovieSelection_summary(Screen):
         self["ShortDesc"] = Label("")
         self["Seperator"] = StaticText("")
        
-    def updateShortDesc(self, desc):
+    def updateShortDescription(self, desc):
         self["ShortDesc"].setText(desc)
 
-    def showSep(self):
+    def showSeperator(self):
         self["Seperator"].setText(resolveFilename(SCOPE_CURRENT_SKIN, "images/sep_lcd_oled.png"))
     
-    def NotShowSep(self):
+    def hideSeperator(self):
         self["Seperator"].setText("")    
 
 class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, QuickButton):
@@ -757,35 +757,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                 self.session.open(MessageBox, _("This cannot deleted, please select a movie for!"), MessageBox.TYPE_INFO)
                 return
 
-        recording = False
-        if NavigationInstance.instance.getRecordings():
-            for timer in NavigationInstance.instance.RecordTimer.timer_list:
-                if timer.state == TimerEntry.StateRunning:
-                    try:
-                        filename = "%s.ts" % timer.Filename
-                    except:
-                        filename = ""
-                    serviceHandler = eServiceCenter.getInstance()
-                    info = serviceHandler.info(self.service)
-                    moviename = info and info.getName(self.service) or _("this recording")
-                    serviceref = self.getCurrent()
-                    if filename and os.path.realpath(filename) == os.path.realpath(serviceref.getPath()):
-                        recording = True
-  
-        serviceHandler = eServiceCenter.getInstance()
-        offline = serviceHandler.offlineOperations(self.service)
-        info = serviceHandler.info(self.service)
-        name = info and info.getName(self.service) or _("this recording")
-        result = False
-        if self.service.flags & eServiceReference.mustDescent:
-            if self.service.getName() != "..":
-                result = True
-                name = self.service.getPath()
-        else:
-            if offline is not None:
-                if not offline.deleteFromDisk(1):
-                    result = True
-                    
         if len(self.list.multiSelection) > 0:
             self.to_delete = self.list.multiSelection[:]
             if config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.use_wastebasket.value:
@@ -800,15 +771,42 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         else:
             self.to_delete = [self.service]
         
+        serviceHandler = eServiceCenter.getInstance()
+        offline = serviceHandler.offlineOperations(self.service)
+        info = serviceHandler.info(self.service)
+        name = info and info.getName(self.service) or _("this recording")
+
+        recording = False
+        if NavigationInstance.instance.getRecordings():
+            for timer in NavigationInstance.instance.RecordTimer.timer_list:
+                if timer.state == TimerEntry.StateRunning:
+                    try:
+                        filename = "%s.ts" % timer.Filename
+                    except:
+                        filename = ""
+                    for serviceref in self.to_delete:
+                        if filename and os.path.realpath(filename) == os.path.realpath(serviceref.getPath()):
+                            recording = True
+  
+        result = False
+        if self.service.flags & eServiceReference.mustDescent:
+            if self.service.getName() != "..":
+                result = True
+                name = self.service.getPath()
+        else:
+            if offline is not None:
+                if not offline.deleteFromDisk(1):
+                    result = True
+                    
         if result == True:
             if not config.AdvancedMovieSelection.askdelete.value and recording == True:
-                self.TimerDel(True)
+                self.timerDelete(True)
             elif config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.use_wastebasket.value and recording == True:
-                self.session.openWithCallback(self.TimerDel, MessageBox, (_("%s is currently recording!") % (name) + _("\n\nThe timer for %s will be delete for stop the recording and after this the movie will be move to trashcan.\n\nDo you really want to continue?") % (name)))            
+                self.session.openWithCallback(self.timerDelete, MessageBox, (_("%s is currently recording!") % (name) + _("\n\nThe timer for %s will be delete for stop the recording and after this the movie will be move to trashcan.\n\nDo you really want to continue?") % (name)))            
             elif config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.use_wastebasket.value and recording == False:
                 self.session.openWithCallback(self.deleteTrashConfirmed, MessageBox, _("Do you really want to move %s to trashcan?") % (name))
             elif config.AdvancedMovieSelection.askdelete.value and not config.AdvancedMovieSelection.use_wastebasket.value and recording == True:
-                self.session.openWithCallback(self.TimerDel, MessageBox, (_("%s is currently recording!") % (name) + _("\n\nThe timer for %s will be delete for stop the recording and after this the movie will be deleted.\n\nDo you really want to continue?") % (name)))
+                self.session.openWithCallback(self.timerDelete, MessageBox, (_("%s is currently recording!") % (name) + _("\n\nThe timer for %s will be delete for stop the recording and after this the movie will be deleted.\n\nDo you really want to continue?") % (name)))
             elif config.AdvancedMovieSelection.askdelete.value and not config.AdvancedMovieSelection.use_wastebasket.value and recording == False:
                 self.session.openWithCallback(self.deleteConfirmed, MessageBox, _("Do you really want to delete %s?") % (name))
             elif not config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.use_wastebasket.value:
@@ -818,9 +816,9 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         else:
             self.session.open(MessageBox, _("You cannot delete this!"), MessageBox.TYPE_ERROR)
 
-    def TimerDel(self, result):
+    def timerDelete(self, result):
         if result is None:
-            self.session.open(MessageBox, _("Aborted by user !!"), MessageBox.TYPE_ERROR)
+            self.session.open(MessageBox, _("Aborted by user!!"), MessageBox.TYPE_ERROR)
             return
         if result is False:
             return
@@ -831,20 +829,14 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                         filename = "%s.ts" % timer.Filename
                     except:
                         filename = ""
-                    serviceHandler = eServiceCenter.getInstance()
-                    info = serviceHandler.info(self.service)
-                    moviename = info and info.getName(self.service) or _("this recording")
-                    serviceref = self.getCurrent()
-                    if filename and os.path.realpath(filename) == os.path.realpath(serviceref.getPath()):
-                        timer.afterEvent = AFTEREVENT.NONE
-                        self.session.nav.RecordTimer.removeEntry(timer)
-                        if config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.use_wastebasket.value:
-                            self.deleteTrashConfirmed(True)
-                        elif config.AdvancedMovieSelection.askdelete.value and not config.AdvancedMovieSelection.use_wastebasket.value:
-                            self.deleteConfirmed(True)
-                        else:
-                            if not config.AdvancedMovieSelection.askdelete.value:
-                                self.delete()
+                    for serviceref in self.to_delete:
+                        if filename and os.path.realpath(filename) == os.path.realpath(serviceref.getPath()):
+                            timer.afterEvent = AFTEREVENT.NONE
+                            self.session.nav.RecordTimer.removeEntry(timer)
+                    if config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.use_wastebasket.value:
+                        self.deleteTrashConfirmed(True)
+                    elif config.AdvancedMovieSelection.askdelete.value and not config.AdvancedMovieSelection.use_wastebasket.value:
+                        self.deleteConfirmed(True)
         
     def deleteTrashConfirmed(self, confirmed):
         if not confirmed:
@@ -903,52 +895,38 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
     def updateName(self):
         location = (_("Movie location: %s") % config.movielist.last_videodir.value)
         self["Movielocation"].setText(location)
+        serviceref = self.getCurrent()
+        self["MovieSize"].newService(serviceref)
         event = self["list"].getCurrentEvent()
+        info = self["list"].getCurrentInfo()
         if event is not None:
             moviename = event.getEventName()
-            if moviename.endswith(".ts"):
-                movietitle = moviename[:-3]
-            elif moviename.endswith(".mp4") or moviename.endswith(".avi") or moviename.endswith(".mkv") or moviename.endswith(".mov") or moviename.endswith(".flv") or moviename.endswith(".m4v") or moviename.endswith(".mpg") or moviename.endswith(".iso"):
-                movietitle = moviename[:-4]
-            elif moviename.endswith(".divx") or moviename.endswith(".m2ts") or moviename.endswith(".mpeg"):
-                movietitle = moviename[:-5]
-            else:
-                movietitle = moviename
-            self["Movietitle"].setText(movietitle)
-            serviceref = self.getCurrent()
-            from ServiceProvider import ServiceCenter
-            info = ServiceCenter.getInstance().info(serviceref)
-            event = info.getEvent(serviceref)
-            if event is not None :
-                desc = event.getShortDescription()        
-            if movietitle == desc or desc == "":
+            self["Movietitle"].setText(moviename)
+            desc = event.getShortDescription()        
+            if moviename == desc or desc == "":
                 if config.AdvancedMovieSelection.show_date_shortdesc.value and config.AdvancedMovieSelection.show_begintime.value:
                     desc = getBeginTimeString(info, serviceref)
-                    self.summaries.showSep()
-                    self.summaries.updateShortDesc(desc)
+                    self.summaries.showSeperator()
+                    self.summaries.updateShortDescription(desc)
                     self["MovieService"].newService(None)
-                    self["MovieSize"].newService(serviceref)
                 elif config.AdvancedMovieSelection.show_date_shortdesc.value and not config.AdvancedMovieSelection.show_begintime.value:
                     desc = getDateString()
-                    self.summaries.showSep()
-                    self.summaries.updateShortDesc(desc)
+                    self.summaries.showSeperator()
+                    self.summaries.updateShortDescription(desc)
                     self["MovieService"].newService(None)
-                    self["MovieSize"].newService(serviceref)
                 else:
                     desc = ""
-                    self.summaries.NotShowSep()
-                    self.summaries.updateShortDesc(desc)
+                    self.summaries.hideSeperator()
+                    self.summaries.updateShortDescription(desc)
                     self["MovieService"].newService(None)
-                    self["MovieSize"].newService(serviceref)
             else:
-                self.summaries.showSep()
-                self.summaries.updateShortDesc(desc)
+                self.summaries.showSeperator()
+                self.summaries.updateShortDescription(desc)
                 self["MovieService"].newService(None)
-                self["MovieSize"].newService(serviceref)
         else:
             desc = ""
-            self.summaries.NotShowSep()
-            self.summaries.updateShortDesc(desc)
+            self.summaries.hideSeperator()
+            self.summaries.updateShortDescription(desc)
             self["Movietitle"].setText(_("Advanced Movie Selection"))
             self["MovieService"].newService(None)
             self["MovieSize"].newService(None)

@@ -416,7 +416,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
 
     def exitAnswer(self, result):
         if result is None:
-            self.session.open(MessageBox, _("Aborted by user !!"), MessageBox.TYPE_ERROR)
+            self.session.open(MessageBox, _("Aborted by user!!"), MessageBox.TYPE_ERROR)
         if result is False:
             self.save()
             quitMainloop(2)
@@ -426,7 +426,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
 
     def exitAnswer2(self, result):
         if result is None:
-            self.session.open(MessageBox, _("Aborted by user !!"), MessageBox.TYPE_ERROR)
+            self.session.open(MessageBox, _("Aborted by user!!"), MessageBox.TYPE_ERROR)
         if result is False:
             self.save()
             self.close()
@@ -460,7 +460,7 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
             self.skinName = ["AdvancedMovieSelectionButtonSetupXD"]
         else:
             self.skinName = ["AdvancedMovieSelectionButtonSetupSD"]
-        self["important"] = StaticText(_("IMPORTANT: If changes are made here the Advanced Movie Selection must be completely closed so the changes can be adopted !!"))
+        self["important"] = StaticText(_("IMPORTANT: If changes are made here the Advanced Movie Selection must be completely closed so the changes can be adopted!!"))
         self["key_red"] = Button(_("Cancel"))
         self["key_green"] = Button(_("Save/Close"))
         self["key_yellow"] = Button(_("Own button description"))

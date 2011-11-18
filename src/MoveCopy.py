@@ -89,29 +89,19 @@ class MovieMove(ChoiceBox):
         os.rmdir(config.movielist.last_videodir.value)
         self.gotFilename(defaultMoviePath())
 
-    # TODO: not used, remove? 
-    def CreateConfirmedPath(self, DirToCreate):
-        if DirToCreate is not None and DirToCreate <> "":
-            if createDir(self.ParentDir + DirToCreate.strip()):
-                MovieMove(session=self.session, service=self.service_list[0])
-            else:
-                self.session.openWithCallback(MovieMove(session=self.session, service=self.service_list[0]), MessageBox, (_("The directory ' %s 'could not be created!") % (config.movielist.last_videodir.value + DirToCreate.lstrip())), MessageBox.TYPE_WARNING)
-        else:
-            MovieMove(session=self.session, service=self.service_list[0])	
-            
     def gotFilename(self, destinationpath, retval=None):
         if destinationpath is None:
             self.skipMoveFile(_("Directory selection has been canceled"))
         else:
             self.destinationpath = destinationpath
             listtmp = [(_("Move (in the background)"), "VH"), (_("Move (in the foreground)"), "VS"), (_("Copy (in the background)"), "KH"), (_("Copy (in the foreground)"), "KS"), (_("Abort"), "AB") ]
-            self.session.openWithCallback(self.DoMove, ChoiceBox, title=((_("How to proceed '%s'") % self.name) + ' ' + (_("from %s") % self.sourcepath) + ' ' + (_("to %s") % self.destinationpath) + ' ' + _("be moved/copied?")), list=listtmp)
+            self.session.openWithCallback(self.doMove, ChoiceBox, title=((_("How to proceed '%s'") % self.name) + ' ' + (_("from %s") % self.sourcepath) + ' ' + (_("to %s") % self.destinationpath) + ' ' + _("be moved/copied?")), list=listtmp)
     
     def getMovieFileName(self, service):
         filename = service.getPath().rsplit('/', 1)[1]
         return filename.rsplit(".", 1)[0]
     
-    def DoMove(self, confirmed):
+    def doMove(self, confirmed):
         if confirmed is not None:
             if confirmed[1] != "AB":
                 if os.path.exists(self.destinationpath) is False:

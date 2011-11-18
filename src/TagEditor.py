@@ -105,7 +105,7 @@ class TagEditor(Screen):
                 tags.append(ret)
                 self.updateMenuList(tags, [ret])
         else:
-            self.session.open(MessageBoxEx, _("Aborted by user !!"), MessageBoxEx.TYPE_ERROR)
+            self.session.open(MessageBoxEx, _("Aborted by user!!"), MessageBoxEx.TYPE_ERROR)
 
     def loadTagsFile(self):
         try:
@@ -203,11 +203,11 @@ class TagEditor(Screen):
 
     def removeUnused(self):
         self.session.openWithCallback(
-            self.removeUnusedCallback, MessageBoxEx, _("Do you really want to delete unused tags from default taglist ?\n(Note that 'Cancel' will not undo this!)"))
+            self.removeUnusedCallback, MessageBoxEx, _("Do you really want to delete unused tags from default taglist?\n(Note that 'Cancel' will not undo this!)"))
 
     def removeUnusedCallback(self, result):
         if result is None:
-            self.session.open(MessageBoxEx, _("Aborted by user !!"), MessageBoxEx.TYPE_ERROR)
+            self.session.open(MessageBoxEx, _("Aborted by user!!"), MessageBoxEx.TYPE_ERROR)
         if result:
             tags = [x[1] for x in self["list"].getSelectionsList()]
             self.foreachTimerTags(lambda t, tg: self.joinTags(tags, tg))
@@ -228,7 +228,7 @@ class TagEditor(Screen):
     def renameTag(self):
         self.thistag = self["list"].list[self["list"].getSelectedIndex()][0]
         self.session.openWithCallback(
-            self.renameTagCallback, InputBox, title = _("Rename tag \"%s\" in movies and default taglist ?\n(Note that 'Cancel' will not undo this!)") % (self.thistag[1]), text = self.thistag[1])
+            self.renameTagCallback, InputBox, title = _("Rename tag \"%s\" in movies and default taglist?\n(Note that 'Cancel' will not undo this!)") % (self.thistag[1]), text = self.thistag[1])
 
     def renameTagCallback(self, res):
         res = res and res.strip().replace(" ", "_").capitalize()
@@ -244,11 +244,11 @@ class TagEditor(Screen):
     def removeTag(self):
         self.thistag = self["list"].list[self["list"].getSelectedIndex()][0]
         self.session.openWithCallback(
-            self.removeTagCallback, MessageBoxEx, _("Do you really want to delete tag \"%s\" from movies and default taglist ?\n(Caution can not be undone !)") % (self.thistag[1]))
+            self.removeTagCallback, MessageBoxEx, _("Do you really want to delete tag \"%s\" from movies and default taglist?\n(Caution can not be undone!)") % (self.thistag[1]))
 
     def removeTagCallback(self, result):
         if result is None:
-            self.session.open(MessageBoxEx, _("Aborted by user !!"), MessageBoxEx.TYPE_ERROR)
+            self.session.open(MessageBoxEx, _("Aborted by user!!"), MessageBoxEx.TYPE_ERROR)
         if result:
             thistag = self.thistag[1]
             self.foreachTimerTags(lambda t, tg: (thistag in tg) and self.setTimerTags(t, self.listReplace(tg, thistag)))
@@ -262,11 +262,11 @@ class TagEditor(Screen):
 
     def removeAll(self):
         self.session.openWithCallback(
-            self.removeAllCallback, MessageBoxEx, _("Do you really want to delete all tags from movies and default taglist ?\n(Caution can not be undones !)"))
+            self.removeAllCallback, MessageBoxEx, _("Do you really want to delete all tags from movies and default taglist?\n(Caution can not be undone!)"))
 
     def removeAllCallback(self, result):
         if result is None:
-            self.session.open(MessageBoxEx, _("Aborted by user !!"), MessageBoxEx.TYPE_ERROR)
+            self.session.open(MessageBoxEx, _("Aborted by user!!"), MessageBoxEx.TYPE_ERROR)
         if result:
             self.foreachTimerTags(lambda t, tg: tg and self.setTimerTags(t, []))
             self.foreachMovieTags(lambda r, tg: tg and self.setMovieTags(r, []))

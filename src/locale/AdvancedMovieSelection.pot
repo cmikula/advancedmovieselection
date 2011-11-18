@@ -713,11 +713,11 @@ msgstr ""
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:419
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:429
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:825
-msgid "Aborted by user !!"
+msgid "Aborted by user!!"
 msgstr ""
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:463
-msgid "IMPORTANT: If changes are made here the Advanced Movie Selection must be completely closed so the changes can be adopted !!"
+msgid "IMPORTANT: If changes are made here the Advanced Movie Selection must be completely closed so the changes can be adopted!!"
 msgstr ""
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:464
@@ -2211,28 +2211,28 @@ msgstr ""
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/TagEditor.py:206
 msgid ""
-"Do you really want to delete unused tags from default taglist ?\n"
+"Do you really want to delete unused tags from default taglist?\n"
 "(Note that 'Cancel' will not undo this!)"
 msgstr ""
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/TagEditor.py:231
 #, python-format
 msgid ""
-"Rename tag \"%s\" in movies and default taglist ?\n"
+"Rename tag \"%s\" in movies and default taglist?\n"
 "(Note that 'Cancel' will not undo this!)"
 msgstr ""
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/TagEditor.py:247
 #, python-format
 msgid ""
-"Do you really want to delete tag \"%s\" from movies and default taglist ?\n"
-"(Caution can not be undone !)"
+"Do you really want to delete tag \"%s\" from movies and default taglist?\n"
+"(Caution can not be undone!)"
 msgstr ""
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/TagEditor.py:265
 msgid ""
-"Do you really want to delete all tags from movies and default taglist ?\n"
-"(Caution can not be undones !)"
+"Do you really want to delete all tags from movies and default taglist?\n"
+"(Caution can not be undone!)"
 msgstr ""
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/TagEditor.py:282
