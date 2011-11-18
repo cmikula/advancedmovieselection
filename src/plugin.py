@@ -482,9 +482,14 @@ class WastebasketTimer():
             w_h = config.AdvancedMovieSelection.empty_wastebasket_time.value[0]
             w_m = config.AdvancedMovieSelection.empty_wastebasket_time.value[1]
             dt = datetime(now.tm_year, now.tm_mon, now.tm_mday, w_h, w_m)
-            nextUpdateSeconds = int(mktime(dt.timetuple()))
-            if nowSec > nextUpdateSeconds:
-                nextUpdateSeconds = int(mktime((dt + timedelta(value)).timetuple()))   
+            if value == 1:
+                nextUpdateSeconds = int(mktime(dt.timetuple()))
+                if nowSec > nextUpdateSeconds:
+                    dt += timedelta(value)
+                    nextUpdateSeconds = int(mktime(dt.timetuple()))
+            else:
+                dt += timedelta(value)
+                nextUpdateSeconds = int(mktime(dt.timetuple()))
             config.AdvancedMovieSelection.next_auto_empty_wastebasket.value = nextUpdateSeconds
             config.AdvancedMovieSelection.next_auto_empty_wastebasket.save()
             self.wastebasketTimer.startLongTimer(nextUpdateSeconds - nowSec)
@@ -543,7 +548,7 @@ class WastebasketTimer():
             
             if result == True:
                 config.AdvancedMovieSelection.last_auto_empty_wastebasket.value = int(time())
-                config.AdvancedMovieSelection.next_auto_empty_wastebasket.save()
+                config.AdvancedMovieSelection.last_auto_empty_wastebasket.save()
                 self.configChange()
 
 waste_timer = None
