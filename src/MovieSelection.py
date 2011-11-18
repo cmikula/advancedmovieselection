@@ -908,21 +908,21 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                     desc = getBeginTimeString(info, serviceref)
                     self.summaries.showSeperator()
                     self.summaries.updateShortDescription(desc)
-                    self["MovieService"].newService(None)
+                    self["MovieService"].newService(serviceref)
                 elif config.AdvancedMovieSelection.show_date_shortdesc.value and not config.AdvancedMovieSelection.show_begintime.value:
                     desc = getDateString()
                     self.summaries.showSeperator()
                     self.summaries.updateShortDescription(desc)
-                    self["MovieService"].newService(None)
+                    self["MovieService"].newService(serviceref)
                 else:
                     desc = ""
                     self.summaries.hideSeperator()
                     self.summaries.updateShortDescription(desc)
-                    self["MovieService"].newService(None)
+                    self["MovieService"].newService(serviceref)
             else:
                 self.summaries.showSeperator()
                 self.summaries.updateShortDescription(desc)
-                self["MovieService"].newService(None)
+                self["MovieService"].newService(serviceref)
         else:
             desc = ""
             self.summaries.hideSeperator()
