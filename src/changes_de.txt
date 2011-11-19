@@ -166,6 +166,7 @@ version 2.1
 version 2.2
 * fix: gemeldete fehler von 2.1 behoben
 * geändert: falsch gesetzte leerzeichen
+* geändert: nl übersetzung
 * neu: es können nun ordner und filme umbenannt werden
 * neu: abfrage ob film gelöscht werden soll und zurück zur filmliste
 * neu: mit lange info kann nun wenn installiert das merlinepgcenter während der filmwiedergabe aufgerufen werden
