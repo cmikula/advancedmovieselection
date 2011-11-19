@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-11-19 18:10+0100\n"
-"PO-Revision-Date: 2011-11-19 18:11+0100\n"
+"PO-Revision-Date: 2011-11-19 19:08+0100\n"
 "Last-Translator: JackDanie <JackDaniel@i-have-a-dreambox.com>\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
@@ -1932,15 +1932,15 @@ msgstr "Nein"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:399
 msgid "Yes, returning to movie list"
-msgstr "Ja und zurück zur Filmliste"
+msgstr "Ja, und zurück zur Filmliste"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:400
 msgid "Yes, and delete this movie"
-msgstr "Ja und den Film löschen"
+msgstr "Ja, und den Film löschen"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:401
 msgid "Yes, and after deleting return to movie list"
-msgstr "Ja und danach zurück zur Filmliste"
+msgstr "Ja, und nach dem löschen zurück zur Filmliste"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:403
 msgid "No, but restart from begin"
