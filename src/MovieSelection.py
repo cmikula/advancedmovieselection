@@ -165,6 +165,8 @@ class MovieContextMenu(Screen):
             menu.append((_("Wastebasket"), self.waste))
         if config.AdvancedMovieSelection.showmove.value and not (self.service.flags & eServiceReference.mustDescent):
             menu.append((_("Move/Copy"), self.movecopy))
+        if config.AdvancedMovieSelection.showrename.value:
+            menu.append((_("Rename"), boundFunction(self.retitel, session, service)))
         if config.AdvancedMovieSelection.showsearch.value:
             menu.append((_("Movie search"), boundFunction(self.searchmovie)))
         if config.AdvancedMovieSelection.showmark.value and config.usage.load_length_of_movies_in_moviellist.value and not (self.service.flags & eServiceReference.mustDescent):
@@ -172,8 +174,6 @@ class MovieContextMenu(Screen):
             menu.append((_("Mark movie as unseen"), boundFunction(self.setMovieStatus, 0)))
         if GP3Present and config.AdvancedMovieSelection.marknewicon.value and not (self.service.flags & eServiceReference.mustDescent):
             menu.append((_("Mark movie with new recordings icon"), boundFunction(self.marknewicon)))
-        if config.AdvancedMovieSelection.showrename.value:
-            menu.append((_("Rename"), boundFunction(self.retitel, session, service)))
         if config.AdvancedMovieSelection.pluginmenu_list.value:
             if not (self.service.flags & eServiceReference.mustDescent):
                 menu.extend([(p.description, boundFunction(self.execPlugin, p)) for p in plugins.getPlugins(PluginDescriptor.WHERE_MOVIELIST)])
