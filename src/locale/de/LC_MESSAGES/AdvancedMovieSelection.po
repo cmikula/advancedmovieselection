@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-11-18 12:15+0100\n"
-"PO-Revision-Date: 2011-11-18 12:17+0100\n"
+"PO-Revision-Date: 2011-11-19 14:43+0100\n"
 "Last-Translator: JackDanie <JackDaniel@i-have-a-dreambox.com>\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
@@ -310,7 +310,7 @@ msgstr "Speicherort der Senderlogos:"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:284
 msgid "Where to look for the provider logos? (Default is /usr/share/enigma2/picon)"
-msgstr "Wo soll nach den Senderlogos gesucht werden ? (Standardmäßig wird in /usr/share/enigma2/picon danach gesucht)"
+msgstr "Wo soll nach den Senderlogos gesucht werden? (Standardmäßig wird in /usr/share/enigma2/picon danach gesucht)"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:285
 msgid "Show rename in extensions menu from movielist:"
@@ -474,7 +474,7 @@ msgstr "Neue Aufnahmen Icon anzeigen im Menü der Filmliste:"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:319
 msgid "Displays mark movie with new recordings icon function in the menu at the movie list. Only Dreambox recordings ar possible to mark with this icon."
-msgstr "Mit dieser Option wird der Menüpunkt Neue Aufnahmen Icon wieder anzeigen im Menü der Filmliste angezeigt. Nur original Dreambox Aufnahmen können mit dem Icon für neue Aufnahmen markiert werden !"
+msgstr "Mit dieser Option wird der Menüpunkt Neue Aufnahmen Icon wieder anzeigen im Menü der Filmliste angezeigt. Nur original Dreambox Aufnahmen können mit dem Icon für neue Aufnahmen markiert werden!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:320
 msgid "Show new recordings icon by mark movie as unseen:"
@@ -546,7 +546,7 @@ msgstr "Alternative Sprungfunktionen aktivieren:"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:329
 msgid "If this option is activated more jump functions ar available. ATTENTION: Enigma 2 restart is necessary!"
-msgstr "Wenn diese Option aktiviert ist stehen mehr Sprungfunktionen zur Verfügung. ACHTUNG: Bei einer Änderung dieser Einstellung muss Enigma 2 neu gestartet werden (es kommt beim Speichern ein Abfrage) !"
+msgstr "Wenn diese Option aktiviert ist stehen mehr Sprungfunktionen zur Verfügung. ACHTUNG: Bei einer Änderung dieser Einstellung muss Enigma 2 neu gestartet werden (es kommt beim Speichern ein Abfrage)!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:332
 msgid "Change function from left/right buttons:"
@@ -554,7 +554,7 @@ msgstr "Funktion der Pfeiltasten (links/rechts) tauschen:"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:332
 msgid "If this option is activated the function of the left/right arrow buttons will changed. Normal you can use the buttons also for winding, if is changed you have quick access to the new jump function. ATTENTION: Enigma 2 restart is necessary!"
-msgstr "Wenn aktiviert ist anstelle vom Spulen das schnelle aufrufen der Sprungfunktion möglich. ACHTUNG: Bei einer Änderung dieser Einstellung muss Enigma 2 neu gestartet werden (es kommt beim Speichern ein Abfrage) !"
+msgstr "Wenn aktiviert ist anstelle vom Spulen das schnelle aufrufen der Sprungfunktion möglich. ACHTUNG: Bei einer Änderung dieser Einstellung muss Enigma 2 neu gestartet werden (es kommt beim Speichern ein Abfrage)!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:333
 msgid "Manual jump sensibility:"
@@ -654,7 +654,7 @@ msgstr "Wenn Sie diese Funktion aktivieren, werden alle Standard-Ausgaben von En
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:356
 msgid "No Helptext available!"
-msgstr "Kein Hilfstext vorhanden !"
+msgstr "Kein Hilfstext vorhanden!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:360
 msgid "IMDb plugin installed. Assign function to info button is possible."
@@ -691,7 +691,7 @@ msgstr "YTTrailer Erweiterung ist NICHT installiert. Trailer können NICHT im We
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:385
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:889
 msgid "Really close without saving settings?"
-msgstr "Wirklich ohne Speichern schließen ?"
+msgstr "Wirklich ohne Speichern schließen?"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:408
 msgid ""
@@ -700,7 +700,7 @@ msgid ""
 "With YES only Enigma 2 starts new, with NO the box make a restart."
 msgstr ""
 "Einige Einstellungen benötigen einen Neustart um wirksam zu werden.\n"
-"Wenn Sie einen Skin ohne PiG (Bild in Grafik/MiniTV) verwenden müssen Sie die Box komplett neu starten (Enigma 2 alleine reicht nicht) !\n"
+"Wenn Sie einen Skin ohne PiG (Bild in Grafik/MiniTV) verwenden müssen Sie die Box komplett neu starten (Enigma 2 alleine reicht nicht)!\n"
 "Mit JA wird \"nur\" Enigma 2 neu gestartet, mit NEIN die komplette Box."
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:410
@@ -711,7 +711,7 @@ msgid ""
 msgstr ""
 "Einige Einstellungen benötigen einen Enigma 2 Neustart um wirksam zu werden.\n"
 "\n"
-"Soll Enigma 2 nun neu gestartet werden ?"
+"Soll Enigma 2 nun neu gestartet werden?"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:413
 msgid "Some settings changes require close/reopen the movielist to take effect."
@@ -721,11 +721,11 @@ msgstr "Einige Einstellungen benötigen das Schließen und erneutes öffnen der 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:429
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:821
 msgid "Aborted by user!!"
-msgstr "Abbruch durch Benutzer !!"
+msgstr "Abbruch durch Benutzer!!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:463
 msgid "IMPORTANT: If changes are made here the Advanced Movie Selection must be completely closed so the changes can be adopted!!"
-msgstr "WICHTIG: Wenn Sie hier Änderungen vornehmen muss zum übernehmen dieser die Erweiterte Filmliste komplett geschlossen werden !!"
+msgstr "WICHTIG: Wenn Sie hier Änderungen vornehmen muss zum übernehmen dieser die Erweiterte Filmliste komplett geschlossen werden!!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/AdvancedMovieSelectionSetup.py:464
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/DownloadMovies.py:72
@@ -1219,7 +1219,7 @@ msgstr "nach %s"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:98
 msgid "be moved/copied?"
-msgstr "verschoben/kopiert werden ?"
+msgstr "verschoben/kopiert werden?"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MoveCopy.py:112
 msgid "File already exists"
@@ -1259,7 +1259,7 @@ msgid ""
 "Move/Copy aborted due to:\n"
 "%s"
 msgstr ""
-"Verschieben/Kopieren wurde abgebrochen !\n"
+"Verschieben/Kopieren wurde abgebrochen!\n"
 "%s"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieList.py:476
@@ -1280,8 +1280,8 @@ msgid ""
 "Improperly launched plugin.\n"
 "Aborting!"
 msgstr ""
-"Improperly launched plugin.\n"
-"Aborting!"
+"Falsch gestartete Erweiterung.\n"
+"Abbruch!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:105
 msgid "Show all movies"
@@ -1472,15 +1472,15 @@ msgstr "%s kann nun sicher entfernt werden."
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:287
 msgid "Error occurred during unmounting device!"
-msgstr "Beim aushängen ist ein Fehler aufgetreten !"
+msgstr "Beim aushängen ist ein Fehler aufgetreten!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:314
 msgid "No internet connection available!"
-msgstr "Keine Internetverbindung vorhanden !"
+msgstr "Keine Internetverbindung vorhanden!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:362
 msgid "Move/Copy not possible here!"
-msgstr "Verschieben/Kopieren hier nicht möglich !"
+msgstr "Verschieben/Kopieren hier nicht möglich!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:487
 #, python-format
@@ -1489,7 +1489,7 @@ msgid ""
 "%s?"
 msgstr ""
 "Die Filminfo und das Cover wirklich löschen von:\n"
-"%s  ?"
+"%s?"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:491
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:534
@@ -1497,7 +1497,7 @@ msgstr ""
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:817
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:389
 msgid "You cannot delete this!"
-msgstr "Das kann nicht gelöscht werden !"
+msgstr "Das kann nicht gelöscht werden!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:530
 #, python-format
@@ -1506,7 +1506,7 @@ msgid ""
 "%s?"
 msgstr ""
 "Das Cover wirklich löschen von:\n"
-"%s  ?"
+"%s?"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:572
 #, python-format
@@ -1515,7 +1515,7 @@ msgid ""
 "%s?"
 msgstr ""
 "Die Filminfo wirklich löschen von:\n"
-"%s  ?"
+"%s?"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:687
 msgid "Please wait... Loading list..."
@@ -1523,7 +1523,7 @@ msgstr "Lade Filmliste, bitte warten ..."
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:692
 msgid "ATTENTION: Ask before delete is disabled!"
-msgstr "ACHTUNG: Vor dem löschen nachfragen ist deaktiviert  !"
+msgstr "ACHTUNG: Vor dem löschen nachfragen ist deaktiviert!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:726
 msgid "Select the movie path"
@@ -1552,21 +1552,21 @@ msgstr "Film auswählen"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:757
 msgid "This cannot deleted, please select a movie for!"
-msgstr "Löschen hier nicht möglich, wählen Sie bitte dafür einen Film aus !"
+msgstr "Löschen hier nicht möglich, wählen Sie bitte dafür einen Film aus!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:763
 msgid "Do you really want to move selected movies to trashcan?"
-msgstr "Wollen Sie wirklich die markierten Filme in den Papierkorb verschieben ?"
+msgstr "Wollen Sie wirklich die markierten Filme in den Papierkorb verschieben?"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:765
 msgid "Do you really want to delete selected movies?"
-msgstr "Wollen Sie wirklich die markierten Filme löschen ?"
+msgstr "Wollen Sie wirklich die markierten Filme löschen?"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:805
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:809
 #, python-format
 msgid "%s is currently recording!"
-msgstr "%s wird gerade aufgenommen !"
+msgstr "%s wird gerade aufgenommen!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:805
 #, python-format
@@ -1581,12 +1581,12 @@ msgstr ""
 "\n"
 "Der Timer wird gelöscht und die Aufnahme von %s in den Papierkorb verschoben.\n"
 "\n"
-"Wollen Sie wirklich fortfahren ?"
+"Wollen Sie wirklich fortfahren?"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:807
 #, python-format
 msgid "Do you really want to move %s to trashcan?"
-msgstr "Wollen Sie wirklich %s in den Papierkorb verschieben ?"
+msgstr "Wollen Sie wirklich %s in den Papierkorb verschieben?"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:809
 #, python-format
@@ -1601,18 +1601,18 @@ msgstr ""
 "\n"
 "Der Timer und die Aufnahme von %s wird gelöscht.\n"
 "\n"
-"Wollen Sie wirklich fortfahren ?"
+"Wollen Sie wirklich fortfahren?"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:811
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:384
 #, python-format
 msgid "Do you really want to delete %s?"
-msgstr "%s wirklich löschen ?"
+msgstr "%s wirklich löschen?"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:850
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:886
 msgid "Delete failed!"
-msgstr "Löschen fehlgeschlagen !"
+msgstr "Löschen fehlgeschlagen!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:930
 msgid "Advanced Movie Selection"
@@ -1909,20 +1909,20 @@ msgid ""
 "Not possible!\n"
 "MerlinEPG and CoolTVGuide present or neither installed from this two plugins."
 msgstr ""
-"Nicht möglich !\n"
+"Nicht möglich!\n"
 "MerlinEPG und CoolTVGuide sind beide installiert, oder keines von beiden ist installiert."
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:394
 msgid "End of the movie is reached, the box now go to standby. Do that now?"
-msgstr "Das Ende des Filmes wurde erreicht, die Box fährt nun in den Bereitschaftsmodus. Soll das nun durchgeführt werden ?"
+msgstr "Das Ende des Filmes wurde erreicht, die Box fährt nun in den Bereitschaftsmodus. Soll das nun durchgeführt werden?"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:397
 msgid "End of the movie is reached, the box now go to shut down. Shutdown now?"
-msgstr "Das Ende des Filmes wurde erreicht, die Box schaltet sich nun aus. Soll das nun durchgeführt werden ?"
+msgstr "Das Ende des Filmes wurde erreicht, die Box schaltet sich nun aus. Soll das nun durchgeführt werden?"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:455
 msgid "No DVD-Player found!"
-msgstr "DVD-Player Erweiterung nicht gefunden !"
+msgstr "DVD-Player Erweiterung nicht gefunden!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:579
 msgid "Setup Advanced Movie Selection"
@@ -1961,47 +1961,47 @@ msgstr "Selbst zugeordnete Funktion"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:132
 msgid "Set tag here not possible, please select a movie for!"
-msgstr "Hier einen Tag anlegen ist nicht möglich, wählen Sie bitte dafür einen Film aus !"
+msgstr "Hier einen Tag anlegen ist nicht möglich, wählen Sie bitte dafür einen Film aus!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:138
 msgid "Trailer search here not possible, please select a movie!"
-msgstr "Trailer suche hier nicht möglich, wählen Sie bitte dafür einen Film aus !"
+msgstr "Trailer suche hier nicht möglich, wählen Sie bitte dafür einen Film aus!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:144
 msgid "Move/Copy from complete directory/symlink not possible, please select a single movie!"
-msgstr "Verschieben/Kopieren von ganzen Verzeichnissen/Symlinks nicht möglich, wählen Sie bitte dafür einen Film aus !"
+msgstr "Verschieben/Kopieren von ganzen Verzeichnissen/Symlinks nicht möglich, wählen Sie bitte dafür einen Film aus!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:150
 msgid "Rename here not possible, please select a movie!"
-msgstr "Umbenennen hier nicht möglich, wählen Sie bitte dafür einen Film aus !"
+msgstr "Umbenennen hier nicht möglich, wählen Sie bitte dafür einen Film aus!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:166
 msgid "TMDb search here not possible, please select a movie!"
-msgstr "TMDb suche hier nicht möglich, wählen Sie bitte dafür einen Film aus !"
+msgstr "TMDb suche hier nicht möglich, wählen Sie bitte dafür einen Film aus!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:172
 msgid "This may not be marked as seen!"
-msgstr "Das kann nicht als gesehen markiert werden !"
+msgstr "Das kann nicht als gesehen markiert werden!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:178
 msgid "This may not be marked as unseen!"
-msgstr "Das kann nicht als ungesehen markiert werden !"
+msgstr "Das kann nicht als ungesehen markiert werden!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:185
 msgid "Show new movie icon here not possible, please select a movie!"
-msgstr "Anzeigen vom neue Aufnahme Icon hier nicht möglich, wählen Sie bitte dafür einen Film aus !"
+msgstr "Anzeigen vom neue Aufnahme Icon hier nicht möglich, wählen Sie bitte dafür einen Film aus!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:210
 msgid "Unknown error!"
-msgstr "Unbekannter Fehler"
+msgstr "Unbekannter Fehler!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:212
 msgid "Plugin not found!"
-msgstr "Erweiterung nicht gefunden !"
+msgstr "Erweiterung nicht gefunden!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/QuickButton.py:214
 msgid "No plugin assigned!"
-msgstr "Keine Erweiterung zugeordnet !"
+msgstr "Keine Erweiterung zugeordnet!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/RecordPaths.py:61
 msgid "Record Paths Settings"
@@ -2095,7 +2095,7 @@ msgid ""
 "Do you want to replace it?"
 msgstr ""
 "Datei %s.ts ist schon vorhanden.\n"
-"Wollen Sie diese ersetzen ?"
+"Wollen Sie diese ersetzen?"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:144
 msgid "The target directory is not found. The file is not renamed."
@@ -2144,15 +2144,15 @@ msgstr "TMDb Suche für: %s"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/SearchTMDb.py:214
 msgid "No data found at themoviedb.org!"
-msgstr "Keine Daten auf themoviedb.org gefunden !"
+msgstr "Keine Daten auf themoviedb.org gefunden!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/SearchTMDb.py:215
 msgid ""
 "No data found at themoviedb.org!\n"
 "Do you want to edit the search name?"
 msgstr ""
-"Keine Daten auf themoviedb.org gefunden !\n"
-"Wollen Sie die Filmnamen bearbeiten und händisch suchen ?"
+"Keine Daten auf themoviedb.org gefunden!\n"
+"Wollen Sie die Filmnamen bearbeiten und manuell suchen?"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/SearchTMDb.py:218
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/SearchTMDb.py:271
@@ -2165,7 +2165,7 @@ msgid ""
 "Error!\n"
 "%s"
 msgstr ""
-"Fehler !\n"
+"Fehler!\n"
 "%s"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/SearchTMDb.py:261
@@ -2261,8 +2261,8 @@ msgid ""
 "Do you really want to delete unused tags from default taglist?\n"
 "(Note that 'Cancel' will not undo this!)"
 msgstr ""
-"Wirklich alle nicht verwendeten Tags aus der standard Tagliste löschen ?\n"
-"(Achtung das kann nicht mehr rückgängig gemacht werden !)"
+"Wirklich alle nicht verwendeten Tags aus der standard Tagliste löschen?\n"
+"(Achtung das kann nicht mehr rückgängig gemacht werden!)"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/TagEditor.py:231
 #, python-format
@@ -2270,8 +2270,8 @@ msgid ""
 "Rename tag \"%s\" in movies and default taglist?\n"
 "(Note that 'Cancel' will not undo this!)"
 msgstr ""
-"Tag \"%s\" umbenennen bei den Filmen und in der standard Tagliste ?\n"
-"(Achtung das kann nicht mehr rückgängig gemacht werden !)"
+"Tag \"%s\" umbenennen bei den Filmen und in der standard Tagliste?\n"
+"(Achtung das kann nicht mehr rückgängig gemacht werden!)"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/TagEditor.py:247
 #, python-format
@@ -2279,16 +2279,16 @@ msgid ""
 "Do you really want to delete tag \"%s\" from movies and default taglist?\n"
 "(Caution can not be undone!)"
 msgstr ""
-"Wollen Sie wirklich den Tag \"%s\" aus allen Filmen und aus der standard Tagliste entfernen ?\n"
-"(Achtung das kann nicht mehr rückgängig gemacht werden !)"
+"Wollen Sie wirklich den Tag \"%s\" aus allen Filmen und aus der standard Tagliste entfernen?\n"
+"(Achtung das kann nicht mehr rückgängig gemacht werden!)"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/TagEditor.py:265
 msgid ""
 "Do you really want to delete all tags from movies and default taglist?\n"
 "(Caution can not be undone!)"
 msgstr ""
-"Wirklich alle Tags aus den Filmen und der standard Tagliste löschen ?\n"
-"(Achtung das kann nicht mehr rückgängig gemacht werden !)"
+"Wirklich alle Tags aus den Filmen und der standard Tagliste löschen?\n"
+"(Achtung das kann nicht mehr rückgängig gemacht werden!)"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/TagEditor.py:282
 msgid "Add new tag"
@@ -2354,7 +2354,7 @@ msgstr "Letztes automatisches leeren vom Papierkorb:"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Wastebasket.py:221
 msgid "Never!"
-msgstr "Noch nie !"
+msgstr "Noch nie!"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Wastebasket.py:224
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Wastebasket.py:227
@@ -2392,13 +2392,13 @@ msgid ""
 "Now movie delete can damage the recording(s)!\n"
 "Realy delete movie?"
 msgstr ""
-"Zurzeit sind Aufnahmen aktiv oder starten gleich !\n"
-"Das löschen des Filmes kann die Aufnahme beschädigen !\n"
-"Wollen Sie nun wirklich den Film löschen ?"
+"Zurzeit sind Aufnahmen aktiv oder starten gleich!\n"
+"Das löschen des Filmes kann die Aufnahme beschädigen!\n"
+"Wollen Sie nun wirklich den Film löschen?"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Wastebasket.py:289
 msgid "Do you really want to delete all movies?"
-msgstr "Wollen Sie wirklich alle Filme löschen ?"
+msgstr "Wollen Sie wirklich alle Filme löschen?"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Wastebasket.py:313
 msgid ""
@@ -2406,9 +2406,9 @@ msgid ""
 "Now empty the Wastebasket can damage the recording(s)!\n"
 "Realy empty the Wastbasket?"
 msgstr ""
-"Zurzeit sind Aufnahmen aktiv oder starten gleich !\n"
-"Das leeren des Papierkorbes kann die Aufnahme beschädigen !\n"
-"Wollen Sie nun wirklich den Papierkorb leeren ?"
+"Zurzeit sind Aufnahmen aktiv oder starten gleich!\n"
+"Das leeren des Papierkorbes kann die Aufnahme beschädigen!\n"
+"Wollen Sie nun wirklich den Papierkorb leeren?"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Wastebasket.py:321
 msgid "Deleting in progress! Please wait..."
@@ -2417,7 +2417,7 @@ msgstr "Papierkorb leeren wird durchgeführt, bitte warten ..."
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Wastebasket.py:344
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Wastebasket.py:358
 msgid "Restore failed!"
-msgstr "Wiederherstellen fehlgeschlagen !"
+msgstr "Wiederherstellen fehlgeschlagen!"
 
 #~ msgid "The directory ' %s 'could not be created!"
 #~ msgstr "Das Verzeichnis  ' %s ' konnte nicht erstellt werden !"
