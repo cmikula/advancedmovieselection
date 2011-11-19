@@ -70,6 +70,10 @@ if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/YTTrailer/plugin.pyo")
     YTTrailerPresent = True
 else:
     YTTrailerPresent = False
+if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/MerlinEPGCenter/plugin.pyo"):
+    MerlinEPGCenterPresent = True
+else:
+    MerlinEPGCenterPresent = False
 
 config.AdvancedMovieSelection = ConfigSubsection()
 config.AdvancedMovieSelection.wastelist_buildtype = ConfigSelection(default="listMovies" , choices=[("listMovies", _("Only current location")), ("listAllMovies", _("Current location and all subdirectories")), ("listAllMoviesMedia", _("All directorys below '/media'")) ])
@@ -254,7 +258,7 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
         self["EPGActions"] = HelpableActionMap(self, "InfobarEPGActions",
             {
                 "showEventInfo": (self.openInfoView, _("Show event details")),
-                "showEventInfoPlugin": (self.openServiceList, _("Open servicelist")),
+                "showEventInfoPlugin": (self.openServiceList, _("Open servicelist"))
             })
         if config.AdvancedMovieSelection.exitkey.value and config.AdvancedMovieSelection.exitprompt.value:
             self["closeactions"] = HelpableActionMap(self, "WizardActions",
@@ -294,16 +298,22 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
                 if config.AdvancedMovieSelection.show_date_shortdesc.value and config.AdvancedMovieSelection.show_begintime.value:
                     desc = getBeginTimeString(info, serviceref)
                     self.summaries.showSeperator()
+                    self.summaries.updateTitle(name)
+                    self.summaries.updateShortDescription(desc)                    
                 elif config.AdvancedMovieSelection.show_date_shortdesc.value and not config.AdvancedMovieSelection.show_begintime.value:
                     desc = getDateString()
                     self.summaries.showSeperator()
+                    self.summaries.updateTitle(name)
+                    self.summaries.updateShortDescription(desc)
                 else:
+                    desc = ""
                     self.summaries.hideSeperator()
+                    self.summaries.updateTitle(name)
+                    self.summaries.updateShortDescription(desc)
             else:
                 self.summaries.showSeperator()
-
-            self.summaries.updateTitle(name)
-            self.summaries.updateShortDescription(desc)
+                self.summaries.updateTitle(name)
+                self.summaries.updateShortDescription(desc)
 
     def __onExecBegin(self):
         if self.firstime:
@@ -334,7 +344,7 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
                                 servicelist = InfoBar.instance.servicelist
                                 self.session.open(AdvancedProgramGuide, servicelist)
         else:
-            if MerlinEPGPresent and not AdvancedProgramGuidePresent and not CoolTVGuidePresent:
+            if MerlinEPGPresent and not AdvancedProgramGuidePresent and not CoolTVGuidePresent and not MerlinEPGCenterPresent:
                 if config.plugins.MerlinEPG.StartFirst.value and config.plugins.MerlinEPG.Columns.value:
                     self.session.open(Merlin_PGII)
                 else:
@@ -353,11 +363,15 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
                                     servicelist = InfoBar.instance.servicelist
                                     self.session.open(Merlin_PGd, servicelist)
             else:
-                if CoolTVGuidePresent and not AdvancedProgramGuidePresent and not MerlinEPGPresent:
+                if CoolTVGuidePresent and not AdvancedProgramGuidePresent and not MerlinEPGPresent and not MerlinEPGCenterPresent:
                     from Plugins.Extensions.CoolTVGuide.plugin import main as ctvmain
                     ctvmain(self.session)
                 else:
-                    self.session.open(MessageBox, _("Not possible!\nMerlinEPG and CoolTVGuide present or neither installed from this two plugins."), MessageBox.TYPE_INFO)
+                    if MerlinEPGCenterPresent and not CoolTVGuidePresent and not AdvancedProgramGuidePresent and not MerlinEPGPresent:
+                        from Plugins.Extensions.MerlinEPGCenter.plugin import MerlinEPGCenterStarter
+                        MerlinEPGCenterStarter.instance.openMerlinEPGCenter()
+                    else:
+                        self.session.open(MessageBox, _("Not possible!\nMerlinEPG and CoolTVGuide or/and MerlinEPGCenter present or neither installed from this three plugins."), MessageBox.TYPE_INFO)
             
     def openInfoView(self):
         from AdvancedMovieSelectionEventView import EventViewSimple
