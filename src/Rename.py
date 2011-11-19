@@ -63,14 +63,14 @@ class MovieRetitle(Screen, ConfigListScreen):
 			"cancel": self.keyCancel,
 		}, -2)
 
-		self.locationEl = getConfigListEntry(_("Location"), self.input_dir)
 		l = [
 			getConfigListEntry(_("Filename"), self.input_file),
 			getConfigListEntry(_("Title"), self.input_title),
 			getConfigListEntry(_("Description"), self.input_descr),
-			self.locationEl
+			getConfigListEntry(_("Location"), self.input_dir)
 		]
-
+		if self.is_dir:
+			del l[1:3]
 		ConfigListScreen.__init__(self, l)
 
 		self.onLayoutFinish.append(self.setCustomTitle)
