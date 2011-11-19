@@ -414,7 +414,7 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
 
     def leavePlayerConfirmed(self, answer):
         answer = answer and answer[1]
-        if answer in ("quitanddelete", "quitanddeleteconfirmed", "returnanddelete"):
+        if answer in ("quitanddelete", "quitanddeleteconfirmed", "returnanddelete", "returnanddeleteconfirmed"):
             ref = self.session.nav.getCurrentlyPlayingServiceReference()
             from enigma import eServiceCenter
             serviceHandler = eServiceCenter.getInstance()
@@ -437,10 +437,10 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
                 
         if answer in ("quit", "quitanddeleteconfirmed"):
             self.close()
-        if answer == "standby":
+        elif answer == "standby":
             self.session.openWithCallback(self.standby, MessageBox, _("End of the movie is reached, the box now go to standby. Do that now?"), timeout=20)
             self.close()
-        if answer == "shutdown":
+        elif answer == "shutdown":
             self.session.openWithCallback(self.shutdown, MessageBox, _("End of the movie is reached, the box now go to shut down. Shutdown now?"), timeout=20)
             self.close()
         elif answer in ("movielist", "returnanddeleteconfirmed"):
