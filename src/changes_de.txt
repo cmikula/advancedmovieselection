@@ -166,6 +166,8 @@ version 2.1
 version 2.2
 * fix: gemeldete fehler von 2.1 behoben
 * geändert: falsch gesetzte leerzeichen
+* neu: es können nun ordner und filme umbenannt werden
+* neu: abfrage ob film gelöscht werden soll und zurück zur filmliste
 * neu: mit lange info kann nun wenn installiert das merlinepgcenter während der filmwiedergabe aufgerufen werden
 * neu: bei der oled/lcd anzeige kann wenn keine kurzbeschreibung verfügbar ist eingestellt werden ob das datum der erstellung bzw. aufnahmezeitpunkt oder das aktuelle datum angezeigt werden soll
 ACHTUNG an die skinner, bei den screens AdvancedMovieSelection_summary und MoviePlayerExtended_summary kann nun auch <widget source="Seperator" geskinnt werden
