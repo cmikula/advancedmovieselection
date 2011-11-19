@@ -144,7 +144,7 @@ class QuickButton:
                             self.session.open(MessageBox, _("Move/Copy from complete directory/symlink not possible, please select a single movie!"), MessageBox.TYPE_INFO)
                 elif pname == _("Rename"):
                     if not (service.flags):
-                        self.session.openWithCallback(self.updateCurrentSelection, MovieRetitle, service, current)
+                        self.session.openWithCallback(self.reloadList, MovieRetitle, service)
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
                             self.session.open(MessageBox, _("Rename here not possible, please select a movie!"), MessageBox.TYPE_INFO)        

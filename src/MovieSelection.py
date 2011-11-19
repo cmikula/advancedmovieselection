@@ -26,7 +26,7 @@ from Components.ActionMap import HelpableActionMap, ActionMap, NumberActionMap
 from Components.MenuList import MenuList
 from Components.Sources.StaticText import StaticText
 from Screens.HelpMenu import HelpableScreen
-from MovieList import MovieList, eServiceReferenceHotplug
+from MovieList import MovieList, eServiceReferenceHotplug, eServiceReferenceBackDir, eServiceReferenceVDir
 from MovieSearch import MovieSearchScreen
 from Components.DiskInfo import DiskInfo
 from Components.Pixmap import Pixmap
@@ -165,8 +165,9 @@ class MovieContextMenu(Screen):
             menu.append((_("Wastebasket"), self.waste))
         if config.AdvancedMovieSelection.showmove.value and not (self.service.flags & eServiceReference.mustDescent):
             menu.append((_("Move/Copy"), self.movecopy))
-        if config.AdvancedMovieSelection.showrename.value:
-            menu.append((_("Rename"), boundFunction(self.retitel, session, service)))
+        if not (isinstance(service, eServiceReferenceBackDir) or isinstance(service, eServiceReferenceVDir) or isinstance(service, eServiceReferenceHotplug)):
+            if config.AdvancedMovieSelection.showrename.value:
+                menu.append((_("Rename"), boundFunction(self.retitel, session, service)))
         if config.AdvancedMovieSelection.showsearch.value:
             menu.append((_("Movie search"), boundFunction(self.searchmovie)))
         if config.AdvancedMovieSelection.showmark.value and config.usage.load_length_of_movies_in_moviellist.value and not (self.service.flags & eServiceReference.mustDescent):
@@ -342,7 +343,7 @@ class MovieContextMenu(Screen):
         self.session.openWithCallback(self.closeafterfinish, DownloadMovies, items, config.AdvancedMovieSelection.coversize.value)
 
     def retitel(self, session, service):
-        self.session.open(MovieRetitle, service, session.current_dialog)
+        self.session.openWithCallback(self.closeafterfinish, MovieRetitle, service)
 
     def imdbsearch(self):
         from ServiceProvider import ServiceCenter
