@@ -430,10 +430,11 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
                 self.session.openWithCallback(self.returnanddeleteConfirmed, MessageBox, _("Do you really want to delete %s?") % name)
                 return
             elif answer in("quitanddeleteconfirmed", "returnanddeleteconfirmed"):
-                offline = serviceHandler.offlineOperations(ref)
-                if offline.deleteFromDisk(0):
-                    self.session.openWithCallback(self.close, MessageBox, _("You cannot delete this!"), MessageBox.TYPE_ERROR)
-                    return
+                self.delete(ref)
+#                offline = serviceHandler.offlineOperations(ref)
+#                if offline.deleteFromDisk(0):
+#                    self.session.openWithCallback(self.close, MessageBox, _("You cannot delete this!"), MessageBox.TYPE_ERROR)
+#                    return
                 
         if answer in ("quit", "quitanddeleteconfirmed"):
             self.close()
@@ -453,6 +454,13 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
         elif answer == "restart":
             self.doSeek(0)
             self.setSeekState(self.SEEK_STATE_PLAY)
+
+    def delete(self, service):
+        from Trashcan import Trashcan
+        if config.AdvancedMovieSelection.use_wastebasket.value:
+            Trashcan.trash(service.getPath())
+        else:
+            Trashcan.delete(service.getPath())
 
     def standby(self, answer):
         if answer is not None:
