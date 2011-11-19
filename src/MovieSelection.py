@@ -58,7 +58,7 @@ from timer import TimerEntry
 from Trashcan import Trashcan
 from RecordTimer import AFTEREVENT
 #from MessageBoxEx import MessageBox as MessageBoxEx
-from time import localtime
+from time import localtime, strftime
 from datetime import datetime
 from Tools.FuzzyDate import FuzzyTime
 
@@ -750,6 +750,25 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             idx = self.list.getCurrentIndex()
             self.list.moveToIndex(min(idx + 1, len(self.list.list) - 1))
 
+    def getTrashMessage(self, qty, waste, recording, name=""):
+        if qty == 1:
+            if waste:
+                if recording:
+                    return (_("%s is currently recording!") % (name) + _("\n\nThe timer for %s will be delete for stop the recording and after this the movie will be move to trashcan.\n\nDo you really want to continue?") % (name))
+                else:
+                    return _("Do you really want to move %s to trashcan?") % (name)
+            else:
+                if recording:
+                    return (_("%s is currently recording!") % (name) + _("\n\nThe timer for %s will be delete for stop the recording and after this the movie will be deleted.\n\nDo you really want to continue?") % (name))
+                else:
+                    return _("Do you really want to delete %s?") % (name)
+        else:
+            timer_text = recording and _("Any timer is running!\nDo you really want to abort recording?\n") or ""
+            if waste: 
+                return timer_text + _("Do you really want to move selected movies to trashcan?")
+            else:
+                return timer_text + _("Do you really want to delete selected movies?")
+
     def delete(self):
         self.service = self.getCurrent()
         if self.service.flags & eServiceReference.mustDescent and not isinstance(self.service, eServiceReferenceDvd):
@@ -759,15 +778,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
 
         if len(self.list.multiSelection) > 0:
             self.to_delete = self.list.multiSelection[:]
-            if config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.use_wastebasket.value:
-                self.session.openWithCallback(self.deleteTrashConfirmed, MessageBox, _("Do you really want to move selected movies to trashcan?"))          
-            elif config.AdvancedMovieSelection.askdelete.value and not config.AdvancedMovieSelection.use_wastebasket.value:
-                self.session.openWithCallback(self.deleteConfirmed, MessageBox, _("Do you really want to delete selected movies?"))
-            elif not config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.use_wastebasket.value:
-                self.deleteTrashConfirmed(True)
-            else:
-                self.deleteConfirmed(True)
-            return
         else:
             self.to_delete = [self.service]
         
@@ -787,6 +797,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                     for serviceref in self.to_delete:
                         if filename and os.path.realpath(filename) == os.path.realpath(serviceref.getPath()):
                             recording = True
+                            continue
   
         result = False
         if self.service.flags & eServiceReference.mustDescent:
@@ -797,52 +808,37 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             if offline is not None:
                 if not offline.deleteFromDisk(1):
                     result = True
-                    
+
         if result == True:
-            if not config.AdvancedMovieSelection.askdelete.value and recording == True:
-                self.timerDelete(True)
-            elif config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.use_wastebasket.value and recording == True:
-                self.session.openWithCallback(self.timerDelete, MessageBox, (_("%s is currently recording!") % (name) + _("\n\nThe timer for %s will be delete for stop the recording and after this the movie will be move to trashcan.\n\nDo you really want to continue?") % (name)))            
-            elif config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.use_wastebasket.value and recording == False:
-                self.session.openWithCallback(self.deleteTrashConfirmed, MessageBox, _("Do you really want to move %s to trashcan?") % (name))
-            elif config.AdvancedMovieSelection.askdelete.value and not config.AdvancedMovieSelection.use_wastebasket.value and recording == True:
-                self.session.openWithCallback(self.timerDelete, MessageBox, (_("%s is currently recording!") % (name) + _("\n\nThe timer for %s will be delete for stop the recording and after this the movie will be deleted.\n\nDo you really want to continue?") % (name)))
-            elif config.AdvancedMovieSelection.askdelete.value and not config.AdvancedMovieSelection.use_wastebasket.value and recording == False:
-                self.session.openWithCallback(self.deleteConfirmed, MessageBox, _("Do you really want to delete %s?") % (name))
-            elif not config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.use_wastebasket.value:
-                self.deleteTrashConfirmed(True)
-            else:
+            if not config.AdvancedMovieSelection.askdelete.value:
                 self.deleteConfirmed(True)
+            else:
+                text = self.getTrashMessage(len(self.to_delete), config.AdvancedMovieSelection.use_wastebasket.value, recording, name)
+                self.session.openWithCallback(self.deleteTrashConfirmed, MessageBox, text)
         else:
             self.session.open(MessageBox, _("You cannot delete this!"), MessageBox.TYPE_ERROR)
 
-    def timerDelete(self, result):
-        if result is None:
-            self.session.open(MessageBox, _("Aborted by user!!"), MessageBox.TYPE_ERROR)
-            return
-        if result is False:
-            return
-        if result and NavigationInstance.instance.getRecordings():
+    def stopRemoveTimer(self, file_path):
+        if NavigationInstance.instance.getRecordings():
             for timer in NavigationInstance.instance.RecordTimer.timer_list:
-                if timer.state == TimerEntry.StateRunning:
+                if timer.isRunning():
                     try:
                         filename = "%s.ts" % timer.Filename
                     except:
                         filename = ""
-                    for serviceref in self.to_delete:
-                        if filename and os.path.realpath(filename) == os.path.realpath(serviceref.getPath()):
-                            timer.afterEvent = AFTEREVENT.NONE
+                    if filename and os.path.realpath(filename) == os.path.realpath(file_path):
+                        timer.afterEvent = AFTEREVENT.NONE
+                        timer.abort()
+                        if timer.repeated == 0:
                             self.session.nav.RecordTimer.removeEntry(timer)
-                    if config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.use_wastebasket.value:
-                        self.deleteTrashConfirmed(True)
-                    elif config.AdvancedMovieSelection.askdelete.value and not config.AdvancedMovieSelection.use_wastebasket.value:
-                        self.deleteConfirmed(True)
+                        return
         
     def deleteTrashConfirmed(self, confirmed):
         if not confirmed:
             return
         try:
             for item in self.to_delete:
+                self.stopRemoveTimer(item.getPath())
                 Trashcan.trash(item.getPath())
                 self["list"].removeService(item)
         except Exception, e:
@@ -854,9 +850,14 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         if not confirmed:
             return
 
+        if config.AdvancedMovieSelection.use_wastebasket.value:
+            self.deleteTrashConfirmed(confirmed)
+            return
+        
         for item in self.to_delete:
             result = False
             try:
+                self.stopRemoveTimer(item.getPath())
                 title = item.getPath()
                 if path.isfile(item.getPath()):
                     title = path.splitext(item.getPath())[0]
