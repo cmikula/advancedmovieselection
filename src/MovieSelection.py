@@ -904,27 +904,24 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         if event is not None:
             moviename = event.getEventName()
             self["Movietitle"].setText(moviename)
+            self["MovieService"].newService(serviceref)
             desc = event.getShortDescription()        
             if moviename == desc or desc == "":
                 if config.AdvancedMovieSelection.show_date_shortdesc.value and config.AdvancedMovieSelection.show_begintime.value:
                     desc = getBeginTimeString(info, serviceref)
                     self.summaries.showSeperator()
                     self.summaries.updateShortDescription(desc)
-                    self["MovieService"].newService(serviceref)
                 elif config.AdvancedMovieSelection.show_date_shortdesc.value and not config.AdvancedMovieSelection.show_begintime.value:
                     desc = getDateString()
                     self.summaries.showSeperator()
                     self.summaries.updateShortDescription(desc)
-                    self["MovieService"].newService(serviceref)
                 else:
                     desc = ""
                     self.summaries.hideSeperator()
                     self.summaries.updateShortDescription(desc)
-                    self["MovieService"].newService(serviceref)
             else:
                 self.summaries.showSeperator()
                 self.summaries.updateShortDescription(desc)
-                self["MovieService"].newService(serviceref)
         else:
             desc = ""
             self.summaries.hideSeperator()
