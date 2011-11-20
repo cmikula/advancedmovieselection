@@ -562,49 +562,52 @@ class WastebasketTimer():
         self.startTimer()
         
     def autoDeleteAllMovies(self):
+        retryvalue = "%s minutes" % int(config.AdvancedMovieSelection.next_empty_check.value)
         result = None
         if self.recTimer.isActive():
             self.recTimer.stop()
-        if Standby.inStandby is None:
-            self.recTimer.start(config.AdvancedMovieSelection.next_empty_check.value * 60000)
-            return
-        recordings = self.session.nav.getRecordings()
-        next_rec_time = -1
-        if not recordings:
-            next_rec_time = self.session.nav.RecordTimer.getNextRecordingTime()    
-        if config.movielist.last_videodir.value == "/hdd/movie/" and recordings or (next_rec_time > 0 and (next_rec_time - time()) < 360):
+        if not Screens.Standby.inStandby:
+            print "[AdvancedMovieSelection] Start automated deleting all movies but box not in standby, retry in", retryvalue
             self.recTimer.start(config.AdvancedMovieSelection.next_empty_check.value * 60000)
         else:
-            if self.recTimer.isActive():
-                self.recTimer.stop()
-            self.list = [ ]
-            
-            path = config.movielist.last_videodir.value
-            if not fileExists(path):
-                path = defaultMoviePath()
-                config.movielist.last_videodir.value = path
-                config.movielist.last_videodir.save()
-                
-            if config.AdvancedMovieSelection.wastelist_buildtype.value == 'listMovies':
-                trash = Trashcan.listMovies(path)
-            elif config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMovies':
-                trash = Trashcan.listAllMovies(path)
+            recordings = self.session.nav.getRecordings()
+            next_rec_time = -1
+            if not recordings:
+                next_rec_time = self.session.nav.RecordTimer.getNextRecordingTime()    
+            if config.movielist.last_videodir.value == "/hdd/movie/" and recordings or (next_rec_time > 0 and (next_rec_time - time()) < 360):           
+                print "[AdvancedMovieSelection] Start automated deleting all movies but recordings activ, retry at", retryvalue
+                self.recTimer.start(config.AdvancedMovieSelection.next_empty_check.value * 60000)
             else:
-                trash = Trashcan.listAllMovies("/media")
-            
-            result = True
-            try:
-                print "Start automated deleting all movies in trash list"
-                for service in trash:
-                    Trashcan.delete(service.getPath())
-            except Exception, e:
-                result = False
-                print e
-            
-            if result == True:
-                config.AdvancedMovieSelection.last_auto_empty_wastebasket.value = int(time())
-                config.AdvancedMovieSelection.last_auto_empty_wastebasket.save()
-                self.configChange()
+                if self.recTimer.isActive():
+                    self.recTimer.stop()
+                self.list = [ ]
+                
+                path = config.movielist.last_videodir.value
+                if not fileExists(path):
+                    path = defaultMoviePath()
+                    config.movielist.last_videodir.value = path
+                    config.movielist.last_videodir.save()
+                    
+                if config.AdvancedMovieSelection.wastelist_buildtype.value == 'listMovies':
+                    trash = Trashcan.listMovies(path)
+                elif config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMovies':
+                    trash = Trashcan.listAllMovies(path)
+                else:
+                    trash = Trashcan.listAllMovies("/media")
+                
+                result = True
+                try:
+                    print "[AdvancedMovieSelection] Start automated deleting all movies in trash list"
+                    for service in trash:
+                        Trashcan.delete(service.getPath())
+                except Exception, e:
+                    result = False
+                    print e
+                
+                if result == True:
+                    config.AdvancedMovieSelection.last_auto_empty_wastebasket.value = int(time())
+                    config.AdvancedMovieSelection.last_auto_empty_wastebasket.save()
+                    self.configChange()
 
 waste_timer = None
 
