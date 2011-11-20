@@ -764,7 +764,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                 else:
                     return _("Do you really want to delete %s?") % (name)
         else:
-            timer_text = recording and _("Any timer is running!\nDo you really want to abort recording?\n") or ""
+            timer_text = recording and _("Recordings are active, the timer(s) will also be deleted!\n") or ""
             if waste: 
                 return timer_text + _("Do you really want to move selected movies to trashcan?")
             else:

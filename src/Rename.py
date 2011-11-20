@@ -22,117 +22,138 @@
 # for localized messages
 from __init__ import _
 from Screens.Screen import Screen
-from Components.config import ConfigText, ConfigSelection, getConfigListEntry
+from Components.config import ConfigText, getConfigListEntry
 from Components.ActionMap import ActionMap
 from Components.ConfigList import ConfigListScreen
 from Components.Sources.StaticText import StaticText
-from enigma import eServiceReference, iServiceInformation
+from enigma import eServiceReference, iServiceInformation, getDesktop, ePoint
 from ServiceProvider import ServiceCenter
 import os
+from Components.Label import Label
+from Components.Pixmap import Pixmap
 
 class MovieRetitle(Screen, ConfigListScreen):
-	def __init__(self, session, service):
-		Screen.__init__(self, session)
-		self.skinName = [ "MovieRetitle", "Setup" ]
-		self.service = service
-		self.is_dir = service.flags & eServiceReference.mustDescent
+    def __init__(self, session, service):
+        Screen.__init__(self, session)
+        try:
+            sz_w = getDesktop(0).size().width()
+        except:
+            sz_w = 720
+        if sz_w == 1280:
+            self.skinName = ["AdvancedMovieSelection_Rename_HD"]
+        elif sz_w == 1024:
+            self.skinName = ["AdvancedMovieSelection_Rename_XD"]
+        else:
+            self.skinName = ["AdvancedMovieSelection_Rename_SD"]
+        self.service = service
+        self.is_dir = service.flags & eServiceReference.mustDescent
+        serviceHandler = ServiceCenter.getInstance()
+        info = serviceHandler.info(service)
+        path = service.getPath()
+        if self.is_dir:
+            self.original_file = service.getName()
+        else:
+            self.original_file = os.path.basename(os.path.splitext(path)[0]) 
+        self.original_name = info.getName(service)
+        self.original_desc = info.getInfoString(service, iServiceInformation.sDescription)
+        self.input_file = ConfigText(default=self.original_file, fixed_size=False, visible_width=82)
+        self.input_title = ConfigText(default=self.original_name, fixed_size=False, visible_width=82)
+        self.input_descr = ConfigText(default=self.original_desc, fixed_size=False, visible_width=82)
+        self["key_green"] = StaticText(_("Save"))
+        self["key_red"] = StaticText(_("Cancel"))
+        self["actions"] = ActionMap(["SetupActions"],
+        {
+            "ok": self.keyGo,
+            "save": self.keyGo,
+            "cancel": self.keyCancel,
+        }, -2)
+        self.list = [ ]
+        ConfigListScreen.__init__(self, self.list, session=self.session)
+        self.createSetup()
+        self["Path"] = Label(_("Location:") + ' ' + os.path.dirname(os.path.splitext(path)[0]))
+        self["HelpWindow"] = Pixmap()
+        self.onLayoutFinish.append(self.setCustomTitle)
 
-		serviceHandler = ServiceCenter.getInstance()
-		info = serviceHandler.info(service)
-		path = service.getPath()
-		if self.is_dir:
-			self.original_file = service.getName()
-		else:
-			self.original_file = os.path.basename(os.path.splitext(path)[0]) 
-		self.original_path = os.path.dirname(path)
-		self.original_name = info.getName(service)
-		self.original_desc = info.getInfoString(service, iServiceInformation.sDescription)
+    def createSetup(self):
+        self.list = []
+        if self.is_dir:
+            self.list.append(getConfigListEntry(_("Foldername:"), self.input_file))
+            self["config"].setList(self.list)
+        else:
+            self.list.append(getConfigListEntry(_("Filename:"), self.input_file))
+            self.list.append(getConfigListEntry(_("Movietitle:"), self.input_title))
+            self.list.append(getConfigListEntry(_("Description:"), self.input_descr))
+            self["config"].setList(self.list)            
 
-		self.input_file = ConfigText(default=self.original_file, fixed_size=False, visible_width=82)
-		self.input_title = ConfigText(default=self.original_name, fixed_size=False, visible_width=82)
-		self.input_descr = ConfigText(default=self.original_desc, fixed_size=False, visible_width=82)
-		self.input_dir = ConfigSelection(choices=[self.original_path])
+    def showKeypad(self, retval = None):
+        current = self["config"].getCurrent()
+        helpwindowpos = self["HelpWindow"].getPosition()
+        if hasattr(current[1], 'help_window'):
+            if current[1].help_window.instance is not None:
+                current[1].help_window.instance.show()
+                current[1].help_window.instance.move(ePoint(helpwindowpos[0],helpwindowpos[1]))
+        
+    def setCustomTitle(self):
+        if self.is_dir:
+            self.setTitle(_("Change Foldername"))
+        else:
+            self.setTitle(_("Change File/Moviename and/or Description"))
 
-		self["key_green"] = StaticText(_("Save"))
-		self["key_red"] = StaticText(_("Cancel"))
+    def keyGo(self):
+        if self.is_dir:
+            if self.input_file.getText() != self.original_file:
+                self.renameDirectory(self.service, self.input_file.getText())
+                self.original_file = self.input_file.getText()
+        else:
+            if self.input_title.getText() != self.original_name or self.input_descr.getText() != self.original_desc:
+                self.setTitleDescr(self.service, self.input_title.getText(), self.input_descr.getText())
+                self.original_name = self.input_title.getText()
+                self.original_desc = self.input_descr.getText()
+            if self.input_file.getText() != self.original_file:
+                self.renameFile(self.service, self.input_file.getText())
+                self.original_file = self.input_file.getText()
+        self.close()
+    
+    def keyCancel(self):
+        self.close()
 
-		self["actions"] = ActionMap(["SetupActions"],
-		{
-			"ok": self.keyGo,
-			"save": self.keyGo,
-			"cancel": self.keyCancel,
-		}, -2)
+    def setTitleDescr(self, service, title, descr):
+        if service.getPath().endswith(".ts"):
+            meta_file = service.getPath() + ".meta"
+        else:
+            meta_file = service.getPath() + ".ts.meta"
+        if os.path.exists(meta_file):
+            metafile = open(meta_file, "r")
+            sid = metafile.readline()
+            oldtitle = metafile.readline().rstrip()
+            olddescr = metafile.readline().rstrip()
+            rest = metafile.read()
+            metafile.close()
+            if not title and title != "":
+                title = oldtitle
+            if not descr and descr != "":
+                descr = olddescr
+            metafile = open(meta_file, "w")
+            metafile.write("%s%s\n%s\n%s" % (sid, title, descr, rest))
+            metafile.close()
 
-		l = [
-			getConfigListEntry(_("Filename"), self.input_file),
-			getConfigListEntry(_("Title"), self.input_title),
-			getConfigListEntry(_("Description"), self.input_descr),
-			getConfigListEntry(_("Location"), self.input_dir)
-		]
-		if self.is_dir:
-			del l[1:3]
-		ConfigListScreen.__init__(self, l)
+    def renameDirectory(self, service, new_name):
+        try:
+            print self.service.getPath()
+            dir = os.path.dirname(self.service.getPath()[0:-1])
+            os.rename(self.service.getPath(), os.path.join(dir, self.input_file.getText() + "/"))
+            self.original_file = self.input_file.getText()
+        except Exception, e:
+            print e
 
-		self.onLayoutFinish.append(self.setCustomTitle)
-		
-	def setCustomTitle(self):
-		self.setTitle(_("Name and Description Input"))
-
-	def keyGo(self):
-		if self.is_dir:
-			if self.input_file.getText() != self.original_file:
-				self.renameDirectory(self.service, self.input_file.getText())
-				self.original_file = self.input_file.getText()
-		else:
-			if self.input_title.getText() != self.original_name or self.input_descr.getText() != self.original_desc:
-				self.setTitleDescr(self.service, self.input_title.getText(), self.input_descr.getText())
-				self.original_name = self.input_title.getText()
-				self.original_desc = self.input_descr.getText()
-			if self.input_file.getText() != self.original_file:
-				self.renameFile(self.service, self.input_file.getText())
-				self.original_file = self.input_file.getText()
-		self.close()
-	
-	def keyCancel(self):
-		self.close()
-
-	def setTitleDescr(self, service, title, descr):
-		if service.getPath().endswith(".ts"):
-			meta_file = service.getPath() + ".meta"
-		else:
-			meta_file = service.getPath() + ".ts.meta"
-		if os.path.exists(meta_file):
-			metafile = open(meta_file, "r")
-			sid = metafile.readline()
-			oldtitle = metafile.readline().rstrip()
-			olddescr = metafile.readline().rstrip()
-			rest = metafile.read()
-			metafile.close()
-			if not title and title != "":
-				title = oldtitle
-			if not descr and descr != "":
-				descr = olddescr
-			metafile = open(meta_file, "w")
-			metafile.write("%s%s\n%s\n%s" % (sid, title, descr, rest))
-			metafile.close()
-
-	def renameDirectory(self, service, new_name):
-		try:
-			print self.service.getPath()
-			dir = os.path.dirname(self.service.getPath()[0:-1])
-			os.rename(self.service.getPath(), os.path.join(dir, self.input_file.getText() + "/"))
-			self.original_file = self.input_file.getText()
-		except Exception, e:
-			print e
-
-	def renameFile(self, service, new_name):
-		try:
-			path = os.path.dirname(service.getPath())
-			file_name = os.path.basename(os.path.splitext(service.getPath())[0])
-			src = os.path.join(path, file_name)
-			dst = os.path.join(path, new_name)
-			import glob
-			for f in glob.glob(os.path.join(path, src + "*")):
-				os.rename(f, f.replace(src, dst))
-		except Exception, e:
-			print e
+    def renameFile(self, service, new_name):
+        try:
+            path = os.path.dirname(service.getPath())
+            file_name = os.path.basename(os.path.splitext(service.getPath())[0])
+            src = os.path.join(path, file_name)
+            dst = os.path.join(path, new_name)
+            import glob
+            for f in glob.glob(os.path.join(path, src + "*")):
+                os.rename(f, f.replace(src, dst))
+        except Exception, e:
+            print e

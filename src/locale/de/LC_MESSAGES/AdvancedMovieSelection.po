@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-19 18:10+0100\n"
-"PO-Revision-Date: 2011-11-19 19:08+0100\n"
+"POT-Creation-Date: 2011-11-20 15:02+0100\n"
+"PO-Revision-Date: 2011-11-20 15:14+0100\n"
 "Last-Translator: JackDanie <JackDaniel@i-have-a-dreambox.com>\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
@@ -1494,7 +1494,6 @@ msgstr ""
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:535
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:577
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:820
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:435
 msgid "You cannot delete this!"
 msgstr "Das kann nicht gelöscht werden!"
 
@@ -1591,27 +1590,23 @@ msgstr ""
 "Wollen Sie wirklich fortfahren?"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:765
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:426
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:430
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:427
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:434
 #, python-format
 msgid "Do you really want to delete %s?"
 msgstr "%s wirklich löschen?"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:767
-msgid ""
-"Any timer is running!\n"
-"Do you really want to abort recording?\n"
-msgstr ""
-"Eine Aufnahme ist ist aktiv!\n"
-"Wollen Sie wirklich die Aufnahme abbrechen?\n"
+msgid "Recordings are active, the timer(s) will also be deleted!\n"
+msgstr "Aktive Aufnahme(n) sind markiert, die dazugehörigen Aufnahmetimer werden automatisch gelöscht!\n"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:769
 msgid "Do you really want to move selected movies to trashcan?"
-msgstr "Wollen Sie wirklich die markierten Filme in den Papierkorb verschieben?"
+msgstr "Wollen Sie wirklich die markierte Auswahl in den Papierkorb verschieben?"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:771
 msgid "Do you really want to delete selected movies?"
-msgstr "Wollen Sie wirklich die markierten Filme löschen?"
+msgstr "Wollen Sie wirklich die markierte Auswahl löschen?"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:777
 msgid "This cannot deleted, please select a movie for!"
@@ -1622,11 +1617,11 @@ msgstr "Löschen hier nicht möglich, wählen Sie bitte dafür einen Film aus!"
 msgid "Delete failed!"
 msgstr "Löschen fehlgeschlagen!"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:932
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:929
 msgid "Advanced Movie Selection"
 msgstr "Erweiterte Filmauswahl"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1083
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1080
 msgid ""
 "Load Length of Movies in Movielist has been disabled.\n"
 "Close and reopen Movielist is required to apply the setting."
@@ -1634,36 +1629,36 @@ msgstr ""
 "Anzeigen der Spielzeit in der Filmliste wurde deaktiviert.\n"
 "Das schließen und wieder öffnen der Filmliste ist erforderlich damit die Einstellungen übernommen werden."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1130
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1127
 msgid "Tag 1"
 msgstr "Markierung 1"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1135
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1132
 msgid "Tag 2"
 msgstr "Markierung 2"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1190
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1187
 msgid "Movie location:"
 msgstr "Speicherort:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1206
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1203
 msgid "Please select the movie path..."
 msgstr "Please select the movie path..."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1228
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1225
 #, python-format
 msgid "Directory %s nonexistent."
 msgstr "Directory %s nonexistent."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1271
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1268
 msgid "Please select tag to filter..."
 msgstr "Please select tag to filter..."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1274
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1271
 msgid "No tags are set on these movies."
 msgstr "No tags are set on these movies."
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1293
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1290
 msgid ""
 "Use direction keys to move the Moviebar.\n"
 "Press OK button for save or the EXIT button to cancel.\n"
@@ -1940,7 +1935,7 @@ msgstr "Ja, und den Film löschen"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:401
 msgid "Yes, and after deleting return to movie list"
-msgstr "Ja, und nach dem löschen zurück zur Filmliste"
+msgstr "Ja, den Film löschen und zurück zur Filmliste"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:403
 msgid "No, but restart from begin"
@@ -1950,19 +1945,19 @@ msgstr "Nein, von Anfang nochmals beginnen"
 msgid "Stop playing this movie?"
 msgstr "Das abspielen des Filmes beenden ?"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:441
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:448
 msgid "End of the movie is reached, the box now go to standby. Do that now?"
 msgstr "Das Ende des Filmes wurde erreicht, die Box fährt nun in den Bereitschaftsmodus. Soll das nun durchgeführt werden?"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:444
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:451
 msgid "End of the movie is reached, the box now go to shut down. Shutdown now?"
 msgstr "Das Ende des Filmes wurde erreicht, die Box schaltet sich nun aus. Soll das nun durchgeführt werden?"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:502
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:516
 msgid "No DVD-Player found!"
 msgstr "DVD-Player Erweiterung nicht gefunden!"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:631
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:648
 msgid "Setup Advanced Movie Selection"
 msgstr "Erw. Filmauswahl Einstellungen"
 
@@ -2102,25 +2097,33 @@ msgstr "Standard Speicherort für Sofortaufnahme hier auswählen:"
 msgid "Location for move/copy files"
 msgstr "Standard Speicherort für Verschieben/Kopieren hier auswählen:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:67
-msgid "Filename"
-msgstr "Dateiname"
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:74
+msgid "Location:"
+msgstr "Speicherort:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:68
-msgid "Title"
-msgstr "Titel"
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:81
+msgid "Foldername:"
+msgstr "Ordnername:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:69
-msgid "Description"
-msgstr "Beschreibung"
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:84
+msgid "Filename:"
+msgstr "Dateiname:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:70
-msgid "Location"
-msgstr "Speicherort"
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:85
+msgid "Movietitle:"
+msgstr "Filmname:"
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:79
-msgid "Name and Description Input"
-msgstr "Filmnamen ändern"
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:86
+msgid "Description:"
+msgstr "Beschreibung:"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:99
+msgid "Change Foldername"
+msgstr "Ordnernamen ändern"
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:101
+msgid "Change File/Moviename and/or Description"
+msgstr "Datei/Filmnamen und/oder Beschreibung ändern"
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/SearchTMDb.py:179
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/SearchTMDb.py:219
@@ -2415,6 +2418,31 @@ msgstr "Papierkorb leeren wird durchgeführt, bitte warten ..."
 msgid "Restore failed!"
 msgstr "Wiederherstellen fehlgeschlagen!"
 
+#~ msgid "Recordings are actively!\n"
+#~ msgstr "Aufnahme(n) sind aktiv!\n"
+
+#~ msgid ""
+#~ "Do you really want to abort recordings and move selected movies to "
+#~ "trashcan?"
+#~ msgstr ""
+#~ "Wollen Sie wirklich die Aufnahme(n) abbrechen und die markierten Filme in "
+#~ "den Papierkorb verschieben?"
+
+#~ msgid "Do you really want to abort recordings and delete selected movies?"
+#~ msgstr ""
+#~ "Wollen Sie wirklich die Aufnahme(n) abbrechen und die markierten Filme "
+#~ "löschen?"
+
+#~ msgid ""
+#~ "Any timer is running!\n"
+#~ "Do you really want to abort recording?\n"
+#~ msgstr ""
+#~ "Eine Aufnahme ist ist aktiv!\n"
+#~ "Wollen Sie wirklich die Aufnahme abbrechen?\n"
+
+#~ msgid "Title"
+#~ msgstr "Titel"
+
 #~ msgid "Choose target folder"
 #~ msgstr "Choose target folder"
 
@@ -2700,9 +2728,6 @@ msgstr "Wiederherstellen fehlgeschlagen!"
 #~ msgid "no"
 #~ msgstr "nein"
 
-#~ msgid "Moviename:"
-#~ msgstr "Film:"
-
 #~ msgid "Can't write movietags, because no meta-file found!"
 #~ msgstr ""
 #~ "Konnte Filmtags nicht anlegen weil keine *.meta Datei gefunden wurde !"
@@ -2881,9 +2906,6 @@ msgstr "Wiederherstellen fehlgeschlagen!"
 #~ "Hier können Sie die Tastenbezeichnung für das Lesezeichen 3 ändern. Nach "
 #~ "dem speichern muss die Filmliste neu gestartet werden, danach stehen die "
 #~ "Änderungen zur Auswahl."
-
-#~ msgid "Recording paths"
-#~ msgstr "Std. Verzeichnisse "
 
 #~ msgid "Move (immediately)"
 #~ msgstr "Verschieben (sofort)"

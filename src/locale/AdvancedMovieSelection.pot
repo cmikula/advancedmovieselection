@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection(POT)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-19 18:10+0100\n"
-"PO-Revision-Date: 2011-11-19 18:10+0100\n"
+"POT-Creation-Date: 2011-11-20 15:01+0100\n"
+"PO-Revision-Date: 2011-11-20 15:02+0100\n"
 "Last-Translator: JackDanie <JackDaniel@i-have-a-dreambox.com>\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
@@ -1469,7 +1469,6 @@ msgstr ""
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:535
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:577
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:820
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:435
 msgid "You cannot delete this!"
 msgstr ""
 
@@ -1552,16 +1551,14 @@ msgid ""
 msgstr ""
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:765
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:426
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:430
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:427
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:434
 #, python-format
 msgid "Do you really want to delete %s?"
 msgstr ""
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:767
-msgid ""
-"Any timer is running!\n"
-"Do you really want to abort recording?\n"
+msgid "Recordings are active, the timer(s) will also be deleted!\n"
 msgstr ""
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:769
@@ -1581,46 +1578,46 @@ msgstr ""
 msgid "Delete failed!"
 msgstr ""
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:932
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:929
 msgid "Advanced Movie Selection"
 msgstr ""
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1083
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1080
 msgid ""
 "Load Length of Movies in Movielist has been disabled.\n"
 "Close and reopen Movielist is required to apply the setting."
 msgstr ""
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1130
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1127
 msgid "Tag 1"
 msgstr ""
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1135
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1132
 msgid "Tag 2"
 msgstr ""
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1190
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1187
 msgid "Movie location:"
 msgstr ""
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1206
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1203
 msgid "Please select the movie path..."
 msgstr ""
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1228
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1225
 #, python-format
 msgid "Directory %s nonexistent."
 msgstr ""
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1271
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1268
 msgid "Please select tag to filter..."
 msgstr ""
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1274
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1271
 msgid "No tags are set on these movies."
 msgstr ""
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1293
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/MovieSelection.py:1290
 msgid ""
 "Use direction keys to move the Moviebar.\n"
 "Press OK button for save or the EXIT button to cancel.\n"
@@ -1902,19 +1899,19 @@ msgstr ""
 msgid "Stop playing this movie?"
 msgstr ""
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:441
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:448
 msgid "End of the movie is reached, the box now go to standby. Do that now?"
 msgstr ""
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:444
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:451
 msgid "End of the movie is reached, the box now go to shut down. Shutdown now?"
 msgstr ""
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:502
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:516
 msgid "No DVD-Player found!"
 msgstr ""
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:631
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/plugin.py:648
 msgid "Setup Advanced Movie Selection"
 msgstr ""
 
@@ -2052,24 +2049,32 @@ msgstr ""
 msgid "Location for move/copy files"
 msgstr ""
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:67
-msgid "Filename"
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:74
+msgid "Location:"
 msgstr ""
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:68
-msgid "Title"
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:81
+msgid "Foldername:"
 msgstr ""
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:69
-msgid "Description"
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:84
+msgid "Filename:"
 msgstr ""
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:70
-msgid "Location"
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:85
+msgid "Movietitle:"
 msgstr ""
 
-#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:79
-msgid "Name and Description Input"
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:86
+msgid "Description:"
+msgstr ""
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:99
+msgid "Change Foldername"
+msgstr ""
+
+#: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/Rename.py:101
+msgid "Change File/Moviename and/or Description"
 msgstr ""
 
 #: /Users/JackDaniel/Ãbersetzungen/AdvancedMovieSelection/SearchTMDb.py:179
