@@ -422,13 +422,19 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
             name = info and info.getName(ref) or _("this recording")
 
             if answer == "quitanddelete":
-                from Screens.MessageBox import MessageBox
-                self.session.openWithCallback(self.deleteConfirmed, MessageBox, _("Do you really want to delete %s?") % name)
-                return
+                if config.AdvancedMovieSelection.askdelete.value:
+                    from Screens.MessageBox import MessageBox
+                    self.session.openWithCallback(self.deleteConfirmed, MessageBox, _("Do you really want to delete %s?") % name)
+                    return
+                else:
+                    self.deleteConfirmed(True)
             elif answer == "returnanddelete":
-                from Screens.MessageBox import MessageBox
-                self.session.openWithCallback(self.returnanddeleteConfirmed, MessageBox, _("Do you really want to delete %s?") % name)
-                return
+                if config.AdvancedMovieSelection.askdelete.value:
+                    from Screens.MessageBox import MessageBox
+                    self.session.openWithCallback(self.returnanddeleteConfirmed, MessageBox, _("Do you really want to delete %s?") % name)
+                    return
+                else:
+                    self.returnanddeleteConfirmed(True)
             elif answer in("quitanddeleteconfirmed", "returnanddeleteconfirmed"):
                 self.delete(ref)
 #                offline = serviceHandler.offlineOperations(ref)
