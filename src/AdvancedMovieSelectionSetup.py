@@ -40,6 +40,7 @@ from Components.Sources.List import List
 from Components.ActionMap import ActionMap, NumberActionMap
 from enigma import getDesktop, quitMainloop
 from Tools.Directories import fileExists
+from RemoteboxSetup import AdvancedMovieSelection_RemoteboxEntrys
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
     IMDbPresent = True
@@ -155,6 +156,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             "yellow":   self.buttonsetup,
             "blue":     self.RecPathSettings,
             "info":     self.about,
+            "menu":     self.remoteboxsetup,
             "nextBouquet": self.nextBouquet,
             "prevBouquet": self.prevBouquet,
         }, -2)
@@ -172,10 +174,16 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self["TMDbtxt"] = StaticText("")
         self["IMDbtxt"] = StaticText("")
         self["OFDbtxt"] = StaticText("")
+        self["MenuIcon"] = Pixmap()
+        self["MenuIcon"].hide()
         self.onShown.append(self.setWindowTitle)
         self.onLayoutFinish.append(self.saveListsize)
         self.pluginsavailable()
         self.onHide.append(self.updateSettings)
+
+    def remoteboxsetup(self):
+        if config.AdvancedMovieSelection.use_wastebasket.value and config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMoviesMedia':
+            self.session.open(AdvancedMovieSelection_RemoteboxEntrys)
 
     def updateSettings(self):
         if self.csel:
@@ -197,6 +205,10 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
 
     def setWindowTitle(self):
         self.setTitle(_("Advanced Movie Selection Setup"))
+        if config.AdvancedMovieSelection.use_wastebasket.value and config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMoviesMedia':
+            self.enableMenuIcon()
+        else:
+            self.disableMenuIcon()
 
     def keyLeft(self):
         ConfigListScreen.keyLeft(self)
@@ -241,7 +253,17 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.createSetup()
         if config.AdvancedMovieSelection.use_wastebasket.isChanged():
             config.AdvancedMovieSelection.use_wastebasket.save()
+            if config.AdvancedMovieSelection.use_wastebasket.value and config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMoviesMedia':
+                self.enableMenuIcon()
+            else:
+                self.disableMenuIcon()
             self.createSetup()
+        if config.AdvancedMovieSelection.wastelist_buildtype.isChanged():
+            config.AdvancedMovieSelection.wastelist_buildtype.save()
+            if config.AdvancedMovieSelection.use_wastebasket.value and config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMoviesMedia':
+                self.enableMenuIcon()
+            else:
+                self.disableMenuIcon()
         if config.AdvancedMovieSelection.debug.isChanged():
             config.AdvancedMovieSelection.debug.save()
             from Debug import Debug
@@ -445,7 +467,13 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             
     def RecPathSettings(self):
         self.session.open(RecordPathsSettings)
-        
+
+    def enableMenuIcon(self):
+        self["MenuIcon"].show()
+
+    def disableMenuIcon(self):
+        self["MenuIcon"].hide()
+
 class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
     def __init__(self, session, csel=None):
         Screen.__init__(self, session)

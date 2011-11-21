@@ -168,9 +168,29 @@ version 2.2
 * fix: löschen mit mehrfachauswahl wenn mehrere aktive aufnahmen dabei sind
 * geändert: falsch gesetzte leerzeichen (plenks)
 * geändert: nl übersetzung
+* geändert: usb geräteunterstützung verbessert
 * neu: es können nun ordner und filme umbenannt werden
 * neu: abfrage ob film gelöscht werden soll und zurück zur filmliste
 * neu: mit lange info kann nun wenn installiert das merlinepgcenter während der filmwiedergabe aufgerufen werden
 * neu: bei der oled/lcd anzeige kann wenn keine kurzbeschreibung verfügbar ist eingestellt werden ob das datum der erstellung bzw. aufnahmezeitpunkt oder das aktuelle datum angezeigt werden soll
 ACHTUNG an die skinner, bei den screens AdvancedMovieSelection_summary und MoviePlayerExtended_summary kann nun auch <widget source="Seperator" geskinnt werden (trennlinie die automatisch ein/ausgeblendet wird)
 AdvancedMovieSelection_Rename_HD, AdvancedMovieSelection_Rename_XD und AdvancedMovieSelection_Rename_SD sind hinzugekommen
+
+version 2.3
+* neu: einstellungen für "fernwartung" der dreamboxen (nur in verbindung mit dem papierkorb und /media für die papierkorbdateien)
+ACHTUNG an die skinner, bei den screens AdvancedMovieSelectionSetupHD,XD und SD ist das <widget name="MenuIcon" dazugekommen, und die screens AdvancedMovieSelection_RemoteboxEntrys_HD,XD und SD sowie AdvancedMovieSelection_RemoteboxEntryEdit_HD,XD und SD sind neu
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

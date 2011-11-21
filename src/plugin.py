@@ -29,7 +29,7 @@ from ServiceProvider import CutListSupport, ServiceCenter
 from Screens.MessageBox import MessageBox
 from Screens.InfoBar import InfoBar, MoviePlayer
 from Tools.Directories import fileExists, resolveFilename, SCOPE_HDD, SCOPE_CURRENT_SKIN
-from Components.config import config, ConfigSubsection, ConfigText, ConfigYesNo, ConfigInteger, ConfigSelection, ConfigClock
+from Components.config import config, ConfigSubsection, ConfigText, ConfigYesNo, ConfigInteger, ConfigSelection, ConfigClock, ConfigSubList
 from AdvancedMovieSelectionSetup import AdvancedMovieSelectionSetup
 from enigma import ePoint, eTimer, iPlayableService
 from TagEditor import TagEditor
@@ -42,6 +42,7 @@ from Components.Label import Label
 from Components.ServiceEventTracker import ServiceEventTracker
 from time import time, localtime, mktime
 from datetime import datetime, timedelta
+from RemoteboxSetup import initConfig
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
     IMDbPresent = True
@@ -186,6 +187,9 @@ config.AdvancedMovieSelection.next_empty_check = ConfigInteger(default=30, limit
 config.AdvancedMovieSelection.show_update_genre = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.show_begintime = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.show_date_shortdesc = ConfigYesNo(default=False)
+config.AdvancedMovieSelection.entriescount = ConfigInteger(0)
+config.AdvancedMovieSelection.Entries = ConfigSubList()
+initConfig()
 
 PlayerInstance = None
 
