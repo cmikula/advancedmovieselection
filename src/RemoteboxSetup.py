@@ -21,8 +21,10 @@
 #
 from __init__ import _
 from Components.Pixmap import Pixmap
-from enigma import getDesktop, ePoint
+from Components.GUIComponent import GUIComponent
+from enigma import getDesktop, ePoint, eListbox
 from enigma import eListboxPythonMultiContent, gFont, RT_HALIGN_LEFT, RT_VALIGN_CENTER, RT_HALIGN_CENTER
+from Components.MultiContent import MultiContentEntryText
 from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
 from Components.MenuList import MenuList
@@ -109,12 +111,12 @@ class AdvancedMovieSelection_RemoteboxEntrys(Screen):
         self["list"] = AdvancedMovieSelection_RemoteboxEntrysList([])
         self["actions"] = ActionMap(["WizardActions","MenuActions","ShortcutActions"],
             {
-             "ok": self.keyOK,
-             "back": self.keyClose,
-             "red": self.keyClose,
-             "green": self.keyGreen,
-             "yellow": self.keyYellow,
-             "blue": self.keyDelete,
+                 "ok": self.keyOK,
+                 "back": self.keyClose,
+                 "red": self.keyClose,
+                 "green": self.keyGreen,
+                 "yellow": self.keyYellow,
+                 "blue": self.keyDelete,
              }, -1)
         self.onShown.append(self.setWindowTitle)
         self.what = what
