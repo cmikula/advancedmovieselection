@@ -177,3 +177,5 @@ AdvancedMovieSelection_Rename_HD, AdvancedMovieSelection_Rename_XD und AdvancedM
 
 version 2.2.1
 * fix: löschen bug ohne papierkorb
+
+version 2.3

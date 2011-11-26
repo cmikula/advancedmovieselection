@@ -1,10 +1,12 @@
-#Sat Oct 15 13:04:50 CEST 2011
+#Sat Nov 26 17:25:55 CET 2011
 eclipse.preferences.version=1
 encoding//src/About.py=utf-8
 encoding//src/AdvancedMovieSelectionEventView.py=utf-8
 encoding//src/AdvancedMovieSelectionSetup.py=utf-8
 encoding//src/DownloadMovies.py=utf-8
 encoding//src/EventInformationTable.py=utf-8
+encoding//src/MessageQueue.py=utf-8
+encoding//src/MessageSocket.py=utf-8
 encoding//src/MoveCopy.py=utf-8
 encoding//src/MovieList.py=utf-8
 encoding//src/MoviePreview.py=utf-8
@@ -23,3 +25,4 @@ encoding//src/Version.py=utf-8
 encoding//src/Wastebasket.py=utf-8
 encoding//src/plugin.py=utf-8
 encoding//src/tmdb.py=utf-8
+encoding//test/SocketClient.py=utf-8

@@ -182,7 +182,7 @@ config.AdvancedMovieSelection.auto_empty_wastebasket = ConfigSelection(default="
 config.AdvancedMovieSelection.empty_wastebasket_time = ConfigClock(default=10800)
 config.AdvancedMovieSelection.last_auto_empty_wastebasket = ConfigInteger(default=0)
 config.AdvancedMovieSelection.next_auto_empty_wastebasket = ConfigInteger(default=0)
-config.AdvancedMovieSelection.next_empty_check = ConfigInteger(default=30, limits=(15, 60))
+config.AdvancedMovieSelection.next_empty_check = ConfigInteger(default=30, limits=(01, 60))
 config.AdvancedMovieSelection.show_update_genre = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.show_begintime = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.show_date_shortdesc = ConfigYesNo(default=False)
@@ -568,10 +568,26 @@ class WastebasketTimer():
         self.startTimer()
         
     def autoDeleteAllMovies(self):
+        from MessageSocket import instance as messageServer, MessageSocketClient
+        clients = messageServer.getClients()
+        remote_recordings = False
+        for client in clients:
+            request = MessageSocketClient.getRequest(client, messageServer.getPort(), "isRecording")
+            if request == "True":
+                remote_recordings = True
+                break
+        
         retryvalue = "%s minutes" % int(config.AdvancedMovieSelection.next_empty_check.value)
         result = None
+
         if self.recTimer.isActive():
             self.recTimer.stop()
+
+        if remote_recordings:
+            print "[AdvancedMovieSelection] Start automated deleting all movies but remote recordings activ, retry at", retryvalue
+            self.recTimer.start(config.AdvancedMovieSelection.next_empty_check.value * 60000)
+            return
+        
         if not Screens.Standby.inStandby:
             print "[AdvancedMovieSelection] Start automated deleting all movies but box not in standby, retry in", retryvalue
             self.recTimer.start(config.AdvancedMovieSelection.next_empty_check.value * 60000)
@@ -637,6 +653,9 @@ def autostart(reason, **kwargs):
                 else:
                     waste_timer.stopTimer()
                     print "[AdvancedMovieSelection] Auto empty from wastebasket disabled..."
+                from MessageSocket import instance
+                instance.start()
+                instance.startScanForClients()
             except:
                 pass
 
