@@ -948,10 +948,10 @@ class MovieList(GUIComponent):
                 if l[1] == 3:
                     cutList.remove(l)
             if status:
-                    x = self.list[cur_idx]
-                    length = x[1].getLength(x[0])
-                    new = (long(length * 90000), 3)
-                    cutList.append(new)
+                x = self.list[cur_idx]
+                length = x[1].getLength(x[0])
+                new = (long(length * 90000), 3)
+                cutList.append(new)
             cue.setCutList(cutList)
             self.l.invalidateEntry(cur_idx)
 

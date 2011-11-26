@@ -256,7 +256,7 @@ class Info:
 	def __init__(self, serviceref):
 		self.cue = CueSheet(serviceref)
 		self.serviceInfo = ServiceInfo(serviceref)
-		self.length = 5400
+		self.length = 0
 		self.end = 0
 		self.last = 0
 		serviceref.cueSheet = self.cueSheet
