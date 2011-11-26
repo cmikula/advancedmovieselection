@@ -174,3 +174,6 @@ version 2.2
 * neu: bei der oled/lcd anzeige kann wenn keine kurzbeschreibung verfügbar ist eingestellt werden ob das datum der erstellung bzw. aufnahmezeitpunkt oder das aktuelle datum angezeigt werden soll
 ACHTUNG an die skinner, bei den screens AdvancedMovieSelection_summary und MoviePlayerExtended_summary kann nun auch <widget source="Seperator" geskinnt werden (trennlinie die automatisch ein/ausgeblendet wird)
 AdvancedMovieSelection_Rename_HD, AdvancedMovieSelection_Rename_XD und AdvancedMovieSelection_Rename_SD sind hinzugekommen
+
+version 2.2.1
+* fix: löschen bug ohne papierkorb
