@@ -80,13 +80,16 @@ class MessageSocketServer():
             print "Could not start server, no static host ip"
             return
         import threading
-        if self.server:
-            self.server.shutdown()
+        self.shutdown()
         self.server = SocketServer.TCPServer((self.host, self.port), TCPHandler)
         self.t = threading.Thread(target=self.server.serve_forever)
         self.t.setDaemon(True) # don't hang on exit
         self.t.start()
         print "Server started:", self.host, self.port
+
+    def shutdown(self):
+        if self.server:
+            self.server.shutdown()
         
     def reconnect(self, host=None, port=None):
         if host:
