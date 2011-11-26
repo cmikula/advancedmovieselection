@@ -615,7 +615,7 @@ class SelectionEventInfo:
             self["Service"].newService(serviceref)
         else:
             self["Service"].newService(None)
-        self.updateName()
+        self.updateName(serviceref, evt)
         if config.AdvancedMovieSelection.showpreview.value == True:
             self.loadPreview(serviceref)
 
@@ -690,8 +690,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self["DescriptionBorder"].hide()
         self["warning"] = Label()
         if not config.AdvancedMovieSelection.askdelete.value:
-            if config.AdvancedMovieSelection.showinfo.value:
-                self["warning"].setText(_("ATTENTION: Ask before delete is disabled!"))
+            self["warning"].setText(_("ATTENTION: Ask before delete is disabled!"))
 
         if not config.AdvancedMovieSelection.startdir.value and not showLastDir:
             if path.exists(config.movielist.last_videodir.value):
@@ -816,7 +815,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                 self.deleteConfirmed(True)
             else:
                 text = self.getTrashMessage(len(self.to_delete), config.AdvancedMovieSelection.use_wastebasket.value, recording, name)
-                self.session.openWithCallback(self.deleteTrashConfirmed, MessageBox, text)
+                self.session.openWithCallback(self.deleteConfirmed, MessageBox, text)
         else:
             self.session.open(MessageBox, _("You cannot delete this!"), MessageBox.TYPE_ERROR)
 
@@ -895,20 +894,18 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
     def updateCurrentSelection(self, dummy=None):
         self.list.updateCurrentSelection()
 
-    def updateName(self):
+    def updateName(self, serviceref, event):
         location = (_("Movie location: %s") % config.movielist.last_videodir.value)
         self["Movielocation"].setText(location)
-        serviceref = self.getCurrent()
-        self["MovieSize"].newService(serviceref)
-        event = self["list"].getCurrentEvent()
-        info = self["list"].getCurrentInfo()
-        if event is not None:
+        if event:
             moviename = event.getEventName()
             self["Movietitle"].setText(moviename)
             self["MovieService"].newService(serviceref)
+            self["MovieSize"].newService(serviceref)
             desc = event.getShortDescription()        
             if moviename == desc or desc == "":
                 if config.AdvancedMovieSelection.show_date_shortdesc.value and config.AdvancedMovieSelection.show_begintime.value:
+                    info = self["list"].getCurrentInfo()
                     desc = getBeginTimeString(info, serviceref)
                     self.summaries.showSeperator()
                     self.summaries.updateShortDescription(desc)
