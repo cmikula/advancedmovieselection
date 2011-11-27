@@ -40,6 +40,7 @@ from Components.Sources.List import List
 from Components.ActionMap import ActionMap, NumberActionMap
 from enigma import getDesktop, quitMainloop
 from Tools.Directories import fileExists
+from ClientSetup import AdvancedMovieSelection_ClientSetup
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
     IMDbPresent = True
@@ -155,6 +156,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             "yellow":   self.buttonsetup,
             "blue":     self.RecPathSettings,
             "info":     self.about,
+            "menu":     self.clientsetup,
             "nextBouquet": self.nextBouquet,
             "prevBouquet": self.prevBouquet,
         }, -2)
@@ -172,10 +174,15 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self["TMDbtxt"] = StaticText("")
         self["IMDbtxt"] = StaticText("")
         self["OFDbtxt"] = StaticText("")
+        self["MenuIcon"] = Pixmap()
+        self["MenuIcon"].show()
         self.onShown.append(self.setWindowTitle)
         self.onLayoutFinish.append(self.saveListsize)
         self.pluginsavailable()
         self.onHide.append(self.updateSettings)
+
+    def clientsetup(self):
+        self.session.open(AdvancedMovieSelection_ClientSetup)
 
     def updateSettings(self):
         if self.csel:
@@ -445,6 +452,12 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             
     def RecPathSettings(self):
         self.session.open(RecordPathsSettings)
+        
+    def enableMenuIcon(self):
+        self["MenuIcon"].show()
+
+    def disableMenuIcon(self):
+        self["MenuIcon"].hide()
         
 class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
     def __init__(self, session, csel=None):

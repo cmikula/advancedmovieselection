@@ -26,6 +26,7 @@ that they, too, receive or can get the source code. And you must show them these
 import SocketServer
 import socket
 from MessageQueue import MessageQueue
+from Components.config import config
 
 instance = None
 
@@ -37,7 +38,7 @@ def getIpAddress(iface):
         interfaces = fp.readlines()
         fp.close()
     except:
-        print "interfaces - opening failed"
+        print "[AdvancedMovieSelection] interfaces - opening failed"
 
     currif = ""
     for i in interfaces:
@@ -77,7 +78,7 @@ class MessageSocketServer():
 
     def start(self):
         if not self.host:
-            print "Could not start server, no static host ip"
+            print "[AdvancedMovieSelection] Could not start server, no static host ip"
             return
         import threading
         self.shutdown()
@@ -85,7 +86,7 @@ class MessageSocketServer():
         self.t = threading.Thread(target=self.server.serve_forever)
         self.t.setDaemon(True) # don't hang on exit
         self.t.start()
-        print "Server started:", self.host, self.port
+        print "[AdvancedMovieSelection] Server started:", self.host, self.port
 
     def shutdown(self):
         if self.server:
@@ -110,7 +111,7 @@ class MessageSocketServer():
             return
         ip = self.host.split(".")
         ip = "%s.%s.%s" % (ip[0], ip[1], ip[2])
-        for x in range(1, 255):
+        for x in range(config.AdvancedMovieSelection.start_search_ip.value, config.AdvancedMovieSelection.stop_search_ip.value):
             try:
                 # Connect to server and send data
                 host = "%s.%s" % (ip, x)
@@ -140,14 +141,14 @@ class MessageSocketClient:
         request = data
         try:
             # Connect to server and send data
-            print "Send message to:", host
+            print "[AdvancedMovieSelection] Send message to:", host
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.settimeout(1)
             sock.connect((host, port))
             sock.send(data)
             # Receive data from the server and shut down
             request = sock.recv(1024)
-            print "Get request:", request
+            print "[AdvancedMovieSelection] Get request:", request
         except:
             pass
         finally:
