@@ -34,4 +34,7 @@ class MessageQueue:
                 request = "True"
             else:
                 request = "False"
+        elif data == "getDeviceName":
+            from Tools.HardwareInfo import HardwareInfo
+            request = HardwareInfo().get_device_name()
         return request
