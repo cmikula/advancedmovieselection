@@ -42,6 +42,15 @@ class MessageQueue:
         elif data == "inStandby":
             import Screens
             request = str(Screens.Standby.inStandby != None)
+        elif data.startswith("setPort"):
+            try:
+                from Components.config import config            
+                port = int(data.replace("setPort", ""))
+                serverInstance.reconnect(port=port)
+                config.AdvancedMovieSelection.server_port.value = port  
+                config.AdvancedMovieSelection.server_port.save()
+            except Exception, e:
+                print e
         return request
 
 def getClients():
@@ -63,22 +72,26 @@ class Client:
         self.name = self.sendData("getName")
 
     def sendData(self, data):
-        request = data
+        request = "Error"
         try:
             # Connect to server and send data
-            #print "Send message to:", self.ip
+            print "Send message to: %s:%s" % (self.ip, self.port), data
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.settimeout(1)
             sock.connect((self.ip, self.port))
             sock.send(data)
             # Receive data from the server and shut down
             request = sock.recv(1024)
-            #print "Get request:", request
         except:
             pass
         finally:
             sock.close()
+        print "Get request:", request
         return request
+
+    def setPort(self, port):
+        self.sendData("setPort" + str(port))
+        self.port = port
         
     def getAddress(self):
         return self.ip

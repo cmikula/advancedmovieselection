@@ -188,6 +188,7 @@ config.AdvancedMovieSelection.show_begintime = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.show_date_shortdesc = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.start_search_ip = ConfigInteger(default=1, limits=(1, 254))
 config.AdvancedMovieSelection.stop_search_ip = ConfigInteger(default=254, limits=(1, 254))
+config.AdvancedMovieSelection.server_port = ConfigInteger(default=20000, limits=(1, 65535))
 
 PlayerInstance = None
 
@@ -650,6 +651,7 @@ def autostart(reason, **kwargs):
                     waste_timer.stopTimer()
                     print "[AdvancedMovieSelection] Auto empty from wastebasket disabled..."
                 from MessageSocket import instance
+                instance.setPort(config.AdvancedMovieSelection.server_port.value)
                 instance.start()
                 instance.setSearchRange(config.AdvancedMovieSelection.start_search_ip.value, config.AdvancedMovieSelection.stop_search_ip.value)
                 instance.startScanForClients()

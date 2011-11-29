@@ -73,7 +73,7 @@ class MessageSocketServer():
         self.server = None
         self.active_clients = []
         self.host = getIpAddress('eth0')
-        self.port = 9999
+        self.port = 20000
         self.ip_from = 1
         self.ip_to = 254
 
@@ -106,6 +106,9 @@ class MessageSocketServer():
     def getPort(self):
         return self.port
 
+    def setPort(self, port):
+        self.port = port
+
     def findClients(self):
         from Client import Client
         self.active_clients = []
@@ -117,7 +120,7 @@ class MessageSocketServer():
             try:
                 # Connect to server and send data
                 host = "%s.%s" % (ip, x)
-                #print "Try connect to:", host
+                print "Try connect to: %s:%s" % (host, self.port)
                 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 sock.settimeout(0.1)
                 sock.connect((host, self.port))
@@ -137,7 +140,7 @@ class MessageSocketServer():
     def getClients(self):
         return self.active_clients
     
-    def setSearchRange(self, ip_from,  ip_to):
+    def setSearchRange(self, ip_from, ip_to):
         if ip_from > ip_to or ip_to >= 255:
             return
         self.ip_from = ip_from

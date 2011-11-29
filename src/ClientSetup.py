@@ -72,9 +72,10 @@ class ClientSetupList(GUIComponent):
         stby_text = "Power on"
         if client.inStandby():
             stby_text = "Stand by"
+        addr = client.getAddress() + ":" + str(client.getPort())
         res.append(MultiContentEntryText(pos=(5, 3), size=(width_up_l, 30), font=0, flags=RT_HALIGN_LEFT, text=client.getDeviceName()))
         res.append(MultiContentEntryText(pos=(pos_up_r, 3), size=(width_up_r, 22), font=1, flags=RT_HALIGN_RIGHT, text=stby_text))
-        res.append(MultiContentEntryText(pos=(5, 28), size=(width_dn_l, 30), font=1, flags=RT_HALIGN_LEFT, text=client.getAddress()))
+        res.append(MultiContentEntryText(pos=(5, 28), size=(width_dn_l, 30), font=1, flags=RT_HALIGN_LEFT, text=addr))
         res.append(MultiContentEntryText(pos=(pos_dn_r, 28), size=(width_dn_r, 22), font=1, flags=RT_HALIGN_RIGHT, text=""))
         return res
 
@@ -171,8 +172,7 @@ class ClientSetup(ConfigListScreen, Screen):
     def setWindowTitle(self):
         self.setTitle(_("Advanced Movie Selection - Clientbox setup"))  
         self.staticIP = getIpAddress('eth0')
-        if self.staticIP is not None:
-            self.staticIP = True       
+        if self.staticIP:
             self.createSetup()
             self["key_green"].setText(_("Save"))
             self["key_yellow"].setText(_("Manuall rescan"))
@@ -183,6 +183,7 @@ class ClientSetup(ConfigListScreen, Screen):
          
     def createSetup(self):
         self.configList = []
+        self.configList.append(getConfigListEntry(_("Port address:"), config.AdvancedMovieSelection.server_port, _("Set the port address for client and server")))
         self.configList.append(getConfigListEntry(_("Start search IP:"), config.AdvancedMovieSelection.start_search_ip, _("only last three digits")))
         self.configList.append(getConfigListEntry(_("Stop search IP:"), config.AdvancedMovieSelection.stop_search_ip, _("only last three digits")))
         self["config"].setList(self.configList)
@@ -208,15 +209,30 @@ class ClientSetup(ConfigListScreen, Screen):
             self.close()
             
     def keySave(self):
-        if self.staticIP == True:
+        if config.AdvancedMovieSelection.server_port.isChanged():
+            self.setPort()
+        if self.staticIP:
             ConfigListScreen.keySave(self)
         
     def keyYellow(self):
-        if self.staticIP == True:
+        if self.staticIP:
+            if config.AdvancedMovieSelection.server_port.isChanged():
+                self.setPort()
             messageServer.setSearchRange(config.AdvancedMovieSelection.start_search_ip.value, config.AdvancedMovieSelection.stop_search_ip.value)
             messageServer.findClients()
             self.list.reload()
 
+    def setPort(self):
+        config.AdvancedMovieSelection.server_port.save() 
+        port = config.AdvancedMovieSelection.server_port.value
+        for client in getClients():
+            if client.getAddress() != self.staticIP:
+                client.setPort(port)
+            else:
+                # this only set the port of local client !don't reconnect it!
+                client.port = port
+        messageServer.reconnect(port=port)
+        
     def keyUp(self):
         self["config"].instance.moveSelection(self["config"].instance.moveUp)
 
