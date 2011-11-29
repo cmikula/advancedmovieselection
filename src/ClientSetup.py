@@ -20,19 +20,20 @@
 #  distributed other than under the conditions noted above.
 #
 from __init__ import _
-from Components.Pixmap import Pixmap
 from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
+from Components.Pixmap import Pixmap
 from Components.Button import Button
-from Components.Sources.StaticText import StaticText
 from Components.config import config, getConfigListEntry
 from Components.ActionMap import ActionMap
 from Components.ConfigList import ConfigListScreen
-from MessageSocket import instance as messageServer, getIpAddress
-from enigma import getDesktop
-from Components.GUIComponent import GUIComponent
-from enigma import eListboxPythonMultiContent, eListbox, gFont, RT_HALIGN_LEFT, RT_HALIGN_RIGHT
 from Components.MultiContent import MultiContentEntryText
+from Components.GUIComponent import GUIComponent
+from Components.Sources.StaticText import StaticText
+from enigma import iServiceKeys, getDesktop, eListboxPythonMultiContent, eListbox, gFont, RT_HALIGN_LEFT, RT_HALIGN_RIGHT
+
+from MessageSocket import instance as messageServer, getIpAddress
+from Client import getClients
 
 staticIP = None
 
@@ -59,7 +60,7 @@ class ClientSetupList(GUIComponent):
         for x in self.onSelectionChanged:
             x()
 
-    def buildMovieListEntry(self, serviceref, info, begin, length):
+    def buildMovieListEntry(self, client):
         res = [ None ]
         width = self.l.getItemSize().width()
         width_up_r = 250
@@ -68,6 +69,13 @@ class ClientSetupList(GUIComponent):
         width_dn_l = width - width_dn_r
         pos_up_r = width - width_up_r 
         pos_dn_r = width - width_dn_r
+        stby_text = "Power on"
+        if client.inStandby():
+            stby_text = "Stand by"
+        res.append(MultiContentEntryText(pos=(5, 3), size=(width_up_l, 30), font=0, flags=RT_HALIGN_LEFT, text=client.getDeviceName()))
+        res.append(MultiContentEntryText(pos=(pos_up_r, 3), size=(width_up_r, 22), font=1, flags=RT_HALIGN_RIGHT, text=stby_text))
+        res.append(MultiContentEntryText(pos=(5, 28), size=(width_dn_l, 30), font=1, flags=RT_HALIGN_LEFT, text=client.getAddress()))
+        res.append(MultiContentEntryText(pos=(pos_dn_r, 28), size=(width_dn_r, 22), font=1, flags=RT_HALIGN_RIGHT, text=""))
         return res
 
     def moveToIndex(self, index):
@@ -82,15 +90,43 @@ class ClientSetupList(GUIComponent):
 
     GUI_WIDGET = eListbox
 
-    def load(self, root):
-        self.list = [ ]
-        return
+    def postWidgetCreate(self, instance):
+        instance.setContent(self.l)
+        instance.selectionChanged.get().append(self.selectionChanged)
+
+    def preWidgetRemove(self, instance):
+        instance.setContent(None)
+        instance.selectionChanged.get().remove(self.selectionChanged)
 
     def reload(self):
-        self.load()
+        self.list = []
+        for client in getClients():
+            self.list.append((client,))
+            print client.getAddress()
         self.l.setList(self.list)
 
-class AdvancedMovieSelection_ClientSetup(ConfigListScreen, Screen):
+    def remove(self, x):
+        for l in self.list[:]:
+            if l[0] == x:
+                self.list.remove(l)
+        self.l.setList(self.list)
+
+    def __len__(self):
+        return len(self.list)
+
+    def moveTo(self, client):
+        count = 0
+        for x in self.list:
+            if x[0] == client:
+                self.instance.moveSelectionTo(count)
+                return True
+            count += 1
+        return False
+    
+    def moveDown(self):
+        self.instance.moveSelection(self.instance.moveDown)
+
+class ClientSetup(ConfigListScreen, Screen):
     def __init__(self, session):
         Screen.__init__(self, session)
         try:
@@ -107,47 +143,49 @@ class AdvancedMovieSelection_ClientSetup(ConfigListScreen, Screen):
         self["key_red"] = Button(_("Close"))
         self["key_green"] = StaticText("")
         self["key_yellow"] = StaticText("")
-        self["actions"] = ActionMap(["WizardActions","MenuActions","ShortcutActions"],
+        self["actions"] = ActionMap(["WizardActions", "MenuActions", "ShortcutActions"],
             {
                  "ok": self.keySave,
                  "back": self.keyCancel,
                  "red": self.keyCancel,
                  "green": self.keySave,
                  "yellow": self.keyYellow,
+                 "up": self.keyUp,
+                 "down": self.keyDown,
              }, -1)
         self["status"] = StaticText("")
         self["help"] = StaticText("")
-        self["clientlist"] = StaticText("")
         self["green_button"] = Pixmap()
         self["yellow_button"] = Pixmap()
         self["green_button"].hide()
         self["yellow_button"].hide()
-        self.list = [ ]
-        ConfigListScreen.__init__(self, self.list, session=self.session)
+        self["list"] = ClientSetupList()
+        self.list = self["list"]
+        self.list.reload()
+        self.configList = []
+        ConfigListScreen.__init__(self, self.configList, session=self.session)
         if not self.showHelp in self["config"].onSelectionChanged:
             self["config"].onSelectionChanged.append(self.showHelp)
         self.onShown.append(self.setWindowTitle)
 
     def setWindowTitle(self):
-        clients = messageServer.getClients()
         self.setTitle(_("Advanced Movie Selection - Clientbox setup"))  
-        staticIP = getIpAddress('eth0')
-        if staticIP is not None:
-            staticIP = True       
+        self.staticIP = getIpAddress('eth0')
+        if self.staticIP is not None:
+            self.staticIP = True       
             self.createSetup()
             self["key_green"].setText(_("Save"))
             self["key_yellow"].setText(_("Manuall rescan"))
             self["green_button"].show()
             self["yellow_button"].show()
-            self["clientlist"].setText(_("Detected clients: %s") % clients)
         else:
             self["status"].setText(_("ATTENTION: DHCP in lan configuration is activ, no clientbox services available!"))
          
     def createSetup(self):
-        self.list = []
-        self.list.append(getConfigListEntry(_("Start search IP:"), config.AdvancedMovieSelection.start_search_ip, _("only last three digits")))
-        self.list.append(getConfigListEntry(_("Stop search IP:"), config.AdvancedMovieSelection.stop_search_ip, _("only last three digits")))
-        self["config"].setList(self.list)
+        self.configList = []
+        self.configList.append(getConfigListEntry(_("Start search IP:"), config.AdvancedMovieSelection.start_search_ip, _("only last three digits")))
+        self.configList.append(getConfigListEntry(_("Stop search IP:"), config.AdvancedMovieSelection.stop_search_ip, _("only last three digits")))
+        self["config"].setList(self.configList)
 
     def showHelp(self):
         current = self["config"].getCurrent()
@@ -170,10 +208,17 @@ class AdvancedMovieSelection_ClientSetup(ConfigListScreen, Screen):
             self.close()
             
     def keySave(self):
-        if staticIP == True:
+        if self.staticIP == True:
             ConfigListScreen.keySave(self)
         
     def keyYellow(self):
-        if staticIP == True:
-            messageServer.startScanForClients()
-        
+        if self.staticIP == True:
+            messageServer.setSearchRange(config.AdvancedMovieSelection.start_search_ip.value, config.AdvancedMovieSelection.stop_search_ip.value)
+            messageServer.findClients()
+            self.list.reload()
+
+    def keyUp(self):
+        self["config"].instance.moveSelection(self["config"].instance.moveUp)
+
+    def keyDown(self):
+        self["config"].instance.moveSelection(self["config"].instance.moveDown)

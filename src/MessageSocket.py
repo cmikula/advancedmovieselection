@@ -25,8 +25,6 @@ that they, too, receive or can get the source code. And you must show them these
 
 import SocketServer
 import socket
-from MessageQueue import MessageQueue
-from Components.config import config
 
 instance = None
 
@@ -60,10 +58,11 @@ class TCPHandler(SocketServer.BaseRequestHandler):
     """
 
     def handle(self):
+        from Client import MessageQueue
         # self.request is the TCP socket connected to the client
         data = self.request.recv(1024).strip()
-        print str(self.client_address[0]), "wrote"
-        print data
+        #print str(self.client_address[0]), "wrote"
+        #print data
         self.request.send(MessageQueue.getRequest(data))
 
 class MessageSocketServer():
@@ -75,6 +74,8 @@ class MessageSocketServer():
         self.active_clients = []
         self.host = getIpAddress('eth0')
         self.port = 9999
+        self.ip_from = 1
+        self.ip_to = 254
 
     def start(self):
         if not self.host:
@@ -106,12 +107,13 @@ class MessageSocketServer():
         return self.port
 
     def findClients(self):
+        from Client import Client
         self.active_clients = []
         if not self.server:
             return
         ip = self.host.split(".")
         ip = "%s.%s.%s" % (ip[0], ip[1], ip[2])
-        for x in range(config.AdvancedMovieSelection.start_search_ip.value, config.AdvancedMovieSelection.stop_search_ip.value):
+        for x in range(self.ip_from, self.ip_to + 1):
             try:
                 # Connect to server and send data
                 host = "%s.%s" % (ip, x)
@@ -119,7 +121,9 @@ class MessageSocketServer():
                 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 sock.settimeout(0.1)
                 sock.connect((host, self.port))
-                self.active_clients.append(host)
+                sock.close()
+                client = Client(host, self.port)
+                self.active_clients.append(client)
             except:
                 pass
             finally:
@@ -132,25 +136,11 @@ class MessageSocketServer():
         
     def getClients(self):
         return self.active_clients
+    
+    def setSearchRange(self, ip_from,  ip_to):
+        if ip_from > ip_to or ip_to >= 255:
+            return
+        self.ip_from = ip_from
+        self.ip_to = ip_to
         
 instance = MessageSocketServer()
-
-class MessageSocketClient:
-    @staticmethod
-    def getRequest(host, port, data):
-        request = data
-        try:
-            # Connect to server and send data
-            print "[AdvancedMovieSelection] Send message to:", host
-            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            sock.settimeout(1)
-            sock.connect((host, port))
-            sock.send(data)
-            # Receive data from the server and shut down
-            request = sock.recv(1024)
-            print "[AdvancedMovieSelection] Get request:", request
-        except:
-            pass
-        finally:
-            sock.close()
-        return request

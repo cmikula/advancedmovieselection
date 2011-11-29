@@ -40,7 +40,7 @@ from Components.Sources.List import List
 from Components.ActionMap import ActionMap, NumberActionMap
 from enigma import getDesktop, quitMainloop
 from Tools.Directories import fileExists
-from ClientSetup import AdvancedMovieSelection_ClientSetup
+from ClientSetup import ClientSetup
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
     IMDbPresent = True
@@ -182,7 +182,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.onHide.append(self.updateSettings)
 
     def clientsetup(self):
-        self.session.open(AdvancedMovieSelection_ClientSetup)
+        self.session.open(ClientSetup)
 
     def updateSettings(self):
         if self.csel:

@@ -406,7 +406,7 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
                 )
 
             from Screens.ChoiceBox import ChoiceBox
-            self.session.openWithCallback(self.leavePlayerConfirmed, ChoiceBox, title=_("Stop playing this movie?"), list = list)
+            self.session.openWithCallback(self.leavePlayerConfirmed, ChoiceBox, title=_("Stop playing this movie?"), list=list)
         else:
             self.leavePlayerConfirmed([True, how])
 
@@ -570,14 +570,8 @@ class WastebasketTimer():
         self.startTimer()
         
     def autoDeleteAllMovies(self):
-        from MessageSocket import instance as messageServer, MessageSocketClient
-        clients = messageServer.getClients()
-        remote_recordings = False
-        for client in clients:
-            request = MessageSocketClient.getRequest(client, messageServer.getPort(), "isRecording")
-            if request == "True":
-                remote_recordings = True
-                break
+        from Client import isAnyRecording
+        remote_recordings = isAnyRecording()
         
         retryvalue = "%s minutes" % int(config.AdvancedMovieSelection.next_empty_check.value)
         result = None
@@ -657,6 +651,7 @@ def autostart(reason, **kwargs):
                     print "[AdvancedMovieSelection] Auto empty from wastebasket disabled..."
                 from MessageSocket import instance
                 instance.start()
+                instance.setSearchRange(config.AdvancedMovieSelection.start_search_ip.value, config.AdvancedMovieSelection.stop_search_ip.value)
                 instance.startScanForClients()
             except:
                 pass
