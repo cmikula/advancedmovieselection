@@ -57,7 +57,7 @@ import NavigationInstance
 from timer import TimerEntry
 from Trashcan import Trashcan
 from RecordTimer import AFTEREVENT
-#from MessageBoxEx import MessageBox as MessageBoxEx
+from ClientSetup import ClientSetup
 from time import localtime, strftime
 from datetime import datetime
 from Tools.FuzzyDate import FuzzyTime
@@ -267,6 +267,8 @@ class MovieContextMenu(Screen):
             menu.append((_("Search Trailer on web"), boundFunction(self.showTrailer)))
         if config.AdvancedMovieSelection.showmenu.value:
             menu.append((_("Setup"), boundFunction(self.menusetup)))
+        if config.AdvancedMovieSelection.show_remote_setup.value:
+            menu.append((_("Clientbox setup"), boundFunction(self.serversetup)))
         self["menu"] = MenuList(menu)
         self.onShown.append(self.setWindowTitle)
 
@@ -286,6 +288,9 @@ class MovieContextMenu(Screen):
             self.close()        
         else:
             self.session.open(MessageBox, _("Error occurred during unmounting device!"), MessageBox.TYPE_ERROR)
+
+    def serversetup(self):
+        self.session.open(ClientSetup)
 
     def waste(self):
         from Wastebasket import Wastebasket

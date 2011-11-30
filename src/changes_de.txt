@@ -179,7 +179,7 @@ version 2.2.1
 * fix: löschen bug ohne papierkorb
 
 version 2.3
-* neu: fernwartung (leeren vom papierkorb), kann nur benutzt werden wenn papierkorb aktiv und bei papierkorb dateien "alles unter media" eingestellt ist (einstellungen sind dann unter der menü taste erreichbar)
+* neu: fernwartung (leeren vom papierkorb von entfernten boxen), kann nur benutzt werden wenn papierkorb aktiv und bei papierkorb dateien "alles unter media" eingestellt ist (einstellungen sind dann unter menü -> einstellungen -> menü erreichbar, oder kann im menü der filmliste angezeigt werden)
 * fix: wecken aus dem standby 
 ACHTUNG an die skinner, AdvancedMovieSelection_ClientSetup_HD, AdvancedMovieSelection_ClientSetup_XD und AdvancedMovieSelection_ClientSetup_SD sind hinzugekommen, und in den AdvancedMovieSelectionSetupHD,XD und SD ist das <widget name="MenuIcon" dazugekommen
 

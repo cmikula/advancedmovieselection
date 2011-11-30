@@ -189,6 +189,7 @@ config.AdvancedMovieSelection.show_date_shortdesc = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.start_search_ip = ConfigInteger(default=1, limits=(1, 254))
 config.AdvancedMovieSelection.stop_search_ip = ConfigInteger(default=254, limits=(1, 254))
 config.AdvancedMovieSelection.server_port = ConfigInteger(default=20000, limits=(1, 65535))
+config.AdvancedMovieSelection.show_remote_setup = ConfigYesNo(default=False)
 
 PlayerInstance = None
 
