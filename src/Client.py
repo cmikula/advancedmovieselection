@@ -75,7 +75,7 @@ class Client:
         request = "Error"
         try:
             # Connect to server and send data
-            print "Send message to: %s:%s" % (self.ip, self.port), data
+            print "[AdvancedMovieSelection] Send message to: %s:%s" % (self.ip, self.port), data
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.settimeout(1)
             sock.connect((self.ip, self.port))
@@ -86,7 +86,7 @@ class Client:
             pass
         finally:
             sock.close()
-        print "Get request:", request
+        print "[AdvancedMovieSelection] Get request:", request
         return request
 
     def setPort(self, port):

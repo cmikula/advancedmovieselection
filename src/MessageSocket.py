@@ -120,7 +120,7 @@ class MessageSocketServer():
             try:
                 # Connect to server and send data
                 host = "%s.%s" % (ip, x)
-                print "Try connect to: %s:%s" % (host, self.port)
+                print "[AdvancedMovieSelection] Try connect to: %s:%s" % (host, self.port)
                 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 sock.settimeout(0.1)
                 sock.connect((host, self.port))

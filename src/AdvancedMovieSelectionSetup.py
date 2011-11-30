@@ -149,14 +149,14 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.needsReopenFlag = False
         self["setupActions"] = ActionMap(["ColorActions", "OkCancelActions", "MenuActions", "EPGSelectActions"],
         {
-            "ok":       self.keySave,
-            "cancel":   self.keyCancel,
-            "red":      self.keyCancel,
-            "green":    self.keySave,
-            "yellow":   self.buttonsetup,
-            "blue":     self.RecPathSettings,
-            "info":     self.about,
-            "menu":     self.clientsetup,
+            "ok": self.keySave,
+            "cancel": self.keyCancel,
+            "red": self.keyCancel,
+            "green": self.keySave,
+            "yellow": self.buttonsetup,
+            "blue": self.RecPathSettings,
+            "info": self.about,
+            "menu": self.clientsetup,
             "nextBouquet": self.nextBouquet,
             "prevBouquet": self.prevBouquet,
         }, -2)
@@ -175,14 +175,21 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self["IMDbtxt"] = StaticText("")
         self["OFDbtxt"] = StaticText("")
         self["MenuIcon"] = Pixmap()
-        self["MenuIcon"].show()
         self.onShown.append(self.setWindowTitle)
         self.onLayoutFinish.append(self.saveListsize)
         self.pluginsavailable()
         self.onHide.append(self.updateSettings)
+        self.setMenubutton()       
+
+    def setMenubutton(self):
+        if config.AdvancedMovieSelection.use_wastebasket.value and config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMoviesMedia':
+            self["MenuIcon"].show()
+        else:
+            self["MenuIcon"].hide()
 
     def clientsetup(self):
-        self.session.open(ClientSetup)
+        if config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMoviesMedia':
+            self.session.open(ClientSetup)
 
     def updateSettings(self):
         if self.csel:
@@ -248,7 +255,17 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.createSetup()
         if config.AdvancedMovieSelection.use_wastebasket.isChanged():
             config.AdvancedMovieSelection.use_wastebasket.save()
+            if config.AdvancedMovieSelection.use_wastebasket.value and config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMoviesMedia':
+                self["MenuIcon"].show()
+            else:
+                self["MenuIcon"].hide()
             self.createSetup()
+        if config.AdvancedMovieSelection.wastelist_buildtype.isChanged():
+            config.AdvancedMovieSelection.wastelist_buildtype.save()
+            if config.AdvancedMovieSelection.use_wastebasket.value and config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMoviesMedia':
+                self["MenuIcon"].show()
+            else:
+                self["MenuIcon"].hide()            
         if config.AdvancedMovieSelection.debug.isChanged():
             config.AdvancedMovieSelection.debug.save()
             from Debug import Debug
@@ -452,13 +469,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             
     def RecPathSettings(self):
         self.session.open(RecordPathsSettings)
-        
-    def enableMenuIcon(self):
-        self["MenuIcon"].show()
 
-    def disableMenuIcon(self):
-        self["MenuIcon"].hide()
-        
 class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
     def __init__(self, session, csel=None):
         Screen.__init__(self, session)
