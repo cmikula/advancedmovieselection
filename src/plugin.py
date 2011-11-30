@@ -641,11 +641,11 @@ def autostart(reason, **kwargs):
                 else:
                     waste_timer.stopTimer()
                     print "[AdvancedMovieSelection] Auto empty from wastebasket disabled..."
-                from MessageSocket import instance
-                instance.setPort(config.AdvancedMovieSelection.server_port.value)
-                instance.start()
-                instance.setSearchRange(config.AdvancedMovieSelection.start_search_ip.value, config.AdvancedMovieSelection.stop_search_ip.value)
-                instance.startScanForClients()
+                from MessageServer import serverInstance
+                serverInstance.setPort(config.AdvancedMovieSelection.server_port.value)
+                serverInstance.start()
+                serverInstance.setSearchRange(config.AdvancedMovieSelection.start_search_ip.value, config.AdvancedMovieSelection.stop_search_ip.value)
+                serverInstance.startScanForClients()
             except:
                 pass
 

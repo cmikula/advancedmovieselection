@@ -26,7 +26,7 @@ that they, too, receive or can get the source code. And you must show them these
 import SocketServer
 import socket
 
-instance = None
+serverInstance = None
 
 def getIpAddress(iface):
     interfaces = []
@@ -65,11 +65,11 @@ class TCPHandler(SocketServer.BaseRequestHandler):
         #print data
         self.request.send(MessageQueue.getRequest(data))
 
-class MessageSocketServer():
+class MessageServer():
     def __init__(self):
-        global instance
-        if instance:
-            raise Exception("Only one instance of MessageSocketServer is allowed")
+        global serverInstance
+        if serverInstance:
+            raise Exception("Only one instance of MessageServer is allowed")
         self.server = None
         self.active_clients = []
         self.host = getIpAddress('eth0')
@@ -146,4 +146,4 @@ class MessageSocketServer():
         self.ip_from = ip_from
         self.ip_to = ip_to
         
-instance = MessageSocketServer()
+serverInstance = MessageServer()

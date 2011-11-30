@@ -30,8 +30,8 @@ from Components.ConfigList import ConfigListScreen
 from Components.MultiContent import MultiContentEntryText
 from Components.GUIComponent import GUIComponent
 from Components.Sources.StaticText import StaticText
-from enigma import iServiceKeys, getDesktop, eListboxPythonMultiContent, eListbox, gFont, RT_HALIGN_LEFT, RT_HALIGN_RIGHT
-from MessageSocket import instance as messageServer, getIpAddress
+from enigma import getDesktop, eListboxPythonMultiContent, eListbox, gFont, RT_HALIGN_LEFT, RT_HALIGN_RIGHT
+from MessageServer import serverInstance, getIpAddress
 from Client import getClients
 
 staticIP = None
@@ -217,9 +217,9 @@ class ClientSetup(ConfigListScreen, Screen):
         if self.staticIP:
             if config.AdvancedMovieSelection.server_port.isChanged():
                 self.setPort()
-            self["status"].setText(_("Searching for clients, please wait ...")) #toDo status wird nicht angezeigt ;(
-            messageServer.setSearchRange(config.AdvancedMovieSelection.start_search_ip.value, config.AdvancedMovieSelection.stop_search_ip.value)
-            messageServer.findClients()
+            self["status"].setText(_("Searching for clients, please wait ...")) #TODO: status wird nicht angezeigt ;(
+            serverInstance.setSearchRange(config.AdvancedMovieSelection.start_search_ip.value, config.AdvancedMovieSelection.stop_search_ip.value)
+            serverInstance.findClients()
             self.finishedState()
 
     def finishedState(self):
@@ -235,7 +235,7 @@ class ClientSetup(ConfigListScreen, Screen):
             else:
                 # this only set the port of local client !don't reconnect it!
                 client.port = port
-        messageServer.reconnect(port=port)
+        serverInstance.reconnect(port=port)
         
     def keyUp(self):
         self["config"].instance.moveSelection(self["config"].instance.moveUp)
