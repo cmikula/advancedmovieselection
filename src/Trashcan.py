@@ -26,9 +26,26 @@ must pass on to the recipients the same freedoms that you received. You must mak
 that they, too, receive or can get the source code. And you must show them these terms so they know their rights.
 '''
 import os, glob, shutil
-
+from threading import Thread
+ 
 TRASH_NAME = ".trash"
 TRASH_EXCLUDE = ("DUMBO", "TIMOTHY", "swap", "ram", "ba")
+
+class AsynchTrash(Thread):
+    def __init__(self, items):
+        Thread.__init__(self)
+        self.items = items
+        self.start()
+
+    def run(self):
+        self.cancel = False
+        for service in self.items:
+            if self.cancel:
+                return
+            try:
+                Trashcan.delete(service.getPath())
+            except Exception, e:
+                print e
 
 class eServiceReferenceTrash():
     def __init__(self, path):
@@ -146,3 +163,6 @@ class Trashcan:
                 shutil.rmtree(filename)
                 print filename
 
+    @staticmethod
+    def deleteAsynch(trash):
+        AsynchTrash(trash)

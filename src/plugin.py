@@ -575,7 +575,6 @@ class WastebasketTimer():
         remote_recordings = isAnyRecording()
         
         retryvalue = "%s minutes" % int(config.AdvancedMovieSelection.next_empty_check.value)
-        result = None
 
         if self.recTimer.isActive():
             self.recTimer.stop()
@@ -614,19 +613,11 @@ class WastebasketTimer():
                 else:
                     trash = Trashcan.listAllMovies("/media")
                 
-                result = True
-                try:
-                    print "[AdvancedMovieSelection] Start automated deleting all movies in trash list"
-                    for service in trash:
-                        Trashcan.delete(service.getPath())
-                except Exception, e:
-                    result = False
-                    print e
-                
-                if result == True:
-                    config.AdvancedMovieSelection.last_auto_empty_wastebasket.value = int(time())
-                    config.AdvancedMovieSelection.last_auto_empty_wastebasket.save()
-                    self.configChange()
+                print "[AdvancedMovieSelection] Start automated deleting all movies in trash list"
+                Trashcan.deleteAsynch(trash)
+                config.AdvancedMovieSelection.last_auto_empty_wastebasket.value = int(time())
+                config.AdvancedMovieSelection.last_auto_empty_wastebasket.save()
+                self.configChange()
 
 waste_timer = None
 
