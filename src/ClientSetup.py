@@ -33,6 +33,7 @@ from Components.Sources.StaticText import StaticText
 from enigma import getDesktop, eListboxPythonMultiContent, eListbox, gFont, RT_HALIGN_LEFT, RT_HALIGN_RIGHT
 from MessageServer import serverInstance, getIpAddress
 from Client import getClients
+from Components.Sources.List import List
 
 staticIP = None
 
@@ -68,16 +69,18 @@ class ClientSetupList(GUIComponent):
         pos_up_r = width - width_up_r 
         pos_dn_r = width - width_dn_r
         if client.isRecording():
-            stby_text = _("Recording")
+            stby_text = _("Status:") + ' ' + _("Recording")
         elif client.inStandby():
-            stby_text = _("Standby")
+            stby_text = _("Status:") + ' ' + _("Standby")
         else:
-            stby_text = _("Switched on")
-        addr = client.getAddress() + ":" + str(client.getPort())
-        res.append(MultiContentEntryText(pos=(5, 3), size=(width_up_l, 30), font=0, flags=RT_HALIGN_LEFT, text=client.getDeviceName()))
+            stby_text = _("Status:") + ' ' + _("Switched on")
+        hostname = _("Hostname:") + ' ' + client.getDeviceName()
+        addr = _("IP:") + ' ' + client.getAddress()
+        port = _("Port:") + ' ' + str(client.getPort())
+        res.append(MultiContentEntryText(pos=(5, 3), size=(width_up_l, 30), font=0, flags=RT_HALIGN_LEFT, text=hostname))
         res.append(MultiContentEntryText(pos=(pos_up_r, 3), size=(width_up_r, 22), font=1, flags=RT_HALIGN_RIGHT, text=stby_text))
         res.append(MultiContentEntryText(pos=(5, 28), size=(width_dn_l, 30), font=1, flags=RT_HALIGN_LEFT, text=addr))
-        res.append(MultiContentEntryText(pos=(pos_dn_r, 28), size=(width_dn_r, 22), font=1, flags=RT_HALIGN_RIGHT, text=""))
+        res.append(MultiContentEntryText(pos=(pos_dn_r, 28), size=(width_dn_r, 22), font=1, flags=RT_HALIGN_RIGHT, text=port))
         return res
 
     def moveToIndex(self, index):
@@ -161,6 +164,7 @@ class ClientSetup(ConfigListScreen, Screen):
         self["yellow_button"] = Pixmap()
         self["green_button"].hide()
         self["yellow_button"].hide()
+        self["clienttxt"] = StaticText("")
         self["list"] = ClientSetupList()
         self.list = self["list"]
         self.list.reload()
@@ -180,12 +184,13 @@ class ClientSetup(ConfigListScreen, Screen):
             self["green_button"].show()
             self["yellow_button"].show()
             self["status"].setText(_("Local IP: %s") %  self.staticIP)
+            self["clienttxt"].setText(_("Available Server/Clients"))
         else:
             self["status"].setText(_("ATTENTION: DHCP in lan configuration is activ, no clientbox services available!"))
          
     def createSetup(self):
         self.configList = []
-        self.configList.append(getConfigListEntry(_("Port address:"), config.AdvancedMovieSelection.server_port, _("Set the port address for client and server.")))
+        self.configList.append(getConfigListEntry(_("Port address:"), config.AdvancedMovieSelection.server_port, _("Set the port address for client and server.It must be used on all boxes of the same port.")))
         self.configList.append(getConfigListEntry(_("Start search IP:"), config.AdvancedMovieSelection.start_search_ip, _("Only last three digits from the IP must be set.")))
         self.configList.append(getConfigListEntry(_("Stop search IP:"), config.AdvancedMovieSelection.stop_search_ip, _("Only last three digits from the IP must be set.")))
         self["config"].setList(self.configList)
