@@ -67,9 +67,12 @@ class ClientSetupList(GUIComponent):
         width_dn_l = width - width_dn_r
         pos_up_r = width - width_up_r 
         pos_dn_r = width - width_dn_r
-        stby_text = _("Switched on")
-        if client.inStandby():
+        if client.isRecording():
+            stby_text = _("Recording")
+        elif client.inStandby():
             stby_text = _("Standby")
+        else:
+            stby_text = _("Switched on")
         addr = client.getAddress() + ":" + str(client.getPort())
         res.append(MultiContentEntryText(pos=(5, 3), size=(width_up_l, 30), font=0, flags=RT_HALIGN_LEFT, text=client.getDeviceName()))
         res.append(MultiContentEntryText(pos=(pos_up_r, 3), size=(width_up_r, 22), font=1, flags=RT_HALIGN_RIGHT, text=stby_text))
