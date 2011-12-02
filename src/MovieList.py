@@ -40,6 +40,7 @@ from ServiceProvider import detectDVDStructure, getCutList, Info, ServiceCenter,
 from os import environ
 from Trashcan import TRASH_NAME
 from Components.Harddisk import Harddisk
+from EventInformationTable import EventInformationTable
 
 IMAGE_PATH = "Extensions/AdvancedMovieSelection/images/"
 
@@ -382,9 +383,15 @@ class MovieList(GUIComponent):
         if info is not None:
             if len < 0: #recalc len when not already done
                 cur_idx = self.l.getCurrentSelectionIndex()
-                #x = self.list[cur_idx]
                 if config.usage.load_length_of_movies_in_moviellist.value:
                     len = info.getLength(serviceref) #recalc the movie length...
+                    if len == 0:
+                        file_name = serviceref.getPath()
+                        if not os.path.isdir(file_name):
+                            eit_file = os.path.splitext(file_name)[0] + ".eit"
+                        else:
+                            eit_file = file_name + ".eit"
+                        len = EventInformationTable(eit_file, True).getDuration()
                 else:
                     len = 0 #dont recalc movielist to speedup loading the list
                 self.list[cur_idx] = (serviceref, info, begin, len) #update entry in list... so next time we don't need to recalc

@@ -484,7 +484,7 @@ def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=Fa
 
 
 class EventInformationTable:
-    def __init__(self, path):
+    def __init__(self, path, no_info=False):
         self.event_id = 0
         self.start_time = ""
         self.date = ""
@@ -532,6 +532,9 @@ class EventInformationTable:
                 m = ((dur[1] >> 4) * 10) + (dur[1] & 0x0f)
                 self.duration = (h + m) * 60
                 
+                if no_info:
+                    file.close()
+                    return
                 # Section running_status 3 bits, free_CA_mode 1 bit, descriptors_loop_length 12 bits
                 id = unpack('>H', data[10:12])[0]
                 self.running_status = id >> 13
