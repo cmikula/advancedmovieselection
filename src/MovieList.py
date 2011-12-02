@@ -36,7 +36,7 @@ from stat import ST_MTIME as stat_ST_MTIME
 from time import time as time_time
 from math import fabs as math_fabs
 from datetime import datetime
-from ServiceProvider import detectDVDStructure, getCutList, Info, ServiceCenter, eServiceReferenceDvd, readDMconf
+from ServiceProvider import detectDVDStructure, getCutList, Info, ServiceCenter, eServiceReferenceDvd, readDMconf, hasLastPosition
 from os import environ
 from Trashcan import TRASH_NAME
 from Components.Harddisk import Harddisk
@@ -134,47 +134,50 @@ class MovieList(GUIComponent):
     def updateSettings(self):
         if config.AdvancedMovieSelection.color1.value == "yellow":
             newcolor1 = 0xffcc00
-        if config.AdvancedMovieSelection.color1.value == "blue":
+        elif config.AdvancedMovieSelection.color1.value == "blue":
             newcolor1 = 0x8585ff
-        if config.AdvancedMovieSelection.color1.value == "red":
+        elif config.AdvancedMovieSelection.color1.value == "red":
             newcolor1 = 0xff4A3C
-        if config.AdvancedMovieSelection.color1.value == "black":
+        elif config.AdvancedMovieSelection.color1.value == "black":
             newcolor1 = 0x000000
-        if config.AdvancedMovieSelection.color1.value == "green":
+        elif config.AdvancedMovieSelection.color1.value == "green":
             newcolor1 = 0x38FF48           
+        
         if config.AdvancedMovieSelection.color2.value == "yellow":
             newcolor2 = 0xffcc00
-        if config.AdvancedMovieSelection.color2.value == "blue":
+        elif config.AdvancedMovieSelection.color2.value == "blue":
             newcolor2 = 0x8585ff
-        if config.AdvancedMovieSelection.color2.value == "red":
+        elif config.AdvancedMovieSelection.color2.value == "red":
             newcolor2 = 0xff4A3C
-        if config.AdvancedMovieSelection.color2.value == "black":
+        elif config.AdvancedMovieSelection.color2.value == "black":
             newcolor2 = 0x000000
-        if config.AdvancedMovieSelection.color2.value == "green":
+        elif config.AdvancedMovieSelection.color2.value == "green":
             newcolor2 = 0x38FF48                  
+        
         if config.AdvancedMovieSelection.color3.value == "yellow":
             newcolor3 = 0xffcc00
-        if config.AdvancedMovieSelection.color3.value == "blue":
+        elif config.AdvancedMovieSelection.color3.value == "blue":
             newcolor3 = 0x8585ff
-        if config.AdvancedMovieSelection.color3.value == "red":
+        elif config.AdvancedMovieSelection.color3.value == "red":
             newcolor3 = 0xff4A3C
-        if config.AdvancedMovieSelection.color3.value == "black":
+        elif config.AdvancedMovieSelection.color3.value == "black":
             newcolor3 = 0x000000
-        if config.AdvancedMovieSelection.color3.value == "green":
+        elif config.AdvancedMovieSelection.color3.value == "green":
             newcolor3 = 0x38FF48    
+        
         if config.AdvancedMovieSelection.color4.value == "yellow":
             newcolor4 = 0xffcc00
-        if config.AdvancedMovieSelection.color4.value == "blue":
+        elif config.AdvancedMovieSelection.color4.value == "blue":
             newcolor4 = 0x8585ff
-        if config.AdvancedMovieSelection.color4.value == "red":
+        elif config.AdvancedMovieSelection.color4.value == "red":
             newcolor4 = 0xff4A3C
-        if config.AdvancedMovieSelection.color4.value == "black":
+        elif config.AdvancedMovieSelection.color4.value == "black":
             newcolor4 = 0x000000
-        if config.AdvancedMovieSelection.color4.value == "green":
+        elif config.AdvancedMovieSelection.color4.value == "green":
             newcolor4 = 0x38FF48  
-        if config.AdvancedMovieSelection.color4.value == "grey":
+        elif config.AdvancedMovieSelection.color4.value == "grey":
             newcolor4 = 0x7F7F7F
-        if config.AdvancedMovieSelection.color4.value == "orange":
+        elif config.AdvancedMovieSelection.color4.value == "orange":
             newcolor4 = 0xffa500 
 
         self.mark_color = newcolor4
@@ -236,6 +239,16 @@ class MovieList(GUIComponent):
             self.DATE_TIME_FORMAT = "%m.%d"
         else: # default if config.AdvancedMovieSelection.dateformat.value == "3":
             self.DATE_TIME_FORMAT = "%d.%m.%Y - %H:%M"
+
+        if environ["LANGUAGE"] == "de":                    
+            self.MOVIE_NEW_PNG = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "movie_de_new.png"))
+        elif environ["LANGUAGE"] == "de_DE":                    
+            self.MOVIE_NEW_PNG = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "movie_de_new.png"))
+        elif environ["LANGUAGE"] == "en":
+            self.MOVIE_NEW_PNG = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "movie_en_new.png"))
+        else:
+            self.MOVIE_NEW_PNG = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "movie_new.png"))
+
 
     def updateHotplugDevices(self):
         self.automounts = []
@@ -352,15 +365,8 @@ class MovieList(GUIComponent):
             offset = 25
             if MEDIAEXTENSIONS.has_key(extension):
                 filename = os.path.realpath(serviceref.getPath())
-                if os.path.exists("%s.gm" % filename) and config.AdvancedMovieSelection.shownew.value:
-                    if environ["LANGUAGE"] == "de":                    
-                        png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "movie_de_new.png"))
-                    elif environ["LANGUAGE"] == "de_DE":                    
-                        png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "movie_de_new.png"))
-                    elif environ["LANGUAGE"] == "en":
-                        png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "movie_en_new.png"))
-                    else:
-                        png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "movie_new.png"))
+                if config.AdvancedMovieSelection.shownew.value and not hasLastPosition(serviceref):
+                    png = self.MOVIE_NEW_PNG
                 else:
                     png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + MEDIAEXTENSIONS[extension] + ".png"))
             else:
@@ -376,12 +382,12 @@ class MovieList(GUIComponent):
         if info is not None:
             if len < 0: #recalc len when not already done
                 cur_idx = self.l.getCurrentSelectionIndex()
-                x = self.list[cur_idx]
+                #x = self.list[cur_idx]
                 if config.usage.load_length_of_movies_in_moviellist.value:
-                    len = x[1].getLength(x[0]) #recalc the movie length...
+                    len = info.getLength(serviceref) #recalc the movie length...
                 else:
                     len = 0 #dont recalc movielist to speedup loading the list
-                self.list[cur_idx] = (x[0], x[1], x[2], len) #update entry in list... so next time we don't need to recalc
+                self.list[cur_idx] = (serviceref, info, begin, len) #update entry in list... so next time we don't need to recalc
 
         length = len
     
