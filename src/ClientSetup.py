@@ -127,9 +127,6 @@ class ClientSetupList(GUIComponent):
                 return True
             count += 1
         return False
-    
-    def moveDown(self):
-        self.instance.moveSelection(self.instance.moveDown)
 
 class ClientSetup(ConfigListScreen, Screen):
     def __init__(self, session):
@@ -148,7 +145,7 @@ class ClientSetup(ConfigListScreen, Screen):
         self["key_red"] = Button(_("Close"))
         self["key_green"] = StaticText("")
         self["key_yellow"] = StaticText("")
-        self["actions"] = ActionMap(["WizardActions", "MenuActions", "ShortcutActions"],
+        self["actions"] = ActionMap(["WizardActions", "MenuActions", "ShortcutActions", "EPGSelectActions"],
             {
                  "ok": self.keySave,
                  "back": self.keyCancel,
@@ -157,6 +154,8 @@ class ClientSetup(ConfigListScreen, Screen):
                  "yellow": self.keyYellow,
                  "up": self.keyUp,
                  "down": self.keyDown,
+                 "nextBouquet": self.keyBouquetUp,
+                 "prevBouquet": self.keyBouquetDown,
              }, -1)
         self["status"] = StaticText("")
         self["help"] = StaticText("")
@@ -244,9 +243,15 @@ class ClientSetup(ConfigListScreen, Screen):
                 # this only set the port of local client !don't reconnect it!
                 client.port = port
         serverInstance.reconnect(port=port)
-        
+
     def keyUp(self):
         self["config"].instance.moveSelection(self["config"].instance.moveUp)
 
     def keyDown(self):
         self["config"].instance.moveSelection(self["config"].instance.moveDown)
+
+    def keyBouquetUp(self):
+        self["list"].instance.moveSelection(self["list"].instance.pageUp)
+
+    def keyBouquetDown(self):
+        self["list"].instance.moveSelection(self["list"].instance.pageDown)
