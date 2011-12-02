@@ -173,8 +173,6 @@ class MovieContextMenu(Screen):
         if config.AdvancedMovieSelection.showmark.value and config.usage.load_length_of_movies_in_moviellist.value and not (self.service.flags & eServiceReference.mustDescent):
             menu.append((_("Mark movie as seen"), boundFunction(self.setMovieStatus, 1)))
             menu.append((_("Mark movie as unseen"), boundFunction(self.setMovieStatus, 0)))
-        if GP3Present and config.AdvancedMovieSelection.marknewicon.value and not (self.service.flags & eServiceReference.mustDescent):
-            menu.append((_("Mark movie with new recordings icon"), boundFunction(self.marknewicon)))
         if config.AdvancedMovieSelection.pluginmenu_list.value:
             if not (self.service.flags & eServiceReference.mustDescent):
                 menu.extend([(p.description, boundFunction(self.execPlugin, p)) for p in plugins.getPlugins(PluginDescriptor.WHERE_MOVIELIST)])
@@ -296,10 +294,6 @@ class MovieContextMenu(Screen):
         from Wastebasket import Wastebasket
         self.session.openWithCallback(self.closeafterfinish, Wastebasket)
 
-    def marknewicon(self):
-        self.csel.marknewicon()
-        self.close() 
-               
     def showTrailer(self):
         if YTTrailerPresent == True:
             from ServiceProvider import ServiceCenter
@@ -380,8 +374,6 @@ class MovieContextMenu(Screen):
 
     def setMovieStatus(self, status):
         self.csel.setMovieStatus(status)
-        if config.AdvancedMovieSelection.shownew2.value and status == 0:
-            self.marknewicon()
         self.close()
 
     def okbuttonClick(self):
@@ -1039,20 +1031,9 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         return self.session.currentSelection
 
     def setMovieStatus(self, status):
-        if config.AdvancedMovieSelection.shownew2.value and status == 0:
-            self.marknewicon()
         current = self.getCurrent()
         if current is not None:
             self["list"].setMovieStatus(current, status)
-
-    def marknewicon(self):
-        self.service = self.getCurrent()
-        moviename = self.service.getPath()
-        if moviename.endswith(".ts"):
-            movietitle = moviename + ".gm"
-            filehandle = open(movietitle, "w")
-            filehandle.write(movietitle)
-            filehandle.close()
 
     def movieSelected(self):
         current = self.getCurrent()

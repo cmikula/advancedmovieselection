@@ -337,11 +337,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.list.append(getConfigListEntry(_("Color for recording movies:"), config.AdvancedMovieSelection.color3, _("With this option you can assign what color should displayed for recording movies in movie list.")))
             self.list.append(getConfigListEntry(_("Color for multiple selection:"), config.AdvancedMovieSelection.color4, _("With this option you can assign what color should displayed for multiple selection in movie list.")))
         self.list.append(getConfigListEntry(_("Assign the date format for movielist:"), config.AdvancedMovieSelection.dateformat, _("With this option you can assign the date format in movie list (7 different sizes are available).")))
-        if GP3Present and config.AdvancedMovieSelection.showfoldersinmovielist.value:
+        if config.AdvancedMovieSelection.showfoldersinmovielist.value:
             self.list.append(getConfigListEntry(_("Show new recordings icon:"), config.AdvancedMovieSelection.shownew, _("With this option you can display a icon for new recordings.")))
-        if GP3Present and config.AdvancedMovieSelection.showfoldersinmovielist.value and config.AdvancedMovieSelection.shownew.value:
-            self.list.append(getConfigListEntry(_("Show mark movie with new recordings icon in menu from movielist:"), config.AdvancedMovieSelection.marknewicon, _("Displays mark movie with new recordings icon function in the menu at the movie list. Only Dreambox recordings ar possible to mark with this icon.")))
-            self.list.append(getConfigListEntry(_("Show new recordings icon by mark movie as unseen:"), config.AdvancedMovieSelection.shownew2, _("If this option is activated automatically display the icon for new recordings when the mark movie as unseen function is used. Only original Dreambox recordings become this icon.")))
         self.list.append(getConfigListEntry(_("Show Mini TV:"), config.AdvancedMovieSelection.minitv, _("With this option you can switch on/off the Mini TV in the movie list.")))
         self.list.append(getConfigListEntry(_("Use folder name for display covers:"), config.AdvancedMovieSelection.usefoldername, _("With this option you can use the foldername instead of folder.jpg to display covers in folders.")))
         self.list.append(getConfigListEntry(_("Close with EXIT key:"), config.AdvancedMovieSelection.exitkey, _("If this option is enabled you can stop play a movie with the EXIT button, and the Advanced Movie Selection plugin will also be closed immediately (if the next option is disabled).")))
@@ -508,7 +505,6 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         self.entryguilist.append(("13", _("TMDb search & D/L")))
         self.entryguilist.append(("14", _("Mark as seen")))
         self.entryguilist.append(("15", _("Mark as unseen")))
-        self.entryguilist.append(("16", _("Show new icon")))
         if YTTrailerPresent == True:
             self.entryguilist.append(("17", _("Trailer search")))
         self.entryguilist2 = []

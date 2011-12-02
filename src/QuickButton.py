@@ -176,13 +176,6 @@ class QuickButton:
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
                             self.session.open(MessageBox, _("This may not be marked as unseen!"), MessageBox.TYPE_INFO)
-                elif pname == _("Show new icon"):
-                    if not (service.flags):
-                        self.marknewicon()
-                        self.updateCurrentSelection() 
-                    else:
-                        if config.AdvancedMovieSelection.showinfo.value:
-                            self.session.open(MessageBox, _("Show new movie icon here not possible, please select a movie!"), MessageBox.TYPE_INFO)
                 elif pname == _("Sort"):
                     if config.movielist.moviesort.value == MovieList.SORT_ALPHANUMERIC:
                         newType = MovieList.SORT_DATE_DESC
