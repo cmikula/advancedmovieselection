@@ -182,14 +182,13 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.setMenubutton()       
 
     def setMenubutton(self):
-        if config.AdvancedMovieSelection.use_wastebasket.value and config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMoviesMedia':
+        if config.AdvancedMovieSelection.use_wastebasket.value:
             self["MenuIcon"].show()
         else:
             self["MenuIcon"].hide()
 
     def clientsetup(self):
-        if config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMoviesMedia':
-            self.session.open(ClientSetup)
+        self.session.open(ClientSetup)
 
     def updateSettings(self):
         if self.csel:
@@ -255,14 +254,14 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.createSetup()
         if config.AdvancedMovieSelection.use_wastebasket.isChanged():
             config.AdvancedMovieSelection.use_wastebasket.save()
-            if config.AdvancedMovieSelection.use_wastebasket.value and config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMoviesMedia':
+            if config.AdvancedMovieSelection.use_wastebasket.value:
                 self["MenuIcon"].show()
             else:
                 self["MenuIcon"].hide()
             self.createSetup()
         if config.AdvancedMovieSelection.wastelist_buildtype.isChanged():
             config.AdvancedMovieSelection.wastelist_buildtype.save()
-            if config.AdvancedMovieSelection.use_wastebasket.value and config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMoviesMedia':
+            if config.AdvancedMovieSelection.use_wastebasket.value:
                 self["MenuIcon"].show()
             else:
                 self["MenuIcon"].hide()            
