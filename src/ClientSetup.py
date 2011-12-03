@@ -33,19 +33,20 @@ from Components.Sources.StaticText import StaticText
 from enigma import getDesktop, eListboxPythonMultiContent, eListbox, gFont, RT_HALIGN_LEFT, RT_HALIGN_RIGHT
 from MessageServer import serverInstance, getIpAddress
 from Client import getClients
-from Components.Sources.List import List
+from time import localtime, strftime
 
 staticIP = None
 
 class ClientSetupList(GUIComponent):
-    def __init__(self):
+    def __init__(self, ip_address):
         GUIComponent.__init__(self)
         self.l = eListboxPythonMultiContent()        
         self.l.setFont(0, gFont("Regular", 22))
         self.l.setFont(1, gFont("Regular", 18))
-        self.l.setItemHeight(50)
+        self.l.setItemHeight(70)
         self.l.setBuildFunc(self.buildMovieListEntry)
         self.onSelectionChanged = [ ]
+        self.staticIP = ip_address
 
     def connectSelChanged(self, fnc):
         if not fnc in self.onSelectionChanged:
@@ -74,13 +75,24 @@ class ClientSetupList(GUIComponent):
             stby_text = _("Status:") + ' ' + _("Standby")
         else:
             stby_text = _("Status:") + ' ' + _("Switched on")
+        trash_clean_status = ""
+        nextEvent = client.nextTrashEvent()
+        if nextEvent == -1:
+            trash_clean_status = _("Auto empty wastebasket is disabled")
+        elif nextEvent > 0:
+            t = localtime(nextEvent)
+            trash_clean_status = _("Next automated wastebasket empty at %s") % (strftime(("%02d.%02d.%04d" % (t[2], t[1], t[0])) + ' ' + _("at") + ' ' + ("%02d:%02d" % (t[3], t[4])) + ' ' + _("Clock")))
         hostname = _("Hostname:") + ' ' + client.getDeviceName()
-        addr = _("IP:") + ' ' + client.getAddress()
+        ip_addr = client.getAddress()
+        addr = _("IP:") + ' ' + ip_addr
+        if ip_addr == self.staticIP:
+            addr = addr + " " + _("<local device>")
         port = _("Port:") + ' ' + str(client.getPort())
-        res.append(MultiContentEntryText(pos=(5, 3), size=(width_up_l, 30), font=0, flags=RT_HALIGN_LEFT, text=hostname))
+        res.append(MultiContentEntryText(pos=(5, 2), size=(width_up_l, 30), font=0, flags=RT_HALIGN_LEFT, text=hostname))
         res.append(MultiContentEntryText(pos=(pos_up_r, 3), size=(width_up_r, 22), font=1, flags=RT_HALIGN_RIGHT, text=stby_text))
-        res.append(MultiContentEntryText(pos=(5, 28), size=(width_dn_l, 30), font=1, flags=RT_HALIGN_LEFT, text=addr))
+        res.append(MultiContentEntryText(pos=(5, 26), size=(width_dn_l, 30), font=1, flags=RT_HALIGN_LEFT, text=addr))
         res.append(MultiContentEntryText(pos=(pos_dn_r, 28), size=(width_dn_r, 22), font=1, flags=RT_HALIGN_RIGHT, text=port))
+        res.append(MultiContentEntryText(pos=(5, 48), size=(width, 30), font=1, flags=RT_HALIGN_LEFT, text=trash_clean_status))
         return res
 
     def moveToIndex(self, index):
@@ -141,6 +153,7 @@ class ClientSetup(ConfigListScreen, Screen):
             self.skinName = ["AdvancedMovieSelection_ClientSetup_XD"]
         else:
             self.skinName = ["AdvancedMovieSelection_ClientSetup_SD"]
+        self.staticIP = getIpAddress('eth0')
         self.session = session
         self["key_red"] = Button(_("Close"))
         self["key_green"] = StaticText("")
@@ -164,7 +177,7 @@ class ClientSetup(ConfigListScreen, Screen):
         self["green_button"].hide()
         self["yellow_button"].hide()
         self["clienttxt"] = StaticText("")
-        self["list"] = ClientSetupList()
+        self["list"] = ClientSetupList(self.staticIP)
         self.list = self["list"]
         self.list.reload()
         self.configList = []
@@ -175,21 +188,20 @@ class ClientSetup(ConfigListScreen, Screen):
 
     def setWindowTitle(self):
         self.setTitle(_("Advanced Movie Selection - Clientbox setup"))  
-        self.staticIP = getIpAddress('eth0')
         if self.staticIP:
             self.createSetup()
             self["key_green"].setText(_("Save"))
             self["key_yellow"].setText(_("Manual search"))
             self["green_button"].show()
             self["yellow_button"].show()
-            self["status"].setText(_("Local IP: %s") %  self.staticIP)
+            self["status"].setText(_("Local IP: %s") % self.staticIP)
             self["clienttxt"].setText(_("Available Server/Clients"))
         else:
             self["status"].setText(_("ATTENTION: DHCP in lan configuration is activ, no clientbox services available!"))
          
     def createSetup(self):
         self.configList = []
-        self.configList.append(getConfigListEntry(_("Port address:"), config.AdvancedMovieSelection.server_port, _("Set the port address for client and server.It must be used on all boxes of the same port.")))
+        self.configList.append(getConfigListEntry(_("Port address:"), config.AdvancedMovieSelection.server_port, _("Set the port address for client and server. Port address from connected clients will be automatically updated.")))
         self.configList.append(getConfigListEntry(_("Start search IP:"), config.AdvancedMovieSelection.start_search_ip, _("Only last three digits from the IP must be set.")))
         self.configList.append(getConfigListEntry(_("Stop search IP:"), config.AdvancedMovieSelection.stop_search_ip, _("Only last three digits from the IP must be set.")))
         self["config"].setList(self.configList)

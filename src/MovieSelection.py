@@ -263,10 +263,10 @@ class MovieContextMenu(Screen):
             menu.append((_("Setup Moviebar position"), self.moviebarsetup))
         if YTTrailerPresent == True and config.AdvancedMovieSelection.showtrailer.value and not (self.service.flags & eServiceReference.mustDescent): 
             menu.append((_("Search Trailer on web"), boundFunction(self.showTrailer)))
-        if config.AdvancedMovieSelection.showmenu.value:
-            menu.append((_("Setup"), boundFunction(self.menusetup)))
         if config.AdvancedMovieSelection.show_remote_setup.value:
             menu.append((_("Clientbox setup"), boundFunction(self.serversetup)))
+        if config.AdvancedMovieSelection.showmenu.value:
+            menu.append((_("Setup"), boundFunction(self.menusetup)))
         self["menu"] = MenuList(menu)
         self.onShown.append(self.setWindowTitle)
 

@@ -51,6 +51,11 @@ class MessageQueue:
                 config.AdvancedMovieSelection.server_port.save()
             except Exception, e:
                 print e
+        elif data == "nextTrashEvent":
+            from Components.config import config
+            if config.AdvancedMovieSelection.auto_empty_wastebasket.value == "-1":
+                return "-1"            
+            request = str(config.AdvancedMovieSelection.next_auto_empty_wastebasket.value)
         return request
 
 def getClients():
@@ -110,3 +115,11 @@ class Client:
     
     def inStandby(self):
         return self.sendData("inStandby") == "True"
+
+    def nextTrashEvent(self):
+        ev = 0
+        try:
+            ev = int(self.sendData("nextTrashEvent"))
+        except:
+            pass
+        return ev

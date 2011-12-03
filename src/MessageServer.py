@@ -58,12 +58,15 @@ class TCPHandler(SocketServer.BaseRequestHandler):
     """
 
     def handle(self):
-        from Client import MessageQueue
-        # self.request is the TCP socket connected to the client
-        data = self.request.recv(1024).strip()
-        #print str(self.client_address[0]), "wrote"
-        #print data
-        self.request.send(MessageQueue.getRequest(data))
+        try:
+            from Client import MessageQueue
+            # self.request is the TCP socket connected to the client
+            data = self.request.recv(1024).strip()
+            #print str(self.client_address[0]), "wrote"
+            #print data
+            self.request.send(MessageQueue.getRequest(data))
+        except Exception, e:
+            print e
 
 class MessageServer():
     def __init__(self):
