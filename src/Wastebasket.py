@@ -210,7 +210,7 @@ class Wastebasket(Screen):
 
     def setWindowTitle(self):
         self.setTitle(_("Advanced Movie Selection - Wastebasket"))
-        if not config.AdvancedMovieSelection.askdelete.value:
+        if not config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.showinfo.value:
             self["warning"].setText(_("ATTENTION: Ask before delete is disabled!"))
         if not self.inited:
             self.delayTimer.start(0, 1)

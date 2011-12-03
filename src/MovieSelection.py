@@ -686,7 +686,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self["DescriptionBorder"] = Pixmap()
         self["DescriptionBorder"].hide()
         self["warning"] = Label()
-        if not config.AdvancedMovieSelection.askdelete.value:
+        if not config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.showinfo.value:
             self["warning"].setText(_("ATTENTION: Ask before delete is disabled!"))
 
         if not config.AdvancedMovieSelection.startdir.value and not showLastDir:
