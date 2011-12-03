@@ -56,6 +56,11 @@ class MessageQueue:
             if config.AdvancedMovieSelection.auto_empty_wastebasket.value == "-1":
                 return "-1"            
             request = str(config.AdvancedMovieSelection.next_auto_empty_wastebasket.value)
+        elif data == "lastTrashEvent":
+            from Components.config import config
+            if config.AdvancedMovieSelection.auto_empty_wastebasket.value == "-1":
+                return "-1"            
+            request = str(config.AdvancedMovieSelection.last_auto_empty_wastebasket.value)
         return request
 
 def getClients():
@@ -120,6 +125,14 @@ class Client:
         ev = 0
         try:
             ev = int(self.sendData("nextTrashEvent"))
+        except:
+            pass
+        return ev
+
+    def lastTrashEvent(self):
+        ev = 0
+        try:
+            ev = int(self.sendData("lastTrashEvent"))
         except:
             pass
         return ev

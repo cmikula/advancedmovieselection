@@ -43,7 +43,7 @@ class ClientSetupList(GUIComponent):
         self.l = eListboxPythonMultiContent()        
         self.l.setFont(0, gFont("Regular", 22))
         self.l.setFont(1, gFont("Regular", 18))
-        self.l.setItemHeight(70)
+        self.l.setItemHeight(100)
         self.l.setBuildFunc(self.buildMovieListEntry)
         self.onSelectionChanged = [ ]
         self.staticIP = ip_address
@@ -75,24 +75,32 @@ class ClientSetupList(GUIComponent):
             stby_text = _("Status:") + ' ' + _("Standby")
         else:
             stby_text = _("Status:") + ' ' + _("Switched on")
-        trash_clean_status = ""
+        last_trash_clean_status = ""
+        lastEvent = client.lastTrashEvent()
+        if lastEvent == -1:
+            last_trash_clean_status = (_("The %s is a client box") % client.getDeviceName())
+        elif lastEvent > 0:
+            t = localtime(lastEvent)
+            last_trash_clean_status = _("Last remote wastebasket empty at %s") % (strftime(("%02d.%02d.%04d" % (t[2], t[1], t[0])) + ' ' + _("at") + ' ' + ("%02d:%02d" % (t[3], t[4])) + ' ' + _("Clock")))
+        next_trash_clean_status = ""
         nextEvent = client.nextTrashEvent()
         if nextEvent == -1:
-            trash_clean_status = _("Auto empty wastebasket is disabled")
+            trash_clean_status = (_("The %s is a client box") % client.getDeviceName())
         elif nextEvent > 0:
             t = localtime(nextEvent)
-            trash_clean_status = _("Next automated wastebasket empty at %s") % (strftime(("%02d.%02d.%04d" % (t[2], t[1], t[0])) + ' ' + _("at") + ' ' + ("%02d:%02d" % (t[3], t[4])) + ' ' + _("Clock")))
+            next_trash_clean_status = _("Next remote wastebasket empty at %s") % (strftime(("%02d.%02d.%04d" % (t[2], t[1], t[0])) + ' ' + _("at") + ' ' + ("%02d:%02d" % (t[3], t[4])) + ' ' + _("Clock")))
         hostname = _("Hostname:") + ' ' + client.getDeviceName()
         ip_addr = client.getAddress()
         addr = _("IP:") + ' ' + ip_addr
         if ip_addr == self.staticIP:
-            addr = addr + " " + _("<local device>")
+            addr = addr + ' ' + _("<Local device>")
         port = _("Port:") + ' ' + str(client.getPort())
         res.append(MultiContentEntryText(pos=(5, 2), size=(width_up_l, 30), font=0, flags=RT_HALIGN_LEFT, text=hostname))
         res.append(MultiContentEntryText(pos=(pos_up_r, 3), size=(width_up_r, 22), font=1, flags=RT_HALIGN_RIGHT, text=stby_text))
         res.append(MultiContentEntryText(pos=(5, 26), size=(width_dn_l, 30), font=1, flags=RT_HALIGN_LEFT, text=addr))
         res.append(MultiContentEntryText(pos=(pos_dn_r, 28), size=(width_dn_r, 22), font=1, flags=RT_HALIGN_RIGHT, text=port))
-        res.append(MultiContentEntryText(pos=(5, 48), size=(width, 30), font=1, flags=RT_HALIGN_LEFT, text=trash_clean_status))
+        res.append(MultiContentEntryText(pos=(5, 50), size=(width, 30), font=1, flags=RT_HALIGN_LEFT, text=last_trash_clean_status))
+        res.append(MultiContentEntryText(pos=(5, 75), size=(width, 30), font=1, flags=RT_HALIGN_LEFT, text=next_trash_clean_status))
         return res
 
     def moveToIndex(self, index):
