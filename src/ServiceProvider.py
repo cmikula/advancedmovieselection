@@ -62,21 +62,56 @@ class eServiceReferenceDvd(eServiceReference):
         else:
             return [self.getPath()]
 
-def readDMconf():
-    hiddelist = []
-    hotplug = []
-    try:
-        rfile = open(DMCONFFILE, 'r')
-        for x in rfile.readlines():
-            val = x.strip()
-            if val.startswith('#'):
-                hotplug.append(val[1:])
-            else:
-                hiddelist.append(val)
-        rfile.close()
-    except:
-        pass
-    return hiddelist, hotplug
+class MovieConfig:
+    def __init__(self):
+        self.readDMconf()
+        
+    def readDMconf(self):
+        self.hidelist = []
+        self.hotplug = []
+        self.rename = []
+        try:
+            rfile = open(DMCONFFILE, 'r')
+            for x in rfile.readlines():
+                val = x.strip()
+                if val.startswith('#'):
+                    self.hotplug.append(val[1:])
+                elif val.startswith('%'):
+                    self.rename.append(val[1:])
+                else:
+                    self.hidelist.append(val)
+            rfile.close()
+        except:
+            pass
+
+    def isHidden(self, name):
+        return name in self.hidelist
+
+    def isHiddenHotplug(self, name):
+        return name in self.hotplug
+
+    def getRenamedName(self, name):
+        try:
+            for item in self.rename:
+                i = item.split("\t")
+                if i[0] == name:
+                    return i[1] 
+        except:
+            pass
+        return name
+    
+    def safe(self):
+        try:
+            f = open(DMCONFFILE, 'w')
+            for x in self.hidelist:
+                f.write(x + "\r\n")
+            for x in self.hotplug:
+                f.write('#' + x + "\r\n")
+            for x in self.rename:
+                f.write('%' + x + "\r\n")
+            f.close()
+        except Exception, e:
+            print e
 
 def getFolderSize(loadPath):
     folder_size = 0
@@ -84,6 +119,12 @@ def getFolderSize(loadPath):
         for file in files:    
             filename = os.path.join(path, file)    
             folder_size += os.path.getsize(filename)
+    return folder_size
+
+def getDirSize(root):
+    folder_size = 0
+    for filename in os.listdir(root):
+        folder_size += os.path.getsize(os.path.join(root, filename))
     return folder_size
 
 def detectDVDStructure(loadPath):

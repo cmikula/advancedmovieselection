@@ -31,6 +31,8 @@ from ServiceProvider import ServiceCenter
 import os
 from Components.Label import Label
 from Components.Pixmap import Pixmap
+from MovieList import eServiceReferenceVDir
+from ServiceProvider import MovieConfig
 
 class MovieRetitle(Screen, ConfigListScreen):
     def __init__(self, session, service):
@@ -46,15 +48,27 @@ class MovieRetitle(Screen, ConfigListScreen):
         else:
             self.skinName = ["AdvancedMovieSelection_Rename_SD"]
         self.service = service
+        self.movieConfig = MovieConfig()
+        self.is_vdir = isinstance(service, eServiceReferenceVDir)
         self.is_dir = service.flags & eServiceReference.mustDescent
         serviceHandler = ServiceCenter.getInstance()
         info = serviceHandler.info(service)
         path = service.getPath()
-        if self.is_dir:
+        if self.is_vdir:
+            parts = path.split("/")
+            if len(parts) > 2:
+                dirName = parts[-3] + "/" + parts[-2]
+            else: 
+                dirName = parts[-2]
+            self.original_file = dirName 
+        elif self.is_dir:
             self.original_file = service.getName()
         else:
-            self.original_file = os.path.basename(os.path.splitext(path)[0]) 
-        self.original_name = info.getName(service)
+            self.original_file = os.path.basename(os.path.splitext(path)[0])
+        if self.is_vdir:
+            self.original_name = self.movieConfig.getRenamedName(service.getName())
+        else:
+            self.original_name = info.getName(service)
         self.original_desc = info.getInfoString(service, iServiceInformation.sDescription)
         self.input_file = ConfigText(default=self.original_file, fixed_size=False, visible_width=82)
         self.input_title = ConfigText(default=self.original_name, fixed_size=False, visible_width=82)
@@ -76,14 +90,16 @@ class MovieRetitle(Screen, ConfigListScreen):
 
     def createSetup(self):
         self.list = []
-        if self.is_dir:
+        if self.is_vdir:
+            self.list.append(getConfigListEntry(_("Displayed name:"), self.input_title))
+        elif self.is_dir:
             self.list.append(getConfigListEntry(_("Foldername:"), self.input_file))
-            self["config"].setList(self.list)
         else:
             self.list.append(getConfigListEntry(_("Filename:"), self.input_file))
             self.list.append(getConfigListEntry(_("Movietitle:"), self.input_title))
             self.list.append(getConfigListEntry(_("Description:"), self.input_descr))
-            self["config"].setList(self.list)            
+
+        self["config"].setList(self.list)
 
     def showKeypad(self, retval = None):
         current = self["config"].getCurrent()
@@ -100,6 +116,10 @@ class MovieRetitle(Screen, ConfigListScreen):
             self.setTitle(_("Change File/Moviename and/or Description"))
 
     def keyGo(self):
+        if self.is_vdir:
+            if self.input_title.getText() != self.original_name:
+                self.renameVDir(self.original_file, self.input_title.getText())
+                self.original_name = self.input_title.getText()
         if self.is_dir:
             if self.input_file.getText() != self.original_file:
                 self.renameDirectory(self.service, self.input_file.getText())
@@ -139,7 +159,6 @@ class MovieRetitle(Screen, ConfigListScreen):
 
     def renameDirectory(self, service, new_name):
         try:
-            print self.service.getPath()
             dir = os.path.dirname(self.service.getPath()[0:-1])
             os.rename(self.service.getPath(), os.path.join(dir, self.input_file.getText() + "/"))
             self.original_file = self.input_file.getText()
@@ -155,5 +174,24 @@ class MovieRetitle(Screen, ConfigListScreen):
             import glob
             for f in glob.glob(os.path.join(path, src + "*")):
                 os.rename(f, f.replace(src, dst))
+        except Exception, e:
+            print e
+
+    def renameVDir(self, dir, name):
+        try:
+            if not dir + "\t" + self.original_name in self.movieConfig.rename:
+                self.movieConfig.rename.append(dir + "\t" + name)
+            elif name == "":
+                for index, item in enumerate(self.movieConfig.rename):
+                    i = item.split("\t")
+                    if i[0] == dir:
+                        print dir + "\t" + name
+                        del self.movieConfig.rename[index]
+            else:
+                for index, item in enumerate(self.movieConfig.rename):
+                    i = item.split("\t")
+                    if i[0] == dir:
+                        self.movieConfig.rename[index] = dir + "\t" + name
+            self.movieConfig.safe()
         except Exception, e:
             print e

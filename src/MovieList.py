@@ -36,7 +36,7 @@ from stat import ST_MTIME as stat_ST_MTIME
 from time import time as time_time
 from math import fabs as math_fabs
 from datetime import datetime
-from ServiceProvider import detectDVDStructure, getCutList, Info, ServiceCenter, eServiceReferenceDvd, readDMconf, hasLastPosition
+from ServiceProvider import detectDVDStructure, getCutList, Info, ServiceCenter, eServiceReferenceDvd, MovieConfig, hasLastPosition, getDirSize
 from os import environ
 from Trashcan import TRASH_NAME
 from Components.Harddisk import Harddisk
@@ -100,7 +100,7 @@ class MovieList(GUIComponent):
 
     def __init__(self, root, list_type=None, sort_type=None, descr_state=None, show_folders=False, show_progressbar=False, show_statusicon=False, show_statuscolor=False, show_date=True, show_time=True, show_service=True, show_tags=False):
         GUIComponent.__init__(self)
-        self.__hidelist, self.__hidehotplug = readDMconf()
+        self.movieConfig = MovieConfig()
         self.list_type = list_type or self.LISTTYPE_ORIGINAL
         self.descr_state = descr_state or self.HIDE_DESCRIPTION
         self.sort_type = sort_type or self.SORT_DATE_ASC
@@ -266,7 +266,7 @@ class MovieList(GUIComponent):
                 label = os.path.split(m_path)[-1]
                 if os.path.normpath(m_path) == "/media/hdd" or label == "DUMBO":
                     continue
-                if label not in self.__hidehotplug:
+                if not self.movieConfig.isHiddenHotplug(label):
                     service = eServiceReferenceHotplug(eServiceReference.idFile, eServiceReference.flagDirectory, m_path + "/")
                     hdd = Harddisk(m_dev.replace("/dev/", "")[:-1])
                     service.setName(label + " - " + hdd.model() + " - " + hdd.capacity())
@@ -350,6 +350,7 @@ class MovieList(GUIComponent):
         if self.show_folders:
             if serviceref.flags & eServiceReference.mustDescent:
                 res = [ None ]
+
                 if isinstance(serviceref, eServiceReferenceVDir):
                     png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "bookmark.png"))
                 elif isinstance(serviceref, eServiceReferenceHotplug):
@@ -360,6 +361,18 @@ class MovieList(GUIComponent):
                     png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "directory.png"))
                 res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 2, 20, 20, png))
                 res.append(MultiContentEntryText(pos=(25, 3), size=(width - 40, 30), font=0, flags=RT_HALIGN_LEFT, text=serviceref.getName()))
+                if config.AdvancedMovieSelection.show_dirsize.value:
+                    if len < 0: #recalk len when not already done
+                        cur_idx = self.l.getCurrentSelectionIndex()
+                        if config.usage.load_length_of_movies_in_moviellist.value:
+                            len = getDirSize(serviceref.getPath()) 
+                        else:
+                            len = 0 #dont recalc movielist to speedup loading the list
+                        self.list[cur_idx] = (serviceref, info, begin, len) #update entry in list... so next time we don't need to recalc
+                    cap = len / (1024 * 1024)
+                    dir_size = "%d.%03d GB" % (cap / 1000, cap % 1000)
+                    if serviceref.getName() != "..":
+                        res.append(MultiContentEntryText(pos=(width - 250, 5), size=(250, 30), font=1, flags=RT_HALIGN_RIGHT, text=dir_size))
                 return res
             extension = serviceref.toString().split('.')
             extension = extension[-1].lower()
@@ -738,6 +751,7 @@ class MovieList(GUIComponent):
         instance.selectionChanged.get().remove(self.selectionChanged)
 
     def reload(self, root=None, filter_tags=None):
+        self.movieConfig.readDMconf()
         if root is not None:
             self.load(root, filter_tags)
         else:
@@ -796,7 +810,7 @@ class MovieList(GUIComponent):
                         tempDir = serviceref.getPath()
                         parts = tempDir.split("/")
                         dirName = parts[-2]
-                        if dirName in self.__hidelist:
+                        if self.movieConfig.isHidden(dirName):
                             continue
                         serviceref.setName(dirName)
                         dirs.append((serviceref, None, -1, -1))
@@ -808,7 +822,7 @@ class MovieList(GUIComponent):
             temp = serviceref.getPath()
             parts = temp.split("/")
             file = parts[-1]
-            if file in self.__hidelist:
+            if self.movieConfig.isHidden(file):
                 continue
         
             if serviceref.getPath().split(".")[-1].lower() == "iso":
@@ -858,7 +872,7 @@ class MovieList(GUIComponent):
                         else: 
                             dirName = parts[-2]
                         tt = eServiceReferenceVDir(eServiceReference.idFile, eServiceReference.flagDirectory, dir)
-                        tt.setName(dirName)
+                        tt.setName(self.movieConfig.getRenamedName(dirName))
                         vdirs.append((tt, None, -1, -1))
                 vdirs.sort(self.sortFolders)
                 for servicedirs in vdirs:

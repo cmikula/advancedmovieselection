@@ -26,7 +26,7 @@ from Components.ActionMap import HelpableActionMap, ActionMap, NumberActionMap
 from Components.MenuList import MenuList
 from Components.Sources.StaticText import StaticText
 from Screens.HelpMenu import HelpableScreen
-from MovieList import MovieList, eServiceReferenceHotplug, eServiceReferenceBackDir, eServiceReferenceVDir
+from MovieList import MovieList, eServiceReferenceHotplug, eServiceReferenceBackDir
 from MovieSearch import MovieSearchScreen
 from Components.DiskInfo import DiskInfo
 from Components.Pixmap import Pixmap
@@ -165,7 +165,7 @@ class MovieContextMenu(Screen):
             menu.append((_("Wastebasket"), self.waste))
         if config.AdvancedMovieSelection.showmove.value and not (self.service.flags & eServiceReference.mustDescent):
             menu.append((_("Move/Copy"), self.movecopy))
-        if not (isinstance(service, eServiceReferenceBackDir) or isinstance(service, eServiceReferenceVDir) or isinstance(service, eServiceReferenceHotplug)):
+        if not (isinstance(service, eServiceReferenceBackDir) or isinstance(service, eServiceReferenceHotplug)):
             if config.AdvancedMovieSelection.showrename.value:
                 menu.append((_("Rename"), boundFunction(self.retitel, session, service)))
         if config.AdvancedMovieSelection.showsearch.value:
