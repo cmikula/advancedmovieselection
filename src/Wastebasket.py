@@ -46,6 +46,10 @@ from datetime import datetime
 from Tools.Directories import getSize as getServiceSize
 import os
 from time import time, strftime, localtime
+from MessageServer import getIpAddress
+from Client import getClients
+
+staticIP = None
 
 class TrashMovieList(GUIComponent):
     def __init__(self, root):
@@ -201,6 +205,7 @@ class Wastebasket(Screen):
         self["autoemptynext"] = Label()
         self["list"] = TrashMovieList(None)
         self.list = self["list"]
+        self.staticIP = getIpAddress('eth0')
         self["OkCancelActions"] = HelpableActionMap(self, "OkCancelActions",
             {
                 "cancel": (self.abort, _("Exit wastebasket"))
@@ -227,7 +232,22 @@ class Wastebasket(Screen):
             nextUpdateCheck_time = strftime(("%02d.%02d.%04d" % (t[2], t[1], t[0])) + ' ' + _("at") + ' ' + ("%02d:%02d" % (t[3], t[4])) + ' ' + _("Clock"))
             self["autoemptynext"].setText(_("Next automated wastebasket empty at %s") % nextUpdateCheck_time)
         else:
-            self["autoemptylast"].setText(_("Auto empty wastebasket is disabled"))
+            if self.staticIP:
+                for client in getClients():
+                    if client is not None:
+                        lastEmptyEvent = client.lastTrashEvent()
+                        if lastEmptyEvent != -1:
+                            t = localtime(lastEmptyEvent)
+                            self["autoemptylast"].setText( _("Last remote wastebasket empty at %s") % (strftime(("%02d.%02d.%04d" % (t[2], t[1], t[0])) + ' ' + _("at") + ' ' + ("%02d:%02d" % (t[3], t[4])) + ' ' + _("Clock"))))
+                        nextEmptyEvent = client.nextTrashEvent()
+                        if nextEmptyEvent != -1:
+                            t = localtime(nextEmptyEvent)
+                            self["autoemptynext"].setText(_("Next remote wastebasket empty at %s") % (strftime(("%02d.%02d.%04d" % (t[2], t[1], t[0])) + ' ' + _("at") + ' ' + ("%02d:%02d" % (t[3], t[4])) + ' ' + _("Clock"))))
+                    else:
+                        self["autoemptylast"].setText(_("No last empty status available!"))
+                        self["autoemptynext"].setText(_("No next empty status available!"))
+            else:
+                self["autoemptylast"].setText(_("Auto empty wastebasket is disabled"))
 
     def updateHDDData(self):
         self.reloadList(self.current_ref)
