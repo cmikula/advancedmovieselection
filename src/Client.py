@@ -122,17 +122,7 @@ class Client:
         return self.sendData("inStandby") == "True"
 
     def nextTrashEvent(self):
-        ev = 0
-        try:
-            ev = int(self.sendData("nextTrashEvent"))
-        except:
-            pass
-        return ev
+        return int(self.sendData("nextTrashEvent"))
 
     def lastTrashEvent(self):
-        ev = 0
-        try:
-            ev = int(self.sendData("lastTrashEvent"))
-        except:
-            pass
-        return ev
+        return int(self.sendData("lastTrashEvent"))
