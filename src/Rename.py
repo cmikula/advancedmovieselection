@@ -91,7 +91,7 @@ class MovieRetitle(Screen, ConfigListScreen):
     def createSetup(self):
         self.list = []
         if self.is_vdir:
-            self.list.append(getConfigListEntry(_("Displayed name:"), self.input_title))
+            self.list.append(getConfigListEntry(_("Displayed bookmark name:"), self.input_title))
         elif self.is_dir:
             self.list.append(getConfigListEntry(_("Foldername:"), self.input_file))
         else:
@@ -110,7 +110,9 @@ class MovieRetitle(Screen, ConfigListScreen):
                 current[1].help_window.instance.move(ePoint(helpwindowpos[0],helpwindowpos[1]))
         
     def setCustomTitle(self):
-        if self.is_dir:
+        if self.is_vdir:
+            self.setTitle(_("Change Bookmarkname"))
+        elif self.is_dir:
             self.setTitle(_("Change Foldername"))
         else:
             self.setTitle(_("Change File/Moviename and/or Description"))
