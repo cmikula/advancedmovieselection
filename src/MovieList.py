@@ -532,13 +532,10 @@ class MovieList(GUIComponent):
                 if service is not None:
                     res.append(MultiContentEntryText(pos=(width - 180, 0), size=(180, 30), font=2, flags=RT_HALIGN_RIGHT, text=service.getServiceName(), color=color))
                 res.append(MultiContentEntryText(pos=(0 + offset, 28), size=(width, 25), font=1, flags=RT_HALIGN_LEFT, text=description, color=color))
-            if self.show_date == MovieList.SHOW_DATE and self.show_time == MovieList.SHOW_TIME:
+            if self.show_date == MovieList.SHOW_DATE:
                 res.append(MultiContentEntryText(pos=(0 + offset, 55), size=(200, 20), font=1, flags=RT_HALIGN_LEFT, text=begin_string, color=color))
+            if self.show_time == MovieList.SHOW_TIME:
                 res.append(MultiContentEntryText(pos=(width - 200, 55), size=(198, 20), font=1, flags=RT_HALIGN_RIGHT, text=len, color=color))
-            if self.show_date == MovieList.HIDE_DATE and self.show_time == MovieList.SHOW_TIME:
-                res.append(MultiContentEntryText(pos=(width - 200, 55), size=(198, 20), font=1, flags=RT_HALIGN_RIGHT, text=len, color=color))
-            if self.show_date == MovieList.SHOW_DATE and self.show_time == MovieList.HIDE_TIME:
-                res.append(MultiContentEntryText(pos=(0 + offset, 55), size=(200, 20), font=1, flags=RT_HALIGN_LEFT, text=begin_string, color=color))
 
         elif self.list_type == MovieList.LISTTYPE_COMPACT_DESCRIPTION:
             if self.show_folders:
@@ -556,17 +553,10 @@ class MovieList(GUIComponent):
         elif self.list_type == MovieList.LISTTYPE_COMPACT:
             if self.show_folders:
                 res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 9, 20, 20, png))            
-            if self.show_date == MovieList.SHOW_DATE and self.show_time == MovieList.HIDE_TIME:
-                res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 77, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
-                res.append(MultiContentEntryText(pos=(0 + offset, 22), size=(200, 17), font=1, flags=RT_HALIGN_LEFT, text=begin_string, color=color))            
-            if self.show_date == MovieList.SHOW_DATE and self.show_time == MovieList.SHOW_TIME:
-                res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 155, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
-                res.append(MultiContentEntryText(pos=(0 + offset, 22), size=(200, 17), font=1, flags=RT_HALIGN_LEFT, text=begin_string, color=color))
-                res.append(MultiContentEntryText(pos=(width - 75, 0), size=(75, 20), font=0, flags=RT_HALIGN_RIGHT, text=len, color=color))            
-            if self.show_date == MovieList.HIDE_DATE and self.show_time == MovieList.HIDE_TIME:
-                res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 0, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))            
-            if self.show_date == MovieList.HIDE_DATE and self.show_time == MovieList.SHOW_TIME:
-                res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 155, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
+            res.append(MultiContentEntryText(pos=(offset, 0), size=(width, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))            
+            if self.show_date == MovieList.SHOW_DATE:
+                res.append(MultiContentEntryText(pos=(offset, 22), size=(200, 17), font=1, flags=RT_HALIGN_LEFT, text=begin_string, color=color))            
+            if self.show_time == MovieList.SHOW_TIME:
                 res.append(MultiContentEntryText(pos=(width - 75, 0), size=(75, 20), font=0, flags=RT_HALIGN_RIGHT, text=len, color=color))            
             if self.tags and self.show_tags == MovieList.SHOW_TAGS:
                 res.append(MultiContentEntryText(pos=(width - 200, 22), size=(200, 17), font=1, flags=RT_HALIGN_RIGHT, text=tags, color=color))
@@ -594,7 +584,7 @@ class MovieList(GUIComponent):
                 res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 3, 20, 20, png))
             res.append(MultiContentEntryText(pos=(0 + offset, 2), size=(width, 20), font=0, flags=RT_HALIGN_LEFT, text=displaytext, color=color))
             if self.show_service == MovieList.SHOW_SERVICE:
-                servicename = str(service.getServiceName())
+                servicename = service.getServiceName()
                 res.append(MultiContentEntryText(pos=(width - 170, 2), size=(170, 20), font=0, flags=RT_HALIGN_RIGHT, text=servicename, color=color))
         else:
             assert(self.list_type == MovieList.LISTTYPE_MINIMAL)
