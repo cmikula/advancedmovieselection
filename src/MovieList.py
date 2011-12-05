@@ -359,7 +359,7 @@ class MovieList(GUIComponent):
                 else:
                     png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "directory.png"))
                 res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 2, 20, 20, png))
-                res.append(MultiContentEntryText(pos=(25, 3), size=(width - 40, 30), font=0, flags=RT_HALIGN_LEFT, text=serviceref.getName()))
+                res.append(MultiContentEntryText(pos=(25, 3), size=(width - 105, 30), font=0, flags=RT_HALIGN_LEFT, text=serviceref.getName()))
                 if config.AdvancedMovieSelection.show_dirsize.value:
                     if len < 0: #recalk len when not already done
                         cur_idx = self.l.getCurrentSelectionIndex()
@@ -383,7 +383,7 @@ class MovieList(GUIComponent):
                         else:
                             dir_size = "%s GB" % (round(cap / 1000, 3))
                     if serviceref.getName() != "..":
-                        res.append(MultiContentEntryText(pos=(width - 250, 5), size=(250, 30), font=1, flags=RT_HALIGN_RIGHT, text=dir_size))
+                        res.append(MultiContentEntryText(pos=(width - 80, 3), size=(75, 30), font=0, flags=RT_HALIGN_RIGHT, text=dir_size))
                 return res
             extension = serviceref.toString().split('.')
             extension = extension[-1].lower()
@@ -593,10 +593,17 @@ class MovieList(GUIComponent):
             
             if self.show_folders:
                 res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 3, 20, 20, png))
-            res.append(MultiContentEntryText(pos=(0 + offset, 2), size=(width, 20), font=0, flags=RT_HALIGN_LEFT, text=displaytext, color=color))
+            #res.append(MultiContentEntryText(pos=(0 + offset, 2), size=(width, 20), font=0, flags=RT_HALIGN_LEFT, text=displaytext, color=color))
+            offsetServiceName = 0
             if self.show_service == MovieList.SHOW_SERVICE:
                 servicename = service.getServiceName()
-                res.append(MultiContentEntryText(pos=(width - 170, 2), size=(170, 20), font=0, flags=RT_HALIGN_RIGHT, text=servicename, color=color))
+                res.append(MultiContentEntryText(pos=(width - 175, 2), size=(170, 20), font=0, flags=RT_HALIGN_RIGHT, text=servicename, color=color))
+                if servicename:
+                    offsetServiceName = 175
+            if self.tags and self.show_tags == MovieList.SHOW_TAGS and self.show_service == MovieList.HIDE_SERVICE:
+                res.append(MultiContentEntryText(pos=(width - 175, 2), size=(170, 20), font=0, flags=RT_HALIGN_RIGHT, text=tags, color=color))
+                offsetServiceName = 175
+            res.append(MultiContentEntryText(pos=(0 + offset, 2), size=(width - (0 + offset + offsetServiceName), 25), font=0, flags=RT_HALIGN_LEFT, text=displaytext, color=color))
         else:
             assert(self.list_type == MovieList.LISTTYPE_MINIMAL)
             if self.show_folders:
