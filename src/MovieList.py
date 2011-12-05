@@ -359,7 +359,7 @@ class MovieList(GUIComponent):
                 else:
                     png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "directory.png"))
                 res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 2, 20, 20, png))
-                res.append(MultiContentEntryText(pos=(25, 3), size=(width - 105, 30), font=0, flags=RT_HALIGN_LEFT, text=serviceref.getName()))
+                res.append(MultiContentEntryText(pos=(25, 3), size=(width - 150, 30), font=0, flags=RT_HALIGN_LEFT, text=serviceref.getName()))
                 if config.AdvancedMovieSelection.show_dirsize.value:
                     if len < 0: #recalk len when not already done
                         cur_idx = self.l.getCurrentSelectionIndex()
@@ -383,7 +383,7 @@ class MovieList(GUIComponent):
                         else:
                             dir_size = "%s GB" % (round(cap / 1000, 3))
                     if serviceref.getName() != "..":
-                        res.append(MultiContentEntryText(pos=(width - 80, 3), size=(75, 30), font=0, flags=RT_HALIGN_RIGHT, text=dir_size))
+                        res.append(MultiContentEntryText(pos=(width - 115, 3), size=(110, 30), font=0, flags=RT_HALIGN_RIGHT, text=dir_size))
                 return res
             extension = serviceref.toString().split('.')
             extension = extension[-1].lower()
@@ -583,17 +583,20 @@ class MovieList(GUIComponent):
             else:
                 displaytext = ""
             if self.show_date == MovieList.SHOW_DATE:
-                displaytext = displaytext + begin_string + " - " + service_name
+                if not service_name == description and not description == "":
+                    displaytext = displaytext + begin_string + " - " + service_name + " - " + description
+                else:
+                    displaytext = displaytext + begin_string + " - " + service_name
             else:
-                displaytext = displaytext + service_name 
-            if description:
-                displaytext = displaytext + " - " + description
+                if not service_name == description and not description == "":
+                    displaytext = displaytext + service_name + " - " + description
+                else:
+                    displaytext = displaytext + service_name
             if len and self.show_time == MovieList.SHOW_TIME:
-                displaytext = displaytext + ' ' + "(" + len + ")"    
+                displaytext = displaytext + ' ' + "(" + len + ")"
             
             if self.show_folders:
                 res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 3, 20, 20, png))
-            #res.append(MultiContentEntryText(pos=(0 + offset, 2), size=(width, 20), font=0, flags=RT_HALIGN_LEFT, text=displaytext, color=color))
             offsetServiceName = 0
             if self.show_service == MovieList.SHOW_SERVICE:
                 servicename = service.getServiceName()

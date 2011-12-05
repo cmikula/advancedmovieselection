@@ -185,6 +185,7 @@ version 2.3
 * neu: lesezeichen umbenennen
 * geändert: neue aufnahmen werden nun auch ohne gp3 angezeigt
 * geändert: vor dem löschen nachfragen warnung wird nur mehr angezeigt wenn auch info nachrichten anzeigen eingeschalten ist
+* geändert: kurbeschreibung wird nur mehr angezeigt wenn sie nicht gleich ist wie der filmtitel (in der erweiterten einzeiligen listenansicht)
 * fix: wecken von hdd´s aus dem standby 
 ACHTUNG an die skinner, AdvancedMovieSelection_ClientSetup_HD, AdvancedMovieSelection_ClientSetup_XD und AdvancedMovieSelection_ClientSetup_SD sind hinzugekommen, und in den AdvancedMovieSelectionSetupHD,XD und SD ist das <widget name="MenuIcon" dazugekommen
 
