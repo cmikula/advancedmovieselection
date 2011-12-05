@@ -182,7 +182,6 @@ class MovieList(GUIComponent):
             newcolor4 = 0xffa500 
 
         self.mark_color = newcolor4
-        #self.mark_color = 0xf68706
         try: self.watching_color = parseColor("movieWatching").argb()    
         except: self.watching_color = newcolor1
         try: self.finished_color = parseColor("movieFinished").argb()    
@@ -238,7 +237,7 @@ class MovieList(GUIComponent):
             self.DATE_TIME_FORMAT = "%d.%m"
         elif config.AdvancedMovieSelection.dateformat.value == "7":
             self.DATE_TIME_FORMAT = "%m.%d"
-        else: # default if config.AdvancedMovieSelection.dateformat.value == "3":
+        else:
             self.DATE_TIME_FORMAT = "%d.%m.%Y - %H:%M"
 
         if environ["LANGUAGE"] == "de":                    
@@ -369,8 +368,20 @@ class MovieList(GUIComponent):
                         else:
                             len = 0 #dont recalc movielist to speedup loading the list
                         self.list[cur_idx] = (serviceref, info, begin, len) #update entry in list... so next time we don't need to recalc
-                    cap = len / (1024 * 1024)
-                    dir_size = "%d.%03d GB" % (cap / 1000, cap % 1000)
+                    cap = float(len / (1024 * 1024))
+                    if cap == 0:
+                        dir_size = "N/A"
+                    elif cap <= 999:
+                        dir_size = "%d MB" % (cap)
+                    else:
+                        if config.AdvancedMovieSelection.dirsize_digits.value == "0":
+                            dir_size = "%d GB" % (cap / 1000)
+                        elif config.AdvancedMovieSelection.dirsize_digits.value == "1":
+                            dir_size = "%s GB" % (round(cap / 1000, 1))
+                        elif config.AdvancedMovieSelection.dirsize_digits.value == "2":
+                            dir_size = "%s GB" % (round(cap / 1000, 2))
+                        else:
+                            dir_size = "%s GB" % (round(cap / 1000, 3))
                     if serviceref.getName() != "..":
                         res.append(MultiContentEntryText(pos=(width - 250, 5), size=(250, 30), font=1, flags=RT_HALIGN_RIGHT, text=dir_size))
                 return res
