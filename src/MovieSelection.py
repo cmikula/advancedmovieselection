@@ -1052,6 +1052,9 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
 
     def doContext(self, retval=None):
         current = self.getCurrent()
+        if not current:
+            # create dummy service
+            current = eServiceReferenceBackDir(eServiceReference.idFile, eServiceReference.flagDirectory, "..")
         if current is not None:
             if not config.usage.load_length_of_movies_in_moviellist.value:
                 self.session.open(MovieContextMenu, self, current)

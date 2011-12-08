@@ -813,11 +813,10 @@ class MovieList(GUIComponent):
         
         if self.sort_type == MovieList.SORT_ALPHANUMERIC:
             self.list.sort(key=self.buildAlphaNumericSortKey)
+        elif self.sort_type == MovieList.SORT_DATE_ASC:
+            self.list.sort(self.sortbyDateAsc)
         else:
-            if self.sort_type == MovieList.SORT_DATE_ASC:
-                self.list.sort(self.sortbyDateAsc)
-            else:
-                self.list.sort(self.sortbyDateDesc)
+            self.list.sort(self.sortbyDateDesc)
 #            # sort: key is 'begin'
 #            self.list.sort(key=lambda x: -x[2])
 
