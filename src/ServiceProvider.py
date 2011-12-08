@@ -118,13 +118,16 @@ def getFolderSize(loadPath):
     for (path, dirs, files) in os.walk(loadPath):
         for file in files:    
             filename = os.path.join(path, file)    
-            folder_size += os.path.getsize(filename)
+            if os.path.exists(filename):
+                folder_size += os.path.getsize(filename)
     return folder_size
 
 def getDirSize(root):
     folder_size = 0
     for filename in os.listdir(root):
-        folder_size += os.path.getsize(os.path.join(root, filename))
+        p = os.path.join(root, filename)
+        if os.path.exists(p):
+            folder_size += os.path.getsize(p)
     return folder_size
 
 def detectDVDStructure(loadPath):

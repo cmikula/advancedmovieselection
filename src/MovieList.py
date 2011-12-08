@@ -36,7 +36,7 @@ from stat import ST_MTIME as stat_ST_MTIME
 from time import time as time_time
 from math import fabs as math_fabs
 from datetime import datetime
-from ServiceProvider import detectDVDStructure, getCutList, Info, ServiceCenter, eServiceReferenceDvd, MovieConfig, hasLastPosition, getDirSize
+from ServiceProvider import detectDVDStructure, getCutList, Info, ServiceCenter, eServiceReferenceDvd, MovieConfig, hasLastPosition, getDirSize, getFolderSize
 from os import environ
 from Trashcan import TRASH_NAME
 from Components.Harddisk import Harddisk
@@ -363,8 +363,11 @@ class MovieList(GUIComponent):
                 if config.AdvancedMovieSelection.show_dirsize.value:
                     if len < 0: #recalk len when not already done
                         cur_idx = self.l.getCurrentSelectionIndex()
-                        if config.usage.load_length_of_movies_in_moviellist.value:
-                            len = getDirSize(serviceref.getPath()) 
+                        if config.usage.load_length_of_movies_in_moviellist.value and serviceref.getName() != "..":
+                            if config.AdvancedMovieSelection.show_dirsize_full.value:
+                                len = getFolderSize(serviceref.getPath())
+                            else:
+                                len = getDirSize(serviceref.getPath())
                         else:
                             len = 0 #dont recalc movielist to speedup loading the list
                         self.list[cur_idx] = (serviceref, info, begin, len) #update entry in list... so next time we don't need to recalc
