@@ -271,7 +271,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         if config.AdvancedMovieSelection.debug.isChanged():
             config.AdvancedMovieSelection.debug.save()
             from Debug import Debug
-            if config.AdvancedMovieSelection.debug:
+            if config.AdvancedMovieSelection.debug.value:
                 Debug.enable("/tmp/enigma2_stdout.log")
             else:
                 Debug.disable()
