@@ -92,8 +92,8 @@ class TrashMovieList(GUIComponent):
         service_info = "%d MB - %s" % (getServiceSize(serviceref.getPath()) / (1024 * 1024), begin_string)
         res.append(MultiContentEntryText(pos=(5, 3), size=(width_up_l, 30), font=0, flags=RT_HALIGN_LEFT, text=serviceref.getName()))
         res.append(MultiContentEntryText(pos=(5, 28), size=(width_dn_l, 30), font=1, flags=RT_HALIGN_LEFT, text=os.path.dirname(serviceref.getPath())))
-        res.append(MultiContentEntryText(pos=(pos_up_r, 3), size=(width_up_r, 22), font=1, flags=RT_HALIGN_RIGHT, text=description))
-        res.append(MultiContentEntryText(pos=(pos_dn_r, 28), size=(width_dn_r, 22), font=1, flags=RT_HALIGN_RIGHT, text=service_info))
+        res.append(MultiContentEntryText(pos=(pos_up_r - 5, 3), size=(width_up_r, 22), font=1, flags=RT_HALIGN_RIGHT, text=description))
+        res.append(MultiContentEntryText(pos=(pos_dn_r - 5, 28), size=(width_dn_r, 22), font=1, flags=RT_HALIGN_RIGHT, text=service_info))
         return res
 
     def moveToIndex(self, index):
