@@ -181,7 +181,7 @@ version 2.2.1
 version 2.3
 * neu: fernwartung (leeren vom papierkorb von entfernten boxen), kann nur benutzt werden wenn papierkorb aktiv (einstellungen sind dann unter menü -> einstellungen -> menü erreichbar, oder kann im menü der filmliste angezeigt werden)
 * neu: anzeige der filmlänge bei nicht *.ts dateien aus der eit datei wenn vorhanden 
-* neu: anzeige der gesamt dateigröße der verzeichnisse (nur die dateien im verzeichnis ohne unterordner und natürlich abschaltbar, bzw. dezimalstellen einstellbar)
+* neu: anzeige der grösse vom verzeichnis/lesezeichen in der filmliste (mit oder ohne unterverzeichnisse und natürlich abschaltbar, bzw. dezimalstellen einstellbar)
 * neu: lesezeichen umbenennen
 * geändert: neue aufnahmen werden nun auch ohne gp3 angezeigt
 * geändert: vor dem löschen nachfragen warnung wird nur mehr angezeigt wenn auch info nachrichten anzeigen eingeschalten ist
