@@ -222,11 +222,16 @@ class MovieContextMenu(Screen):
                 menu.append((_("Hide folders in movielist"), boundFunction(self.showFolders, False)))
             else:
                 menu.append((_("Show folders in movielist"), boundFunction(self.showFolders, True)))
-        if config.AdvancedMovieSelection.showextras.value and config.usage.load_length_of_movies_in_moviellist.value:
+        if config.AdvancedMovieSelection.showextras.value and config.usage.load_length_of_movies_in_moviellist.value and not config.AdvancedMovieSelection.showpercentinmovielist.value:
             if config.AdvancedMovieSelection.showprogessbarinmovielist.value:
                 menu.append((_("Hide progressbar in movielist"), boundFunction(self.showProgressbar, False)))
             else:
                 menu.append((_("Show progressbar in movielist"), boundFunction(self.showProgressbar, True)))
+        if config.AdvancedMovieSelection.showextras.value and config.usage.load_length_of_movies_in_moviellist.value and not config.AdvancedMovieSelection.showprogessbarinmovielist.value:
+            if config.AdvancedMovieSelection.showpercentinmovielist.value:
+                menu.append((_("Hide percent in movielist"), boundFunction(self.showPercent, False)))
+            else:
+                menu.append((_("Show percent in movielist"), boundFunction(self.showPercent, True)))
         if config.AdvancedMovieSelection.showextras.value and config.AdvancedMovieSelection.showfoldersinmovielist.value and config.usage.load_length_of_movies_in_moviellist.value:
             if config.AdvancedMovieSelection.showiconstatusinmovielist.value:
                 menu.append((_("Hide movie status icon in movielist"), boundFunction(self.showStatusIcon, False)))
@@ -413,6 +418,13 @@ class MovieContextMenu(Screen):
         config.AdvancedMovieSelection.showprogessbarinmovielist.value = value
         config.AdvancedMovieSelection.showprogessbarinmovielist.save()
         self.csel.showProgressbar(value)
+        self.csel.reloadList()
+        self.close()
+
+    def showPercent(self, value):
+        config.AdvancedMovieSelection.showpercentinmovielist.value = value
+        config.AdvancedMovieSelection.showpercentinmovielist.save()        
+        self.csel.showPercent(value)
         self.csel.reloadList()
         self.close()
 
@@ -705,6 +717,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             config.movielist.description.value,
             config.AdvancedMovieSelection.showfoldersinmovielist.value,
             config.AdvancedMovieSelection.showprogessbarinmovielist.value,
+            config.AdvancedMovieSelection.showpercentinmovielist.value,
             config.AdvancedMovieSelection.showiconstatusinmovielist.value,
             config.AdvancedMovieSelection.showcolorstatusinmovielist.value,
             config.movielist.showdate.value,
@@ -1141,6 +1154,9 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
 
     def showProgressbar(self, value):
         self["list"].showProgressbar(value)
+
+    def showPercent(self, value):
+        self["list"].showPercent(value)
 
     def showStatusIcon(self, value):
         self["list"].showStatusIcon(value)

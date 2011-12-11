@@ -25,7 +25,7 @@ from Tools.FuzzyDate import FuzzyTime
 from ServiceReference import ServiceReference
 from Components.MultiContent import MultiContentEntryText, MultiContentEntryProgress
 from Components.config import config
-from enigma import eListboxPythonMultiContent, eListbox, gFont, iServiceInformation, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, eServiceReference
+from enigma import eListboxPythonMultiContent, eListbox, gFont, iServiceInformation, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, eServiceReference, RT_HALIGN_CENTER
 from Tools.LoadPixmap import LoadPixmap
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
 import os
@@ -98,7 +98,7 @@ class MovieList(GUIComponent):
     COLOR_PERCENT_2 = None
     DATE_TIME_FORMAT = ""
 
-    def __init__(self, root, list_type=None, sort_type=None, descr_state=None, show_folders=False, show_progressbar=False, show_statusicon=False, show_statuscolor=False, show_date=True, show_time=True, show_service=True, show_tags=False):
+    def __init__(self, root, list_type=None, sort_type=None, descr_state=None, show_folders=False, show_progressbar=False, show_percent=False, show_statusicon=False, show_statuscolor=False, show_date=True, show_time=True, show_service=True, show_tags=False):
         GUIComponent.__init__(self)
         self.movieConfig = MovieConfig()
         self.list_type = list_type or self.LISTTYPE_ORIGINAL
@@ -107,6 +107,7 @@ class MovieList(GUIComponent):
         self.sort_type = sort_type or self.SORT_DATE_DESC
         self.show_folders = show_folders
         self.show_progressbar = show_progressbar
+        self.show_percent = show_percent
         self.show_statusicon = show_statusicon
         self.show_statuscolor = show_statuscolor
         self.show_date = show_date or self.HIDE_DATE
@@ -307,6 +308,9 @@ class MovieList(GUIComponent):
     def showProgressbar(self, val):
         self.show_progressbar = val
 
+    def showPercent(self, val):
+        self.show_percent = val
+
     def showStatusIcon(self, val):
         self.show_statusicon = val
 
@@ -468,7 +472,7 @@ class MovieList(GUIComponent):
             if self.COLOR_MOVIE_ICON:
                 png = self.COLOR_MOVIE_ICON
 
-        if self.show_progressbar or (self.show_statusicon and self.show_folders) or self.show_statuscolor:
+        if (self.show_progressbar or self.show_percent) or (self.show_statusicon and self.show_folders) or self.show_statuscolor:
             last = None
             if length <= 0: #Set default file length if is not calculateable
                 length = 5400
@@ -509,6 +513,11 @@ class MovieList(GUIComponent):
                 top = int((self.l.getItemSize().height() - 6) / 2) + 1
                 res.append(MultiContentEntryProgress(pos=(0 + offset, top), size=(50, 6), percent=perc, borderWidth=1, foreColor=color))
                 offset = offset + 55
+
+            if self.show_percent:
+                perc_txt = "%d" % (perc) + ' % - '
+                res.append(MultiContentEntryText(pos=(offset, 2), size=(60, 25), font=0, flags=RT_HALIGN_RIGHT, text=perc_txt, color=color))
+                offset = offset + 65
 
         begin_string = ""
         if recording:

@@ -428,6 +428,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             config.AdvancedMovieSelection.showprogessbarinmovielist.value = False
             config.AdvancedMovieSelection.showiconstatusinmovielist.value = False
             config.AdvancedMovieSelection.showcolorstatusinmovielist.value = False
+            config.AdvancedMovieSelection.showpercentinmovielist.value = False
         elif config.AdvancedMovieSelection.minitv.isChanged():
             self.needsReopenFlag = True
         elif config.AdvancedMovieSelection.use_original_movieplayer_summary.isChanged():

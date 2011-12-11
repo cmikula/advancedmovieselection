@@ -189,7 +189,8 @@ version 2.3
 * fix: wecken von hdd´s aus dem standby 
 ACHTUNG an die skinner, AdvancedMovieSelection_ClientSetup_HD, AdvancedMovieSelection_ClientSetup_XD und AdvancedMovieSelection_ClientSetup_SD sind hinzugekommen, und in den AdvancedMovieSelectionSetupHD,XD und SD ist das <widget name="MenuIcon" dazugekommen
 
-
+version 2.4
+* neu: prozentanzeige oder fortschrittsbalken in der filmliste
 
 
 
