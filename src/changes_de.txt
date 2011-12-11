@@ -191,7 +191,7 @@ ACHTUNG an die skinner, AdvancedMovieSelection_ClientSetup_HD, AdvancedMovieSele
 
 version 2.4
 * neu: prozentanzeige oder fortschrittsbalken in der filmliste
-
+* fix: neue aufnahme icon wenn status icon deaktiviert ist, und film als gesehen markiert wurde
 
 
 
