@@ -614,18 +614,19 @@ class SelectionEventInfo:
         self.onShown.append(self.__selectionChanged)
 
     def __selectionChanged(self):
-        if self.execing and config.movielist.description.value == MovieList.SHOW_DESCRIPTION:
+        if self.execing and config.movielist.description.value == MovieList.SHOW_DESCRIPTION or config.AdvancedMovieSelection.showpreview.value:
             self.timer.start(100, True)
 
     def updateEventInfo(self):
         evt = self["list"].getCurrentEvent()
         serviceref = self.getCurrent()
-        if evt:
-            self["Service"].newService(serviceref)
-        else:
-            self["Service"].newService(None)
-        self.updateName(serviceref, evt)
-        if config.AdvancedMovieSelection.showpreview.value == True:
+        if config.movielist.description.value == MovieList.SHOW_DESCRIPTION:
+            if evt:
+                self["Service"].newService(serviceref)
+            else:
+                self["Service"].newService(None)
+            self.updateName(serviceref, evt)
+        if config.AdvancedMovieSelection.showpreview.value:
             self.loadPreview(serviceref)
 
 class AdvancedMovieSelection_summary(Screen):
