@@ -363,6 +363,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.list.append(getConfigListEntry(_("Show Wastebasket in extensions menu from movielist:"), config.AdvancedMovieSelection.show_wastebasket, _("Displays wastebasket function in the menu at the movie list.")))
             self.list.append(getConfigListEntry(_("Show Clientbox setup in movielist:"), config.AdvancedMovieSelection.show_remote_setup, _("Displays Clientbox setup function in the menu at the movie list.")))
             self.list.append(getConfigListEntry(_("Wastebasket file(s):"), config.AdvancedMovieSelection.wastelist_buildtype, _("Here you can select which files to Wastebasket are displayed. ATTENTION: All directorys below '/media' will take very long until the list is displayed!")))
+            self.list.append(getConfigListEntry(_("Show decimal points:"), config.AdvancedMovieSelection.filesize_digits, _("Here you can choose how many decimal points for the file size in the wastebasket will be displayed.")))
             self.list.append(getConfigListEntry(_("Auto empty wastebasket:"), config.AdvancedMovieSelection.auto_empty_wastebasket, _("If you enable this function the wastebasket will be emptied automatically at the set time.")))
             if not int(config.AdvancedMovieSelection.auto_empty_wastebasket.value) == -1:
                 self.list.append(getConfigListEntry(_("Auto empty wastebasket time:"), config.AdvancedMovieSelection.empty_wastebasket_time, _("Here you can define when to empty the wastebasket.")))

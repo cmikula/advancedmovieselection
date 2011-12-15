@@ -89,7 +89,18 @@ class TrashMovieList(GUIComponent):
         pos_dn_r = width - width_dn_r
         begin_string = self.getBeginString(serviceref)
         description = serviceref.getShortDescription()
-        service_info = "%d MB - %s" % (getServiceSize(serviceref.getPath()) / (1024 * 1024), begin_string)
+        filesize = float(getServiceSize(serviceref.getPath()) / (1024 * 1024))
+        if filesize <= 999:
+            service_info = "%d MB - %s" % (filesize, begin_string)
+        else:
+            if config.AdvancedMovieSelection.filesize_digits.value == "0":
+                service_info = "%d GB - %s" % ((filesize / 1000), begin_string)
+            elif config.AdvancedMovieSelection.filesize_digits.value == "1":
+                service_info = "%s GB - %s" % ((round(filesize / 1000, 1)), begin_string)
+            elif config.AdvancedMovieSelection.filesize_digits.value == "2":
+                service_info = "%s GB - %s" % ((round(filesize / 1000, 2)), begin_string)
+            else:
+                service_info = "%s GB - %s" % ((round(filesize / 1000, 3)), begin_string)
         res.append(MultiContentEntryText(pos=(5, 3), size=(width_up_l, 30), font=0, flags=RT_HALIGN_LEFT, text=serviceref.getName()))
         res.append(MultiContentEntryText(pos=(5, 28), size=(width_dn_l, 30), font=1, flags=RT_HALIGN_LEFT, text=os.path.dirname(serviceref.getPath())))
         res.append(MultiContentEntryText(pos=(pos_up_r - 5, 3), size=(width_up_r, 22), font=1, flags=RT_HALIGN_RIGHT, text=description))
