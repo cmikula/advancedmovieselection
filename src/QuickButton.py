@@ -32,16 +32,16 @@ from Rename import MovieRetitle
 from Wastebasket import Wastebasket
 
 def getPluginCaption(pname):
-    if pname != _("Nothing"):
-        if pname == _("Home"):
+    if pname != "Nothing":
+        if pname == "Home":
             return _(config.AdvancedMovieSelection.hometext.value)
-        elif pname == _("Bookmark 1"):
+        elif pname == "Bookmark 1":
             return _(config.AdvancedMovieSelection.bookmark1text.value)
-        elif pname == _("Bookmark 2"):
+        elif pname == "Bookmark 2":
             return _(config.AdvancedMovieSelection.bookmark2text.value)
-        elif pname == _("Bookmark 3"):
+        elif pname == "Bookmark 3":
             return _(config.AdvancedMovieSelection.bookmark3text.value)
-        elif pname == _("Sort"):
+        elif pname == "Sort":
             if config.movielist.moviesort.value == MovieList.SORT_ALPHANUMERIC:
                 return _("Sort by Date (1->9)")
             else:
@@ -77,10 +77,10 @@ class QuickButton:
         })
 
     def updateButtonText(self):
-        self["key_red"].setText(getPluginCaption(str(config.AdvancedMovieSelection.red.value)))
-        self["key_green"].setText(getPluginCaption(str(config.AdvancedMovieSelection.green.value)))
-        self["key_yellow"].setText(getPluginCaption(str(config.AdvancedMovieSelection.yellow.value)))
-        self["key_blue"].setText(getPluginCaption(str(config.AdvancedMovieSelection.blue.value)))
+        self["key_red"].setText(getPluginCaption(_(config.AdvancedMovieSelection.red.value)))
+        self["key_green"].setText(getPluginCaption(_(config.AdvancedMovieSelection.green.value)))
+        self["key_yellow"].setText(getPluginCaption(_(config.AdvancedMovieSelection.yellow.value)))
+        self["key_blue"].setText(getPluginCaption(_(config.AdvancedMovieSelection.blue.value)))
 
     def redpressed(self):
         self.startPlugin(str(config.AdvancedMovieSelection.red.value), self["key_red"])
@@ -104,51 +104,51 @@ class QuickButton:
         current = self.getCurrent()
         service = self.getCurrent()
         if current is not None:
-            if pname != _("Nothing"):
-                if pname == _("Delete"):
+            if pname != "Nothing":
+                if pname == "Delete":
                     self.delete()
-                elif pname == _("Wastebasket"):
+                elif pname == "Wastebasket":
                     if config.AdvancedMovieSelection.use_wastebasket.value:
                         self.session.openWithCallback(self.reloadList, Wastebasket)              
-                elif pname == _("Home"):
+                elif pname == "Home":
                     self.gotFilename(home)
-                elif pname == _("Bookmark 1"):
+                elif pname == "Bookmark 1":
                     self.gotFilename(bookmark1)
-                elif pname == _("Bookmark 2"):
+                elif pname == "Bookmark 2":
                     self.gotFilename(bookmark2)
-                elif pname == _("Bookmark 3"):
+                elif pname == "Bookmark 3":
                     self.gotFilename(bookmark3)
-                elif pname == _("Bookmark(s) on/off"):
+                elif pname == "Bookmark(s) on/off":
                     config.AdvancedMovieSelection.show_bookmarks.value = not config.AdvancedMovieSelection.show_bookmarks.value
                     self.saveconfig()
                     self.reloadList()
-                elif pname == _("Filter by Tags"):
+                elif pname == "Filter by Tags":
                     self.showTagsSelect()
-                elif pname == _("Tag Editor"):
+                elif pname == "Tag Editor":
                     if not (service.flags):
                         self.movietags()
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
                             self.session.open(MessageBox, _("Set tag here not possible, please select a movie for!"), MessageBox.TYPE_INFO)
-                elif pname == _("Trailer search"):
+                elif pname == "Trailer search":
                     if not (service.flags):
                         self.showTrailer()
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
                             self.session.open(MessageBox, _("Trailer search here not possible, please select a movie!"), MessageBox.TYPE_INFO) 
-                elif pname == _("Move-Copy"):
+                elif pname == "Move-Copy":
                     if not (service.flags):
                         self.session.open(MovieMove, self, current)
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
                             self.session.open(MessageBox, _("Move/Copy from complete directory/symlink not possible, please select a single movie!"), MessageBox.TYPE_INFO)
-                elif pname == _("Rename"):
+                elif pname == "Rename":
                     if not (service.flags):
                         self.session.openWithCallback(self.reloadList, MovieRetitle, service)
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
                             self.session.open(MessageBox, _("Rename here not possible, please select a movie!"), MessageBox.TYPE_INFO)        
-                elif pname == _("TMDb search & D/L"):
+                elif pname == "TMDb search & D/L":
                     if not (service.flags):
                         from SearchTMDb import TMDbMain as TMDbMainsave
                         from ServiceProvider import ServiceCenter
@@ -164,30 +164,28 @@ class QuickButton:
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
                             self.session.open(MessageBox, _("TMDb search here not possible, please select a movie!"), MessageBox.TYPE_INFO)               
-                elif pname == _("Mark as seen"):
+                elif pname == "Mark as seen":
                     if not (service.flags):
                         self.setMovieStatus(status = 1)
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
                             self.session.open(MessageBox, _("This may not be marked as seen!"), MessageBox.TYPE_INFO)
-                elif pname == _("Mark as unseen"):
+                elif pname == "Mark as unseen":
                     if not (service.flags):
                         self.setMovieStatus(status = 0) 
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
                             self.session.open(MessageBox, _("This may not be marked as unseen!"), MessageBox.TYPE_INFO)
-                elif pname == _("Sort"):
+                elif pname == "Sort":
                     if config.movielist.moviesort.value == MovieList.SORT_ALPHANUMERIC:
                         newType = MovieList.SORT_DATE_DESC
                         newCaption = _("Sort by Date (9->1)")
-                    else:
-                        if config.movielist.moviesort.value == MovieList.SORT_DATE_DESC:
-                            newType = MovieList.SORT_DATE_ASC
-                            newCaption = _("Sort alphabetically")
-                        else:
-                            if config.movielist.moviesort.value == MovieList.SORT_DATE_ASC:
-                                newType = MovieList.SORT_ALPHANUMERIC
-                                newCaption = _("Sort by Date (1->9)")
+                    elif config.movielist.moviesort.value == MovieList.SORT_DATE_DESC:
+                        newType = MovieList.SORT_DATE_ASC
+                        newCaption = _("Sort alphabetically")
+                    elif config.movielist.moviesort.value == MovieList.SORT_DATE_ASC:
+                        newType = MovieList.SORT_ALPHANUMERIC
+                        newCaption = _("Sort by Date (1->9)")
                     config.movielist.moviesort.value = newType
                     self.setSortType(newType)
                     self.reloadList()

@@ -27,7 +27,7 @@ from About import AdvancedMovieSelectionAbout
 from Components.Pixmap import Pixmap
 from Components.PluginComponent import plugins
 from Plugins.Plugin import PluginDescriptor
-from Components.config import config, ConfigSelection, getConfigListEntry, configfile
+from Components.config import config, getConfigListEntry, configfile, ConfigSelection as eConfigSelection
 from Components.Sources.StaticText import StaticText
 from Components.Button import Button
 from Components import ConfigList as eConfigList
@@ -476,6 +476,11 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
     def RecPathSettings(self):
         self.session.open(RecordPathsSettings)
 
+class ConfigSelection(eConfigSelection):
+    def getMulti(self, selected):
+        sel = eConfigSelection.getMulti(self, selected)
+        return (sel[0], _(sel[1]))
+
 class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
     def __init__(self, session, csel=None):
         Screen.__init__(self, session)
@@ -497,44 +502,44 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         self["OKIcon"] = Pixmap()
         self["OKIcon"].hide()
         self.entryguilist = []
-        self.entryguilist.append(("0", _("Nothing")))
-        self.entryguilist.append(("1", _("Delete")))
-        self.entryguilist.append(("2", _("Wastebasket")))
-        self.entryguilist.append(("3", _("Sort")))
-        self.entryguilist.append(("4", _("Home")))
-        self.entryguilist.append(("5", _("Bookmark 1")))
-        self.entryguilist.append(("6", _("Bookmark 2")))
-        self.entryguilist.append(("7", _("Bookmark 3")))
-        self.entryguilist.append(("8", _("Bookmark(s) on/off")))
-        self.entryguilist.append(("9", _("Filter by Tags")))
-        self.entryguilist.append(("10", _("Tag Editor")))
-        self.entryguilist.append(("11", _("Move-Copy")))
-        self.entryguilist.append(("12", _("Rename")))
-        self.entryguilist.append(("13", _("TMDb search & D/L")))
-        self.entryguilist.append(("14", _("Mark as seen")))
-        self.entryguilist.append(("15", _("Mark as unseen")))
+        self.entryguilist.append(("0", "Nothing"))
+        self.entryguilist.append(("1", "Delete"))
+        self.entryguilist.append(("2", "Wastebasket"))
+        self.entryguilist.append(("3", "Sort"))
+        self.entryguilist.append(("4", "Home"))
+        self.entryguilist.append(("5", "Bookmark 1"))
+        self.entryguilist.append(("6", "Bookmark 2"))
+        self.entryguilist.append(("7", "Bookmark 3"))
+        self.entryguilist.append(("8", "Bookmark(s) on/off"))
+        self.entryguilist.append(("9", "Filter by Tags"))
+        self.entryguilist.append(("10", "Tag Editor"))
+        self.entryguilist.append(("11", "Move-Copy"))
+        self.entryguilist.append(("12", "Rename"))
+        self.entryguilist.append(("13", "TMDb search & D/L"))
+        self.entryguilist.append(("14", "Mark as seen"))
+        self.entryguilist.append(("15", "Mark as unseen"))
         if YTTrailerPresent == True:
-            self.entryguilist.append(("17", _("Trailer search")))
+            self.entryguilist.append(("17", "Trailer search"))
         self.entryguilist2 = []
-        self.entryguilist2.append(("0", _("Nothing")))
-        self.entryguilist2.append(("1", _("DM-600PVR")))
-        self.entryguilist2.append(("2", _("DM-7000")))
-        self.entryguilist2.append(("3", _("DM-7025")))
-        self.entryguilist2.append(("4", _("DM-8000HD")))
-        self.entryguilist2.append(("5", _("DM-500HD")))
-        self.entryguilist2.append(("6", _("DM-800HD")))
-        self.entryguilist2.append(("7", _("DM-800HDse")))
-        self.entryguilist2.append(("8", _("DM-7020HD")))
-        self.entryguilist2.append(("9", _("internal HDD")))
-        self.entryguilist2.append(("10", _("NAS")))
-        self.entryguilist2.append(("11", _("NAS-Movies")))
-        self.entryguilist2.append(("12", (config.AdvancedMovieSelection.homeowntext.value)))
-        self.entryguilist2.append(("13", (config.AdvancedMovieSelection.bookmark1owntext.value)))
-        self.entryguilist2.append(("14", (config.AdvancedMovieSelection.bookmark2owntext.value)))
-        self.entryguilist2.append(("15", (config.AdvancedMovieSelection.bookmark3owntext.value)))
+        self.entryguilist2.append(("0", "Nothing"))
+        self.entryguilist2.append(("1", "DM-600PVR"))
+        self.entryguilist2.append(("2", "DM-7000"))
+        self.entryguilist2.append(("3", "DM-7025"))
+        self.entryguilist2.append(("4", "DM-8000HD"))
+        self.entryguilist2.append(("5", "DM-500HD"))
+        self.entryguilist2.append(("6", "DM-800HD"))
+        self.entryguilist2.append(("7", "DM-800HDse"))
+        self.entryguilist2.append(("8", "DM-7020HD"))
+        self.entryguilist2.append(("9", "internal HDD"))
+        self.entryguilist2.append(("10", "NAS"))
+        self.entryguilist2.append(("11", "NAS-Movies"))
+        self.entryguilist2.append(("12", config.AdvancedMovieSelection.homeowntext.value))
+        self.entryguilist2.append(("13", config.AdvancedMovieSelection.bookmark1owntext.value))
+        self.entryguilist2.append(("14", config.AdvancedMovieSelection.bookmark2owntext.value))
+        self.entryguilist2.append(("15", config.AdvancedMovieSelection.bookmark3owntext.value))
         self.entryguilist3 = []
-        self.entryguilist3.append(("0", _("Display plugin name")))
-        self.entryguilist3.append(("1", _("Display plugin description")))        
+        self.entryguilist3.append(("0", "Display plugin name"))
+        self.entryguilist3.append(("1", "Display plugin description"))        
 
         red_selectedindex = self.getStaticName(self.entryguilist, config.AdvancedMovieSelection.red.value)
         green_selectedindex = self.getStaticName(self.entryguilist, config.AdvancedMovieSelection.green.value)
@@ -699,28 +704,24 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
                     tmp = tmp[:]
                     tmp.append(default)
                 self.homepath_dirname.setChoices(tmp, default=default)
-                tmp = config.movielist.videodirs.value
-            if config.movielist.videodirs.value != self.lastvideodirs:
+
                 default = self.bookmark1_dirname.value
                 if default not in tmp:
                     tmp = tmp[:]
                     tmp.append(default)
                 self.bookmark1_dirname.setChoices(tmp, default=default)
-                tmp = config.movielist.videodirs.value
-            if config.movielist.videodirs.value != self.lastvideodirs:
+
                 default = self.bookmark2_dirname.value
                 if default not in tmp:
                     tmp = tmp[:]
                     tmp.append(default)
                 self.bookmark2_dirname.setChoices(tmp, default=default)
-                tmp = config.movielist.videodirs.value
-            if config.movielist.videodirs.value != self.lastvideodirs:                   
+
                 default = self.bookmark3_dirname.value
                 if default not in tmp:
                     tmp = tmp[:]
                     tmp.append(default)
                 self.bookmark3_dirname.setChoices(tmp, default=default)
-                tmp = config.movielist.videodirs.value
                 
     def keySave(self):
         self["config"].getCurrent()
