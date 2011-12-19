@@ -418,7 +418,7 @@
                 <widget source="session.VideoPicture" render="Pig" position="0,70" size="120,80" zPosition="3" backgroundColor="#ff000000"/>
 		<widget name="freeDiskSpace" position="10,425" size="540,20" font="Regular;19" valign="center" halign="right"/>
 	</screen>
-            <screen name="AdvancedMovieSelectionDownloadHD" position="center,center" size="1280,760"  title="" flags="wfNoBorder">
+            <screen name="AdvancedMovieSelectionDownloadHD" position="center,center" size="1280,720"  title="" flags="wfNoBorder">
 		<widget source="global.CurrentTime" render="Label" position="1140,40" size="80,26" font="Regular;26" halign="right"  transparent="1">
 			<convert type="ClockToText">Default</convert>
 		</widget>
