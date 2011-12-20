@@ -518,8 +518,12 @@ class MovieList(GUIComponent):
 
             if self.show_percent:
                 perc_txt = "%d" % (perc) + ' % - '
-                res.append(MultiContentEntryText(pos=(offset, 2), size=(70, 25), font=0, flags=RT_HALIGN_RIGHT, text=perc_txt, color=color))
-                offset = offset + 75
+                if self.list_type == MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection:
+                    res.append(MultiContentEntryText(pos=(offset, 2), size=(60, 25), font=0, flags=RT_HALIGN_RIGHT, text=perc_txt, color=color))
+                    offset = offset + 65
+                else:
+                    res.append(MultiContentEntryText(pos=(offset, 2), size=(70, 25), font=0, flags=RT_HALIGN_RIGHT, text=perc_txt, color=color))
+                    offset = offset + 75
 
         begin_string = ""
         if recording:
