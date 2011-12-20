@@ -508,8 +508,8 @@ class MovieList(GUIComponent):
                         png = self.COLOR_PERCENT_1
                     elif perc > config.AdvancedMovieSelection.moviepercentseen.value:
                         png = self.COLOR_PERCENT_2
-                if config.AdvancedMovieSelection.shownew.value and self.show_folders and not self.show_statusicon and perc > 0:
-                    png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + MEDIAEXTENSIONS[extension] + ".png"))   
+                #if config.AdvancedMovieSelection.shownew.value and self.show_folders and not self.show_statusicon and perc > 0:
+                #    png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + MEDIAEXTENSIONS[extension] + ".png"))   
                     
             if self.show_progressbar:
                 top = int((self.l.getItemSize().height() - 6) / 2) + 1
