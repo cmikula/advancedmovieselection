@@ -83,16 +83,16 @@ class QuickButton:
         self["key_blue"].setText(getPluginCaption(_(config.AdvancedMovieSelection.blue.value)))
 
     def redpressed(self):
-        self.startPlugin(str(config.AdvancedMovieSelection.red.value), self["key_red"])
+        self.startPlugin(config.AdvancedMovieSelection.red.value, self["key_red"])
     
     def greenpressed(self):
-        self.startPlugin(str(config.AdvancedMovieSelection.green.value), self["key_green"])
+        self.startPlugin(config.AdvancedMovieSelection.green.value, self["key_green"])
     
     def yellowpressed(self):
-        self.startPlugin(str(config.AdvancedMovieSelection.yellow.value), self["key_yellow"])
+        self.startPlugin(config.AdvancedMovieSelection.yellow.value, self["key_yellow"])
     
     def bluepressed(self):
-        self.startPlugin(str(config.AdvancedMovieSelection.blue.value), self["key_blue"])
+        self.startPlugin(config.AdvancedMovieSelection.blue.value, self["key_blue"])
     
     def startPlugin(self, pname, key_number):
         home = config.AdvancedMovieSelection.homepath.value
