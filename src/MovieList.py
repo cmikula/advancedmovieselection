@@ -397,7 +397,7 @@ class MovieList(GUIComponent):
             offset = 25
             if MEDIAEXTENSIONS.has_key(extension):
                 filename = os.path.realpath(serviceref.getPath())
-                if config.AdvancedMovieSelection.shownew.value and not hasLastPosition(serviceref):
+                if self.show_statusicon and config.AdvancedMovieSelection.shownew.value and not hasLastPosition(serviceref):
                     png = self.MOVIE_NEW_PNG
                 else:
                     png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + MEDIAEXTENSIONS[extension] + ".png"))
