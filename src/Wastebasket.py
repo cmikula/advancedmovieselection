@@ -143,6 +143,10 @@ class TrashMovieList(GUIComponent):
             trash = Trashcan.listAllMovies("/media")
         for service in trash:
             self.list.append((service, None, -1, -1))
+        print "#" * 80
+        print "Trash count:", Trashcan.getTrashCount()
+        cap = Trashcan.getTrashSize()
+        print "Trash size:", "%d.%03d GB" % (cap/1000, cap%1000)
 
     def reload(self, root=None):
         self.load(root)

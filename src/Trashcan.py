@@ -27,9 +27,13 @@ that they, too, receive or can get the source code. And you must show them these
 '''
 import os, glob, shutil
 from threading import Thread
+from ServiceProvider import getFolderSize
  
 TRASH_NAME = ".trash"
 TRASH_EXCLUDE = ("DUMBO", "TIMOTHY", "swap", "ram", "ba")
+
+trash_count = 0
+trash_size = 0
 
 class AsynchTrash(Thread):
     def __init__(self, items):
@@ -81,10 +85,21 @@ class eServiceReferenceTrash():
     
     def getShortDescription(self):
         return self.short_description
+
+def updateInfo(path):
+    global trash_count, trash_size
+    trash_count = trash_count + 1
+    if os.path.isfile(path):
+        trash_size += os.path.getsize(path)
+    else:
+        trash_size += getFolderSize(os.path.dirname(path))
     
 class Trashcan:
     @staticmethod
     def listAllMovies(root):
+        global trash_count, trash_size
+        trash_count = 0
+        trash_size = 0
         list = []
         for (path, dirs, files) in os.walk(root):
             # Skip excluded directories here
@@ -97,11 +112,14 @@ class Trashcan:
             if path.endswith(TRASH_NAME):
                 service = eServiceReferenceTrash(path)
                 list.append(service)
+                updateInfo(path)
 
             for filename in files:
                 if filename.endswith(TRASH_NAME):
-                    service = eServiceReferenceTrash(os.path.join(path, filename))
+                    f = os.path.join(path, filename)
+                    service = eServiceReferenceTrash(f)
                     list.append(service)
+                    updateInfo(f)
         return list
 
     @staticmethod
@@ -110,6 +128,7 @@ class Trashcan:
         for filename in glob.glob(os.path.join(path, "*" + TRASH_NAME)):
             service = eServiceReferenceTrash(filename)
             list.append(service)
+            updateInfo(filename)
         return list
     
     @staticmethod
@@ -166,3 +185,14 @@ class Trashcan:
     @staticmethod
     def deleteAsynch(trash):
         AsynchTrash(trash)
+    
+    @staticmethod
+    def getTrashCount():
+        global trash_count
+        return trash_count
+
+    @staticmethod
+    def getTrashSize():
+        global trash_size
+        return float(trash_size / (1024 * 1024))
+    
