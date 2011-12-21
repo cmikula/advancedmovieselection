@@ -194,6 +194,7 @@ version 2.4
 * neu: dateigrösse in mb/gb, und bei gb bis zu drei dezimalstellen einstellbar im papierkorb
 * fix: neue aufnahme icon wenn status icon deaktiviert ist, und film als gesehen markiert wurde
 * fix: keine cover/senderlogo anzeige wenn filmbeschreibung anzeigen deaktiviert ist
+* fix: aufruf von erweiterungen über farbtasten wenn systemsprache geändert wurde
 
 
 
