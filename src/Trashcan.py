@@ -93,13 +93,16 @@ def updateInfo(path):
         trash_size += os.path.getsize(path)
     else:
         trash_size += getFolderSize(os.path.dirname(path))
+
+def resetInfo():
+    global trash_count, trash_size
+    trash_count = 0
+    trash_size = 0
     
 class Trashcan:
     @staticmethod
     def listAllMovies(root):
-        global trash_count, trash_size
-        trash_count = 0
-        trash_size = 0
+        resetInfo()
         list = []
         for (path, dirs, files) in os.walk(root):
             # Skip excluded directories here
@@ -124,6 +127,7 @@ class Trashcan:
 
     @staticmethod
     def listMovies(path):
+        resetInfo()
         list = []
         for filename in glob.glob(os.path.join(path, "*" + TRASH_NAME)):
             service = eServiceReferenceTrash(filename)
