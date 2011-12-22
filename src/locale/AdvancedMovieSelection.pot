@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection(POT)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-21 16:39+0100\n"
-"PO-Revision-Date: 2011-12-21 16:39+0100\n"
-"Last-Translator: cmikula\n"
+"POT-Creation-Date: 2011-12-22 15:15+0100\n"
+"PO-Revision-Date: 2011-12-22 15:15+0100\n"
+"Last-Translator: JackDanie <JackDaniel@i-have-a-dreambox.com>\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1681,42 +1681,42 @@ msgstr ""
 msgid "Advanced Movie Selection"
 msgstr ""
 
-#: ../MovieSelection.py:1075
+#: ../MovieSelection.py:1080
 msgid ""
 "Load Length of Movies in Movielist has been disabled.\n"
 "Close and reopen Movielist is required to apply the setting."
 msgstr ""
 
-#: ../MovieSelection.py:1122
+#: ../MovieSelection.py:1127
 msgid "Tag 1"
 msgstr ""
 
-#: ../MovieSelection.py:1127
+#: ../MovieSelection.py:1132
 msgid "Tag 2"
 msgstr ""
 
-#: ../MovieSelection.py:1185
+#: ../MovieSelection.py:1190
 msgid "Movie location:"
 msgstr ""
 
-#: ../MovieSelection.py:1201
+#: ../MovieSelection.py:1206
 msgid "Please select the movie path..."
 msgstr ""
 
-#: ../MovieSelection.py:1223
+#: ../MovieSelection.py:1228
 #, python-format
 msgid "Directory %s nonexistent."
 msgstr ""
 
-#: ../MovieSelection.py:1266
+#: ../MovieSelection.py:1271
 msgid "Please select tag to filter..."
 msgstr ""
 
-#: ../MovieSelection.py:1269
+#: ../MovieSelection.py:1274
 msgid "No tags are set on these movies."
 msgstr ""
 
-#: ../MovieSelection.py:1288
+#: ../MovieSelection.py:1293
 msgid ""
 "Use direction keys to move the Moviebar.\n"
 "Press OK button for save or the EXIT button to cancel.\n"
@@ -1969,64 +1969,64 @@ msgstr ""
 msgid "3"
 msgstr ""
 
-#: ../plugin.py:279
-#: ../plugin.py:284
-msgid "Yes"
-msgstr ""
-
-#: ../plugin.py:280
-#: ../plugin.py:288
-msgid "No"
-msgstr ""
-
-#: ../plugin.py:285
-msgid "Yes, returning to movie list"
-msgstr ""
-
-#: ../plugin.py:286
-msgid "Yes, and delete this movie"
-msgstr ""
-
-#: ../plugin.py:287
-msgid "Yes, and after deleting return to movie list"
-msgstr ""
-
-#: ../plugin.py:289
-msgid "No, but restart from begin"
-msgstr ""
-
-#: ../plugin.py:293
-msgid "Stop playing this movie?"
-msgstr ""
-
-#: ../plugin.py:338
-msgid "End of the movie is reached, the box now go to standby. Do that now?"
-msgstr ""
-
-#: ../plugin.py:341
-msgid "End of the movie is reached, the box now go to shut down. Shutdown now?"
-msgstr ""
-
-#: ../plugin.py:396
+#: ../plugin.py:268
 msgid "Open servicelist"
 msgstr ""
 
-#: ../plugin.py:401
-#: ../plugin.py:406
+#: ../plugin.py:273
+#: ../plugin.py:278
 msgid "Leave movie player"
 msgstr ""
 
-#: ../plugin.py:506
+#: ../plugin.py:381
 msgid ""
 "Not possible!\n"
 "MerlinEPG and CoolTVGuide or/and MerlinEPGCenter present or neither installed from this three plugins."
 msgstr ""
 
-#: ../plugin.py:549
+#: ../plugin.py:400
+#: ../plugin.py:405
+msgid "Yes"
+msgstr ""
+
+#: ../plugin.py:401
+#: ../plugin.py:409
+msgid "No"
+msgstr ""
+
+#: ../plugin.py:406
+msgid "Yes, returning to movie list"
+msgstr ""
+
+#: ../plugin.py:407
+msgid "Yes, and delete this movie"
+msgstr ""
+
+#: ../plugin.py:408
+msgid "Yes, and after deleting return to movie list"
+msgstr ""
+
+#: ../plugin.py:410
+msgid "No, but restart from begin"
+msgstr ""
+
+#: ../plugin.py:414
+msgid "Stop playing this movie?"
+msgstr ""
+
+#: ../plugin.py:455
+msgid "End of the movie is reached, the box now go to standby. Do that now?"
+msgstr ""
+
+#: ../plugin.py:458
+msgid "End of the movie is reached, the box now go to shut down. Shutdown now?"
+msgstr ""
+
+#: ../plugin.py:523
 msgid "No DVD-Player found!"
 msgstr ""
 
-#: ../plugin.py:688
+#: ../plugin.py:661
 msgid "Setup Advanced Movie Selection"
 msgstr ""
 
@@ -2198,7 +2198,6 @@ msgstr ""
 
 #: ../SearchTMDb.py:179
 #: ../SearchTMDb.py:219
-#: ../SearchTMDb.py:269
 msgid "Extended Info"
 msgstr ""
 
@@ -2239,32 +2238,73 @@ msgstr ""
 msgid "Getting movie information for '%s' from TMDb..."
 msgstr ""
 
-#: ../SearchTMDb.py:280
+#: ../SearchTMDb.py:284
 #, python-format
 msgid "TMDb movie info for: %s"
 msgstr ""
 
-#: ../SearchTMDb.py:300
+#: ../SearchTMDb.py:304
 #, python-format
-msgid "Appeared: %s\n"
+msgid "Appeared: %s"
 msgstr ""
 
 #: ../SearchTMDb.py:307
 #, python-format
+msgid "Runtime: %s minutes"
+msgstr ""
+
+#: ../SearchTMDb.py:322
+#, python-format
+msgid "Certification: %s"
+msgstr ""
+
+#: ../SearchTMDb.py:325
+#, python-format
+msgid "Rating: %s\n"
+msgstr ""
+
+#: ../SearchTMDb.py:332
+#, python-format
 msgid "Genre: %s\n"
 msgstr ""
 
-#: ../SearchTMDb.py:314
+#: ../SearchTMDb.py:339
 #, python-format
-msgid "Studio: %s\n"
+msgid "Studio: %s"
 msgstr ""
 
-#: ../SearchTMDb.py:323
+#: ../SearchTMDb.py:346
 #, python-format
-msgid "Director: %s"
+msgid "Production Countries: %s\n"
 msgstr ""
 
-#: ../SearchTMDb.py:358
+#: ../SearchTMDb.py:353
+#, python-format
+msgid "Production: %s\n"
+msgstr ""
+
+#: ../SearchTMDb.py:360
+#, python-format
+msgid "Director: %s\n"
+msgstr ""
+
+#: ../SearchTMDb.py:367
+#, python-format
+msgid "Actors: %s\n"
+msgstr ""
+
+#: ../SearchTMDb.py:370
+#, python-format
+msgid ""
+"\n"
+"Last modified at themoviedb.org: %s"
+msgstr ""
+
+#: ../SearchTMDb.py:375
+msgid "Unknown error!!"
+msgstr ""
+
+#: ../SearchTMDb.py:407
 #, python-format
 msgid "Sorry, no info/cover found for title: %s"
 msgstr ""
@@ -2368,104 +2408,134 @@ msgstr ""
 msgid "Delete all tags"
 msgstr ""
 
-#: ../Wastebasket.py:202
-msgid "Delete selected movie"
-msgstr ""
-
-#: ../Wastebasket.py:203
-#: ../Wastebasket.py:208
-msgid "Restore movie"
-msgstr ""
-
 #: ../Wastebasket.py:204
-msgid "Empty wastbasket"
+msgid "Delete selected movie"
 msgstr ""
 
 #: ../Wastebasket.py:205
 #: ../Wastebasket.py:210
-msgid "Restore all movies"
+msgid "Restore movie"
+msgstr ""
+
+#: ../Wastebasket.py:206
+msgid "Empty wastbasket"
 msgstr ""
 
 #: ../Wastebasket.py:207
-msgid "Delete movie"
+#: ../Wastebasket.py:212
+msgid "Restore all movies"
 msgstr ""
 
 #: ../Wastebasket.py:209
-msgid "Empty Trash"
+msgid "Delete movie"
 msgstr ""
 
 #: ../Wastebasket.py:211
+msgid "Empty Trash"
+msgstr ""
+
+#: ../Wastebasket.py:213
 msgid "Please wait... Loading trash list..."
 msgstr ""
 
-#: ../Wastebasket.py:222
+#: ../Wastebasket.py:226
 msgid "Exit wastebasket"
 msgstr ""
 
-#: ../Wastebasket.py:228
+#: ../Wastebasket.py:236
 msgid "Advanced Movie Selection - Wastebasket"
 msgstr ""
 
-#: ../Wastebasket.py:237
+#: ../Wastebasket.py:245
 msgid "Last automated wastebasket empty:"
 msgstr ""
 
-#: ../Wastebasket.py:237
+#: ../Wastebasket.py:245
 msgid "Never!"
 msgstr ""
 
-#: ../Wastebasket.py:241
+#: ../Wastebasket.py:249
 #, python-format
 msgid "Last automated wastebasket empty at %s"
 msgstr ""
 
-#: ../Wastebasket.py:244
+#: ../Wastebasket.py:252
 #, python-format
 msgid "Next automated wastebasket empty at %s"
 msgstr ""
 
-#: ../Wastebasket.py:258
+#: ../Wastebasket.py:266
 msgid "No last empty status available!"
 msgstr ""
 
-#: ../Wastebasket.py:259
+#: ../Wastebasket.py:267
 msgid "No next empty status available!"
 msgstr ""
 
-#: ../Wastebasket.py:261
+#: ../Wastebasket.py:269
 msgid "Auto empty wastebasket is disabled"
 msgstr ""
 
-#: ../Wastebasket.py:278
-#: ../Wastebasket.py:280
+#: ../Wastebasket.py:286
+#: ../Wastebasket.py:288
 #, python-format
 msgid "Wastebasket: %s"
 msgstr ""
 
+#: ../Wastebasket.py:300
+#: ../Wastebasket.py:303
+#: ../Wastebasket.py:305
+#: ../Wastebasket.py:307
+#: ../Wastebasket.py:309
+#, python-format
+msgid "Trash count: %s"
+msgstr ""
+
+#: ../Wastebasket.py:300
+#, python-format
+msgid "Trash size: %d MB"
+msgstr ""
+
+#: ../Wastebasket.py:303
+#, python-format
+msgid "Trash size: %d GB"
+msgstr ""
+
+#: ../Wastebasket.py:305
+#: ../Wastebasket.py:307
+#: ../Wastebasket.py:309
+#, python-format
+msgid "Trash size: %s GB"
+msgstr ""
+
 #: ../Wastebasket.py:311
+msgid "Wastebasket is empty!"
+msgstr ""
+
+#: ../Wastebasket.py:342
 msgid ""
 "Recording(s) are in progress or coming up in few seconds!\n"
 "Now movie delete can damage the recording(s)!\n"
 "Realy delete movie?"
 msgstr ""
 
-#: ../Wastebasket.py:320
+#: ../Wastebasket.py:351
 msgid "Do you really want to delete all movies?"
 msgstr ""
 
-#: ../Wastebasket.py:344
+#: ../Wastebasket.py:375
 msgid ""
 "Recording(s) are in progress or coming up in few seconds!\n"
 "Now empty the Wastebasket can damage the recording(s)!\n"
 "Realy empty the Wastbasket?"
 msgstr ""
 
-#: ../Wastebasket.py:352
+#: ../Wastebasket.py:383
 msgid "Deleting in progress! Please wait..."
 msgstr ""
 
-#: ../Wastebasket.py:375
-#: ../Wastebasket.py:389
+#: ../Wastebasket.py:406
+#: ../Wastebasket.py:420
 msgid "Restore failed!"
 msgstr ""
 

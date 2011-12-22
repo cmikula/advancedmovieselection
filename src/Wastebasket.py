@@ -48,6 +48,8 @@ import os
 from time import time, strftime, localtime
 from MessageServer import getIpAddress
 from Client import getClients
+from ClientSetup import ClientSetup
+from Components.Pixmap import Pixmap
 
 staticIP = None
 
@@ -143,10 +145,6 @@ class TrashMovieList(GUIComponent):
             trash = Trashcan.listAllMovies("/media")
         for service in trash:
             self.list.append((service, None, -1, -1))
-        print "#" * 80
-        print "Trash count:", Trashcan.getTrashCount()
-        cap = Trashcan.getTrashSize()
-        print "Trash size:", "%d.%03d GB" % (cap/1000, cap%1000)
 
     def reload(self, root=None):
         self.load(root)
@@ -216,6 +214,8 @@ class Wastebasket(Screen):
         self["freeDiskSpace"] = self.diskinfo = DiskInfo(config.movielist.last_videodir.value, DiskInfo.FREE, update=False)
         self["location"] = Label()
         self["warning"] = Label()
+        self["wastetxt"] = Label()
+        self["MenuIcon"] = Pixmap()
         self["autoemptylast"] = Label()
         self["autoemptynext"] = Label()
         self["list"] = TrashMovieList(None)
@@ -225,6 +225,10 @@ class Wastebasket(Screen):
             {
                 "cancel": (self.abort, _("Exit wastebasket"))
             })
+        self["MenuActions"] = HelpableActionMap(self, "MenuActions",
+            {
+                "menu": (self.clientsetup, _("Clientbox setup"))
+            })        
         self.inited = False
         self.onShown.append(self.setWindowTitle)
 
@@ -287,6 +291,29 @@ class Wastebasket(Screen):
             if home:
                 self["list"].moveToIndex(0)
         self["freeDiskSpace"].update()
+        self.getWasteInfo()
+
+    def getWasteInfo(self):
+        count = Trashcan.getTrashCount()
+        cap = Trashcan.getTrashSize()
+        if cap <= 999:
+            wastebasket_info = (_("Trash count: %s") % count) + ' / ' + (_("Trash size: %d MB") % cap)
+        else:
+            if config.AdvancedMovieSelection.filesize_digits.value == "0":
+                wastebasket_info = (_("Trash count: %s") % count) + ' / ' + (_("Trash size: %d GB") % cap / 1000)
+            elif config.AdvancedMovieSelection.filesize_digits.value == "1":
+                wastebasket_info = (_("Trash count: %s") % count) + ' / ' + (_("Trash size: %s GB") % cap / 1000, 1)
+            elif config.AdvancedMovieSelection.filesize_digits.value == "2":
+                wastebasket_info = (_("Trash count: %s") % count) + ' / ' + (_("Trash size: %s GB") % cap / 1000, 2)
+            else:
+                wastebasket_info = (_("Trash count: %s") % count) + ' / ' + (_("Trash size: %s GB") % cap / 1000, 3)
+        if count == 0:
+            self["wastetxt"].setText(_("Wastebasket is empty!"))
+        else:
+            self["wastetxt"].setText(wastebasket_info)
+
+    def clientsetup(self):
+        self.session.open(ClientSetup)
 
     def getCurrent(self):
         self.session.currentSelection = self["list"].getCurrent()

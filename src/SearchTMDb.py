@@ -266,7 +266,7 @@ class TMDbMain(Screen):
         if movie:
             self["status"].hide()
             self["list"].hide()
-            self["key_blue"].text = _("Extended Info")
+            self["key_blue"].text = ""
             self["key_green"].text = ""
             self["key_green"].text = _("Save movie info/cover")
             self["key_yellow"].text = _("Manual search")
@@ -277,6 +277,10 @@ class TMDbMain(Screen):
             name = movie["name"].encode('utf-8', 'ignore')
             description = movie["overview"]
             released = movie["released"]
+            certification = movie["certification"]
+            rating = movie["rating"]
+            runtime = movie["runtime"]
+            last_modified_at = movie["last_modified_at"]
             self.setTitle(_("TMDb movie info for: %s") % name)
             if description:
                 description_text = description.encode('utf-8', 'ignore')
@@ -297,8 +301,29 @@ class TMDbMain(Screen):
                     self["cover"].updatecover(filename)
 
             if released:
-                extended = (_("Appeared: %s\n") % released)
-            
+                extended = (_("Appeared: %s") % released) + ' / '
+
+            if runtime:
+                extended += (_("Runtime: %s minutes") % runtime) + ' / '
+
+            if certification:
+                if certification == "G":
+                    certification = "FSK 0"
+                elif certification == "PG":
+                    certification = "FSK 6"
+                elif certification == "PG-13" or certification == "PG13":
+                    certification = "FSK 12"
+                elif certification == "R":
+                    certification = "FSK 16"
+                elif certification == "NC-13" or certification == "NC17":
+                    certification = "FSK 18"
+                else:
+                    certification = "N/A"
+                extended += (_("Certification: %s") % certification) + ' / '
+
+            if rating:
+                extended += (_("Rating: %s\n") % rating)
+                            
             if movie.has_key('categories') and movie['categories'].has_key('genre'):                      
                 categories = []
                 for genre in movie['categories']['genre']:
@@ -311,19 +336,43 @@ class TMDbMain(Screen):
                 for studio in movie["studios"]:
                     studios.append(studio)
                 if len(studios) > 0:
-                    extended += _("Studio: %s\n") % ", ".join(studios)
-                else:
-                    extended += "\n"
-            
+                    extended += _("Studio: %s") % ", ".join(studios) + ' / '
+
+            if movie.has_key('countries'):
+                countries = []
+                for country in movie["countries"]:
+                    countries.append(country)
+                if len(countries) > 0:
+                    extended += _("Production Countries: %s\n") % ", ".join(countries)
+
             if movie.has_key('cast') and movie['cast'].has_key('producer'):                      
-                director = []
+                producer = []
                 for prodr in movie['cast']['producer']:
-                    director.append(prodr['name'])
+                    producer.append(prodr['name'].encode('utf-8', 'ignore'))
+                if len(producer) > 0:
+                    extended += _("Production: %s\n") % ", ".join(producer)
+
+            if movie.has_key('cast') and movie['cast'].has_key('director'):                      
+                director = []
+                for dir in movie['cast']['director']:
+                    director.append(dir['name'].encode('utf-8', 'ignore'))
                 if len(director) > 0:
-                    extended += _("Director: %s") % ", ".join(director)
+                    extended += _("Director: %s\n") % ", ".join(director)
+
+            if movie.has_key('cast') and movie['cast'].has_key('actor'):                      
+                actors = []
+                for actor in movie['cast']['actor']:
+                    actors.append(actor['name'].encode('utf-8', 'ignore'))
+                if len(actors) > 0:
+                    extended += _("Actors: %s\n") % ", ".join(actors)
+
+            if last_modified_at:
+                extended += (_("\nLast modified at themoviedb.org: %s") % last_modified_at)
 
             if extended:
-                self["extended"].setText(extended)                     
+                self["extended"].setText(extended)
+            else:
+                self["extended"].setText(_("Unknown error!!"))
 
     def errorCoverDownload(self, error=None):
         if error is not None:

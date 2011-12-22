@@ -192,10 +192,14 @@ ACHTUNG an die skinner, AdvancedMovieSelection_ClientSetup_HD, AdvancedMovieSele
 version 2.4
 * neu: prozentanzeige oder fortschrittsbalken in der filmliste
 * neu: dateigrösse in mb/gb, und bei gb bis zu drei dezimalstellen einstellbar im papierkorb
+* neu: statusanzeige im papierkorb (anzahl der dateien im papierkorb, und die gesamtgrösse der dateien im papierkorb)
+* neu: fernwartung kann auch über die menü taste aus dem papierkorb aufgerufen werden
 * fix: neue aufnahme icon wenn status icon deaktiviert ist, und film als gesehen markiert wurde
 * fix: keine cover/senderlogo anzeige wenn filmbeschreibung anzeigen deaktiviert ist
 * fix: aufruf von erweiterungen über farbtasten wenn systemsprache geändert wurde
-
+* fix: crash bei sonderzeichen in der tmdb suche unter den erweiterten infos
+* geändert: erweiterte info in der tmdb suche erweitert
+ACHTUNG an die skinner, bei den screens AdvancedMovieSelectionTrashHD, AdvancedMovieSelectionTrashXD und AdvancedMovieSelectionTrashSD gab es änderungen
 
 
 
