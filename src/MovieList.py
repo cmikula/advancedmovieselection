@@ -36,7 +36,7 @@ from stat import ST_MTIME as stat_ST_MTIME
 from time import time as time_time
 from math import fabs as math_fabs
 from datetime import datetime
-from ServiceProvider import detectDVDStructure, getCutList, Info, ServiceCenter, eServiceReferenceDvd, MovieConfig, hasLastPosition, getDirSize, getFolderSize
+from ServiceProvider import detectDVDStructure, getCutList, Info, ServiceCenter, eServiceReferenceDvd, MovieConfig, hasLastPosition, getDirSize, getFolderSize, PicLoader
 from os import environ
 from Trashcan import TRASH_NAME
 from Components.Harddisk import Harddisk
@@ -81,6 +81,7 @@ class MovieList(GUIComponent):
     LISTTYPE_COMPACT = 3
     LISTTYPE_MINIMAL = 4
     LISTTYPE_MINIMAL_AdvancedMovieSelection = 5
+    LISTTYPE_EXTENDED = 6
 
     HIDE_DESCRIPTION = 1
     SHOW_DESCRIPTION = 2
@@ -101,6 +102,7 @@ class MovieList(GUIComponent):
     def __init__(self, root, list_type=None, sort_type=None, descr_state=None, show_folders=False, show_progressbar=False, show_percent=False, show_statusicon=False, show_statuscolor=False, show_date=True, show_time=True, show_service=True, show_tags=False):
         GUIComponent.__init__(self)
         self.movieConfig = MovieConfig()
+        self.picloader = PicLoader(75, 75)
         self.list_type = list_type or self.LISTTYPE_ORIGINAL
         self.descr_state = descr_state or self.HIDE_DESCRIPTION
         self.sort_type = sort_type or self.SORT_DATE_ASC
@@ -330,7 +332,7 @@ class MovieList(GUIComponent):
         self.show_tags = val
 
     def redrawList(self):
-        if self.list_type == MovieList.LISTTYPE_ORIGINAL:
+        if self.list_type == MovieList.LISTTYPE_ORIGINAL or self.list_type == MovieList.LISTTYPE_EXTENDED:
             self.l.setFont(0, gFont("Regular", 22))
             self.l.setFont(1, gFont("Regular", 19))
             self.l.setFont(2, gFont("Regular", 16))
@@ -350,6 +352,7 @@ class MovieList(GUIComponent):
 
     def buildMovieListEntry(self, serviceref, info, begin, len, selection_index= -1):
         width = self.l.getItemSize().width()
+        offset = 0
         if self.show_folders:
             if serviceref.flags & eServiceReference.mustDescent:
                 res = [ None ]
@@ -392,24 +395,22 @@ class MovieList(GUIComponent):
                     if serviceref.getName() != "..":
                         res.append(MultiContentEntryText(pos=(width - 115, 3), size=(110, 30), font=0, flags=RT_HALIGN_RIGHT, text=dir_size))
                 return res
-            extension = serviceref.toString().split('.')
-            extension = extension[-1].lower()
-            offset = 25
-            if MEDIAEXTENSIONS.has_key(extension):
-                filename = os.path.realpath(serviceref.getPath())
-                if self.show_statusicon and config.AdvancedMovieSelection.shownew.value and not hasLastPosition(serviceref):
-                    png = self.MOVIE_NEW_PNG
+            
+            if self.list_type != MovieList.LISTTYPE_EXTENDED:
+                extension = serviceref.toString().split('.')
+                extension = extension[-1].lower()
+                offset = 25
+                if MEDIAEXTENSIONS.has_key(extension):
+                    filename = os.path.realpath(serviceref.getPath())
+                    if config.AdvancedMovieSelection.shownew.value and not hasLastPosition(serviceref):
+                        png = self.MOVIE_NEW_PNG
+                    else:
+                        png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + MEDIAEXTENSIONS[extension] + ".png"))
                 else:
-                    png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + MEDIAEXTENSIONS[extension] + ".png"))
-            else:
-                if isinstance(serviceref, eServiceReferenceDvd):
-                    png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "dvd_watching.png"))
-                else:
-                    png = None
-        else:
-            if serviceref.flags & eServiceReference.mustDescent:
-                return None
-            offset = 0
+                    if isinstance(serviceref, eServiceReferenceDvd):
+                        png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "dvd_watching.png"))
+                    else:
+                        png = None
 
         if info is not None:
             if len < 0: #recalc len when not already done
@@ -472,7 +473,7 @@ class MovieList(GUIComponent):
             if self.COLOR_MOVIE_ICON:
                 png = self.COLOR_MOVIE_ICON
 
-        if (self.show_progressbar or self.show_percent) or (self.show_statusicon and self.show_folders) or self.show_statuscolor:
+        if (self.list_type == MovieList.LISTTYPE_EXTENDED) or (self.show_progressbar or self.show_percent) or (self.show_statusicon and self.show_folders) or self.show_statuscolor:
             last = None
             if length <= 0: #Set default file length if is not calculateable
                 length = 5400
@@ -508,22 +509,24 @@ class MovieList(GUIComponent):
                         png = self.COLOR_PERCENT_1
                     elif perc > config.AdvancedMovieSelection.moviepercentseen.value:
                         png = self.COLOR_PERCENT_2
-                #if config.AdvancedMovieSelection.shownew.value and self.show_folders and not self.show_statusicon and perc > 0:
-                #    png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + MEDIAEXTENSIONS[extension] + ".png"))   
-                    
-            if self.show_progressbar:
-                top = int((self.l.getItemSize().height() - 6) / 2) + 1
-                res.append(MultiContentEntryProgress(pos=(0 + offset, top), size=(50, 6), percent=perc, borderWidth=1, foreColor=color))
-                offset = offset + 55
 
-            if self.show_percent:
-                perc_txt = "%d" % (perc) + ' % - '
-                if self.list_type == MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection:
-                    res.append(MultiContentEntryText(pos=(offset, 2), size=(60, 25), font=0, flags=RT_HALIGN_RIGHT, text=perc_txt, color=color))
-                    offset = offset + 65
-                else:
-                    res.append(MultiContentEntryText(pos=(offset, 2), size=(70, 25), font=0, flags=RT_HALIGN_RIGHT, text=perc_txt, color=color))
-                    offset = offset + 75
+            if self.list_type != MovieList.LISTTYPE_EXTENDED:
+                if config.AdvancedMovieSelection.shownew.value and self.show_folders and not self.show_statusicon and perc > 0:
+                    png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + MEDIAEXTENSIONS[extension] + ".png"))   
+                    
+                if self.show_progressbar:
+                    top = int((self.l.getItemSize().height() - 6) / 2) + 1
+                    res.append(MultiContentEntryProgress(pos=(0 + offset, top), size=(50, 6), percent=perc, borderWidth=1, foreColor=color))
+                    offset = offset + 55
+    
+                if self.show_percent:
+                    perc_txt = "%d" % (perc) + ' % - '
+                    if self.list_type == MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection:
+                        res.append(MultiContentEntryText(pos=(offset, 2), size=(60, 25), font=0, flags=RT_HALIGN_RIGHT, text=perc_txt, color=color))
+                        offset = offset + 65
+                    else:
+                        res.append(MultiContentEntryText(pos=(offset, 2), size=(70, 25), font=0, flags=RT_HALIGN_RIGHT, text=perc_txt, color=color))
+                        offset = offset + 75
 
         begin_string = ""
         if recording:
@@ -549,7 +552,35 @@ class MovieList(GUIComponent):
         else:
             txt = service_name
 
-        if self.list_type == MovieList.LISTTYPE_ORIGINAL:
+
+        if self.list_type == MovieList.LISTTYPE_EXTENDED:
+            filename = os.path.splitext(serviceref.getPath())[0] + ".jpg"
+            filesize = info.getInfoObject(serviceref, iServiceInformation.sFileSize)
+            prec_text = str(perc) + ' %'
+            if not os.path.exists(filename):
+                filename = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/gnu_linux.png"
+            try:
+                #png = LoadPixmap(path)
+                png = self.picloader.load(filename)
+                res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 0, 75, 75, png))
+                offset = offset + 75
+                
+            except Exception, e:
+                print e
+            res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 265, 30), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
+            if tags and None:
+                res.append(MultiContentEntryText(pos=(width - 255, 0), size=(250, 30), font=2, flags=RT_HALIGN_RIGHT, text=tags, color=color))
+            res.append(MultiContentEntryText(pos=(width - 185, 0), size=(180, 30), font=2, flags=RT_HALIGN_RIGHT, text=service.getServiceName(), color=color))
+            res.append(MultiContentEntryText(pos=(0 + offset, 55), size=(100, 20), font=1, flags=RT_HALIGN_LEFT, text=begin_string, color=color))
+            res.append(MultiContentEntryProgress(pos=(130 + offset, 63), size=(50, 6), percent=perc, borderWidth=1, foreColor=color))
+            res.append(MultiContentEntryText(pos=(190 + offset, 55), size=(80, 25), font=1, flags=RT_HALIGN_LEFT, text=prec_text, color=color))
+            res.append(MultiContentEntryText(pos=(0 + offset, 28), size=(width, 25), font=1, flags=RT_HALIGN_LEFT, text=description, color=color))
+            if filesize:
+                filesize = "%d MB" % (filesize / (1024 * 1024))
+                res.append(MultiContentEntryText(pos=(width - 185, 28), size=(180, 30), font=2, flags=RT_HALIGN_RIGHT, text=filesize, color=color))
+            res.append(MultiContentEntryText(pos=(width - 205, 55), size=(200, 20), font=1, flags=RT_HALIGN_RIGHT, text=len, color=color))
+
+        elif self.list_type == MovieList.LISTTYPE_ORIGINAL:
             if self.show_folders:
                 res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 29, 20, 20, png))
             res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 265, 30), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))

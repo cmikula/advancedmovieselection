@@ -45,6 +45,19 @@ DMCONFFILE = __CONF__
 
 instance = None
 
+class PicLoader:
+    def __init__(self, width, height):
+        from enigma import ePicLoad
+        from Components.AVSwitch import AVSwitch
+        self.picload = ePicLoad()
+        sc = AVSwitch().getFramebufferScale()
+        self.picload.setPara((width, height, sc[0], sc[1], False, 1, "#00000000"))
+
+    def load(self, filename):
+        self.wait = True
+        self.picload.startDecode(filename, 0, 0, False)
+        return self.picload.getData()
+
 class eServiceReferenceDvd(eServiceReference):
     def __init__(self, serviceref, dvdStruct=False):
         eServiceReference.__init__(self, "4097:0:0:0:0:0:0:0:0:0:" + serviceref.getPath())
