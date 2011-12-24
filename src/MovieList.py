@@ -559,14 +559,10 @@ class MovieList(GUIComponent):
             prec_text = str(perc) + ' %'
             if not os.path.exists(filename):
                 filename = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/gnu_linux.png"
-            try:
-                #png = LoadPixmap(path)
-                png = self.picloader.load(filename)
-                res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 0, 75, 75, png))
-                offset = offset + 75
-                
-            except Exception, e:
-                print e
+            png = self.picloader.load(filename)
+            res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 0, 75, 75, png))
+            offset = offset + 75
+
             res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 265, 30), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
             if tags and None:
                 res.append(MultiContentEntryText(pos=(width - 255, 0), size=(250, 30), font=2, flags=RT_HALIGN_RIGHT, text=tags, color=color))
