@@ -41,7 +41,7 @@ def getPluginCaption(pname):
             return _(config.AdvancedMovieSelection.bookmark2text.value)
         elif pname == "Bookmark 3":
             return _(config.AdvancedMovieSelection.bookmark3text.value)
-        elif pname == "S/H folders":
+        elif pname == "Show/Hide folders":
             if not config.AdvancedMovieSelection.showfoldersinmovielist.value:
                 return _("Show folders")
             else:
@@ -195,13 +195,14 @@ class QuickButton:
                     self.setSortType(newType)
                     self.reloadList()
                     key_number.setText(newCaption)
-                elif pname == "S/H folders":
+                elif pname == "Show/Hide folders":
                     if config.AdvancedMovieSelection.showfoldersinmovielist.value:
                         newCaption = _("Show folders")
                     else:
                         newCaption = _("Hide folders")
                     config.AdvancedMovieSelection.showfoldersinmovielist.value = not config.AdvancedMovieSelection.showfoldersinmovielist.value
                     self.showFolders(config.AdvancedMovieSelection.showfoldersinmovielist.value)
+                    config.AdvancedMovieSelection.showfoldersinmovielist.save()
                     self.reloadList()
                     key_number.setText(newCaption)
                 else:

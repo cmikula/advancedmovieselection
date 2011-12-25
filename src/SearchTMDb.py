@@ -38,6 +38,7 @@ from Components.config import config
 from shutil import rmtree as shutil_rmtree
 from enigma import getDesktop
 import tmdb, urllib
+from Components.ProgressBar import ProgressBar
 
 tmdb_logodir = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images"
 IMAGE_TEMPFILE = "/tmp/cover_temp"
@@ -183,6 +184,11 @@ class TMDbMain(Screen):
         self["description"] = ScrollLabel()
         self["extended"] = Label()
         self["status"] = Label()
+        self["stars"] = ProgressBar()
+        self["no_stars"] = Pixmap()
+        self["stars"].hide()
+        self["no_stars"].hide()
+        self.ratingstars = -1
         self.searchTitle = searchTitle
         self.downloadItems = {}
         self.useTMDbInfoAsEventInfo = True
@@ -199,8 +205,7 @@ class TMDbMain(Screen):
         self["tmdblogo"].instance.setPixmapFromFile("%s/tmdb.png" % tmdb_logodir)
         self["tmdblogo"].show()
         self["key_green"].text = ""
-        self["key_blue"].text = ""
-        
+        self["key_blue"].text = ""        
         try:
             results = tmdb.search(self.searchTitle)
             # If no result found, Split the search title before " - " and search again 
@@ -209,12 +214,10 @@ class TMDbMain(Screen):
                 results = tmdb.search(title)
                 if len(results) > 0:
                     self.searchTitle = title
-
             if len(results) == 0:
                 self["status"].setText(_("No data found at themoviedb.org!"))
                 self.session.openWithCallback(self.askForSearchCallback, MessageBox, _("No data found at themoviedb.org!\nDo you want to edit the search name?"))
-                return
-            
+                return            
             self["key_green"].text = _("Save movie info/cover")
             self["key_blue"].text = _("Extended Info")
             self["status"].setText("")
@@ -272,7 +275,6 @@ class TMDbMain(Screen):
             self["key_yellow"].text = _("Manual search")
             self["description"].show()
             self["extended"].show()
-
             extended = ""
             name = movie["name"].encode('utf-8', 'ignore')
             description = movie["overview"]
@@ -286,8 +288,7 @@ class TMDbMain(Screen):
                 description_text = description.encode('utf-8', 'ignore')
                 self["description"].setText(name + "\n\n" + description_text)
             else:
-                self["description"].setText(name)
-            
+                self["description"].setText(name)            
             cover_url = None
             images = movie['images']
             if len(images) > 0:
@@ -299,13 +300,10 @@ class TMDbMain(Screen):
                 filename = os_path.join(IMAGE_TEMPFILE , movie['id'] + parts[-1])
                 if os_path.exists(filename):
                     self["cover"].updatecover(filename)
-
             if released:
                 extended = (_("Appeared: %s") % released) + ' / '
-
             if runtime:
                 extended += (_("Runtime: %s minutes") % runtime) + ' / '
-
             if certification:
                 if certification == "G":
                     certification = "FSK 0"
@@ -320,55 +318,50 @@ class TMDbMain(Screen):
                 else:
                     certification = "N/A"
                 extended += (_("Certification: %s") % certification) + ' / '
-
             if rating:
                 extended += (_("Rating: %s\n") % rating)
-                            
+                self.ratingstars = int(10*round(float(rating.replace(',','.')),1))
+                self["stars"].show()
+                self["stars"].setValue(self.ratingstars)
+                self["no_stars"].show()                            
             if movie.has_key('categories') and movie['categories'].has_key('genre'):                      
                 categories = []
                 for genre in movie['categories']['genre']:
-                    categories.append(genre)
+                    categories.append(genre.encode('utf-8', 'ignore'))
                 if len(categories) > 0:
-                    extended += _("Genre: %s\n") % ", ".join(categories) 
-            
+                    extended += _("Genre: %s\n") % ", ".join(categories)             
             if movie.has_key('studios'):
                 studios = []
                 for studio in movie["studios"]:
-                    studios.append(studio)
+                    studios.append(studio.encode('utf-8', 'ignore'))
                 if len(studios) > 0:
                     extended += _("Studio: %s") % ", ".join(studios) + ' / '
-
             if movie.has_key('countries'):
                 countries = []
                 for country in movie["countries"]:
-                    countries.append(country)
+                    countries.append(country.encode('utf-8', 'ignore'))
                 if len(countries) > 0:
                     extended += _("Production Countries: %s\n") % ", ".join(countries)
-
+            if movie.has_key('cast') and movie['cast'].has_key('director'):                      
+                director = []
+                for dir in movie['cast']['director']:
+                    director.append(dir['name'].encode('utf-8', 'ignore'))
+                if len(director) > 0:
+                    extended += _("Director: %s") % ", ".join(director) + ' / '
             if movie.has_key('cast') and movie['cast'].has_key('producer'):                      
                 producer = []
                 for prodr in movie['cast']['producer']:
                     producer.append(prodr['name'].encode('utf-8', 'ignore'))
                 if len(producer) > 0:
                     extended += _("Production: %s\n") % ", ".join(producer)
-
-            if movie.has_key('cast') and movie['cast'].has_key('director'):                      
-                director = []
-                for dir in movie['cast']['director']:
-                    director.append(dir['name'].encode('utf-8', 'ignore'))
-                if len(director) > 0:
-                    extended += _("Director: %s\n") % ", ".join(director)
-
             if movie.has_key('cast') and movie['cast'].has_key('actor'):                      
                 actors = []
                 for actor in movie['cast']['actor']:
                     actors.append(actor['name'].encode('utf-8', 'ignore'))
                 if len(actors) > 0:
                     extended += _("Actors: %s\n") % ", ".join(actors)
-
             if last_modified_at:
                 extended += (_("\nLast modified at themoviedb.org: %s") % last_modified_at)
-
             if extended:
                 self["extended"].setText(extended)
             else:
