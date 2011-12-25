@@ -555,12 +555,13 @@ class MovieList(GUIComponent):
 
         if self.list_type == MovieList.LISTTYPE_EXTENDED:
             filename = os.path.splitext(serviceref.getPath())[0] + ".jpg"
-            filesize = info.getInfoObject(serviceref, iServiceInformation.sFileSize)
+            filesize = float(info.getInfoObject(serviceref, iServiceInformation.sFileSize) / (1024 * 1024))
+            print "X" * 80, filesize
             prec_text = str(perc) + ' %'
             if not os.path.exists(filename):
                 filename = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/gnu_linux.png"
             png = self.picloader.load(filename)
-            res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 0, 75, 75, png))
+            res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 1, 75, 76, png))
             offset = offset + 75
 
             res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 265, 30), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
@@ -572,7 +573,10 @@ class MovieList(GUIComponent):
             res.append(MultiContentEntryText(pos=(190 + offset, 55), size=(80, 25), font=1, flags=RT_HALIGN_LEFT, text=prec_text, color=color))
             res.append(MultiContentEntryText(pos=(0 + offset, 28), size=(width, 25), font=1, flags=RT_HALIGN_LEFT, text=description, color=color))
             if filesize:
-                filesize = "%d MB" % (filesize / (1024 * 1024))
+                if filesize <= 999:
+                    filesize = "%d MB" % (filesize)
+                else:
+                    filesize = "%s GB" % (round(filesize / 1000, 2))                
                 res.append(MultiContentEntryText(pos=(width - 185, 28), size=(180, 30), font=2, flags=RT_HALIGN_RIGHT, text=filesize, color=color))
             res.append(MultiContentEntryText(pos=(width - 205, 55), size=(200, 20), font=1, flags=RT_HALIGN_RIGHT, text=len, color=color))
 
