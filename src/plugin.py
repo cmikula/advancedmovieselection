@@ -650,6 +650,13 @@ def autostart(reason, **kwargs):
                 serverInstance.start()
                 serverInstance.setSearchRange(config.AdvancedMovieSelection.start_search_ip.value, config.AdvancedMovieSelection.stop_search_ip.value)
                 serverInstance.startScanForClients()
+
+                # set locale for tmdb search
+                from tmdb import setLocale
+                from Components.Language import language
+                lang = language.getLanguage()[:2]
+                if lang != "de":
+                    setLocale("en")
             except:
                 pass
 

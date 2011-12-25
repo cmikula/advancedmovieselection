@@ -18,6 +18,18 @@ config['urls']['movie.getInfo'] = "http://api.themoviedb.org/2.1/Movie.getInfo/d
 config['urls']['media.getInfo'] = "http://api.themoviedb.org/2.1/Media.getInfo/de/xml/%(apikey)s/%%s/%%s" % (config)
 config['urls']['imdb.lookUp'] = "http://api.themoviedb.org/2.1/Movie.imdbLookup/de/xml/%(apikey)s/%%s" % (config)
 
+def setLocale(lng):
+    global config
+    print "[AdvancedMovieSelection] Set tmdb locale to", lng
+    config = {}
+    config['locale'] = lng
+    config['apikey'] = "1f834eb425728133b9a2c1c0c82980eb" # apikey from JD
+    config['urls'] = {}
+    config['urls']['movie.search'] = "http://api.themoviedb.org/2.1/Movie.search/%(locale)s/xml/%(apikey)s/%%s" % (config)
+    config['urls']['movie.getInfo'] = "http://api.themoviedb.org/2.1/Movie.getInfo/%(locale)s/xml/%(apikey)s/%%s" % (config)
+    config['urls']['media.getInfo'] = "http://api.themoviedb.org/2.1/Media.getInfo/%(locale)s/xml/%(apikey)s/%%s/%%s" % (config)
+    config['urls']['imdb.lookUp'] = "http://api.themoviedb.org/2.1/Movie.imdbLookup/%(locale)s/xml/%(apikey)s/%%s" % (config)
+
 import os,struct,urllib,urllib2,xml.etree.cElementTree as ElementTree
 
 class TmdBaseError(Exception):
