@@ -481,7 +481,7 @@ class ConfigSelection(eConfigSelection):
         sel = eConfigSelection.getMulti(self, selected)
         return (sel[0], _(sel[1]))
 
-__dummy1__ = (_("Nothing"), _("Delete"), _("Wastebasket"), _("Sort"), _("Home"), _("Bookmark 1"), _("Bookmark 2"), _("Bookmark 3"), _("Bookmark(s) on/off"), _("Filter by Tags"), _("Tag Editor"), _("Move-Copy"), _("Rename"), _("TMDb search & D/L"), _("Mark as seen"), _("Mark as unseen"), _("Trailer search"))
+__dummy1__ = (_("Nothing"), _("Delete"), _("Wastebasket"), _("Sort"), _("Home"), _("Bookmark 1"), _("Bookmark 2"), _("Bookmark 3"), _("Bookmark(s) on/off"), _("Filter by Tags"), _("Tag Editor"), _("Move-Copy"), _("Rename"), _("TMDb search & D/L"), _("Mark as seen"), _("Mark as unseen"), _("S/H folders"), _("Trailer search"))
 __dummy2__ = (_("DM-600PVR"), _("DM-7000"), _("DM-7025"), _("DM-8000HD"), _("DM-500HD"), _("DM-800HD"), _("DM-800HDse"), _("DM-7020HD"), _("internal HDD"), _("NAS"), _("NAS-Movies"))
 __dummy3__ = (_("Display plugin name"), _("Display plugin description"))
 
@@ -522,8 +522,9 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         self.entryguilist.append(("13", "TMDb search & D/L"))
         self.entryguilist.append(("14", "Mark as seen"))
         self.entryguilist.append(("15", "Mark as unseen"))
+        self.entryguilist.append(("16", "S/H folders"))
         if YTTrailerPresent == True:
-            self.entryguilist.append(("16", "Trailer search"))
+            self.entryguilist.append(("17", "Trailer search"))
         self.entryguilist2 = []
         self.entryguilist2.append(("0", "Nothing"))
         self.entryguilist2.append(("1", "DM-600PVR"))
