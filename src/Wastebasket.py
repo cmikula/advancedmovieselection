@@ -302,11 +302,11 @@ class Wastebasket(Screen):
             if config.AdvancedMovieSelection.filesize_digits.value == "0":
                 wastebasket_info = (_("Trash count: %s") % count) + ' / ' + (_("Trash size: %d GB") % cap / 1000)
             elif config.AdvancedMovieSelection.filesize_digits.value == "1":
-                wastebasket_info = (_("Trash count: %s") % count) + ' / ' + (_("Trash size: %s GB") % cap / 1000, 1)
+                wastebasket_info = (_("Trash count: %s") % count) + ' / ' + (_("Trash size: %s GB") % (round(cap / 1000, 1)))
             elif config.AdvancedMovieSelection.filesize_digits.value == "2":
-                wastebasket_info = (_("Trash count: %s") % count) + ' / ' + (_("Trash size: %s GB") % cap / 1000, 2)
+                wastebasket_info = (_("Trash count: %s") % count) + ' / ' + (_("Trash size: %s GB") % (round(cap / 1000, 2)))
             else:
-                wastebasket_info = (_("Trash count: %s") % count) + ' / ' + (_("Trash size: %s GB") % cap / 1000, 3)
+                wastebasket_info = (_("Trash count: %s") % count) + ' / ' + (_("Trash size: %s GB") % (round(cap / 1000, 3)))
         if count == 0:
             self["wastetxt"].setText(_("Wastebasket is empty!"))
         else:
