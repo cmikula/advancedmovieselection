@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-25 21:52+0100\n"
-"PO-Revision-Date: 2011-12-25 21:53+0100\n"
+"POT-Creation-Date: 2011-12-26 13:01+0100\n"
+"PO-Revision-Date: 2011-12-26 13:01+0100\n"
 "Last-Translator: JackDanie <JackDaniel@i-have-a-dreambox.com>\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
@@ -2085,83 +2085,93 @@ msgid "Setup Advanced Movie Selection"
 msgstr "Erw. Filmauswahl Einstellungen"
 
 #: ../../../QuickButton.py:46
-#: ../../../QuickButton.py:200
+#: ../../../QuickButton.py:210
 msgid "Show folders"
 msgstr "Ordner einblenden"
 
 #: ../../../QuickButton.py:48
-#: ../../../QuickButton.py:202
+#: ../../../QuickButton.py:212
 msgid "Hide folders"
 msgstr "Ordner ausblenden"
 
 #: ../../../QuickButton.py:51
-#: ../../../QuickButton.py:193
+#: ../../../QuickButton.py:133
+msgid "Show bookmarks"
+msgstr "Lesezeichen ein"
+
+#: ../../../QuickButton.py:53
+#: ../../../QuickButton.py:135
+msgid "Hide bookmarks"
+msgstr "Lesezeichen aus"
+
+#: ../../../QuickButton.py:56
+#: ../../../QuickButton.py:203
 msgid "Sort by Date (1->9)"
 msgstr "Sort. Datum (1->9)"
 
-#: ../../../QuickButton.py:54
-#: ../../../QuickButton.py:187
+#: ../../../QuickButton.py:59
+#: ../../../QuickButton.py:197
 msgid "Sort by Date (9->1)"
 msgstr "Sort. Datum (9->1)"
 
-#: ../../../QuickButton.py:57
-#: ../../../QuickButton.py:190
+#: ../../../QuickButton.py:62
+#: ../../../QuickButton.py:200
 msgid "Sort alphabetically"
 msgstr "Sort. alphabetisch"
 
-#: ../../../QuickButton.py:78
+#: ../../../QuickButton.py:83
 msgid "Assigned function for red key"
 msgstr "Selbst zugeordnete Funktion"
 
-#: ../../../QuickButton.py:79
+#: ../../../QuickButton.py:84
 msgid "Assigned function for green key"
 msgstr "Selbst zugeordnete Funktion"
 
-#: ../../../QuickButton.py:80
+#: ../../../QuickButton.py:85
 msgid "Assigned function for yellow key"
 msgstr "Selbst zugeordnete Funktion"
 
-#: ../../../QuickButton.py:81
+#: ../../../QuickButton.py:86
 msgid "Assigned function for blue key"
 msgstr "Selbst zugeordnete Funktion"
 
-#: ../../../QuickButton.py:137
+#: ../../../QuickButton.py:147
 msgid "Set tag here not possible, please select a movie for!"
 msgstr "Hier einen Tag anlegen ist nicht möglich, wählen Sie bitte dafür einen Film aus!"
 
-#: ../../../QuickButton.py:143
+#: ../../../QuickButton.py:153
 msgid "Trailer search here not possible, please select a movie!"
 msgstr "Trailer suche hier nicht möglich, wählen Sie bitte dafür einen Film aus!"
 
-#: ../../../QuickButton.py:149
+#: ../../../QuickButton.py:159
 msgid "Move/Copy from complete directory/symlink not possible, please select a single movie!"
 msgstr "Verschieben/Kopieren von ganzen Verzeichnissen/Symlinks nicht möglich, wählen Sie bitte dafür einen Film aus!"
 
-#: ../../../QuickButton.py:155
+#: ../../../QuickButton.py:165
 msgid "Rename here not possible, please select a movie!"
 msgstr "Umbenennen hier nicht möglich, wählen Sie bitte dafür einen Film aus!"
 
-#: ../../../QuickButton.py:171
+#: ../../../QuickButton.py:181
 msgid "TMDb search here not possible, please select a movie!"
 msgstr "TMDb suche hier nicht möglich, wählen Sie bitte dafür einen Film aus!"
 
-#: ../../../QuickButton.py:177
+#: ../../../QuickButton.py:187
 msgid "This may not be marked as seen!"
 msgstr "Das kann nicht als gesehen markiert werden!"
 
-#: ../../../QuickButton.py:183
+#: ../../../QuickButton.py:193
 msgid "This may not be marked as unseen!"
 msgstr "Das kann nicht als ungesehen markiert werden!"
 
-#: ../../../QuickButton.py:216
+#: ../../../QuickButton.py:226
 msgid "Unknown error!"
 msgstr "Unbekannter Fehler!"
 
-#: ../../../QuickButton.py:218
+#: ../../../QuickButton.py:228
 msgid "Plugin not found!"
 msgstr "Erweiterung nicht gefunden!"
 
-#: ../../../QuickButton.py:220
+#: ../../../QuickButton.py:230
 msgid "No plugin assigned!"
 msgstr "Keine Erweiterung zugeordnet!"
 
@@ -2967,9 +2977,6 @@ msgstr "Wiederherstellen fehlgeschlagen!"
 
 #~ msgid "Add. new icon"
 #~ msgstr "Neue Aufn. Icon anzeigen"
-
-#~ msgid "On/Off bookmark(s)"
-#~ msgstr "Ein/Aus Lesezeichen"
 
 #~ msgid "Unknown Error"
 #~ msgstr "Unbekannter Fehler"
