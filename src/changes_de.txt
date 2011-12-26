@@ -200,7 +200,9 @@ version 2.4
 * fix: keine cover/senderlogo anzeige wenn filmbeschreibung anzeigen deaktiviert ist
 * fix: aufruf von erweiterungen über farbtasten wenn systemsprache geändert wurde (funktionen müssen neu zugeordnet werden)
 * fix: crash bei sonderzeichen in der tmdb suche unter den erweiterten infos
+* fix: tmdb suche und download wenn systemsprache auf englisch
 * geändert: erweiterte info bei der tmdb suche & d/l erweitert
+* geändert: lesezeichen text wenn lesezeichen ein/aus einer farbtaste zugewiesen ist
 ACHTUNG an die skinner, bei den screens AdvancedMovieSelectionTrashHD, AdvancedMovieSelectionTrashXD, AdvancedMovieSelectionTrashSD, TMDbMainHD, TMDbMainXD und TMDbMainSD gab es änderungen
 
 

@@ -46,6 +46,11 @@ def getPluginCaption(pname):
                 return _("Show folders")
             else:
                 return _("Hide folders")
+        elif pname == "Bookmark(s) on/off":
+            if not config.AdvancedMovieSelection.show_bookmarks.value:
+                return _("Show bookmarks")
+            else:
+                return _("Hide bookmarks")
         elif pname == "Sort":
             if config.movielist.moviesort.value == MovieList.SORT_ALPHANUMERIC:
                 return _("Sort by Date (1->9)")
@@ -124,9 +129,14 @@ class QuickButton:
                 elif pname == "Bookmark 3":
                     self.gotFilename(bookmark3)
                 elif pname == "Bookmark(s) on/off":
+                    if config.AdvancedMovieSelection.show_bookmarks.value:
+                        newCaption = _("Show bookmarks")
+                    else:
+                        newCaption = _("Hide bookmarks")
                     config.AdvancedMovieSelection.show_bookmarks.value = not config.AdvancedMovieSelection.show_bookmarks.value
                     self.saveconfig()
                     self.reloadList()
+                    key_number.setText(newCaption)
                 elif pname == "Filter by Tags":
                     self.showTagsSelect()
                 elif pname == "Tag Editor":
