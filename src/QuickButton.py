@@ -62,7 +62,7 @@ def getPluginCaption(pname):
                         return p.description
                     else:
                         return p.name
-        return pname
+        return _(pname)
     return ""
 
 
@@ -82,10 +82,10 @@ class QuickButton:
         })
 
     def updateButtonText(self):
-        self["key_red"].setText(getPluginCaption(_(config.AdvancedMovieSelection.red.value)))
-        self["key_green"].setText(getPluginCaption(_(config.AdvancedMovieSelection.green.value)))
-        self["key_yellow"].setText(getPluginCaption(_(config.AdvancedMovieSelection.yellow.value)))
-        self["key_blue"].setText(getPluginCaption(_(config.AdvancedMovieSelection.blue.value)))
+        self["key_red"].setText(getPluginCaption(config.AdvancedMovieSelection.red.value))
+        self["key_green"].setText(getPluginCaption(config.AdvancedMovieSelection.green.value))
+        self["key_yellow"].setText(getPluginCaption(config.AdvancedMovieSelection.yellow.value))
+        self["key_blue"].setText(getPluginCaption(config.AdvancedMovieSelection.blue.value))
 
     def redpressed(self):
         self.startPlugin(config.AdvancedMovieSelection.red.value, self["key_red"])
