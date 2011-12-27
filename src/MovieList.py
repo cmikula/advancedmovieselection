@@ -368,18 +368,18 @@ class MovieList(GUIComponent):
                 else:
                     png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "directory.png"))
 
-                offset = 25
+                offset = 30
                 if self.list_type == MovieList.LISTTYPE_EXTENDED:
                     filename = serviceref.getPath()[:-1] + ".jpg" 
                     if os.path.exists(filename):
                         offset = 75
                         png = self.picloader.load(filename)
-                        res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 0, 75, 75, png))
+                        res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 2, 75, 76, png))
                     else:
-                        res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 2, 20, 20, png))
+                        res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 5, 2, 20, 20, png))
                     res.append(MultiContentEntryText(pos=(offset, 28), size=(width, 25), font=1, flags=RT_HALIGN_LEFT, text=serviceref.getPath()))
                 else:
-                    res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 2, 20, 20, png))
+                    res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 5, 2, 20, 20, png))
 
                 res.append(MultiContentEntryText(pos=(offset, 3), size=(width - 150, 30), font=0, flags=RT_HALIGN_LEFT, text=serviceref.getName()))
                 if config.AdvancedMovieSelection.show_dirsize.value:
@@ -582,7 +582,7 @@ class MovieList(GUIComponent):
                     png = self.picloader.load(piconpath)
             if not png:
                 png = self.picloader.load(self.NO_COVER_PNG_FILE)
-            res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 1, 75, 76, png))
+            res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 2, 75, 76, png))
             offset = offset + 80
             
             # Line 1: Movie Text, service name

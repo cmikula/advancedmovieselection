@@ -189,11 +189,11 @@ class MovieContextMenu(Screen):
         if config.AdvancedMovieSelection.showliststyle.value:
             menu.extend((
                 (_("List style default"), boundFunction(self.listType, MovieList.LISTTYPE_ORIGINAL)),
-                (_("List style compact with description"), boundFunction(self.listType, MovieList.LISTTYPE_COMPACT_DESCRIPTION)),
+                (_("List style extended"), boundFunction(self.listType, MovieList.LISTTYPE_EXTENDED)),
                 (_("List style compact"), boundFunction(self.listType, MovieList.LISTTYPE_COMPACT)),
-                (_("List style Advanced Movie Selection single line"), boundFunction(self.listType, MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection)),
+                (_("List style compact with description"), boundFunction(self.listType, MovieList.LISTTYPE_COMPACT_DESCRIPTION)),
                 (_("List style single line"), boundFunction(self.listType, MovieList.LISTTYPE_MINIMAL)),
-                (_("List style extended"), boundFunction(self.listType, MovieList.LISTTYPE_EXTENDED))
+                (_("List style Advanced Movie Selection single line"), boundFunction(self.listType, MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection))
             ))
         if config.AdvancedMovieSelection.showliststyle.value and config.movielist.listtype.value == MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection:
             if config.movielist.showservice.value == MovieList.SHOW_SERVICE:
