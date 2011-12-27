@@ -72,6 +72,7 @@ def getPluginCaption(pname):
         return _(pname)
     return ""
 
+toggleSeenButton = None
 
 class QuickButton:
     def __init__(self):
@@ -87,13 +88,24 @@ class QuickButton:
             "yellow": (self.yellowpressed, _("Assigned function for yellow key")),
             "blue": (self.bluepressed, _("Assigned function for blue key")),
         })
-        self.toggleSeenState = True
+        self.list.connectSelChanged(self.__updateGUI)
 
     def updateButtonText(self):
         self["key_red"].setText(getPluginCaption(config.AdvancedMovieSelection.red.value))
         self["key_green"].setText(getPluginCaption(config.AdvancedMovieSelection.green.value))
         self["key_yellow"].setText(getPluginCaption(config.AdvancedMovieSelection.yellow.value))
         self["key_blue"].setText(getPluginCaption(config.AdvancedMovieSelection.blue.value))
+        global toggleSeenButton
+        if config.AdvancedMovieSelection.red.value == "Toggle seen":
+            toggleSeenButton = self["key_red"] 
+        elif config.AdvancedMovieSelection.green.value == "Toggle seen":
+            toggleSeenButton = self["key_green"] 
+        elif config.AdvancedMovieSelection.yellow.value == "Toggle seen":
+            toggleSeenButton = self["key_yellow"] 
+        elif config.AdvancedMovieSelection.blue.value == "Toggle seen":
+            toggleSeenButton = self["key_blue"]
+        else:
+            toggleSeenButton = None
 
     def redpressed(self):
         self.startPlugin(config.AdvancedMovieSelection.red.value, self["key_red"])
@@ -107,6 +119,14 @@ class QuickButton:
     def bluepressed(self):
         self.startPlugin(config.AdvancedMovieSelection.blue.value, self["key_blue"])
 
+    def __updateGUI(self):
+        if toggleSeenButton:
+            perc = self.list.getMovieStatus()
+            if perc > 50:
+                toggleSeenButton.setText(_("Mark as unseen"))
+            else:
+                toggleSeenButton.setText(_("Mark as seen"))
+    
     def startPlugin(self, pname, key_number):
         home = config.AdvancedMovieSelection.homepath.value
         bookmark1 = config.AdvancedMovieSelection.bookmark1path.value
@@ -210,22 +230,22 @@ class QuickButton:
                             self.session.open(MessageBox, _("TMDb search here not possible, please select a movie!"), MessageBox.TYPE_INFO)               
                 elif pname == "Toggle seen":
                     if not (service.flags):
-                        if self.toggleSeenState:
-                            self.setMovieStatus(status = 1)
-                            key_number.setText(_("Mark as unseen"))
-                        else:
-                            self.setMovieStatus(status = 0)
+                        perc = self.list.getMovieStatus()
+                        if perc > 50:
+                            self.setMovieStatus(0)
                             key_number.setText(_("Mark as seen"))
-                        self.toggleSeenState = not self.toggleSeenState
+                        else:
+                            self.setMovieStatus(1)
+                            key_number.setText(_("Mark as unseen"))
                 elif pname == "Mark as seen":
                     if not (service.flags):
-                        self.setMovieStatus(status = 1)
+                        self.setMovieStatus(status=1)
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
                             self.session.open(MessageBox, _("This may not be marked as seen!"), MessageBox.TYPE_INFO)
                 elif pname == "Mark as unseen":
                     if not (service.flags):
-                        self.setMovieStatus(status = 0) 
+                        self.setMovieStatus(status=0) 
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
                             self.session.open(MessageBox, _("This may not be marked as unseen!"), MessageBox.TYPE_INFO)

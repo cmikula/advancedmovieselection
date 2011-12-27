@@ -37,7 +37,6 @@ from time import time as time_time
 from math import fabs as math_fabs
 from datetime import datetime
 from ServiceProvider import detectDVDStructure, getCutList, Info, ServiceCenter, eServiceReferenceDvd, MovieConfig, hasLastPosition, getDirSize, getFolderSize, PicLoader, getServiceInfoValue
-from os import environ
 from Trashcan import TRASH_NAME
 from Components.Harddisk import Harddisk
 from EventInformationTable import EventInformationTable
@@ -1011,6 +1010,25 @@ class MovieList(GUIComponent):
                 cutList.append(new)
             cue.setCutList(cutList)
             self.l.invalidateEntry(cur_idx)
+
+    def getMovieStatus(self):
+        cur_idx = self.l.getCurrentSelectionIndex()
+        x = self.list[cur_idx]
+        if not x[1]:
+            return
+        cue = x[1].cueSheet()
+        length = x[1].getLength(x[0])
+        last = 1
+        if cue is not None:
+            cutList = cue.getCutList()
+            for (pts, what) in cutList:
+                if what == 3:
+                    last = pts / 90000
+                    break
+        if length == 0:
+            return
+        perc = int((float(last) / float(length)) * 100);
+        return perc
 
     def updateMetaFromEit(self):
         for item in self.list:
