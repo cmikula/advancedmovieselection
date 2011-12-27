@@ -566,7 +566,6 @@ class MovieList(GUIComponent):
         else:
             txt = service_name
 
-
         if self.list_type == MovieList.LISTTYPE_EXTENDED:
             filename = os.path.splitext(serviceref.getPath())[0] + ".jpg"
             filesize = float(info.getInfoObject(serviceref, iServiceInformation.sFileSize) / (1024 * 1024))
@@ -580,10 +579,13 @@ class MovieList(GUIComponent):
                 if os.path.exists(piconpath):
                     png = self.picloader.load(piconpath)
             if not png:
-                filename = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/gnu_linux.png"
+                if environ["LANGUAGE"] == "de" or environ["LANGUAGE"] == "de_DE":
+                    filename = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_de.png"
+                else:
+                    filename = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_en.png"
                 png = self.picloader.load(filename)
             res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 1, 75, 76, png))
-            offset = offset + 75
+            offset = offset + 80
             
             # Line 1: Movie Text, service name
             res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 265, 30), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
