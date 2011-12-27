@@ -244,8 +244,8 @@ class MovieList(GUIComponent):
             self.DATE_TIME_FORMAT = "%d.%m.%Y - %H:%M"
 
         from Components.Language import language
-        lang = language.getLanguage()[:2]
-        if lang == "de":
+        lang = language.getLanguage()
+        if lang == "de_DE" or lang == "de":
             self.MOVIE_NEW_PNG = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "movie_de_new.png"))
             self.NO_COVER_PNG_FILE = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_de.png"
         elif lang == "en":
