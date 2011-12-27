@@ -243,15 +243,17 @@ class MovieList(GUIComponent):
         else:
             self.DATE_TIME_FORMAT = "%d.%m.%Y - %H:%M"
 
-        if environ["LANGUAGE"] == "de":                    
+        from Components.Language import language
+        lang = language.getLanguage()[:2]
+        if lang == "de":
             self.MOVIE_NEW_PNG = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "movie_de_new.png"))
-        elif environ["LANGUAGE"] == "de_DE":                    
-            self.MOVIE_NEW_PNG = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "movie_de_new.png"))
-        elif environ["LANGUAGE"] == "en":
+            self.NO_COVER_PNG_FILE = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_de.png"
+        elif lang == "en":
             self.MOVIE_NEW_PNG = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "movie_en_new.png"))
+            self.NO_COVER_PNG_FILE = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_en.png"
         else:
             self.MOVIE_NEW_PNG = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "movie_new.png"))
-
+            self.NO_COVER_PNG_FILE = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_en.png"
 
     def updateHotplugDevices(self):
         self.automounts = []
@@ -579,11 +581,7 @@ class MovieList(GUIComponent):
                 if os.path.exists(piconpath):
                     png = self.picloader.load(piconpath)
             if not png:
-                if environ["LANGUAGE"] == "de" or environ["LANGUAGE"] == "de_DE":
-                    filename = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_de.png"
-                else:
-                    filename = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_en.png"
-                png = self.picloader.load(filename)
+                png = self.picloader.load(self.NO_COVER_PNG_FILE)
             res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 1, 75, 76, png))
             offset = offset + 80
             
