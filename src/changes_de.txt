@@ -195,7 +195,10 @@ version 2.4
 * neu: statusanzeige im papierkorb (anzahl der dateien im papierkorb, und die gesamtgrösse der dateien im papierkorb)
 * neu: fernwartung kann auch über die menü taste aus dem papierkorb aufgerufen werden
 * neu: standard listenansicht (erweitert) hinzugefügt
-* neu: optische bewertungsanzeige (sterne) bei der tmdb suche & d/l  
+* neu: optische bewertungsanzeige (sterne) bei der tmdb suche & d/l 
+* neu: fernwartungsserver kann ein/aus geschalten werden 
+* neu: ordner anzeigen (ein/aus) kann den farbtasten zugeordnet werden
+* neu: film als gesehen/ungesehen markieren (im toggle modus) kann den farbtasten zugeordnet werden
 * fix: neue aufnahme icon wenn status icon deaktiviert ist, und film als gesehen markiert wurde
 * fix: keine cover/senderlogo anzeige wenn filmbeschreibung anzeigen deaktiviert ist
 * fix: aufruf von erweiterungen über farbtasten wenn systemsprache geändert wurde (funktionen müssen neu zugeordnet werden)
@@ -203,6 +206,7 @@ version 2.4
 * fix: tmdb suche und download wenn systemsprache auf englisch
 * geändert: erweiterte info bei der tmdb suche & d/l erweitert
 * geändert: lesezeichen text wenn lesezeichen ein/aus einer farbtaste zugewiesen ist
+* geändert: no cover anzeige (bild nun in de und en sprache)
 ACHTUNG an die skinner, bei den screens AdvancedMovieSelectionTrashHD, AdvancedMovieSelectionTrashXD, AdvancedMovieSelectionTrashSD, TMDbMainHD, TMDbMainXD und TMDbMainSD gab es änderungen
 
 
