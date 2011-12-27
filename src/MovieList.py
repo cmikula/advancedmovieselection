@@ -1012,10 +1012,12 @@ class MovieList(GUIComponent):
             self.l.invalidateEntry(cur_idx)
 
     def getMovieStatus(self):
+        if len(self.list) == 0:
+            return 0
         cur_idx = self.l.getCurrentSelectionIndex()
         x = self.list[cur_idx]
         if not x[1]:
-            return
+            return 0
         cue = x[1].cueSheet()
         length = x[1].getLength(x[0])
         last = 1
@@ -1026,7 +1028,7 @@ class MovieList(GUIComponent):
                     last = pts / 90000
                     break
         if length == 0:
-            return
+            return 0
         perc = int((float(last) / float(length)) * 100);
         return perc
 
