@@ -245,20 +245,20 @@ class MovieContextMenu(Screen):
                 menu.append((_("Show movie color status in movielist"), boundFunction(self.showStatusColor, True)))
         if config.AdvancedMovieSelection.showcolorkey.value:        
             menu.append((_("Color key settings"), self.setupbutton))     
-        if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.showcoveroptions.value and config.AdvancedMovieSelection.showcoveroptions2.value:
+        if config.AdvancedMovieSelection.showcoveroptions.value and config.AdvancedMovieSelection.showcoveroptions2.value:
             menu.append((_("Download and save movie info/cover for all movies"), boundFunction(self.downloadMovieInfoAll)))
-        if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.showcoveroptions.value:
+        if config.AdvancedMovieSelection.showcoveroptions.value:
             if not service.flags & eServiceReference.mustDescent:
                 menu.append((_("Download and save movie info/cover"), self.downloadMovieInfo))              
-        if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.show_update_genre.value:
+        if config.AdvancedMovieSelection.show_update_genre.value:
             menu.append((_("Update all genre in meta from eit"), boundFunction(self.updateMetaFromEit)))
-        if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.show_cover_del.value:
+        if config.AdvancedMovieSelection.show_cover_del.value:
             if not service.flags & eServiceReference.mustDescent:
                 menu.append((_("Delete cover"), boundFunction(self.deletecover)))
-        if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.show_info_del.value:
+        if config.AdvancedMovieSelection.show_info_del.value:
             if not service.flags & eServiceReference.mustDescent:
                 menu.append((_("Delete movie info"), boundFunction(self.deleteinfos)))
-        if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.show_info_cover_del.value:
+        if config.AdvancedMovieSelection.show_info_cover_del.value:
             if not service.flags & eServiceReference.mustDescent:
                 menu.append((_("Delete movie info and cover"), boundFunction(self.deleteinfocover)))   
         if config.AdvancedMovieSelection.showmovietagsinmenu.value and not service.flags & eServiceReference.mustDescent:

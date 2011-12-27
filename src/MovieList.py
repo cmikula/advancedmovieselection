@@ -36,7 +36,7 @@ from stat import ST_MTIME as stat_ST_MTIME
 from time import time as time_time
 from math import fabs as math_fabs
 from datetime import datetime
-from ServiceProvider import detectDVDStructure, getCutList, Info, ServiceCenter, eServiceReferenceDvd, MovieConfig, hasLastPosition, getDirSize, getFolderSize, PicLoader
+from ServiceProvider import detectDVDStructure, getCutList, Info, ServiceCenter, eServiceReferenceDvd, MovieConfig, hasLastPosition, getDirSize, getFolderSize, PicLoader, getServiceInfoValue
 from os import environ
 from Trashcan import TRASH_NAME
 from Components.Harddisk import Harddisk
@@ -571,9 +571,17 @@ class MovieList(GUIComponent):
             filename = os.path.splitext(serviceref.getPath())[0] + ".jpg"
             filesize = float(info.getInfoObject(serviceref, iServiceInformation.sFileSize) / (1024 * 1024))
             prec_text = str(perc) + '%'
-            if not os.path.exists(filename):
+            png = None
+            if os.path.exists(filename):
+                png = self.picloader.load(filename)
+            else:
+                picon = getServiceInfoValue(serviceref, iServiceInformation.sServiceref).rstrip(':').replace(':', '_') + ".png"
+                piconpath = os.path.join(config.AdvancedMovieSelection.piconpath.value, picon)
+                if os.path.exists(piconpath):
+                    png = self.picloader.load(piconpath)
+            if not png:
                 filename = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/gnu_linux.png"
-            png = self.picloader.load(filename)
+                png = self.picloader.load(filename)
             res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 1, 75, 76, png))
             offset = offset + 75
             

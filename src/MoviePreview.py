@@ -25,8 +25,8 @@ from enigma import ePicLoad
 from Tools.Directories import fileExists
 import os
 from Components.config import config
-from ServiceProvider import eServiceReferenceDvd
-from enigma import iServiceInformation, eServiceCenter
+from ServiceProvider import eServiceReferenceDvd, getServiceInfoValue
+from enigma import iServiceInformation
 nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover.jpg")
 
 class MoviePreview():
@@ -49,13 +49,6 @@ class MoviePreview():
         self.piconX = self.cpX + int(self.cpW / 2) - int(100 / 2)
         self.piconY = self.cpY + int(self.cpH / 2) - int(60 / 2)
 
-    def getServiceInfoValue(self, ref, what):
-        info = eServiceCenter.getInstance().info(ref)
-        v = ref and info.getInfo(ref, what) or info.getInfo(what)
-        if v != iServiceInformation.resIsString:
-            return ""
-        return ref and info.getInfoString(ref, what) or info.getInfoString(what)
-
     def loadPreview(self, serviceref):
         self.hideDialog()
         if serviceref:
@@ -75,7 +68,7 @@ class MoviePreview():
             if fileExists(path):
                 self.picload.startDecode(path)
             elif serviceref.getPath().endswith(".ts") and config.AdvancedMovieSelection.show_picon.value:
-                picon = self.getServiceInfoValue(serviceref, iServiceInformation.sServiceref).rstrip(':').replace(':', '_') + ".png"
+                picon = getServiceInfoValue(serviceref, iServiceInformation.sServiceref).rstrip(':').replace(':', '_') + ".png"
                 piconpath = os.path.join(config.AdvancedMovieSelection.piconpath.value, picon)
                 if os.path.exists(piconpath):
                     if config.AdvancedMovieSelection.piconsize.value:

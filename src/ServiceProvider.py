@@ -45,6 +45,13 @@ DMCONFFILE = __CONF__
 
 instance = None
 
+def getServiceInfoValue(ref, what):
+    info = eServiceCenter.getInstance().info(ref)
+    v = ref and info.getInfo(ref, what) or info.getInfo(what)
+    if v != iServiceInformation.resIsString:
+        return ""
+    return ref and info.getInfoString(ref, what) or info.getInfoString(what)
+
 class PicLoader:
     def __init__(self, width, height):
         from enigma import ePicLoad
@@ -54,7 +61,6 @@ class PicLoader:
         self.picload.setPara((width, height, sc[0], sc[1], False, 1, "#00000000"))
 
     def load(self, filename):
-        self.wait = True
         self.picload.startDecode(filename, 0, 0, False)
         return self.picload.getData()
 
