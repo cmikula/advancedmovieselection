@@ -79,7 +79,7 @@ class Client:
         self.ip = ip
         self.port = port
         self.device = self.sendData("getDeviceName")
-        self.name = self.sendData("getName")
+        self.name = ""#self.sendData("getName")
 
     def sendData(self, data):
         request = "Error"

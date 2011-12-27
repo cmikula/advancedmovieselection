@@ -184,6 +184,8 @@ config.AdvancedMovieSelection.next_empty_check = ConfigInteger(default=30, limit
 config.AdvancedMovieSelection.show_update_genre = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.show_begintime = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.show_date_shortdesc = ConfigYesNo(default=False)
+config.AdvancedMovieSelection.server_enabled = ConfigYesNo(default=True)
+config.AdvancedMovieSelection.clientsearch_enabled = ConfigYesNo(default=True) 
 config.AdvancedMovieSelection.start_search_ip = ConfigInteger(default=1, limits=(1, 254))
 config.AdvancedMovieSelection.stop_search_ip = ConfigInteger(default=254, limits=(1, 254))
 config.AdvancedMovieSelection.server_port = ConfigInteger(default=20000, limits=(1, 65535))
@@ -646,10 +648,12 @@ def autostart(reason, **kwargs):
                     waste_timer.stopTimer()
                     print "[AdvancedMovieSelection] Auto empty from wastebasket disabled..."
                 from MessageServer import serverInstance
-                serverInstance.setPort(config.AdvancedMovieSelection.server_port.value)
-                serverInstance.start()
-                serverInstance.setSearchRange(config.AdvancedMovieSelection.start_search_ip.value, config.AdvancedMovieSelection.stop_search_ip.value)
-                serverInstance.startScanForClients()
+                if config.AdvancedMovieSelection.server_enabled.value:
+                    serverInstance.setPort(config.AdvancedMovieSelection.server_port.value)
+                    serverInstance.start()
+                if config.AdvancedMovieSelection.clientsearch_enabled.value:
+                    serverInstance.setSearchRange(config.AdvancedMovieSelection.start_search_ip.value, config.AdvancedMovieSelection.stop_search_ip.value)
+                    serverInstance.startScanForClients()
 
                 # set locale for tmdb search
                 from tmdb import setLocale

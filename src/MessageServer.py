@@ -95,6 +95,7 @@ class MessageServer():
     def shutdown(self):
         if self.server:
             self.server.shutdown()
+            print "[AdvancedMovieSelection] Server stopped:"
         
     def reconnect(self, host=None, port=None):
         if host:
@@ -115,8 +116,6 @@ class MessageServer():
     def findClients(self):
         from Client import Client
         self.active_clients = []
-        if not self.server:
-            return
         ip = self.host.split(".")
         ip = "%s.%s.%s" % (ip[0], ip[1], ip[2])
         for x in range(self.ip_from, self.ip_to + 1):
@@ -129,7 +128,8 @@ class MessageServer():
                 sock.connect((host, self.port))
                 sock.close()
                 client = Client(host, self.port)
-                self.active_clients.append(client)
+                if client.getDeviceName() != "Error":
+                    self.active_clients.append(client)
             except:
                 pass
             finally:

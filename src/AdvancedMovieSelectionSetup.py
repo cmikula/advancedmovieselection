@@ -374,6 +374,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.list.append(getConfigListEntry(_("Show date:"), config.AdvancedMovieSelection.show_date_shortdesc, _("If this option is activated the date will be displayed on the lcd/oled when no short description is available.")))
             if config.AdvancedMovieSelection.show_date_shortdesc.value:
                 self.list.append(getConfigListEntry(_("Use date from timestamp:"), config.AdvancedMovieSelection.show_begintime, _("If this option is activated the date from the file create instead today's date will be displayed on the lcd/oled when no short description is available.")))
+        self.list.append(getConfigListEntry(_("Server enabled:"), config.AdvancedMovieSelection.server_enabled, _("If you disable this feature, this device can't located from other clients to prevent trash cleanup.")))
+        self.list.append(getConfigListEntry(_("Client search enabled:"), config.AdvancedMovieSelection.clientsearch_enabled, _("If you disable this feature, no clients will be located to prevent trash cleanup.")))
         self.list.append(getConfigListEntry(_("Enable Enigma2 debug:"), config.AdvancedMovieSelection.debug, _("If you enable this function, all standard output from enigma will be stored to /tmp folder.")))
         self["config"].setList(self.list)
 
@@ -421,19 +423,34 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             waste_timer.configChange()
         if config.AdvancedMovieSelection.ml_disable.isChanged():
             self.needsRestartFlag = True
-        elif config.AdvancedMovieSelection.movie_launch.isChanged():
+        if config.AdvancedMovieSelection.movie_launch.isChanged():
             self.needsRestartFlag = True
-        elif config.AdvancedMovieSelection.overwrite_left_right.isChanged():
+        if config.AdvancedMovieSelection.overwrite_left_right.isChanged():
             self.needsRestartFlag = True        
-        elif config.usage.load_length_of_movies_in_moviellist.isChanged() and config.usage.load_length_of_movies_in_moviellist.value == False:
+        if config.usage.load_length_of_movies_in_moviellist.isChanged() and config.usage.load_length_of_movies_in_moviellist.value == False:
             config.AdvancedMovieSelection.showprogessbarinmovielist.value = False
             config.AdvancedMovieSelection.showiconstatusinmovielist.value = False
             config.AdvancedMovieSelection.showcolorstatusinmovielist.value = False
             config.AdvancedMovieSelection.showpercentinmovielist.value = False
-        elif config.AdvancedMovieSelection.minitv.isChanged():
+        if config.AdvancedMovieSelection.minitv.isChanged():
             self.needsReopenFlag = True
-        elif config.AdvancedMovieSelection.use_original_movieplayer_summary.isChanged():
+        if config.AdvancedMovieSelection.use_original_movieplayer_summary.isChanged():
             self.needsE2restartFlag = True
+        if config.AdvancedMovieSelection.server_enabled.isChanged():
+            from MessageServer import serverInstance
+            if config.AdvancedMovieSelection.server_enabled.value:
+                serverInstance.setPort(config.AdvancedMovieSelection.server_port.value)
+                serverInstance.start()
+            else:
+                serverInstance.shutdown()
+        if config.AdvancedMovieSelection.clientsearch_enabled.isChanged():
+            from MessageServer import serverInstance
+            if config.AdvancedMovieSelection.clientsearch_enabled.value:
+                serverInstance.setSearchRange(config.AdvancedMovieSelection.start_search_ip.value, config.AdvancedMovieSelection.stop_search_ip.value)
+                serverInstance.startScanForClients()
+            else:
+                serverInstance.active_clients = []
+        
         if self.needsRestartFlag == True:
             self.session.openWithCallback(self.exitAnswer, MessageBoxEx, _("Some settings changes require a restart to take effect.\nIf you  use a skin without PiG (Picture in Graphic) you have to restart the box (not only Enigma 2)!\nWith YES only Enigma 2 starts new, with NO the box make a restart."), type=MessageBox.TYPE_YESNO)
         elif self.needsE2restartFlag == True:
