@@ -102,7 +102,7 @@ class TrashMovieList(GUIComponent):
         res.append(MultiContentEntryText(pos=(5, 29), size=(width - 205, 22), font=1, flags=RT_HALIGN_LEFT, text=description))
         res.append(MultiContentEntryText(pos=(width - 205, 29), size=(200, 22), font=1, flags=RT_HALIGN_RIGHT, text=time))
         res.append(MultiContentEntryText(pos=(5, 54), size=(width - 205, 20), font=2, flags=RT_HALIGN_LEFT, text=os.path.dirname(serviceref.getPath())))
-        res.append(MultiContentEntryText(pos=(width - 205, 54), size=(200, 22), font=2, flags=RT_HALIGN_RIGHT, text=date))
+        res.append(MultiContentEntryText(pos=(width - 255, 54), size=(250, 22), font=2, flags=RT_HALIGN_RIGHT, text=date))
         return res
 
     def moveToIndex(self, index):

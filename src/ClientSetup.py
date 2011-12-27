@@ -203,7 +203,10 @@ class ClientSetup(ConfigListScreen, Screen):
             self["green_button"].show()
             self["yellow_button"].show()
             self["status"].setText(_("Local IP: %s") % self.staticIP)
-            self["clienttxt"].setText(_("Available Server/Clients"))
+            if config.AdvancedMovieSelection.server_enabled.value:
+                self["clienttxt"].setText(_("Available Server/Clients"))
+            else:
+                self["clienttxt"].setText(_("Remoteserver disabled!"))                
         else:
             self["status"].setText(_("ATTENTION: DHCP in lan configuration is activ, no clientbox services available!"))
          
