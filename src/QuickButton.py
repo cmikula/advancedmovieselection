@@ -88,7 +88,6 @@ class QuickButton:
             "yellow": (self.yellowpressed, _("Assigned function for yellow key")),
             "blue": (self.bluepressed, _("Assigned function for blue key")),
         })
-        self.list.connectSelChanged(self.__updateGUI)
 
     def updateButtonText(self):
         self["key_red"].setText(getPluginCaption(config.AdvancedMovieSelection.red.value))
@@ -106,6 +105,11 @@ class QuickButton:
             toggleSeenButton = self["key_blue"]
         else:
             toggleSeenButton = None
+        
+        if toggleSeenButton is not None:
+            self.list.connectSelChanged(self.__updateGUI)
+        else:
+            self.list.disconnectSelChanged(self.__updateGUI)
 
     def redpressed(self):
         self.startPlugin(config.AdvancedMovieSelection.red.value, self["key_red"])
