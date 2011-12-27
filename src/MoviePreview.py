@@ -24,10 +24,10 @@ from Components.Pixmap import Pixmap
 from enigma import ePicLoad
 from Tools.Directories import fileExists
 import os
+from os import environ
 from Components.config import config
 from ServiceProvider import eServiceReferenceDvd, getServiceInfoValue
 from enigma import iServiceInformation
-nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover.jpg")
 
 class MoviePreview():
     def __init__(self, session):
@@ -50,6 +50,10 @@ class MoviePreview():
         self.piconY = self.cpY + int(self.cpH / 2) - int(60 / 2)
 
     def loadPreview(self, serviceref):
+        if environ["LANGUAGE"] == "de" or environ["LANGUAGE"] == "de_DE":
+            nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_de.jpg")
+        else:
+            nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_en.jpg")
         self.hideDialog()
         if serviceref:
             path = serviceref.getPath()
