@@ -374,8 +374,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.list.append(getConfigListEntry(_("Show date:"), config.AdvancedMovieSelection.show_date_shortdesc, _("If this option is activated the date will be displayed on the lcd/oled when no short description is available.")))
             if config.AdvancedMovieSelection.show_date_shortdesc.value:
                 self.list.append(getConfigListEntry(_("Use date from timestamp:"), config.AdvancedMovieSelection.show_begintime, _("If this option is activated the date from the file create instead today's date will be displayed on the lcd/oled when no short description is available.")))
-        self.list.append(getConfigListEntry(_("Server enabled:"), config.AdvancedMovieSelection.server_enabled, _("If you disable this feature, this device can't located from other clients to prevent trash cleanup.")))
-        self.list.append(getConfigListEntry(_("Client search enabled:"), config.AdvancedMovieSelection.clientsearch_enabled, _("If you disable this feature, no clients will be located to prevent trash cleanup.")))
+        self.list.append(getConfigListEntry(_("Server enabled:"), config.AdvancedMovieSelection.server_enabled, _("If you enable this feature, all remote functions are enabled.")))
         self.list.append(getConfigListEntry(_("Enable Enigma2 debug:"), config.AdvancedMovieSelection.debug, _("If you enable this function, all standard output from enigma will be stored to /tmp folder.")))
         self["config"].setList(self.list)
 
@@ -441,14 +440,10 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             if config.AdvancedMovieSelection.server_enabled.value:
                 serverInstance.setPort(config.AdvancedMovieSelection.server_port.value)
                 serverInstance.start()
-            else:
-                serverInstance.shutdown()
-        if config.AdvancedMovieSelection.clientsearch_enabled.isChanged():
-            from MessageServer import serverInstance
-            if config.AdvancedMovieSelection.clientsearch_enabled.value:
                 serverInstance.setSearchRange(config.AdvancedMovieSelection.start_search_ip.value, config.AdvancedMovieSelection.stop_search_ip.value)
                 serverInstance.startScanForClients()
             else:
+                serverInstance.shutdown()
                 serverInstance.active_clients = []
         
         if self.needsRestartFlag == True:
