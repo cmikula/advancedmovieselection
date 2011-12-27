@@ -369,7 +369,10 @@ class MovieList(GUIComponent):
 
                 offset = 30
                 if self.list_type == MovieList.LISTTYPE_EXTENDED:
-                    filename = serviceref.getPath()[:-1] + ".jpg" 
+                    if config.AdvancedMovieSelection.usefoldername.value:
+                        filename = serviceref.getPath()[:-1] + ".jpg"
+                    else:
+                        filename = serviceref.getPath() + "folder.jpg"
                     if os.path.exists(filename):
                         offset = 75
                         png = self.picloader.load(filename)
