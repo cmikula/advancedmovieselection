@@ -109,34 +109,60 @@ class QuickButton:
         bookmark1 = config.AdvancedMovieSelection.bookmark1path.value
         bookmark2 = config.AdvancedMovieSelection.bookmark2path.value
         bookmark3 = config.AdvancedMovieSelection.bookmark3path.value
-        plugin = None
         errorText = None
-        current = self.getCurrent()
-        service = self.getCurrent()
-        if current is not None:
-            if pname != "Nothing":
+        if pname != "Nothing":
+            # all functions with no service is needed
+            if pname == "Wastebasket":
+                if config.AdvancedMovieSelection.use_wastebasket.value:
+                    self.session.openWithCallback(self.reloadList, Wastebasket)              
+            elif pname == "Home":
+                self.gotFilename(home)
+            elif pname == "Bookmark 1":
+                self.gotFilename(bookmark1)
+            elif pname == "Bookmark 2":
+                self.gotFilename(bookmark2)
+            elif pname == "Bookmark 3":
+                self.gotFilename(bookmark3)
+            elif pname == "Bookmark(s) on/off":
+                if config.AdvancedMovieSelection.show_bookmarks.value:
+                    newCaption = _("Show bookmarks")
+                else:
+                    newCaption = _("Hide bookmarks")
+                config.AdvancedMovieSelection.show_bookmarks.value = not config.AdvancedMovieSelection.show_bookmarks.value
+                self.saveconfig()
+                self.reloadList()
+                key_number.setText(newCaption)
+            elif pname == "Show/Hide folders":
+                if config.AdvancedMovieSelection.showfoldersinmovielist.value:
+                    newCaption = _("Show folders")
+                else:
+                    newCaption = _("Hide folders")
+                config.AdvancedMovieSelection.showfoldersinmovielist.value = not config.AdvancedMovieSelection.showfoldersinmovielist.value
+                self.showFolders(config.AdvancedMovieSelection.showfoldersinmovielist.value)
+                config.AdvancedMovieSelection.showfoldersinmovielist.save()
+                self.reloadList()
+                key_number.setText(newCaption)
+            elif pname == "Sort":
+                if config.movielist.moviesort.value == MovieList.SORT_ALPHANUMERIC:
+                    newType = MovieList.SORT_DATE_DESC
+                    newCaption = _("Sort by Date (9->1)")
+                elif config.movielist.moviesort.value == MovieList.SORT_DATE_DESC:
+                    newType = MovieList.SORT_DATE_ASC
+                    newCaption = _("Sort alphabetically")
+                elif config.movielist.moviesort.value == MovieList.SORT_DATE_ASC:
+                    newType = MovieList.SORT_ALPHANUMERIC
+                    newCaption = _("Sort by Date (1->9)")
+                config.movielist.moviesort.value = newType
+                self.setSortType(newType)
+                self.reloadList()
+                key_number.setText(newCaption)
+            else:   
+                # all functions that require a service 
+                service = self.getCurrent()
+                if not service:
+                    return
                 if pname == "Delete":
                     self.delete()
-                elif pname == "Wastebasket":
-                    if config.AdvancedMovieSelection.use_wastebasket.value:
-                        self.session.openWithCallback(self.reloadList, Wastebasket)              
-                elif pname == "Home":
-                    self.gotFilename(home)
-                elif pname == "Bookmark 1":
-                    self.gotFilename(bookmark1)
-                elif pname == "Bookmark 2":
-                    self.gotFilename(bookmark2)
-                elif pname == "Bookmark 3":
-                    self.gotFilename(bookmark3)
-                elif pname == "Bookmark(s) on/off":
-                    if config.AdvancedMovieSelection.show_bookmarks.value:
-                        newCaption = _("Show bookmarks")
-                    else:
-                        newCaption = _("Hide bookmarks")
-                    config.AdvancedMovieSelection.show_bookmarks.value = not config.AdvancedMovieSelection.show_bookmarks.value
-                    self.saveconfig()
-                    self.reloadList()
-                    key_number.setText(newCaption)
                 elif pname == "Filter by Tags":
                     self.showTagsSelect()
                 elif pname == "Tag Editor":
@@ -153,7 +179,7 @@ class QuickButton:
                             self.session.open(MessageBox, _("Trailer search here not possible, please select a movie!"), MessageBox.TYPE_INFO) 
                 elif pname == "Move-Copy":
                     if not (service.flags):
-                        self.session.open(MovieMove, self, current)
+                        self.session.open(MovieMove, self, service)
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
                             self.session.open(MessageBox, _("Move/Copy from complete directory/symlink not possible, please select a single movie!"), MessageBox.TYPE_INFO)
@@ -191,42 +217,19 @@ class QuickButton:
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
                             self.session.open(MessageBox, _("This may not be marked as unseen!"), MessageBox.TYPE_INFO)
-                elif pname == "Sort":
-                    if config.movielist.moviesort.value == MovieList.SORT_ALPHANUMERIC:
-                        newType = MovieList.SORT_DATE_DESC
-                        newCaption = _("Sort by Date (9->1)")
-                    elif config.movielist.moviesort.value == MovieList.SORT_DATE_DESC:
-                        newType = MovieList.SORT_DATE_ASC
-                        newCaption = _("Sort alphabetically")
-                    elif config.movielist.moviesort.value == MovieList.SORT_DATE_ASC:
-                        newType = MovieList.SORT_ALPHANUMERIC
-                        newCaption = _("Sort by Date (1->9)")
-                    config.movielist.moviesort.value = newType
-                    self.setSortType(newType)
-                    self.reloadList()
-                    key_number.setText(newCaption)
-                elif pname == "Show/Hide folders":
-                    if config.AdvancedMovieSelection.showfoldersinmovielist.value:
-                        newCaption = _("Show folders")
-                    else:
-                        newCaption = _("Hide folders")
-                    config.AdvancedMovieSelection.showfoldersinmovielist.value = not config.AdvancedMovieSelection.showfoldersinmovielist.value
-                    self.showFolders(config.AdvancedMovieSelection.showfoldersinmovielist.value)
-                    config.AdvancedMovieSelection.showfoldersinmovielist.save()
-                    self.reloadList()
-                    key_number.setText(newCaption)
                 else:
+                    plugin = None
                     for p in plugins.getPlugins(where=[PluginDescriptor.WHERE_MOVIELIST]):
                         if pname == str(p.name):
                             plugin = p
                     if plugin is not None:
                         try:
-                            plugin(self.session, current)
+                            plugin(self.session, service)
                         except:
                             errorText = _("Unknown error!")
                     else: 
                         errorText = _("Plugin not found!")
-            else:
-                errorText = _("No plugin assigned!")
-            if errorText:
-                self.session.open(MessageBox, errorText, MessageBox.TYPE_INFO)
+        else:
+            errorText = _("No plugin assigned!")
+        if errorText:
+            self.session.open(MessageBox, errorText, MessageBox.TYPE_INFO)

@@ -136,3 +136,6 @@ class Client:
         except:
             pass
         return ev
+    
+if __name__ == "__main__":
+    print Client("192.168.0.97", 20000).isRecording()
