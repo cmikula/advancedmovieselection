@@ -28,10 +28,8 @@ from Components.config import config
 from ServiceProvider import eServiceReferenceDvd, getServiceInfoValue
 from enigma import iServiceInformation
 from os import environ
-if environ["LANGUAGE"] == "de" or environ["LANGUAGE"] == "de_DE":
-    nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_de.png")
-else:
-    nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_en.png")
+
+nocover = None
 
 class MoviePreview():
     def __init__(self, session):
@@ -42,6 +40,11 @@ class MoviePreview():
         self.picload = ePicLoad()
         self.picload.PictureData.get().append(self.showPreviewCallback)
         self.onLayoutFinish.append(self.layoutFinish)
+        global nocover
+        if environ["LANGUAGE"] == "de" or environ["LANGUAGE"] == "de_DE":
+            nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_de.png")
+        else:
+            nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_en.png")
 
     def layoutFinish(self):
         sc = AVSwitch().getFramebufferScale()
