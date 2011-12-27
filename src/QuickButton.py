@@ -46,6 +46,8 @@ def getPluginCaption(pname):
                 return _("Show folders")
             else:
                 return _("Hide folders")
+        if pname == "Toggle seen":
+            return _("Mark as seen")
         elif pname == "Bookmark(s) on/off":
             if not config.AdvancedMovieSelection.show_bookmarks.value:
                 return _("Show bookmarks")
@@ -85,6 +87,7 @@ class QuickButton:
             "yellow": (self.yellowpressed, _("Assigned function for yellow key")),
             "blue": (self.bluepressed, _("Assigned function for blue key")),
         })
+        self.toggleSeenState = True
 
     def updateButtonText(self):
         self["key_red"].setText(getPluginCaption(config.AdvancedMovieSelection.red.value))
@@ -103,7 +106,7 @@ class QuickButton:
     
     def bluepressed(self):
         self.startPlugin(config.AdvancedMovieSelection.blue.value, self["key_blue"])
-    
+
     def startPlugin(self, pname, key_number):
         home = config.AdvancedMovieSelection.homepath.value
         bookmark1 = config.AdvancedMovieSelection.bookmark1path.value
@@ -205,6 +208,15 @@ class QuickButton:
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
                             self.session.open(MessageBox, _("TMDb search here not possible, please select a movie!"), MessageBox.TYPE_INFO)               
+                elif pname == "Toggle seen":
+                    if not (service.flags):
+                        if self.toggleSeenState:
+                            self.setMovieStatus(status = 1)
+                            key_number.setText(_("Mark as unseen"))
+                        else:
+                            self.setMovieStatus(status = 0)
+                            key_number.setText(_("Mark as seen"))
+                        self.toggleSeenState = not self.toggleSeenState
                 elif pname == "Mark as seen":
                     if not (service.flags):
                         self.setMovieStatus(status = 1)

@@ -538,11 +538,12 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         self.entryguilist.append(("11", "Move-Copy"))
         self.entryguilist.append(("12", "Rename"))
         self.entryguilist.append(("13", "TMDb search & D/L"))
-        self.entryguilist.append(("14", "Mark as seen"))
-        self.entryguilist.append(("15", "Mark as unseen"))
-        self.entryguilist.append(("16", "Show/Hide folders"))
+        self.entryguilist.append(("14", "Toggle seen"))
+        self.entryguilist.append(("15", "Mark as seen"))
+        self.entryguilist.append(("16", "Mark as unseen"))
+        self.entryguilist.append(("17", "Show/Hide folders"))
         if YTTrailerPresent == True:
-            self.entryguilist.append(("17", "Trailer search"))
+            self.entryguilist.append(("18", "Trailer search"))
         self.entryguilist2 = []
         self.entryguilist2.append(("0", "Nothing"))
         self.entryguilist2.append(("1", "DM-600PVR"))
