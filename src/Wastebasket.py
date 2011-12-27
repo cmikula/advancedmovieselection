@@ -57,13 +57,12 @@ class TrashMovieList(GUIComponent):
     def __init__(self, root):
         GUIComponent.__init__(self)
         self.l = eListboxPythonMultiContent()
-        
         if root is not None:
             self.reload(root)
-        
-        self.l.setFont(0, gFont("Regular", 22))
+        self.l.setFont(0, gFont("Regular", 20))
         self.l.setFont(1, gFont("Regular", 18))
-        self.l.setItemHeight(50)
+        self.l.setFont(2, gFont("Regular", 16))
+        self.l.setItemHeight(75)
         self.l.setBuildFunc(self.buildMovieListEntry)
         
         self.onSelectionChanged = [ ]
@@ -83,30 +82,27 @@ class TrashMovieList(GUIComponent):
     def buildMovieListEntry(self, serviceref, info, begin, length):
         res = [ None ]
         width = self.l.getItemSize().width()
-        width_up_r = 250
-        width_up_l = width - width_up_r
-        width_dn_r = width / 2
-        width_dn_l = width - width_dn_r
-        pos_up_r = width - width_up_r 
-        pos_dn_r = width - width_dn_r
-        begin_string = self.getBeginString(serviceref)
+        date = _("Record date:") + ' ' + self.getDate(serviceref)
+        time = _("Record time:") + ' ' + self.getTime(serviceref)
         description = serviceref.getShortDescription()
         filesize = float(getServiceSize(serviceref.getPath()) / (1024 * 1024))
         if filesize <= 999:
-            service_info = "%d MB - %s" % (filesize, begin_string)
+            size = "%d MB" % (filesize)
         else:
             if config.AdvancedMovieSelection.filesize_digits.value == "0":
-                service_info = "%d GB - %s" % ((filesize / 1000), begin_string)
+                size = "%d GB" % (filesize / 1000)
             elif config.AdvancedMovieSelection.filesize_digits.value == "1":
-                service_info = "%s GB - %s" % ((round(filesize / 1000, 1)), begin_string)
+                size = "%s GB" % (round(filesize / 1000, 1))
             elif config.AdvancedMovieSelection.filesize_digits.value == "2":
-                service_info = "%s GB - %s" % ((round(filesize / 1000, 2)), begin_string)
+                size = "%s GB" % (round(filesize / 1000, 2))
             else:
-                service_info = "%s GB - %s" % ((round(filesize / 1000, 3)), begin_string)
-        res.append(MultiContentEntryText(pos=(5, 3), size=(width_up_l, 30), font=0, flags=RT_HALIGN_LEFT, text=serviceref.getName()))
-        res.append(MultiContentEntryText(pos=(5, 28), size=(width_dn_l, 30), font=1, flags=RT_HALIGN_LEFT, text=os.path.dirname(serviceref.getPath())))
-        res.append(MultiContentEntryText(pos=(pos_up_r - 5, 3), size=(width_up_r, 22), font=1, flags=RT_HALIGN_RIGHT, text=description))
-        res.append(MultiContentEntryText(pos=(pos_dn_r - 5, 28), size=(width_dn_r, 22), font=1, flags=RT_HALIGN_RIGHT, text=service_info))
+                size = "%s GB" % (round(filesize / 1000, 3))
+        res.append(MultiContentEntryText(pos=(5, 2), size=(width - 155, 26), font=0, flags=RT_HALIGN_LEFT, text=serviceref.getName()))
+        res.append(MultiContentEntryText(pos=(width - 155, 2), size=(150, 26), font=0, flags=RT_HALIGN_RIGHT, text=size))
+        res.append(MultiContentEntryText(pos=(5, 29), size=(width - 205, 22), font=1, flags=RT_HALIGN_LEFT, text=description))
+        res.append(MultiContentEntryText(pos=(width - 205, 29), size=(200, 22), font=1, flags=RT_HALIGN_RIGHT, text=time))
+        res.append(MultiContentEntryText(pos=(5, 54), size=(width - 205, 20), font=2, flags=RT_HALIGN_LEFT, text=os.path.dirname(serviceref.getPath())))
+        res.append(MultiContentEntryText(pos=(width - 205, 54), size=(200, 22), font=2, flags=RT_HALIGN_RIGHT, text=date))
         return res
 
     def moveToIndex(self, index):
@@ -171,16 +167,24 @@ class TrashMovieList(GUIComponent):
     def moveDown(self):
         self.instance.moveSelection(self.instance.moveDown)
 
-    def getBeginString(self, serviceref):
+    def getDate(self, serviceref):
         dvd_path = detectDVDStructure(serviceref.getPath() + "/")
         if dvd_path:
             begin = long(os.stat(dvd_path).st_mtime)
         else:
             begin = long(os.stat(serviceref.getPath()).st_mtime)
         d = datetime.fromtimestamp(begin)
-        return d.strftime("%d.%m.%Y %H:%M")
+        return d.strftime("%d.%m.%Y")
 
-
+    def getTime(self, serviceref):
+        dvd_path = detectDVDStructure(serviceref.getPath() + "/")
+        if dvd_path:
+            begin = long(os.stat(dvd_path).st_mtime)
+        else:
+            begin = long(os.stat(serviceref.getPath()).st_mtime)
+        d = datetime.fromtimestamp(begin)
+        return d.strftime("%H:%M")
+    
 class Wastebasket(Screen):
     def __init__(self, session):
         Screen.__init__(self, session)

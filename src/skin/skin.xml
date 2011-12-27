@@ -1199,8 +1199,8 @@
 		<widget source="session.VideoPicture" render="Pig" position="65,115" size="256,144" zPosition="3" backgroundColor="#ff000000"/>
                 <widget name="waitingtext" position="450,130" size="770,375" zPosition="3" font="Regular;26" halign="center" valign="center" transparent="1"/>
 		<widget name="freeDiskSpace" position="0,0" size="0,0" zPosition="3" font="Regular;24" halign="center" transparent="1"/>
-		<widget name="wastetxt" position="345,120" size="875,29" zPosition="3" font="Regular;24" halign="center" transparent="1"/>
-		<widget name="list" position="345,170" size="875,402" zPosition="3" scrollbarMode="showOnDemand" foregroundColorSelected="#ffcc00"
+		<widget name="wastetxt" position="345,110" size="875,29" zPosition="3" font="Regular;24" halign="center" transparent="1"/>
+		<widget name="list" position="345,150" size="875,452" zPosition="3" scrollbarMode="showOnDemand" foregroundColorSelected="#ffcc00"
                         backgroundPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sepmovie.png" transparent="1" enableWrapAround="1"/>
 		<widget name="warning" position="345,590" size="875,28" zPosition="3" font="Regular;24" halign="center" foregroundColor="#ffcc00" transparent="1"/>
                 <widget name="autoemptylast" position="345,620" size="875,28" zPosition="3" font="Regular;24" halign="center" foregroundColor="#ffcc00" transparent="1"/>
@@ -1228,7 +1228,7 @@
                 <widget name="waitingtext" position="250,130" size="714,375" zPosition="3" font="Regular;26" halign="center" valign="center" transparent="1"/>
 		<widget name="freeDiskSpace" position="0,0" size="0,0" zPosition="3" font="Regular;20" halign="center" transparent="1"/>
 		<widget name="wastetxt" position="250,100" size="714,29" zPosition="3" font="Regular;20" halign="center" transparent="1"/>
-		<widget name="list" position="250,130" size="714,302" zPosition="3" scrollbarMode="showOnDemand" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sel.png" 
+		<widget name="list" position="250,145" size="714,302" zPosition="3" scrollbarMode="showOnDemand" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sel.png" 
                         backgroundPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sepmovie.png" transparent="1" enableWrapAround="1"/>
 		<widget name="warning" position="250,440" size="714,28" zPosition="3" font="Regular;20" halign="center" foregroundColor="#ffcc00" transparent="1"/>
                 <widget name="autoemptylast" position="250,470" size="714,28" zPosition="3" font="Regular;20" halign="center" foregroundColor="#ffcc00" transparent="1"/>
@@ -1256,7 +1256,7 @@
 		<widget name="freeDiskSpace" position="0,0" size="0,0" zPosition="3" font="Regular;18" halign="center"/>
                 <widget name="wastetxt" position="0,70" size="560,29" zPosition="3" font="Regular;18" halign="center"/> 
                 <widget name="waitingtext" position="0,100" size="560,300" zPosition="3" font="Regular;26" halign="center" valign="center" transparent="1"/>
-		<widget name="list" position="0,95" size="560,252" zPosition="2" scrollbarMode="showOnDemand" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sel.png" 
+		<widget name="list" position="0,115" size="560,227" zPosition="2" scrollbarMode="showOnDemand" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sel.png" 
                         backgroundPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sepmovie.png" transparent="1" enableWrapAround="1"/>
 		<widget name="warning" position="0,370" size="560,22" zPosition="3" font="Regular;18" halign="center" foregroundColor="#ffcc00" transparent="1"/>
                 <widget name="MenuIcon" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" position="0,365" size="35,25" transparent="1" alphatest="on"/>
