@@ -497,7 +497,7 @@ class ConfigSelection(eConfigSelection):
         return (sel[0], _(sel[1]))
 
 __dummy1__ = (_("Nothing"), _("Delete"), _("Wastebasket"), _("Sort"), _("Home"), _("Bookmark 1"), _("Bookmark 2"), _("Bookmark 3"), _("Bookmark(s) on/off"), _("Filter by Tags"), _("Tag Editor"), _("Move-Copy"), _("Rename"), 
-            _("TMDb search & D/L"), _("Mark as seen"), _("Mark as unseen"), _("Show/Hide folders"), _("Trailer search"))
+            _("TMDb search & D/L"), _("Mark as seen"), _("Mark as unseen"), _("Show/Hide folders"), _("Trailer search"), _("Toggle seen"))
 __dummy2__ = (_("DM-600PVR"), _("DM-7000"), _("DM-7025"), _("DM-8000HD"), _("DM-500HD"), _("DM-800HD"), _("DM-800HDse"), _("DM-7020HD"), _("internal HDD"), _("NAS"), _("NAS-Movies"))
 __dummy3__ = (_("Display plugin name"), _("Display plugin description"))
 
