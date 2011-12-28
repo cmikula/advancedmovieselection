@@ -55,13 +55,13 @@ def getPluginCaption(pname):
                 return _("Hide bookmarks")
         elif pname == "Sort":
             if config.movielist.moviesort.value == MovieList.SORT_ALPHANUMERIC:
+                return _("Sort by description")
+            if config.movielist.moviesort.value == MovieList.SORT_DESCRIPTION:
                 return _("Sort by Date (1->9)")
-            else:
-                if config.movielist.moviesort.value == MovieList.SORT_DATE_DESC:
-                    return _("Sort by Date (9->1)")
-                else:
-                    if config.movielist.moviesort.value == MovieList.SORT_DATE_ASC:
-                        return _("Sort alphabetically")
+            if config.movielist.moviesort.value == MovieList.SORT_DATE_DESC:
+                return _("Sort by Date (9->1)")
+            if config.movielist.moviesort.value == MovieList.SORT_DATE_ASC:
+                return _("Sort alphabetically")
         else:
             for p in plugins.getPlugins(where=[PluginDescriptor.WHERE_MOVIELIST]):
                 if pname == str(p.name):
@@ -171,18 +171,17 @@ class QuickButton:
                 key_number.setText(newCaption)
             elif pname == "Sort":
                 if config.movielist.moviesort.value == MovieList.SORT_ALPHANUMERIC:
+                    newType = MovieList.SORT_DESCRIPTION
+                elif config.movielist.moviesort.value == MovieList.SORT_DESCRIPTION:
                     newType = MovieList.SORT_DATE_DESC
-                    newCaption = _("Sort by Date (9->1)")
                 elif config.movielist.moviesort.value == MovieList.SORT_DATE_DESC:
                     newType = MovieList.SORT_DATE_ASC
-                    newCaption = _("Sort alphabetically")
                 elif config.movielist.moviesort.value == MovieList.SORT_DATE_ASC:
                     newType = MovieList.SORT_ALPHANUMERIC
-                    newCaption = _("Sort by Date (1->9)")
                 config.movielist.moviesort.value = newType
                 self.setSortType(newType)
                 self.reloadList()
-                key_number.setText(newCaption)
+                key_number.setText(getPluginCaption(pname))
             else:   
                 # all functions that require a service 
                 service = self.getCurrent()
