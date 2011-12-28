@@ -586,9 +586,14 @@ class MovieList(GUIComponent):
                 png = self.picloader.load(self.NO_COVER_PNG_FILE)
             res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 2, 75, 76, png))
             offset = offset + 80
-            
+            new_offset = 0
+            # new icon
+            if config.AdvancedMovieSelection.shownew.value and not hasLastPosition(serviceref):
+                res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, offset, 0, 20, 20, self.MOVIE_NEW_PNG))
+                new_offset = new_offset + 24
+
             # Line 1: Movie Text, service name
-            res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 265, 30), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
+            res.append(MultiContentEntryText(pos=(new_offset + offset, 0), size=(width - 265, 30), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
             res.append(MultiContentEntryText(pos=(width - 185, 0), size=(180, 30), font=2, flags=RT_HALIGN_RIGHT, text=service.getServiceName(), color=color))
             # line 2: description, file size 
             res.append(MultiContentEntryText(pos=(0 + offset, 28), size=(width, 25), font=1, flags=RT_HALIGN_LEFT, text=description, color=color))
