@@ -177,16 +177,14 @@ class MovieContextMenu(Screen):
             if not (self.service.flags & eServiceReference.mustDescent):
                 menu.extend([(p.description, boundFunction(self.execPlugin, p)) for p in plugins.getPlugins(PluginDescriptor.WHERE_MOVIELIST)])
         if config.AdvancedMovieSelection.showsort.value:
-            if config.movielist.moviesort.value == MovieList.SORT_ALPHANUMERIC:
-                menu.append((_("Sort by date (descending)"), boundFunction(self.sortBy, MovieList.SORT_DATE_DESC)))
-                menu.append((_("Sort by date (ascending)"), boundFunction(self.sortBy, MovieList.SORT_DATE_ASC)))
-            else:
+            if config.movielist.moviesort.value != MovieList.SORT_ALPHANUMERIC:
                 menu.append((_("Alphabetic sort"), boundFunction(self.sortBy, MovieList.SORT_ALPHANUMERIC)))
-                if config.movielist.moviesort.value == MovieList.SORT_DATE_DESC:
-                    menu.append((_("Sort by date (ascending)"), boundFunction(self.sortBy, MovieList.SORT_DATE_ASC)))
-                else:
-                    menu.append((_("Sort by date (descending)"), boundFunction(self.sortBy, MovieList.SORT_DATE_DESC)))
-            menu.append((_("Sort by description"), boundFunction(self.sortBy, MovieList.SORT_DESCRIPTION)))
+            if config.movielist.moviesort.value != MovieList.SORT_DESCRIPTION:
+                menu.append((_("Sort by description"), boundFunction(self.sortBy, MovieList.SORT_DESCRIPTION)))
+            if config.movielist.moviesort.value != MovieList.SORT_DATE_DESC:
+                menu.append((_("Sort by date (descending)"), boundFunction(self.sortBy, MovieList.SORT_DATE_DESC)))
+            if config.movielist.moviesort.value != MovieList.SORT_DATE_ASC:
+                menu.append((_("Sort by date (ascending)"), boundFunction(self.sortBy, MovieList.SORT_DATE_ASC)))
         if config.AdvancedMovieSelection.showliststyle.value:
             menu.extend((
                 (_("List style default"), boundFunction(self.listType, MovieList.LISTTYPE_ORIGINAL)),
