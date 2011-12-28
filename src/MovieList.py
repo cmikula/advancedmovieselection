@@ -74,6 +74,7 @@ class MovieList(GUIComponent):
 
     SORT_DATE_ASC = 3
     SORT_DATE_DESC = 4
+    SORT_DESCRIPTION = 5
 
     LISTTYPE_ORIGINAL = 1
     LISTTYPE_COMPACT_DESCRIPTION = 2
@@ -892,6 +893,8 @@ class MovieList(GUIComponent):
             self.list.sort(key=self.buildAlphaNumericSortKey)
         elif self.sort_type == MovieList.SORT_DATE_ASC:
             self.list.sort(self.sortbyDateAsc)
+        elif self.sort_type == MovieList.SORT_DESCRIPTION:
+            self.list.sort(self.sortbyDescription)
         else:
             self.list.sort(self.sortbyDateDesc)
 #            # sort: key is 'begin'
@@ -940,6 +943,11 @@ class MovieList(GUIComponent):
             if a == ref[0].getPath():
                 return True
         return False
+
+    def sortbyDescription(self, a, b):
+        d1 = a[1].getInfoString(a[0], iServiceInformation.sDescription)
+        d2 = b[1].getInfoString(b[0], iServiceInformation.sDescription)
+        return cmp(d1, d2)
 
     def sortbyDateAsc(self, a, b):
         return cmp(a[2], b[2])
