@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-29 00:41+0100\n"
-"PO-Revision-Date: 2011-12-29 00:43+0100\n"
+"POT-Creation-Date: 2011-12-29 00:49+0100\n"
+"PO-Revision-Date: 2011-12-29 00:52+0100\n"
 "Last-Translator: JackDanie <JackDaniel@i-have-a-dreambox.com>\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
@@ -829,6 +829,10 @@ msgstr "Ordner ein/ausblenden "
 #: ../../../AdvancedMovieSelectionSetup.py:500
 msgid "Trailer search"
 msgstr "Trailer suchen"
+
+#: ../../../AdvancedMovieSelectionSetup.py:500
+msgid "Toggle seen"
+msgstr "Umschalten Gesehen/Ungesehen"
 
 #: ../../../AdvancedMovieSelectionSetup.py:501
 msgid "DM-600PVR"
@@ -3083,9 +3087,6 @@ msgstr "Wiederherstellen fehlgeschlagen!"
 
 #~ msgid "Remove Tag"
 #~ msgstr "Tag entfernen"
-
-#~ msgid "Toggle List"
-#~ msgstr "Liste wechseln"
 
 #~ msgid "Sorry, no info/cover found for movie: %s"
 #~ msgstr "Leider keine Filminfo/Cover für %s gefunden."
