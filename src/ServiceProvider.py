@@ -202,7 +202,7 @@ def hasLastPosition(service):
             data = file.read(12)
             if data == '':
                 break
-            what = struct.unpack('>I', data[8:12])
+            what = struct.unpack('>I', data[8:12])[0]
             if what == InfoBarCueSheetSupport.CUT_TYPE_LAST:
                 return True
     except:
