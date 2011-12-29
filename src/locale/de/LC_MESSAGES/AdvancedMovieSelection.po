@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-29 00:49+0100\n"
-"PO-Revision-Date: 2011-12-29 00:52+0100\n"
+"POT-Creation-Date: 2011-12-29 00:59+0100\n"
+"PO-Revision-Date: 2011-12-29 01:04+0100\n"
 "Last-Translator: JackDanie <JackDaniel@i-have-a-dreambox.com>\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
@@ -2122,6 +2122,10 @@ msgstr "Lesezeichen ein"
 msgid "Hide bookmarks"
 msgstr "Lesezeichen aus"
 
+#: ../../../QuickButton.py:58
+msgid "Sort by Description"
+msgstr "Sort. Beschreibung"
+
 #: ../../../QuickButton.py:60
 msgid "Sort by Date (1->9)"
 msgstr "Sort. Datum (1->9)"
@@ -2132,7 +2136,7 @@ msgstr "Sort. Datum (9->1)"
 
 #: ../../../QuickButton.py:64
 msgid "Sort alphabetically"
-msgstr "Sort. alphabetisch"
+msgstr "Sort. Alphabetisch"
 
 #: ../../../QuickButton.py:86
 msgid "Assigned function for red key"

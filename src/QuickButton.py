@@ -55,7 +55,7 @@ def getPluginCaption(pname):
                 return _("Hide bookmarks")
         elif pname == "Sort":
             if config.movielist.moviesort.value == MovieList.SORT_ALPHANUMERIC:
-                return _("Sort by description")
+                return _("Sort by Description")
             if config.movielist.moviesort.value == MovieList.SORT_DESCRIPTION:
                 return _("Sort by Date (1->9)")
             if config.movielist.moviesort.value == MovieList.SORT_DATE_DESC:
