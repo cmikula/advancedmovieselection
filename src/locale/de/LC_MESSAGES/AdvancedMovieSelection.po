@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-12-29 00:59+0100\n"
-"PO-Revision-Date: 2011-12-29 01:04+0100\n"
+"PO-Revision-Date: 2011-12-29 01:23+0100\n"
 "Last-Translator: JackDanie <JackDaniel@i-have-a-dreambox.com>\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
@@ -312,7 +312,7 @@ msgstr "Senderlogo anzeigen:"
 
 #: ../../../AdvancedMovieSelectionSetup.py:311
 msgid "Displays the Provider Logo when no Cover available."
-msgstr "Wenn aktiviert wird bei Dreambox Aufnahmen anstatt dem GP3 Logo das Senderlogo angezeigt wenn kein Cover vorhanden ist."
+msgstr "Wenn aktiviert wird bei Dreambox Aufnahmen anstatt der Kein Cover vorhanden Grafik das Senderlogo angezeigt wenn kein Cover vorhanden ist."
 
 #: ../../../AdvancedMovieSelectionSetup.py:312
 msgid "Show update genre in extensions menu from movielist:"
