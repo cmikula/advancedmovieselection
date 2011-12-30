@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection(POT)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-29 00:59+0100\n"
-"PO-Revision-Date: 2011-12-29 00:59+0100\n"
+"POT-Creation-Date: 2011-12-30 21:21+0100\n"
+"PO-Revision-Date: 2011-12-30 21:21+0100\n"
 "Last-Translator: JackDanie <JackDaniel@i-have-a-dreambox.com>\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
@@ -2244,114 +2244,128 @@ msgid "Change File/Moviename and/or Description"
 msgstr ""
 
 #: ../SearchTMDb.py:180
-#: ../SearchTMDb.py:222
+#: ../SearchTMDb.py:235
 msgid "Extended Info"
 msgstr ""
 
-#: ../SearchTMDb.py:198
+#: ../SearchTMDb.py:201
 #, python-format
 msgid "Searching for '%s' from TMDb..."
 msgstr ""
 
-#: ../SearchTMDb.py:199
+#: ../SearchTMDb.py:202
 #, python-format
 msgid "TMDb search for: %s"
 msgstr ""
 
-#: ../SearchTMDb.py:218
+#: ../SearchTMDb.py:231
 msgid "No data found at themoviedb.org!"
 msgstr ""
 
-#: ../SearchTMDb.py:219
+#: ../SearchTMDb.py:232
 msgid ""
 "No data found at themoviedb.org!\n"
 "Do you want to edit the search name?"
 msgstr ""
 
-#: ../SearchTMDb.py:221
-#: ../SearchTMDb.py:274
+#: ../SearchTMDb.py:234
+#: ../SearchTMDb.py:289
 msgid "Save movie info/cover"
 msgstr ""
 
-#: ../SearchTMDb.py:232
+#: ../SearchTMDb.py:246
 #, python-format
 msgid ""
 "Error!\n"
 "%s"
 msgstr ""
 
-#: ../SearchTMDb.py:264
+#: ../SearchTMDb.py:278
 #, python-format
 msgid "Getting movie information for '%s' from TMDb..."
 msgstr ""
 
-#: ../SearchTMDb.py:286
+#: ../SearchTMDb.py:302
 #, python-format
 msgid "TMDb movie info for: %s"
 msgstr ""
 
-#: ../SearchTMDb.py:304
+#: ../SearchTMDb.py:307
 #, python-format
-msgid "Appeared: %s"
-msgstr ""
-
-#: ../SearchTMDb.py:306
-#, python-format
-msgid "Runtime: %s minutes"
+msgid "No description for ' %s ' at themoviedb.org found!"
 msgstr ""
 
 #: ../SearchTMDb.py:320
 #, python-format
-msgid "Certification: %s"
+msgid "Appeared: %s"
 msgstr ""
 
 #: ../SearchTMDb.py:322
 #, python-format
-msgid "Rating: %s\n"
+msgid "Runtime: %s minutes"
 msgstr ""
 
-#: ../SearchTMDb.py:332
+#: ../SearchTMDb.py:336
 #, python-format
-msgid "Genre: %s\n"
+msgid "Certification: %s"
 msgstr ""
 
 #: ../SearchTMDb.py:338
 #, python-format
+msgid "Rating: %s\n"
+msgstr ""
+
+#: ../SearchTMDb.py:348
+#, python-format
+msgid "Genre: %s\n"
+msgstr ""
+
+#: ../SearchTMDb.py:354
+#, python-format
 msgid "Studio: %s"
 msgstr ""
 
-#: ../SearchTMDb.py:344
+#: ../SearchTMDb.py:360
 #, python-format
 msgid "Production Countries: %s\n"
 msgstr ""
 
-#: ../SearchTMDb.py:350
+#: ../SearchTMDb.py:366
 #, python-format
 msgid "Director: %s"
 msgstr ""
 
-#: ../SearchTMDb.py:356
+#: ../SearchTMDb.py:372
 #, python-format
 msgid "Production: %s\n"
 msgstr ""
 
-#: ../SearchTMDb.py:362
+#: ../SearchTMDb.py:378
 #, python-format
 msgid "Actors: %s\n"
 msgstr ""
 
-#: ../SearchTMDb.py:364
+#: ../SearchTMDb.py:380
 #, python-format
 msgid ""
 "\n"
 "Last modified at themoviedb.org: %s"
 msgstr ""
 
-#: ../SearchTMDb.py:368
+#: ../SearchTMDb.py:384
 msgid "Unknown error!!"
 msgstr ""
 
-#: ../SearchTMDb.py:400
+#: ../SearchTMDb.py:387
+#, python-format
+msgid "Voted: %s"
+msgstr ""
+
+#: ../SearchTMDb.py:387
+msgid "times"
+msgstr ""
+
+#: ../SearchTMDb.py:420
 #, python-format
 msgid "Sorry, no info/cover found for title: %s"
 msgstr ""

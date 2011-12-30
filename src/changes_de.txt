@@ -200,11 +200,13 @@ version 2.4
 * neu: ordner anzeigen (ein/aus) kann den farbtasten zugeordnet werden
 * neu: film als gesehen/ungesehen markieren (im toggle modus) kann den farbtasten zugeordnet werden
 * neu: sortieren nach filmbeschreibung
+* neu: tmdb suche & d/l wenn nichts gefunden wurde und es ist ein & im text gibt wird mit dem teil vor dem & nochmal automatisch gesucht
 * fix: neue aufnahme icon wenn status icon deaktiviert ist, und film als gesehen markiert wurde
 * fix: keine cover/senderlogo anzeige wenn filmbeschreibung anzeigen deaktiviert ist
 * fix: aufruf von erweiterungen über farbtasten wenn systemsprache geändert wurde (funktionen müssen neu zugeordnet werden)
 * fix: crash bei sonderzeichen in der tmdb suche unter den erweiterten infos
 * fix: tmdb suche und download wenn systemsprache auf englisch
+* fix: tmdb suche & d/l suche bei dateien mit endung *.ts
 * geändert: erweiterte info bei der tmdb suche & d/l erweitert
 * geändert: lesezeichen text wenn lesezeichen ein/aus einer farbtaste zugewiesen ist
 * geändert: no cover anzeige (bild nun in de und en sprache)

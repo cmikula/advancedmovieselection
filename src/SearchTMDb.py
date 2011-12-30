@@ -188,6 +188,9 @@ class TMDbMain(Screen):
         self["no_stars"] = Pixmap()
         self["stars"].hide()
         self["no_stars"].hide()
+        self["vote"] = Label()
+        self["button_blue"] = Pixmap()
+        self["button_blue"].hide()
         self.ratingstars = -1
         self.searchTitle = searchTitle
         self.downloadItems = {}
@@ -214,12 +217,23 @@ class TMDbMain(Screen):
                 results = tmdb.search(title)
                 if len(results) > 0:
                     self.searchTitle = title
+            if len(results) == 0 and " & " in self.searchTitle:
+                title = self.searchTitle.split(" & ")[0].strip()
+                results = tmdb.search(title)
+                if len(results) > 0:
+                    self.searchTitle = title
+            if len(results) == 0 and self.searchTitle.endswith(".ts"):
+                title = self.searchTitle[:-3]
+                results = tmdb.search(title)
+                if len(results) > 0:
+                    self.searchTitle = title
             if len(results) == 0:
                 self["status"].setText(_("No data found at themoviedb.org!"))
                 self.session.openWithCallback(self.askForSearchCallback, MessageBox, _("No data found at themoviedb.org!\nDo you want to edit the search name?"))
                 return            
             self["key_green"].text = _("Save movie info/cover")
             self["key_blue"].text = _("Extended Info")
+            self["button_blue"].show()
             self["status"].setText("")
             self["status"].hide()
             movies = []
@@ -267,12 +281,14 @@ class TMDbMain(Screen):
 
     def getMovieInfo(self, movie):
         if movie:
+            self["vote"].hide()
             self["status"].hide()
             self["list"].hide()
             self["key_blue"].text = ""
             self["key_green"].text = ""
             self["key_green"].text = _("Save movie info/cover")
             self["key_yellow"].text = _("Manual search")
+            self["button_blue"].hide()
             self["description"].show()
             self["extended"].show()
             extended = ""
@@ -286,9 +302,9 @@ class TMDbMain(Screen):
             self.setTitle(_("TMDb movie info for: %s") % name)
             if description:
                 description_text = description.encode('utf-8', 'ignore')
-                self["description"].setText(name + "\n\n" + description_text)
+                self["description"].setText(description_text)
             else:
-                self["description"].setText(name)            
+                self["description"].setText(_("No description for ' %s ' at themoviedb.org found!") % name)
             cover_url = None
             images = movie['images']
             if len(images) > 0:
@@ -366,6 +382,10 @@ class TMDbMain(Screen):
                 self["extended"].setText(extended)
             else:
                 self["extended"].setText(_("Unknown error!!"))
+            if movie.has_key("votes"):
+                vote = movie["votes"].encode('utf-8','ignore')
+                self["vote"].setText(_("Voted: %s") % (vote) + ' ' + _("times"))
+                self["vote"].show()
 
     def errorCoverDownload(self, error=None):
         if error is not None:
