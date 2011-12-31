@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-29 00:59+0100\n"
-"PO-Revision-Date: 2011-12-30 20:52+0100\n"
+"POT-Creation-Date: 2011-12-31 09:26+0100\n"
+"PO-Revision-Date: 2011-12-31 10:50+0100\n"
 "Last-Translator: bschaar\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
@@ -722,7 +722,7 @@ msgid "YTTrailer plugin NOT installed. Search for trailers on the Web is NOT pos
 msgstr "YTTrailer Plugin is NIET geïnstalleerd. Zoeken naar trailers op het web is NIET mogelijk."
 
 #: ../AdvancedMovieSelectionSetup.py:416
-#: ../AdvancedMovieSelectionSetup.py:941
+#: ../AdvancedMovieSelectionSetup.py:942
 #: ../ClientSetup.py:236
 msgid "Really close without saving settings?"
 msgstr "Sluiten zonder de instellingen te bewaren?"
@@ -836,6 +836,10 @@ msgstr "Zoeken Trailer"
 msgid "Toggle seen"
 msgstr "Gezien/Ongezien"
 
+#: ../AdvancedMovieSelectionSetup.py:500
+msgid "Show Timer"
+msgstr "Timerlijst"
+
 #: ../AdvancedMovieSelectionSetup.py:501
 msgid "DM-600PVR"
 msgstr "DM-600PVR"
@@ -898,7 +902,7 @@ msgid "Cancel"
 msgstr "Annuleren"
 
 #: ../AdvancedMovieSelectionSetup.py:520
-#: ../AdvancedMovieSelectionSetup.py:824
+#: ../AdvancedMovieSelectionSetup.py:825
 msgid "Save/Close"
 msgstr "Bewaren/Sluiten"
 
@@ -906,127 +910,127 @@ msgstr "Bewaren/Sluiten"
 msgid "Own button description"
 msgstr "Eigen Knopbeschrijving"
 
-#: ../AdvancedMovieSelectionSetup.py:612
+#: ../AdvancedMovieSelectionSetup.py:613
 msgid "Movie Quick Button Setup"
 msgstr "Kleurknoppen instellen"
 
-#: ../AdvancedMovieSelectionSetup.py:652
+#: ../AdvancedMovieSelectionSetup.py:653
 msgid "Assigned to red key"
 msgstr "Toewijzen ROOD:"
 
-#: ../AdvancedMovieSelectionSetup.py:654
+#: ../AdvancedMovieSelectionSetup.py:655
 msgid "Assigned to green key"
 msgstr "Toewijzen GROEN:"
 
-#: ../AdvancedMovieSelectionSetup.py:656
+#: ../AdvancedMovieSelectionSetup.py:657
 msgid "Assigned to yellow key"
 msgstr "Toewijzen GEEL:"
 
-#: ../AdvancedMovieSelectionSetup.py:658
+#: ../AdvancedMovieSelectionSetup.py:659
 msgid "Assigned to blue key"
 msgstr "Toewijzen BLAUW:"
 
-#: ../AdvancedMovieSelectionSetup.py:660
+#: ../AdvancedMovieSelectionSetup.py:661
 msgid "Button caption"
 msgstr "Knopbenaming:"
 
-#: ../AdvancedMovieSelectionSetup.py:662
+#: ../AdvancedMovieSelectionSetup.py:663
 msgid "Home button text"
 msgstr "Naam HOME-knop:"
 
-#: ../AdvancedMovieSelectionSetup.py:664
+#: ../AdvancedMovieSelectionSetup.py:665
 msgid "Bookmark 1 button text"
 msgstr "Naam Favoriet1-knop"
 
-#: ../AdvancedMovieSelectionSetup.py:666
+#: ../AdvancedMovieSelectionSetup.py:667
 msgid "Bookmark 2 button text"
 msgstr "Naam Favoriet2-knop"
 
-#: ../AdvancedMovieSelectionSetup.py:668
+#: ../AdvancedMovieSelectionSetup.py:669
 msgid "Bookmark 3 button text"
 msgstr "Naam Favoriet3-knop"
 
-#: ../AdvancedMovieSelectionSetup.py:670
+#: ../AdvancedMovieSelectionSetup.py:671
 msgid "Home path"
 msgstr "HOME-pad"
 
-#: ../AdvancedMovieSelectionSetup.py:672
+#: ../AdvancedMovieSelectionSetup.py:673
 msgid "Bookmark 1 path"
 msgstr "Favoriet1-pad:"
 
-#: ../AdvancedMovieSelectionSetup.py:674
+#: ../AdvancedMovieSelectionSetup.py:675
 msgid "Bookmark 2 path"
 msgstr "Favoriet2-pad:"
 
-#: ../AdvancedMovieSelectionSetup.py:676
+#: ../AdvancedMovieSelectionSetup.py:677
 msgid "Bookmark 3 path"
 msgstr "Favoriet3-pad:"
 
-#: ../AdvancedMovieSelectionSetup.py:708
+#: ../AdvancedMovieSelectionSetup.py:709
 msgid "Movie Quick Button Home path"
 msgstr "Keuze van het HOME-pad"
 
-#: ../AdvancedMovieSelectionSetup.py:711
+#: ../AdvancedMovieSelectionSetup.py:712
 msgid "Movie Quick Button Bookmark 1 path"
 msgstr "Keuze van het Favoriet1-pad:"
 
-#: ../AdvancedMovieSelectionSetup.py:714
+#: ../AdvancedMovieSelectionSetup.py:715
 msgid "Movie Quick Button Bookmark 2 path"
 msgstr "Keuze van het Favoriet2-pad:"
 
-#: ../AdvancedMovieSelectionSetup.py:717
+#: ../AdvancedMovieSelectionSetup.py:718
 msgid "Movie Quick Button Bookmark 3 path"
 msgstr "Keuze van het Favoriet3-pad:"
 
-#: ../AdvancedMovieSelectionSetup.py:833
+#: ../AdvancedMovieSelectionSetup.py:834
 msgid "Movie Quick Button Name Setup"
 msgstr "Benaming kleurknoppen"
 
-#: ../AdvancedMovieSelectionSetup.py:845
+#: ../AdvancedMovieSelectionSetup.py:846
 msgid "Enter Home button descrition:"
 msgstr "Benaming HOME-knop:"
 
-#: ../AdvancedMovieSelectionSetup.py:847
+#: ../AdvancedMovieSelectionSetup.py:848
 msgid "Enter Bookmark 1 button descrition:"
 msgstr "Benaming Favoriet1-knop:"
 
-#: ../AdvancedMovieSelectionSetup.py:849
+#: ../AdvancedMovieSelectionSetup.py:850
 msgid "Enter Bookmark 2 button descrition:"
 msgstr "Benaming Favoriet2-knop:"
 
-#: ../AdvancedMovieSelectionSetup.py:851
+#: ../AdvancedMovieSelectionSetup.py:852
 msgid "Enter Bookmark 3 button descrition:"
 msgstr "Benaming Favoriet3-knop:"
 
-#: ../AdvancedMovieSelectionSetup.py:875
+#: ../AdvancedMovieSelectionSetup.py:876
 msgid "Home button description:"
 msgstr "Beschrijving HOME-knop:"
 
-#: ../AdvancedMovieSelectionSetup.py:876
+#: ../AdvancedMovieSelectionSetup.py:877
 msgid "Bookmark 1 button description:"
 msgstr "Beschrijving Favoriet1-knop:"
 
-#: ../AdvancedMovieSelectionSetup.py:877
+#: ../AdvancedMovieSelectionSetup.py:878
 msgid "Bookmark 2 button description:"
 msgstr "Beschrijving Favoriet3-knop:"
 
-#: ../AdvancedMovieSelectionSetup.py:878
+#: ../AdvancedMovieSelectionSetup.py:879
 msgid "Bookmark 3 button description:"
 msgstr "Beschrijving Favoriet3-knop:"
 
-#: ../AdvancedMovieSelectionSetup.py:891
+#: ../AdvancedMovieSelectionSetup.py:892
 msgid "Here you can give the home button a special name. After saving the changes color key settings will be closed, reopen it then the changes is to selection."
 msgstr "Hier kan u de naam van de HOME-knop wijzigen. Na het bewaren worden de instellingen gesloten, en na het heropnen zijn de wijzigingen beschikbaar."
 
-#: ../AdvancedMovieSelectionSetup.py:895
+#: ../AdvancedMovieSelectionSetup.py:896
 msgid "Here you can give the bookmark 1 button a special name. After saving the changes color key settings will be closed, reopen it then the changes is to selection."
 msgstr "Hier kan u de naam van de Favoriet1-knop wijzigen. Na het bewaren worden de instellingen gesloten, en na het heropnen zijn de wijzigingen beschikbaar."
 
-#: ../AdvancedMovieSelectionSetup.py:899
+#: ../AdvancedMovieSelectionSetup.py:900
 msgid "Here you can give the bookmark 2 button a special name. After saving the changes color key settings will be closed, reopen it then the changes is to selection."
 msgstr "Hier kan u de naam van de Favoriet2-knop wijzigen. Na het bewaren worden de instellingen gesloten, en na het heropnen zijn de wijzigingen beschikbaar."
 
-#: ../AdvancedMovieSelectionSetup.py:903
+#: ../AdvancedMovieSelectionSetup.py:904
 msgid "Here you can give the bookmark 3 button a special name. After saving the changes color key settings will be closed, reopen it then the changes is to selection."
 msgstr "Hier kan u de naam van de Favoriet3-knop wijzigen. Na het bewaren worden de instellingen gesloten, en na het heropnen zijn de wijzigingen beschikbaar."
 
@@ -2156,43 +2160,43 @@ msgstr "Toewijzen GEEL:"
 msgid "Assigned function for blue key"
 msgstr "Toewijzen BLAUW:"
 
-#: ../QuickButton.py:199
+#: ../QuickButton.py:202
 msgid "Set tag here not possible, please select a movie for!"
 msgstr "Label toevoegen niet mogelijk, gelieve een film te selecteren!"
 
-#: ../QuickButton.py:205
+#: ../QuickButton.py:208
 msgid "Trailer search here not possible, please select a movie!"
 msgstr "Trailer zoeken niet mogelijk, gelieve een film te selecteren!"
 
-#: ../QuickButton.py:211
+#: ../QuickButton.py:214
 msgid "Move/Copy from complete directory/symlink not possible, please select a single movie!"
 msgstr "Verplaatsen/kopiëren van een volledige map/symlink niet mogelijk, gelieve enkel 1 film te selecteren!"
 
-#: ../QuickButton.py:217
+#: ../QuickButton.py:220
 msgid "Rename here not possible, please select a movie!"
 msgstr "Naam wijzigen niet mogelijk, gelieve een film te selecteren!"
 
-#: ../QuickButton.py:233
+#: ../QuickButton.py:236
 msgid "TMDb search here not possible, please select a movie!"
 msgstr "TMDb niet mogelijk, gelieve een film te selecteren!"
 
-#: ../QuickButton.py:248
+#: ../QuickButton.py:251
 msgid "This may not be marked as seen!"
 msgstr "Dit kan niet als gezien gemarkeerd worden!"
 
-#: ../QuickButton.py:254
+#: ../QuickButton.py:257
 msgid "This may not be marked as unseen!"
 msgstr "Dit kan niet als ongezien gemarkeerd worden!"
 
-#: ../QuickButton.py:264
+#: ../QuickButton.py:267
 msgid "Unknown error!"
 msgstr "Ongekende fout!"
 
-#: ../QuickButton.py:266
+#: ../QuickButton.py:269
 msgid "Plugin not found!"
 msgstr "Plugin niet gevonden!"
 
-#: ../QuickButton.py:268
+#: ../QuickButton.py:271
 msgid "No plugin assigned!"
 msgstr "Geen Plugin toegewezen!"
 
@@ -2294,25 +2298,25 @@ msgid "Change File/Moviename and/or Description"
 msgstr "Editeer Bestands/Filmnaam an/of Beschrijving"
 
 #: ../SearchTMDb.py:180
-#: ../SearchTMDb.py:222
+#: ../SearchTMDb.py:235
 msgid "Extended Info"
 msgstr "Uitgebreide Info"
 
-#: ../SearchTMDb.py:198
+#: ../SearchTMDb.py:201
 #, python-format
 msgid "Searching for '%s' from TMDb..."
 msgstr "Zoeken naar ' %s ' via TMDb ..."
 
-#: ../SearchTMDb.py:199
+#: ../SearchTMDb.py:202
 #, python-format
 msgid "TMDb search for: %s"
 msgstr "Zoeken via TMDb naar: %s"
 
-#: ../SearchTMDb.py:218
+#: ../SearchTMDb.py:231
 msgid "No data found at themoviedb.org!"
 msgstr "Geen gegevens gevonden via themoviedb.org!"
 
-#: ../SearchTMDb.py:219
+#: ../SearchTMDb.py:232
 msgid ""
 "No data found at themoviedb.org!\n"
 "Do you want to edit the search name?"
@@ -2320,12 +2324,12 @@ msgstr ""
 "Geen gegevens gevonden via themoviedb.org!\n"
 "Wilt u de zoeknaam editeren en manueel zoeken?"
 
-#: ../SearchTMDb.py:221
-#: ../SearchTMDb.py:274
+#: ../SearchTMDb.py:234
+#: ../SearchTMDb.py:289
 msgid "Save movie info/cover"
 msgstr "Filminfo/Cover bewaren"
 
-#: ../SearchTMDb.py:232
+#: ../SearchTMDb.py:246
 #, python-format
 msgid ""
 "Error!\n"
@@ -2334,67 +2338,72 @@ msgstr ""
 "Fout!\n"
 "%s"
 
-#: ../SearchTMDb.py:264
+#: ../SearchTMDb.py:278
 #, python-format
 msgid "Getting movie information for '%s' from TMDb..."
 msgstr "Filminfos voor ' %s ' wordt via TMDb opgezocht ..."
 
-#: ../SearchTMDb.py:286
+#: ../SearchTMDb.py:302
 #, python-format
 msgid "TMDb movie info for: %s"
 msgstr "TMDb filminfo voor: %s"
 
-#: ../SearchTMDb.py:304
+#: ../SearchTMDb.py:307
+#, python-format
+msgid "No description for ' %s ' at themoviedb.org found!"
+msgstr "Geen gegevens voor ' %s ' gevonden via themoviedb.org!"
+
+#: ../SearchTMDb.py:320
 #, python-format
 msgid "Appeared: %s"
 msgstr "Verschenen: %s"
 
-#: ../SearchTMDb.py:306
+#: ../SearchTMDb.py:322
 #, python-format
 msgid "Runtime: %s minutes"
 msgstr "Lengte: %s minuten"
 
-#: ../SearchTMDb.py:320
+#: ../SearchTMDb.py:336
 #, python-format
 msgid "Certification: %s"
 msgstr "Leeftijd: %s"
 
-#: ../SearchTMDb.py:322
+#: ../SearchTMDb.py:338
 #, python-format
 msgid "Rating: %s\n"
 msgstr "Beoordeling: %s\n"
 
-#: ../SearchTMDb.py:332
+#: ../SearchTMDb.py:348
 #, python-format
 msgid "Genre: %s\n"
 msgstr "Categorie: %s\n"
 
-#: ../SearchTMDb.py:338
+#: ../SearchTMDb.py:354
 #, python-format
 msgid "Studio: %s"
 msgstr "Filmstudio: %s"
 
-#: ../SearchTMDb.py:344
+#: ../SearchTMDb.py:360
 #, python-format
 msgid "Production Countries: %s\n"
 msgstr "Landen productie: %s\n"
 
-#: ../SearchTMDb.py:350
+#: ../SearchTMDb.py:366
 #, python-format
 msgid "Director: %s"
 msgstr "Producent: %s"
 
-#: ../SearchTMDb.py:356
+#: ../SearchTMDb.py:372
 #, python-format
 msgid "Production: %s\n"
 msgstr "Productie: %s\n"
 
-#: ../SearchTMDb.py:362
+#: ../SearchTMDb.py:378
 #, python-format
 msgid "Actors: %s\n"
 msgstr "Acteurs: %s\n"
 
-#: ../SearchTMDb.py:364
+#: ../SearchTMDb.py:380
 #, python-format
 msgid ""
 "\n"
@@ -2403,11 +2412,20 @@ msgstr ""
 "\n"
 "Laatste wijziging bij themoviedb.org: %s"
 
-#: ../SearchTMDb.py:368
+#: ../SearchTMDb.py:384
 msgid "Unknown error!!"
 msgstr "Ongekende fout!"
 
-#: ../SearchTMDb.py:400
+#: ../SearchTMDb.py:387
+#, python-format
+msgid "Voted: %s"
+msgstr "Gestemd: %s"
+
+#: ../SearchTMDb.py:387
+msgid "times"
+msgstr "Tijdes"
+
+#: ../SearchTMDb.py:420
 #, python-format
 msgid "Sorry, no info/cover found for title: %s"
 msgstr "Sorry geen Filminfo/Cover voor %s gevonden."
