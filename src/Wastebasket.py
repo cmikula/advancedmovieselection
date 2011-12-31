@@ -33,7 +33,6 @@ from Components.config import config
 from Components.ActionMap import HelpableActionMap
 from Components.Button import Button
 from Components.Label import Label
-from Components.Sources.StaticText import StaticText
 from ServiceProvider import detectDVDStructure
 from Screens.MessageBox import MessageBox
 from enigma import getDesktop, eTimer
