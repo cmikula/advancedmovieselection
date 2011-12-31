@@ -182,6 +182,9 @@ class QuickButton:
                 self.setSortType(newType)
                 self.reloadList()
                 key_number.setText(getPluginCaption(pname))
+            elif pname == "Show Timer":
+                from Screens.TimerEdit import TimerEditList
+                self.session.open(TimerEditList)
             else:   
                 # all functions that require a service 
                 service = self.getCurrent()

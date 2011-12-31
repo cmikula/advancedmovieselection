@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-12-30 21:22+0100\n"
-"PO-Revision-Date: 2011-12-30 21:23+0100\n"
+"POT-Creation-Date: 2011-12-31 09:26+0100\n"
+"PO-Revision-Date: 2011-12-31 09:26+0100\n"
 "Last-Translator: JackDanie <JackDaniel@i-have-a-dreambox.com>\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
@@ -720,7 +720,7 @@ msgid "YTTrailer plugin NOT installed. Search for trailers on the Web is NOT pos
 msgstr "YTTrailer Erweiterung ist NICHT installiert. Trailer können NICHT im Web gesucht werden."
 
 #: ../../../AdvancedMovieSelectionSetup.py:416
-#: ../../../AdvancedMovieSelectionSetup.py:941
+#: ../../../AdvancedMovieSelectionSetup.py:942
 #: ../../../ClientSetup.py:236
 msgid "Really close without saving settings?"
 msgstr "Wirklich ohne Speichern schließen?"
@@ -834,6 +834,10 @@ msgstr "Trailer suchen"
 msgid "Toggle seen"
 msgstr "Umschalten Gesehen/Ungesehen"
 
+#: ../../../AdvancedMovieSelectionSetup.py:500
+msgid "Show Timer"
+msgstr "Timerliste"
+
 #: ../../../AdvancedMovieSelectionSetup.py:501
 msgid "DM-600PVR"
 msgstr "DM-600PVR"
@@ -896,7 +900,7 @@ msgid "Cancel"
 msgstr "Abbrechen"
 
 #: ../../../AdvancedMovieSelectionSetup.py:520
-#: ../../../AdvancedMovieSelectionSetup.py:824
+#: ../../../AdvancedMovieSelectionSetup.py:825
 msgid "Save/Close"
 msgstr "Speichern/Schließen"
 
@@ -904,127 +908,127 @@ msgstr "Speichern/Schließen"
 msgid "Own button description"
 msgstr "Eigene Tastenbezeichnung"
 
-#: ../../../AdvancedMovieSelectionSetup.py:612
+#: ../../../AdvancedMovieSelectionSetup.py:613
 msgid "Movie Quick Button Setup"
 msgstr "Farbtasten Einst."
 
-#: ../../../AdvancedMovieSelectionSetup.py:652
+#: ../../../AdvancedMovieSelectionSetup.py:653
 msgid "Assigned to red key"
 msgstr "Zuordnung rote Taste:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:654
+#: ../../../AdvancedMovieSelectionSetup.py:655
 msgid "Assigned to green key"
 msgstr "Zuordnung grüne Taste:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:656
+#: ../../../AdvancedMovieSelectionSetup.py:657
 msgid "Assigned to yellow key"
 msgstr "Zuordnung gelbe Taste:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:658
+#: ../../../AdvancedMovieSelectionSetup.py:659
 msgid "Assigned to blue key"
 msgstr "Zuordnung blaue Taste:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:660
+#: ../../../AdvancedMovieSelectionSetup.py:661
 msgid "Button caption"
 msgstr "Tastenbezeichnung bei Erweiterungen:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:662
+#: ../../../AdvancedMovieSelectionSetup.py:663
 msgid "Home button text"
 msgstr "Heimverzeichnis Tastenbezeichnung:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:664
+#: ../../../AdvancedMovieSelectionSetup.py:665
 msgid "Bookmark 1 button text"
 msgstr "Lesezeichen 1 Tastenbezeichnung:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:666
+#: ../../../AdvancedMovieSelectionSetup.py:667
 msgid "Bookmark 2 button text"
 msgstr "Lesezeichen 2 Tastenbezeichnung:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:668
+#: ../../../AdvancedMovieSelectionSetup.py:669
 msgid "Bookmark 3 button text"
 msgstr "Lesezeichen 3 Tastenbezeichnung:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:670
+#: ../../../AdvancedMovieSelectionSetup.py:671
 msgid "Home path"
 msgstr "Heimverzeichnis:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:672
+#: ../../../AdvancedMovieSelectionSetup.py:673
 msgid "Bookmark 1 path"
 msgstr "Lesezeichen 1 Speicherort:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:674
+#: ../../../AdvancedMovieSelectionSetup.py:675
 msgid "Bookmark 2 path"
 msgstr "Lesezeichen 2 Speicherort:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:676
+#: ../../../AdvancedMovieSelectionSetup.py:677
 msgid "Bookmark 3 path"
 msgstr "Lesezeichen 3 Speicherort:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:708
+#: ../../../AdvancedMovieSelectionSetup.py:709
 msgid "Movie Quick Button Home path"
 msgstr "Auswahl des Heimverzeichnisses"
 
-#: ../../../AdvancedMovieSelectionSetup.py:711
+#: ../../../AdvancedMovieSelectionSetup.py:712
 msgid "Movie Quick Button Bookmark 1 path"
 msgstr "Auswahl Lesezeichen 1 Verzeichnis"
 
-#: ../../../AdvancedMovieSelectionSetup.py:714
+#: ../../../AdvancedMovieSelectionSetup.py:715
 msgid "Movie Quick Button Bookmark 2 path"
 msgstr "Auswahl Lesezeichen 2 Verzeichnis"
 
-#: ../../../AdvancedMovieSelectionSetup.py:717
+#: ../../../AdvancedMovieSelectionSetup.py:718
 msgid "Movie Quick Button Bookmark 3 path"
 msgstr "Auswahl Lesezeichen 3 Verzeichnis"
 
-#: ../../../AdvancedMovieSelectionSetup.py:833
+#: ../../../AdvancedMovieSelectionSetup.py:834
 msgid "Movie Quick Button Name Setup"
 msgstr "Bezeichnung Farbtasten"
 
-#: ../../../AdvancedMovieSelectionSetup.py:845
+#: ../../../AdvancedMovieSelectionSetup.py:846
 msgid "Enter Home button descrition:"
 msgstr "Heimtaste Tastenbezeichnung eingeben:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:847
+#: ../../../AdvancedMovieSelectionSetup.py:848
 msgid "Enter Bookmark 1 button descrition:"
 msgstr "Lesezeichen 1 Tastenbezeichnung eingeben:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:849
+#: ../../../AdvancedMovieSelectionSetup.py:850
 msgid "Enter Bookmark 2 button descrition:"
 msgstr "Lesezeichen 2 Tastenbezeichnung eingeben:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:851
+#: ../../../AdvancedMovieSelectionSetup.py:852
 msgid "Enter Bookmark 3 button descrition:"
 msgstr "Lesezeichen 3 Tastenbezeichnung eingeben:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:875
+#: ../../../AdvancedMovieSelectionSetup.py:876
 msgid "Home button description:"
 msgstr "Heimtaste Tastenbezeichnung:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:876
+#: ../../../AdvancedMovieSelectionSetup.py:877
 msgid "Bookmark 1 button description:"
 msgstr "Lesezeichen 1 Tastenbezeichnung:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:877
+#: ../../../AdvancedMovieSelectionSetup.py:878
 msgid "Bookmark 2 button description:"
 msgstr "Lesezeichen 2 Tastenbezeichnung:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:878
+#: ../../../AdvancedMovieSelectionSetup.py:879
 msgid "Bookmark 3 button description:"
 msgstr "Lesezeichen 3 Tastenbezeichnung:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:891
+#: ../../../AdvancedMovieSelectionSetup.py:892
 msgid "Here you can give the home button a special name. After saving the changes color key settings will be closed, reopen it then the changes is to selection."
 msgstr "Hier können Sie die Tastenbezeichnung für das Heimverzeichnis ändern. Nach dem speichern wird die Farbtasten Einstellungen geschlossen, und nach erneutem öffnen stehen die Änderungen zur Auswahl."
 
-#: ../../../AdvancedMovieSelectionSetup.py:895
+#: ../../../AdvancedMovieSelectionSetup.py:896
 msgid "Here you can give the bookmark 1 button a special name. After saving the changes color key settings will be closed, reopen it then the changes is to selection."
 msgstr "Hier können Sie die Tastenbezeichnung für das Lesezeichen 1 ändern. Nach dem speichern wird die Farbtasten Einstellungen geschlossen, und nach erneutem öffnen stehen die Änderungen zur Auswahl."
 
-#: ../../../AdvancedMovieSelectionSetup.py:899
+#: ../../../AdvancedMovieSelectionSetup.py:900
 msgid "Here you can give the bookmark 2 button a special name. After saving the changes color key settings will be closed, reopen it then the changes is to selection."
 msgstr "Hier können Sie die Tastenbezeichnung für das Lesezeichen 2 ändern. Nach dem speichern wird die Farbtasten Einstellungen geschlossen, und nach erneutem öffnen stehen die Änderungen zur Auswahl."
 
-#: ../../../AdvancedMovieSelectionSetup.py:903
+#: ../../../AdvancedMovieSelectionSetup.py:904
 msgid "Here you can give the bookmark 3 button a special name. After saving the changes color key settings will be closed, reopen it then the changes is to selection."
 msgstr "Hier können Sie die Tastenbezeichnung für das Lesezeichen 3 ändern. Nach dem speichern wird die Farbtasten Einstellungen geschlossen, und nach erneutem öffnen stehen die Änderungen zur Auswahl."
 
@@ -2154,43 +2158,43 @@ msgstr "Selbst zugeordnete Funktion"
 msgid "Assigned function for blue key"
 msgstr "Selbst zugeordnete Funktion"
 
-#: ../../../QuickButton.py:199
+#: ../../../QuickButton.py:202
 msgid "Set tag here not possible, please select a movie for!"
 msgstr "Hier einen Tag anlegen ist nicht möglich, wählen Sie bitte dafür einen Film aus!"
 
-#: ../../../QuickButton.py:205
+#: ../../../QuickButton.py:208
 msgid "Trailer search here not possible, please select a movie!"
 msgstr "Trailer suche hier nicht möglich, wählen Sie bitte dafür einen Film aus!"
 
-#: ../../../QuickButton.py:211
+#: ../../../QuickButton.py:214
 msgid "Move/Copy from complete directory/symlink not possible, please select a single movie!"
 msgstr "Verschieben/Kopieren von ganzen Verzeichnissen/Symlinks nicht möglich, wählen Sie bitte dafür einen Film aus!"
 
-#: ../../../QuickButton.py:217
+#: ../../../QuickButton.py:220
 msgid "Rename here not possible, please select a movie!"
 msgstr "Umbenennen hier nicht möglich, wählen Sie bitte dafür einen Film aus!"
 
-#: ../../../QuickButton.py:233
+#: ../../../QuickButton.py:236
 msgid "TMDb search here not possible, please select a movie!"
 msgstr "TMDb suche hier nicht möglich, wählen Sie bitte dafür einen Film aus!"
 
-#: ../../../QuickButton.py:248
+#: ../../../QuickButton.py:251
 msgid "This may not be marked as seen!"
 msgstr "Das kann nicht als gesehen markiert werden!"
 
-#: ../../../QuickButton.py:254
+#: ../../../QuickButton.py:257
 msgid "This may not be marked as unseen!"
 msgstr "Das kann nicht als ungesehen markiert werden!"
 
-#: ../../../QuickButton.py:264
+#: ../../../QuickButton.py:267
 msgid "Unknown error!"
 msgstr "Unbekannter Fehler!"
 
-#: ../../../QuickButton.py:266
+#: ../../../QuickButton.py:269
 msgid "Plugin not found!"
 msgstr "Erweiterung nicht gefunden!"
 
-#: ../../../QuickButton.py:268
+#: ../../../QuickButton.py:271
 msgid "No plugin assigned!"
 msgstr "Keine Erweiterung zugeordnet!"
 

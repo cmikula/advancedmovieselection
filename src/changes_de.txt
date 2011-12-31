@@ -201,6 +201,7 @@ version 2.4
 * neu: film als gesehen/ungesehen markieren (im toggle modus) kann den farbtasten zugeordnet werden
 * neu: sortieren nach filmbeschreibung
 * neu: tmdb suche & d/l wenn nichts gefunden wurde und es ist ein & im text gibt wird mit dem teil vor dem & nochmal automatisch gesucht
+* neu: timerliste kann über die farbtasten angezeigt werden
 * fix: neue aufnahme icon wenn status icon deaktiviert ist, und film als gesehen markiert wurde
 * fix: keine cover/senderlogo anzeige wenn filmbeschreibung anzeigen deaktiviert ist
 * fix: aufruf von erweiterungen über farbtasten wenn systemsprache geändert wurde (funktionen müssen neu zugeordnet werden)
