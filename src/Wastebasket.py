@@ -33,6 +33,7 @@ from Components.config import config
 from Components.ActionMap import HelpableActionMap
 from Components.Button import Button
 from Components.Label import Label
+from Components.Sources.StaticText import StaticText
 from ServiceProvider import detectDVDStructure
 from Screens.MessageBox import MessageBox
 from enigma import getDesktop, eTimer
@@ -295,9 +296,6 @@ class Wastebasket(Screen):
             if home:
                 self["list"].moveToIndex(0)
         self["freeDiskSpace"].update()
-        self.getWasteInfo()
-
-    def getWasteInfo(self):
         count = Trashcan.getTrashCount()
         cap = Trashcan.getTrashSize()
         if cap <= 999:
@@ -365,8 +363,8 @@ class Wastebasket(Screen):
             print e
             self.session.open(MessageBox, _("Delete failed!"), MessageBox.TYPE_ERROR)
             return
-        
-        self["list"].removeService(self.service)
+        self.delayTimer.start(0, 1)
+        #self["list"].removeService(self.service)
 
     def deleteAllcheckRecord(self, confirmed):
         if not confirmed:
@@ -409,8 +407,8 @@ class Wastebasket(Screen):
             print e
             self.session.open(MessageBox, _("Restore failed!"), MessageBox.TYPE_ERROR)
             return
-        
-        self["list"].removeService(self.getCurrent())
+        self.delayTimer.start(0, 1)        
+        #self["list"].removeService(self.getCurrent())
 
     def restoreAll(self):
         try:
