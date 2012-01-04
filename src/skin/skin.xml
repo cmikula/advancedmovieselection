@@ -170,24 +170,24 @@
 			<convert type="ClockToText">Date</convert>
 		</widget>
 		<widget source="session.VideoPicture" render="Pig" position="65,115" size="256,144" zPosition="3" backgroundColor="#ff000000"/>
-		<widget source="Service" render="Label" position="205,470" zPosition="1" size="1015,24" font="Regular;20" foregroundColor="#ffffff" halign="left" transparent="1">
+		<widget source="Service" render="Label" position="205,470" zPosition="1" size="1015,24" font="Regular;20" backgroundColor="#000000" foregroundColor="#ffffff" halign="left" transparent="1">
 			<convert type="MovieInfo">RecordServiceName</convert>
 		</widget>
-		<widget source="Service" render="Label" position="205,495" zPosition="1" size="1015,24" font="Regular;20" foregroundColor="#ffcc00" halign="left" transparent="1">
+		<widget source="Service" render="Label" position="205,495" zPosition="1" size="1015,24" font="Regular;20" backgroundColor="#000000" foregroundColor="#ffcc00" halign="left" transparent="1">
 			<convert type="MovieInfo">ShortDescription</convert>
 		</widget>
-		<widget source="Service" render="Label" position="205,470" size="1015,24" font="Regular;20" foregroundColor="#ffffff" halign="right" transparent="1" zPosition="1">
+		<widget source="Service" render="Label" position="205,470" size="1015,24" font="Regular;20" backgroundColor="#000000" foregroundColor="#ffffff" halign="right" transparent="1" zPosition="1">
 			<convert type="ServiceTime">StartTime</convert>
 			<convert type="ClockToText">Date</convert>
 		</widget>
-		<widget source="Service" render="Label" position="205,495" zPosition="1" size="1015,22" font="Regular;20" foregroundColor="#ffcc00" halign="right" transparent="1">
+		<widget source="Service" render="Label" position="205,495" zPosition="1" size="1015,22" font="Regular;20" backgroundColor="#000000" foregroundColor="#ffcc00" halign="right" transparent="1">
 			<convert type="ServiceTime">Duration</convert>
 			<convert type="ClockToText">InMinutes</convert>
 		</widget>
-		<widget source="Service" render="Label" position="205,470" zPosition="1" size="1015,22" font="Regular;20" halign="center" foregroundColor="#ffcc00" transparent="1">
+		<widget source="Service" render="Label" position="205,470" zPosition="1" size="1015,22" font="Regular;20" halign="center" backgroundColor="#000000" foregroundColor="#ffcc00" transparent="1">
 			<convert type="MovieInfo">FileSize</convert>
 		</widget>
-		<widget source="Service" render="Label" position="205,520" zPosition="1" size="1015,140" font="Regular;20" foregroundColor="#ffffff" transparent="1">
+		<widget source="Service" render="Label" position="205,520" zPosition="1" size="1015,140" font="Regular;20" backgroundColor="#000000" foregroundColor="#ffffff" transparent="1">
 			<convert type="EventName">ExtendedDescription</convert>
 		</widget>
 		<eLabel position="332,110" size="2,355" backgroundColor="#ffffff"/>
@@ -225,24 +225,24 @@
 			<convert type="ClockToText">Date</convert>
 		</widget>
                 <widget source="session.VideoPicture" render="Pig" position="65,115" size="171,96" zPosition="3" backgroundColor="#ff000000"/>
-		<widget source="Service" render="Label" position="60,418" zPosition="1" size="904,24" font="Regular;16" foregroundColor="#ffffff" halign="left" transparent="1">
+		<widget source="Service" render="Label" position="60,418" zPosition="1" size="904,24" font="Regular;16" backgroundColor="#000000" foregroundColor="#ffffff" halign="left" transparent="1">
 			<convert type="MovieInfo">RecordServiceName</convert>
 		</widget>
-		<widget source="Service" render="Label" position="60,436" zPosition="1" size="904,24" font="Regular;16" foregroundColor="#ffcc00" halign="left" transparent="1">
+		<widget source="Service" render="Label" position="60,436" zPosition="1" size="904,24" font="Regular;16" backgroundColor="#000000" foregroundColor="#ffcc00" halign="left" transparent="1">
 			<convert type="MovieInfo">ShortDescription</convert>
 		</widget>
-		<widget source="Service" render="Label" position="60,418" size="904,24" font="Regular;16" foregroundColor="#ffffff" halign="right" transparent="1" zPosition="1">
+		<widget source="Service" render="Label" position="60,418" size="904,24" font="Regular;16" backgroundColor="#000000" foregroundColor="#ffffff" halign="right" transparent="1" zPosition="1">
 			<convert type="ServiceTime">StartTime</convert>
 			<convert type="ClockToText">Date</convert>
 		</widget>
-		<widget source="Service" render="Label" position="60,436" zPosition="1" size="904,22" font="Regular;16" foregroundColor="#ffcc00" halign="right" transparent="1">
+		<widget source="Service" render="Label" position="60,436" zPosition="1" size="904,22" font="Regular;16" backgroundColor="#000000" foregroundColor="#ffcc00" halign="right" transparent="1">
 			<convert type="ServiceTime">Duration</convert>
 			<convert type="ClockToText">InMinutes</convert>
 		</widget>
-		<widget source="Service" render="Label" position="60,418" zPosition="1" size="904,22" font="Regular;16" halign="center" foregroundColor="#ffcc00" transparent="1">
+		<widget source="Service" render="Label" position="60,418" zPosition="1" size="904,22" font="Regular;16" halign="center" backgroundColor="#000000" foregroundColor="#ffcc00" transparent="1">
 			<convert type="MovieInfo">FileSize</convert>
 		</widget>
-		<widget source="Service" render="Label" position="60,454" zPosition="1" size="904,50" font="Regular;15" foregroundColor="#ffffff" transparent="1">
+		<widget source="Service" render="Label" position="60,454" zPosition="1" size="904,50" font="Regular;15" backgroundColor="#000000" foregroundColor="#ffffff" transparent="1">
 			<convert type="EventName">ExtendedDescription</convert>
 		</widget>
 		<eLabel position="240,98" size="2,317" backgroundColor="#ffffff"/>
@@ -823,24 +823,24 @@
 		<widget source="global.CurrentTime" render="Label" position="910,72" size="310,26" font="Regular;20" halign="right" transparent="1">
 			<convert type="ClockToText">Date</convert>
 		</widget>
-		<widget source="Service" render="Label" position="205,435" zPosition="1" size="1015,24" font="Regular;20" foregroundColor="#ffffff" halign="left" transparent="1">
+		<widget source="Service" render="Label" position="205,435" zPosition="1" size="1015,24" font="Regular;20" backgroundColor="#000000" foregroundColor="#ffffff" halign="left" transparent="1">
 			<convert type="MovieInfo">RecordServiceName</convert>
 		</widget>
-		<widget source="Service" render="Label" position="205,460" zPosition="1" size="1015,24" font="Regular;20" foregroundColor="#ffcc00" halign="left" transparent="1">
+		<widget source="Service" render="Label" position="205,460" zPosition="1" size="1015,24" font="Regular;20" backgroundColor="#000000" foregroundColor="#ffcc00" halign="left" transparent="1">
 			<convert type="MovieInfo">ShortDescription</convert>
 		</widget>
-		<widget source="Service" render="Label" position="205,435" size="1015,24" font="Regular;20" foregroundColor="#ffffff" halign="right" transparent="1" zPosition="1">
+		<widget source="Service" render="Label" position="205,435" size="1015,24" font="Regular;20" backgroundColor="#000000" foregroundColor="#ffffff" halign="right" transparent="1" zPosition="1">
 			<convert type="ServiceTime">StartTime</convert>
 			<convert type="ClockToText">Date</convert>
 		</widget>
-		<widget source="Service" render="Label" position="205,460" zPosition="1" size="1015,22" font="Regular;20" foregroundColor="#ffcc00" halign="right" transparent="1">
+		<widget source="Service" render="Label" position="205,460" zPosition="1" size="1015,22" font="Regular;20" backgroundColor="#000000" foregroundColor="#ffcc00" halign="right" transparent="1">
 			<convert type="ServiceTime">Duration</convert>
 			<convert type="ClockToText">InMinutes</convert>
 		</widget>
-		<widget source="Service" render="Label" position="205,435" zPosition="1" size="1015,22" font="Regular;20" halign="center" foregroundColor="#ffcc00" transparent="1">
+		<widget source="Service" render="Label" position="205,435" zPosition="1" size="1015,22" font="Regular;20" halign="center" backgroundColor="#000000" foregroundColor="#ffcc00" transparent="1">
 			<convert type="MovieInfo">FileSize</convert>
 		</widget>
-		<widget source="Service" render="Label" position="205,485" zPosition="1" size="1015,140" font="Regular;20" foregroundColor="#ffffff" transparent="1">
+		<widget source="Service" render="Label" position="205,485" zPosition="1" size="1015,140" font="Regular;20" backgroundColor="#000000" foregroundColor="#ffffff" transparent="1">
 			<convert type="EventName">ExtendedDescription</convert>
 		</widget>
                 <widget name="waitingtext" position="60,130" size="1160,375" zPosition="3" font="Regular;26" halign="center" valign="center" transparent="1"/>
@@ -875,24 +875,24 @@
 		<widget source="global.CurrentTime" render="Label" position="910,72" size="310,26" font="Regular;20" halign="right" transparent="1">
 			<convert type="ClockToText">Date</convert>
 		</widget>
-		<widget source="Service" render="Label" position="60,435" zPosition="1" size="1160,24" font="Regular;20" foregroundColor="#ffffff" halign="left" transparent="1">
+		<widget source="Service" render="Label" position="60,435" zPosition="1" size="1160,24" font="Regular;20" backgroundColor="#000000" foregroundColor="#ffffff" halign="left" transparent="1">
 			<convert type="MovieInfo">RecordServiceName</convert>
 		</widget>
-		<widget source="Service" render="Label" position="60,460" zPosition="1" size="1160,24" font="Regular;20" foregroundColor="#ffcc00" halign="left" transparent="1">
+		<widget source="Service" render="Label" position="60,460" zPosition="1" size="1160,24" font="Regular;20" backgroundColor="#000000" foregroundColor="#ffcc00" halign="left" transparent="1">
 			<convert type="MovieInfo">ShortDescription</convert>
 		</widget>
-		<widget source="Service" render="Label" position="60,435" size="1160,24" font="Regular;20" foregroundColor="#ffffff" halign="right" transparent="1" zPosition="1">
+		<widget source="Service" render="Label" position="60,435" size="1160,24" font="Regular;20" backgroundColor="#000000" foregroundColor="#ffffff" halign="right" transparent="1" zPosition="1">
 			<convert type="ServiceTime">StartTime</convert>
 			<convert type="ClockToText">Date</convert>
 		</widget>
-		<widget source="Service" render="Label" position="60,460" zPosition="1" size="1160,22" font="Regular;20" foregroundColor="#ffcc00" halign="right" transparent="1">
+		<widget source="Service" render="Label" position="60,460" zPosition="1" size="1160,22" font="Regular;20" backgroundColor="#000000" foregroundColor="#ffcc00" halign="right" transparent="1">
 			<convert type="ServiceTime">Duration</convert>
 			<convert type="ClockToText">InMinutes</convert>
 		</widget>
-		<widget source="Service" render="Label" position="60,435" zPosition="1" size="1160,22" font="Regular;20" halign="center" foregroundColor="#ffcc00" transparent="1">
+		<widget source="Service" render="Label" position="60,435" zPosition="1" size="1160,22" font="Regular;20" halign="center" backgroundColor="#000000" foregroundColor="#ffcc00" transparent="1">
 			<convert type="MovieInfo">FileSize</convert>
 		</widget>
-		<widget source="Service" render="Label" position="60,485" zPosition="1" size="1160,140" font="Regular;20" foregroundColor="#ffffff" transparent="1">
+		<widget source="Service" render="Label" position="60,485" zPosition="1" size="1160,140" font="Regular;20" backgroundColor="#000000" foregroundColor="#ffffff" transparent="1">
 			<convert type="EventName">ExtendedDescription</convert>
 		</widget>
                 <widget name="waitingtext" position="60,130" size="1160,375" zPosition="3" font="Regular;26" halign="center" valign="center" transparent="1"/>
@@ -925,24 +925,24 @@
 		<widget source="global.CurrentTime" render="Label" position="654,72" size="310,26" font="Regular;20" halign="right" transparent="1">
 			<convert type="ClockToText">Date</convert>
 		</widget>
-		<widget source="Service" render="Label" position="205,355" zPosition="1" size="759,24" font="Regular;20" foregroundColor="#ffffff" halign="left" transparent="1">
+		<widget source="Service" render="Label" position="205,355" zPosition="1" size="759,24" font="Regular;20" backgroundColor="#000000" foregroundColor="#ffffff" halign="left" transparent="1">
 			<convert type="MovieInfo">RecordServiceName</convert>
 		</widget>
-		<widget source="Service" render="Label" position="205,375" zPosition="1" size="759,24" font="Regular;20" foregroundColor="#ffcc00" halign="left" transparent="1">
+		<widget source="Service" render="Label" position="205,375" zPosition="1" size="759,24" font="Regular;20" backgroundColor="#000000" foregroundColor="#ffcc00" halign="left" transparent="1">
 			<convert type="MovieInfo">ShortDescription</convert>
 		</widget>
-		<widget source="Service" render="Label" position="205,355" size="759,24" font="Regular;20" foregroundColor="#ffffff" halign="right" transparent="1" zPosition="1">
+		<widget source="Service" render="Label" position="205,355" size="759,24" font="Regular;20" backgroundColor="#000000" foregroundColor="#ffffff" halign="right" transparent="1" zPosition="1">
 			<convert type="ServiceTime">StartTime</convert>
 			<convert type="ClockToText">Date</convert>
 		</widget>
-		<widget source="Service" render="Label" position="205,375" zPosition="1" size="759,22" font="Regular;20" foregroundColor="#ffcc00" halign="right" transparent="1">
+		<widget source="Service" render="Label" position="205,375" zPosition="1" size="759,22" font="Regular;20" backgroundColor="#000000" foregroundColor="#ffcc00" halign="right" transparent="1">
 			<convert type="ServiceTime">Duration</convert>
 			<convert type="ClockToText">InMinutes</convert>
 		</widget>
-		<widget source="Service" render="Label" position="205,355" zPosition="1" size="759,22" font="Regular;20" halign="center" foregroundColor="#ffcc00" transparent="1">
+		<widget source="Service" render="Label" position="205,355" zPosition="1" size="759,22" font="Regular;20" halign="center" backgroundColor="#000000" foregroundColor="#ffcc00" transparent="1">
 			<convert type="MovieInfo">FileSize</convert>
 		</widget>
-		<widget source="Service" render="Label" position="205,400" zPosition="1" size="759,105" font="Regular;18" foregroundColor="#ffffff" transparent="1">
+		<widget source="Service" render="Label" position="205,400" zPosition="1" size="759,105" font="Regular;18" backgroundColor="#000000" foregroundColor="#ffffff" transparent="1">
 			<convert type="EventName">ExtendedDescription</convert>
 		</widget>
                 <widget name="waitingtext" position="60,105" size="904,234" zPosition="3" font="Regular;26" halign="center" valign="center" transparent="1"/>
@@ -977,24 +977,24 @@
 		<widget source="global.CurrentTime" render="Label" position="654,72" size="310,26" font="Regular;20" halign="right" transparent="1">
 			<convert type="ClockToText">Date</convert>
 		</widget>
-		<widget source="Service" render="Label" position="60,355" zPosition="1" size="904,24" font="Regular;20" foregroundColor="#ffffff" halign="left" transparent="1">
+		<widget source="Service" render="Label" position="60,355" zPosition="1" size="904,24" font="Regular;20" backgroundColor="#000000" foregroundColor="#ffffff" halign="left" transparent="1">
 			<convert type="MovieInfo">RecordServiceName</convert>
 		</widget>
-		<widget source="Service" render="Label" position="60,375" zPosition="1" size="904,24" font="Regular;20" foregroundColor="#ffcc00" halign="left" transparent="1">
+		<widget source="Service" render="Label" position="60,375" zPosition="1" size="904,24" font="Regular;20" backgroundColor="#000000" foregroundColor="#ffcc00" halign="left" transparent="1">
 			<convert type="MovieInfo">ShortDescription</convert>
 		</widget>
-		<widget source="Service" render="Label" position="60,355" size="904,24" font="Regular;20" foregroundColor="#ffffff" halign="right" transparent="1" zPosition="1">
+		<widget source="Service" render="Label" position="60,355" size="904,24" font="Regular;20" backgroundColor="#000000" foregroundColor="#ffffff" halign="right" transparent="1" zPosition="1">
 			<convert type="ServiceTime">StartTime</convert>
 			<convert type="ClockToText">Date</convert>
 		</widget>
-		<widget source="Service" render="Label" position="60,375" zPosition="1" size="904,22" font="Regular;20" foregroundColor="#ffcc00" halign="right" transparent="1">
+		<widget source="Service" render="Label" position="60,375" zPosition="1" size="904,22" font="Regular;20" backgroundColor="#000000" foregroundColor="#ffcc00" halign="right" transparent="1">
 			<convert type="ServiceTime">Duration</convert>
 			<convert type="ClockToText">InMinutes</convert>
 		</widget>
-		<widget source="Service" render="Label" position="60,355" zPosition="1" size="904,22" font="Regular;20" halign="center" foregroundColor="#ffcc00" transparent="1">
+		<widget source="Service" render="Label" position="60,355" zPosition="1" size="904,22" font="Regular;20" halign="center" backgroundColor="#000000" foregroundColor="#ffcc00" transparent="1">
 			<convert type="MovieInfo">FileSize</convert>
 		</widget>
-		<widget source="Service" render="Label" position="60,400" zPosition="1" size="904,105" font="Regular;18" foregroundColor="#ffffff" transparent="1">
+		<widget source="Service" render="Label" position="60,400" zPosition="1" size="904,105" font="Regular;18" backgroundColor="#000000" foregroundColor="#ffffff" transparent="1">
 			<convert type="EventName">ExtendedDescription</convert>
 		</widget>
                 <widget name="waitingtext" position="60,105" size="904,234" zPosition="3" font="Regular;26" halign="center" valign="center" transparent="1"/>
