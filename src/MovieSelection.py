@@ -157,7 +157,10 @@ class MovieContextMenu(Screen):
             menu.append((_("Unmount") + " " + service.getName(), boundFunction(self.unmount)))
         if config.AdvancedMovieSelection.showtmdb.value:
             if not (self.service.flags & eServiceReference.mustDescent):
-                menu.append((_("TMDb search"), boundFunction(self.imdbsearch)))
+                menu.append((_("TMDb Info & D/L"), boundFunction(self.imdbsearch)))
+        if config.AdvancedMovieSelection.showthetvdb.value:
+            if not (self.service.flags & eServiceReference.mustDescent):
+                menu.append((_("TheTVDB Info & D/L"), boundFunction(self.thetvdbsearch)))
         if config.AdvancedMovieSelection.showdelete.value:
             if not (self.service.flags & eServiceReference.mustDescent):
                 menu.append((_("Delete"), self.delete))
@@ -277,6 +280,10 @@ class MovieContextMenu(Screen):
 
     def setWindowTitle(self):
         self.setTitle(_("Advanced Movie Selection Menu"))
+
+    def thetvdbsearch(self):
+        from SearchTVDb import TheTVDBMain
+        self.session.openWithCallback(self.closeafterfinish, TheTVDBMain, self.service)
 
     def updateMetaFromEit(self):
         self.csel.list.updateMetaFromEit()
@@ -547,16 +554,14 @@ class MovieContextMenu(Screen):
         if not confirmed:
             return self.close()
         try:
-            title = self.service.getPath()
-            if title.endswith(".ts"):
-                movietitle = title[:-3]
-            elif title.endswith(".mp4") or title.endswith(".avi") or title.endswith(".mkv") or title.endswith(".mov") or title.endswith(".flv") or title.endswith(".m4v") or title.endswith(".mpg") or title.endswith(".iso"):
-                movietitle = title[:-4]
-            elif title.endswith(".divx") or title.endswith(".m2ts") or title.endswith(".mpeg"):
-                movietitle = title[:-5]
-            else:
-                movietitle = title
-            eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".jpg")
+            path = self.service.getPath()
+            if os.path.isfile(path):
+                path = os.path.splitext(path)[0] + ".jpg"
+            elif isinstance(self.service, eServiceReferenceDvd):
+                path = path + ".jpg"
+            
+            cmd = "rm -f \"%s\"" % (path)
+            eConsoleAppContainer().execute(cmd)
             self.csel.updateDescription()
             self.csel["freeDiskSpace"].update()
             self.close()
@@ -589,16 +594,14 @@ class MovieContextMenu(Screen):
         if not confirmed:
             return self.close()
         try:
-            title = self.service.getPath()
-            if title.endswith(".ts"):
-                movietitle = title[:-3]
-            elif title.endswith(".mp4") or title.endswith(".avi") or title.endswith(".mkv") or title.endswith(".mov") or title.endswith(".flv") or title.endswith(".m4v") or title.endswith(".mpg") or title.endswith(".iso"):
-                movietitle = title[:-4]
-            elif title.endswith(".divx") or title.endswith(".m2ts") or title.endswith(".mpeg"):
-                movietitle = title[:-5]
-            else:
-                movietitle = title
-            eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".eit")
+            path = self.service.getPath()
+            if os.path.isfile(path):
+                path = os.path.splitext(path)[0] + ".eit"
+            elif isinstance(self.service, eServiceReferenceDvd):
+                path = path + ".eit"
+
+            cmd = "rm -f \"%s\"" % (path)
+            eConsoleAppContainer().execute(cmd)
             self.csel.updateDescription()
             self.csel["freeDiskSpace"].update()
             self.close()

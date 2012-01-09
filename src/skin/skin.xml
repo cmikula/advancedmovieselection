@@ -1,4 +1,75 @@
 <skin>
+        <screen name="TheTVDBMainHD" position="center,center" title="" size="1280,720" flags="wfNoBorder">
+            <widget source="Title" render="Label" position="60,40" size="1160,30" font="Regular;26" transparent="1"/>
+            <widget name="no_stars" position="60,74" size="210,21" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/starsbar_empty.png" zPosition="0" transparent="1" alphatest="blend"/>
+            <widget name="stars" position="60,74" size="210,21" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/starsbar_filled.png" transparent="1"/>
+            <widget name="voted" position="280,71" zPosition="2" size="300,28" font="Regular;23" transparent="1"/>
+            <widget name="cover" zPosition="3" position="60,120" size="185,278" alphatest="blend"/>
+            <widget name="banner" zPosition="3" position="60,120" size="400,225" alphatest="blend"/>
+            <widget name="result_txt" position="60,110" size="1160,28" zPosition="2" font="Regular;24" transparent="1" valign="top" halign="center"/> 
+            <widget name="list" position="60,170" zPosition="2" size="1160,420" scrollbarMode="showOnDemand" transparent="1" enableWrapAround="1"/>
+            <widget name="episodes_list" position="60,170" zPosition="2" size="1160,420" scrollbarMode="showOnDemand" transparent="1" enableWrapAround="1"/>
+            <widget name="extended" position="260,120" size="900,275" zPosition="2" font="Regular;22" transparent="1"/>
+            <widget name="extended_episode" position="470,120" size="750,235" zPosition="2" font="Regular;22" transparent="1"/>
+            <widget name="description" position="60,400" zPosition="2" size="1160,235" font="Regular;24" transparent="1"/>
+            <widget name="description_episode" position="60,355" zPosition="2" size="1160,300" font="Regular;24" transparent="1"/>
+            <widget name="status" position="0,0" size="1280,720" zPosition="2" font="Regular;24" transparent="1" valign="center" halign="center"/> 
+            <widget name="button_red" pixmap="skin_default/buttons/button_red.png" position="60,657" size="15,16" alphatest="on"/>
+            <widget name="button_green" pixmap="skin_default/buttons/button_green.png" position="320,657" size="15,16" alphatest="on"/>
+            <widget name="button_yellow" pixmap="skin_default/buttons/button_yellow.png" position="650,657" size="15,16" alphatest="on"/>
+            <widget name="button_blue" pixmap="skin_default/buttons/button_blue.png" position="900,657" size="15,16" alphatest="on"/>
+            <widget source="key_red" render="Label" position="80,652" zPosition="1" size="300,28" font="Regular;24" halign="left" transparent="1"/>
+            <widget source="key_green" render="Label" position="340,652" zPosition="1" size="300,28" font="Regular;24" halign="left" transparent="1"/>
+            <widget source="key_yellow" render="Label" position="670,652" zPosition="1" size="300,28" font="Regular;24" halign="left" transparent="1"/>
+            <widget source="key_blue" render="Label" position="920,652" zPosition="1" size="300,28" font="Regular;24" halign="left" transparent="1"/>
+    </screen>
+        <screen name="TheTVDBMainXD" position="center,center" title="" size="1024,576" flags="wfNoBorder">
+            <widget source="Title" render="Label" position="60,40" size="904,30" font="Regular;24" transparent="1"/>
+            <widget name="result_txt" position="60,70" size="904,25" zPosition="2" font="Regular;20" transparent="1" valign="top" halign="center"/> 
+            <widget name="list" position="60,100" zPosition="2" size="904,420" scrollbarMode="showOnDemand" transparent="1" enableWrapAround="1"/>
+            <widget name="episodes_list" position="60,100" zPosition="2" size="904,420" scrollbarMode="showOnDemand" transparent="1" enableWrapAround="1"/>
+            <widget name="no_stars" position="60,74" size="210,21" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/starsbar_empty.png" zPosition="0" transparent="1" alphatest="blend"/>
+            <widget name="stars" position="60,74" size="210,21" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/starsbar_filled.png" transparent="1"/>
+            <widget name="voted" position="280,71" zPosition="2" size="300,28" font="Regular;23" transparent="1"/>
+            <widget name="cover" zPosition="3" position="60,120" size="185,230" alphatest="blend"/>
+            <widget name="banner" zPosition="3" position="60,120" size="200,180" alphatest="blend"/>
+            <widget name="extended" position="260,120" size="704,275" zPosition="2" font="Regular;18" transparent="1"/>
+            <widget name="extended_episode" position="270,120" size="694,180" zPosition="2" font="Regular;18" transparent="1"/>
+            <widget name="description" position="60,350" zPosition="2" size="904,175" font="Regular;20" transparent="1"/>
+            <widget name="description_episode" position="60,310" zPosition="2" size="904,210" font="Regular;20" transparent="1"/>
+            <widget name="status" position="0,0" size="1024,576" zPosition="2" font="Regular;22" transparent="1" valign="center" halign="center"/> 
+            <widget name="button_red" pixmap="skin_default/buttons/button_red.png" position="60,525" size="15,16" alphatest="on"/>
+            <widget name="button_green" pixmap="skin_default/buttons/button_green.png" position="320,525" size="15,16" alphatest="on"/>
+            <widget name="button_yellow" pixmap="skin_default/buttons/button_yellow.png" position="550,525" size="15,16" alphatest="on"/>
+            <widget name="button_blue" pixmap="skin_default/buttons/button_blue.png" position="730,525" size="15,16" alphatest="on"/>
+            <widget source="key_red" render="Label" position="80,520" zPosition="1" size="300,28" font="Regular;20" halign="left" transparent="1"/>
+            <widget source="key_green" render="Label" position="340,520" zPosition="1" size="300,28" font="Regular;20" halign="left" transparent="1"/>
+            <widget source="key_yellow" render="Label" position="570,520" zPosition="1" size="300,28" font="Regular;20" halign="left" transparent="1"/>
+            <widget source="key_blue" render="Label" position="750,520" zPosition="1" size="300,28" font="Regular;20" halign="left" transparent="1"/>
+    </screen>
+        <screen name="TheTVDBMain" position="center,center" title=" " size="560,445">
+            <widget name="button_red" pixmap="skin_default/buttons/red.png" position="0,0" size="140,40" alphatest="on"/>
+            <widget name="button_green" pixmap="skin_default/buttons/green.png" position="140,0" size="140,40" alphatest="on"/>
+            <widget name="button_yellow" pixmap="skin_default/buttons/yellow.png" position="280,0" size="140,40" alphatest="on"/>
+            <widget name="button_blue" pixmap="skin_default/buttons/blue.png" position="420,0" size="140,40" alphatest="on"/>
+            <widget source="key_red" render="Label" position="0,0" zPosition="1" size="140,40" font="Regular;17" halign="center" valign="center" backgroundColor="#9f1313" transparent="1"/>
+            <widget source="key_green" render="Label" position="140,0" zPosition="1" size="140,40" font="Regular;17" halign="center" valign="center" backgroundColor="#1f771f" transparent="1"/>
+            <widget source="key_yellow" render="Label" position="280,0" zPosition="1" size="140,40" font="Regular;17" halign="center" valign="center" backgroundColor="#a08500" transparent="1"/>
+            <widget source="key_blue" render="Label" position="420,0" zPosition="1" size="140,40" font="Regular;17" halign="center" valign="center" backgroundColor="#18188b" transparent="1"/>
+            <widget name="result_txt" position="0,50" size="560,25" zPosition="2" font="Regular;22" transparent="1" valign="top" halign="center"/> 
+            <widget name="list" position="0,80" zPosition="2" size="560,280" scrollbarMode="showOnDemand" transparent="1" enableWrapAround="1"/>
+            <widget name="episodes_list" position="0,80" zPosition="2" size="560,280" scrollbarMode="showOnDemand" transparent="1" enableWrapAround="1"/>
+            <widget name="cover" zPosition="2" position="0,50" size="155,215" alphatest="blend"/>
+            <widget name="banner" zPosition="3" position="0,50" size="200,200" alphatest="blend"/>
+            <widget name="no_stars" position="160,244" size="210,21" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/starsbar_empty.png" zPosition="0" transparent="1" alphatest="blend"/>
+            <widget name="stars" position="160,244" size="210,21" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/starsbar_filled.png" transparent="1"/>
+            <widget name="voted" position="380,246" zPosition="2" size="300,28" font="Regular;18" transparent="1"/>
+            <widget name="extended" position="160,50" size="400,215" zPosition="2" font="Regular;16" transparent="1"/>
+            <widget name="extended_episode" position="205,50" size="355,200" zPosition="2" font="Regular;16" transparent="1"/>
+            <widget name="description" position="0,270" zPosition="2" size="560,175" font="Regular;18" transparent="1"/>
+            <widget name="description_episode" position="0,285" zPosition="2" size="560,290" font="Regular;18" transparent="1"/>
+            <widget name="status" position="0,0" size="560,445" zPosition="2" font="Regular;20" transparent="1" valign="center" halign="center"/> 
+    </screen>
         <screen name="AdvancedMovieSelection_ClientSetup_HD" position="center,center" size="1280,720" title=" " flags="wfNoBorder">
             <widget source="global.CurrentTime" render="Label" position="1140,40" size="80,26" font="Regular;26" halign="right"  transparent="1">
                     <convert type="ClockToText">Default</convert>
@@ -106,19 +177,20 @@
             <widget name="stars" position="60,74" size="210,21" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/starsbar_filled.png" transparent="1"/>
             <widget name="vote" position="280,71" size="300,28" zPosition="2" font="Regular;23" transparent="1" valign="top" halign="left"/>
             <widget name="tmdblogo" position="1145,60" zPosition="4" size="75,50" transparent="1" alphatest="blend"/>
-            <widget name="list" position="60,120" zPosition="2" size="1160,420" scrollbarMode="showOnDemand" transparent="1" enableWrapAround="1"/>
+            <widget name="result_txt" position="60,90" size="1160,28" zPosition="2" font="Regular;24" transparent="1" valign="top" halign="center"/> 
+            <widget name="list" position="60,150" zPosition="2" size="1160,420" scrollbarMode="showOnDemand" transparent="1" enableWrapAround="1"/>
             <widget name="cover" zPosition="2" position="50,120" size="185,278" alphatest="blend"/>
             <widget name="description" position="250,120" size="970,275" zPosition="3" font="Regular;22" transparent="1"/>
             <widget name="extended" position="60,402" size="1160,240" zPosition="2" font="Regular;20" transparent="1" valign="center" halign="left"/>
             <widget name="status" position="60,120" size="1160,560" zPosition="2" font="Regular;22" transparent="1" valign="center" halign="center"/> 
-            <ePixmap pixmap="skin_default/buttons/button_red.png" position="60,650" zPosition="4" size="15,16" transparent="1" alphatest="blend"/>
-            <ePixmap pixmap="skin_default/buttons/button_green.png" position="280,650" zPosition="4" size="15,16" transparent="1" alphatest="blend"/>
-            <ePixmap pixmap="skin_default/buttons/button_yellow.png" position="630,650" zPosition="4" size="15,16" transparent="1" alphatest="blend"/>
-            <widget name="button_blue" pixmap="skin_default/buttons/button_blue.png" position="880,650" zPosition="4" size="15,16" transparent="1" alphatest="blend"/>
-            <widget source="key_red" render="Label" position="90,646" size="250,28" zPosition="5" valign="top" halign="left" font="Regular;24" transparent="1"/>
-            <widget source="key_green" render="Label" position="310,646" size="350,28" zPosition="5" valign="top" halign="left" font="Regular;24" transparent="1"/>
-            <widget source="key_yellow" render="Label" position="660,646" size="250,28" zPosition="5" valign="top" halign="left" font="Regular;24" transparent="1"/>
-            <widget source="key_blue" render="Label" position="910,646" size="250,28" zPosition="5" valign="top" halign="left" font="Regular;24" transparent="1"/>
+            <widget name="button_red" pixmap="skin_default/buttons/button_red.png" position="60,650" zPosition="4" size="15,16" transparent="1" alphatest="blend"/>
+            <widget name="button_green" pixmap="skin_default/buttons/button_green.png" position="400,650" zPosition="4" size="15,16" transparent="1" alphatest="blend"/>
+            <widget name="button_yellow" pixmap="skin_default/buttons/button_yellow.png" position="690,650" zPosition="4" size="15,16" transparent="1" alphatest="blend"/>
+            <widget name="button_blue" pixmap="skin_default/buttons/button_blue.png" position="930,650" zPosition="4" size="15,16" transparent="1" alphatest="blend"/>
+            <widget source="key_red" render="Label" position="90,646" size="350,28" zPosition="5" valign="top" halign="left" font="Regular;24" transparent="1"/>
+            <widget source="key_green" render="Label" position="430,646" size="350,28" zPosition="5" valign="top" halign="left" font="Regular;24" transparent="1"/>
+            <widget source="key_yellow" render="Label" position="720,646" size="250,28" zPosition="5" valign="top" halign="left" font="Regular;24" transparent="1"/>
+            <widget source="key_blue" render="Label" position="960,646" size="250,28" zPosition="5" valign="top" halign="left" font="Regular;24" transparent="1"/>
     </screen>     
         <screen name="TMDbMainXD" position="center,center" size="1024,576" title=" " flags="wfNoBorder">
             <widget source="Title" render="Label" position="60,40" size="904,30" font="Regular;24" transparent="1"/>
@@ -126,38 +198,40 @@
             <widget name="stars" position="60,74" size="210,21" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/starsbar_filled.png" transparent="1"/>
             <widget name="vote" position="280,71" size="300,28" zPosition="2" font="Regular;23" transparent="1" valign="top" halign="left"/>
             <widget name="tmdblogo" position="889,40" zPosition="4" size="75,50" transparent="1" alphatest="on"/>
-            <widget name="list" position="60,90" zPosition="2" size="904,280" scrollbarMode="showOnDemand" transparent="1" enableWrapAround="1"/>
+            <widget name="result_txt" position="60,90" size="904,28" zPosition="2" font="Regular;22" transparent="1" valign="top" halign="center"/> 
+            <widget name="list" position="60,150" zPosition="2" size="904,280" scrollbarMode="showOnDemand" transparent="1" enableWrapAround="1"/>
             <widget name="cover" zPosition="2" position="50,120" size="185,215" alphatest="blend"/>
             <widget name="description" position="250,120" size="714,215" zPosition="3" font="Regular;20" transparent="1"/>
             <widget name="extended" position="60,335" size="904,181" zPosition="2" font="Regular;16" transparent="1"/>
-            <widget name="status" position="60,120" size="904,560" zPosition="2" font="Regular;22" transparent="1" valign="center" halign="center"/> 
-            <ePixmap pixmap="skin_default/buttons/button_red.png" position="60,522" zPosition="4" size="15,16" transparent="1" alphatest="blend"/>
-            <ePixmap pixmap="skin_default/buttons/button_green.png" position="200,522" zPosition="4" size="15,16" transparent="1" alphatest="blend"/>
-            <ePixmap pixmap="skin_default/buttons/button_yellow.png" position="500,522" zPosition="4" size="15,16" transparent="1" alphatest="blend"/>
-            <widget name="button_blue" pixmap="skin_default/buttons/button_blue.png" position="720,522" zPosition="4" size="15,16" transparent="1" alphatest="blend"/>
-            <widget source="key_red" render="Label" position="80,516" size="250,28" zPosition="5" valign="top" halign="left" font="Regular;22" transparent="1"/>
-            <widget source="key_green" render="Label" position="220,516" size="250,28" zPosition="5" valign="top" halign="left" font="Regular;22" transparent="1"/>
-            <widget source="key_yellow" render="Label" position="520,516" size="250,28" zPosition="5" valign="top" halign="left" font="Regular;22" transparent="1"/>
-            <widget source="key_blue" render="Label" position="740,516" size="250,28" zPosition="5" valign="top" halign="left" font="Regular;22" transparent="1"/>
+            <widget name="status" position="0,0" size="1024,576" zPosition="2" font="Regular;20" transparent="1" valign="center" halign="center"/> 
+            <widget name="button_red" pixmap="skin_default/buttons/button_red.png" position="60,520" zPosition="4" size="15,16" transparent="1" alphatest="blend"/>
+            <widget name="button_green" pixmap="skin_default/buttons/button_green.png" position="330,520" zPosition="4" size="15,16" transparent="1" alphatest="blend"/>
+            <widget name="button_yellow" pixmap="skin_default/buttons/button_yellow.png" position="550,520" zPosition="4" size="15,16" transparent="1" alphatest="blend"/>
+            <widget name="button_blue" pixmap="skin_default/buttons/button_blue.png" position="780,520" zPosition="4" size="15,16" transparent="1" alphatest="blend"/>
+            <widget source="key_red" render="Label" position="80,516" size="350,28" zPosition="5" valign="top" halign="left" font="Regular;20" transparent="1"/>
+            <widget source="key_green" render="Label" position="350,516" size="250,28" zPosition="5" valign="top" halign="left" font="Regular;20" transparent="1"/>
+            <widget source="key_yellow" render="Label" position="570,516" size="250,28" zPosition="5" valign="top" halign="left" font="Regular;20" transparent="1"/>
+            <widget source="key_blue" render="Label" position="800,516" size="250,28" zPosition="5" valign="top" halign="left" font="Regular;20" transparent="1"/>
     </screen>      
         <screen name="TMDbMainSD" position="center,center" size="560,445" title=" ">
-            <widget name="tmdblogo" position="1145,60" zPosition="4" size="75,50" transparent="1" alphatest="blend"/>
-            <widget name="list" position="0,45" zPosition="2" size="560,280" scrollbarMode="showOnDemand" transparent="1" enableWrapAround="1"/>
+            <widget name="result_txt" position="0,45" size="560,22" zPosition="2" font="Regular;18" transparent="1" valign="top" halign="center"/> 
+            <widget name="list" position="0,70" zPosition="2" size="560,280" scrollbarMode="showOnDemand" transparent="1" enableWrapAround="1"/>
             <widget name="cover" zPosition="2" position="0,45" size="155,215" alphatest="blend"/>
             <widget name="description" position="150,45" size="410,195" zPosition="3" font="Regular;17" transparent="1"/>
             <widget name="no_stars" position="150,235" size="210,21" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/starsbar_empty.png" zPosition="0" transparent="1" alphatest="on"/>
             <widget name="stars" position="150,235" size="210,21" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/starsbar_filled.png" transparent="1"/>
             <widget name="vote" position="370,237" size="300,26" zPosition="2" font="Regular;20" transparent="1" valign="top" halign="left"/>
             <widget name="extended" position="0,260" size="560,180" zPosition="2" font="Regular;14" transparent="1"/>
-            <widget name="status" position="0,400" size="560,45" zPosition="2" font="Regular;18" transparent="1" valign="center" halign="center"/> 
-            <ePixmap pixmap="skin_default/buttons/red.png" position="0,0" size="140,40" alphatest="on"/>
-            <ePixmap pixmap="skin_default/buttons/green.png" position="140,0" size="140,40" alphatest="on"/>
-            <ePixmap pixmap="skin_default/buttons/yellow.png" position="280,0" size="140,40" alphatest="on"/>
+            <widget name="status" position="0,0" size="560,445" zPosition="2" font="Regular;18" transparent="1" valign="center" halign="center"/> 
+            <widget name="button_red" pixmap="skin_default/buttons/red.png" position="0,0" size="140,40" alphatest="on"/>
+            <widget name="button_green" pixmap="skin_default/buttons/green.png" position="140,0" size="140,40" alphatest="on"/>
+            <widget name="button_yellow" pixmap="skin_default/buttons/yellow.png" position="280,0" size="140,40" alphatest="on"/>
             <widget name="button_blue" pixmap="skin_default/buttons/blue.png" position="420,0" size="140,40" alphatest="on"/>
-            <widget source="key_red" render="Label" position="0,0" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1"/>
-            <widget source="key_green" render="Label" position="140,0" zPosition="1" size="140,40" font="Regular;18" halign="center" valign="center" backgroundColor="#1f771f" transparent="1"/>
-            <widget source="key_yellow" render="Label" position="280,0" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#a08500" transparent="1"/>
-            <widget source="key_blue" render="Label" position="420,0" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#18188b" transparent="1"/>
+            <widget source="key_red" render="Label" position="0,0" zPosition="1" size="140,40" font="Regular;17" halign="center" valign="center" backgroundColor="#9f1313" transparent="1"/>
+            <widget source="key_green" render="Label" position="140,0" zPosition="1" size="140,40" font="Regular;17" halign="center" valign="center" backgroundColor="#1f771f" transparent="1"/>
+            <widget source="key_yellow" render="Label" position="280,0" zPosition="1" size="140,40" font="Regular;17" halign="center" valign="center" backgroundColor="#a08500" transparent="1"/>
+            <widget source="key_blue" render="Label" position="420,0" zPosition="1" size="140,40" font="Regular;17" halign="center" valign="center" backgroundColor="#18188b" transparent="1"/>
+            <widget name="tmdblogo" position="485,395" zPosition="4" size="75,50" transparent="1" alphatest="blend"/>
     </screen>
             <screen name="AdvancedMovieSelectionHD" position="center,center" size="1280,720" title=" " flags="wfNoBorder">
 		<!--widget source="global.MovieDir" render="Label" position="60,40" size="1050,29" zPosition="3" font="Regular;26" transparent="1"/-->

@@ -213,6 +213,10 @@ version 2.4
 * geändert: no cover anzeige (bild nun in de und en sprache)
 ACHTUNG an die skinner, bei den screens AdvancedMovieSelectionTrashHD, AdvancedMovieSelectionTrashXD, AdvancedMovieSelectionTrashSD, TMDbMainHD, TMDbMainXD und TMDbMainSD gab es änderungen
 
+version 2.5
+* neu: suchen und speichern von filminfo/cover über thetvdb.com (@thetvdb.com thx for the api key)
+* geändert: viele interne funktionen bei tmdb suche & d/l
+ACHTUNG an die skinner,TMDbMainHD, TMDbMainXD,TMDbMainSD gab es änderungen, die screens .......
 
 
 

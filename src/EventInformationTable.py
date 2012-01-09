@@ -33,7 +33,7 @@ Digital Video Broadcasting (DVB) Specification for Service Information (SI) in D
 
 import os
 from struct import unpack, pack
-import tmdb, urllib
+import tmdb, tvdb, urllib
 import time
 
 def printStackTrace():
@@ -283,9 +283,9 @@ class ComponentDescriptor:
 
 def appendShortDescriptionToMeta(service_path, short_descr):
     try:
-        file = service_path + ".ts.meta"
-        if os.path.exists(file):
-            metafile = open(file, "r")
+        _file = service_path + ".ts.meta"
+        if os.path.exists(_file):
+            metafile = open(_file, "r")
             sid = metafile.readline()
             title = metafile.readline().rstrip()
             descr = metafile.readline().rstrip()
@@ -294,23 +294,61 @@ def appendShortDescriptionToMeta(service_path, short_descr):
             if descr != "":
                 print "Update metafile skipped"
                 return
-            print "Update metafile: ", file
+            print "Update metafile: ", _file
             descr = short_descr
-            metafile = open(file, "w")
+            metafile = open(_file, "w")
             metafile.write("%s%s\n%s\n%s" % (sid, title, descr, rest))
             metafile.close()
     except Exception, e:
         print e
 
-INV_CHARS = [("Č", "C"), ("č", "c"), ("Ć", "c"), ("ć", "c"), ("Đ", "D"), ("đ", "d"), ("Š", "S"), ("š", "s"), ("Ž", "Z"), ("ž", "z")]
+INV_CHARS = [("Č", "C"), ("č", "c"), ("Ć", "c"), ("ć", "c"), ("Đ", "D"), ("đ", "d"), ("Š", "S"), ("š", "s"),
+             ("Ž", "Z"), ("ž", "z"), ("„", "\""), ("“", "\""), ("”", "\""), ("’", "'"), ("‘", "'")]
 
 def replaceInvalidChars(text):
     for ic in INV_CHARS:
         text = text.replace(ic[0], ic[1])
     return text
 
+def writeEIT(file_name, eit_file, name, overview, genre, extended_info, released, runtime):
+    _file = None
+    try:
+        data = []
+        name = replaceInvalidChars(name)
+        overview = replaceInvalidChars(overview)
+        extended_info = replaceInvalidChars(extended_info)
+        ShortEventDescriptor.encode(data, name, genre)
+        ExtendedEventDescriptor.encode(data, overview + "\n" + extended_info)
+        data = "".join(data)
+
+        if runtime:
+            rt = int(runtime)
+            h = rt / 60
+            m = rt - (60 * h)
+            runtime = (h << 8) | (m / 10) << 4 | (m % 10)
+        else:
+            runtime = 0x0130
+        
+        event_id = 0x0000
+        mjd = toMJD(released)
+        start_time = 0x0000 #0x1915
+        duration = runtime
+        _id = len(data) & 0x0fff
+        header = pack('>HHHBHBH', event_id, mjd, start_time, 0, duration, 0, _id)
+
+        _file = open(eit_file, "wb")
+        _file.write(header)
+        _file.write(data)
+        _file.close()
+        appendShortDescriptionToMeta(file_name, genre)
+        return True
+    except:
+        if _file is not None:
+            _file.close()
+        printStackTrace()
+        return False
+
 def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=False, movie=None):
-    file = None
     try:
         if title:
             title = title.replace('#', '')
@@ -446,42 +484,104 @@ def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=Fa
         print "Extended info:"
         print " " * 4, extended_info
         
-        data = []
-        name = replaceInvalidChars(name)
-        overview = replaceInvalidChars(overview)
-        extended_info = replaceInvalidChars(extended_info)
-        ShortEventDescriptor.encode(data, name, genre)
-        ExtendedEventDescriptor.encode(data, overview + "\n" + extended_info)
-        data = "".join(data)
-
-        if runtime:
-            rt = int(runtime)
-            h = rt / 60
-            m = rt - (60 * h)
-            runtime = (h << 8) | (m / 10) << 4 | (m % 10)
-        else:
-            runtime = 0x0130
-        
-        event_id = 0x0000
-        mjd = toMJD(released)
-        start_time = 0x0000 #0x1915
-        duration = runtime
-        id = len(data) & 0x0fff
-        header = pack('>HHHBHBH', event_id, mjd, start_time, 0, duration, 0, id)
-
-        file = open(eit_file, "wb")
-        file.write(header)
-        file.write(data)
-        file.close()
-        appendShortDescriptionToMeta(file_name, genre)
-        return True
+        return writeEIT(file_name, eit_file, name, overview, genre, extended_info, released, runtime)
     except:
-        if file is not None:
-            file.close()
         printStackTrace()
         return False
         
+def createEITtvdb(file_name, title, cover_type='poster', overwrite_jpg=False, overwrite_eit=False, serie=None, episode=None):
+    try:
+        # DVD directory
+        if not os.path.isdir(file_name):
+            f_name = os.path.splitext(file_name)[0]
+        else:
+            f_name = file_name
+        eit_file = f_name + ".eit"
+        jpg_file = f_name + ".jpg"
+        
+        if (os.path.exists(jpg_file) and overwrite_jpg == False) and (os.path.exists(eit_file) and overwrite_eit == False):
+            print "Info's already exists, download skipped!"
+            return True
 
+        if title:
+            title = title.replace('#', '')
+        print "Fetching info for movie: " + str(title)
+        
+        if serie == None:
+            results = tvdb.search(title)
+            if len(results) == 0:
+                print "No info found for: " + str(title)
+                return False
+            searchResult = results[0]
+            movie = tvdb.getMovieInfo(searchResult['id'])
+            serie = movie['Serie'][0]
+        
+        cover_url = serie[cover_type]
+        if not cover_url:
+            print "No Cover found for", str(title), "\n"
+        else:    
+            if os.path.exists(jpg_file) and overwrite_jpg == False:
+                print "File '%s' already exists, jpg download skipped!" % (jpg_file)
+            else:
+                urllib.urlretrieve (cover_url, jpg_file)
+
+        if os.path.exists(eit_file) and overwrite_eit == False:
+            print "File '%s' already exists, eit creation skipped!" % (eit_file)
+            return True 
+
+        name = serie['SeriesName']
+        overview = serie['Overview']
+        print "Series title:", str(name)
+        # Checking valid movie name
+        if not name or len(name) == 0:
+            print "tvdb search results no valid movie name"
+            return False
+        # Checking valid movie overview
+        if not overview or len(overview) == 0:
+            print "tvdb search results no valid movie overview"
+            return False
+
+        runtime = serie['Runtime']
+        genre = ""
+        if serie['Genre']:
+            genre = " ".join(serie['Genre'])
+
+        directors = None
+        actors = None
+        if serie['Actors']:
+            actors = serie['Actors']
+            
+        released = None
+        if serie['FirstAired']:
+            released = serie['FirstAired']     
+
+        ex_info = []
+        if released:
+            try:
+                year = released[0:4]
+                ex_info.append(year) 
+            except Exception, e:
+                print e
+
+        if runtime:
+            try:
+                rt = str(int(runtime))
+                ex_info.append(rt + " Min") 
+            except Exception, e:
+                print e
+        
+        if directors:
+            ex_info.append("Von " + ", ".join(directors))
+        if actors:
+            ex_info.append("Mit " + ", ".join(actors))
+        extended_info = ". ".join(ex_info)
+        print "Extended info:"
+        print " " * 4, extended_info
+
+        return writeEIT(file_name, eit_file, name, overview, genre, extended_info, released, runtime)
+    except:
+        printStackTrace()
+        return False
 
 class EventInformationTable:
     def __init__(self, path, no_info=False):
@@ -506,8 +606,8 @@ class EventInformationTable:
             #parental_rating_descriptor = []
             if os.path.exists(path):
                 print "EventInformationTable: " + path
-                file = open(path, "rb")
-                data = file.read(12)
+                _file = open(path, "rb")
+                data = _file.read(12)
                 # Section event_id 16 bits
                 self.event_id = unpack('>H', data[0:2])[0]
                 # Section start_time 40 bits
@@ -533,16 +633,16 @@ class EventInformationTable:
                 self.duration = (h + m) * 60
                 
                 if no_info:
-                    file.close()
+                    _file.close()
                     return
                 # Section running_status 3 bits, free_CA_mode 1 bit, descriptors_loop_length 12 bits
-                id = unpack('>H', data[10:12])[0]
-                self.running_status = id >> 13
-                self.free_CA_mode = (id >> 12) & 0x01
-                self.descriptors_loop_length = id & 0xFFF
+                _id = unpack('>H', data[10:12])[0]
+                self.running_status = _id >> 13
+                self.free_CA_mode = (_id >> 12) & 0x01
+                self.descriptors_loop_length = _id & 0xFFF
                 
-                data = file.read()
-                file.close()
+                data = _file.read()
+                _file.close()
                 pos = 0
                 while pos < len(data):
                     rec = ord(data[0])
@@ -603,10 +703,10 @@ def detectDVDStructure(loadPath):
     return None
 
 class eServiceReference():
-    def __init__(self, dummy_self, file=None):
-        if file == None:
-            file = dummy_self
-        self.file = str(file).split("4097:0:0:0:0:0:0:0:0:0:")[1]
+    def __init__(self, dummy_self, _file=None):
+        if _file == None:
+            _file = dummy_self
+        self.file = str(_file).split("4097:0:0:0:0:0:0:0:0:0:")[1]
         self.name = os.path.basename(self.file).rsplit(".")[0]
         if os.path.isdir(self.file) and self.file[-1] != '/':
             self.file += "/"
@@ -640,8 +740,8 @@ class eServiceReferenceDvd(eServiceReference):
             return [self.getPath()]
 
 def checkCreateMetaFile(ref):
-    file = ref.getPath() + ".ts.meta"
-    if not os.path.exists(file):
+    _file = ref.getPath() + ".ts.meta"
+    if not os.path.exists(_file):
         if os.path.isfile(ref.getPath()):
             title = os.path.basename(os.path.splitext(ref.getPath())[0])
         else:
@@ -650,7 +750,7 @@ def checkCreateMetaFile(ref):
         descr = ""
         time = ""
         tags = ""
-        metafile = open(file, "w")
+        metafile = open(_file, "w")
         metafile.write("%s\r\n%s\r\n%s\r\n%s\r\n%s" % (sid, title, descr, time, tags))
         metafile.close()
 
@@ -670,13 +770,13 @@ class ServiceInfo:
                     self.name = serviceref.getName()
                 return
             if os.path.exists(serviceref.getPath() + ".ts.meta"):
-                file = open(serviceref.getPath() + ".ts.meta", "r")
-                file.readline()
-                self.name = file.readline().rstrip("\r\n")
-                self.description = file.readline().rstrip("\r\n")
-                file.readline()
-                self.tags = file.readline().rstrip("\r\n")
-                file.close()
+                _file = open(serviceref.getPath() + ".ts.meta", "r")
+                _file.readline()
+                self.name = _file.readline().rstrip("\r\n")
+                self.description = _file.readline().rstrip("\r\n")
+                _file.readline()
+                self.tags = _file.readline().rstrip("\r\n")
+                _file.close()
         except Exception, e:
             print "Exception in load meta data: " + str(e)
 
@@ -699,7 +799,8 @@ if __name__ == '__main__':
     supported = ["ts", "iso", "mkv"]
     path = "./tmp/"
     dirList = os.listdir(path)
-    createEIT("./tmp/Largo Winch II.ts", "Largo Winch II", "cover", overwrite_eit=True)
+    #createEIT("./tmp/Largo Winch II.ts", "Largo Winch II", "cover", overwrite_eit=True)
+    createEITtvdb("./tmp/King of Queens.ts", "King of Queens", overwrite_eit=True)
     if False:
         for file_name in dirList:
             file_name = path + file_name

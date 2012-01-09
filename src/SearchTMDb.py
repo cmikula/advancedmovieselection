@@ -28,7 +28,7 @@ from Components.Sources.StaticText import StaticText
 from Components.Pixmap import Pixmap
 from os import path as os_path, mkdir as os_mkdir, rename as os_rename
 from Tools.LoadPixmap import LoadPixmap
-from enigma import ePicLoad
+from enigma import ePicLoad, eTimer
 from Components.Label import Label
 from Components.ScrollLabel import ScrollLabel
 from Components.AVSwitch import AVSwitch
@@ -39,9 +39,24 @@ from shutil import rmtree as shutil_rmtree
 from enigma import getDesktop
 import tmdb, urllib
 from Components.ProgressBar import ProgressBar
+import shutil
+from os import environ
+from ServiceProvider import PicLoader
+from Tools.Directories import fileExists
 
 tmdb_logodir = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images"
-IMAGE_TEMPFILE = "/tmp/cover_temp"
+IMAGE_TEMPFILE = "/tmp/TMDb_temp"
+
+if environ["LANGUAGE"] == "de" or environ["LANGUAGE"] == "de_DE":
+    nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_de.png")
+else:
+    nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_en.png")
+
+if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/YTTrailer/plugin.pyo"):
+    from Plugins.Extensions.YTTrailer.plugin import YTTrailerList
+    YTTrailerPresent = True
+else:
+    YTTrailerPresent = False
 
 class TMDbList(GUIComponent, object):
     def __init__(self):
@@ -53,6 +68,7 @@ class TMDbList(GUIComponent, object):
         self.l.setItemHeight(140)
         if not os_path.exists(IMAGE_TEMPFILE):
             os_mkdir(IMAGE_TEMPFILE)
+        self.picloader = PicLoader(92, 138)
 
     def buildMovieSelectionListEntry(self, movie, id):
         width = self.l.getItemSize().width()
@@ -75,14 +91,14 @@ class TMDbList(GUIComponent, object):
         if len(images) > 0:
             cover_url = images[0]['thumb']
         if not cover_url:
-            print "No Cover found for", str(name), "\n"
+            png = self.picloader.load(nocover)
+            res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 1, 92, 138, png))
         else:    
             parts = cover_url.split("/")
             filename = os_path.join(IMAGE_TEMPFILE , id + parts[-1])
             urllib.urlretrieve(cover_url, filename)
-            png = LoadPixmap(cached=True, path=filename)
+            png = self.picloader.load(filename)
             res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 1, 92, 138, png))
-
         res.append((eListboxPythonMultiContent.TYPE_TEXT, 100, 5, width - 100 , 20, 0, RT_HALIGN_LEFT | RT_VALIGN_CENTER, "%s" % name.encode('utf-8', 'ignore')))
         res.append((eListboxPythonMultiContent.TYPE_TEXT, width - 140, 5, 130 , 20, 1, RT_HALIGN_RIGHT | RT_VALIGN_CENTER, "%s" % released_text))
         res.append((eListboxPythonMultiContent.TYPE_TEXT, 100, 30, width - 100, 100, 1, RT_WRAP, "%s" % overview))
@@ -93,9 +109,9 @@ class TMDbList(GUIComponent, object):
             print "[TMDbList] Error: ", str(error.getErrorMessage())
 
     def finishedThumbDownload(self, result, temp_filename, filename, index):
-        try: # if you scroll too fast, a thumb-download is started twice...
+        try: 
             os_rename (temp_filename, filename)
-        except: pass # i do not care for errors...
+        except: pass
         else:
             self.l.invalidateEntry(index)
 
@@ -116,36 +132,6 @@ class TMDbList(GUIComponent, object):
     def getCurrent(self):
         return self.l.getCurrentSelection()
 
-class Moviecover(Pixmap):
-    def __init__(self, callback=None):
-        Pixmap.__init__(self)
-        self.coverFileName = ""
-        if callback:
-            self.callback = callback
-        self.picload = ePicLoad()
-        self.picload.PictureData.get().append(self.paintIconPixmapCB)
-
-    def onShow(self):
-        Pixmap.onShow(self)
-        sc = AVSwitch().getFramebufferScale()
-        self.picload.setPara((self.instance.size().width(), self.instance.size().height(), sc[0], sc[1], False, 1, "#00000000"))
-
-    def paintIconPixmapCB(self, picInfo=None):
-        ptr = self.picload.getData()
-        if ptr != None:
-            self.instance.setPixmap(ptr.__deref__())
-            if self.callback:
-                self.callback()
-
-    def updatecover(self, filename):
-        new_coverFileName = filename
-        if (self.coverFileName != new_coverFileName):
-            self.coverFileName = new_coverFileName
-            self.picload.startDecode(self.coverFileName)
-        else:
-            if self.callback:
-                self.callback()
-
 class TMDbMain(Screen):
     def __init__(self, session, searchTitle, service):
         Screen.__init__(self, session)
@@ -163,8 +149,8 @@ class TMDbMain(Screen):
         self["list"] = TMDbList()
         self["actions"] = ActionMap(["WizardActions", "DirectionActions", "ColorActions", "EPGSelectActions", "InfobarActions"],
         {
-            "ok": self.blue_pressed,
-            "back": self.red_pressed,
+            "ok": self.green_pressed,
+            "back": self.cancel,
             "green": self.green_pressed,
             "red": self.red_pressed,
             "blue": self.blue_pressed,
@@ -174,13 +160,15 @@ class TMDbMain(Screen):
             "downUp": self.pageDown,
             "rightUp": self.pageDown,
         }, -1)
-        self["key_red"] = StaticText(_("Close"))
+        self["key_red"] = StaticText("")
         self["key_green"] = StaticText("")
-        self["key_yellow"] = StaticText(_("Manual search"))
-        self["key_blue"] = StaticText(_("Extended Info"))
+        self["key_yellow"] = StaticText("")
+        self["key_blue"] = StaticText("")
         self["tmdblogo"] = Pixmap()
-        self["cover"] = Moviecover(self.moviecoverPainted)
+        self["cover"] = Pixmap()
         self["cover"].hide()
+        self.picload = ePicLoad()
+        self.picload.PictureData.get().append(self.paintCoverPixmapCB)
         self["description"] = ScrollLabel()
         self["extended"] = Label()
         self["status"] = Label()
@@ -189,29 +177,59 @@ class TMDbMain(Screen):
         self["stars"].hide()
         self["no_stars"].hide()
         self["vote"] = Label()
+        self["button_red"] = Pixmap()
+        self["button_red"].hide() 
+        self["button_green"] = Pixmap()
+        self["button_green"].hide()        
+        self["button_yellow"] = Pixmap()
+        self["button_yellow"].hide()
         self["button_blue"] = Pixmap()
         self["button_blue"].hide()
+        self["result_txt"] = Label()
+        self["result_txt"].hide()
+        self.resultlist_lock_flag = None
         self.ratingstars = -1
         self.searchTitle = searchTitle
         self.downloadItems = {}
         self.useTMDbInfoAsEventInfo = True
-        self.onFirstExecBegin.append(self.searchForMovies)
+        self.timer = eTimer()
+        self.timer.callback.append(self.searchForMovies)
+        self.onClose.append(self.deleteTempDir)
+        self.onLayoutFinish.append(self.layoutFinished)
+        self.startSearch()
+
+    def layoutFinished(self):
+        sc = AVSwitch().getFramebufferScale()
+        self.picload.setPara((self["cover"].instance.size().width(), self["cover"].instance.size().height(), sc[0], sc[1], False, 1, "#00000000"))
+
+    def deleteTempDir(self):
+        try:
+            shutil.rmtree(IMAGE_TEMPFILE)
+        except Exception, e:
+            print "[AdvancedMovieSelection] ERROR deleting:", IMAGE_TEMPFILE
+            print e
+
+    def startSearch(self):
+        self.setTitle(_("TMDb Info & D/L"))
+        self["status"].setText(_("Searching for ' %s ' on TMDb, please wait ...") % self.searchTitle)
+        self["status"].show()
+        self.timer.start(100, True)
+
+    def cancel(self, retval = None):
+        self.close(False)
 
     def searchForMovies(self):
-        self["status"].setText(_("Searching for '%s' from TMDb...") % self.searchTitle)
-        self.setTitle(_("TMDb search for: %s") % self.searchTitle)
+        self.resultlist_lock_flag = True
+        self.setTitle(_("TMDb Info for: %s") % self.searchTitle)
         self["description"].hide()
         self["cover"].hide()
         self["extended"].hide()
         self["list"].hide()
         self["status"].show()
         self["tmdblogo"].instance.setPixmapFromFile("%s/tmdb.png" % tmdb_logodir)
-        self["tmdblogo"].show()
-        self["key_green"].text = ""
-        self["key_blue"].text = ""        
+        self["tmdblogo"].show()  
         try:
             results = tmdb.search(self.searchTitle)
-            # If no result found, Split the search title before " - " and search again 
             if len(results) == 0 and " - " in self.searchTitle:
                 title = self.searchTitle.split(" - ")[0].strip()
                 results = tmdb.search(title)
@@ -230,10 +248,26 @@ class TMDbMain(Screen):
             if len(results) == 0:
                 self["status"].setText(_("No data found at themoviedb.org!"))
                 self.session.openWithCallback(self.askForSearchCallback, MessageBox, _("No data found at themoviedb.org!\nDo you want to edit the search name?"))
-                return            
-            self["key_green"].text = _("Save movie info/cover")
-            self["key_blue"].text = _("Extended Info")
-            self["button_blue"].show()
+                self["key_yellow"].setText(_("Manual search"))
+                self["button_yellow"].show()
+                return 
+            self["vote"].hide()
+            self["stars"].hide()
+            self["no_stars"].hide()
+            self["result_txt"].setText(_("Search results:"))
+            self["result_txt"].show()
+            self["key_red"].setText(_("Save movie info/cover"))
+            self["key_green"].setText(_("Extended Info"))
+            self["key_yellow"].setText(_("Manual search"))
+            if YTTrailerPresent:
+                self["key_blue"].setText(_("Trailer search"))
+                self["button_blue"].show()
+            else:
+                self["key_blue"].setText("")
+                self["button_blue"].hide()                
+            self["button_red"].show()
+            self["button_green"].show()
+            self["button_yellow"].show()
             self["status"].setText("")
             self["status"].hide()
             movies = []
@@ -256,39 +290,32 @@ class TMDbMain(Screen):
         if val:
             self.yellow_pressed()
         else:
-            self.red_pressed()
-
-    def yellow_pressed(self):
-        self.session.openWithCallback(self.newSearchFinished, VirtualKeyBoard, title=_("Enter new moviename to search for"), text=self.searchTitle)
+            self.close()
 
     def newSearchFinished(self, text=None):
         if text:
             self.searchTitle = text
             self.searchForMovies()
 
-    def red_pressed(self):
-        if os_path.exists(IMAGE_TEMPFILE):
-            shutil_rmtree(IMAGE_TEMPFILE)
-        self.close(None)
-
-    def blue_pressed(self):
-        cur = self["list"].getCurrent()
-        if cur is not None:
-            self["list"].hide()
-            self["status"].setText(_("Getting movie information for '%s' from TMDb...") % cur[1].encode('utf-8', 'ignore'))
-            self["status"].show()
-            self.getMovieInfo(cur[0])
-
     def getMovieInfo(self, movie):
+        self.resultlist_lock_flag = False
         if movie:
+            self["result_txt"].hide()
             self["vote"].hide()
             self["status"].hide()
             self["list"].hide()
-            self["key_blue"].text = ""
-            self["key_green"].text = ""
-            self["key_green"].text = _("Save movie info/cover")
-            self["key_yellow"].text = _("Manual search")
-            self["button_blue"].hide()
+            self["key_red"].setText(_("Save movie info/cover"))
+            self["button_red"].show()
+            self["button_green"].show()
+            self["key_green"].setText(_("Show search results"))
+            self["key_yellow"].setText(_("Manual search"))
+            if YTTrailerPresent:
+                self["key_blue"].setText(_("Trailer search"))
+                self["button_blue"].show()
+            else:
+                self["key_blue"].setText("")
+                self["button_blue"].hide() 
+            self["button_yellow"].show()
             self["description"].show()
             self["extended"].show()
             extended = ""
@@ -299,7 +326,7 @@ class TMDbMain(Screen):
             rating = movie["rating"]
             runtime = movie["runtime"]
             last_modified_at = movie["last_modified_at"]
-            self.setTitle(_("TMDb movie info for: %s") % name)
+            self.setTitle(_("TMDb details for: %s") % name)
             if description:
                 description_text = description.encode('utf-8', 'ignore')
                 self["description"].setText(description_text)
@@ -310,12 +337,14 @@ class TMDbMain(Screen):
             if len(images) > 0:
                 cover_url = images[0]['thumb']
             if not cover_url:
-                print "No Cover found for", str(name), "\n"
+                self.setCover(nocover)
             else:    
                 parts = cover_url.split("/")
                 filename = os_path.join(IMAGE_TEMPFILE , movie['id'] + parts[-1])
                 if os_path.exists(filename):
-                    self["cover"].updatecover(filename)
+                    self.setCover(filename)
+                else:
+                    self.setCover(nocover)
             if released:
                 extended = (_("Appeared: %s") % released) + ' / '
             if runtime:
@@ -384,8 +413,13 @@ class TMDbMain(Screen):
                 self["extended"].setText(_("Unknown error!!"))
             if movie.has_key("votes"):
                 vote = movie["votes"].encode('utf-8','ignore')
-                self["vote"].setText(_("Voted: %s") % (vote) + ' ' + _("times"))
-                self["vote"].show()
+                if not vote == "0":
+                    self["vote"].setText(_("Voted: %s") % (vote) + ' ' + _("times"))
+                    self["vote"].show()
+                else:
+                    self["vote"].hide()
+                    self["stars"].hide()
+                    self["no_stars"].hide()  
 
     def errorCoverDownload(self, error=None):
         if error is not None:
@@ -394,9 +428,16 @@ class TMDbMain(Screen):
 
     def finishedCoverDownload(self, result, filename):
         self["cover"].updatecover(filename)
-        
-    def moviecoverPainted(self):
-        self["cover"].show()
+
+    def setCover(self, image):
+        filename = image
+        self.picload.startDecode(filename)
+
+    def paintCoverPixmapCB(self, picInfo=None):
+        ptr = self.picload.getData()
+        if ptr != None:
+            self["cover"].instance.setPixmap(ptr.__deref__())
+            self["cover"].show()
 
     def checkConnection(self):
         try:
@@ -407,7 +448,7 @@ class TMDbMain(Screen):
             self.session.openWithCallback(self.close, MessageBox, _("No internet connection available!"), MessageBox.TYPE_ERROR)
             return False
 
-    def green_pressed(self):
+    def red_pressed(self):
         if self.checkConnection() == False or not self["list"].getCurrent():
             return
         from EventInformationTable import createEIT
@@ -418,3 +459,29 @@ class TMDbMain(Screen):
             self.close(False)
         else:
             self.session.openWithCallback(self.close, MessageBox, _("Sorry, no info/cover found for title: %s") % (title), MessageBox.TYPE_ERROR)
+
+    def green_pressed(self):
+        if self.resultlist_lock_flag:
+            cur = self["list"].getCurrent()
+            if cur is not None:
+                self["list"].hide()
+                self["status"].setText(_("Getting movie information for '%s' from TMDb...") % cur[1].encode('utf-8', 'ignore'))
+                self["status"].show()
+                self.getMovieInfo(cur[0])
+        else:
+            self.searchForMovies()
+
+    def yellow_pressed(self):
+        self.session.openWithCallback(self.newSearchFinished, VirtualKeyBoard, title=_("Enter new moviename to search for"), text=self.searchTitle)
+
+    def blue_pressed(self):
+        if self.resultlist_lock_flag:
+            cur = self["list"].getCurrent()
+            if cur is not None:
+                cur_tmp = cur[0]
+                eventname = cur_tmp['name']
+                self.session.open(YTTrailerList, eventname)
+        else:
+            eventname = self.searchTitle
+            self.session.open(YTTrailerList, eventname) 
+        
