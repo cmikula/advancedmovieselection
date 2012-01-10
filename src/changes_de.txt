@@ -214,8 +214,8 @@ version 2.4
 ACHTUNG an die skinner, bei den screens AdvancedMovieSelectionTrashHD, AdvancedMovieSelectionTrashXD, AdvancedMovieSelectionTrashSD, TMDbMainHD, TMDbMainXD und TMDbMainSD gab es änderungen
 
 version 2.5
-* neu: suchen und speichern von filminfo/cover über thetvdb.com (@thetvdb.com thx for the api key)
-* geändert: viele interne funktionen bei tmdb suche & d/l
+* neu: suchen und speichern von info/cover über thetvdb.com (@thetvdb.com thx for the api key)
+* geändert: viele interne funktionen bei tmdb info & d/l
 ACHTUNG an die skinner,TMDbMainHD, TMDbMainXD,TMDbMainSD gab es änderungen, die screens TheTVDBMainHD, TheTVDBMainXD,und TheTVDBMainSD sind neu
 
 

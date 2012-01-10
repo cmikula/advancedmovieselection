@@ -14,12 +14,13 @@
             <widget name="description" position="60,400" zPosition="2" size="1160,235" font="Regular;24" transparent="1"/>
             <widget name="description_episode" position="60,355" zPosition="2" size="1160,300" font="Regular;24" transparent="1"/>
             <widget name="status" position="0,0" size="1280,720" zPosition="2" font="Regular;24" transparent="1" valign="center" halign="center"/> 
+            <widget name="seperator" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/seperator.png" position="60,650" size="1160,2" alphatest="on"/>
             <widget name="button_red" pixmap="skin_default/buttons/button_red.png" position="60,657" size="15,16" alphatest="on"/>
-            <widget name="button_green" pixmap="skin_default/buttons/button_green.png" position="320,657" size="15,16" alphatest="on"/>
+            <widget name="button_green" pixmap="skin_default/buttons/button_green.png" position="360,657" size="15,16" alphatest="on"/>
             <widget name="button_yellow" pixmap="skin_default/buttons/button_yellow.png" position="650,657" size="15,16" alphatest="on"/>
             <widget name="button_blue" pixmap="skin_default/buttons/button_blue.png" position="900,657" size="15,16" alphatest="on"/>
             <widget source="key_red" render="Label" position="80,652" zPosition="1" size="300,28" font="Regular;24" halign="left" transparent="1"/>
-            <widget source="key_green" render="Label" position="340,652" zPosition="1" size="300,28" font="Regular;24" halign="left" transparent="1"/>
+            <widget source="key_green" render="Label" position="380,652" zPosition="1" size="300,28" font="Regular;24" halign="left" transparent="1"/>
             <widget source="key_yellow" render="Label" position="670,652" zPosition="1" size="300,28" font="Regular;24" halign="left" transparent="1"/>
             <widget source="key_blue" render="Label" position="920,652" zPosition="1" size="300,28" font="Regular;24" halign="left" transparent="1"/>
     </screen>
@@ -38,6 +39,7 @@
             <widget name="description" position="60,350" zPosition="2" size="904,175" font="Regular;20" transparent="1"/>
             <widget name="description_episode" position="60,310" zPosition="2" size="904,210" font="Regular;20" transparent="1"/>
             <widget name="status" position="0,0" size="1024,576" zPosition="2" font="Regular;22" transparent="1" valign="center" halign="center"/> 
+            <widget name="seperator" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/seperator.png" position="60,518" size="904,2" alphatest="on"/>
             <widget name="button_red" pixmap="skin_default/buttons/button_red.png" position="60,525" size="15,16" alphatest="on"/>
             <widget name="button_green" pixmap="skin_default/buttons/button_green.png" position="320,525" size="15,16" alphatest="on"/>
             <widget name="button_yellow" pixmap="skin_default/buttons/button_yellow.png" position="550,525" size="15,16" alphatest="on"/>
@@ -47,7 +49,8 @@
             <widget source="key_yellow" render="Label" position="570,520" zPosition="1" size="300,28" font="Regular;20" halign="left" transparent="1"/>
             <widget source="key_blue" render="Label" position="750,520" zPosition="1" size="300,28" font="Regular;20" halign="left" transparent="1"/>
     </screen>
-        <screen name="TheTVDBMain" position="center,center" title=" " size="560,445">
+        <screen name="TheTVDBMainSD" position="center,center" title=" " size="560,445">
+            <widget name="seperator" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/seperator.png" position="0,0" size="0,0" alphatest="on"/>
             <widget name="button_red" pixmap="skin_default/buttons/red.png" position="0,0" size="140,40" alphatest="on"/>
             <widget name="button_green" pixmap="skin_default/buttons/green.png" position="140,0" size="140,40" alphatest="on"/>
             <widget name="button_yellow" pixmap="skin_default/buttons/yellow.png" position="280,0" size="140,40" alphatest="on"/>
