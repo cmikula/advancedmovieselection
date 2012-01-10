@@ -222,6 +222,8 @@ class TheTVDBMain(Screen):
         self["list"].hide()
         self["episodes_list"] = EpisodesList()
         self["episodes_list"].hide()
+        self["seperator"] = Pixmap()
+        self["seperator"].hide()
         self["setupActions"] = ActionMap([ "ColorActions", "DirectionActions", "SetupActions", "OkCancelActions" ],
         {
             "exit": self.cancel,
@@ -240,6 +242,8 @@ class TheTVDBMain(Screen):
         self["key_green"] = StaticText("")
         self["key_yellow"] = StaticText("")
         self["key_blue"] = StaticText("")
+        self.SearchCount = None
+        self.EpisodeCount = None
         self.Result_list_lock_flag = None
         self.Show_Details_lock_flag = None
         self.Episodes_lock_flag = None
@@ -299,7 +303,17 @@ class TheTVDBMain(Screen):
         if len(tmpList) > 0:
             self["list"].setList(tmpList)
             self["list"].show()
-            self["result_txt"].setText(_("Search results:"))            
+            self.SearchCount = 0 
+            for x in tmpList:
+                if x:
+                    self.SearchCount = self.SearchCount + 1
+            if self.SearchCount == 1:
+                txt = (_("Total %s") % self.SearchCount + ' ' + _("show found"))
+            else:
+                txt = (_("Total %s") % self.SearchCount + ' ' + _("shows found"))
+            self["result_txt"].setText(txt)   
+            self["seperator"].show()
+            #self["result_txt"].setText(_("Search results:"))            
             self["key_red"].setText(_("Info/Cover save"))
             self["button_red"].show()
             self["button_green"].show()
@@ -362,6 +376,7 @@ class TheTVDBMain(Screen):
             except Exception, e:
                 print e
         if len(tmpEpisodeList) > 0:
+            self["seperator"].show()
             self["extended_episode"].hide()
             self["banner"].hide()
             self["cover"].hide()
@@ -373,7 +388,16 @@ class TheTVDBMain(Screen):
             self["extended"].hide()
             self["episodes_list"].setList(tmpEpisodeList)
             self["episodes_list"].show()
-            self["result_txt"].setText(_("Episodes overview:"))
+            self.EpisodeCount = 0 
+            for x in tmpEpisodeList:
+                if x:
+                    self.EpisodeCount = self.EpisodeCount + 1
+            if self.SearchCount == 1:
+                txt = (_("Total %s") % self.EpisodeCount + ' ' + _("episode found"))
+            else:
+                txt = (_("Total %s") % self.EpisodeCount + ' ' + _("episodes found"))
+            self["result_txt"].setText(txt)
+            #self["result_txt"].setText(_("Episodes overview:"))
             self["result_txt"].show()
             self["button_green"].show()
             self["key_green"].setText(_("Display show details"))
@@ -427,6 +451,7 @@ class TheTVDBMain(Screen):
                 else:
                     cover_file = ""
                     self.setBanner(cover_file)
+                self["seperator"].show()
                 self["banner"].show()
                 self["cover"].hide()
                 self["description_episode"].setText(overview)
@@ -464,6 +489,7 @@ class TheTVDBMain(Screen):
             
             cover_file = self.downloadCover(serie)
             self.setPoster(cover_file)
+            self["seperator"].show()
             self["banner"].hide()
             self["description_episode"].hide()
             self["extended_episode"].hide()

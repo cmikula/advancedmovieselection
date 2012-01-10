@@ -216,7 +216,7 @@ ACHTUNG an die skinner, bei den screens AdvancedMovieSelectionTrashHD, AdvancedM
 version 2.5
 * neu: suchen und speichern von filminfo/cover über thetvdb.com (@thetvdb.com thx for the api key)
 * geändert: viele interne funktionen bei tmdb suche & d/l
-ACHTUNG an die skinner,TMDbMainHD, TMDbMainXD,TMDbMainSD gab es änderungen, die screens .......
+ACHTUNG an die skinner,TMDbMainHD, TMDbMainXD,TMDbMainSD gab es änderungen, die screens TheTVDBMainHD, TheTVDBMainXD,und TheTVDBMainSD sind neu
 
 
 
