@@ -1,6 +1,7 @@
 <skin>
         <screen name="TheTVDBMainHD" position="center,center" title="" size="1280,720" flags="wfNoBorder">
             <widget source="Title" render="Label" position="60,40" size="1160,30" font="Regular;26" transparent="1"/>
+            <widget name="thetvdb_logo" position="1045,40" zPosition="4" size="175,54" transparent="1" alphatest="on"/>
             <widget name="no_stars" position="60,74" size="210,21" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/starsbar_empty.png" zPosition="0" transparent="1" alphatest="blend"/>
             <widget name="stars" position="60,74" size="210,21" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/starsbar_filled.png" transparent="1"/>
             <widget name="voted" position="280,71" zPosition="2" size="300,28" font="Regular;23" transparent="1"/>
@@ -26,6 +27,7 @@
     </screen>
         <screen name="TheTVDBMainXD" position="center,center" title="" size="1024,576" flags="wfNoBorder">
             <widget source="Title" render="Label" position="60,40" size="904,30" font="Regular;24" transparent="1"/>
+            <widget name="thetvdb_logo" position="789,40" zPosition="4" size="175,54" transparent="1" alphatest="on"/>
             <widget name="result_txt" position="60,70" size="904,25" zPosition="2" font="Regular;20" transparent="1" valign="top" halign="center"/> 
             <widget name="list" position="60,100" zPosition="2" size="904,420" scrollbarMode="showOnDemand" transparent="1" enableWrapAround="1"/>
             <widget name="episodes_list" position="60,100" zPosition="2" size="904,420" scrollbarMode="showOnDemand" transparent="1" enableWrapAround="1"/>
@@ -72,6 +74,7 @@
             <widget name="description" position="0,270" zPosition="2" size="560,175" font="Regular;18" transparent="1"/>
             <widget name="description_episode" position="0,285" zPosition="2" size="560,290" font="Regular;18" transparent="1"/>
             <widget name="status" position="0,0" size="560,445" zPosition="2" font="Regular;20" transparent="1" valign="center" halign="center"/> 
+            <widget name="thetvdb_logo" position="192,391" zPosition="4" size="175,54" transparent="1" alphatest="on"/>
     </screen>
         <screen name="AdvancedMovieSelection_ClientSetup_HD" position="center,center" size="1280,720" title=" " flags="wfNoBorder">
             <widget source="global.CurrentTime" render="Label" position="1140,40" size="80,26" font="Regular;26" halign="right"  transparent="1">

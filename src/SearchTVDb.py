@@ -46,6 +46,7 @@ import tvdb
 import shutil
 
 temp_dir = "/tmp/TheTVDB_temp/"
+logodir = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images"
 
 if environ["LANGUAGE"] == "de" or environ["LANGUAGE"] == "de_DE":
     nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_de.png")
@@ -224,6 +225,8 @@ class TheTVDBMain(Screen):
         self["episodes_list"].hide()
         self["seperator"] = Pixmap()
         self["seperator"].hide()
+        self["thetvdb_logo"] = Pixmap()
+        self["thetvdb_logo"].hide()
         self["setupActions"] = ActionMap([ "ColorActions", "DirectionActions", "SetupActions", "OkCancelActions" ],
         {
             "exit": self.cancel,
@@ -312,8 +315,7 @@ class TheTVDBMain(Screen):
             else:
                 txt = (_("Total %s") % self.SearchCount + ' ' + _("shows found"))
             self["result_txt"].setText(txt)   
-            self["seperator"].show()
-            #self["result_txt"].setText(_("Search results:"))            
+            self["seperator"].show()        
             self["key_red"].setText(_("Info/Cover save"))
             self["button_red"].show()
             self["button_green"].show()
@@ -323,6 +325,8 @@ class TheTVDBMain(Screen):
             self["key_blue"].setText(_("Display episodes list"))
             self["button_blue"].show()
             self["status"].hide()
+            self["thetvdb_logo"].instance.setPixmapFromFile("%s/thetvdb_logo.png" % logodir)
+            self["thetvdb_logo"].show()
         else:
             if " - " in searchTitle:
                 self.searchTitle = searchTitle.split(" - ")[0].strip()
@@ -337,6 +341,8 @@ class TheTVDBMain(Screen):
                 self["button_blue"].hide()
                 self["status"].setText(_("Sorry, no data found at TheTVDB.com!"))
                 self["status"].show()
+                self["thetvdb_logo"].instance.setPixmapFromFile("%s/thetvdb_logo.png" % logodir)
+                self["thetvdb_logo"].show()
 
     def getEpisodeList(self):
         self.Result_list_lock_flag = False
@@ -376,6 +382,8 @@ class TheTVDBMain(Screen):
             except Exception, e:
                 print e
         if len(tmpEpisodeList) > 0:
+            self["thetvdb_logo"].instance.setPixmapFromFile("%s/thetvdb_logo.png" % logodir)
+            self["thetvdb_logo"].show()
             self["seperator"].show()
             self["extended_episode"].hide()
             self["banner"].hide()
@@ -392,12 +400,11 @@ class TheTVDBMain(Screen):
             for x in tmpEpisodeList:
                 if x:
                     self.EpisodeCount = self.EpisodeCount + 1
-            if self.SearchCount == 1:
+            if self.EpisodeCount == 1:
                 txt = (_("Total %s") % self.EpisodeCount + ' ' + _("episode found"))
             else:
                 txt = (_("Total %s") % self.EpisodeCount + ' ' + _("episodes found"))
             self["result_txt"].setText(txt)
-            #self["result_txt"].setText(_("Episodes overview:"))
             self["result_txt"].show()
             self["button_green"].show()
             self["key_green"].setText(_("Display show details"))
@@ -461,6 +468,7 @@ class TheTVDBMain(Screen):
                 self["extended_episode"].setText(extended)
                 self["extended_episode"].show()
                 self["key_blue"].setText(_("Display episodes list"))
+                self["thetvdb_logo"].hide()
             except Exception, e:
                 print e
 
@@ -511,7 +519,7 @@ class TheTVDBMain(Screen):
             self["key_blue"].setText(_("Display episodes list"))
             self["button_blue"].show()
             self["description_episode"].hide()
-    
+            self["thetvdb_logo"].hide()
             extended = ""
             first_aired = TheTVDBMain.convert_date(serie['FirstAired']) 
             if first_aired: 
