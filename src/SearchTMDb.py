@@ -149,7 +149,7 @@ class TMDbMain(Screen):
         self["list"] = TMDbList()
         self["actions"] = ActionMap(["WizardActions", "DirectionActions", "ColorActions", "EPGSelectActions", "InfobarActions"],
         {
-            "ok": self.green_pressed,
+            "ok": self.red_pressed,
             "back": self.cancel,
             "green": self.green_pressed,
             "red": self.red_pressed,
@@ -219,15 +219,17 @@ class TMDbMain(Screen):
         self.close(False)
 
     def searchForMovies(self):
-        self.resultlist_lock_flag = True
         self.setTitle(_("TMDb Info for: %s") % self.searchTitle)
+        self["tmdblogo"].instance.setPixmapFromFile("%s/tmdb.png" % tmdb_logodir)
+        self["tmdblogo"].show()  
+
         self["description"].hide()
         self["cover"].hide()
         self["extended"].hide()
         self["list"].hide()
-        self["status"].show()
-        self["tmdblogo"].instance.setPixmapFromFile("%s/tmdb.png" % tmdb_logodir)
-        self["tmdblogo"].show()  
+        self["vote"].hide()
+        self["stars"].hide()
+        self["no_stars"].hide()
         try:
             results = tmdb.search(self.searchTitle)
             if len(results) == 0 and " - " in self.searchTitle:
@@ -247,17 +249,14 @@ class TMDbMain(Screen):
                     self.searchTitle = title
             if len(results) == 0:
                 self["status"].setText(_("No data found at themoviedb.org!"))
-                self.session.openWithCallback(self.askForSearchCallback, MessageBox, _("No data found at themoviedb.org!\nDo you want to edit the search name?"))
                 self["key_yellow"].setText(_("Manual search"))
                 self["button_yellow"].show()
+                self.session.openWithCallback(self.askForSearchCallback, MessageBox, _("No data found at themoviedb.org!\nDo you want to edit the search name?"))
                 return 
-            self["vote"].hide()
-            self["stars"].hide()
-            self["no_stars"].hide()
             self["result_txt"].setText(_("Search results:"))
             self["result_txt"].show()
-            self["key_red"].setText(_("Save movie info/cover"))
-            self["key_green"].setText(_("Extended Info"))
+            self["key_red"].setText(_("Extended Info"))
+            self["key_green"].setText(_("Save movie info/cover"))
             self["key_yellow"].setText(_("Manual search"))
             if YTTrailerPresent:
                 self["key_blue"].setText(_("Trailer search"))
@@ -268,8 +267,6 @@ class TMDbMain(Screen):
             self["button_red"].show()
             self["button_green"].show()
             self["button_yellow"].show()
-            self["status"].setText("")
-            self["status"].hide()
             movies = []
             for searchResult in results:
                 id = searchResult['id']
@@ -278,7 +275,10 @@ class TMDbMain(Screen):
             self["list"].show()
         except Exception, e:
             self["status"].setText(_("Error!\n%s" % e))
+            self["status"].show()
             return
+        self["status"].hide()
+        self.resultlist_lock_flag = True
         
     def pageUp(self):
         self["description"].pageUp()
@@ -304,10 +304,10 @@ class TMDbMain(Screen):
             self["vote"].hide()
             self["status"].hide()
             self["list"].hide()
-            self["key_red"].setText(_("Save movie info/cover"))
+            self["key_red"].setText(_("Show search results"))
             self["button_red"].show()
             self["button_green"].show()
-            self["key_green"].setText(_("Show search results"))
+            self["key_green"].setText(_("Save movie info/cover"))
             self["key_yellow"].setText(_("Manual search"))
             if YTTrailerPresent:
                 self["key_blue"].setText(_("Trailer search"))
@@ -448,7 +448,7 @@ class TMDbMain(Screen):
             self.session.openWithCallback(self.close, MessageBox, _("No internet connection available!"), MessageBox.TYPE_ERROR)
             return False
 
-    def red_pressed(self):
+    def green_pressed(self):
         if self.checkConnection() == False or not self["list"].getCurrent():
             return
         from EventInformationTable import createEIT
@@ -460,7 +460,7 @@ class TMDbMain(Screen):
         else:
             self.session.openWithCallback(self.close, MessageBox, _("Sorry, no info/cover found for title: %s") % (title), MessageBox.TYPE_ERROR)
 
-    def green_pressed(self):
+    def red_pressed(self):
         if self.resultlist_lock_flag:
             cur = self["list"].getCurrent()
             if cur is not None:

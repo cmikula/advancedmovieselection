@@ -293,16 +293,16 @@ class TheTVDBMain(Screen):
         self.Episode_Details_lock_flag = False
         searchTitle = self.searchTitle
         self.setTitle(_("TheTVDB.com Info for: %s") % searchTitle)
-        results = tvdb.search(searchTitle)
         tmpList = []
-        if len(results) > 0:
-            try:
-                for searchResult in results:
-                    movie = tvdb.getMovieInfo(searchResult['id'])
-                    _id = movie['Serie'][0]['id']
-                    tmpList.append((movie, _id),)
-            except Exception, e:
-                print e
+        try:
+            results = tvdb.search(searchTitle)
+            if len(results) > 0:
+                    for searchResult in results:
+                        movie = tvdb.getMovieInfo(searchResult['id'])
+                        _id = movie['Serie'][0]['id']
+                        tmpList.append((movie, _id),)
+        except Exception, e:
+            print e
         if len(tmpList) > 0:
             self["list"].setList(tmpList)
             self["list"].show()
@@ -316,10 +316,10 @@ class TheTVDBMain(Screen):
                 txt = (_("Total %s") % self.SearchCount + ' ' + _("shows found"))
             self["result_txt"].setText(txt)   
             self["seperator"].show()        
-            self["key_red"].setText(_("Info/Cover save"))
+            self["key_red"].setText(_("Display show details"))
             self["button_red"].show()
             self["button_green"].show()
-            self["key_green"].setText(_("Display show details"))
+            self["key_green"].setText(_("Info/Cover save"))
             self["key_yellow"].setText(_("Manual search"))
             self["button_yellow"].show()
             self["key_blue"].setText(_("Display episodes list"))
@@ -407,7 +407,7 @@ class TheTVDBMain(Screen):
             self["result_txt"].setText(txt)
             self["result_txt"].show()
             self["button_green"].show()
-            self["key_green"].setText(_("Display show details"))
+            self["key_red"].setText(_("Display show details"))
             self["key_blue"].setText(_("Display episodes details"))
             self["button_blue"].show()
             self["description_episode"].hide()
@@ -668,7 +668,7 @@ class TheTVDBMain(Screen):
             self.session.openWithCallback(self.close, MessageBox, _("No internet connection available!"), MessageBox.TYPE_ERROR)
             return False
 
-    def red_pressed(self):
+    def green_pressed(self):
         cur = self["list"].getCurrent()
         if not self.checkConnection() or not cur:
             return
@@ -681,7 +681,7 @@ class TheTVDBMain(Screen):
             self.session.openWithCallback(self.close, MessageBox, _("Sorry, no info/cover found for title: %s") % (title), MessageBox.TYPE_ERROR)
             
 # TODO: rewrite method conditions
-    def green_pressed(self):
+    def red_pressed(self):
         if self.Result_list_lock_flag and not self.Show_Details_lock_flag and not self.Episodes_lock_flag and not self.Episode_Details_lock_flag:
             # TODO: duplicate code segment (check condition and join delow code)
             cur = self["list"].getCurrent()
