@@ -530,8 +530,9 @@ class MovieList(GUIComponent):
                         png = self.COLOR_PERCENT_2
 
             if self.list_type != MovieList.LISTTYPE_EXTENDED:
-                if config.AdvancedMovieSelection.shownew.value and self.show_folders and not self.show_statusicon and perc > 0:
-                    png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + MEDIAEXTENSIONS[extension] + ".png"))   
+                ''' never enable this - on dvd structures the extension is incorrect and will crash '''
+                #if config.AdvancedMovieSelection.shownew.value and self.show_folders and not self.show_statusicon and perc > 0:
+                #    png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + MEDIAEXTENSIONS[extension] + ".png"))   
                     
                 if self.show_progressbar:
                     top = int((self.l.getItemSize().height() - 6) / 2) + 1
