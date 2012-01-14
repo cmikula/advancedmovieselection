@@ -92,13 +92,13 @@ class TMDbList(GUIComponent, object):
             cover_url = images[0]['thumb']
         if not cover_url:
             png = self.picloader.load(nocover)
-            res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 1, 92, 138, png))
         else:    
             parts = cover_url.split("/")
             filename = os_path.join(IMAGE_TEMPFILE , id + parts[-1])
             urllib.urlretrieve(cover_url, filename)
             png = self.picloader.load(filename)
-            res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 1, 92, 138, png))
+        
+        res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 1, 92, 138, png))
         res.append((eListboxPythonMultiContent.TYPE_TEXT, 100, 5, width - 100 , 20, 0, RT_HALIGN_LEFT | RT_VALIGN_CENTER, "%s" % name.encode('utf-8', 'ignore')))
         res.append((eListboxPythonMultiContent.TYPE_TEXT, width - 140, 5, 130 , 20, 1, RT_HALIGN_RIGHT | RT_VALIGN_CENTER, "%s" % released_text))
         res.append((eListboxPythonMultiContent.TYPE_TEXT, 100, 30, width - 100, 100, 1, RT_WRAP, "%s" % overview))
