@@ -179,7 +179,7 @@ class ShortEventDescriptor(Descriptor):
     
     @staticmethod
     def encode(data, event_name, text, language_code="DEU"):
-        descr = ShortEventDescriptor(event_name.encode("cp1252"), text.encode("cp1252"), language_code)
+        descr = ShortEventDescriptor(event_name.encode("cp1252", "ignore"), text.encode("cp1252", "ignore"), language_code)
         descr.encode1(data)
         data.append(descr.ISO_639_language_code)
         data.append(pack('B', descr.event_name.length))
@@ -221,7 +221,7 @@ class ExtendedEventDescriptor(Descriptor):
 
     @staticmethod
     def encode(data, item_description, language_code="DEU"):
-        text = item_description.encode("cp1252")
+        text = item_description.encode("cp1252", "ignore")
         descriptor_text = []
         length = len(text)
         while(length > 0):
@@ -253,7 +253,7 @@ class ComponentDescriptor:
         self.component_type = 0
         self.component_tag = 0
         self.ISO_639_language_code = language_code
-        self.text = text.encode("cp1252")
+        self.text = text.encode("cp1252", "ignore")
         self.descriptor_length = 6 + len(self.text)
         
     @staticmethod
@@ -302,7 +302,7 @@ def appendShortDescriptionToMeta(service_path, short_descr):
     except Exception, e:
         print e
 
-INV_CHARS = [("Č", "C"), ("č", "c"), ("Ć", "c"), ("ć", "c"), ("Đ", "D"), ("đ", "d"), ("Š", "S"), ("š", "s"),
+INV_CHARS = [("é", "e"), ("Č", "C"), ("č", "c"), ("Ć", "c"), ("ć", "c"), ("Đ", "D"), ("đ", "d"), ("Š", "S"), ("š", "s"),
              ("Ž", "Z"), ("ž", "z"), ("„", "\""), ("“", "\""), ("”", "\""), ("’", "'"), ("‘", "'")]
 
 def replaceInvalidChars(text):
@@ -793,13 +793,25 @@ class ServiceInfo:
         return self.tags
 
 # ~ Debug only
-    
+
+def printEIT(file_name):    
+    print "\nEIT info for: " + file_name
+    eit = EventInformationTable(file_name)
+    print "ID:0x%04X %s %s" % (eit.event_id, eit.start_time, eit.duration)
+    print eit.event_name
+    print eit.short_description
+    print eit.extended_description
+    print eit.getBeginTimeString()
+    print eit.duration / 60
+    print "Length: " + str(eit.descriptors_loop_length)
+    print "\n"
 
 if __name__ == '__main__':
     supported = ["ts", "iso", "mkv"]
     path = "./tmp/"
     dirList = os.listdir(path)
-    #createEIT("./tmp/Largo Winch II.ts", "Largo Winch II", "cover", overwrite_eit=True)
+    printEIT("./tmp/22 Bullets.eit")
+    createEIT("./tmp/22 Bullets.ts", "22 Bullets", "cover", overwrite_eit=True)
     createEITtvdb("./tmp/King of Queens.ts", "King of Queens", overwrite_eit=True)
     if False:
         for file_name in dirList:
