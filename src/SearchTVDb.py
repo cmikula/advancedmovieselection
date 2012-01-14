@@ -78,9 +78,30 @@ def getImage(serie):
     else:
         return nocover
 
-class TheTVDBMainList(GUIComponent, object):
+class ListBase(GUIComponent, object):
     def __init__(self):
         GUIComponent.__init__(self)
+
+    GUI_WIDGET = eListbox
+    
+    def postWidgetCreate(self, instance):
+        instance.setContent(self.l)
+
+    def preWidgetRemove(self, instance):
+        instance.setContent(None)
+
+    def getCurrentIndex(self):
+        return self.instance.getCurrentIndex()
+
+    def setList(self, _list):
+        self.l.setList(_list)
+    
+    def getCurrent(self):
+        return self.l.getCurrentSelection()
+
+class TheTVDBMainList(ListBase):
+    def __init__(self):
+        ListBase.__init__(self)
         self.l = eListboxPythonMultiContent()
         self.l.setBuildFunc(self.buildMovieSelectionListEntry)
         self.l.setFont(0, gFont("Regular", 24))
@@ -108,40 +129,10 @@ class TheTVDBMainList(GUIComponent, object):
         res.append((eListboxPythonMultiContent.TYPE_TEXT, width - 255, 2, 250, 26, 0, RT_HALIGN_RIGHT, "%s" % id_txt))
         res.append((eListboxPythonMultiContent.TYPE_TEXT, 100, 40, width - 100, 95, 1, RT_HALIGN_LEFT | RT_WRAP, "%s" % desc_txt))
         return res
-        
-    GUI_WIDGET = eListbox
-    
-    def postWidgetCreate(self, instance):
-        instance.setContent(self.l)
 
-    def preWidgetRemove(self, instance):
-        instance.setContent(None)
-
-    def getCurrentIndex(self):
-        return self.instance.getCurrentIndex()
-
-    def setList(self, _list):
-        self.l.setList(_list)
-    
-    def getCurrent(self):
-        return self.l.getCurrentSelection()
-
-class EpisodesList(GUIComponent, object):
-    def buildMovieSelectionListEntry(self, episode, episode_name, episode_number, episode_season_number, episode_id, episode_overview):
-        width = self.l.getItemSize().width()
-        res = [ None ]
-        id = (_("ID: %s") % episode_id)
-        season =  (_("Season: %s") % episode_season_number)
-        episode_txt = (_("Episode: %s") % episode_number)
-        res.append((eListboxPythonMultiContent.TYPE_TEXT, 5, 2, width - 250 , 23, 0, RT_HALIGN_LEFT, "%s" % episode_name))
-        res.append((eListboxPythonMultiContent.TYPE_TEXT, width - 255, 2, 250, 23, 0, RT_HALIGN_RIGHT, "%s" % id))
-        res.append((eListboxPythonMultiContent.TYPE_TEXT, 5, 27, width - 250 , 23, 0, RT_HALIGN_LEFT, "%s" % season))
-        res.append((eListboxPythonMultiContent.TYPE_TEXT, width - 255, 26, 250, 23, 0, RT_HALIGN_RIGHT, "%s" % episode_txt))
-        res.append((eListboxPythonMultiContent.TYPE_TEXT, 5, 52, width - 5, 79, 1, RT_HALIGN_LEFT | RT_WRAP, "%s" % episode_overview))
-        return res
-        
+class EpisodesList(ListBase):
     def __init__(self):
-        GUIComponent.__init__(self)
+        ListBase.__init__(self)
         self.l = eListboxPythonMultiContent()
         self.l.setBuildFunc(self.buildMovieSelectionListEntry)
         self.l.setFont(0, gFont("Regular", 20))
@@ -149,23 +140,19 @@ class EpisodesList(GUIComponent, object):
         self.l.setItemHeight(140)
         self.picloader = PicLoader(95, 138)
 
-    GUI_WIDGET = eListbox
-    
-    def postWidgetCreate(self, instance):
-        instance.setContent(self.l)
-
-    def preWidgetRemove(self, instance):
-        instance.setContent(None)
-
-    def getCurrentIndex(self):
-        return self.instance.getCurrentIndex()
-
-    def setList(self, list):
-        self.l.setList(list)
-    
-    def getCurrent(self):
-        return self.l.getCurrentSelection()
-                
+    def buildMovieSelectionListEntry(self, episode, episode_name, episode_number, episode_season_number, episode_id, episode_overview):
+        width = self.l.getItemSize().width()
+        res = [ None ]
+        id_txt = (_("ID: %s") % episode_id)
+        season =  (_("Season: %s") % episode_season_number)
+        episode_txt = (_("Episode: %s") % episode_number)
+        res.append((eListboxPythonMultiContent.TYPE_TEXT, 5, 2, width - 250 , 23, 0, RT_HALIGN_LEFT, "%s" % episode_name))
+        res.append((eListboxPythonMultiContent.TYPE_TEXT, width - 255, 2, 250, 23, 0, RT_HALIGN_RIGHT, "%s" % id_txt))
+        res.append((eListboxPythonMultiContent.TYPE_TEXT, 5, 27, width - 250 , 23, 0, RT_HALIGN_LEFT, "%s" % season))
+        res.append((eListboxPythonMultiContent.TYPE_TEXT, width - 255, 26, 250, 23, 0, RT_HALIGN_RIGHT, "%s" % episode_txt))
+        res.append((eListboxPythonMultiContent.TYPE_TEXT, 5, 52, width - 5, 79, 1, RT_HALIGN_LEFT | RT_WRAP, "%s" % episode_overview))
+        return res
+        
 class TheTVDBMain(Screen):
     def __init__(self, session, service, args=None):
         Screen.__init__(self, session)
