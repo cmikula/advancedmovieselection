@@ -989,6 +989,8 @@ class MovieList(GUIComponent):
 
     def toggleSelection(self):
         x = self.l.getCurrentSelection()
+        if not x:
+            return False
         service = x[0]
         if service.flags & eServiceReference.mustDescent and not isinstance(service, eServiceReferenceDvd):
             return False
