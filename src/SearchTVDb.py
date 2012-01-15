@@ -386,8 +386,11 @@ class TheTVDBMain(Screen):
 
     def showEpisodeDetails(self, movie):
         if movie:
-            name = movie["EpisodeName"].encode('utf-8', 'ignore')
-            self.setTitle(_("Episodes Details for: %s") % (name + ' / ' + self.searchTitle))
+            if movie["EpisodeName"]:        
+                name = movie["EpisodeName"].encode('utf-8', 'ignore')
+                self.setTitle(_("Episode details for: %s") % (name + ' / ' + self.searchTitle))
+            else:
+                self.setTitle(_("Sorry, no episode titel available!"))
             try:
                 overview = ""
                 overview = movie['Overview']
