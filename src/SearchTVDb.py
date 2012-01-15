@@ -728,7 +728,6 @@ class TheTVDBMain(Screen):
                 self.setTitle(_("Details for: %s") % (self.getInfoText()))
                 self.session.open(YTTrailerList, self.searchTitle)
         elif text == self.SHOW_ALL_SERIES_TEXT:
-            self.setTitle(_("Search result for: %s") % (self.getInfoText()))
             self.showSeriesList()
         elif text == self.SHOW_ALL_EPISODES_TEXT:
             cur = self["list"].getCurrent()
