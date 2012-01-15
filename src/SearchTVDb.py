@@ -162,10 +162,10 @@ class EpisodesList(ListBase):
         return res
         
 class TheTVDBMain(Screen):
-    SHOW_DETAIL_TEXT = _("Show details")
-    SHOW_EPISODE_TEXT = _("Show episode")
-    SHOW_ALL_EPISODES_TEXT = _("Show all episodes")
-    SHOW_ALL_SERIES_TEXT = _("Show all series")
+    SHOW_DETAIL_TEXT = _("Show serie detail")
+    SHOW_EPISODE_TEXT = _("Show episode detail")
+    SHOW_ALL_EPISODES_TEXT = _("Show episodes overview")
+    SHOW_ALL_SERIES_TEXT = _("Show search result")
     MANUAL_SEARCH_TEXT = _("Manual search")
     INFO_SAVE_TEXT = _("Info/Cover save")
     TRAILER_SEARCH_TEXT = _("Trailer search")
@@ -176,6 +176,7 @@ class TheTVDBMain(Screen):
     SHOW_EPISODE_NO_RESULT = 3
     SHOW_EPISODE_LIST = 4
     SHOW_EPISODE_DETAIL = 5
+    SHOW_SEARCH = 6
     
     def __init__(self, session, service, args=None):
         Screen.__init__(self, session)
@@ -249,9 +250,15 @@ class TheTVDBMain(Screen):
 
         self.timer = eTimer()
         self.timer.callback.append(self.getSeriesList)
+        self.red_button_timer = eTimer()
+        self.red_button_timer.callback.append(self.callback_red_pressed)
+        self.green_button_timer = eTimer()
+        self.green_button_timer.callback.append(self.callback_green_pressed)
+        self.blue_button_timer = eTimer()
+        self.blue_button_timer.callback.append(self.callback_blue_pressed)        
         self.onLayoutFinish.append(self.layoutFinished)
         self.onClose.append(self.deleteTempDir)
-        self.view_mode = self.SHOW_SERIE_NO_RESULT
+        self.view_mode = self.SHOW_SEARCH
         self.updateView()
         self.startSearch()
 
@@ -262,8 +269,8 @@ class TheTVDBMain(Screen):
         self.picload2.setPara((self["banner"].instance.size().width(), self["banner"].instance.size().height(), sc[0], sc[1], False, 1, "#00000000"))
 
     def startSearch(self):
-        self.updateView(self.SHOW_SERIE_NO_RESULT)
-        self.setTitle(_("TheTVDB.com Info & D/L"))
+        self.updateView(self.SHOW_SEARCH)
+        self.setTitle(_("TheTVDB Info & D/L"))
         self["status"].setText(_("Searching for ' %s ' on TheTVDB.com, please wait ...") % self.searchTitle)
         self["status"].show()
         self.timer.start(100, True)
@@ -294,7 +301,6 @@ class TheTVDBMain(Screen):
 
     def getSeriesList(self):
         searchTitle = self.searchTitle
-        self.setTitle(_("TheTVDB.com Info for: %s") % (self.getInfoText()))
         tmpList = []
         try:
             results = tvdb.search(searchTitle)
@@ -319,6 +325,9 @@ class TheTVDBMain(Screen):
                 self["thetvdb_logo"].show()
                 self["result_txt"].setText("")
                 self["result_txt"].hide()
+                self["seperator"].show()
+                self["key_yellow"].setText(self.MANUAL_SEARCH_TEXT)
+                self["button_yellow"].show()
 
     def showSeriesList(self):
         self.updateView(self.SHOW_SERIE_LIST)
@@ -433,11 +442,9 @@ class TheTVDBMain(Screen):
             self.startSearch()
 
     def showSeriesDetails(self, movie):
-        self.setTitle(_("Details for: %s") % (self.getInfoText()))
         serie = movie['Serie'][0]
         try:
             self.updateView(self.SHOW_SERIE_DETAIL)
-            #serie_name = serie['SeriesName'].encode('utf-8', 'ignore')
             overview = serie['Overview']
             if overview:
                 overview = overview.encode('utf-8', 'ignore')
@@ -610,13 +617,13 @@ class TheTVDBMain(Screen):
         self["episodes_list"].hide()
         self["seperator"].hide()
         self["thetvdb_logo"].hide()
-
         self["button_red"].hide()
         self["button_green"].hide()
-        self["button_yellow"].show()
+        self["button_yellow"].hide()
         self["button_blue"].hide()
 
     def serieDetailView(self):
+        self.setTitle(_("Details for: %s") % (self.getInfoText()))
         self.hideAll()
         self["seperator"].show()
         self["description"].show()
@@ -631,6 +638,7 @@ class TheTVDBMain(Screen):
         self["extended_episode"].show()
 
     def serieListView(self):
+        self.setTitle(_("Search result for: %s") % (self.getInfoText()))
         self.hideAll()
         self["seperator"].show()
         self["thetvdb_logo"].show()
@@ -647,14 +655,13 @@ class TheTVDBMain(Screen):
     def updateView(self, mode=None):
         if mode:
             self.view_mode = mode
-            
         if self.view_mode == self.SHOW_SERIE_NO_RESULT or self.view_mode == self.SHOW_EPISODE_NO_RESULT:
             self.hideAll()
             self["key_red"].setText("")
             self["key_green"].setText("")
-            self["key_yellow"].setText(self.MANUAL_SEARCH_TEXT)
+            #self["key_yellow"].setText(self.MANUAL_SEARCH_TEXT)
             self["key_blue"].setText("")
-            self["button_yellow"].show()
+            #self["button_yellow"].show()
         elif self.view_mode == self.SHOW_SERIE_LIST:
             self.serieListView()
             self["key_red"].setText(self.SHOW_DETAIL_TEXT)
@@ -695,6 +702,13 @@ class TheTVDBMain(Screen):
             self["button_green"].show()
             self["button_yellow"].show()
             self["button_blue"].show()
+        elif self.view_mode == self.SHOW_SEARCH:
+            self.hideAll()
+            self["key_red"].setText("")
+            self["key_green"].setText("")
+            self["key_yellow"].setText("")
+            self["key_blue"].setText("")
+            self["thetvdb_logo"].show()
 
     def ok_pressed(self):
         cur_serie = self["list"].getCurrent()
@@ -711,8 +725,10 @@ class TheTVDBMain(Screen):
     def buttonAction(self, text):
         if text == self.TRAILER_SEARCH_TEXT:
             if YTTrailerPresent:
+                self.setTitle(_("Details for: %s") % (self.getInfoText()))
                 self.session.open(YTTrailerList, self.searchTitle)
         elif text == self.SHOW_ALL_SERIES_TEXT:
+            self.setTitle(_("Search result for: %s") % (self.getInfoText()))
             self.showSeriesList()
         elif text == self.SHOW_ALL_EPISODES_TEXT:
             cur = self["list"].getCurrent()
@@ -728,6 +744,10 @@ class TheTVDBMain(Screen):
         self.searchManual()
 
     def green_pressed(self):
+        self.setTitle(_("Save Info/Cover for ' %s ', please wait ...") % self.searchTitle)  
+        self.green_button_timer.start(100, True)      
+
+    def callback_green_pressed(self):
         cur = self["list"].getCurrent()
         if not self.checkConnection() or not cur:
             return
@@ -738,11 +758,31 @@ class TheTVDBMain(Screen):
             self.close(False)
         else:
             self.session.openWithCallback(self.close, MessageBox, _("Sorry, no info/cover found for title: %s") % (title), MessageBox.TYPE_ERROR)
-            
+
     def red_pressed(self):
+        text = self["key_red"].getText()
+        if text == self.SHOW_DETAIL_TEXT:
+            self.setTitle(_("Getting show details for ' %s ', please wait ...") % self.getInfoText())   
+        elif text == self.TRAILER_SEARCH_TEXT:
+            self.setTitle(_("Search trailer for ' %s ', please wait ...") % self.getInfoText())
+        elif text == self.SHOW_ALL_SERIES_TEXT:
+            self.setTitle(_("Getting search result for ' %s ', please wit ...") % (self.getInfoText()))
+        self.red_button_timer.start(100, True)   
+            
+    def callback_red_pressed(self):
         text = self["key_red"].getText()
         self.buttonAction(text)
 
     def blue_pressed(self):
+        text = self["key_blue"].getText()
+        if text == self.SHOW_ALL_EPISODES_TEXT:
+            self.setTitle(_("Getting episodes list for ' %s ', please wait ...") % self.getInfoText())
+        elif text == self.SHOW_EPISODE_TEXT:
+            cur_episode = self["episodes_list"].getCurrent()
+            name = cur_episode[1]
+            self.setTitle(_("Getting episodes details for ' %s ', please wait ...") % name)
+        self.blue_button_timer.start(100, True)
+
+    def callback_blue_pressed(self):
         text = self["key_blue"].getText()
         self.buttonAction(text)
