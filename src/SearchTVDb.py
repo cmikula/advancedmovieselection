@@ -53,7 +53,7 @@ if environ["LANGUAGE"] == "de" or environ["LANGUAGE"] == "de_DE":
 else:
     nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_en.png")
 
-if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/YTTrailer/plugin1.pyo"):
+if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/YTTrailer/plugin.pyo"):
     from Plugins.Extensions.YTTrailer.plugin import YTTrailerList
     YTTrailerPresent = True
 else:
