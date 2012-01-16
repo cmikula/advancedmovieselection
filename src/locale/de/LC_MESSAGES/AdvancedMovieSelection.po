@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-15 11:57+0100\n"
-"PO-Revision-Date: 2012-01-15 11:57+0100\n"
+"POT-Creation-Date: 2012-01-16 12:00+0100\n"
+"PO-Revision-Date: 2012-01-16 12:02+0100\n"
 "Last-Translator: JackDanie <JackDaniel@i-have-a-dreambox.com>\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
@@ -2305,42 +2305,41 @@ msgstr "Ordnernamen ändern"
 msgid "Change File/Moviename and/or Description"
 msgstr "Datei/Filmnamen und/oder Beschreibung ändern"
 
-#: ../../../SearchTMDb.py:214
+#: ../../../SearchTMDb.py:124
+msgid "Show movie detail"
+msgstr "Filmdetails zeigen"
+
+#: ../../../SearchTMDb.py:125
+#: ../../../SearchTVDb.py:168
+msgid "Show search result"
+msgstr "Suchergebnis zeigen"
+
+#: ../../../SearchTMDb.py:127
+#: ../../../SearchTVDb.py:170
+msgid "Info/Cover save"
+msgstr "Info/Cover speichern"
+
+#: ../../../SearchTMDb.py:217
 #, python-format
 msgid "Searching for ' %s ' on TMDb, please wait ..."
 msgstr "Suche nach ' %s ' auf TMDb, bitte warten ..."
 
-#: ../../../SearchTMDb.py:222
+#: ../../../SearchTMDb.py:244
 #, python-format
-msgid "TMDb Info for: %s"
-msgstr "TMDb Info für: %s"
+msgid "No data found for ' %s ' at themoviedb.org!"
+msgstr "Keine Daten für ' %s ' auf themoviedb.org gefunden!"
 
-#: ../../../SearchTMDb.py:251
-msgid "No data found at themoviedb.org!"
-msgstr "Keine Daten auf themoviedb.org gefunden!"
-
-#: ../../../SearchTMDb.py:254
+#: ../../../SearchTMDb.py:245
+#, python-format
 msgid ""
-"No data found at themoviedb.org!\n"
+"No data found for ' %s ' at themoviedb.org!\n"
 "Do you want to edit the search name?"
 msgstr ""
-"Keine Daten auf themoviedb.org gefunden!\n"
+"Keine Daten für ' %s ' auf themoviedb.org gefunden!\n"
 "Wollen Sie die Filmnamen bearbeiten und manuell suchen?"
 
-#: ../../../SearchTMDb.py:256
-msgid "Search results:"
-msgstr "Suchergebnis:"
-
-#: ../../../SearchTMDb.py:258
-msgid "Extended Info"
-msgstr "Erweiterte Info"
-
-#: ../../../SearchTMDb.py:259
-#: ../../../SearchTMDb.py:310
-msgid "Save movie info/cover"
-msgstr "Filminfo/Cover speichern"
-
-#: ../../../SearchTMDb.py:277
+#: ../../../SearchTMDb.py:254
+#: ../../../SearchTMDb.py:390
 #, python-format
 msgid ""
 "Error!\n"
@@ -2349,75 +2348,84 @@ msgstr ""
 "Fehler!\n"
 "%s"
 
-#: ../../../SearchTMDb.py:307
-msgid "Show search results"
-msgstr "Suchergebnis zeigen"
-
-#: ../../../SearchTMDb.py:329
+#: ../../../SearchTMDb.py:262
+#: ../../../SearchTMDb.py:264
+#: ../../../SearchTVDb.py:336
+#: ../../../SearchTVDb.py:338
+#: ../../../SearchTVDb.py:380
+#: ../../../SearchTVDb.py:382
 #, python-format
-msgid "TMDb details for: %s"
-msgstr "TMDb Details für: %s"
+msgid "Total %s"
+msgstr "Insgesamt %s"
 
-#: ../../../SearchTMDb.py:334
+#: ../../../SearchTMDb.py:262
+msgid "movie found"
+msgstr "Film gefunden"
+
+#: ../../../SearchTMDb.py:264
+msgid "movies found"
+msgstr "Filme gefunden"
+
+#: ../../../SearchTMDb.py:299
 #, python-format
 msgid "No description for ' %s ' at themoviedb.org found!"
 msgstr "Keine Filmbeschreibung für ' %s ' auf themoviedb.org gefunden!"
 
-#: ../../../SearchTMDb.py:349
+#: ../../../SearchTMDb.py:314
 #, python-format
 msgid "Appeared: %s"
 msgstr "Erscheinungsjahr: %s"
 
-#: ../../../SearchTMDb.py:351
+#: ../../../SearchTMDb.py:316
 #, python-format
 msgid "Runtime: %s minutes"
 msgstr "Filmlänge: %s Minuten"
 
-#: ../../../SearchTMDb.py:365
+#: ../../../SearchTMDb.py:330
 #: ../../../SearchTVDb.py:491
 #, python-format
 msgid "Certification: %s"
 msgstr "Altersfreigabe: %s"
 
-#: ../../../SearchTMDb.py:367
+#: ../../../SearchTMDb.py:332
 #: ../../../SearchTVDb.py:500
 #, python-format
 msgid "Rating: %s\n"
 msgstr "Bewertung: %s\n"
 
-#: ../../../SearchTMDb.py:377
+#: ../../../SearchTMDb.py:342
 #: ../../../SearchTVDb.py:487
 #, python-format
 msgid "Genre: %s\n"
 msgstr "Genre: %s\n"
 
-#: ../../../SearchTMDb.py:383
+#: ../../../SearchTMDb.py:348
 #, python-format
 msgid "Studio: %s"
 msgstr "Produktionsstudio: %s"
 
-#: ../../../SearchTMDb.py:389
+#: ../../../SearchTMDb.py:354
 #, python-format
 msgid "Production Countries: %s\n"
 msgstr "Produktionsland: %s\n"
 
-#: ../../../SearchTMDb.py:395
+#: ../../../SearchTMDb.py:360
 #, python-format
 msgid "Director: %s"
 msgstr "Regie: %s"
 
-#: ../../../SearchTMDb.py:401
+#: ../../../SearchTMDb.py:366
 #, python-format
 msgid "Production: %s\n"
 msgstr "Produktion: %s\n"
 
-#: ../../../SearchTMDb.py:407
+#: ../../../SearchTMDb.py:372
 #: ../../../SearchTVDb.py:504
 #, python-format
 msgid "Actors: %s\n"
 msgstr "Darsteller: %s\n"
 
-#: ../../../SearchTMDb.py:409
+#: ../../../SearchTMDb.py:374
 #, python-format
 msgid ""
 "\n"
@@ -2426,31 +2434,66 @@ msgstr ""
 "\n"
 "Letzte Änderung auf themoviedb.org: %s"
 
-#: ../../../SearchTMDb.py:413
+#: ../../../SearchTMDb.py:378
 msgid "Unknown error!!"
 msgstr "Unbekannter Fehler!"
 
-#: ../../../SearchTMDb.py:417
+#: ../../../SearchTMDb.py:382
 #: ../../../SearchTVDb.py:516
 #, python-format
 msgid "Voted: %s"
 msgstr "Abgestimmt: %s"
 
-#: ../../../SearchTMDb.py:417
+#: ../../../SearchTMDb.py:382
 #: ../../../SearchTVDb.py:516
 msgid "times"
 msgstr "mal"
 
-#: ../../../SearchTMDb.py:461
+#: ../../../SearchTMDb.py:425
+#: ../../../SearchTMDb.py:522
+#: ../../../SearchTVDb.py:644
+#, python-format
+msgid "Search result for: %s"
+msgstr "Suchergebnis für: %s"
+
+#: ../../../SearchTMDb.py:427
+#: ../../../SearchTMDb.py:512
+#: ../../../SearchTVDb.py:629
+#: ../../../SearchTVDb.py:731
+#, python-format
+msgid "Details for: %s"
+msgstr "Details für: %s"
+
+#: ../../../SearchTMDb.py:434
+#: ../../../SearchTMDb.py:452
+#: ../../../SearchTVDb.py:767
+#, python-format
+msgid "Getting show details for ' %s ', please wait ..."
+msgstr "Lade Seriendetails für ' %s ', bitte warten ..."
+
+#: ../../../SearchTMDb.py:436
+#: ../../../SearchTMDb.py:454
+#, python-format
+msgid "Getting search result for ' %s ', please wait ..."
+msgstr "Lade Suchergebnis für ' %s ', bitte warten ..."
+
+#: ../../../SearchTMDb.py:462
+#: ../../../SearchTVDb.py:749
+#, python-format
+msgid "Save Info/Cover for ' %s ', please wait ..."
+msgstr "Info/Cover für ' %s ' speichern, bitte warten ..."
+
+#: ../../../SearchTMDb.py:475
 #: ../../../SearchTVDb.py:762
 #, python-format
 msgid "Sorry, no info/cover found for title: %s"
 msgstr "Leider keine Filminfo/Cover für %s gefunden."
 
-#: ../../../SearchTMDb.py:468
+#: ../../../SearchTMDb.py:485
+#: ../../../SearchTVDb.py:769
 #, python-format
-msgid "Getting movie information for '%s' from TMDb..."
-msgstr "Filminfos für ' %s ' werden bei TMDb abgerufen ..."
+msgid "Search trailer for ' %s ', please wait ..."
+msgstr "Suche Vorschau für ' %s ', bitte warten ..."
 
 #: ../../../SearchTVDb.py:129
 msgid "Sorry, no description found at www.thetvdb.com!"
@@ -2484,14 +2527,6 @@ msgstr "Folgedetail zeigen"
 msgid "Show episodes overview"
 msgstr "Folgenübersicht zeigen"
 
-#: ../../../SearchTVDb.py:168
-msgid "Show search result"
-msgstr "Suchergebnis zeigen"
-
-#: ../../../SearchTVDb.py:170
-msgid "Info/Cover save"
-msgstr "Info/Cover speichern"
-
 #: ../../../SearchTVDb.py:274
 #, python-format
 msgid "Searching for ' %s ' on TheTVDB.com, please wait ..."
@@ -2500,14 +2535,6 @@ msgstr "Suche nach ' %s ' auf TheTVDB.com, bitte warten ..."
 #: ../../../SearchTVDb.py:323
 msgid "Sorry, no data found at TheTVDB.com!"
 msgstr "Leider keine Daten auf TheTVDB.com gefunden!"
-
-#: ../../../SearchTVDb.py:336
-#: ../../../SearchTVDb.py:338
-#: ../../../SearchTVDb.py:380
-#: ../../../SearchTVDb.py:382
-#, python-format
-msgid "Total %s"
-msgstr "Insgesamt %s"
 
 #: ../../../SearchTVDb.py:336
 msgid "show found"
@@ -2606,32 +2633,6 @@ msgstr ""
 #: ../../../SearchTVDb.py:518
 msgid "No user voted!"
 msgstr "Keine Stimme abgegeben!"
-
-#: ../../../SearchTVDb.py:629
-#: ../../../SearchTVDb.py:731
-#, python-format
-msgid "Details for: %s"
-msgstr "Details für: %s"
-
-#: ../../../SearchTVDb.py:644
-#, python-format
-msgid "Search result for: %s"
-msgstr "Suchergebnis für: %s"
-
-#: ../../../SearchTVDb.py:749
-#, python-format
-msgid "Save Info/Cover for ' %s ', please wait ..."
-msgstr "Info/Cover für ' %s ' speichern, bitte warten ..."
-
-#: ../../../SearchTVDb.py:767
-#, python-format
-msgid "Getting show details for ' %s ', please wait ..."
-msgstr "Lade Seriendetails für ' %s ', bitte warten ..."
-
-#: ../../../SearchTVDb.py:769
-#, python-format
-msgid "Search trailer for ' %s ', please wait ..."
-msgstr "Suche Vorschau für ' %s ', bitte warten ..."
 
 #: ../../../SearchTVDb.py:771
 #, python-format
@@ -2899,6 +2900,27 @@ msgstr "Papierkorb leeren wird durchgeführt, bitte warten ..."
 #: ../../../Wastebasket.py:421
 msgid "Restore failed!"
 msgstr "Wiederherstellen fehlgeschlagen!"
+
+#~ msgid "TMDb Info for: %s"
+#~ msgstr "TMDb Info für: %s"
+
+#~ msgid "Search results:"
+#~ msgstr "Suchergebnis:"
+
+#~ msgid "Extended Info"
+#~ msgstr "Erweiterte Info"
+
+#~ msgid "Save movie info/cover"
+#~ msgstr "Filminfo/Cover speichern"
+
+#~ msgid "Show search results"
+#~ msgstr "Suchergebnis zeigen"
+
+#~ msgid "TMDb details for: %s"
+#~ msgstr "TMDb Details für: %s"
+
+#~ msgid "Getting movie information for '%s' from TMDb..."
+#~ msgstr "Filminfos für ' %s ' werden bei TMDb abgerufen ..."
 
 #~ msgid "Show all episodes"
 #~ msgstr "Alle Folgen zeigen"

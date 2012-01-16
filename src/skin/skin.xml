@@ -182,46 +182,48 @@
             <widget name="no_stars" position="60,74" size="210,21" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/starsbar_empty.png" zPosition="0" transparent="1" alphatest="on"/>
             <widget name="stars" position="60,74" size="210,21" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/starsbar_filled.png" transparent="1"/>
             <widget name="vote" position="280,71" size="300,28" zPosition="2" font="Regular;23" transparent="1" valign="top" halign="left"/>
-            <widget name="tmdblogo" position="1145,60" zPosition="4" size="75,50" transparent="1" alphatest="blend"/>
             <widget name="result_txt" position="60,90" size="1160,28" zPosition="2" font="Regular;24" transparent="1" valign="top" halign="center"/> 
             <widget name="list" position="60,150" zPosition="2" size="1160,420" scrollbarMode="showOnDemand" transparent="1" enableWrapAround="1"/>
             <widget name="cover" zPosition="2" position="50,120" size="185,278" alphatest="blend"/>
             <widget name="description" position="250,120" size="970,275" zPosition="3" font="Regular;22" transparent="1"/>
             <widget name="extended" position="60,402" size="1160,240" zPosition="2" font="Regular;20" transparent="1" valign="center" halign="left"/>
-            <widget name="status" position="60,120" size="1160,560" zPosition="2" font="Regular;22" transparent="1" valign="center" halign="center"/> 
-            <widget name="button_red" pixmap="skin_default/buttons/button_red.png" position="60,650" zPosition="4" size="15,16" transparent="1" alphatest="blend"/>
-            <widget name="button_green" pixmap="skin_default/buttons/button_green.png" position="400,650" zPosition="4" size="15,16" transparent="1" alphatest="blend"/>
-            <widget name="button_yellow" pixmap="skin_default/buttons/button_yellow.png" position="690,650" zPosition="4" size="15,16" transparent="1" alphatest="blend"/>
-            <widget name="button_blue" pixmap="skin_default/buttons/button_blue.png" position="930,650" zPosition="4" size="15,16" transparent="1" alphatest="blend"/>
-            <widget source="key_red" render="Label" position="90,646" size="350,28" zPosition="5" valign="top" halign="left" font="Regular;24" transparent="1"/>
-            <widget source="key_green" render="Label" position="430,646" size="350,28" zPosition="5" valign="top" halign="left" font="Regular;24" transparent="1"/>
-            <widget source="key_yellow" render="Label" position="720,646" size="250,28" zPosition="5" valign="top" halign="left" font="Regular;24" transparent="1"/>
-            <widget source="key_blue" render="Label" position="960,646" size="250,28" zPosition="5" valign="top" halign="left" font="Regular;24" transparent="1"/>
+            <widget name="status" position="60,0" size="1160,720" zPosition="2" font="Regular;22" transparent="1" valign="center" halign="center"/> 
+            <widget name="tmdblogo" position="1145,598" zPosition="4" size="75,50" transparent="1" alphatest="blend"/>
+            <widget name="seperator" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/seperator.png" position="60,650" size="1160,2" alphatest="on"/>
+            <widget name="button_red" pixmap="skin_default/buttons/button_red.png" position="60,657" size="15,16" alphatest="on"/>
+            <widget name="button_green" pixmap="skin_default/buttons/button_green.png" position="360,657" size="15,16" alphatest="on"/>
+            <widget name="button_yellow" pixmap="skin_default/buttons/button_yellow.png" position="650,657" size="15,16" alphatest="on"/>
+            <widget name="button_blue" pixmap="skin_default/buttons/button_blue.png" position="900,657" size="15,16" alphatest="on"/>
+            <widget source="key_red" render="Label" position="80,652" zPosition="1" size="300,28" font="Regular;24" halign="left" transparent="1"/>
+            <widget source="key_green" render="Label" position="380,652" zPosition="1" size="300,28" font="Regular;24" halign="left" transparent="1"/>
+            <widget source="key_yellow" render="Label" position="670,652" zPosition="1" size="300,28" font="Regular;24" halign="left" transparent="1"/>
+            <widget source="key_blue" render="Label" position="920,652" zPosition="1" size="300,28" font="Regular;24" halign="left" transparent="1"/>
     </screen>     
         <screen name="TMDbMainXD" position="center,center" size="1024,576" title=" " flags="wfNoBorder">
             <widget source="Title" render="Label" position="60,40" size="904,30" font="Regular;24" transparent="1"/>
             <widget name="no_stars" position="60,74" size="210,21" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/starsbar_empty.png" zPosition="0" transparent="1" alphatest="on"/>
             <widget name="stars" position="60,74" size="210,21" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/starsbar_filled.png" transparent="1"/>
             <widget name="vote" position="280,71" size="300,28" zPosition="2" font="Regular;23" transparent="1" valign="top" halign="left"/>
-            <widget name="tmdblogo" position="889,40" zPosition="4" size="75,50" transparent="1" alphatest="on"/>
             <widget name="result_txt" position="60,90" size="904,28" zPosition="2" font="Regular;22" transparent="1" valign="top" halign="center"/> 
             <widget name="list" position="60,150" zPosition="2" size="904,280" scrollbarMode="showOnDemand" transparent="1" enableWrapAround="1"/>
             <widget name="cover" zPosition="2" position="50,120" size="185,215" alphatest="blend"/>
             <widget name="description" position="250,120" size="714,215" zPosition="3" font="Regular;20" transparent="1"/>
             <widget name="extended" position="60,335" size="904,181" zPosition="2" font="Regular;16" transparent="1"/>
-            <widget name="status" position="0,0" size="1024,576" zPosition="2" font="Regular;20" transparent="1" valign="center" halign="center"/> 
+            <widget name="status" position="60,0" size="904,576" zPosition="2" font="Regular;20" transparent="1" valign="center" halign="center"/> 
+            <widget name="tmdblogo" position="889,461" zPosition="4" size="75,50" transparent="1" alphatest="on"/>
+            <widget name="seperator" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/seperator.png" position="60,513" size="904,2" alphatest="on"/>
             <widget name="button_red" pixmap="skin_default/buttons/button_red.png" position="60,520" zPosition="4" size="15,16" transparent="1" alphatest="blend"/>
-            <widget name="button_green" pixmap="skin_default/buttons/button_green.png" position="330,520" zPosition="4" size="15,16" transparent="1" alphatest="blend"/>
+            <widget name="button_green" pixmap="skin_default/buttons/button_green.png" position="290,520" zPosition="4" size="15,16" transparent="1" alphatest="blend"/>
             <widget name="button_yellow" pixmap="skin_default/buttons/button_yellow.png" position="550,520" zPosition="4" size="15,16" transparent="1" alphatest="blend"/>
             <widget name="button_blue" pixmap="skin_default/buttons/button_blue.png" position="780,520" zPosition="4" size="15,16" transparent="1" alphatest="blend"/>
             <widget source="key_red" render="Label" position="80,516" size="350,28" zPosition="5" valign="top" halign="left" font="Regular;20" transparent="1"/>
-            <widget source="key_green" render="Label" position="350,516" size="250,28" zPosition="5" valign="top" halign="left" font="Regular;20" transparent="1"/>
+            <widget source="key_green" render="Label" position="310,516" size="250,28" zPosition="5" valign="top" halign="left" font="Regular;20" transparent="1"/>
             <widget source="key_yellow" render="Label" position="570,516" size="250,28" zPosition="5" valign="top" halign="left" font="Regular;20" transparent="1"/>
             <widget source="key_blue" render="Label" position="800,516" size="250,28" zPosition="5" valign="top" halign="left" font="Regular;20" transparent="1"/>
     </screen>      
         <screen name="TMDbMainSD" position="center,center" size="560,445" title=" ">
             <widget name="result_txt" position="0,45" size="560,22" zPosition="2" font="Regular;18" transparent="1" valign="top" halign="center"/> 
-            <widget name="list" position="0,70" zPosition="2" size="560,280" scrollbarMode="showOnDemand" transparent="1" enableWrapAround="1"/>
+            <widget name="list" position="0,85" zPosition="2" size="560,280" scrollbarMode="showOnDemand" transparent="1" enableWrapAround="1"/>
             <widget name="cover" zPosition="2" position="0,45" size="155,215" alphatest="blend"/>
             <widget name="description" position="150,45" size="410,195" zPosition="3" font="Regular;17" transparent="1"/>
             <widget name="no_stars" position="150,235" size="210,21" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/starsbar_empty.png" zPosition="0" transparent="1" alphatest="on"/>
@@ -229,6 +231,7 @@
             <widget name="vote" position="370,237" size="300,26" zPosition="2" font="Regular;20" transparent="1" valign="top" halign="left"/>
             <widget name="extended" position="0,260" size="560,180" zPosition="2" font="Regular;14" transparent="1"/>
             <widget name="status" position="0,0" size="560,445" zPosition="2" font="Regular;18" transparent="1" valign="center" halign="center"/> 
+            <widget name="seperator" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/seperator.png" position="0,0" size="0,0" alphatest="on"/>
             <widget name="button_red" pixmap="skin_default/buttons/red.png" position="0,0" size="140,40" alphatest="on"/>
             <widget name="button_green" pixmap="skin_default/buttons/green.png" position="140,0" size="140,40" alphatest="on"/>
             <widget name="button_yellow" pixmap="skin_default/buttons/yellow.png" position="280,0" size="140,40" alphatest="on"/>

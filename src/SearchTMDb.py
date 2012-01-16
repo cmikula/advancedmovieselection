@@ -27,7 +27,6 @@ from Components.ActionMap import ActionMap
 from Components.Sources.StaticText import StaticText
 from Components.Pixmap import Pixmap
 from os import path as os_path, mkdir as os_mkdir, rename as os_rename
-from Tools.LoadPixmap import LoadPixmap
 from enigma import ePicLoad, eTimer
 from Components.Label import Label
 from Components.ScrollLabel import ScrollLabel
@@ -35,7 +34,6 @@ from Components.AVSwitch import AVSwitch
 from Screens.MessageBox import MessageBox
 from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Components.config import config
-from shutil import rmtree as shutil_rmtree
 from enigma import getDesktop
 import tmdb, urllib
 from Components.ProgressBar import ProgressBar
@@ -70,14 +68,13 @@ class TMDbList(GUIComponent, object):
             os_mkdir(IMAGE_TEMPFILE)
         self.picloader = PicLoader(92, 138)
 
-    def buildMovieSelectionListEntry(self, movie, id):
+    def buildMovieSelectionListEntry(self, movie, movie_id):
         width = self.l.getItemSize().width()
         res = [ None ]
         name = movie['name']
         overview = movie['overview']
         released = movie['released']
-        images = movie['images']
-        
+        images = movie['images']        
         if overview:
             overview = overview.encode('utf-8', 'ignore')
         else:
@@ -86,7 +83,6 @@ class TMDbList(GUIComponent, object):
             released_text = released
         else:
             released_text = ""
-
         cover_url = None
         if len(images) > 0:
             cover_url = images[0]['thumb']
@@ -94,27 +90,15 @@ class TMDbList(GUIComponent, object):
             png = self.picloader.load(nocover)
         else:    
             parts = cover_url.split("/")
-            filename = os_path.join(IMAGE_TEMPFILE , id + parts[-1])
+            filename = os_path.join(IMAGE_TEMPFILE , movie_id + parts[-1])
             urllib.urlretrieve(cover_url, filename)
-            png = self.picloader.load(filename)
-        
+            png = self.picloader.load(filename)        
         res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 1, 92, 138, png))
         res.append((eListboxPythonMultiContent.TYPE_TEXT, 100, 5, width - 100 , 20, 0, RT_HALIGN_LEFT | RT_VALIGN_CENTER, "%s" % name.encode('utf-8', 'ignore')))
         res.append((eListboxPythonMultiContent.TYPE_TEXT, width - 140, 5, 130 , 20, 1, RT_HALIGN_RIGHT | RT_VALIGN_CENTER, "%s" % released_text))
         res.append((eListboxPythonMultiContent.TYPE_TEXT, 100, 30, width - 100, 100, 1, RT_WRAP, "%s" % overview))
         return res
         
-    def errorThumbDownload(self, error=None):
-        if error is not None:
-            print "[TMDbList] Error: ", str(error.getErrorMessage())
-
-    def finishedThumbDownload(self, result, temp_filename, filename, index):
-        try: 
-            os_rename (temp_filename, filename)
-        except: pass
-        else:
-            self.l.invalidateEntry(index)
-
     GUI_WIDGET = eListbox
     
     def postWidgetCreate(self, instance):
@@ -127,12 +111,27 @@ class TMDbList(GUIComponent, object):
         return self.instance.getCurrentIndex()
 
     def setList(self, list):
+        self.list = list
         self.l.setList(list)
     
     def getCurrent(self):
         return self.l.getCurrentSelection()
+    
+    def getLength(self):
+        return len(self.list)
 
 class TMDbMain(Screen):
+    SHOW_DETAIL_TEXT = _("Show movie detail")
+    SHOW_SEARCH_RESULT_TEXT = _("Show search result")
+    MANUAL_SEARCH_TEXT = _("Manual search")
+    INFO_SAVE_TEXT = _("Info/Cover save")
+    TRAILER_SEARCH_TEXT = _("Trailer search")
+
+    SHOW_SEARCH = 0
+    SHOW_SEARCH_NO_RESULT = 1
+    SHOW_RESULT_LIST = 2
+    SHOW_MOVIE_DETAIL = 3
+        
     def __init__(self, session, searchTitle, service):
         Screen.__init__(self, session)
         try:
@@ -146,10 +145,9 @@ class TMDbMain(Screen):
         else:
             self.skinName = ["TMDbMainSD"]
         self.service = service
-        self["list"] = TMDbList()
         self["actions"] = ActionMap(["WizardActions", "DirectionActions", "ColorActions", "EPGSelectActions", "InfobarActions"],
         {
-            "ok": self.red_pressed,
+            "ok": self.ok_pressed,
             "back": self.cancel,
             "green": self.green_pressed,
             "red": self.red_pressed,
@@ -160,13 +158,9 @@ class TMDbMain(Screen):
             "downUp": self.pageDown,
             "rightUp": self.pageDown,
         }, -1)
-        self["key_red"] = StaticText("")
-        self["key_green"] = StaticText("")
-        self["key_yellow"] = StaticText("")
-        self["key_blue"] = StaticText("")
+        self["list"] = TMDbList()
         self["tmdblogo"] = Pixmap()
         self["cover"] = Pixmap()
-        self["cover"].hide()
         self.picload = ePicLoad()
         self.picload.PictureData.get().append(self.paintCoverPixmapCB)
         self["description"] = ScrollLabel()
@@ -174,31 +168,39 @@ class TMDbMain(Screen):
         self["status"] = Label()
         self["stars"] = ProgressBar()
         self["no_stars"] = Pixmap()
-        self["stars"].hide()
-        self["no_stars"].hide()
         self["vote"] = Label()
-        self["button_red"] = Pixmap()
-        self["button_red"].hide() 
-        self["button_green"] = Pixmap()
-        self["button_green"].hide()        
-        self["button_yellow"] = Pixmap()
-        self["button_yellow"].hide()
-        self["button_blue"] = Pixmap()
-        self["button_blue"].hide()
         self["result_txt"] = Label()
-        self["result_txt"].hide()
-        self.resultlist_lock_flag = None
+        self["seperator"] = Pixmap()                
+        self["button_red"] = Pixmap()
+        self["button_green"] = Pixmap()      
+        self["button_yellow"] = Pixmap()
+        self["button_blue"] = Pixmap()
+        self["key_red"] = StaticText("")
+        self["key_green"] = StaticText("")
+        self["key_yellow"] = StaticText("")
+        self["key_blue"] = StaticText("")
         self.ratingstars = -1
         self.searchTitle = searchTitle
         self.downloadItems = {}
         self.useTMDbInfoAsEventInfo = True
         self.timer = eTimer()
         self.timer.callback.append(self.searchForMovies)
+        self.red_button_timer = eTimer()
+        self.red_button_timer.callback.append(self.callback_red_pressed)
+        self.green_button_timer = eTimer()
+        self.green_button_timer.callback.append(self.callback_green_pressed)
+        self.blue_button_timer = eTimer()
+        self.blue_button_timer.callback.append(self.callback_blue_pressed) 
+        self.ok_button_timer = eTimer()
+        self.ok_button_timer.callback.append(self.callback_ok_pressed) 
         self.onClose.append(self.deleteTempDir)
         self.onLayoutFinish.append(self.layoutFinished)
+        self.view_mode = self.SHOW_SEARCH
+        self.updateView()
         self.startSearch()
 
     def layoutFinished(self):
+        self["tmdblogo"].instance.setPixmapFromFile("%s/tmdb.png" % tmdb_logodir)
         sc = AVSwitch().getFramebufferScale()
         self.picload.setPara((self["cover"].instance.size().width(), self["cover"].instance.size().height(), sc[0], sc[1], False, 1, "#00000000"))
 
@@ -210,6 +212,7 @@ class TMDbMain(Screen):
             print e
 
     def startSearch(self):
+        self.updateView(self.SHOW_SEARCH)
         self.setTitle(_("TMDb Info & D/L"))
         self["status"].setText(_("Searching for ' %s ' on TMDb, please wait ...") % self.searchTitle)
         self["status"].show()
@@ -219,17 +222,6 @@ class TMDbMain(Screen):
         self.close(False)
 
     def searchForMovies(self):
-        self.setTitle(_("TMDb Info for: %s") % self.searchTitle)
-        self["tmdblogo"].instance.setPixmapFromFile("%s/tmdb.png" % tmdb_logodir)
-        self["tmdblogo"].show()  
-
-        self["description"].hide()
-        self["cover"].hide()
-        self["extended"].hide()
-        self["list"].hide()
-        self["vote"].hide()
-        self["stars"].hide()
-        self["no_stars"].hide()
         try:
             results = tmdb.search(self.searchTitle)
             if len(results) == 0 and " - " in self.searchTitle:
@@ -248,37 +240,29 @@ class TMDbMain(Screen):
                 if len(results) > 0:
                     self.searchTitle = title
             if len(results) == 0:
-                self["status"].setText(_("No data found at themoviedb.org!"))
-                self["key_yellow"].setText(_("Manual search"))
-                self["button_yellow"].show()
-                self.session.openWithCallback(self.askForSearchCallback, MessageBox, _("No data found at themoviedb.org!\nDo you want to edit the search name?"))
-                return 
-            self["result_txt"].setText(_("Search results:"))
-            self["result_txt"].show()
-            self["key_red"].setText(_("Extended Info"))
-            self["key_green"].setText(_("Save movie info/cover"))
-            self["key_yellow"].setText(_("Manual search"))
-            if YTTrailerPresent:
-                self["key_blue"].setText(_("Trailer search"))
-                self["button_blue"].show()
-            else:
-                self["key_blue"].setText("")
-                self["button_blue"].hide()                
-            self["button_red"].show()
-            self["button_green"].show()
-            self["button_yellow"].show()
+                self.updateView(self.SHOW_SEARCH_NO_RESULT)
+                self["status"].setText(_("No data found for ' %s ' at themoviedb.org!") % self.searchTitle)
+                self.session.openWithCallback(self.askForSearchCallback, MessageBox, _("No data found for ' %s ' at themoviedb.org!\nDo you want to edit the search name?") % self.searchTitle)
+                return             
             movies = []
             for searchResult in results:
-                id = searchResult['id']
-                movies.append((tmdb.getMovieInfo(searchResult['id']), id),)
+                movie_id = searchResult['id']
+                movies.append((tmdb.getMovieInfo(searchResult['id']), movie_id),)
             self["list"].setList(movies)
-            self["list"].show()
+            self.showMovieList()
         except Exception, e:
             self["status"].setText(_("Error!\n%s" % e))
             self["status"].show()
             return
-        self["status"].hide()
-        self.resultlist_lock_flag = True
+
+    def showMovieList(self):
+        self.updateView(self.SHOW_RESULT_LIST)
+        count = self["list"].getLength()
+        if count == 1:
+            txt = (_("Total %s") % count + ' ' + _("movie found"))
+        else:
+            txt = (_("Total %s") % count + ' ' + _("movies found"))
+        self["result_txt"].setText(txt) 
         
     def pageUp(self):
         self["description"].pageUp()
@@ -298,136 +282,113 @@ class TMDbMain(Screen):
             self.searchForMovies()
 
     def getMovieInfo(self, movie):
-        self.resultlist_lock_flag = False
-        if movie:
-            self["result_txt"].hide()
-            self["vote"].hide()
-            self["status"].hide()
-            self["list"].hide()
-            self["key_red"].setText(_("Show search results"))
-            self["button_red"].show()
-            self["button_green"].show()
-            self["key_green"].setText(_("Save movie info/cover"))
-            self["key_yellow"].setText(_("Manual search"))
-            if YTTrailerPresent:
-                self["key_blue"].setText(_("Trailer search"))
-                self["button_blue"].show()
-            else:
-                self["key_blue"].setText("")
-                self["button_blue"].hide() 
-            self["button_yellow"].show()
-            self["description"].show()
-            self["extended"].show()
-            extended = ""
-            name = movie["name"].encode('utf-8', 'ignore')
-            description = movie["overview"]
-            released = movie["released"]
-            certification = movie["certification"]
-            rating = movie["rating"]
-            runtime = movie["runtime"]
-            last_modified_at = movie["last_modified_at"]
-            self.setTitle(_("TMDb details for: %s") % name)
-            if description:
-                description_text = description.encode('utf-8', 'ignore')
-                self["description"].setText(description_text)
-            else:
-                self["description"].setText(_("No description for ' %s ' at themoviedb.org found!") % name)
-            cover_url = None
-            images = movie['images']
-            if len(images) > 0:
-                cover_url = images[0]['thumb']
-            if not cover_url:
-                self.setCover(nocover)
-            else:    
-                parts = cover_url.split("/")
-                filename = os_path.join(IMAGE_TEMPFILE , movie['id'] + parts[-1])
-                if os_path.exists(filename):
-                    self.setCover(filename)
+        try:
+            if movie:
+                extended = ""
+                name = movie["name"].encode('utf-8', 'ignore')
+                description = movie["overview"]
+                released = movie["released"]
+                certification = movie["certification"]
+                rating = movie["rating"]
+                runtime = movie["runtime"]
+                last_modified_at = movie["last_modified_at"]
+                if description:
+                    description_text = description.encode('utf-8', 'ignore')
+                    self["description"].setText(description_text)
                 else:
+                    self["description"].setText(_("No description for ' %s ' at themoviedb.org found!") % name)
+                cover_url = None
+                images = movie['images']
+                if len(images) > 0:
+                    cover_url = images[0]['thumb']
+                if not cover_url:
                     self.setCover(nocover)
-            if released:
-                extended = (_("Appeared: %s") % released) + ' / '
-            if runtime:
-                extended += (_("Runtime: %s minutes") % runtime) + ' / '
-            if certification:
-                if certification == "G":
-                    certification = "FSK 0"
-                elif certification == "PG":
-                    certification = "FSK 6"
-                elif certification == "PG-13" or certification == "PG13":
-                    certification = "FSK 12"
-                elif certification == "R":
-                    certification = "FSK 16"
-                elif certification == "NC-13" or certification == "NC17":
-                    certification = "FSK 18"
+                else:    
+                    parts = cover_url.split("/")
+                    filename = os_path.join(IMAGE_TEMPFILE , movie['id'] + parts[-1])
+                    if os_path.exists(filename):
+                        self.setCover(filename)
+                    else:
+                        self.setCover(nocover)
+                if released:
+                    extended = (_("Appeared: %s") % released) + ' / '
+                if runtime:
+                    extended += (_("Runtime: %s minutes") % runtime) + ' / '
+                if certification:
+                    if certification == "G":
+                        certification = "FSK 0"
+                    elif certification == "PG":
+                        certification = "FSK 6"
+                    elif certification == "PG-13" or certification == "PG13":
+                        certification = "FSK 12"
+                    elif certification == "R":
+                        certification = "FSK 16"
+                    elif certification == "NC-13" or certification == "NC17":
+                        certification = "FSK 18"
+                    else:
+                        certification = "N/A"
+                    extended += (_("Certification: %s") % certification) + ' / '
+                if movie.has_key("rating"):
+                    rating = movie["rating"].encode('utf-8','ignore')    
+                    extended += (_("Rating: %s\n") % rating)
+                    self.ratingstars = int(10*round(float(rating.replace(',','.')),1))
+                    if self.ratingstars > 0:
+                        self["stars"].setValue(self.ratingstars) 
+                        #self["stars"].show()
+                        #self["no_stars"].show()
+                if movie.has_key('categories') and movie['categories'].has_key('genre'):                      
+                    categories = []
+                    for genre in movie['categories']['genre']:
+                        categories.append(genre.encode('utf-8', 'ignore'))
+                    if len(categories) > 0:
+                        extended += _("Genre: %s\n") % ", ".join(categories)             
+                if movie.has_key('studios'):
+                    studios = []
+                    for studio in movie["studios"]:
+                        studios.append(studio.encode('utf-8', 'ignore'))
+                    if len(studios) > 0:
+                        extended += _("Studio: %s") % ", ".join(studios) + ' / '
+                if movie.has_key('countries'):
+                    countries = []
+                    for country in movie["countries"]:
+                        countries.append(country.encode('utf-8', 'ignore'))
+                    if len(countries) > 0:
+                        extended += _("Production Countries: %s\n") % ", ".join(countries)
+                if movie.has_key('cast') and movie['cast'].has_key('director'):                      
+                    director = []
+                    for dir in movie['cast']['director']:
+                        director.append(dir['name'].encode('utf-8', 'ignore'))
+                    if len(director) > 0:
+                        extended += _("Director: %s") % ", ".join(director) + ' / '
+                if movie.has_key('cast') and movie['cast'].has_key('producer'):                      
+                    producer = []
+                    for prodr in movie['cast']['producer']:
+                        producer.append(prodr['name'].encode('utf-8', 'ignore'))
+                    if len(producer) > 0:
+                        extended += _("Production: %s\n") % ", ".join(producer)
+                if movie.has_key('cast') and movie['cast'].has_key('actor'):                      
+                    actors = []
+                    for actor in movie['cast']['actor']:
+                        actors.append(actor['name'].encode('utf-8', 'ignore'))
+                    if len(actors) > 0:
+                        extended += _("Actors: %s\n") % ", ".join(actors)
+                if last_modified_at:
+                    extended += (_("\nLast modified at themoviedb.org: %s") % last_modified_at)
+                if extended:
+                    self["extended"].setText(extended)
                 else:
-                    certification = "N/A"
-                extended += (_("Certification: %s") % certification) + ' / '
-            if rating:
-                extended += (_("Rating: %s\n") % rating)
-                self.ratingstars = int(10*round(float(rating.replace(',','.')),1))
-                self["stars"].show()
-                self["stars"].setValue(self.ratingstars)
-                self["no_stars"].show()                            
-            if movie.has_key('categories') and movie['categories'].has_key('genre'):                      
-                categories = []
-                for genre in movie['categories']['genre']:
-                    categories.append(genre.encode('utf-8', 'ignore'))
-                if len(categories) > 0:
-                    extended += _("Genre: %s\n") % ", ".join(categories)             
-            if movie.has_key('studios'):
-                studios = []
-                for studio in movie["studios"]:
-                    studios.append(studio.encode('utf-8', 'ignore'))
-                if len(studios) > 0:
-                    extended += _("Studio: %s") % ", ".join(studios) + ' / '
-            if movie.has_key('countries'):
-                countries = []
-                for country in movie["countries"]:
-                    countries.append(country.encode('utf-8', 'ignore'))
-                if len(countries) > 0:
-                    extended += _("Production Countries: %s\n") % ", ".join(countries)
-            if movie.has_key('cast') and movie['cast'].has_key('director'):                      
-                director = []
-                for dir in movie['cast']['director']:
-                    director.append(dir['name'].encode('utf-8', 'ignore'))
-                if len(director) > 0:
-                    extended += _("Director: %s") % ", ".join(director) + ' / '
-            if movie.has_key('cast') and movie['cast'].has_key('producer'):                      
-                producer = []
-                for prodr in movie['cast']['producer']:
-                    producer.append(prodr['name'].encode('utf-8', 'ignore'))
-                if len(producer) > 0:
-                    extended += _("Production: %s\n") % ", ".join(producer)
-            if movie.has_key('cast') and movie['cast'].has_key('actor'):                      
-                actors = []
-                for actor in movie['cast']['actor']:
-                    actors.append(actor['name'].encode('utf-8', 'ignore'))
-                if len(actors) > 0:
-                    extended += _("Actors: %s\n") % ", ".join(actors)
-            if last_modified_at:
-                extended += (_("\nLast modified at themoviedb.org: %s") % last_modified_at)
-            if extended:
-                self["extended"].setText(extended)
-            else:
-                self["extended"].setText(_("Unknown error!!"))
-            if movie.has_key("votes"):
-                vote = movie["votes"].encode('utf-8','ignore')
-                if not vote == "0":
-                    self["vote"].setText(_("Voted: %s") % (vote) + ' ' + _("times"))
-                    self["vote"].show()
-                else:
-                    self["vote"].hide()
-                    self["stars"].hide()
-                    self["no_stars"].hide()  
-
-    def errorCoverDownload(self, error=None):
-        if error is not None:
-            print "[TMDb] Error: ", str(error.getErrorMessage())
-        self["cover"].hide()
-
-    def finishedCoverDownload(self, result, filename):
-        self["cover"].updatecover(filename)
+                    self["extended"].setText(_("Unknown error!!"))
+                if movie.has_key("votes"):
+                    vote = movie["votes"].encode('utf-8','ignore')
+                    if not vote == "0":
+                        self["vote"].setText(_("Voted: %s") % (vote) + ' ' + _("times"))
+                    else:
+                        self["vote"].setText(_("No user voted!"))
+            self.updateView(self.SHOW_MOVIE_DETAIL)
+        except Exception, e:
+            self["status"].setText(_("Error!\n%s" % e))
+            self["status"].show()
+            return
 
     def setCover(self, image):
         filename = image
@@ -448,7 +409,59 @@ class TMDbMain(Screen):
             self.session.openWithCallback(self.close, MessageBox, _("No internet connection available!"), MessageBox.TYPE_ERROR)
             return False
 
+    def buttonAction(self, text):
+        if text == self.SHOW_DETAIL_TEXT:
+            cur = self["list"].getCurrent()
+            if cur is not None:
+                self.getMovieInfo(cur[0])
+        elif text == self.SHOW_SEARCH_RESULT_TEXT:
+            self.searchForMovies()
+        elif text == self.TRAILER_SEARCH_TEXT:
+            if YTTrailerPresent:
+                current_movie = self["list"].getCurrent()[0]
+                title = current_movie["name"].encode('utf-8')
+                if self.view_mode == self.SHOW_RESULT_LIST:
+                    self.setTitle(_("Search result for: %s") % self.searchTitle)
+                else:
+                    self.setTitle(_("Details for: %s") % title)
+                self.session.open(YTTrailerList, title)
+
+    def ok_pressed(self):
+        if self.view_mode == self.SHOW_RESULT_LIST:
+            current_movie = self["list"].getCurrent()[0]
+            title = current_movie["name"].encode('utf-8')
+            self.setTitle(_("Getting show details for ' %s ', please wait ...") % title)
+        elif self.view_mode == self.SHOW_MOVIE_DETAIL:
+            self.setTitle(_("Getting search result for ' %s ', please wait ...") % self.searchTitle)
+        self.ok_button_timer.start(100, True)
+
+    def callback_ok_pressed(self):
+        if self.view_mode == self.SHOW_RESULT_LIST:
+            cur = self["list"].getCurrent()
+            if cur is not None:
+                self.getMovieInfo(cur[0])
+        elif self.view_mode == self.SHOW_MOVIE_DETAIL:
+            self.searchForMovies()
+
+    def red_pressed(self):
+        text = self["key_red"].getText()
+        if text == self.SHOW_DETAIL_TEXT:
+            current_movie = self["list"].getCurrent()[0]
+            title = current_movie["name"].encode('utf-8')
+            self.setTitle(_("Getting show details for ' %s ', please wait ...") % title)   
+        elif text == self.SHOW_SEARCH_RESULT_TEXT:
+            self.setTitle(_("Getting search result for ' %s ', please wait ...") % self.searchTitle)
+        self.red_button_timer.start(100, True)   
+            
+    def callback_red_pressed(self):
+        text = self["key_red"].getText()
+        self.buttonAction(text)
+
     def green_pressed(self):
+        self.setTitle(_("Save Info/Cover for ' %s ', please wait ...") % self.searchTitle)  
+        self.green_button_timer.start(100, True) 
+
+    def callback_green_pressed(self):
         if self.checkConnection() == False or not self["list"].getCurrent():
             return
         from EventInformationTable import createEIT
@@ -460,28 +473,105 @@ class TMDbMain(Screen):
         else:
             self.session.openWithCallback(self.close, MessageBox, _("Sorry, no info/cover found for title: %s") % (title), MessageBox.TYPE_ERROR)
 
-    def red_pressed(self):
-        if self.resultlist_lock_flag:
-            cur = self["list"].getCurrent()
-            if cur is not None:
-                self["list"].hide()
-                self["status"].setText(_("Getting movie information for '%s' from TMDb...") % cur[1].encode('utf-8', 'ignore'))
-                self["status"].show()
-                self.getMovieInfo(cur[0])
-        else:
-            self.searchForMovies()
-
     def yellow_pressed(self):
         self.session.openWithCallback(self.newSearchFinished, VirtualKeyBoard, title=_("Enter new moviename to search for"), text=self.searchTitle)
 
     def blue_pressed(self):
-        if self.resultlist_lock_flag:
-            cur = self["list"].getCurrent()
-            if cur is not None:
-                cur_tmp = cur[0]
-                eventname = cur_tmp['name']
-                self.session.open(YTTrailerList, eventname)
-        else:
-            eventname = self.searchTitle
-            self.session.open(YTTrailerList, eventname) 
-        
+        text = self["key_blue"].getText()
+        current_movie = self["list"].getCurrent()[0]
+        title = current_movie["name"].encode('utf-8')
+        if text == self.TRAILER_SEARCH_TEXT:
+             self.setTitle(_("Search trailer for ' %s ', please wait ...") % title)
+        self.blue_button_timer.start(100, True)
+
+    def callback_blue_pressed(self):
+        text = self["key_blue"].getText()
+        self.buttonAction(text)
+
+    def hideAll(self):
+        self["list"].hide()
+        self["tmdblogo"].hide()
+        self["cover"].hide()
+        self["description"].hide()
+        self["extended"].hide()
+        self["status"].hide()
+        self["stars"].hide()
+        self["no_stars"].hide()
+        self["vote"].hide()
+        self["result_txt"].hide()
+        self["seperator"].hide()
+        self["button_red"].hide()
+        self["button_green"].hide()
+        self["button_yellow"].hide()
+        self["button_blue"].hide()
+
+    def movieDetailView(self):
+        current_movie = self["list"].getCurrent()[0]
+        title = current_movie["name"].encode('utf-8')
+        self.setTitle(_("Details for: %s") % title)
+        self.hideAll()
+        self["seperator"].show()
+        self["description"].show()
+        self["extended"].show()
+        if self.ratingstars > 0:
+            self["stars"].show()
+            self["no_stars"].show()
+            self["vote"].show()
+
+    def movieListView(self):
+        self.setTitle(_("Search result for: %s") % self.searchTitle)
+        self.hideAll()
+        self["seperator"].show()
+        self["tmdblogo"].show()
+        self["result_txt"].show()
+        self["list"].show()
+
+    def updateView(self, mode=None):
+        if mode:
+            self.view_mode = mode
+        if self.view_mode == self.SHOW_SEARCH:
+            self.hideAll()
+            self["key_red"].setText("")
+            self["key_green"].setText("")
+            self["key_yellow"].setText("")
+            self["key_blue"].setText("")
+            self["tmdblogo"].show()
+        elif self.view_mode == self.SHOW_SEARCH_NO_RESULT:
+            self.hideAll()
+            self["key_red"].setText("")
+            self["key_green"].setText("")
+            self["key_yellow"].setText(self.MANUAL_SEARCH_TEXT)
+            self["key_blue"].setText("")
+            self["button_yellow"].show()
+            self["tmdblogo"].show()
+            self["seperator"].show()
+            self["status"].show()
+        elif self.view_mode == self.SHOW_RESULT_LIST:
+            self.movieListView()
+            self["key_red"].setText(self.SHOW_DETAIL_TEXT)
+            self["key_green"].setText(self.INFO_SAVE_TEXT)
+            self["key_yellow"].setText(self.MANUAL_SEARCH_TEXT)
+            if YTTrailerPresent:
+                self["key_blue"].setText(self.TRAILER_SEARCH_TEXT)
+                self["button_blue"].show()
+            else:
+                self["key_blue"].setText("")
+                self["button_blue"].hide()
+            self["button_red"].show()
+            self["button_green"].show()
+            self["button_yellow"].show()
+        elif self.view_mode == self.SHOW_MOVIE_DETAIL:
+            self.movieDetailView()
+            self["key_red"].setText(self.SHOW_SEARCH_RESULT_TEXT)
+            self["key_green"].setText(self.INFO_SAVE_TEXT)
+            self["key_yellow"].setText(self.MANUAL_SEARCH_TEXT)
+            if YTTrailerPresent:
+                self["key_blue"].setText(self.TRAILER_SEARCH_TEXT)
+                self["button_blue"].show()
+            else:
+                self["key_blue"].setText("")
+                self["button_blue"].hide()
+            self["button_red"].show()
+            self["button_green"].show()
+            self["button_yellow"].show()
+            
