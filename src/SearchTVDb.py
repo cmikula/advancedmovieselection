@@ -53,7 +53,7 @@ if environ["LANGUAGE"] == "de" or environ["LANGUAGE"] == "de_DE":
 else:
     nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_en.png")
 
-if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/YTTrailer/plugin.pyo"):
+if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/YTTrailer/plugin1.pyo"):
     from Plugins.Extensions.YTTrailer.plugin import YTTrailerList
     YTTrailerPresent = True
 else:
@@ -662,9 +662,7 @@ class TheTVDBMain(Screen):
             self.hideAll()
             self["key_red"].setText("")
             self["key_green"].setText("")
-            #self["key_yellow"].setText(self.MANUAL_SEARCH_TEXT)
             self["key_blue"].setText("")
-            #self["button_yellow"].show()
         elif self.view_mode == self.SHOW_SERIE_LIST:
             self.serieListView()
             self["key_red"].setText(self.SHOW_DETAIL_TEXT)
@@ -677,11 +675,15 @@ class TheTVDBMain(Screen):
             self["button_blue"].show()
         elif self.view_mode == self.SHOW_SERIE_DETAIL:
             self.serieDetailView()
-            self["key_red"].setText(self.TRAILER_SEARCH_TEXT)
+            if YTTrailerPresent:
+                self["key_red"].setText(self.TRAILER_SEARCH_TEXT)
+                self["button_red"].show()
+            else:
+                self["key_red"].setText("")
+                self["button_red"].hide()                
             self["key_green"].setText(self.INFO_SAVE_TEXT)
             self["key_yellow"].setText(self.MANUAL_SEARCH_TEXT)
             self["key_blue"].setText(self.SHOW_ALL_EPISODES_TEXT)
-            self["button_red"].show()
             self["button_green"].show()
             self["button_yellow"].show()
             self["button_blue"].show()
