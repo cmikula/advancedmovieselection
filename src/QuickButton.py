@@ -218,11 +218,7 @@ class QuickButton:
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
                             self.session.open(MessageBox, _("Rename here not possible, please select a movie!"), MessageBox.TYPE_INFO)        
-                elif pname == "TheTVDB Info & D/L":
-                    if not (service.flags):
-                        from SearchTVDb import TheTVDBMain
-                        self.session.open(TheTVDBMain, service)
-                elif pname == "TMDb Info & D/L":
+                elif pname == "TMDb search & D/L":
                     if not (service.flags):
                         from SearchTMDb import TMDbMain as TMDbMainsave
                         from ServiceProvider import ServiceCenter

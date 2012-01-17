@@ -194,7 +194,6 @@ config.AdvancedMovieSelection.show_dirsize_full = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.dirsize_digits = ConfigSelection(default="0", choices=[("0", _("0")), ("1", _("1")), ("2", _("2")), ("3", _("3"))])
 config.AdvancedMovieSelection.showpercentinmovielist = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.filesize_digits = ConfigSelection(default="1", choices=[("0", _("0")), ("1", _("1")), ("2", _("2")), ("3", _("3"))])
-config.AdvancedMovieSelection.showthetvdb = ConfigYesNo(default=False)
 
 PlayerInstance = None
 
@@ -520,8 +519,7 @@ def movieSelected(self, service):
                 except Exception, e:
                     print "Player instance closed exception: " + str(e) 
 
-                Notifications.AddNotification(DVDPlayerExtended, service) 
-                #self.session.open(DVDPlayerExtended, service)
+                self.session.open(DVDPlayerExtended, service)
             else:
                 self.session.open(MessageBox, _("No DVD-Player found!"), MessageBox.TYPE_ERROR, 10)
         else:

@@ -314,8 +314,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.list.append(getConfigListEntry(_("Show Provider Logo in original size:"), config.AdvancedMovieSelection.piconsize, _("Displays the Provider Logo in original size. Otherwise, the provider logo be displayed zoomed up to cover size.")))    
             self.list.append(getConfigListEntry(_("Provider Logo path:"), config.AdvancedMovieSelection.piconpath, _("Where to look for the provider logos? (Default is /usr/share/enigma2/picon)"))) 
         self.list.append(getConfigListEntry(_("Show rename in extensions menu from movielist:"), config.AdvancedMovieSelection.showrename, _("Displays rename function in the menu at the movie list.")))
-        self.list.append(getConfigListEntry(_("Show TMDb Info & D/L in extensions menu from movielist:"), config.AdvancedMovieSelection.showtmdb, _("Displays TMDb Info & D/L in the menu at the movie list.")))
-        self.list.append(getConfigListEntry(_("Show TheTVDB Info & D/L in extensions menu from movielist:"), config.AdvancedMovieSelection.showthetvdb, _("Displays TheTVDB Info & D/L in the menu at the movie list.")))
+        self.list.append(getConfigListEntry(_("Show TMDb search in extensions menu from movielist:"), config.AdvancedMovieSelection.showtmdb, _("Displays TMDb search in the menu at the movie list.")))
         self.list.append(getConfigListEntry(_("Jump to first mark when starts playing movie:"), config.AdvancedMovieSelection.jump_first_mark, _("If this option is activated automatically when a movie does not start from the last position, the movie starts at the first marker.")))
         self.list.append(getConfigListEntry(_("Show movie tags in extensions menu from movielist:"), config.AdvancedMovieSelection.showmovietagsinmenu, _("Displays movie tags function in the menu at the movie list.")))
         self.list.append(getConfigListEntry(_("Show filter by tags in extensions menu from movielist:"), config.AdvancedMovieSelection.showfiltertags, _("Displays filter by tags function in the menu at the movie list.")))
@@ -498,7 +497,7 @@ class ConfigSelection(eConfigSelection):
         return (sel[0], _(sel[1]))
 
 __dummy1__ = (_("Nothing"), _("Delete"), _("Wastebasket"), _("Sort"), _("Home"), _("Bookmark 1"), _("Bookmark 2"), _("Bookmark 3"), _("Bookmark(s) on/off"), _("Filter by Tags"), _("Tag Editor"), _("Move-Copy"), _("Rename"), 
-            _("TMDb Info & D/L"), _("Mark as seen"), _("Mark as unseen"), _("Show/Hide folders"), _("Trailer search"), _("Toggle seen"), _("Show Timer"), _("TheTVDB Info & D/L"))
+            _("TMDb search & D/L"), _("Mark as seen"), _("Mark as unseen"), _("Show/Hide folders"), _("Trailer search"), _("Toggle seen"), _("Show Timer"))
 __dummy2__ = (_("DM-600PVR"), _("DM-7000"), _("DM-7025"), _("DM-8000HD"), _("DM-500HD"), _("DM-800HD"), _("DM-800HDse"), _("DM-7020HD"), _("internal HDD"), _("NAS"), _("NAS-Movies"))
 __dummy3__ = (_("Display plugin name"), _("Display plugin description"))
 
@@ -536,15 +535,14 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         self.entryguilist.append(("10", "Tag Editor"))
         self.entryguilist.append(("11", "Move-Copy"))
         self.entryguilist.append(("12", "Rename"))
-        self.entryguilist.append(("13", "TMDb Info & D/L"))
-        self.entryguilist.append(("14", "TheTVDB Info & D/L"))
-        self.entryguilist.append(("15", "Toggle seen"))
-        self.entryguilist.append(("16", "Mark as seen"))
-        self.entryguilist.append(("17", "Mark as unseen"))
-        self.entryguilist.append(("18", "Show/Hide folders"))
-        self.entryguilist.append(("19", "Show Timer"))
+        self.entryguilist.append(("13", "TMDb search & D/L"))
+        self.entryguilist.append(("14", "Toggle seen"))
+        self.entryguilist.append(("15", "Mark as seen"))
+        self.entryguilist.append(("16", "Mark as unseen"))
+        self.entryguilist.append(("17", "Show/Hide folders"))
+        self.entryguilist.append(("18", "Show Timer"))
         if YTTrailerPresent == True:
-            self.entryguilist.append(("20", "Trailer search"))
+            self.entryguilist.append(("19", "Trailer search"))
         self.entryguilist2 = []
         self.entryguilist2.append(("0", "Nothing"))
         self.entryguilist2.append(("1", "DM-600PVR"))

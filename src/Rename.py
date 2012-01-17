@@ -144,21 +144,6 @@ class MovieRetitle(Screen, ConfigListScreen):
             meta_file = service.getPath() + ".meta"
         else:
             meta_file = service.getPath() + ".ts.meta"
-        
-        # Create new meta for ts files
-        if not os.path.exists(meta_file):
-            if os.path.isfile(service.getPath()):
-                title = os.path.basename(os.path.splitext(service.getPath())[0])
-            else:
-                title = service.getName()
-            sid = ""
-            descr = ""
-            time = ""
-            tags = ""
-            metafile = open(file, "w")
-            metafile.write("%s\r\n%s\r\n%s\r\n%s\r\n%s" % (sid, title, descr, time, tags))
-            metafile.close()
-
         if os.path.exists(meta_file):
             metafile = open(meta_file, "r")
             sid = metafile.readline()
