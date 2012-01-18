@@ -220,6 +220,4 @@ version 2.4.1
 version 2.5
 * neu: suchen und speichern von info/cover über thetvdb.com (@thetvdb.com thx for the api key)
 * geändert: viele interne funktionen bei tmdb info & d/l
-* fix: crash bei dvd´s in der filmliste (thx @ b_lisa fürs melden)
-* fix: crash bei der toggle auswahl (thx @ Nightrider fürs melden)
 ACHTUNG an die skinner,TMDbMainHD, TMDbMainXD,TMDbMainSD gab es änderungen, die screens TheTVDBMainHD, TheTVDBMainXD,und TheTVDBMainSD sind neu
