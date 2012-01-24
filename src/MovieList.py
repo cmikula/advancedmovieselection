@@ -577,7 +577,10 @@ class MovieList(GUIComponent):
             filesize = float(info.getInfoObject(serviceref, iServiceInformation.sFileSize) / (1024 * 1024))
             prec_text = str(perc) + '%'
             png = None
-            if os.path.exists(filename):
+            series_path = os.path.join(os.path.dirname(serviceref.getPath()), "series.jpg")
+            if os.path.exists(series_path):
+                png = self.picloader.load(series_path)
+            elif os.path.exists(filename):
                 png = self.picloader.load(filename)
             else:
                 picon = getServiceInfoValue(serviceref, iServiceInformation.sServiceref).rstrip(':').replace(':', '_') + ".png"

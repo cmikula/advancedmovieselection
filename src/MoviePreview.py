@@ -60,7 +60,10 @@ class MoviePreview():
         self.hideDialog()
         if serviceref:
             path = serviceref.getPath()
-            if os.path.isfile(path):
+            series_path = os.path.join(os.path.dirname(path), "series.jpg")
+            if os.path.exists(series_path):
+                path = series_path
+            elif os.path.isfile(path):
                 path = os.path.splitext(path)[0] + ".jpg"
             elif isinstance(serviceref, eServiceReferenceDvd):
                 path = path + ".jpg"
