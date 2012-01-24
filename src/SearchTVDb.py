@@ -392,14 +392,13 @@ class TheTVDBMain(Screen):
             else:
                 self.setTitle(_("Sorry, no episode titel available!"))
             try:
-                overview = ""
                 overview = movie['Overview']
                 if overview:
                     overview = str(overview).encode('utf-8', 'ignore')
                 else:
                     overview = (_("Sorry, no description for this episode at TheTVDB.com available!"))          
-                extended = ""
 
+                extended = ""
                 director = movie["Director"]
                 if director:
                     director = director.replace("|", ", ")
@@ -757,8 +756,13 @@ class TheTVDBMain(Screen):
             return
         current_movie = cur[0]['Serie'][0]
         title = current_movie['SeriesName'].encode('utf-8', 'ignore')
+        episode = None
+        cur_epi = self["episodes_list"].getCurrent()
+        # check entry and only store info if episode or episode details are shown
+        if cur_epi and (self.view_mode == self.SHOW_EPISODE_LIST or self.view_mode == self.SHOW_EPISODE_DETAIL):
+            episode = cur[0]
         if self.service is not None:
-            createEITtvdb(self.service.getPath(), title, serie=current_movie)
+            createEITtvdb(self.service.getPath(), title, serie=current_movie, episode=episode)
             self.close(False)
 
     def red_pressed(self):
