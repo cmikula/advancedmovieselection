@@ -161,6 +161,8 @@ class MovieDb:
             #print item.tag, item.text
             if item.tag.lower() == 'filename' and item.text:
                 curr[item.tag.lower()] = config['urls']['movie.getImage'] % (item.text)
+            elif item.tag == "Director" and item.text and item.text.startswith("|"):
+                curr[item.tag] = item.text[1:-1].split("|")
             else:
                 curr[item.tag] = item.text
         return curr
@@ -213,9 +215,11 @@ def printKey(item, key):
 
 def searchEpisode(episodes, episode_name):
     for episode in episodes:
-        ep_name = episode['EpisodeName'].encode('utf-8', 'ignore')
-        if ep_name.lower() == episode_name.lower():
-            return episode
+        ep_name = episode['EpisodeName']
+        if ep_name:
+            ep_name = ep_name.encode('utf-8', 'ignore')
+            if ep_name.lower() == episode_name.lower():
+                return episode
 
 def main():
     results = search("Law & Order")

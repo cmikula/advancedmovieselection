@@ -760,8 +760,6 @@ class TheTVDBMain(Screen):
         if self.service is not None:
             createEITtvdb(self.service.getPath(), title, serie=current_movie)
             self.close(False)
-        else:
-            self.session.openWithCallback(self.close, MessageBox, _("Sorry, no info/cover found for title: %s") % (title), MessageBox.TYPE_ERROR)
 
     def red_pressed(self):
         text = self["key_red"].getText()

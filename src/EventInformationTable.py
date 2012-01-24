@@ -503,11 +503,8 @@ def createEITtvdb(file_name, title, cover_type='poster', overwrite_jpg=False, ov
             print "Info's already exists, download skipped!"
             return True
 
-        if title:
-            title = title.replace('#', '')
-        print "Fetching info for movie: " + str(title)
-        
-        if serie == None:
+        if serie == None and title:
+            print "Fetching info for movie: " + str(title)
             results = tvdb.search(title)
             if len(results) == 0:
                 print "No info found for: " + str(title)
@@ -554,6 +551,18 @@ def createEITtvdb(file_name, title, cover_type='poster', overwrite_jpg=False, ov
         released = None
         if serie['FirstAired']:
             released = serie['FirstAired']     
+
+        if episode:
+            episode_name = episode['EpisodeName'] 
+            if episode_name:
+                name = name + " - " + episode_name
+            episode_overview = episode['Overview']
+            if episode_overview:
+                overview = episode_overview
+            if episode['FirstAired']:
+                released = episode['FirstAired']     
+            if episode.has_key('Director') and episode['Director']:
+                directors = episode['Director']     
 
         ex_info = []
         if released:
@@ -807,8 +816,20 @@ def printEIT(file_name):
     print "\n"
 
 if __name__ == '__main__':
-    supported = ["ts", "iso", "mkv"]
     path = "./tmp/"
+    if not os.path.exists(path):
+        os.makedirs(path) 
+
+    results = tvdb.search("Law & Order")
+    #results = search("The Mentalist")
+    for searchResult in results:
+        movie = tvdb.getMovieInfo(searchResult['id'])
+        serie = movie['Serie'][0]
+        episode = tvdb.searchEpisode(movie['Episode'], "Die Wunderdoktorin")
+        if episode:
+            createEITtvdb("./tmp/Law & Order.ts", None, overwrite_eit=True, serie=serie, episode=episode)
+
+    supported = ["ts", "iso", "mkv"]
     dirList = os.listdir(path)
     printEIT("./tmp/22 Bullets.eit")
     createEIT("./tmp/22 Bullets.ts", "22 Bullets", "cover", overwrite_eit=True)
