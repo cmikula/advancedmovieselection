@@ -35,6 +35,7 @@ import os
 from struct import unpack, pack
 import tmdb, tvdb, urllib
 import time
+from calendar import timegm
 
 def printStackTrace():
     import sys, traceback
@@ -54,7 +55,40 @@ def toDate(mjd):
     month += -1 - k * 12
     year += 1900
     return "%d.%02d.%02d" % (day, month, year)
-    
+
+def fromBCD(bcd):
+    if ((bcd & 0xF0) >= 0xA0):
+        return -1
+    if ((bcd & 0xF) >= 0xA):
+        return -1
+    return ((bcd & 0xF0) >> 4) * 10 + (bcd & 0xF)
+
+def parseDVBtime(t1, t2, t3, t4, t5, hash=None):
+    tm_sec = fromBCD(t5)
+    tm_min = fromBCD(t4)
+    tm_hour = fromBCD(t3)
+    mjd = (t1 << 8) | t2
+
+    tm_year = (int) ((mjd - 15078.2) / 365.25)
+    tm_mon = (int) ((mjd - 14956.1 - (int)(tm_year * 365.25)) / 30.6001)
+    tm_mday = (int) (mjd - 14956 - (int)(tm_year * 365.25) - (int)(tm_mon * 30.6001))
+    if tm_mon == 14 or tm_mon == 15:
+        k = 1
+    else:
+        k = 0
+    tm_year = tm_year + k
+    tm_mon = tm_mon - 1 - k * 12
+    #tm_mon = tm_mon - 1
+    tm_year += 1900
+
+    #tm_isdst = 0
+    #tm_gmtoff = 0
+
+    if hash:
+        hash = tm_hour * 60 + tm_min
+        hash |= tm_mday << 11
+
+    return timegm((tm_year, tm_mon, tm_mday, tm_hour, tm_min, tm_sec))
 
 def toMJD(date):
     try:
@@ -71,7 +105,6 @@ def toMJD(date):
         printStackTrace()
         return 51544
      
-
 class Descriptor:
     def __init__(self, tag):
         self.descriptor_tag = tag
@@ -622,23 +655,9 @@ class EventInformationTable:
                 self.event_id = unpack('>H', data[0:2])[0]
                 # Section start_time 40 bits
                 # 16 LSBs of MJD followed by 24 bits coded as 6 digits in 4-bit Binary Coded Decimal (BCD).
-                mjd = unpack('>H', data[2:4])[0]
-                self.date = toDate(mjd)
-                self.begin_time = mjd
-                h = unpack('B', data[4:5])[0]
-                ms = unpack('B', data[5:6])
-#                h += int(time.daylight)
-                h -= time.timezone / 3600
-                if h & 0x08:
-                    h += 0x10
-                    h &= 0xF0
-                if h >= 0x24:
-                    h = h - 0x24
-                self.start_time = "%x:%02x" % (h, ms[0])
+                self.begin_time = parseDVBtime(ord(data[2]), ord(data[3]), ord(data[4]), ord(data[5]), ord(data[6]))
                 # Section duration 24 bits, skip seconds
                 dur = unpack('BB', data[7:9])
-                #h = int("%x" %(dur[0]))*60
-                #m = int("%x" %(dur[1]))
                 h = ((dur[0] >> 4) * 10) + (dur[0] & 0x0f) * 60
                 m = ((dur[1] >> 4) * 10) + (dur[1] & 0x0f)
                 self.duration = (h + m) * 60
@@ -701,7 +720,7 @@ class EventInformationTable:
         return self.duration
 
     def getBeginTimeString(self):
-        return "%s, %s" % (self.date, self.start_time)
+        return time.strftime("%d.%m.%Y %H:%M", time.gmtime(self.begin_time))
     
     def getBeginTime(self):
         return self.begin_time
@@ -812,15 +831,22 @@ def printEIT(file_name):
     print "\nEIT info for: " + file_name
     eit = EventInformationTable(file_name)
     print "ID:0x%04X %s %s" % (eit.event_id, eit.start_time, eit.duration)
-    print eit.event_name
-    print eit.short_description
-    print eit.extended_description
+    print eit.getEventName()
+    print eit.getEventId()
+    print eit.getShortDescription()
+    print eit.getExtendedDescription()
     print eit.getBeginTimeString()
-    print eit.duration / 60
+    print eit.getBeginTime()
+    print eit.getDuration() / 60
     print "Length: " + str(eit.descriptors_loop_length)
     print "\n"
 
 if __name__ == '__main__':
+    eit = EventInformationTable("./tmp/Der Kautions-Cop.eit")
+    print eit.getBeginTimeString()
+    print time.strftime("%d.%m.%Y %H:%M", time.gmtime(eit.getBeginTime()))
+    print eit.getBeginTime()
+
     path = "./tmp/"
     if not os.path.exists(path):
         os.makedirs(path) 
