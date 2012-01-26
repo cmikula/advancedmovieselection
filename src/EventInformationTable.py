@@ -596,6 +596,7 @@ class EventInformationTable:
     def __init__(self, path, no_info=False):
         self.event_id = 0
         self.start_time = ""
+        self.begin_time = 0
         self.date = ""
         self.duration = 0
         self.running_status = 0
@@ -623,6 +624,7 @@ class EventInformationTable:
                 # 16 LSBs of MJD followed by 24 bits coded as 6 digits in 4-bit Binary Coded Decimal (BCD).
                 mjd = unpack('>H', data[2:4])[0]
                 self.date = toDate(mjd)
+                self.begin_time = mjd
                 h = unpack('B', data[4:5])[0]
                 ms = unpack('B', data[5:6])
 #                h += int(time.daylight)
@@ -699,7 +701,10 @@ class EventInformationTable:
         return self.duration
 
     def getBeginTimeString(self):
-        return "%s, %s" % (self.date, self.start_time) 
+        return "%s, %s" % (self.date, self.start_time)
+    
+    def getBeginTime(self):
+        return self.begin_time
 
 # Debug only 
 def detectDVDStructure(loadPath):
