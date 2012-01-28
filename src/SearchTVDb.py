@@ -760,7 +760,7 @@ class TheTVDBMain(Screen):
         cur_epi = self["episodes_list"].getCurrent()
         # check entry and only store info if episode or episode details are shown
         if cur_epi and (self.view_mode == self.SHOW_EPISODE_LIST or self.view_mode == self.SHOW_EPISODE_DETAIL):
-            episode = cur[0]
+            episode = cur_epi[0]
         if self.service is not None:
             createEITtvdb(self.service.getPath(), title, serie=current_movie, episode=episode)
             self.close(False)
