@@ -10,13 +10,7 @@
 __author__ = "doganaydin"
 __version__ = "0.2"
 
-config = {}
-config['apikey'] = "1f834eb425728133b9a2c1c0c82980eb" # apikey from JD
-config['urls'] = {}
-config['urls']['movie.search'] = "http://api.themoviedb.org/2.1/Movie.search/de/xml/%(apikey)s/%%s" % (config)
-config['urls']['movie.getInfo'] = "http://api.themoviedb.org/2.1/Movie.getInfo/de/xml/%(apikey)s/%%s" % (config)
-config['urls']['media.getInfo'] = "http://api.themoviedb.org/2.1/Media.getInfo/de/xml/%(apikey)s/%%s/%%s" % (config)
-config['urls']['imdb.lookUp'] = "http://api.themoviedb.org/2.1/Movie.imdbLookup/de/xml/%(apikey)s/%%s" % (config)
+config = None
 
 def setLocale(lng):
     global config
@@ -29,6 +23,8 @@ def setLocale(lng):
     config['urls']['movie.getInfo'] = "http://api.themoviedb.org/2.1/Movie.getInfo/%(locale)s/xml/%(apikey)s/%%s" % (config)
     config['urls']['media.getInfo'] = "http://api.themoviedb.org/2.1/Media.getInfo/%(locale)s/xml/%(apikey)s/%%s/%%s" % (config)
     config['urls']['imdb.lookUp'] = "http://api.themoviedb.org/2.1/Movie.imdbLookup/%(locale)s/xml/%(apikey)s/%%s" % (config)
+
+setLocale("de")
 
 import os,struct,urllib,urllib2,xml.etree.cElementTree as ElementTree
 

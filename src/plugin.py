@@ -656,11 +656,12 @@ def autostart(reason, **kwargs):
                     serverInstance.startScanForClients()
 
                 # set locale for tmdb search
-                from tmdb import setLocale
+                import tmdb, tvdb
                 from Components.Language import language
                 lang = language.getLanguage()[:2]
                 if lang != "de":
-                    setLocale("en")
+                    tmdb.setLocale("en")
+                    tvdb.setLocale("en")
             except:
                 pass
 
