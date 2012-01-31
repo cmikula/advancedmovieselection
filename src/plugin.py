@@ -504,7 +504,7 @@ def movieSelected(self, service):
         if isinstance(service, eServiceReferenceDvd):
             if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/DVDPlayer/plugin.py"):
                 from Plugins.Extensions.DVDPlayer.plugin import DVDPlayer
-                class DVDPlayerExtended(CutListSupport, DVDPlayer):
+                class DVDPlayerExtended(DVDPlayer, CutListSupport):
                     def __init__(self, session, service):
                         CutListSupport.__init__(self, service)
                         DVDPlayer.__init__(self, session, dvd_filelist=service.getDVD())
@@ -527,7 +527,6 @@ def movieSelected(self, service):
         else:
             self.session.open(MoviePlayerExtended, service)
 
-from Screens import Standby
 from Components.UsageConfig import defaultMoviePath
 from Trashcan import Trashcan
 class WastebasketTimer():
