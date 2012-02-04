@@ -408,6 +408,8 @@ class Event:
     def getDuration(self):
         return self.info.length
     
+    def getBeginTime(self):
+        return -1
 
 from Components.Converter.Converter import Converter
 class EventName(Converter, object):
