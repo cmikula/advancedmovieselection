@@ -409,7 +409,7 @@ class Event:
         return self.info.length
     
     def getBeginTime(self):
-        return -1
+        return self.info.getInfo(self.serviceref, iServiceInformation.sTimeCreate)
 
 from Components.Converter.Converter import Converter
 class EventName(Converter, object):
