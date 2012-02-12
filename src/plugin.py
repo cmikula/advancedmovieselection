@@ -502,13 +502,14 @@ def movieSelected(self, service):
     if service is not None:
         if isinstance(service, eServiceReferenceDvd):
             if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/DVDPlayer/plugin.py"):
-                from Plugins.Extensions.DVDPlayer.plugin import DVDPlayer
-                class DVDPlayerExtended(DVDPlayer, CutListSupport):
+                from Plugins.Extensions.DVDPlayer.plugin import DVDPlayer as eDVDPlayer
+                class DVDPlayer(eDVDPlayer, CutListSupport):
                     def __init__(self, session, service):
                         CutListSupport.__init__(self, service)
-                        DVDPlayer.__init__(self, session, dvd_filelist=service.getDVD())
-                        self.addPlayerEvents()
-                        self.skinName = "DVDPlayer"
+                        self.copyDVDCutsToRoot()
+                        eDVDPlayer.__init__(self, session, dvd_filelist=service.getDVD())
+                        self.onClose.append(self.copyDVDCutsFromRoot)
+
                 try:
                     global PlayerInstance
                     if PlayerInstance is not None:
@@ -519,7 +520,7 @@ def movieSelected(self, service):
                 except Exception, e:
                     print "Player instance closed exception: " + str(e) 
 
-                Notifications.AddNotification(DVDPlayerExtended, service) 
+                Notifications.AddNotification(DVDPlayer, service) 
                 #self.session.open(DVDPlayerExtended, service)
             else:
                 self.session.open(MessageBox, _("No DVD-Player found!"), MessageBox.TYPE_ERROR, 10)

@@ -238,15 +238,50 @@ def getCutList(fileName):
             data = file.read(12)
             if data == '':
                 break
-            where = struct.unpack('>Q', data[0:8])
-            what = struct.unpack('>I', data[8:12])
-            cutList.append((where[0], what[0]))
+            where = struct.unpack('>Q', data[0:8])[0]
+            what = struct.unpack('>I', data[8:12])[0]
+            cutList.append((where, what))
     except Exception, e:
         print "Exception in getCutList: " + str(e)
     finally:
         if file is not None:
             file.close()
     return cutList
+
+def checkDVDCuts(fileName):
+    file = None
+    cutList = [ ]
+    if not os.path.exists(fileName + ".cuts"):
+        return False
+    try:
+        file = open(fileName + ".cuts", "rb")
+        #resume_info.title=%d, chapter=%d, block=%lu, audio_id=%d, audio_lock=%d, spu_id=%d, spu_lock=%d
+        while 1:
+            data = file.read(12)
+            if data == '':
+                break
+            where = struct.unpack('>Q', data[0:8])[0]
+            what = struct.unpack('>I', data[8:12])[0]
+            print what, where
+            cutList.append((where, what))
+            
+            title = struct.unpack('<i', file.read(4))[0:4][0]
+            chapter = struct.unpack('<i', file.read(4))[0:4][0]
+            block = struct.unpack('<I', file.read(4))[0:4][0]
+            audio_id = struct.unpack('<i', file.read(4))[0:4][0]
+            audio_lock = struct.unpack('<i', file.read(4))[0:4][0]
+            spu_id = struct.unpack('<i', file.read(4))[0:4][0]
+            spu_lock = struct.unpack('<i', file.read(4))[0:4][0]
+            what = struct.unpack('>i', file.read(4))[0:4][0]
+            print "py_resume_pos: resume_info.title=%d, chapter=%d, block=%d, audio_id=%d, audio_lock=%d, spu_id=%d, spu_lock=%d  (pts=%d)" % (title, chapter, block, audio_id, audio_lock, spu_id, spu_lock, what)
+            if what == 4:
+                return True 
+    except Exception, e:
+        print "Exception in checkDVDCutList: " + str(e)
+    finally:
+        if file is not None:
+            file.close()
+    return False
 
 def checkCreateMetaFile(ref):
     file = ref.getPath() + ".ts.meta"
@@ -450,6 +485,7 @@ class EventName(Converter, object):
 class CutListSupport:
     def __init__(self, service):
         self.currentService = service
+        self.cut_list = [ ]
 
     def getCuesheet(self):
         service = self.session.nav.getCurrentService()
@@ -472,7 +508,6 @@ class CutListSupport:
                 #    self.cut_list = [(0, 3)]
             else:
                 self.cut_list = cue.getCutList()
-            
             if config.usage.on_movie_start.value == "beginning" or config.usage.on_movie_start.value == "ask" and config.AdvancedMovieSelection.jump_first_mark.value == True:
                 self.jumpToFirstMark()
             stop_before_end_time = int(config.AdvancedMovieSelection.stop_before_end_time.value) 
@@ -505,6 +540,7 @@ class CutListSupport:
         length = seek.getLength()[1]
         if(stopPosition > length):
             stopPosition = 0
+        
         if self.cut_list is not None:
             inList = False
             endInList = False
@@ -557,6 +593,34 @@ class CutListSupport:
                 self.currentService = service
         except Exception, e:
             print "playerClosed exception:\n" + str(e)
+
+    def getDVDNameFromFile(self, file_name):
+        if os.path.isfile(file_name):
+            return os.path.basename(os.path.splitext(file_name)[0])
+        else:
+            return os.path.basename(file_name)
+
+    def copyDVDCutsFromRoot(self):
+        try:
+            file_name = self.currentService.getPath()
+            name = self.getDVDNameFromFile(file_name)
+            src = "/home/root/dvd-%s.cuts" % (name.upper())
+            dst = file_name + ".cuts"
+            if os.path.exists(src):
+                copyfile(src, dst)
+        except Exception, e:
+            print "copyDVDCutsFromRoot exception:\n" + str(e)
+
+    def copyDVDCutsToRoot(self):
+        try:
+            file_name = self.currentService.getPath()
+            src = file_name + ".cuts"
+            if os.path.exists(src) and checkDVDCuts(file_name):
+                name = self.getDVDNameFromFile(file_name)
+                dst = "/home/root/dvd-%s.cuts" % (name.upper()) 
+                copyfile(src, dst)
+        except Exception, e:
+            print "copyDVDCutsToRoot exception:\n" + str(e)
 
     def jumpToFirstMark(self):
         firstMark = None
