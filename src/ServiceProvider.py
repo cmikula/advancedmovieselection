@@ -600,7 +600,7 @@ class CutListSupport:
         else:
             return os.path.basename(file_name)
 
-    def copyDVDCutsFromRoot(self):
+    def storeDVDCueSheet(self):
         try:
             file_name = self.currentService.getPath()
             name = self.getDVDNameFromFile(file_name)
@@ -609,9 +609,9 @@ class CutListSupport:
             if os.path.exists(src):
                 copyfile(src, dst)
         except Exception, e:
-            print "copyDVDCutsFromRoot exception:\n" + str(e)
+            print "storeDVDCueSheet exception:\n" + e
 
-    def copyDVDCutsToRoot(self):
+    def loadDVDCueSheet(self):
         try:
             file_name = self.currentService.getPath()
             src = file_name + ".cuts"
@@ -620,7 +620,7 @@ class CutListSupport:
                 dst = "/home/root/dvd-%s.cuts" % (name.upper()) 
                 copyfile(src, dst)
         except Exception, e:
-            print "copyDVDCutsToRoot exception:\n" + str(e)
+            print "loadDVDCueSheet exception:\n" + e
 
     def jumpToFirstMark(self):
         firstMark = None

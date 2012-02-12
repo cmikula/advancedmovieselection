@@ -506,9 +506,9 @@ def movieSelected(self, service):
                 class DVDPlayer(eDVDPlayer, CutListSupport):
                     def __init__(self, session, service):
                         CutListSupport.__init__(self, service)
-                        self.copyDVDCutsToRoot()
+                        self.loadDVDCueSheet()
                         eDVDPlayer.__init__(self, session, dvd_filelist=service.getDVD())
-                        self.onClose.append(self.copyDVDCutsFromRoot)
+                        self.onClose.append(self.storeDVDCueSheet)
 
                 try:
                     global PlayerInstance
