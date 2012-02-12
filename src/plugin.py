@@ -261,7 +261,6 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
         MoviePreview.__init__(self, session)
         SelectionEventInfo.__init__(self)
         self.skinName = ["MoviePlayerExtended", "MoviePlayer"]
-        self.addPlayerEvents()
         global PlayerInstance
         PlayerInstance = self
         self["EPGActions"] = HelpableActionMap(self, "InfobarEPGActions",
@@ -395,6 +394,7 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
         self.session.openWithCallback(self.movieSelected, MovieSelection, ref, True)
 
     def handleLeave(self, how):
+        self.playerClosed()
         self.is_closing = True
         if how == "ask":
             if config.usage.setup_level.index < 2: # -expert
@@ -460,7 +460,6 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
             self.session.openWithCallback(self.shutdown, MessageBox, _("End of the movie is reached, the box now go to shut down. Shutdown now?"), timeout=20)
             self.close()
         elif answer in ("movielist", "returnanddeleteconfirmed"):
-            self.playerClosed()
             ref = self.session.nav.getCurrentlyPlayingServiceReference()
             self.returning = True
             self.session.openWithCallback(self.movieSelected, MovieSelection, ref, True)
