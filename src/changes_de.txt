@@ -219,5 +219,9 @@ version 2.4.1
 
 version 2.5
 * neu: suchen und speichern von info/cover über thetvdb.com (@thetvdb.com thx for the api key)
+* neu: cover anzeige bei serien (series.jpg muss im ordner/pfad vorhanden sein)
 * geändert: viele interne funktionen bei tmdb info & d/l
+* fix: DVD-Player start und fortfahren funktion
+* fix: übriggebliebene cuts nach dem löschen
+* fix: umbenennen von ts filmen ohne meta datei
 ACHTUNG an die skinner,TMDbMainHD, TMDbMainXD,TMDbMainSD gab es änderungen, die screens TheTVDBMainHD, TheTVDBMainXD,und TheTVDBMainSD sind neu
