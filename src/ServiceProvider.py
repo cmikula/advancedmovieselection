@@ -605,6 +605,8 @@ class CutListSupport:
             file_name = self.currentService.getPath()
             name = self.getDVDNameFromFile(file_name)
             src = "/home/root/dvd-%s.cuts" % (name.upper())
+            if os.path.isdir(file_name):
+                src = os.path.join(file_name, "dvd.cuts")
             dst = file_name + ".cuts"
             if os.path.exists(src):
                 copyfile(src, dst)
@@ -615,7 +617,7 @@ class CutListSupport:
         try:
             file_name = self.currentService.getPath()
             src = file_name + ".cuts"
-            if os.path.exists(src) and checkDVDCuts(file_name):
+            if os.path.exists(src) and os.path.isfile(file_name) and checkDVDCuts(file_name):
                 name = self.getDVDNameFromFile(file_name)
                 dst = "/home/root/dvd-%s.cuts" % (name.upper()) 
                 copyfile(src, dst)
