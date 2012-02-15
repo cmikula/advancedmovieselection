@@ -224,4 +224,5 @@ version 2.5
 * fix: DVD-Player start und fortfahren funktion
 * fix: übriggebliebene cuts nach dem löschen
 * fix: umbenennen von ts filmen ohne meta datei
+* fix: crash mit enigma2-plugin-systemplugins-eventnavigator plugin
 ACHTUNG an die skinner,TMDbMainHD, TMDbMainXD,TMDbMainSD gab es änderungen, die screens TheTVDBMainHD, TheTVDBMainXD,und TheTVDBMainSD sind neu
