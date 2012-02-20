@@ -147,9 +147,9 @@ class MovieDb:
             #print item.tag, item.text
             if self.addImage(cur_serie, item):
                 pass
-            elif item.tag == "Actors":
+            elif item.tag == "Actors"and item.text and item.text.startswith("|"):
                 cur_serie[item.tag] = item.text[1:-1].split("|")
-            elif item.tag == "Genre":
+            elif item.tag == "Genre" and item.text and item.text.startswith("|"):
                 cur_serie[item.tag] = item.text[1:-1].split("|")
             else:
                 cur_serie[item.tag] = item.text
