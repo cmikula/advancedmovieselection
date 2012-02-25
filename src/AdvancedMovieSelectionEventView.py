@@ -3,7 +3,7 @@
 #  Advanced Movie Selection for Dreambox-Enigma2
 #
 #  The plugin is developed on the basis from a lot of single plugins (thx for the code @ all)
-#  Coded by JackDaniel (c)2011
+#  Coded by JackDaniel & cmikula (c)2011
 #  Support: www.i-have-a-dreambox.com
 #
 #  This plugin is licensed under the Creative Commons 
@@ -42,6 +42,8 @@ class EventViewBase:
             {
                 "cancel": self.close,
                 "ok": self.close,
+                "prevEvent": self.prevEvent,
+                "nextEvent": self.nextEvent,
                 "pageUp": self.pageUp,
                 "pageDown": self.pageDown
             })
@@ -49,6 +51,26 @@ class EventViewBase:
 
     def onCreate(self):
         self.setEvent(self.event)
+
+    def prevEvent(self):
+        if self.cbFunc is not None:
+            self.cbFunc(self.setEvent, self.setService, -1)
+
+    def nextEvent(self):
+        if self.cbFunc is not None:
+            self.cbFunc(self.setEvent, self.setService, +1)
+
+    def setService(self, service):
+        self.currentService = service
+        return
+        if self.isRecording:
+            self["channel"].setText(_("Recording"))
+        else:
+            name = self.currentService.getServiceName()
+            if name is not None:
+                self["channel"].setText(name)
+            else:
+                self["channel"].setText(_("unknown service"))
 
     def setEvent(self, event):
         self.event = event

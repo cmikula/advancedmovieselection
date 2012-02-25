@@ -977,6 +977,9 @@ class MovieList(GUIComponent):
             count += 1
         return False
     
+    def moveUp(self):
+        self.instance.moveSelection(self.instance.moveUp)
+
     def moveDown(self):
         self.instance.moveSelection(self.instance.moveDown)
         

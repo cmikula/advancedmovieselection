@@ -228,6 +228,7 @@ version 2.5
 ACHTUNG an die skinner,TMDbMainHD, TMDbMainXD,TMDbMainSD gab es änderungen, die screens TheTVDBMainHD, TheTVDBMainXD,und TheTVDBMainSD sind neu
 
 version 2.5.1
+* neu: in der info übersicht des films kann mit rechts/links der nächste/vorige film gewählt werden   
 * fix: tvdb serien wurden nicht immer gefunden
 * fix: übriggebliebene dateien beim löschen ohne papierkorb
 * fix: tag zuordnung von nicht ts filmen

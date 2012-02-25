@@ -978,7 +978,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                 serviceref = self.getCurrent()
                 evt = self["list"].getCurrentEvent()
                 if evt:
-                    self.session.open(EventViewSimple, evt, serviceref, ServiceReference(self.getCurrent()))
+                    self.session.open(EventViewSimple, evt, serviceref, self.eventViewCallback)
         if answer == "Ii":
             if event is not None:
                 IeventName = event.getEventName()
@@ -991,6 +991,26 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             if event is not None:
                 eventName = event.getEventName()
                 self.session.open(TMDbMain, eventName) 
+
+    def eventViewCallback(self, setEvent, setService, val):
+        l = self["list"]
+        old = (l.getCurrentEvent(), l.getCurrent())
+        if val == -1:
+            self.moveUp()
+        elif val == +1:
+            self.moveDown()
+        cur = (l.getCurrentEvent(), l.getCurrent())
+        if cur[0] is None and cur[1] != old[1]:
+            self.eventViewCallback(setEvent, setService, val)
+        else:
+            setService(cur[1])
+            setEvent(cur[0])
+
+    def moveUp(self):
+        self.list.moveUp()
+
+    def moveDown(self):
+        self.list.moveDown()
 
     def go(self):
         if not self.inited:
