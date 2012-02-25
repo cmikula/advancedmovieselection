@@ -29,10 +29,11 @@ from Components.config import config
 from Components.ActionMap import ActionMap
 from Components.Sources.StaticText import StaticText
 from Components.SelectionList import SelectionList
-from enigma import eServiceReference, eServiceCenter, iServiceInformation, getDesktop
+from enigma import eServiceReference, iServiceInformation, getDesktop
 from os import path as os_path
 from Screens.Console import eConsoleAppContainer
 from Screens.TimerEntry import TimerEntry
+from ServiceProvider import ServiceCenter
 
 class TagEditor(Screen):
     def __init__(self, session, tags, txt = None, parent = None):
@@ -144,17 +145,18 @@ class TagEditor(Screen):
         else:
             file = file + ".ts.meta"
         if os_path.exists(file):
-            metafile = open(file, "r")
-            sid = metafile.readline()
-            title = metafile.readline()
-            descr = metafile.readline()
-            time = metafile.readline()
-            oldtags = metafile.readline().rstrip()
+            metafile = open(file + ".ts.meta", "r")
+            sid = metafile.readline().strip("\r\n")
+            title = metafile.readline().strip("\r\n")
+            descr = metafile.readline().strip("\r\n")
+            time = metafile.readline().strip("\r\n")
+            oldtags = metafile.readline().rstrip("\r\n")
+            rest = metafile.read()
             metafile.close()
             tags = " ".join(tags)
             if tags != oldtags:
-                metafile = open(file, "w")
-                metafile.write("%s%s%s%s%s" %(sid, title, descr, time, tags))
+                metafile = open(file + ".ts.meta", "w")
+                metafile.write("%s\n%s\n%s\n%s\n%s\n%s" %(sid, title, descr, time, tags, rest))
                 metafile.close()
 
     def foreachTimerTags(self, func):
@@ -166,7 +168,7 @@ class TagEditor(Screen):
             self.session.nav.RecordTimer.saveTimer()
 
     def foreachMovieTags(self, func):
-        serviceHandler = eServiceCenter.getInstance()
+        serviceHandler = ServiceCenter.getInstance()
         for dir in config.movielist.videodirs.value:
             if os_path.isdir(dir):
                 root = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + dir)
@@ -307,7 +309,7 @@ class TagEditor(Screen):
 class MovieTagEditor(TagEditor):
     def __init__(self, session, service, parent):
         self.service = service
-        serviceHandler = eServiceCenter.getInstance()
+        serviceHandler = ServiceCenter.getInstance()
         info = serviceHandler.info(service)
         path = service.getPath()
         if path.endswith(".ts"):
@@ -323,16 +325,17 @@ class MovieTagEditor(TagEditor):
     def saveTags(self, file, tags):
         if os_path.exists(file + ".ts.meta"):
             metafile = open(file + ".ts.meta", "r")
-            sid = metafile.readline()
-            title = metafile.readline()
-            descr = metafile.readline()
-            time = metafile.readline()
-            oldtags = metafile.readline().rstrip()
+            sid = metafile.readline().strip("\r\n")
+            title = metafile.readline().strip("\r\n")
+            descr = metafile.readline().strip("\r\n")
+            time = metafile.readline().strip("\r\n")
+            oldtags = metafile.readline().rstrip("\r\n")
+            rest = metafile.read()
             metafile.close()
             tags = " ".join(tags)
             if tags != oldtags:
                 metafile = open(file + ".ts.meta", "w")
-                metafile.write("%s%s%s%s%s" %(sid, title, descr, time, tags))
+                metafile.write("%s\n%s\n%s\n%s\n%s\n%s" %(sid, title, descr, time, tags, rest))
                 metafile.close()
 
     def cancel(self):

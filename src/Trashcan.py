@@ -38,8 +38,8 @@ class AsynchTrash(Thread):
     def __init__(self, items, wait_ms=0):
         Thread.__init__(self)
         self.items = items
-        self.start()
         self.wait_ms = wait_ms
+        self.start()
 
     def run(self):
         self.cancel = False

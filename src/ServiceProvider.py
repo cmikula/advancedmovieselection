@@ -295,7 +295,7 @@ def checkCreateMetaFile(ref):
         time = ""
         tags = ""
         metafile = open(file, "w")
-        metafile.write("%s\r\n%s\r\n%s\r\n%s\r\n%s" % (sid, title, descr, time, tags))
+        metafile.write("%s\n%s\n%s\n%s\n%s\n" % (sid, title, descr, time, tags))
         metafile.close()
 
 class ServiceInfo:
