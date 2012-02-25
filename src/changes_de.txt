@@ -231,3 +231,5 @@ version 2.5.1
 * fix: tvdb serien wurden nicht immer gefunden
 * fix: übriggebliebene dateien beim löschen ohne papierkorb
 * fix: tag zuordnung von nicht ts filmen
+* fix: crash beim papierkorb anzeigen
+* fix: crash beim umbenennen von filmen wenn keine meta vorhanden ist
