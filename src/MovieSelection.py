@@ -55,7 +55,7 @@ from os import path
 import os
 import NavigationInstance
 from timer import TimerEntry
-from Trashcan import Trashcan
+from Trashcan import Trashcan, AsynchTrash
 from RecordTimer import AFTEREVENT
 from ClientSetup import ClientSetup
 from time import localtime, strftime
@@ -859,7 +859,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         except Exception, e:
             print e
             self.session.open(MessageBox, _("Delete failed!"), MessageBox.TYPE_ERROR)
-        self["freeDiskSpace"].update()
 
     def deleteConfirmed(self, confirmed):
         if not confirmed:
@@ -870,39 +869,10 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             return
         
         for item in self.to_delete:
-            result = False
-            try:
-                self.stopRemoveTimer(item.getPath())
-                title = item.getPath()
-                if path.isfile(item.getPath()):
-                    title = path.splitext(item.getPath())[0]
-                    serviceHandler = eServiceCenter.getInstance()
-                    offline = serviceHandler.offlineOperations(item)
-                    if offline is not None:
-                        if not offline.deleteFromDisk(0):
-                            result = True
-                else:
-                    eConsoleAppContainer().execute("rm -rf '%s'" % item.getPath())
-                print title
-    
-                eConsoleAppContainer().execute("rm -f '%s'" % title + ".cuts")
-                eConsoleAppContainer().execute("rm -f '%s'" % title + ".eit")
-                eConsoleAppContainer().execute("rm -f '%s'" % title + ".jpg")
-                eConsoleAppContainer().execute("rm -f '%s'" % title + "*.ts.meta")
-                eConsoleAppContainer().execute("rm -f '%s'" % title + ".ts.cutsr")       
-                eConsoleAppContainer().execute("rm -f '%s'" % title + ".ts.sc")
-                eConsoleAppContainer().execute("rm -f '%s'" % title + ".ts.ap")
-                eConsoleAppContainer().execute("rm -f '%s'" % title)
-                result = True
-            except Exception, e:
-                print "Exception deleting files: " + str(e)
-    
-            if result == False:
-                self.session.open(MessageBox, _("Delete failed!"), MessageBox.TYPE_ERROR)
-                return
-            else:
-                self["list"].removeService(item)
-                self["freeDiskSpace"].update()
+            self.stopRemoveTimer(item.getPath())
+            self["list"].removeService(item)
+
+        AsynchTrash(self.to_delete, 100)            
 
     def updateCurrentSelection(self, dummy=None):
         self.list.updateCurrentSelection()

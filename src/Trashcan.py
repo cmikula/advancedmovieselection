@@ -25,9 +25,8 @@ For example, if you distribute copies of such a program, whether gratis or for a
 must pass on to the recipients the same freedoms that you received. You must make sure 
 that they, too, receive or can get the source code. And you must show them these terms so they know their rights.
 '''
-import os, glob, shutil
+import os, glob, shutil, time
 from threading import Thread
-from ServiceProvider import getFolderSize
  
 TRASH_NAME = ".trash"
 TRASH_EXCLUDE = ("DUMBO", "TIMOTHY", "swap", "ram", "ba")
@@ -36,13 +35,17 @@ trash_count = 0
 trash_size = 0
 
 class AsynchTrash(Thread):
-    def __init__(self, items):
+    def __init__(self, items, wait_ms=0):
         Thread.__init__(self)
         self.items = items
         self.start()
+        self.wait_ms = wait_ms
 
     def run(self):
         self.cancel = False
+        if(self.wait_ms>0):
+            seconds = self.wait_ms / 1000.0
+            time.sleep(seconds)
         for service in self.items:
             if self.cancel:
                 return
@@ -92,6 +95,7 @@ def updateInfo(path):
     if os.path.isfile(path):
         trash_size += os.path.getsize(path)
     else:
+        from ServiceProvider import getFolderSize
         trash_size += getFolderSize(os.path.dirname(path))
 
 def resetInfo():
