@@ -89,14 +89,9 @@ class TrashMovieList(GUIComponent):
         if filesize <= 999:
             size = "%d MB" % (filesize)
         else:
-            if config.AdvancedMovieSelection.filesize_digits.value == "0":
-                size = "%d GB" % (filesize / 1000)
-            elif config.AdvancedMovieSelection.filesize_digits.value == "1":
-                size = "%s GB" % (round(filesize / 1000, 1))
-            elif config.AdvancedMovieSelection.filesize_digits.value == "2":
-                size = "%s GB" % (round(filesize / 1000, 2))
-            else:
-                size = "%s GB" % (round(filesize / 1000, 3))
+            format_string = "%%.%sf GB" % (config.AdvancedMovieSelection.filesize_digits.value)
+            size = (format_string) % (filesize / 1000.0)
+
         res.append(MultiContentEntryText(pos=(5, 2), size=(width - 155, 26), font=0, flags=RT_HALIGN_LEFT, text=serviceref.getName()))
         res.append(MultiContentEntryText(pos=(width - 155, 2), size=(150, 26), font=0, flags=RT_HALIGN_RIGHT, text=size))
         res.append(MultiContentEntryText(pos=(5, 29), size=(width - 205, 22), font=1, flags=RT_HALIGN_LEFT, text=description))
@@ -298,16 +293,10 @@ class Wastebasket(Screen):
         count = Trashcan.getTrashCount()
         cap = Trashcan.getTrashSize()
         if cap <= 999:
-            wastebasket_info = (_("Trash count: %s") % count) + ' / ' + (_("Trash size: %d MB") % cap)
+            wastebasket_info = (_("Trash count: %d") % (count)) + ' / ' + (_("Trash size: %d MB") % cap)
         else:
-            if config.AdvancedMovieSelection.filesize_digits.value == "0":
-                wastebasket_info = (_("Trash count: %s") % count) + ' / ' + (_("Trash size: %d GB") % cap / 1000)
-            elif config.AdvancedMovieSelection.filesize_digits.value == "1":
-                wastebasket_info = (_("Trash count: %s") % count) + ' / ' + (_("Trash size: %s GB") % (round(cap / 1000, 1)))
-            elif config.AdvancedMovieSelection.filesize_digits.value == "2":
-                wastebasket_info = (_("Trash count: %s") % count) + ' / ' + (_("Trash size: %s GB") % (round(cap / 1000, 2)))
-            else:
-                wastebasket_info = (_("Trash count: %s") % count) + ' / ' + (_("Trash size: %s GB") % (round(cap / 1000, 3)))
+            format_string = _("Trash size:") + " %%.%sf GB" % (config.AdvancedMovieSelection.filesize_digits.value)
+            wastebasket_info = _("Trash count:") + (" %d / " % (count)) + (format_string) % (cap / 1000.0)
         if count == 0:
             self["wastetxt"].setText(_("Wastebasket is empty!"))
         else:
