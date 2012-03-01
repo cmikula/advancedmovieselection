@@ -234,3 +234,6 @@ version 2.5.1
 * fix: tag zuordnung von nicht ts filmen
 * fix: crash beim papierkorb anzeigen
 * fix: crash beim umbenennen von filmen wenn keine meta vorhanden ist
+
+version 2.6
+* neu: filme in der filmliste werden zur vorschau angespielt

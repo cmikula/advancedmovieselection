@@ -195,6 +195,8 @@ config.AdvancedMovieSelection.dirsize_digits = ConfigSelection(default="0", choi
 config.AdvancedMovieSelection.showpercentinmovielist = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.filesize_digits = ConfigSelection(default="1", choices=[("0", _("0")), ("1", _("1")), ("2", _("2")), ("3", _("3"))])
 config.AdvancedMovieSelection.showthetvdb = ConfigYesNo(default=False)
+config.AdvancedMovieSelection.video_preview = ConfigYesNo(default=False)
+config.AdvancedMovieSelection.video_preview_delay = ConfigInteger(default=1, limits=(0, 10))
 
 PlayerInstance = None
 
@@ -465,6 +467,8 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
             self.session.openWithCallback(self.movieSelected, MovieSelection, ref, True)
             self.session.nav.stopService()
             self.session.nav.playService(self.lastservice)
+            global PlayerInstance
+            PlayerInstance = None
         elif answer == "restart":
             self.doSeek(0)
             self.setSeekState(self.SEEK_STATE_PLAY)

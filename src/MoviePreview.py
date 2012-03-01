@@ -21,12 +21,12 @@
 #
 from Components.AVSwitch import AVSwitch
 from Components.Pixmap import Pixmap
-from enigma import ePicLoad
+from enigma import ePicLoad, eTimer
 from Tools.Directories import fileExists
 import os
 from Components.config import config
-from ServiceProvider import eServiceReferenceDvd, getServiceInfoValue
-from enigma import iServiceInformation
+from ServiceProvider import eServiceReferenceDvd, getServiceInfoValue, ServiceCenter
+from enigma import iServiceInformation, eServiceReference
 from os import environ
 
 nocover = None
@@ -35,6 +35,7 @@ class MoviePreview():
     def __init__(self, session):
         self.onHide.append(self.hideDialog)
         self["CoverPreview"] = Pixmap()
+        self.old_service = None
         self.working = False
         self.picParam = None
         self.picload = ePicLoad()
@@ -100,3 +101,93 @@ class MoviePreview():
 
     def hideDialog(self):
         self.working = False
+
+
+from ServiceReference import ServiceReference
+from Screens.InfoBarGenerics import InfoBarCueSheetSupport
+class VideoPreview():
+    def __init__(self):
+        self.video_preview_timer = eTimer()
+        self.video_preview_timer.timeout.get().append(self.playMovie)
+        self.lastService = None
+        self.service = None
+        self.currentlyPlayingService = None
+        self.cut_list = None
+        self.onClose.append(self.__close)
+
+    def stopCurrentlyPlayingService(self):
+        from ServiceProvider import writeCutList
+        if self.currentlyPlayingService:
+            self.session.nav.stopService()
+            writeCutList(self.currentlyPlayingService.getPath(), self.cut_list)
+            self.currentlyPlayingService = None
+
+    def setCuesheet(self, cut_list):
+        self.cut_list = cut_list
+
+    def playMovie(self):
+        if self.service:
+            print "play service"
+            if isinstance(self.service, eServiceReferenceDvd) or self.service.flags & eServiceReference.mustDescent:
+                print "Skipping video preview"
+                return
+            from plugin import PlayerInstance
+            if PlayerInstance:
+                return
+            if self.session.nav.getCurrentlyPlayingServiceReference() == self.service:
+                return 
+            if not self.lastService:
+                self.lastService = self.session.nav.getCurrentlyPlayingServiceReference()
+            if self.currentlyPlayingService:
+                self.stopCurrentlyPlayingService()
+            self.currentlyPlayingService = self.service
+            self.session.nav.playService(self.service)
+            s = self.session.nav.getCurrentService()
+            seekable = s.seek()
+            if seekable:
+                cue = s.cueSheet()
+                try:
+                    self.cut_list = cue.getCutList()
+                    length, last = self.getCuePositions()
+                    stop_before_end_time = int(config.AdvancedMovieSelection.stop_before_end_time.value)
+                    if stop_before_end_time > 0:
+                        if (((length) - (last / 90000)) / 60) < stop_before_end_time:
+                            return
+                    if last > 0:
+                        seekable.seekTo(last)
+                except Exception, e:
+                    print e
+        
+    def preparePlayMovie(self, service, event):
+        if not self.execing or not config.AdvancedMovieSelection.video_preview.value:
+            return
+        self.service = service
+        if service:
+            serviceHandler = ServiceCenter.getInstance()
+            info = serviceHandler.info(self.service)
+            service = ServiceReference(info.getInfoString(self.service, iServiceInformation.sServiceref))
+            self.video_preview_timer.start(config.AdvancedMovieSelection.video_preview_delay.value*1000, True)
+
+    def getCuePositions(self):
+        length = 0
+        last_pos = 0
+        for (pts, what) in self.cut_list:
+            if what == 1 == InfoBarCueSheetSupport.CUT_TYPE_OUT:
+                length = pts / 90000
+            elif what == InfoBarCueSheetSupport.CUT_TYPE_LAST:
+                last_pos = pts
+        if length == 0:
+            info = ServiceCenter.getInstance().info(self.currentlyPlayingService)
+            if info:
+                length = info.getLength(self.currentlyPlayingService)
+        return [length, last_pos]
+
+    def getCurrentlyPlayingSerice(self):
+        return self.currentlyPlayingService
+
+    def __close(self):
+        if self.lastService:
+            self.stopCurrentlyPlayingService()
+            self.session.nav.playService(self.lastService)
+
+        

@@ -1035,6 +1035,7 @@ class MovieList(GUIComponent):
                 cutList.append(new)
             cue.setCutList(cutList)
             self.l.invalidateEntry(cur_idx)
+            return cutList
 
     def getMovieStatus(self):
         if len(self.list) == 0:

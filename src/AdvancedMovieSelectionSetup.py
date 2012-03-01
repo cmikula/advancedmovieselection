@@ -220,42 +220,51 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         ConfigListScreen.keyRight(self)
         self.checkListentrys()
 
-    def checkListentrys(self):          
+    def checkListentrys(self):
+        needRefresh = False          
         if config.AdvancedMovieSelection.show_dirsize.isChanged():
             config.AdvancedMovieSelection.show_dirsize.save()
-            self.createSetup()
+            needRefresh = True
         if config.AdvancedMovieSelection.show_date_shortdesc.isChanged():
             config.AdvancedMovieSelection.show_date_shortdesc.save()
-            self.createSetup()
+            needRefresh = True
         if config.AdvancedMovieSelection.use_original_movieplayer_summary.isChanged():
             config.AdvancedMovieSelection.use_original_movieplayer_summary.save()
-            self.createSetup()
+            needRefresh = True
         if not config.AdvancedMovieSelection.use_wastebasket.value:
             config.AdvancedMovieSelection.auto_empty_wastebasket.setValue("-1")
             config.AdvancedMovieSelection.auto_empty_wastebasket.save()
         if config.AdvancedMovieSelection.auto_empty_wastebasket.isChanged():
             config.AdvancedMovieSelection.auto_empty_wastebasket.save()
-            self.createSetup()
+            needRefresh = True
         if config.AdvancedMovieSelection.show_picon.isChanged():
             config.AdvancedMovieSelection.show_picon.save()
-            self.createSetup()
+            needRefresh = True
         if config.usage.load_length_of_movies_in_moviellist.isChanged():
             config.usage.load_length_of_movies_in_moviellist.save()
-            self.createSetup()
+            needRefresh = True
         if config.AdvancedMovieSelection.showpreview.isChanged():
             config.AdvancedMovieSelection.showpreview.save()
             self.needsReopenFlag = True
-            self.createSetup()
+            needRefresh = True
         if config.AdvancedMovieSelection.showcolorstatusinmovielist.isChanged():
             config.AdvancedMovieSelection.showcolorstatusinmovielist.save()
-            self.createSetup()
+            needRefresh = True
         if config.AdvancedMovieSelection.exitkey.isChanged():
             config.AdvancedMovieSelection.exitkey.save()
-            self.createSetup()
+            needRefresh = True
         if config.AdvancedMovieSelection.useseekbar.isChanged():
             config.AdvancedMovieSelection.useseekbar.save()
             self.needsRestartFlag = True
+            needRefresh = True
+        if config.AdvancedMovieSelection.video_preview.isChanged():
+            config.AdvancedMovieSelection.video_preview.save()
+            self.needsRestartFlag = True
+            needRefresh = True
+        
+        if needRefresh:
             self.createSetup()
+
         if config.AdvancedMovieSelection.use_wastebasket.isChanged():
             config.AdvancedMovieSelection.use_wastebasket.save()
             if config.AdvancedMovieSelection.use_wastebasket.value:
@@ -377,6 +386,9 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.list.append(getConfigListEntry(_("Show date:"), config.AdvancedMovieSelection.show_date_shortdesc, _("If this option is activated the date will be displayed on the lcd/oled when no short description is available.")))
             if config.AdvancedMovieSelection.show_date_shortdesc.value:
                 self.list.append(getConfigListEntry(_("Use date from timestamp:"), config.AdvancedMovieSelection.show_begintime, _("If this option is activated the date from the file create instead today's date will be displayed on the lcd/oled when no short description is available.")))
+        self.list.append(getConfigListEntry(_("Use video preview:"), config.AdvancedMovieSelection.video_preview, _("If you enable this function, selected movie in movielist will bring you a preview.")))
+        if config.AdvancedMovieSelection.video_preview.value:
+            self.list.append(getConfigListEntry(_("Video preview delay:"), config.AdvancedMovieSelection.video_preview_delay, _("Setup the delay in seconds to start the video preview.")))
         self.list.append(getConfigListEntry(_("Enable Enigma2 debug:"), config.AdvancedMovieSelection.debug, _("If you enable this function, all standard output from enigma will be stored to /tmp folder.")))
         self["config"].setList(self.list)
 

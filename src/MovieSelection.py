@@ -46,7 +46,7 @@ from ServiceProvider import ServiceEvent
 from MoveCopy import MovieMove
 from Rename import MovieRetitle
 from SearchTMDb import TMDbMain as TMDbMainsave
-from MoviePreview import MoviePreview
+from MoviePreview import MoviePreview, VideoPreview
 from DownloadMovies import DownloadMovies
 from ServiceProvider import eServiceReferenceDvd
 from TagEditor import MovieTagEditor
@@ -631,7 +631,8 @@ class SelectionEventInfo:
             self.updateName(serviceref, evt)
         if config.AdvancedMovieSelection.showpreview.value:
             self.loadPreview(serviceref)
-
+        self.preparePlayMovie(serviceref, evt)
+        
 class AdvancedMovieSelection_summary(Screen):
     def __init__(self, session, parent):
         self.skinName = ["AdvancedMovieSelection_summary"]
@@ -648,11 +649,12 @@ class AdvancedMovieSelection_summary(Screen):
     def hideSeperator(self):
         self["Seperator"].setText("")    
 
-class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, QuickButton):
+class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, QuickButton, VideoPreview):
     def __init__(self, session, selectedmovie=None, showLastDir=False):
         Screen.__init__(self, session)
         HelpableScreen.__init__(self)
         MoviePreview.__init__(self, session)
+        VideoPreview.__init__(self)
         try:
             sz_w = getDesktop(0).size().width()
         except:
@@ -1039,7 +1041,9 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
     def setMovieStatus(self, status):
         current = self.getCurrent()
         if current is not None:
-            self["list"].setMovieStatus(current, status)
+            cut_list = self["list"].setMovieStatus(current, status)
+            if cut_list:
+                self.setCuesheet(cut_list)
 
     def movieSelected(self):
         current = self.getCurrent()
