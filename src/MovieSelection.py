@@ -1043,7 +1043,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         if current is not None:
             cut_list = self["list"].setMovieStatus(current, status)
             if cut_list:
-                self.setCuesheet(cut_list)
+                self.setNewCutList(cut_list)
 
     def movieSelected(self):
         current = self.getCurrent()

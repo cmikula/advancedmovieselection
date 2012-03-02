@@ -105,6 +105,7 @@ class MoviePreview():
 
 from ServiceReference import ServiceReference
 from Screens.InfoBarGenerics import InfoBarCueSheetSupport
+from ServiceProvider import CueSheet
 class VideoPreview():
     def __init__(self):
         self.video_preview_timer = eTimer()
@@ -116,13 +117,13 @@ class VideoPreview():
         self.onClose.append(self.__close)
 
     def stopCurrentlyPlayingService(self):
-        from ServiceProvider import writeCutList
         if self.currentlyPlayingService:
             self.session.nav.stopService()
-            writeCutList(self.currentlyPlayingService.getPath(), self.cut_list)
+            cue = CueSheet(self.currentlyPlayingService)
+            cue.setCutList(self.cut_list)
             self.currentlyPlayingService = None
 
-    def setCuesheet(self, cut_list):
+    def setNewCutList(self, cut_list):
         self.cut_list = cut_list
 
     def playMovie(self):
@@ -145,8 +146,9 @@ class VideoPreview():
             s = self.session.nav.getCurrentService()
             seekable = s.seek()
             if seekable:
-                cue = s.cueSheet()
+                #cue = s.cueSheet()
                 try:
+                    cue = CueSheet(self.service)
                     self.cut_list = cue.getCutList()
                     length, last = self.getCuePositions()
                     stop_before_end_time = int(config.AdvancedMovieSelection.stop_before_end_time.value)
