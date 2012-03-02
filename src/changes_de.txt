@@ -237,4 +237,8 @@ version 2.5.1
 
 version 2.6
 * neu: filme in der filmliste werden zur vorschau angespielt
-* fix: dvd wiedergabe von img dateien
+* fix: dvd wiedergabe von *.img dateien
+
+
+
+
