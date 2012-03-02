@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection(POT)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-02 11:56+0100\n"
-"PO-Revision-Date: 2012-03-02 11:56+0100\n"
+"POT-Creation-Date: 2012-03-02 19:23+0100\n"
+"PO-Revision-Date: 2012-03-02 19:23+0100\n"
 "Last-Translator: JackDanie <JackDaniel@i-have-a-dreambox.com>\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
@@ -103,605 +103,613 @@ msgstr ""
 msgid "Advanced Movie Selection Setup"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:291
+#: ../AdvancedMovieSelectionSetup.py:290
 msgid "Disable Advanced Movie Selection:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:291
+#: ../AdvancedMovieSelectionSetup.py:290
 msgid "Switch on/off the Advanced Movie Selection."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:292
+#: ../AdvancedMovieSelectionSetup.py:291
 msgid "Start Advanced Movie Selection with:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:292
+#: ../AdvancedMovieSelectionSetup.py:291
 msgid "Select Start button for the Advanced Movie Selection."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:293
+#: ../AdvancedMovieSelectionSetup.py:292
 msgid "Start on last movie location:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:293
+#: ../AdvancedMovieSelectionSetup.py:292
 msgid "Opens the film list on the last used location."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:294
+#: ../AdvancedMovieSelectionSetup.py:293
 msgid "Start on first position in movielist:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:294
+#: ../AdvancedMovieSelectionSetup.py:293
 msgid "Always show selection in the first position in the movie list."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:295
+#: ../AdvancedMovieSelectionSetup.py:294
 msgid "Show plugin config in extensions menu from movielist:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:295
+#: ../AdvancedMovieSelectionSetup.py:294
 msgid "Displays the Settings option in the menu at the movie list."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:296
+#: ../AdvancedMovieSelectionSetup.py:295
 msgid "Show color key setup in extensions menu from movielist:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:296
+#: ../AdvancedMovieSelectionSetup.py:295
 msgid "Displays color key setup option in the menu at the movie list."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:297
+#: ../AdvancedMovieSelectionSetup.py:296
 msgid "Show movie plugins in extensions menu from movielist:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:297
+#: ../AdvancedMovieSelectionSetup.py:296
 msgid "Displays E2 movie list extensions in the menu at the movie list."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:298
+#: ../AdvancedMovieSelectionSetup.py:297
 msgid "Load Length of Movies in Movielist:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:298
+#: ../AdvancedMovieSelectionSetup.py:297
 msgid "This option is for many of the functions from the Advanced Movie Selection necessary. If this option is disabled are many functions not available."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:300
+#: ../AdvancedMovieSelectionSetup.py:299
 msgid "Show directory size in movie list:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:300
+#: ../AdvancedMovieSelectionSetup.py:299
 msgid "Displays the size from directories in movie list."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:302
-#: ../AdvancedMovieSelectionSetup.py:377
+#: ../AdvancedMovieSelectionSetup.py:301
+#: ../AdvancedMovieSelectionSetup.py:376
 msgid "Show decimal points:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:302
+#: ../AdvancedMovieSelectionSetup.py:301
 msgid "Here you can choose how many decimal points for the directory size in the movie list will be displayed."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:303
+#: ../AdvancedMovieSelectionSetup.py:302
 msgid "Show full depth of directories:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:303
+#: ../AdvancedMovieSelectionSetup.py:302
 msgid "Displays the full size of all sub directories of directory size."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:304
+#: ../AdvancedMovieSelectionSetup.py:303
 msgid "Show list options in extensions menu from movielist:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:304
+#: ../AdvancedMovieSelectionSetup.py:303
 msgid "Displays the various list view options in the menu at the movie list (Progressbar,View folders...)."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:305
+#: ../AdvancedMovieSelectionSetup.py:304
 msgid "Show mark movie in extensions menu from movielist:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:305
+#: ../AdvancedMovieSelectionSetup.py:304
 msgid "Displays mark movie as seen/unseen in the menu at the movie list."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:306
+#: ../AdvancedMovieSelectionSetup.py:305
 msgid "Mark movie as seen at position (in percent):"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:306
+#: ../AdvancedMovieSelectionSetup.py:305
 msgid "With this option you can assign as when a film is marked as seen."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:307
+#: ../AdvancedMovieSelectionSetup.py:306
 msgid "Show sort options in extensions menu from movielist:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:307
+#: ../AdvancedMovieSelectionSetup.py:306
 msgid "Displays sorting function in the menu at the movie list."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:308
+#: ../AdvancedMovieSelectionSetup.py:307
 msgid "Show list styles in extensions menu from movielist:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:308
+#: ../AdvancedMovieSelectionSetup.py:307
 msgid "Displays various lists typs in the menu at the movie list (Minimal,Compact...)."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:309
+#: ../AdvancedMovieSelectionSetup.py:308
 msgid "Show delete option in extensions menu from movielist:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:309
+#: ../AdvancedMovieSelectionSetup.py:308
 msgid "Displays the movie delete function in the menu at the movie list."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:310
+#: ../AdvancedMovieSelectionSetup.py:309
 msgid "Show move/copy option in extensions menu from movielist:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:310
+#: ../AdvancedMovieSelectionSetup.py:309
 msgid "Displays the movie move/copy function in the menu at the movie list."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:311
+#: ../AdvancedMovieSelectionSetup.py:310
 msgid "Show movie search in extensions menu from movielist:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:311
+#: ../AdvancedMovieSelectionSetup.py:310
 msgid "Displays the movie search function in the menu at the movie list."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:312
+#: ../AdvancedMovieSelectionSetup.py:311
 msgid "Show covers in movielist:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:312
+#: ../AdvancedMovieSelectionSetup.py:311
 msgid "Displays the cover in the movie list."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:314
+#: ../AdvancedMovieSelectionSetup.py:313
 msgid "Set coversize:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:314
+#: ../AdvancedMovieSelectionSetup.py:313
 msgid "Here you can determine the coverfile size for the download/save."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:315
+#: ../AdvancedMovieSelectionSetup.py:314
 msgid "Show D/L and store info/cover in movielist extensions menu:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:315
+#: ../AdvancedMovieSelectionSetup.py:314
 msgid "Displays movie info/cover options in the menu at the movie list."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:316
+#: ../AdvancedMovieSelectionSetup.py:315
 msgid "Show D/L and store ALL info/cover in movielist extensions menu:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:316
+#: ../AdvancedMovieSelectionSetup.py:315
 msgid "Displays download and save movie info/cover for all movies options in the menu at the movie list."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:317
+#: ../AdvancedMovieSelectionSetup.py:316
 msgid "Show delete info and cover in extensions menu from movielist:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:317
+#: ../AdvancedMovieSelectionSetup.py:316
 msgid "Displays delete movie info and cover function in the menu at the movie list."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:318
+#: ../AdvancedMovieSelectionSetup.py:317
 msgid "Show delete cover in extensions menu from movielist:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:318
+#: ../AdvancedMovieSelectionSetup.py:317
 msgid "Displays delete cover function in the menu at the movie list."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:319
+#: ../AdvancedMovieSelectionSetup.py:318
 msgid "Show delete movie info in extensions menu from movielist:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:319
+#: ../AdvancedMovieSelectionSetup.py:318
 msgid "Displays delete movie info function in the menu at the movie list."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:320
+#: ../AdvancedMovieSelectionSetup.py:319
 msgid "Show Provider Logo:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:320
+#: ../AdvancedMovieSelectionSetup.py:319
 msgid "Displays the Provider Logo when no Cover available."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:321
+#: ../AdvancedMovieSelectionSetup.py:320
 msgid "Show update genre in extensions menu from movielist:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:321
+#: ../AdvancedMovieSelectionSetup.py:320
 msgid "Displays Update all genre in meta from eit options in the menu at the movie list."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:323
+#: ../AdvancedMovieSelectionSetup.py:322
 msgid "Show Provider Logo in original size:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:323
+#: ../AdvancedMovieSelectionSetup.py:322
 msgid "Displays the Provider Logo in original size. Otherwise, the provider logo be displayed zoomed up to cover size."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:324
+#: ../AdvancedMovieSelectionSetup.py:323
 msgid "Provider Logo path:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:324
+#: ../AdvancedMovieSelectionSetup.py:323
 msgid "Where to look for the provider logos? (Default is /usr/share/enigma2/picon)"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:325
+#: ../AdvancedMovieSelectionSetup.py:324
 msgid "Show rename in extensions menu from movielist:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:325
+#: ../AdvancedMovieSelectionSetup.py:324
 msgid "Displays rename function in the menu at the movie list."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:326
+#: ../AdvancedMovieSelectionSetup.py:325
 msgid "Show TMDb Info & D/L in extensions menu from movielist:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:326
+#: ../AdvancedMovieSelectionSetup.py:325
 msgid "Displays TMDb Info & D/L in the menu at the movie list."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:327
+#: ../AdvancedMovieSelectionSetup.py:326
 msgid "Show TheTVDB Info & D/L in extensions menu from movielist:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:327
+#: ../AdvancedMovieSelectionSetup.py:326
 msgid "Displays TheTVDB Info & D/L in the menu at the movie list."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:328
+#: ../AdvancedMovieSelectionSetup.py:327
 msgid "Jump to first mark when starts playing movie:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:328
+#: ../AdvancedMovieSelectionSetup.py:327
 msgid "If this option is activated automatically when a movie does not start from the last position, the movie starts at the first marker."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:329
+#: ../AdvancedMovieSelectionSetup.py:328
 msgid "Show movie tags in extensions menu from movielist:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:329
+#: ../AdvancedMovieSelectionSetup.py:328
 msgid "Displays movie tags function in the menu at the movie list."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:330
+#: ../AdvancedMovieSelectionSetup.py:329
 msgid "Show filter by tags in extensions menu from movielist:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:330
+#: ../AdvancedMovieSelectionSetup.py:329
 msgid "Displays filter by tags function in the menu at the movie list."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:331
+#: ../AdvancedMovieSelectionSetup.py:330
 msgid "Show search trailer on web in extensions menu from movielist:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:331
+#: ../AdvancedMovieSelectionSetup.py:330
 msgid "Displays search trailer on web function in the menu at the movie list."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:332
+#: ../AdvancedMovieSelectionSetup.py:331
 msgid "Ask before delete:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:332
+#: ../AdvancedMovieSelectionSetup.py:331
 msgid "With this option you can turn on/off the security question before delete a movie."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:334
-#: ../AdvancedMovieSelectionSetup.py:336
-#: ../AdvancedMovieSelectionSetup.py:338
-#: ../AdvancedMovieSelectionSetup.py:340
-#: ../AdvancedMovieSelectionSetup.py:342
-#: ../AdvancedMovieSelectionSetup.py:344
-#: ../AdvancedMovieSelectionSetup.py:346
+#: ../AdvancedMovieSelectionSetup.py:333
+#: ../AdvancedMovieSelectionSetup.py:335
+#: ../AdvancedMovieSelectionSetup.py:337
+#: ../AdvancedMovieSelectionSetup.py:339
+#: ../AdvancedMovieSelectionSetup.py:341
+#: ../AdvancedMovieSelectionSetup.py:343
+#: ../AdvancedMovieSelectionSetup.py:345
 msgid "INFO button function:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:334
-#: ../AdvancedMovieSelectionSetup.py:336
-#: ../AdvancedMovieSelectionSetup.py:338
-#: ../AdvancedMovieSelectionSetup.py:340
-#: ../AdvancedMovieSelectionSetup.py:342
-#: ../AdvancedMovieSelectionSetup.py:344
-#: ../AdvancedMovieSelectionSetup.py:346
+#: ../AdvancedMovieSelectionSetup.py:333
+#: ../AdvancedMovieSelectionSetup.py:335
+#: ../AdvancedMovieSelectionSetup.py:337
+#: ../AdvancedMovieSelectionSetup.py:339
+#: ../AdvancedMovieSelectionSetup.py:341
+#: ../AdvancedMovieSelectionSetup.py:343
+#: ../AdvancedMovieSelectionSetup.py:345
 msgid "With this option you can assign what function should have the info button. The selection depends on the installed plugins."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:347
+#: ../AdvancedMovieSelectionSetup.py:346
 msgid "Behavior when a movie is started:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:347
+#: ../AdvancedMovieSelectionSetup.py:346
 msgid "With this option you can assign what should happen when a movie start."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:348
+#: ../AdvancedMovieSelectionSetup.py:347
 msgid "Behavior when a movie is stopped:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:348
+#: ../AdvancedMovieSelectionSetup.py:347
 msgid "With this option you can assign what should happen when a movie stop."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:349
+#: ../AdvancedMovieSelectionSetup.py:348
 msgid "Behavior when a movie reaches the end:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:349
+#: ../AdvancedMovieSelectionSetup.py:348
 msgid "With this option you can assign what should happen when the end of the films was achieved."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:350
+#: ../AdvancedMovieSelectionSetup.py:349
 msgid "Show Moviebar position setup in extensions menu from movielist:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:350
+#: ../AdvancedMovieSelectionSetup.py:349
 msgid "Displays the moviebar position setup function in the menu at the movie list."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:352
+#: ../AdvancedMovieSelectionSetup.py:351
 msgid "Color for not ready seen movies:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:352
+#: ../AdvancedMovieSelectionSetup.py:351
 msgid "With this option you can assign what color should displayed for not ready seen movies in movie list."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:353
+#: ../AdvancedMovieSelectionSetup.py:352
 msgid "Color for ready seen movies:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:353
+#: ../AdvancedMovieSelectionSetup.py:352
 msgid "With this option you can assign what color should displayed for ready seen movies in movie list."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:354
+#: ../AdvancedMovieSelectionSetup.py:353
 msgid "Color for recording movies:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:354
+#: ../AdvancedMovieSelectionSetup.py:353
 msgid "With this option you can assign what color should displayed for recording movies in movie list."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:355
+#: ../AdvancedMovieSelectionSetup.py:354
 msgid "Color for multiple selection:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:355
+#: ../AdvancedMovieSelectionSetup.py:354
 msgid "With this option you can assign what color should displayed for multiple selection in movie list."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:356
+#: ../AdvancedMovieSelectionSetup.py:355
 msgid "Assign the date format for movielist:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:356
+#: ../AdvancedMovieSelectionSetup.py:355
 msgid "With this option you can assign the date format in movie list (7 different sizes are available)."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:358
+#: ../AdvancedMovieSelectionSetup.py:357
 msgid "Show new recordings icon:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:358
+#: ../AdvancedMovieSelectionSetup.py:357
 msgid "With this option you can display a icon for new recordings."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:359
+#: ../AdvancedMovieSelectionSetup.py:358
 msgid "Show Mini TV:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:359
+#: ../AdvancedMovieSelectionSetup.py:358
 msgid "With this option you can switch on/off the Mini TV in the movie list."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:360
+#: ../AdvancedMovieSelectionSetup.py:359
 msgid "Use folder name for display covers:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:360
+#: ../AdvancedMovieSelectionSetup.py:359
 msgid "With this option you can use the foldername instead of folder.jpg to display covers in folders."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:361
+#: ../AdvancedMovieSelectionSetup.py:360
 msgid "Close with EXIT key:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:361
+#: ../AdvancedMovieSelectionSetup.py:360
 msgid "If this option is enabled you can stop play a movie with the EXIT button, and the Advanced Movie Selection plugin will also be closed immediately (if the next option is disabled)."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:363
+#: ../AdvancedMovieSelectionSetup.py:362
 msgid "Use behavior when a movie is stopped:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:363
+#: ../AdvancedMovieSelectionSetup.py:362
 msgid "If this option is activated the behavior when stop a film also will used when you use the EXIT button."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:364
+#: ../AdvancedMovieSelectionSetup.py:363
 msgid "Show hotplug devices:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:364
+#: ../AdvancedMovieSelectionSetup.py:363
 msgid "Enable this option to use USB-Devices."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:365
+#: ../AdvancedMovieSelectionSetup.py:364
 msgid "Show bookmarks in movielist:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:365
+#: ../AdvancedMovieSelectionSetup.py:364
 msgid "When enabled all created bookmarks appear in the movie list."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:366
+#: ../AdvancedMovieSelectionSetup.py:365
 msgid "Show info messages:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:366
+#: ../AdvancedMovieSelectionSetup.py:365
 msgid "If this option is activated will be displayed different info message. This should help with the operation of the extension."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:367
+#: ../AdvancedMovieSelectionSetup.py:366
 msgid "Use alternative jump function:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:367
+#: ../AdvancedMovieSelectionSetup.py:366
 msgid "If this option is activated more jump functions ar available. ATTENTION: Enigma 2 restart is necessary!"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:370
+#: ../AdvancedMovieSelectionSetup.py:369
 msgid "Change function from left/right buttons:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:370
+#: ../AdvancedMovieSelectionSetup.py:369
 msgid "If this option is activated the function of the left/right arrow buttons will changed. Normal you can use the buttons also for winding, if is changed you have quick access to the new jump function. ATTENTION: Enigma 2 restart is necessary!"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:371
+#: ../AdvancedMovieSelectionSetup.py:370
 msgid "Manual jump sensibility:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:371
+#: ../AdvancedMovieSelectionSetup.py:370
 msgid "Here you can adjust the manually jump length relative to the film length in percent."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:372
+#: ../AdvancedMovieSelectionSetup.py:371
 msgid "Use wastebasket:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:372
+#: ../AdvancedMovieSelectionSetup.py:371
 msgid "If this option is activated the movie will not be deleted but moved into the wastebasket."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:374
+#: ../AdvancedMovieSelectionSetup.py:373
 msgid "Show Wastebasket in extensions menu from movielist:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:374
+#: ../AdvancedMovieSelectionSetup.py:373
 msgid "Displays wastebasket function in the menu at the movie list."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:375
+#: ../AdvancedMovieSelectionSetup.py:374
 msgid "Show Clientbox setup in movielist:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:375
+#: ../AdvancedMovieSelectionSetup.py:374
 msgid "Displays Clientbox setup function in the menu at the movie list."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:376
+#: ../AdvancedMovieSelectionSetup.py:375
 msgid "Wastebasket file(s):"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:376
+#: ../AdvancedMovieSelectionSetup.py:375
 msgid "Here you can select which files to Wastebasket are displayed. ATTENTION: All directorys below '/media' will take very long until the list is displayed!"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:377
+#: ../AdvancedMovieSelectionSetup.py:376
 msgid "Here you can choose how many decimal points for the file size in the wastebasket will be displayed."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:378
+#: ../AdvancedMovieSelectionSetup.py:377
 msgid "Server enabled:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:378
+#: ../AdvancedMovieSelectionSetup.py:377
 msgid "If you enable this feature, all remote functions are enabled."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:379
+#: ../AdvancedMovieSelectionSetup.py:378
 msgid "Auto empty wastebasket:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:379
+#: ../AdvancedMovieSelectionSetup.py:378
 msgid "If you enable this function the wastebasket will be emptied automatically at the set time."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:381
+#: ../AdvancedMovieSelectionSetup.py:380
 msgid "Auto empty wastebasket time:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:381
+#: ../AdvancedMovieSelectionSetup.py:380
 msgid "Here you can define when to empty the wastebasket."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:382
+#: ../AdvancedMovieSelectionSetup.py:381
 msgid "Check again in x minutes:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:382
+#: ../AdvancedMovieSelectionSetup.py:381
 msgid "If recordings are active again after the set time is trying to empty the wastebasket."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:383
+#: ../AdvancedMovieSelectionSetup.py:382
 msgid "Start at the beginning depends on end (in Minutes):"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:383
+#: ../AdvancedMovieSelectionSetup.py:382
 msgid "Here you can set off when a movie to play automatically from the beginning when you start again (On settings=0, functions is disabled)."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:384
+#: ../AdvancedMovieSelectionSetup.py:383
 msgid "Use activ Skin LCD/OLED representation:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:384
+#: ../AdvancedMovieSelectionSetup.py:383
 msgid "If you enable this function, the display summary from aktiv skin will be used."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:386
+#: ../AdvancedMovieSelectionSetup.py:385
 msgid "Show date:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:386
+#: ../AdvancedMovieSelectionSetup.py:385
 msgid "If this option is activated the date will be displayed on the lcd/oled when no short description is available."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:388
+#: ../AdvancedMovieSelectionSetup.py:387
 msgid "Use date from timestamp:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:388
+#: ../AdvancedMovieSelectionSetup.py:387
 msgid "If this option is activated the date from the file create instead today's date will be displayed on the lcd/oled when no short description is available."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:389
+#: ../AdvancedMovieSelectionSetup.py:388
 msgid "Use video preview:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:389
+#: ../AdvancedMovieSelectionSetup.py:388
 msgid "If you enable this function, selected movie in movielist will bring you a preview."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:391
+#: ../AdvancedMovieSelectionSetup.py:390
 msgid "Video preview delay:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:391
+#: ../AdvancedMovieSelectionSetup.py:390
 msgid "Setup the delay in seconds to start the video preview."
+msgstr ""
+
+#: ../AdvancedMovieSelectionSetup.py:391
+msgid "Use last stop mark:"
+msgstr ""
+
+#: ../AdvancedMovieSelectionSetup.py:391
+msgid "Preview will start on last stop marker."
 msgstr ""
 
 #: ../AdvancedMovieSelectionSetup.py:392
@@ -1393,12 +1401,12 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../MovieList.py:554
-#: ../MovieList.py:557
+#: ../MovieList.py:553
+#: ../MovieList.py:556
 msgid "REC"
 msgstr ""
 
-#: ../MovieList.py:559
+#: ../MovieList.py:558
 msgid "Records"
 msgstr ""
 
@@ -2029,64 +2037,64 @@ msgstr ""
 msgid "3"
 msgstr ""
 
-#: ../plugin.py:271
+#: ../plugin.py:272
 msgid "Open servicelist"
 msgstr ""
 
-#: ../plugin.py:276
-#: ../plugin.py:281
+#: ../plugin.py:277
+#: ../plugin.py:282
 msgid "Leave movie player"
 msgstr ""
 
-#: ../plugin.py:384
+#: ../plugin.py:385
 msgid ""
 "Not possible!\n"
 "MerlinEPG and CoolTVGuide or/and MerlinEPGCenter present or neither installed from this three plugins."
 msgstr ""
 
-#: ../plugin.py:404
-#: ../plugin.py:409
+#: ../plugin.py:405
+#: ../plugin.py:410
 msgid "Yes"
 msgstr ""
 
-#: ../plugin.py:405
-#: ../plugin.py:413
+#: ../plugin.py:406
+#: ../plugin.py:414
 msgid "No"
 msgstr ""
 
-#: ../plugin.py:410
+#: ../plugin.py:411
 msgid "Yes, returning to movie list"
 msgstr ""
 
-#: ../plugin.py:411
+#: ../plugin.py:412
 msgid "Yes, and delete this movie"
 msgstr ""
 
-#: ../plugin.py:412
+#: ../plugin.py:413
 msgid "Yes, and after deleting return to movie list"
 msgstr ""
 
-#: ../plugin.py:414
+#: ../plugin.py:415
 msgid "No, but restart from begin"
 msgstr ""
 
-#: ../plugin.py:418
+#: ../plugin.py:419
 msgid "Stop playing this movie?"
 msgstr ""
 
-#: ../plugin.py:459
+#: ../plugin.py:460
 msgid "End of the movie is reached, the box now go to standby. Do that now?"
 msgstr ""
 
-#: ../plugin.py:462
+#: ../plugin.py:463
 msgid "End of the movie is reached, the box now go to shut down. Shutdown now?"
 msgstr ""
 
-#: ../plugin.py:530
+#: ../plugin.py:531
 msgid "No DVD-Player found!"
 msgstr ""
 
-#: ../plugin.py:676
+#: ../plugin.py:677
 msgid "Setup Advanced Movie Selection"
 msgstr ""
 
