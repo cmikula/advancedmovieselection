@@ -753,6 +753,18 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                 "cancel": (self.abort, _("Exit movielist")),
                 "ok": (self.movieSelected, _("Select movie")),
             })
+        self["EPGSelectActions"] = HelpableActionMap(self, "EPGSelectActions",
+            {
+                "nextBouquet": (self.nextBouquet, _("Jump forward")),
+                "prevBouquet": (self.prevBouquet, _("Jump backward")),
+            })
+        
+        self["ChannelSelectBaseActions"] = HelpableActionMap(self, "ChannelSelectBaseActions",
+            {
+                "nextMarker": (self.nextBouquet, _("Jump forward")),
+                "prevMarker": (self.prevBouquet, _("Jump backward")),
+            })
+
         QuickButton.__init__(self)
         self.onShown.append(self.go)
         self.onLayoutFinish.append(self.saveListsize)
@@ -921,6 +933,12 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             self["Service"].newService(None)
             self["DescriptionBorder"].hide()
             self["list"].instance.resize(eSize(self.listWidth, self.listHeight))
+
+    def nextBouquet(self):
+        self.jumpForward()
+
+    def prevBouquet(self):
+        self.jumpBackward()
 
     def showEventInformation(self):
         if IMDbPresent and OFDbPresent and TMDbPresent and config.AdvancedMovieSelection.Eventinfotyp.value == "Ei":

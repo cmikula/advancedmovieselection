@@ -108,6 +108,7 @@ from Screens.InfoBarGenerics import InfoBarCueSheetSupport
 from ServiceProvider import CueSheet
 class VideoPreview():
     def __init__(self):
+        self.fwd_timer = eTimer()
         self.video_preview_timer = eTimer()
         self.video_preview_timer.timeout.get().append(self.playMovie)
         self.lastService = None
@@ -125,6 +126,31 @@ class VideoPreview():
 
     def setNewCutList(self, cut_list):
         self.cut_list = cut_list
+        
+    def jumpForward(self):
+        self.seekRelativ(5)
+    
+    def jumpBackward(self):
+        self.seekRelativ(-5)
+
+    def seekRelativ(self, minutes):
+        if self.currentlyPlayingService:
+            self.doSeekRelative(minutes * 60 * 90000)
+
+    def getSeek(self):
+        service = self.session.nav.getCurrentService()
+        if service is None:
+            return None
+        seek = service.seek()
+        if seek is None or not seek.isCurrentlySeekable():
+            return None
+        return seek
+    
+    def doSeekRelative(self, pts):
+        seekable = self.getSeek()
+        if seekable is None:
+            return
+        seekable.seekRelative(pts < 0 and -1 or 1, abs(pts))
 
     def playMovie(self):
         if self.service:
@@ -156,10 +182,18 @@ class VideoPreview():
                         if (((length) - (last / 90000)) / 60) < stop_before_end_time:
                             return
                     if last > 0 and config.AdvancedMovieSelection.video_preview_marker.value:
-                        seekable.seekTo(last)
+                        if self.service.getPath().endswith('ts'):
+                            seekable.seekTo(last)
+                        else:
+                            self.fwd_timer.timeout.get().append(self.fwd)
+                            self.fwd_timer.start(500, True)
+                            self.minutes = last / 90000 / 60
                 except Exception, e:
                     print e
-        
+
+    def fwd(self):
+        self.seekRelativ(self.minutes)
+            
     def preparePlayMovie(self, service, event):
         if not self.execing or not config.AdvancedMovieSelection.video_preview.value:
             return
@@ -168,7 +202,7 @@ class VideoPreview():
             serviceHandler = ServiceCenter.getInstance()
             info = serviceHandler.info(self.service)
             service = ServiceReference(info.getInfoString(self.service, iServiceInformation.sServiceref))
-            self.video_preview_timer.start(config.AdvancedMovieSelection.video_preview_delay.value*1000, True)
+            self.video_preview_timer.start(config.AdvancedMovieSelection.video_preview_delay.value * 1000, True)
 
     def getCuePositions(self):
         length = 0
