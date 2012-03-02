@@ -45,7 +45,6 @@ IMAGE_PATH = "Extensions/AdvancedMovieSelection/images/"
 
 MEDIAEXTENSIONS = {
         "ts": "movie",
-        "iso": "movie",
         "avi": "movie",
         "divx": "movie",
         "mpg": "movie",
@@ -868,7 +867,8 @@ class MovieList(GUIComponent):
             if self.movieConfig.isHidden(file):
                 continue
         
-            if serviceref.getPath().split(".")[-1].lower() == "iso":
+            extension = serviceref.getPath().split(".")[-1].lower()
+            if extension == "iso" or extension == "img":
                 serviceref = eServiceReferenceDvd(serviceref)
 
             info = self.serviceHandler.info(serviceref)
