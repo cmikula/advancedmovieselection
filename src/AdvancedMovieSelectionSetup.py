@@ -259,7 +259,6 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             needRefresh = True
         if config.AdvancedMovieSelection.video_preview.isChanged():
             config.AdvancedMovieSelection.video_preview.save()
-            self.needsRestartFlag = True
             needRefresh = True
         
         if needRefresh:
@@ -389,6 +388,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append(getConfigListEntry(_("Use video preview:"), config.AdvancedMovieSelection.video_preview, _("If you enable this function, selected movie in movielist will bring you a preview.")))
         if config.AdvancedMovieSelection.video_preview.value:
             self.list.append(getConfigListEntry(_("Video preview delay:"), config.AdvancedMovieSelection.video_preview_delay, _("Setup the delay in seconds to start the video preview.")))
+            self.list.append(getConfigListEntry(_("Use last stop mark:"), config.AdvancedMovieSelection.video_preview_marker, _("Preview will start on last stop marker.")))
         self.list.append(getConfigListEntry(_("Enable Enigma2 debug:"), config.AdvancedMovieSelection.debug, _("If you enable this function, all standard output from enigma will be stored to /tmp folder.")))
         self["config"].setList(self.list)
 

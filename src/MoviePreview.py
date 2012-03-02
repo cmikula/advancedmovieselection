@@ -153,7 +153,7 @@ class VideoPreview():
                     if stop_before_end_time > 0:
                         if (((length) - (last / 90000)) / 60) < stop_before_end_time:
                             return
-                    if last > 0:
+                    if last > 0 and config.AdvancedMovieSelection.video_preview_marker.value:
                         seekable.seekTo(last)
                 except Exception, e:
                     print e

@@ -197,6 +197,7 @@ config.AdvancedMovieSelection.filesize_digits = ConfigSelection(default="1", cho
 config.AdvancedMovieSelection.showthetvdb = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.video_preview = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.video_preview_delay = ConfigInteger(default=1, limits=(0, 10))
+config.AdvancedMovieSelection.video_preview_marker = ConfigYesNo(default=False)
 
 PlayerInstance = None
 
