@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection(POT)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-02 19:23+0100\n"
-"PO-Revision-Date: 2012-03-02 19:23+0100\n"
+"POT-Creation-Date: 2012-03-02 21:09+0100\n"
+"PO-Revision-Date: 2012-03-02 21:09+0100\n"
 "Last-Translator: JackDanie <JackDaniel@i-have-a-dreambox.com>\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
@@ -70,7 +70,7 @@ msgstr ""
 #: ../MovieSelection.py:492
 #: ../MovieSelection.py:535
 #: ../MovieSelection.py:575
-#: ../MovieSelection.py:804
+#: ../MovieSelection.py:816
 msgid "this recording"
 msgstr ""
 
@@ -80,7 +80,7 @@ msgid "Infos for: %s"
 msgstr ""
 
 #: ../AdvancedMovieSelectionEventView.py:95
-#: ../MovieSelection.py:883
+#: ../MovieSelection.py:895
 #, python-format
 msgid "Movie location: %s"
 msgstr ""
@@ -713,360 +713,368 @@ msgid "Preview will start on last stop marker."
 msgstr ""
 
 #: ../AdvancedMovieSelectionSetup.py:392
-msgid "Enable Enigma2 debug:"
+msgid "Video preview jump time (in minutes):"
 msgstr ""
 
 #: ../AdvancedMovieSelectionSetup.py:392
+msgid "Here you can set the jump time for the movie preview (< > buttons or bouquet +/- buttons)."
+msgstr ""
+
+#: ../AdvancedMovieSelectionSetup.py:393
+msgid "Enable Enigma2 debug:"
+msgstr ""
+
+#: ../AdvancedMovieSelectionSetup.py:393
 msgid "If you enable this function, all standard output from enigma will be stored to /tmp folder."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:400
+#: ../AdvancedMovieSelectionSetup.py:401
 #: ../ClientSetup.py:225
 msgid "No Helptext available!"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:404
+#: ../AdvancedMovieSelectionSetup.py:405
 msgid "IMDb plugin installed. Assign function to info button is possible."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:406
+#: ../AdvancedMovieSelectionSetup.py:407
 msgid "IMDb plugin NOT installed. Assign function to info button is NOT possible."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:408
+#: ../AdvancedMovieSelectionSetup.py:409
 msgid "OFDb plugin installed. Assign function to info button is possible."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:410
+#: ../AdvancedMovieSelectionSetup.py:411
 msgid "OFDb plugin NOT installed. Assign function to info button is NOT possible."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:412
+#: ../AdvancedMovieSelectionSetup.py:413
 msgid "TMDb plugin installed. Assign function to info button is possible."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:414
+#: ../AdvancedMovieSelectionSetup.py:415
 msgid "TMDb plugin NOT installed. Assign function to info button is NOT possible."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:416
+#: ../AdvancedMovieSelectionSetup.py:417
 msgid "YTTrailer plugin installed. Search for trailers on the Web is possible."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:418
+#: ../AdvancedMovieSelectionSetup.py:419
 msgid "YTTrailer plugin NOT installed. Search for trailers on the Web is NOT possible."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:429
-#: ../AdvancedMovieSelectionSetup.py:956
+#: ../AdvancedMovieSelectionSetup.py:430
+#: ../AdvancedMovieSelectionSetup.py:957
 #: ../ClientSetup.py:236
 msgid "Really close without saving settings?"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:466
+#: ../AdvancedMovieSelectionSetup.py:467
 msgid ""
 "Some settings changes require a restart to take effect.\n"
 "If you  use a skin without PiG (Picture in Graphic) you have to restart the box (not only Enigma 2)!\n"
 "With YES only Enigma 2 starts new, with NO the box make a restart."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:468
+#: ../AdvancedMovieSelectionSetup.py:469
 msgid ""
 "Some settings changes require a Enigma 2 restart to take effect.\n"
 "\n"
 "Would you restart Enigma2 now?"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:471
+#: ../AdvancedMovieSelectionSetup.py:472
 msgid "Some settings changes require close/reopen the movielist to take effect."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:477
-#: ../AdvancedMovieSelectionSetup.py:487
+#: ../AdvancedMovieSelectionSetup.py:478
+#: ../AdvancedMovieSelectionSetup.py:488
 msgid "Aborted by user!!"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:512
+#: ../AdvancedMovieSelectionSetup.py:513
 msgid "Nothing"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:512
+#: ../AdvancedMovieSelectionSetup.py:513
 #: ../MovieSelection.py:166
 msgid "Delete"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:512
+#: ../AdvancedMovieSelectionSetup.py:513
 #: ../MovieSelection.py:168
 msgid "Wastebasket"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:512
+#: ../AdvancedMovieSelectionSetup.py:513
 msgid "Sort"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:512
+#: ../AdvancedMovieSelectionSetup.py:513
 msgid "Home"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:512
+#: ../AdvancedMovieSelectionSetup.py:513
 msgid "Bookmark 1"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:512
+#: ../AdvancedMovieSelectionSetup.py:513
 msgid "Bookmark 2"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:512
+#: ../AdvancedMovieSelectionSetup.py:513
 msgid "Bookmark 3"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:512
+#: ../AdvancedMovieSelectionSetup.py:513
 msgid "Bookmark(s) on/off"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:512
+#: ../AdvancedMovieSelectionSetup.py:513
 #: ../MovieSelection.py:269
 msgid "Filter by Tags"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:512
+#: ../AdvancedMovieSelectionSetup.py:513
 msgid "Tag Editor"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:512
+#: ../AdvancedMovieSelectionSetup.py:513
 msgid "Move-Copy"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:512
+#: ../AdvancedMovieSelectionSetup.py:513
 #: ../MovieSelection.py:173
 msgid "Rename"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:513
+#: ../AdvancedMovieSelectionSetup.py:514
 #: ../MovieSelection.py:160
 msgid "TMDb Info & D/L"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:513
+#: ../AdvancedMovieSelectionSetup.py:514
 msgid "Mark as seen"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:513
+#: ../AdvancedMovieSelectionSetup.py:514
 msgid "Mark as unseen"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:513
+#: ../AdvancedMovieSelectionSetup.py:514
 msgid "Show/Hide folders"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:513
+#: ../AdvancedMovieSelectionSetup.py:514
 msgid "Trailer search"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:513
+#: ../AdvancedMovieSelectionSetup.py:514
 msgid "Toggle seen"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:513
+#: ../AdvancedMovieSelectionSetup.py:514
 msgid "Show Timer"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:513
+#: ../AdvancedMovieSelectionSetup.py:514
 #: ../MovieSelection.py:163
 msgid "TheTVDB Info & D/L"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:514
+#: ../AdvancedMovieSelectionSetup.py:515
 msgid "DM-600PVR"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:514
+#: ../AdvancedMovieSelectionSetup.py:515
 msgid "DM-7000"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:514
+#: ../AdvancedMovieSelectionSetup.py:515
 msgid "DM-7025"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:514
+#: ../AdvancedMovieSelectionSetup.py:515
 msgid "DM-8000HD"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:514
+#: ../AdvancedMovieSelectionSetup.py:515
 msgid "DM-500HD"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:514
+#: ../AdvancedMovieSelectionSetup.py:515
 msgid "DM-800HD"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:514
+#: ../AdvancedMovieSelectionSetup.py:515
 msgid "DM-800HDse"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:514
+#: ../AdvancedMovieSelectionSetup.py:515
 msgid "DM-7020HD"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:514
+#: ../AdvancedMovieSelectionSetup.py:515
 msgid "internal HDD"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:514
+#: ../AdvancedMovieSelectionSetup.py:515
 msgid "NAS"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:514
+#: ../AdvancedMovieSelectionSetup.py:515
 msgid "NAS-Movies"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:515
+#: ../AdvancedMovieSelectionSetup.py:516
 msgid "Display plugin name"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:515
+#: ../AdvancedMovieSelectionSetup.py:516
 msgid "Display plugin description"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:531
+#: ../AdvancedMovieSelectionSetup.py:532
 msgid "IMPORTANT: If changes are made here the Advanced Movie Selection must be completely closed so the changes can be adopted!!"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:532
+#: ../AdvancedMovieSelectionSetup.py:533
 #: ../DownloadMovies.py:72
 msgid "Cancel"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:533
-#: ../AdvancedMovieSelectionSetup.py:839
+#: ../AdvancedMovieSelectionSetup.py:534
+#: ../AdvancedMovieSelectionSetup.py:840
 msgid "Save/Close"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:534
+#: ../AdvancedMovieSelectionSetup.py:535
 msgid "Own button description"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:627
+#: ../AdvancedMovieSelectionSetup.py:628
 msgid "Movie Quick Button Setup"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:667
+#: ../AdvancedMovieSelectionSetup.py:668
 msgid "Assigned to red key"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:669
+#: ../AdvancedMovieSelectionSetup.py:670
 msgid "Assigned to green key"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:671
+#: ../AdvancedMovieSelectionSetup.py:672
 msgid "Assigned to yellow key"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:673
+#: ../AdvancedMovieSelectionSetup.py:674
 msgid "Assigned to blue key"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:675
+#: ../AdvancedMovieSelectionSetup.py:676
 msgid "Button caption"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:677
+#: ../AdvancedMovieSelectionSetup.py:678
 msgid "Home button text"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:679
+#: ../AdvancedMovieSelectionSetup.py:680
 msgid "Bookmark 1 button text"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:681
+#: ../AdvancedMovieSelectionSetup.py:682
 msgid "Bookmark 2 button text"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:683
+#: ../AdvancedMovieSelectionSetup.py:684
 msgid "Bookmark 3 button text"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:685
+#: ../AdvancedMovieSelectionSetup.py:686
 msgid "Home path"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:687
+#: ../AdvancedMovieSelectionSetup.py:688
 msgid "Bookmark 1 path"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:689
+#: ../AdvancedMovieSelectionSetup.py:690
 msgid "Bookmark 2 path"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:691
+#: ../AdvancedMovieSelectionSetup.py:692
 msgid "Bookmark 3 path"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:723
+#: ../AdvancedMovieSelectionSetup.py:724
 msgid "Movie Quick Button Home path"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:726
+#: ../AdvancedMovieSelectionSetup.py:727
 msgid "Movie Quick Button Bookmark 1 path"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:729
+#: ../AdvancedMovieSelectionSetup.py:730
 msgid "Movie Quick Button Bookmark 2 path"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:732
+#: ../AdvancedMovieSelectionSetup.py:733
 msgid "Movie Quick Button Bookmark 3 path"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:848
+#: ../AdvancedMovieSelectionSetup.py:849
 msgid "Movie Quick Button Name Setup"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:860
+#: ../AdvancedMovieSelectionSetup.py:861
 msgid "Enter Home button descrition:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:862
+#: ../AdvancedMovieSelectionSetup.py:863
 msgid "Enter Bookmark 1 button descrition:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:864
+#: ../AdvancedMovieSelectionSetup.py:865
 msgid "Enter Bookmark 2 button descrition:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:866
+#: ../AdvancedMovieSelectionSetup.py:867
 msgid "Enter Bookmark 3 button descrition:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:890
+#: ../AdvancedMovieSelectionSetup.py:891
 msgid "Home button description:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:891
+#: ../AdvancedMovieSelectionSetup.py:892
 msgid "Bookmark 1 button description:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:892
+#: ../AdvancedMovieSelectionSetup.py:893
 msgid "Bookmark 2 button description:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:893
+#: ../AdvancedMovieSelectionSetup.py:894
 msgid "Bookmark 3 button description:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:906
+#: ../AdvancedMovieSelectionSetup.py:907
 msgid "Here you can give the home button a special name. After saving the changes color key settings will be closed, reopen it then the changes is to selection."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:910
+#: ../AdvancedMovieSelectionSetup.py:911
 msgid "Here you can give the bookmark 1 button a special name. After saving the changes color key settings will be closed, reopen it then the changes is to selection."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:914
+#: ../AdvancedMovieSelectionSetup.py:915
 msgid "Here you can give the bookmark 2 button a special name. After saving the changes color key settings will be closed, reopen it then the changes is to selection."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:918
+#: ../AdvancedMovieSelectionSetup.py:919
 msgid "Here you can give the bookmark 3 button a special name. After saving the changes color key settings will be closed, reopen it then the changes is to selection."
 msgstr ""
 
@@ -1639,7 +1647,7 @@ msgstr ""
 #: ../MovieSelection.py:508
 #: ../MovieSelection.py:551
 #: ../MovieSelection.py:591
-#: ../MovieSelection.py:836
+#: ../MovieSelection.py:848
 msgid "You cannot delete this!"
 msgstr ""
 
@@ -1689,13 +1697,23 @@ msgstr ""
 msgid "Select movie"
 msgstr ""
 
-#: ../MovieSelection.py:774
-#: ../MovieSelection.py:779
+#: ../MovieSelection.py:758
+#: ../MovieSelection.py:764
+msgid "Video preview jump forward"
+msgstr ""
+
+#: ../MovieSelection.py:759
+#: ../MovieSelection.py:765
+msgid "Video preview jump backward"
+msgstr ""
+
+#: ../MovieSelection.py:786
+#: ../MovieSelection.py:791
 #, python-format
 msgid "%s is currently recording!"
 msgstr ""
 
-#: ../MovieSelection.py:774
+#: ../MovieSelection.py:786
 #, python-format
 msgid ""
 "\n"
@@ -1705,12 +1723,12 @@ msgid ""
 "Do you really want to continue?"
 msgstr ""
 
-#: ../MovieSelection.py:776
+#: ../MovieSelection.py:788
 #, python-format
 msgid "Do you really want to move %s to trashcan?"
 msgstr ""
 
-#: ../MovieSelection.py:779
+#: ../MovieSelection.py:791
 #, python-format
 msgid ""
 "\n"
@@ -1720,71 +1738,71 @@ msgid ""
 "Do you really want to continue?"
 msgstr ""
 
-#: ../MovieSelection.py:781
+#: ../MovieSelection.py:793
 #, python-format
 msgid "Do you really want to delete %s?"
 msgstr ""
 
-#: ../MovieSelection.py:783
+#: ../MovieSelection.py:795
 msgid "Recordings are active, the timer(s) will also be deleted!\n"
 msgstr ""
 
-#: ../MovieSelection.py:785
+#: ../MovieSelection.py:797
 msgid "Do you really want to move selected movies to trashcan?"
 msgstr ""
 
-#: ../MovieSelection.py:787
+#: ../MovieSelection.py:799
 msgid "Do you really want to delete selected movies?"
 msgstr ""
 
-#: ../MovieSelection.py:793
+#: ../MovieSelection.py:805
 msgid "This cannot deleted, please select a movie for!"
 msgstr ""
 
-#: ../MovieSelection.py:863
+#: ../MovieSelection.py:875
 msgid "Delete failed!"
 msgstr ""
 
-#: ../MovieSelection.py:912
+#: ../MovieSelection.py:924
 msgid "Advanced Movie Selection"
 msgstr ""
 
-#: ../MovieSelection.py:1077
+#: ../MovieSelection.py:1095
 msgid ""
 "Load Length of Movies in Movielist has been disabled.\n"
 "Close and reopen Movielist is required to apply the setting."
 msgstr ""
 
-#: ../MovieSelection.py:1124
+#: ../MovieSelection.py:1142
 msgid "Tag 1"
 msgstr ""
 
-#: ../MovieSelection.py:1129
+#: ../MovieSelection.py:1147
 msgid "Tag 2"
 msgstr ""
 
-#: ../MovieSelection.py:1187
+#: ../MovieSelection.py:1205
 msgid "Movie location:"
 msgstr ""
 
-#: ../MovieSelection.py:1203
+#: ../MovieSelection.py:1221
 msgid "Please select the movie path..."
 msgstr ""
 
-#: ../MovieSelection.py:1225
+#: ../MovieSelection.py:1243
 #, python-format
 msgid "Directory %s nonexistent."
 msgstr ""
 
-#: ../MovieSelection.py:1268
+#: ../MovieSelection.py:1286
 msgid "Please select tag to filter..."
 msgstr ""
 
-#: ../MovieSelection.py:1271
+#: ../MovieSelection.py:1289
 msgid "No tags are set on these movies."
 msgstr ""
 
-#: ../MovieSelection.py:1290
+#: ../MovieSelection.py:1308
 msgid ""
 "Use direction keys to move the Moviebar.\n"
 "Press OK button for save or the EXIT button to cancel.\n"
@@ -2037,64 +2055,64 @@ msgstr ""
 msgid "3"
 msgstr ""
 
-#: ../plugin.py:272
+#: ../plugin.py:273
 msgid "Open servicelist"
 msgstr ""
 
-#: ../plugin.py:277
-#: ../plugin.py:282
+#: ../plugin.py:278
+#: ../plugin.py:283
 msgid "Leave movie player"
 msgstr ""
 
-#: ../plugin.py:385
+#: ../plugin.py:386
 msgid ""
 "Not possible!\n"
 "MerlinEPG and CoolTVGuide or/and MerlinEPGCenter present or neither installed from this three plugins."
 msgstr ""
 
-#: ../plugin.py:405
-#: ../plugin.py:410
+#: ../plugin.py:406
+#: ../plugin.py:411
 msgid "Yes"
 msgstr ""
 
-#: ../plugin.py:406
-#: ../plugin.py:414
+#: ../plugin.py:407
+#: ../plugin.py:415
 msgid "No"
 msgstr ""
 
-#: ../plugin.py:411
+#: ../plugin.py:412
 msgid "Yes, returning to movie list"
 msgstr ""
 
-#: ../plugin.py:412
+#: ../plugin.py:413
 msgid "Yes, and delete this movie"
 msgstr ""
 
-#: ../plugin.py:413
+#: ../plugin.py:414
 msgid "Yes, and after deleting return to movie list"
 msgstr ""
 
-#: ../plugin.py:415
+#: ../plugin.py:416
 msgid "No, but restart from begin"
 msgstr ""
 
-#: ../plugin.py:419
+#: ../plugin.py:420
 msgid "Stop playing this movie?"
 msgstr ""
 
-#: ../plugin.py:460
+#: ../plugin.py:461
 msgid "End of the movie is reached, the box now go to standby. Do that now?"
 msgstr ""
 
-#: ../plugin.py:463
+#: ../plugin.py:464
 msgid "End of the movie is reached, the box now go to shut down. Shutdown now?"
 msgstr ""
 
-#: ../plugin.py:531
+#: ../plugin.py:532
 msgid "No DVD-Player found!"
 msgstr ""
 
-#: ../plugin.py:677
+#: ../plugin.py:678
 msgid "Setup Advanced Movie Selection"
 msgstr ""
 

@@ -755,14 +755,14 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             })
         self["EPGSelectActions"] = HelpableActionMap(self, "EPGSelectActions",
             {
-                "nextBouquet": (self.nextBouquet, _("Jump forward")),
-                "prevBouquet": (self.prevBouquet, _("Jump backward")),
+                "nextBouquet": (self.nextBouquet, _("Video preview jump forward")),
+                "prevBouquet": (self.prevBouquet, _("Video preview jump backward")),
             })
         
         self["ChannelSelectBaseActions"] = HelpableActionMap(self, "ChannelSelectBaseActions",
             {
-                "nextMarker": (self.nextBouquet, _("Jump forward")),
-                "prevMarker": (self.prevBouquet, _("Jump backward")),
+                "nextMarker": (self.nextBouquet, _("Video preview jump forward")),
+                "prevMarker": (self.prevBouquet, _("Video preview jump backward")),
             })
 
         QuickButton.__init__(self)

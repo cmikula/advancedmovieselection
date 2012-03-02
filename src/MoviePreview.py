@@ -128,10 +128,11 @@ class VideoPreview():
         self.cut_list = cut_list
         
     def jumpForward(self):
-        self.seekRelativ(5)
+        self.seekRelativ(config.AdvancedMovieSelection.video_preview_jump_time.value)
     
     def jumpBackward(self):
-        self.seekRelativ(-5)
+        jumptime = '-' + str(config.AdvancedMovieSelection.video_preview_jump_time.value)
+        self.seekRelativ(int(jumptime))
 
     def seekRelativ(self, minutes):
         if self.currentlyPlayingService:
