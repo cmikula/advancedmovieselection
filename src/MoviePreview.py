@@ -115,7 +115,7 @@ class VideoPreview():
         self.service = None
         self.currentlyPlayingService = None
         self.cut_list = None
-        self.onClose.append(self.__close)
+        self.onClose.append(self.__playLastService)
 
     def stopCurrentlyPlayingService(self):
         if self.currentlyPlayingService:
@@ -158,6 +158,7 @@ class VideoPreview():
             print "play service"
             if isinstance(self.service, eServiceReferenceDvd) or self.service.flags & eServiceReference.mustDescent:
                 print "Skipping video preview"
+                self.__playLastService()
                 return
             from plugin import PlayerInstance
             if PlayerInstance:
@@ -222,9 +223,8 @@ class VideoPreview():
     def getCurrentlyPlayingSerice(self):
         return self.currentlyPlayingService
 
-    def __close(self):
+    def __playLastService(self):
         if self.lastService:
             self.stopCurrentlyPlayingService()
             self.session.nav.playService(self.lastService)
-
-        
+            self.lastService = None
