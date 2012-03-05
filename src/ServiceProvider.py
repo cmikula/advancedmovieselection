@@ -66,7 +66,7 @@ class PicLoader:
 
 class eServiceReferenceDvd(eServiceReference):
     def __init__(self, serviceref, dvdStruct=False):
-        eServiceReference.__init__(self, "4097:0:0:0:0:0:0:0:0:0:" + serviceref.getPath())
+        eServiceReference.__init__(self, 4369, 0, serviceref.getPath())
         self.dvdStruct = dvdStruct
         if dvdStruct is True:
             # remove trailing slash
