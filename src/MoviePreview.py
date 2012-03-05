@@ -109,12 +109,14 @@ from ServiceProvider import CueSheet
 class VideoPreview():
     def __init__(self):
         self.fwd_timer = eTimer()
+        self.fwd_timer.timeout.get().append(self.fwd)
         self.video_preview_timer = eTimer()
         self.video_preview_timer.timeout.get().append(self.playMovie)
         self.lastService = None
         self.service = None
         self.currentlyPlayingService = None
         self.cut_list = None
+        self.enabled = config.AdvancedMovieSelection.video_preview.value
         self.onClose.append(self.__playLastService)
 
     def stopCurrentlyPlayingService(self):
@@ -133,6 +135,13 @@ class VideoPreview():
     def jumpBackward(self):
         jumptime = '-' + str(config.AdvancedMovieSelection.video_preview_jump_time.value)
         self.seekRelativ(int(jumptime))
+
+    def stopPreviewToggleStatus(self, service=None):
+        self.__playLastService()
+        self.enabled = not self.enabled
+        if self.enabled and service:
+            self.service = service
+            self.playMovie()
 
     def seekRelativ(self, minutes):
         if self.currentlyPlayingService:
@@ -154,7 +163,7 @@ class VideoPreview():
         seekable.seekRelative(pts < 0 and -1 or 1, abs(pts))
 
     def playMovie(self):
-        if self.service:
+        if self.service and self.enabled:
             print "play service"
             if isinstance(self.service, eServiceReferenceDvd) or self.service.flags & eServiceReference.mustDescent:
                 print "Skipping video preview"
@@ -171,10 +180,8 @@ class VideoPreview():
                 self.stopCurrentlyPlayingService()
             self.currentlyPlayingService = self.service
             self.session.nav.playService(self.service)
-            s = self.session.nav.getCurrentService()
-            seekable = s.seek()
+            seekable = self.getSeek()
             if seekable:
-                #cue = s.cueSheet()
                 try:
                     cue = CueSheet(self.service)
                     self.cut_list = cue.getCutList()
@@ -187,7 +194,6 @@ class VideoPreview():
                         if self.service.getPath().endswith('ts'):
                             seekable.seekTo(last)
                         else:
-                            self.fwd_timer.timeout.get().append(self.fwd)
                             self.fwd_timer.start(500, True)
                             self.minutes = last / 90000 / 60
                 except Exception, e:
@@ -197,7 +203,7 @@ class VideoPreview():
         self.seekRelativ(self.minutes)
             
     def preparePlayMovie(self, service, event):
-        if not self.execing or not config.AdvancedMovieSelection.video_preview.value:
+        if not self.execing or not self.enabled:
             return
         self.service = service
         if service:

@@ -764,6 +764,14 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                 "nextMarker": (self.nextBouquet, _("Video preview jump forward")),
                 "prevMarker": (self.prevBouquet, _("Video preview jump backward")),
             })
+        self["MediaPlayerActions"] = HelpableActionMap(self, "MediaPlayerActions",
+            {
+                "stop": (self.stopButton, _("stop entry")),
+            })
+        self["TvRadioActions"] = HelpableActionMap(self, "TvRadioActions",
+            {
+                "keyTV": (self.tvButton, _("stop entry")),
+            })
 
         QuickButton.__init__(self)
         self.onShown.append(self.go)
@@ -940,6 +948,15 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
     def prevBouquet(self):
         self.jumpBackward()
 
+    def tvButton(self):
+        print "[AdvancedMovieSelection] TV Button pressed"
+        self.stopButton()
+        
+    def stopButton(self):
+        print "*" * 80
+        print "[AdvancedMovieSelection] Stop Button pressed"
+        print self.stopPreviewToggleStatus(self.getCurrent())
+    
     def showEventInformation(self):
         if IMDbPresent and OFDbPresent and TMDbPresent and config.AdvancedMovieSelection.Eventinfotyp.value == "Ei":
             self.showConfirmedInfo([None, "Ei"])
