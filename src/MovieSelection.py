@@ -953,9 +953,9 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self.stopButton()
         
     def stopButton(self):
-        print "*" * 80
+        print "*" * 80 # TODO: delete printout
         print "[AdvancedMovieSelection] Stop Button pressed"
-        print self.stopPreviewToggleStatus(self.getCurrent())
+        print self.togglePreviewStatus(self.getCurrent())
     
     def showEventInformation(self):
         if IMDbPresent and OFDbPresent and TMDbPresent and config.AdvancedMovieSelection.Eventinfotyp.value == "Ei":

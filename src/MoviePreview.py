@@ -136,7 +136,7 @@ class VideoPreview():
         jumptime = '-' + str(config.AdvancedMovieSelection.video_preview_jump_time.value)
         self.seekRelativ(int(jumptime))
 
-    def stopPreviewToggleStatus(self, service=None):
+    def togglePreviewStatus(self, service=None):
         self.__playLastService()
         self.enabled = not self.enabled
         if self.enabled and service:
