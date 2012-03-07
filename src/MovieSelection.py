@@ -768,10 +768,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             {
                 "stop": (self.stopButton, _("stop entry")),
             })
-        self["TvRadioActions"] = HelpableActionMap(self, "TvRadioActions",
-            {
-                "keyTV": (self.tvButton, _("stop entry")),
-            })
 
         QuickButton.__init__(self)
         self.onShown.append(self.go)
@@ -948,13 +944,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
     def prevBouquet(self):
         self.jumpBackward()
 
-    def tvButton(self):
-        print "[AdvancedMovieSelection] TV Button pressed"
-        self.stopButton()
-        
     def stopButton(self):
-        print "*" * 80 # TODO: delete printout
-        print "[AdvancedMovieSelection] Stop Button pressed"
         print self.togglePreviewStatus(self.getCurrent())
     
     def showEventInformation(self):
