@@ -659,16 +659,20 @@ def autostart(reason, **kwargs):
                     serverInstance.start()
                     serverInstance.setSearchRange(config.AdvancedMovieSelection.start_search_ip.value, config.AdvancedMovieSelection.stop_search_ip.value)
                     serverInstance.startScanForClients()
-
-                # set locale for tmdb search
-                import tmdb, tvdb
+                
                 from Components.Language import language
-                lang = language.getLanguage()[:2]
-                if lang != "de":
-                    tmdb.setLocale("en")
-                    tvdb.setLocale("en")
+                language.addCallback(updateLocale)
+                updateLocale()
             except:
                 pass
+
+def updateLocale():
+    # set locale for tmdb search
+    import tmdb, tvdb
+    from Components.Language import language
+    ln = language.lang[language.activeLanguage][1]
+    tmdb.setLocale(ln)
+    tvdb.setLocale(ln)
 
 def pluginOpen(session, **kwargs):
     session.open(AdvancedMovieSelectionSetup)
