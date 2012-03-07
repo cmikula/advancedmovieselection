@@ -194,7 +194,7 @@ class VideoPreview():
                         if self.service.getPath().endswith('ts'):
                             seekable.seekTo(last)
                         else:
-                            self.fwd_timer.start(500, True)
+                            self.fwd_timer.start(1000, True)
                             self.minutes = last / 90000 / 60
                 except Exception, e:
                     print e
