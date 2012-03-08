@@ -766,11 +766,11 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             })
         self["MediaPlayerActions"] = HelpableActionMap(self, "MediaPlayerActions",
             {
-                "stop": (self.stopButton, _("start/stop video preview")),
+                "stop": (self.stopButton, _("Start/Stop video preview")),
             })
         self["NumberActions"] = HelpableActionMap(self, "NumberActions",
             {
-                "0": (self.stopButton, _("start/stop video preview")),
+                "0": (self.stopButton, _("Start/Stop video preview")),
             })
         
         QuickButton.__init__(self)
