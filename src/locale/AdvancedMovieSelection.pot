@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection(POT)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-02 21:09+0100\n"
-"PO-Revision-Date: 2012-03-02 21:09+0100\n"
+"POT-Creation-Date: 2012-03-08 16:09+0100\n"
+"PO-Revision-Date: 2012-03-08 16:09+0100\n"
 "Last-Translator: JackDanie <JackDaniel@i-have-a-dreambox.com>\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
@@ -70,7 +70,7 @@ msgstr ""
 #: ../MovieSelection.py:492
 #: ../MovieSelection.py:535
 #: ../MovieSelection.py:575
-#: ../MovieSelection.py:816
+#: ../MovieSelection.py:824
 msgid "this recording"
 msgstr ""
 
@@ -80,7 +80,7 @@ msgid "Infos for: %s"
 msgstr ""
 
 #: ../AdvancedMovieSelectionEventView.py:95
-#: ../MovieSelection.py:895
+#: ../MovieSelection.py:903
 #, python-format
 msgid "Movie location: %s"
 msgstr ""
@@ -1647,7 +1647,7 @@ msgstr ""
 #: ../MovieSelection.py:508
 #: ../MovieSelection.py:551
 #: ../MovieSelection.py:591
-#: ../MovieSelection.py:848
+#: ../MovieSelection.py:856
 msgid "You cannot delete this!"
 msgstr ""
 
@@ -1707,13 +1707,18 @@ msgstr ""
 msgid "Video preview jump backward"
 msgstr ""
 
-#: ../MovieSelection.py:786
-#: ../MovieSelection.py:791
+#: ../MovieSelection.py:769
+#: ../MovieSelection.py:773
+msgid "Start/Stop video preview"
+msgstr ""
+
+#: ../MovieSelection.py:794
+#: ../MovieSelection.py:799
 #, python-format
 msgid "%s is currently recording!"
 msgstr ""
 
-#: ../MovieSelection.py:786
+#: ../MovieSelection.py:794
 #, python-format
 msgid ""
 "\n"
@@ -1723,12 +1728,12 @@ msgid ""
 "Do you really want to continue?"
 msgstr ""
 
-#: ../MovieSelection.py:788
+#: ../MovieSelection.py:796
 #, python-format
 msgid "Do you really want to move %s to trashcan?"
 msgstr ""
 
-#: ../MovieSelection.py:791
+#: ../MovieSelection.py:799
 #, python-format
 msgid ""
 "\n"
@@ -1738,71 +1743,71 @@ msgid ""
 "Do you really want to continue?"
 msgstr ""
 
-#: ../MovieSelection.py:793
+#: ../MovieSelection.py:801
 #, python-format
 msgid "Do you really want to delete %s?"
 msgstr ""
 
-#: ../MovieSelection.py:795
+#: ../MovieSelection.py:803
 msgid "Recordings are active, the timer(s) will also be deleted!\n"
 msgstr ""
 
-#: ../MovieSelection.py:797
+#: ../MovieSelection.py:805
 msgid "Do you really want to move selected movies to trashcan?"
 msgstr ""
 
-#: ../MovieSelection.py:799
+#: ../MovieSelection.py:807
 msgid "Do you really want to delete selected movies?"
 msgstr ""
 
-#: ../MovieSelection.py:805
+#: ../MovieSelection.py:813
 msgid "This cannot deleted, please select a movie for!"
 msgstr ""
 
-#: ../MovieSelection.py:875
+#: ../MovieSelection.py:883
 msgid "Delete failed!"
 msgstr ""
 
-#: ../MovieSelection.py:924
+#: ../MovieSelection.py:932
 msgid "Advanced Movie Selection"
 msgstr ""
 
-#: ../MovieSelection.py:1095
+#: ../MovieSelection.py:1106
 msgid ""
 "Load Length of Movies in Movielist has been disabled.\n"
 "Close and reopen Movielist is required to apply the setting."
 msgstr ""
 
-#: ../MovieSelection.py:1142
+#: ../MovieSelection.py:1153
 msgid "Tag 1"
 msgstr ""
 
-#: ../MovieSelection.py:1147
+#: ../MovieSelection.py:1158
 msgid "Tag 2"
 msgstr ""
 
-#: ../MovieSelection.py:1205
+#: ../MovieSelection.py:1216
 msgid "Movie location:"
 msgstr ""
 
-#: ../MovieSelection.py:1221
+#: ../MovieSelection.py:1232
 msgid "Please select the movie path..."
 msgstr ""
 
-#: ../MovieSelection.py:1243
+#: ../MovieSelection.py:1254
 #, python-format
 msgid "Directory %s nonexistent."
 msgstr ""
 
-#: ../MovieSelection.py:1286
+#: ../MovieSelection.py:1297
 msgid "Please select tag to filter..."
 msgstr ""
 
-#: ../MovieSelection.py:1289
+#: ../MovieSelection.py:1300
 msgid "No tags are set on these movies."
 msgstr ""
 
-#: ../MovieSelection.py:1308
+#: ../MovieSelection.py:1319
 msgid ""
 "Use direction keys to move the Moviebar.\n"
 "Press OK button for save or the EXIT button to cancel.\n"
@@ -2112,7 +2117,7 @@ msgstr ""
 msgid "No DVD-Player found!"
 msgstr ""
 
-#: ../plugin.py:678
+#: ../plugin.py:682
 msgid "Setup Advanced Movie Selection"
 msgstr ""
 
