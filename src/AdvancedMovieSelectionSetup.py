@@ -473,7 +473,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
                 serverInstance.shutdown()
                 serverInstance.active_clients = []
         
-        self.csel.updateSettings()
+        if self.csel:
+            self.csel.updateSettings()
         if self.needsRestartFlag == True:
             self.session.openWithCallback(self.exitAnswer, MessageBoxEx, _("Some settings changes require a restart to take effect.\nIf you  use a skin without PiG (Picture in Graphic) you have to restart the box (not only Enigma 2)!\nWith YES only Enigma 2 starts new, with NO the box make a restart."), type=MessageBox.TYPE_YESNO)
         elif self.needsE2restartFlag == True:
