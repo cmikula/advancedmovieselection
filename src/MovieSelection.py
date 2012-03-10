@@ -631,7 +631,8 @@ class SelectionEventInfo:
             self.updateName(serviceref, evt)
         if config.AdvancedMovieSelection.showpreview.value:
             self.loadPreview(serviceref)
-        self.preparePlayMovie(serviceref, evt)
+        if config.AdvancedMovieSelection.video_preview_autostart.value:
+            self.preparePlayMovie(serviceref, evt)
         
 class AdvancedMovieSelection_summary(Screen):
     def __init__(self, session, parent):

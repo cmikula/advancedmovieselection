@@ -259,6 +259,18 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             needRefresh = True
         if config.AdvancedMovieSelection.video_preview.isChanged():
             config.AdvancedMovieSelection.video_preview.save()
+            self.needsReopenFlag = True
+            needRefresh = True
+        if config.AdvancedMovieSelection.minitv.isChanged():
+            config.AdvancedMovieSelection.minitv.save()
+            if not config.AdvancedMovieSelection.minitv.value:
+                config.AdvancedMovieSelection.video_preview.setValue(False)
+                config.AdvancedMovieSelection.video_preview.save()
+            self.needsReopenFlag = True
+            needRefresh = True
+        if config.AdvancedMovieSelection.video_preview_autostart.isChanged():
+            config.AdvancedMovieSelection.video_preview_autostart.save()
+            self.needsReopenFlag = True
             needRefresh = True
         
         if needRefresh:
@@ -385,9 +397,12 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.list.append(getConfigListEntry(_("Show date:"), config.AdvancedMovieSelection.show_date_shortdesc, _("If this option is activated the date will be displayed on the lcd/oled when no short description is available.")))
             if config.AdvancedMovieSelection.show_date_shortdesc.value:
                 self.list.append(getConfigListEntry(_("Use date from timestamp:"), config.AdvancedMovieSelection.show_begintime, _("If this option is activated the date from the file create instead today's date will be displayed on the lcd/oled when no short description is available.")))
-        self.list.append(getConfigListEntry(_("Use video preview:"), config.AdvancedMovieSelection.video_preview, _("If you enable this function, selected movie in movielist will bring you a preview.")))
-        if config.AdvancedMovieSelection.video_preview.value:
-            self.list.append(getConfigListEntry(_("Video preview delay:"), config.AdvancedMovieSelection.video_preview_delay, _("Setup the delay in seconds to start the video preview.")))
+        if config.AdvancedMovieSelection.minitv.value:
+            self.list.append(getConfigListEntry(_("Use video preview:"), config.AdvancedMovieSelection.video_preview, _("If you enable this function, selected movie in movielist will bring you a preview.")))
+        if config.AdvancedMovieSelection.minitv.value and config.AdvancedMovieSelection.video_preview.value:
+            self.list.append(getConfigListEntry(_("Video preview autostart:"), config.AdvancedMovieSelection.video_preview_autostart, _("If you enable this feature, the movie preview starts automatically after the delay with a change in the movie list.")))
+            if config.AdvancedMovieSelection.video_preview_autostart.value:
+                self.list.append(getConfigListEntry(_("Video preview delay:"), config.AdvancedMovieSelection.video_preview_delay, _("Setup the delay in seconds to start the video preview.")))
             self.list.append(getConfigListEntry(_("Use last stop mark:"), config.AdvancedMovieSelection.video_preview_marker, _("Preview will start on last stop marker.")))
             self.list.append(getConfigListEntry(_("Video preview jump time (in minutes):"), config.AdvancedMovieSelection.video_preview_jump_time, _("Here you can set the jump time for the movie preview (< > buttons or bouquet +/- buttons).")))
         self.list.append(getConfigListEntry(_("Enable Enigma2 debug:"), config.AdvancedMovieSelection.debug, _("If you enable this function, all standard output from enigma will be stored to /tmp folder.")))
@@ -448,8 +463,6 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             config.AdvancedMovieSelection.showiconstatusinmovielist.value = False
             config.AdvancedMovieSelection.showcolorstatusinmovielist.value = False
             config.AdvancedMovieSelection.showpercentinmovielist.value = False
-        if config.AdvancedMovieSelection.minitv.isChanged():
-            self.needsReopenFlag = True
         if config.AdvancedMovieSelection.use_original_movieplayer_summary.isChanged():
             self.needsE2restartFlag = True
         if config.AdvancedMovieSelection.server_enabled.isChanged():

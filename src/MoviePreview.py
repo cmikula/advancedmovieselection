@@ -137,11 +137,20 @@ class VideoPreview():
         self.seekRelativ(int(jumptime))
 
     def togglePreviewStatus(self, service=None):
-        self.__playLastService()
-        self.enabled = not self.enabled
-        if self.enabled and service:
-            self.service = service
-            self.playMovie()
+        if config.AdvancedMovieSelection.video_preview_autostart.value:
+            self.__playLastService()
+            self.enabled = not self.enabled        
+            if self.enabled and service:
+                self.service = service
+                self.playMovie()
+        if not config.AdvancedMovieSelection.video_preview_autostart.value and self.lastService:
+            self.stopCurrentlyPlayingService()
+            self.session.nav.playService(self.lastService)
+            self.lastService = None
+        else:
+            if service:
+                self.service = service
+                self.playMovie()        
 
     def seekRelativ(self, minutes):
         if self.currentlyPlayingService:
@@ -226,11 +235,11 @@ class VideoPreview():
                 length = info.getLength(self.currentlyPlayingService)
         return [length, last_pos]
 
-    def getCurrentlyPlayingSerice(self):
+    def getCurrentlyPlayingService(self):
         return self.currentlyPlayingService
 
     def __playLastService(self):
         if self.lastService:
             self.stopCurrentlyPlayingService()
             self.session.nav.playService(self.lastService)
-            self.lastService = None
+            self.lastService = None            
