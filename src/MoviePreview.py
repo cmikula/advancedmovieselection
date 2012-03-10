@@ -106,6 +106,13 @@ class MoviePreview():
     def hideDialog(self):
         self.working = False
 
+from Screens.Screen import Screen
+from enigma import getDesktop
+class DVDOverlay(Screen):
+    def __init__(self, session, args = None):
+        desktop_size = getDesktop(0).size()
+        DVDOverlay.skin = """<screen name="DVDOverlay" position="0,0" size="%d,%d" flags="wfNoBorder" zPosition="-1" backgroundColor="transparent" />""" %(desktop_size.width(), desktop_size.height())
+        Screen.__init__(self, session)
 
 from ServiceReference import ServiceReference
 from Screens.InfoBarGenerics import InfoBarCueSheetSupport
@@ -114,6 +121,8 @@ class VideoPreview():
     def __init__(self):
         self.fwd_timer = eTimer()
         self.fwd_timer.timeout.get().append(self.fwd)
+        self.dvd_preview_timer = eTimer()
+        self.dvd_preview_timer.timeout.get().append(self.playLastDVD)
         self.video_preview_timer = eTimer()
         self.video_preview_timer.timeout.get().append(self.playMovie)
         self.lastService = None
@@ -122,7 +131,8 @@ class VideoPreview():
         self.cut_list = None
         self.updateVideoPreviewSettings()
         self.onClose.append(self.__playLastService)
-
+        self.dvdScreen = self.session.instantiateDialog(DVDOverlay)
+        
     def updateVideoPreviewSettings(self):
         self.enabled = config.AdvancedMovieSelection.video_preview.value
         if not self.enabled:
@@ -142,8 +152,8 @@ class VideoPreview():
         self.seekRelativ(config.AdvancedMovieSelection.video_preview_jump_time.value)
     
     def jumpBackward(self):
-        jumptime = '-' + str(config.AdvancedMovieSelection.video_preview_jump_time.value)
-        self.seekRelativ(int(jumptime))
+        jumptime = config.AdvancedMovieSelection.video_preview_jump_time.value
+        self.seekRelativ(-jumptime)
 
     def togglePreviewStatus(self, service=None):
         if config.AdvancedMovieSelection.video_preview_autostart.value:
@@ -183,7 +193,7 @@ class VideoPreview():
     def playMovie(self):
         if self.service and self.enabled:
             print "play service"
-            if isinstance(self.service, eServiceReferenceDvd) or self.service.flags & eServiceReference.mustDescent:
+            if self.service.flags & eServiceReference.mustDescent:
                 print "Skipping video preview"
                 self.__playLastService()
                 return
@@ -197,7 +207,15 @@ class VideoPreview():
             if self.currentlyPlayingService:
                 self.stopCurrentlyPlayingService()
             self.currentlyPlayingService = self.service
-            self.session.nav.playService(self.service)
+            if isinstance(self.service, eServiceReferenceDvd):
+                newref = eServiceReference(4369, 0, self.service.getPath())
+                print "play", newref.toString()
+                self.session.nav.playService(newref)
+                subs = self.getServiceInterface("subtitle")
+                if subs:
+                    subs.enableSubtitles(self.dvdScreen.instance, None)
+            else:
+                self.session.nav.playService(self.service)
             seekable = self.getSeek()
             if seekable:
                 try:
@@ -212,14 +230,37 @@ class VideoPreview():
                         if self.service.getPath().endswith('ts'):
                             seekable.seekTo(last)
                         else:
+                            self.minutes = long(last / 90000 / 60)
+                            if isinstance(self.service, eServiceReferenceDvd):
+                                self.resume_point = last
+                                self.dvd_preview_timer.start(1000, True)
+                                return
                             self.fwd_timer.start(1000, True)
-                            self.minutes = last / 90000 / 60
                 except Exception, e:
                     print e
 
     def fwd(self):
         self.seekRelativ(self.minutes)
+
+    def getServiceInterface(self, iface):
+        service = self.session.nav.getCurrentService()
+        if service:
+            attr = getattr(service, iface, None)
+            if callable(attr):
+                return attr()
+        return None
             
+    def playLastDVD(self, answer=True):
+        print "playLastDVD", self.resume_point
+        service = self.session.nav.getCurrentService()
+        if service:
+            if answer == True:
+                seekable = self.getSeek()
+                if seekable:
+                    seekable.seekTo(self.resume_point)
+            pause = service.pause()
+            pause.unpause()
+
     def preparePlayMovie(self, service, event):
         if not self.execing or not self.enabled:
             return
