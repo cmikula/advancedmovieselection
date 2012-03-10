@@ -227,7 +227,7 @@ def writeCutList(fileName, cutList):
             data = struct.pack('>I', what)
             file.write(data)
     except Exception, e:
-        print "Exception in writeCutList: " + str(e)
+        print "ERROR writing cutlist", fileName + ".cuts:", e
     finally:
         if file is not None:
             file.close()
@@ -247,7 +247,7 @@ def getCutList(fileName):
             what = struct.unpack('>I', data[8:12])[0]
             cutList.append((where, what))
     except Exception, e:
-        print "Exception in getCutList: " + str(e)
+        print "ERROR reading cutlist", fileName + ".cuts:", e
     finally:
         if file is not None:
             file.close()
