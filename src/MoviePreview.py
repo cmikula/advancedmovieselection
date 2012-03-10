@@ -41,12 +41,16 @@ class MoviePreview():
         self.picload = ePicLoad()
         self.picload.PictureData.get().append(self.showPreviewCallback)
         self.onLayoutFinish.append(self.layoutFinish)
+        self.onClose.append(self.__onClose)
         global nocover
         if environ["LANGUAGE"] == "de" or environ["LANGUAGE"] == "de_DE":
             nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_de.png")
         else:
             nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_en.png")
 
+    def __onClose(self):
+        del self.picload
+    
     def layoutFinish(self):
         sc = AVSwitch().getFramebufferScale()
         self.picload.setPara((self["CoverPreview"].instance.size().width(), self["CoverPreview"].instance.size().height(), sc[0], sc[1], False, 1, "#00000000"))
@@ -116,8 +120,13 @@ class VideoPreview():
         self.service = None
         self.currentlyPlayingService = None
         self.cut_list = None
-        self.enabled = config.AdvancedMovieSelection.video_preview.value
+        self.updateVideoPreviewSettings()
         self.onClose.append(self.__playLastService)
+
+    def updateVideoPreviewSettings(self):
+        self.enabled = config.AdvancedMovieSelection.video_preview.value
+        if not self.enabled:
+            self.__playLastService()
 
     def stopCurrentlyPlayingService(self):
         if self.currentlyPlayingService:

@@ -33,6 +33,8 @@ from Screens.InfoBarGenerics import InfoBarCueSheetSupport
 import struct
 import os
 from shutil import copyfile
+from Components.AVSwitch import AVSwitch
+from enigma import ePicLoad
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Bp/geminimain/plugin.pyo"):
     __CONF__ = "/etc/enigma2/gemini_DateiBrowser.conf"
@@ -53,16 +55,19 @@ def getServiceInfoValue(ref, what):
     return ref and info.getInfoString(ref, what) or info.getInfoString(what)
 
 class PicLoader:
-    def __init__(self, width, height):
-        from enigma import ePicLoad
-        from Components.AVSwitch import AVSwitch
+    def __init__(self, width, height, sc=None):
         self.picload = ePicLoad()
-        sc = AVSwitch().getFramebufferScale()
+        if(not sc):
+            sc = AVSwitch().getFramebufferScale()
         self.picload.setPara((width, height, sc[0], sc[1], False, 1, "#00000000"))
 
     def load(self, filename):
         self.picload.startDecode(filename, 0, 0, False)
-        return self.picload.getData()
+        data = self.picload.getData()
+        return data
+    
+    def destroy(self):
+        del self.picload
 
 class eServiceReferenceDvd(eServiceReference):
     def __init__(self, serviceref, dvdStruct=False):
@@ -482,10 +487,12 @@ class EventName(Converter, object):
     text = property(getText)
 
 
-class CutListSupport:
+class CutListSupportBase:
     def __init__(self, service):
         self.currentService = service
         self.cut_list = [ ]
+        self.resume_point = 0
+        self.jump_first_mark = None
 
     def getCuesheet(self):
         service = self.session.nav.getCurrentService()
@@ -493,31 +500,43 @@ class CutListSupport:
             return None
         return service.cueSheet()
 
+    def checkResumeSupport(self):
+        stop_before_end_time = int(config.AdvancedMovieSelection.stop_before_end_time.value)
+        length, last = self.getCuePositions()  
+        if stop_before_end_time > 0:
+            if ((length - last) / 60) < stop_before_end_time:
+                self.ENABLE_RESUME_SUPPORT = False
+            else:
+                self.ENABLE_RESUME_SUPPORT = True
+        if config.AdvancedMovieSelection.jump_first_mark.value == True and self.currentService.getPath().endswith(".ts"):
+            first = self.getFirstMark()
+            if (first and length > 0) and (first / 90000) < length / 2:
+                self.ENABLE_RESUME_SUPPORT = False
+                self.jump_first_mark = self.resume_point = first
+
+    def getFirstMark(self):
+        firstMark = None
+        for (pts, what) in self.cut_list:
+            if what == self.CUT_TYPE_MARK:
+                if not firstMark:
+                    firstMark = pts
+                elif pts < firstMark:
+                    firstMark = pts
+        return firstMark
+
     def downloadCuesheet(self):
         try:
             cue = self.getCuesheet()
-            if cue is None or isinstance(self.currentService, eServiceReferenceDvd):
+            if cue is None:
                 print "download failed, no cuesheet interface! Try to load from cuts"
                 self.cut_list = [ ]
                 if self.currentService is not None:
-                    cutList = getCutList(self.currentService.getPath())
-                    if cutList is not None:
-                        self.cut_list = cutList
-                # FIXME dvd player not start
-                #if len(self.cut_list) == 0 and isinstance(self.currentService, eServiceReferenceDvd):
-                #    self.cut_list = [(0, 3)]
+                    self.cut_list = getCutList(self.currentService.getPath())
             else:
                 self.cut_list = cue.getCutList()
-            if config.usage.on_movie_start.value == "beginning" or config.usage.on_movie_start.value == "ask" and config.AdvancedMovieSelection.jump_first_mark.value == True:
-                self.jumpToFirstMark()
-            stop_before_end_time = int(config.AdvancedMovieSelection.stop_before_end_time.value) 
-            if stop_before_end_time > 0:
-                pos = self.getCuePositions()
-                if ((pos[0] - pos[1]) / 60) < stop_before_end_time:
-                    self.ENABLE_RESUME_SUPPORT = False
-                else:
-                    self.ENABLE_RESUME_SUPPORT = True
-
+            self.checkResumeSupport()
+            if self.jump_first_mark:
+                self.doSeek(self.resume_point)
         except Exception, e:
             print "DownloadCutList exception:\n" + str(e)
 
@@ -563,7 +582,7 @@ class CutListSupport:
         length = 0
         last_pos = 0
         for (pts, what) in self.cut_list:
-            if what == 1 == self.CUT_TYPE_OUT:
+            if what == self.CUT_TYPE_OUT:
                 length = pts / 90000
             if what == self.CUT_TYPE_LAST:
                 last_pos = pts / 90000
@@ -624,20 +643,51 @@ class CutListSupport:
         except Exception, e:
             print "loadDVDCueSheet exception:\n" + e
 
-    def jumpToFirstMark(self):
-        firstMark = None
-        for (pts, what) in self.cut_list:
-            if what == self.CUT_TYPE_MARK:
-                firstMark = pts
-                current_pos = self.cueGetCurrentPosition()
-                #increase current_pos by 2 seconds to make sure we get the correct mark
-                current_pos = current_pos + 180000
-                if firstMark == None or current_pos < firstMark:
-                    break
-        if firstMark is not None:
-            self.doSeek(firstMark)
+from Plugins.Extensions.DVDPlayer.plugin import DVDPlayer as eDVDPlayer
+class DVDCutListSupport(CutListSupportBase):
+    def __init__(self, service):
+        CutListSupportBase.__init__(self, service)
+        self.jump_relative = False
 
-    def playLastCB(self, answer):
-        if answer == False and config.AdvancedMovieSelection.jump_first_mark.value == True:
-            self.jumpToFirstMark()
-        InfoBarCueSheetSupport.playLastCB(self, answer)
+    def downloadCuesheet(self):
+        eDVDPlayer.downloadCuesheet(self)
+        if len(self.cut_list) == 0:
+            self.cut_list = getCutList(self.currentService.getPath())
+            self.jump_relative = True
+        self.checkResumeSupport()
+        if self.ENABLE_RESUME_SUPPORT == False:
+            if self.jump_first_mark:
+                eDVDPlayer.playLastCB(self, True)
+            else:
+                eDVDPlayer.playLastCB(self, False)
+
+    def __getServiceName(self, service):
+        try:
+            from enigma import iPlayableServicePtr
+            if isinstance(service, iPlayableServicePtr):
+                info = service and service.info()
+                ref = None
+            else: # reference
+                info = service and self.source.info
+                ref = service
+            if info is None:
+                return "no info"
+            name = ref and info.getName(ref)
+            if name is None:
+                name = info.getName()
+            return name.replace('\xc2\x86', '').replace('\xc2\x87', '')
+        except Exception, e:
+            print e
+
+    def playLastCB(self, answer): # overwrite infobar cuesheet function
+        if not self.jump_relative:
+            eDVDPlayer.playLastCB(self, answer)
+        else:
+            if answer == True:
+                eDVDPlayer.doSeekRelative(self, self.resume_point)
+            eDVDPlayer.playLastCB(self, False)
+
+class CutListSupport(CutListSupportBase):
+    def __init__(self, service):
+        CutListSupportBase.__init__(self, service)
+

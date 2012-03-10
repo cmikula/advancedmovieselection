@@ -943,6 +943,9 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             self["DescriptionBorder"].hide()
             self["list"].instance.resize(eSize(self.listWidth, self.listHeight))
 
+    def updateSettings(self):
+        self.updateVideoPreviewSettings()
+    
     def nextBouquet(self):
         self.jumpForward()
 

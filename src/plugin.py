@@ -25,7 +25,7 @@ from Plugins.Plugin import PluginDescriptor
 from Components.ActionMap import HelpableActionMap
 from MovieSelection import MovieSelection, getBeginTimeString, getDateString
 from MovieList import eServiceReferenceDvd
-from ServiceProvider import CutListSupport, ServiceCenter
+from ServiceProvider import DVDCutListSupport, CutListSupport, ServiceCenter
 from Screens.MessageBox import MessageBox
 from Screens.InfoBar import InfoBar, MoviePlayer
 from Tools.Directories import fileExists, resolveFilename, SCOPE_HDD, SCOPE_CURRENT_SKIN
@@ -470,8 +470,6 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
             self.session.openWithCallback(self.movieSelected, MovieSelection, ref, True)
             self.session.nav.stopService()
             self.session.nav.playService(self.lastservice)
-            global PlayerInstance
-            PlayerInstance = None
         elif answer == "restart":
             self.doSeek(0)
             self.setSeekState(self.SEEK_STATE_PLAY)
@@ -510,18 +508,18 @@ def movieSelected(self, service):
         if isinstance(service, eServiceReferenceDvd):
             if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/DVDPlayer/plugin.py"):
                 from Plugins.Extensions.DVDPlayer.plugin import DVDPlayer as eDVDPlayer
-                class DVDPlayer(eDVDPlayer, CutListSupport):
+                class DVDPlayer(DVDCutListSupport, eDVDPlayer):
                     def __init__(self, session, service):
-                        CutListSupport.__init__(self, service)
-                        self.loadDVDCueSheet()
+                        DVDCutListSupport.__init__(self, service)
                         eDVDPlayer.__init__(self, session, dvd_filelist=service.getDVD())
-                        self.onClose.append(self.storeDVDCueSheet)
-
+                        self.addPlayerEvents()
+                        
                 try:
                     global PlayerInstance
                     if PlayerInstance is not None:
                         PlayerInstance.playerClosed()
                         self.session.nav.stopService()
+                        self.session.nav.playService(PlayerInstance.lastservice)
                         PlayerInstance.close()
                         PlayerInstance = None
                 except Exception, e:

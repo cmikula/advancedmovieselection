@@ -130,6 +130,10 @@ class MovieList(GUIComponent):
         self.onSelectionChanged = [ ]
         self.updateHotplugDevices()
 
+    def destroy(self):
+        self.picloader.destroy()
+        GUIComponent.destroy(self)
+    
     def onShow(self):
         GUIComponent.onShow(self)
         self.updateSettings()
