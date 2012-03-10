@@ -68,6 +68,10 @@ class TMDbList(GUIComponent, object):
             os_mkdir(IMAGE_TEMPFILE)
         self.picloader = PicLoader(92, 138)
 
+    def destroy(self):
+        self.picloader.destroy()
+        GUIComponent.destroy(self)
+
     def buildMovieSelectionListEntry(self, movie, movie_id):
         width = self.l.getItemSize().width()
         res = [ None ]

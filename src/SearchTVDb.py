@@ -81,6 +81,11 @@ def getImage(serie):
 class ListBase(GUIComponent, object):
     def __init__(self):
         GUIComponent.__init__(self)
+        self.picloader = PicLoader(95, 138)
+
+    def destroy(self):
+        self.picloader.destroy()
+        GUIComponent.destroy(self)
 
     GUI_WIDGET = eListbox
     
@@ -115,7 +120,6 @@ class SeriesList(ListBase):
         self.l.setFont(0, gFont("Regular", 24))
         self.l.setFont(1, gFont("Regular", 20))
         self.l.setItemHeight(140)
-        self.picloader = PicLoader(95, 138)
 
     def buildMovieSelectionListEntry(self, movie, series_id):
         width = self.l.getItemSize().width()
@@ -146,7 +150,6 @@ class EpisodesList(ListBase):
         self.l.setFont(0, gFont("Regular", 20))
         self.l.setFont(1, gFont("Regular", 17))                               
         self.l.setItemHeight(140)
-        self.picloader = PicLoader(95, 138)
 
     def buildMovieSelectionListEntry(self, episode, episode_name, episode_number, episode_season_number, episode_id, episode_overview):
         width = self.l.getItemSize().width()
