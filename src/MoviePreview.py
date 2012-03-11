@@ -140,6 +140,10 @@ class VideoPreview():
 
     def stopCurrentlyPlayingService(self):
         if self.currentlyPlayingService:
+            if isinstance(self.currentlyPlayingService, eServiceReferenceDvd):
+                subs = self.getServiceInterface("subtitle")
+                if subs:
+                    subs.disableSubtitles(self.session.current_dialog.instance)
             self.session.nav.stopService()
             cue = CueSheet(self.currentlyPlayingService)
             cue.setCutList(self.cut_list)
