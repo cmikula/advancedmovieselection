@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*- #
+# -*- coding: utf-8 -*- #
 
 version 0.1
 * erste beta :)
@@ -238,7 +238,6 @@ version 2.5.1
 version 2.6
 * neu: filme in der filmliste werden zur vorschau angespielt
 * fix: dvd wiedergabe von *.img dateien
-
-
-
-
+* fix: wiedergabe fortsetzen bei dvd´s
+* fix: crash bei verzeichnis einstellungen wenn nicht geskinnt
+ACHTUNG an die skinner,AdvancedMovieSelectionPathsSettings_HD, AdvancedMovieSelectionPathsSettings_XD und AdvancedMovieSelectionPathsSettings_SD sind neu

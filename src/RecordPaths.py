@@ -28,26 +28,26 @@ from Components.ConfigList import ConfigListScreen
 from Components.ActionMap import ActionMap
 from Components.UsageConfig import preferredPath
 from Tools.Directories import fileExists
+from enigma import getDesktop
 
 class RecordPathsSettings(Screen, ConfigListScreen):
-    skin = """
-        <screen name="RecordPathsSettings" position="center,center" size="620,200" title="Recording paths">
-            <ePixmap pixmap="skin_default/buttons/red.png" position="0,0" size="140,40" alphatest="on"/>
-            <ePixmap pixmap="skin_default/buttons/green.png" position="140,0" size="140,40" alphatest="on"/>
-            <widget source="key_red" render="Label" position="0,0" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1"/>
-            <widget source="key_green" render="Label" position="140,0" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1"/>
-            <widget name="config" position="0,50" size="620,146"/>
-        </screen>"""
-
     def __init__(self, session):
         from Components.Sources.StaticText import StaticText
         Screen.__init__(self, session)
+        try:
+            sz_w = getDesktop(0).size().width()
+        except:
+            sz_w = 720
+        if sz_w == 1280:
+            self.skinName = ["AdvancedMovieSelectionPathsSettings_HD"]
+        elif sz_w == 1024:
+            self.skinName = ["AdvancedMovieSelectionPathsSettings_XD"]
+        else:
+            self.skinName = ["AdvancedMovieSelectionPathsSettings_SD"]
         self["key_red"] = StaticText(_("Cancel"))
         self["key_green"] = StaticText(_("Save"))
-
         ConfigListScreen.__init__(self, [])
         self.initConfigList()
-
         self["setupActions"] = ActionMap(["SetupActions", "ColorActions"],
         {
             "green": self.save,
