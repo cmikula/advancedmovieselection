@@ -508,7 +508,7 @@ class CutListSupportBase:
                 self.ENABLE_RESUME_SUPPORT = False
             else:
                 self.ENABLE_RESUME_SUPPORT = True
-        if config.AdvancedMovieSelection.jump_first_mark.value == True and self.currentService.getPath().endswith(".ts"):
+        if config.AdvancedMovieSelection.jump_first_mark.value == True and not hasLastPosition(self.currentService):
             first = self.getFirstMark()
             if (first and length > 0) and (first / 90000) < length / 2:
                 self.ENABLE_RESUME_SUPPORT = False

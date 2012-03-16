@@ -240,4 +240,3 @@ version 2.6
 * fix: dvd wiedergabe von *.img dateien
 * fix: wiedergabe fortsetzen bei dvd´s
 * fix: crash bei verzeichnis einstellungen wenn nicht geskinnt
-ACHTUNG an die skinner,AdvancedMovieSelectionPathsSettings_HD, AdvancedMovieSelectionPathsSettings_XD und AdvancedMovieSelectionPathsSettings_SD sind neu
