@@ -47,6 +47,14 @@ class RecordPathsSettings(eRecordPathsSettings):
         self.movecopy_entry = getConfigListEntry(_("Move/copy location:"), self.movecopy_dirname)
         self.list.append(self.movecopy_entry)
         self["config"].setList(self.list)
+        if not self.selectionChanged in self["config"].onSelectionChanged:
+            self["config"].onSelectionChanged.append(self.selectionChanged)
+
+    def selectionChanged(self):
+        eRecordPathsSettings.selectionChanged(self)
+        currentry = self["config"].getCurrent()
+        if currentry == self.movecopy_entry:
+            self["introduction"].setText(_("Please select the default move/copy location which is used for move/copy movies."))
 
     def ok(self):
         eRecordPathsSettings.ok(self)
