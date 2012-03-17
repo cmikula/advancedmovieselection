@@ -33,12 +33,15 @@ TRASH_EXCLUDE = ("DUMBO", "TIMOTHY", "swap", "ram", "ba")
 
 trash_count = 0
 trash_size = 0
+async_trash = None
 
 class AsynchTrash(Thread):
     def __init__(self, items, wait_ms=0):
         Thread.__init__(self)
         self.items = items
         self.wait_ms = wait_ms
+        global async_trash
+        async_trash = self
         self.start()
 
     def run(self):
@@ -53,6 +56,8 @@ class AsynchTrash(Thread):
                 Trashcan.delete(service.getPath())
             except Exception, e:
                 print e
+        global async_trash
+        async_trash = None
 
 class eServiceReferenceTrash():
     def __init__(self, path):
@@ -193,7 +198,11 @@ class Trashcan:
     @staticmethod
     def deleteAsynch(trash):
         AsynchTrash(trash)
-    
+
+    @staticmethod
+    def isCurrentlyDeleting():
+        return async_trash != None
+            
     @staticmethod
     def getTrashCount():
         global trash_count
