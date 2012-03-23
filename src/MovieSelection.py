@@ -40,9 +40,9 @@ from Screens.LocationBox import MovieLocationBox
 from AdvancedMovieSelectionSetup import AdvancedMovieSelectionSetup, AdvancedMovieSelectionButtonSetup
 from Tools.BoundFunction import boundFunction
 from Tools.Directories import resolveFilename, fileExists, SCOPE_HDD, SCOPE_CURRENT_SKIN
-from enigma import eServiceReference, eServiceCenter, eSize, ePoint, eTimer, getDesktop, iServiceInformation
+from enigma import eServiceReference, eSize, ePoint, eTimer, getDesktop, iServiceInformation
 from Screens.Console import eConsoleAppContainer
-from ServiceProvider import ServiceEvent
+from ServiceProvider import ServiceEvent, ServiceCenter
 from MoveCopy import MovieMove
 from Rename import MovieRetitle
 from SearchTMDb import TMDbMain as TMDbMainsave
@@ -256,13 +256,13 @@ class MovieContextMenu(Screen):
             menu.append((_("Update all genre in meta from eit"), boundFunction(self.updateMetaFromEit)))
         if config.AdvancedMovieSelection.show_cover_del.value:
             if not service.flags & eServiceReference.mustDescent:
-                menu.append((_("Delete cover"), boundFunction(self.deletecover)))
+                menu.append((_("Delete cover"), boundFunction(self.deleteCover)))
         if config.AdvancedMovieSelection.show_info_del.value:
             if not service.flags & eServiceReference.mustDescent:
-                menu.append((_("Delete movie info"), boundFunction(self.deleteinfos)))
+                menu.append((_("Delete movie info"), boundFunction(self.deleteInfos)))
         if config.AdvancedMovieSelection.show_info_cover_del.value:
             if not service.flags & eServiceReference.mustDescent:
-                menu.append((_("Delete movie info and cover"), boundFunction(self.deleteinfocover)))   
+                menu.append((_("Delete movie info and cover"), boundFunction(self.deleteInfoCover)))   
         if config.AdvancedMovieSelection.showmovietagsinmenu.value and not service.flags & eServiceReference.mustDescent:
             menu.append((_("Movie tags"), boundFunction(self.movietags)))
         if config.AdvancedMovieSelection.showfiltertags.value:
@@ -308,7 +308,6 @@ class MovieContextMenu(Screen):
 
     def showTrailer(self):
         if YTTrailerPresent == True:
-            from ServiceProvider import ServiceCenter
             eventname = ServiceCenter.getInstance().info(self.service).getName(self.service)
             self.session.open(YTTrailerList, eventname)
         else:
@@ -357,7 +356,6 @@ class MovieContextMenu(Screen):
         self.session.openWithCallback(self.closeafterfinish, MovieRetitle, service)
 
     def imdbsearch(self):
-        from ServiceProvider import ServiceCenter
         searchTitle = ServiceCenter.getInstance().info(self.service).getName(self.service)
         self.session.openWithCallback(self.closeafterfinish, TMDbMainsave, searchTitle, service=self.service)
 
@@ -484,73 +482,52 @@ class MovieContextMenu(Screen):
     def delete(self):
         self.csel.delete()
         self.close()
-    
-    def deleteinfocover(self):
-        serviceHandler = eServiceCenter.getInstance()
-        offline = serviceHandler.offlineOperations(self.service)
+        
+    def checkDeleteable(self):
+        serviceHandler = ServiceCenter.getInstance()
         info = serviceHandler.info(self.service)
-        name = info and info.getName(self.service) or _("this recording")
-        result = False
+        name = info and info.getName(self.service)
         if self.service.flags & eServiceReference.mustDescent:
-            if self.service.getName() != "..":
-                result = True
-                name = self.service.getPath()
-        else:
-            if offline is not None:
-                if not offline.deleteFromDisk(1):
-                    result = True
-        if result == True:
+            if self.service.getName() == "..":
+                return None
+        return name
+    
+    def deleteInfoCover(self):
+        name = self.checkDeleteable()
+        if name:
             if config.AdvancedMovieSelection.askdelete.value:
-                self.session.openWithCallback(self.deleteinfocoverConfirmed, MessageBox, _("Do you really want to delete info/cover from:\n%s?") % (name))
+                self.session.openWithCallback(self.deleteInfoCoverConfirmed, MessageBox, _("Do you really want to delete info/cover from:\n%s?") % (name))
             else:
-                self.deleteinfocoverConfirmed(True)
+                self.deleteInfoCoverConfirmed(True)
         else:
             self.session.openWithCallback(self.close, MessageBox, _("You cannot delete this!"), MessageBox.TYPE_ERROR)
 
-    def deleteinfocoverConfirmed(self, confirmed):
+    def deleteInfoCoverConfirmed(self, confirmed):
         if not confirmed:
             return self.close()
         try:
-            title = self.service.getPath()
-            if title.endswith(".ts"):
-                movietitle = title[:-3]
-            elif title.endswith(".mp4") or title.endswith(".avi") or title.endswith(".mkv") or title.endswith(".mov") or title.endswith(".flv") or title.endswith(".m4v") or title.endswith(".mpg") or title.endswith(".iso"):
-                movietitle = title[:-4]
-            elif title.endswith(".divx") or title.endswith(".m2ts") or title.endswith(".mpeg"):
-                movietitle = title[:-5]
-            else:
-                movietitle = title
-            eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".eit")
-            eConsoleAppContainer().execute("rm -f '%s'" % movietitle + ".jpg")
+            path = self.service.getPath()
+            if os.path.isfile(path):
+                path = os.path.splitext(path)[0]
+            eConsoleAppContainer().execute("rm -f \"%s\"" % (path + ".eit"))
+            eConsoleAppContainer().execute("rm -f \"%s\"" % (path + ".jpg"))
             self.csel.updateDescription()
             self.csel["freeDiskSpace"].update()
             self.close()
         except:
             pass
 
-    def deletecover(self):
-        serviceHandler = eServiceCenter.getInstance()
-        offline = serviceHandler.offlineOperations(self.service)
-        info = serviceHandler.info(self.service)
-        name = info and info.getName(self.service) or _("this recording")
-        result = False
-        if self.service.flags & eServiceReference.mustDescent:
-            if self.service.getName() != "..":
-                result = True
-                name = self.service.getPath()
-        else:
-            if offline is not None:
-                if not offline.deleteFromDisk(1):
-                    result = True
-        if result == True:
+    def deleteCover(self):
+        name = self.checkDeleteable()
+        if name:
             if config.AdvancedMovieSelection.askdelete.value:
-                self.session.openWithCallback(self.deletecoverConfirmed, MessageBox, _("Do you really want to delete cover from:\n%s?") % (name))
+                self.session.openWithCallback(self.deleteCoverConfirmed, MessageBox, _("Do you really want to delete cover from:\n%s?") % (name))
             else:
-                self.deletecoverConfirmed(True)
+                self.deleteCoverConfirmed(True)
         else:
             self.session.openWithCallback(self.close, MessageBox, _("You cannot delete this!"), MessageBox.TYPE_ERROR)
 
-    def deletecoverConfirmed(self, confirmed):
+    def deleteCoverConfirmed(self, confirmed):
         if not confirmed:
             return self.close()
         try:
@@ -568,29 +545,17 @@ class MovieContextMenu(Screen):
         except:
             pass
 
-    def deleteinfos(self):
-        serviceHandler = eServiceCenter.getInstance()
-        offline = serviceHandler.offlineOperations(self.service)
-        info = serviceHandler.info(self.service)
-        name = info and info.getName(self.service) or _("this recording")
-        result = False
-        if self.service.flags & eServiceReference.mustDescent:
-            if self.service.getName() != "..":
-                result = True
-                name = self.service.getPath()
-        else:
-            if offline is not None:
-                if not offline.deleteFromDisk(1):
-                    result = True
-        if result == True:
+    def deleteInfos(self):
+        name = self.checkDeleteable()
+        if name:
             if config.AdvancedMovieSelection.askdelete.value:
-                self.session.openWithCallback(self.deleteinfosConfirmed, MessageBox, _("Do you really want to delete movie info from:\n%s?") % (name))
+                self.session.openWithCallback(self.deleteInfosConfirmed, MessageBox, _("Do you really want to delete movie info from:\n%s?") % (name))
             else:
-                self.deleteinfosConfirmed(True)
+                self.deleteInfosConfirmed(True)
         else:
             self.session.openWithCallback(self.close, MessageBox, _("You cannot delete this!"), MessageBox.TYPE_ERROR)
 
-    def deleteinfosConfirmed(self, confirmed):
+    def deleteInfosConfirmed(self, confirmed):
         if not confirmed:
             return self.close()
         try:
@@ -819,7 +784,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         else:
             self.to_delete = [self.service]
         
-        serviceHandler = eServiceCenter.getInstance()
+        serviceHandler = ServiceCenter.getInstance()
         offline = serviceHandler.offlineOperations(self.service)
         info = serviceHandler.info(self.service)
         name = info and info.getName(self.service) or _("this recording")

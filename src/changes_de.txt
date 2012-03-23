@@ -240,3 +240,5 @@ version 2.6
 * fix: dvd wiedergabe von *.img dateien
 * fix: wiedergabe fortsetzen bei dvdÂ´s
 * fix: crash bei verzeichnis einstellungen wenn nicht geskinnt
+* fix: löschen von filminfo und cover's für nicht ts files
+ 
