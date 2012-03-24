@@ -168,7 +168,6 @@ class Network():
                 for x in rfile.readlines():
                     val = x.strip().split(' ')
                     if len(val) >= 2 and not '#' in val[0]:
-                        print val[0]
                         dest_addr = val[2].split(':/')[0]
                         auto_network.append((val[0], dest_addr))
         except Exception, e:
