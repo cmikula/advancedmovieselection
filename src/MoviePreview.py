@@ -202,7 +202,7 @@ class VideoPreview():
                 self.__playLastService()
                 return
             from plugin import PlayerInstance
-            if PlayerInstance:
+            if PlayerInstance and PlayerInstance.isCurrentlyPlaying():
                 return
             if self.session.nav.getCurrentlyPlayingServiceReference() == self.service:
                 return 

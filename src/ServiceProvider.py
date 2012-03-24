@@ -531,6 +531,7 @@ class CutListSupportBase:
         self.resume_point = 0
         self.jump_first_mark = None
         self.jump_first_play_last = None
+        self.currently_playing = False
 
     def getCuesheet(self):
         service = self.session.nav.getCurrentService()
@@ -568,6 +569,7 @@ class CutListSupportBase:
 
     def downloadCuesheet(self):
         try:
+            self.currently_playing = True
             cue = self.getCuesheet()
             if cue is None:
                 print "download failed, no cuesheet interface! Try to load from cuts"
@@ -642,6 +644,7 @@ class CutListSupportBase:
 
     def playerClosed(self, service=None):
         try:
+            self.currently_playing = False
             cancel_cutlist = ["ts", "m4a", "mp3", "ogg", "wav"]
             ext = self.currentService.getPath().split(".")[-1].lower()
             if ext in cancel_cutlist:
@@ -654,6 +657,9 @@ class CutListSupportBase:
                 self.currentService = service
         except Exception, e:
             print "playerClosed exception:\n" + str(e)
+
+    def isCurrentlyPlaying(self):
+        return self.currently_playing
 
     def getDVDNameFromFile(self, file_name):
         if os.path.isfile(file_name):
