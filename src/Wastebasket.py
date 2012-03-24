@@ -306,8 +306,7 @@ class Wastebasket(Screen):
         self.session.open(ClientSetup)
 
     def getCurrent(self):
-        self.session.currentSelection = self["list"].getCurrent()
-        return self.session.currentSelection
+        return self["list"].getCurrent()
 
     def abort(self):
         self.close()

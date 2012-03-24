@@ -23,7 +23,7 @@ from __init__ import _
 from Screens.Screen import Screen
 from Plugins.Plugin import PluginDescriptor
 from Components.ActionMap import HelpableActionMap
-from MovieSelection import MovieSelection, getBeginTimeString, getDateString
+from MovieSelection import MovieSelection, Current, getBeginTimeString, getDateString
 from MovieList import eServiceReferenceDvd
 from ServiceProvider import DVDCutListSupport, CutListSupport, ServiceCenter
 from Screens.MessageBox import MessageBox
@@ -501,7 +501,7 @@ def showMovies(self):
     if config.AdvancedMovieSelection.startonfirst.value:
         self.session.openWithCallback(self.movieSelected, MovieSelection)
     else:
-        self.session.openWithCallback(self.movieSelected, MovieSelection, self.session.currentSelection)
+        self.session.openWithCallback(self.movieSelected, MovieSelection, Current.selection)
 
 def movieSelected(self, service):
     if service is not None:
@@ -635,7 +635,6 @@ waste_timer = None
 def autostart(reason, **kwargs):
     if reason == 0:
         session = kwargs["session"]
-        session.currentSelection = None
         if not config.AdvancedMovieSelection.ml_disable.value:
             try:
                 InfoBar.movieSelected = movieSelected

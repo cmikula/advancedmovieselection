@@ -104,6 +104,9 @@ config.movielist.showtags = ConfigInteger(default=MovieList.HIDE_TAGS)
 
 SHOW_ALL_MOVIES = _("Show all movies")
 
+class Current():
+    selection = None
+
 def getDateString():
     t = localtime()
     if t.tm_wday == 0:
@@ -1033,8 +1036,8 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self["list"].moveTo(self.selectedmovie)
 
     def getCurrent(self):
-        self.session.currentSelection = self["list"].getCurrent()
-        return self.session.currentSelection
+        Current.selection = self["list"].getCurrent()
+        return Current.selection
 
     def setMovieStatus(self, status):
         current = self.getCurrent()
