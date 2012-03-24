@@ -195,8 +195,6 @@ class Wastebasket(Screen):
             self.skinName = ["AdvancedMovieSelectionTrashSD"]
         self.delayTimer = eTimer()
         self.delayTimer.callback.append(self.updateHDDData)
-        self.deleteTimer = eTimer()
-        self.deleteTimer.callback.append(self.deleteAllMovies)
         self.current_ref = eServiceReferenceTrash(config.movielist.last_videodir.value)  
         self["ColorActions"] = HelpableActionMap(self, "ColorActions",
         {
@@ -280,7 +278,8 @@ class Wastebasket(Screen):
             self["freeDiskSpace"].path = path
         if sel is None:
             sel = self.getCurrent()
-        self["list"].reload(self.current_ref)
+        if not Trashcan.isCurrentlyDeleting():
+            self["list"].reload(self.current_ref)
         if config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMoviesMedia':
             title = _("Wastebasket: %s") % ("/media")
         else:
@@ -369,22 +368,13 @@ class Wastebasket(Screen):
         if not confirmed:
             return
         self["list"].hide()
-        self["waitingtext"].setText(_("Deleting in progress! Please wait..."))
-        self["waitingtext"].show()
-        self.deleteTimer.start(0, 1)
-
-    def deleteAllMovies(self):
-        try:
-            print "Start deleting all movies in trash list"
-            for x in self.list.list[:]:
-                service = x[0]
-                Trashcan.delete(service.getPath())
-                self["list"].removeService(service)
-        except Exception, e:
-            print e
-            self.session.open(MessageBox, _("Delete failed!"), MessageBox.TYPE_ERROR)
+        trash = []
+        for x in self.list.list:
+            service = x[0]
+            trash.append(service)
+        Trashcan.deleteAsynch(trash)
         self.close()
-        
+
     def restore(self):
         try:
             if not self.getCurrent():
