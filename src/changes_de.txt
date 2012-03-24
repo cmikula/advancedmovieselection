@@ -237,6 +237,7 @@ version 2.5.1
 
 version 2.6
 * neu: filme in der filmliste werden zur vorschau angespielt
+* neu: gemountete bookmarks werden ausgeblendet wenn sie nicht online sind
 * fix: dvd wiedergabe von *.img dateien
 * fix: wiedergabe fortsetzen bei dvd´s
 * fix: crash bei verzeichnis einstellungen wenn nicht geskinnt
