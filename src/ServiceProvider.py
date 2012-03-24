@@ -493,6 +493,7 @@ class CutListSupportBase:
         self.cut_list = [ ]
         self.resume_point = 0
         self.jump_first_mark = None
+        self.jump_first_play_last = None
 
     def getCuesheet(self):
         service = self.session.nav.getCurrentService()
@@ -501,6 +502,8 @@ class CutListSupportBase:
         return service.cueSheet()
 
     def checkResumeSupport(self):
+        self.jump_first_mark = None
+        self.jump_first_play_last = None
         stop_before_end_time = int(config.AdvancedMovieSelection.stop_before_end_time.value)
         length, last = self.getCuePositions()  
         if stop_before_end_time > 0:
@@ -508,11 +511,13 @@ class CutListSupportBase:
                 self.ENABLE_RESUME_SUPPORT = False
             else:
                 self.ENABLE_RESUME_SUPPORT = True
-        if config.AdvancedMovieSelection.jump_first_mark.value == True and not hasLastPosition(self.currentService):
+        if config.AdvancedMovieSelection.jump_first_mark.value == True:
             first = self.getFirstMark()
             if (first and length > 0) and (first / 90000) < length / 2:
-                self.ENABLE_RESUME_SUPPORT = False
-                self.jump_first_mark = self.resume_point = first
+                self.jump_first_play_last = first
+                if not hasLastPosition(self.currentService):
+                    self.ENABLE_RESUME_SUPPORT = False
+                    self.jump_first_mark = self.resume_point = first
 
     def getFirstMark(self):
         firstMark = None
@@ -691,3 +696,8 @@ class CutListSupport(CutListSupportBase):
     def __init__(self, service):
         CutListSupportBase.__init__(self, service)
 
+    def playLastCB(self, answer):
+        if answer == False and self.jump_first_play_last:
+            self.resume_point = self.jump_first_play_last
+            answer = True
+        InfoBarCueSheetSupport.playLastCB(self, answer)
