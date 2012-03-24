@@ -35,6 +35,7 @@ import os
 from shutil import copyfile
 from Components.AVSwitch import AVSwitch
 from enigma import ePicLoad
+import ping
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Bp/geminimain/plugin.pyo"):
     __CONF__ = "/etc/enigma2/gemini_DateiBrowser.conf"
@@ -46,6 +47,8 @@ if not fileExists(__CONF__):
 DMCONFFILE = __CONF__
 
 instance = None
+auto_network = []
+AUTO_NETORK = "/etc/auto.network"
 
 def getServiceInfoValue(ref, what):
     info = eServiceCenter.getInstance().info(ref)
@@ -134,6 +137,40 @@ class MovieConfig:
             for x in self.rename:
                 f.write('%' + x + "\r\n")
             f.close()
+        except Exception, e:
+            print e
+
+
+class Network():
+    @staticmethod
+    def isMountOnline(mount_dir):
+        try:
+            if mount_dir == "/":
+                return True
+            for network in auto_network:
+                if network[0] in mount_dir:
+                    delay = ping.do_one(network[1], 0.2)
+                    if delay:
+                        return True
+                    else:
+                        return False
+            return True
+        except:
+            return False
+    
+    @staticmethod
+    def updateAutoNetwork():
+        global auto_network
+        auto_network = []
+        try:
+            if os.path.exists(AUTO_NETORK): 
+                rfile = open(AUTO_NETORK, 'r')
+                for x in rfile.readlines():
+                    val = x.strip().split(' ')
+                    if len(val) >= 2 and not '#' in val[0]:
+                        print val[0]
+                        dest_addr = val[2].split(':/')[0]
+                        auto_network.append((val[0], dest_addr))
         except Exception, e:
             print e
 

@@ -36,7 +36,7 @@ from stat import ST_MTIME as stat_ST_MTIME
 from time import time as time_time
 from math import fabs as math_fabs
 from datetime import datetime
-from ServiceProvider import detectDVDStructure, getCutList, Info, ServiceCenter, eServiceReferenceDvd, MovieConfig, hasLastPosition, getDirSize, getFolderSize, PicLoader, getServiceInfoValue
+from ServiceProvider import detectDVDStructure, getCutList, Info, ServiceCenter, eServiceReferenceDvd, MovieConfig, hasLastPosition, getDirSize, getFolderSize, PicLoader, getServiceInfoValue, Network
 from Trashcan import TRASH_NAME
 from Components.Harddisk import Harddisk
 from EventInformationTable import EventInformationTable
@@ -826,6 +826,8 @@ class MovieList(GUIComponent):
 
         self.serviceHandler = ServiceCenter.getInstance()
         
+        if not Network.isMountOnline(root.getPath()):
+            root = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + "/media")
         self.root = root
         list = self.serviceHandler.list(root)
         if list is None:
@@ -919,6 +921,8 @@ class MovieList(GUIComponent):
                             dirName = parts[-3] + "/" + parts[-2]
                         else: 
                             dirName = parts[-2]
+                        if not Network.isMountOnline(dir):
+                            continue
                         tt = eServiceReferenceVDir(eServiceReference.idFile, eServiceReference.flagDirectory, dir)
                         tt.setName(self.movieConfig.getRenamedName(dirName))
                         vdirs.append((tt, None, -1, -1))

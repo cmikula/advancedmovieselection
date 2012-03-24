@@ -42,7 +42,7 @@ from Tools.BoundFunction import boundFunction
 from Tools.Directories import resolveFilename, fileExists, SCOPE_HDD, SCOPE_CURRENT_SKIN
 from enigma import eServiceReference, eSize, ePoint, eTimer, getDesktop, iServiceInformation
 from Screens.Console import eConsoleAppContainer
-from ServiceProvider import ServiceEvent, ServiceCenter
+from ServiceProvider import ServiceEvent, ServiceCenter, Network
 from MoveCopy import MovieMove
 from Rename import MovieRetitle
 from SearchTMDb import TMDbMain as TMDbMainsave
@@ -675,6 +675,10 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self["warning"] = Label()
         if not config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.showinfo.value:
             self["warning"].setText(_("ATTENTION: Ask before delete is disabled!"))
+            
+        Network.updateAutoNetwork()
+        if not Network.isMountOnline(config.movielist.last_videodir.value):
+            config.movielist.last_videodir.value = "/media/"
 
         if not config.AdvancedMovieSelection.startdir.value and not showLastDir:
             if path.exists(config.movielist.last_videodir.value):
