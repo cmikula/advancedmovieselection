@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*- #
 
-version 0.1
+version: 0.1
 * erste beta :)
 
-version 0.2
+version: 0.2
 * fix: crash bei farbtasten einstellungen
 * neu: coveranzeige
 
@@ -120,7 +120,7 @@ version: 1.7
 * geändert: cover werden auch wenn keine filmbeschreibung verfügbar gespeichert
 * fix: möglicher crash beim cover/info herunterladen wenn der service per internet nicht erreichbar ist
 
-version. 1.8
+version: 1.8
 * neu: zwei neue optionen wenn filmende erreicht (box herunterfahren und box in bereitschaft)
 * neu: papierkorb
 * neu: info in der filmliste und papierkorb wenn nachfragen vor dem löschen deaktiviert ist
@@ -132,7 +132,7 @@ version. 1.8
 * fix: verbesserung bei der filminfo/cover suche wenn '-' im filmtitel
 ACHTUNG an die skinner, bei allen screens für die filmliste ist etwas dazu gekommen (4 stk. pro auflösung), AdvancedMovieSelectionTrashHD, AdvancedMovieSelectionTrashXD und AdvancedMovieSelectionTrashSD sind neu
 
-version. 1.9
+version: 1.9
 * neu: usb geräte können in der filmliste angezeigt werden
 * neu: senderlogo anzeige ein/aus
 * neu: senderlogo gezoomt oder orig. grösse
@@ -142,7 +142,7 @@ version. 1.9
 * geändert: senderlogo anzeigen funktion (nun ohne eigenen renderer)
 ACHTUNG an die skinner, AdvancedMovieSelectionCoverHD,AdvancedMovieSelectionCoverCD,AdvancedMovieSelectionCoverSD gibt es nicht mehr (dadurch auch änderungen in AdvancedMovieSelectionHD,AdvancedMovieSelectionXD bzw. AdvancedMovieSelectionSD)
 
-version 2.0
+version: 2.0
 * neu: merhfachauswahl (mit radio taste)
 * neu: farbe für mehrfachauswahl kann eingestellt werden
 * neu: filmbeschreibung und cover/senderlogo wird in der filmwiedergabe infobar angezeigt (wenn entsprechender MoviePlayerExtended screen im skin vorhanden ist)
@@ -156,14 +156,14 @@ version 2.0
 * geändert: cover anzeige in der filminfo (nun wird wenn kein cover vorhanden und es sich um eine dreambox aufnahme handelt das senderlogo angezeigt)
 ACHTUNG an die skinner, AdvancedMovieSelectionInfoCoverHD,AdvancedMovieSelectionInfoCoverXD,AdvancedMovieSelectionInfoCoverSD gibt es nicht mehr (dadurch auch änderung in AdvancedMovieSelectionEventViewHD,AdvancedMovieSelectionEventViewXD bzw. AdvancedMovieSelectionEventViewSD)
  
-version 2.1
+version: 2.1
 * fix: lcd/oled anzeige wenn filmtitel und kurzbeschreibung gleich sind
 * fix: crash wenn tag im timermenü geändert wird
 * fix: crash wenn keine filmlänge vorhanden
 * neu: automatisches papierkorb leeren
 * neu: genre wird nun wenn vorhanden in der filmliste angezeigt (nur bei nicht *.ts dateien)
 
-version 2.2
+version: 2.2
 * fix: gemeldete fehler von 2.1 behoben
 * fix: löschen mit mehrfachauswahl wenn mehrere aktive aufnahmen dabei sind
 * geändert: falsch gesetzte leerzeichen (plenks)
@@ -175,10 +175,10 @@ version 2.2
 ACHTUNG an die skinner, bei den screens AdvancedMovieSelection_summary und MoviePlayerExtended_summary kann nun auch <widget source="Seperator" geskinnt werden (trennlinie die automatisch ein/ausgeblendet wird)
 AdvancedMovieSelection_Rename_HD, AdvancedMovieSelection_Rename_XD und AdvancedMovieSelection_Rename_SD sind hinzugekommen
 
-version 2.2.1
+version: 2.2.1
 * fix: löschen bug ohne papierkorb
 
-version 2.3
+version: 2.3
 * neu: fernwartung (leeren vom papierkorb von entfernten boxen), kann nur benutzt werden wenn papierkorb aktiv (einstellungen sind dann unter menü -> einstellungen -> menü erreichbar, oder kann im menü der filmliste angezeigt werden)
 * neu: anzeige der filmlänge bei nicht *.ts dateien aus der eit datei wenn vorhanden 
 * neu: anzeige der grösse vom verzeichnis/lesezeichen in der filmliste (mit oder ohne unterverzeichnisse und natürlich abschaltbar, bzw. dezimalstellen einstellbar)
@@ -189,7 +189,7 @@ version 2.3
 * fix: wecken von hdd´s aus dem standby 
 ACHTUNG an die skinner, AdvancedMovieSelection_ClientSetup_HD, AdvancedMovieSelection_ClientSetup_XD und AdvancedMovieSelection_ClientSetup_SD sind hinzugekommen, und in den AdvancedMovieSelectionSetupHD,XD und SD ist das <widget name="MenuIcon" dazugekommen
 
-version 2.4
+version: 2.4
 * neu: prozentanzeige oder fortschrittsbalken in der filmliste
 * neu: dateigrösse in mb/gb, und bei gb bis zu drei dezimalstellen einstellbar im papierkorb
 * neu: statusanzeige im papierkorb (anzahl der dateien im papierkorb, und die gesamtgrösse der dateien im papierkorb)
@@ -213,11 +213,11 @@ version 2.4
 * geändert: no cover anzeige (bild nun in de und en sprache)
 ACHTUNG an die skinner, bei den screens AdvancedMovieSelectionTrashHD, AdvancedMovieSelectionTrashXD, AdvancedMovieSelectionTrashSD, TMDbMainHD, TMDbMainXD und TMDbMainSD gab es änderungen
 
-version 2.4.1
+version: 2.4.1
 * fix: crash bei dvd´s in der filmliste (thx @ b_lisa fürs melden)
 * fix: crash bei der toggle auswahl mit der radio taste (thx @ Nightrider fürs melden)
 
-version 2.5
+version: 2.5
 * neu: suchen und speichern von info/cover über thetvdb.com (@thetvdb.com thx for the api key)
 * neu: cover anzeige bei serien (series.jpg muss im ordner/pfad vorhanden sein)
 * geändert: viele interne funktionen bei tmdb info & d/l
@@ -227,7 +227,7 @@ version 2.5
 * fix: crash mit enigma2-plugin-systemplugins-eventnavigator plugin
 ACHTUNG an die skinner,TMDbMainHD, TMDbMainXD,TMDbMainSD gab es änderungen, die screens TheTVDBMainHD, TheTVDBMainXD,und TheTVDBMainSD sind neu
 
-version 2.5.1
+version: 2.5.1
 * neu: in der info übersicht des films kann mit rechts/links der nächste/vorige film gewählt werden   
 * fix: tvdb serien wurden nicht immer gefunden
 * fix: übriggebliebene dateien beim löschen ohne papierkorb
@@ -235,11 +235,13 @@ version 2.5.1
 * fix: crash beim papierkorb anzeigen
 * fix: crash beim umbenennen von filmen wenn keine meta vorhanden ist
 
-version 2.6
+version: 2.6
 * neu: filme in der filmliste werden zur vorschau angespielt
-* neu: gemountete bookmarks werden ausgeblendet wenn sie nicht online sind und �ber /etc/auto.network gemountet werden
+* neu: überprüfung ob lesezeichen/mounts auch wirklich online sind 
+* neu: anzeige der versions änderungen
 * fix: dvd wiedergabe von *.img dateien
 * fix: wiedergabe fortsetzen bei dvd´s
 * fix: crash bei verzeichnis einstellungen wenn nicht geskinnt
 * fix: löschen von filminfo und cover's für nicht ts files
+ACHTUNG an die skinner, AdvancedMovieSelectionAboutDetails_HD, AdvancedMovieSelectionAboutDetails_XD und AdvancedMovieSelectionAboutDetails_SD sind neu
  
