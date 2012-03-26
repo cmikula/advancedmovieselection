@@ -691,13 +691,13 @@ class CutListSupportBase:
         except Exception, e:
             print "loadDVDCueSheet exception:\n" + e
 
-from Plugins.Extensions.DVDPlayer.plugin import DVDPlayer as eDVDPlayer
 class DVDCutListSupport(CutListSupportBase):
     def __init__(self, service):
         CutListSupportBase.__init__(self, service)
         self.jump_relative = False
 
     def downloadCuesheet(self):
+        from Plugins.Extensions.DVDPlayer.plugin import DVDPlayer as eDVDPlayer
         eDVDPlayer.downloadCuesheet(self)
         if len(self.cut_list) == 0:
             self.cut_list = getCutList(self.currentService.getPath())
@@ -728,6 +728,7 @@ class DVDCutListSupport(CutListSupportBase):
             print e
 
     def playLastCB(self, answer): # overwrite infobar cuesheet function
+        from Plugins.Extensions.DVDPlayer.plugin import DVDPlayer as eDVDPlayer
         if not self.jump_relative:
             eDVDPlayer.playLastCB(self, answer)
         else:

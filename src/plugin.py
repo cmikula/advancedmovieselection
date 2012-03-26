@@ -519,7 +519,6 @@ def movieSelected(self, service):
                     if PlayerInstance is not None:
                         PlayerInstance.playerClosed()
                         self.session.nav.stopService()
-                        self.session.nav.playService(PlayerInstance.lastservice)
                         PlayerInstance.close()
                         PlayerInstance = None
                 except Exception, e:
