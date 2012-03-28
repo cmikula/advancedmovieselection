@@ -665,11 +665,12 @@ def autostart(reason, **kwargs):
 
 def updateLocale():
     # set locale for tmdb search
-    import tmdb, tvdb
+    import tmdb, tvdb, AboutParser
     from Components.Language import language
     ln = language.lang[language.activeLanguage][1]
     tmdb.setLocale(ln)
     tvdb.setLocale(ln)
+    AboutParser.setLocale(ln)
 
 def pluginOpen(session, **kwargs):
     session.open(AdvancedMovieSelectionSetup)

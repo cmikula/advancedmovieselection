@@ -1,5 +1,3 @@
-﻿# -*- coding: utf-8 -*- #
-
 versie 0.1
 * eerste beta :)
 

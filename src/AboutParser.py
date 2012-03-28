@@ -18,7 +18,7 @@
 #  modify it (if you keep the license), but it may not be commercially 
 #  distributed other than under the conditions noted above.
 #
-CHANGES_PATH = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/changes_de.txt"
+CHANGES = None
 
 class VersionInfo():
     def __init__(self, version="", info=""):
@@ -34,16 +34,29 @@ class VersionInfo():
     def getTotal(self):
         return self.version + self.info 
 
+def setLocale(lng, path="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/"):
+    global CHANGES
+    print "[AdvancedMovieSelection] Set changes locale to", lng
+    CHANGES = {}
+    CHANGES['locale'] = lng
+    CHANGES['path'] = (path + "changes_%s.txt") % (lng)
+
 def parseChanges():
     versions = []
     version = None
-    for line in open(CHANGES_PATH, 'r').readlines():
+    version_text = None
+    for line in open(CHANGES['path'], 'r').readlines():
+        if not version_text:
+            version_text = line.split(' ')[0].strip().replace(':', '').lower()
         if not line:
             break
-        if line.lower().startswith('version'):
+        if line.lower().startswith(version_text):
             version = VersionInfo(line)
             versions.append(version)
         else:
+            for l in line:
+                print l
             if not line.startswith(' ') and version:
                 version.info += line
     return versions
+
