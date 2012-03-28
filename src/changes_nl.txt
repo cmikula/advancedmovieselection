@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*- #
+﻿# -*- coding: utf-8 -*- #
 
 versie 0.1
 * eerste beta :)
