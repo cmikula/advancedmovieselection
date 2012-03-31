@@ -54,8 +54,6 @@ def parseChanges():
             version = VersionInfo(line)
             versions.append(version)
         else:
-            for l in line:
-                print l
             if not line.startswith(' ') and version:
                 version.info += line
     return versions
