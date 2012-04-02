@@ -18,6 +18,9 @@
 #  modify it (if you keep the license), but it may not be commercially 
 #  distributed other than under the conditions noted above.
 #
+
+import os
+
 CHANGES = None
 
 class VersionInfo():
@@ -40,21 +43,29 @@ def setLocale(lng, path="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovi
     CHANGES = {}
     CHANGES['locale'] = lng
     CHANGES['path'] = (path + "changes_%s.txt") % (lng)
+    if not os.path.exists(CHANGES['path']):
+        lng = "en"
+        CHANGES['locale'] = lng
+        CHANGES['path'] = (path + "changes_%s.txt") % (lng)
+        
 
 def parseChanges():
     versions = []
-    version = None
-    version_text = None
-    for line in open(CHANGES['path'], 'r').readlines():
-        if not version_text:
-            version_text = line.split(' ')[0].strip().replace(':', '').lower()
-        if not line:
-            break
-        if line.lower().startswith(version_text):
-            version = VersionInfo(line)
-            versions.append(version)
-        else:
-            if not line.startswith(' ') and version:
-                version.info += line
+    if not CHANGES:
+        setLocale("en")
+    if os.path.exists(CHANGES['path']):
+        version = None
+        version_text = None
+        for line in open(CHANGES['path'], 'r').readlines():
+            if not version_text:
+                version_text = line.split(' ')[0].strip().replace(':', '').lower()
+            if not line:
+                break
+            if line.lower().startswith(version_text):
+                version = VersionInfo(line)
+                versions.append(version)
+            else:
+                if not line.startswith(' ') and not line.startswith('\n') and version:
+                    version.info += line
     return versions
 

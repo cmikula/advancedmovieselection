@@ -11,19 +11,16 @@ Source for parsing changes.
 
 import AboutParser
 
+def printAbout(lng="en"):
+    AboutParser.setLocale(lng, "../src/")
+    versions = AboutParser.parseChanges()
+    for version in versions:
+        print version.getVersion()
+        print version.getInfo()
+
 if __name__ == '__main__':
-    AboutParser.setLocale("en", "../src/")
-    versions = AboutParser.parseChanges()
-    for version in versions:
-        print version.getVersion()
-        print version.getInfo()
-    AboutParser.setLocale("de", "../src/")
-    versions = AboutParser.parseChanges()
-    for version in versions:
-        print version.getVersion()
-        print version.getInfo()
-    AboutParser.setLocale("nl", "../src/")
-    versions = AboutParser.parseChanges()
-    for version in versions:
-        print version.getVersion()
-        print version.getInfo()
+    printAbout("en")
+    printAbout("de")
+    printAbout("nl")
+    printAbout("xyz")
+    
