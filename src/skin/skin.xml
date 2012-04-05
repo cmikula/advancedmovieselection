@@ -2,7 +2,6 @@
         <screen name="AdvancedMovieSelectionAboutDetails_HD" position="center,center" title=" " size="1280,720" flags="wfNoBorder">
             <widget source="Title" render="Label" position="60,60" size="1160,30" zPosition="1" font="Regular;26" transparent="1"/>
             <widget source="session.VideoPicture" render="Pig" position="60,100" size="380,215" zPosition="3" backgroundColor="#ff000000"/>
-            <widget source="waiting_txt" render="Label" position="0,0" size="1280,720" font="Regular;24" valign="center" halign="center"/>
             <widget name="version_list" position="470,100" zPosition="2" size="750,330" scrollbarMode="showOnDemand" transparent="1" enableWrapAround="1"/>
             <widget name="details" position="60,450" zPosition="3" size="1160,210" font="Regular;22" transparent="1"/>
             <widget name="red" pixmap="skin_default/buttons/button_red.png" position="60,330" size="15,16" transparent="1" alphatest="on"/>

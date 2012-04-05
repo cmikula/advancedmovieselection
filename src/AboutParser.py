@@ -34,8 +34,8 @@ class VersionInfo():
     def getInfo(self):
         return self.info
     
-    def getTotal(self):
-        return self.version + self.info 
+    def __repr__(self):
+        return self.version + "\n" + self.info 
 
 def setLocale(lng, path="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/"):
     global CHANGES

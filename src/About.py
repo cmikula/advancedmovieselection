@@ -22,20 +22,16 @@
 from __init__ import _
 from Screens.Screen import Screen
 from Components.Sources.StaticText import StaticText
-from Screens.Console import Console
-from Tools.Directories import fileExists
 from Components.Pixmap import Pixmap
 from Components.ActionMap import ActionMap
 from enigma import getDesktop
 from Version import __version__
 import AboutParser
 from Components.GUIComponent import GUIComponent
-from enigma import RT_HALIGN_LEFT, gFont, eListbox, eListboxPythonMultiContent, eTimer
+from enigma import RT_HALIGN_LEFT, gFont, eListbox, eListboxPythonMultiContent
 from Components.ScrollLabel import ScrollLabel
 
-CHANGES_PATH = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/changes_de.txt"
-
-class AdvancedMovieSelectionVersionList(GUIComponent):
+class VersionList(GUIComponent):
     def __init__(self):
         GUIComponent.__init__(self)
         self.l = eListboxPythonMultiContent()
@@ -56,10 +52,10 @@ class AdvancedMovieSelectionVersionList(GUIComponent):
         for x in self.onSelectionChanged:
             x()        
 
-    def buildMovieSelectionListEntry(self, versions, infos):
+    def buildMovieSelectionListEntry(self, version):
         width = self.l.getItemSize().width()
         res = [ None ]        
-        res.append((eListboxPythonMultiContent.TYPE_TEXT, 5, 2, width - 30 , 23, 0, RT_HALIGN_LEFT, "%s" % versions))
+        res.append((eListboxPythonMultiContent.TYPE_TEXT, 5, 2, width - 30 , 23, 0, RT_HALIGN_LEFT, "%s" % version.getVersion()))
         return res
 
     GUI_WIDGET = eListbox
@@ -70,7 +66,7 @@ class AdvancedMovieSelectionVersionList(GUIComponent):
 
     def preWidgetRemove(self, instance):
         instance.setContent(None)
-        instance.selectionChanged.get().append(self.selectionChanged)
+        instance.selectionChanged.get().remove(self.selectionChanged)
 
     def getCurrentIndex(self):
         return self.instance.getCurrentIndex()
@@ -78,11 +74,12 @@ class AdvancedMovieSelectionVersionList(GUIComponent):
     def getSelectionIndex(self):
         return self.l.getCurrentSelectionIndex()
 
-    def setList(self, list):
-        self.l.setList(list)
+    def setList(self, l):
+        self.l.setList(l)
     
     def getCurrent(self):
-        return self.l.getCurrentSelection()
+        l = self.l.getCurrentSelection()
+        return l and l[0]
 
 class AdvancedMovieSelectionAbout(Screen):
     def __init__(self, session):
@@ -99,10 +96,10 @@ class AdvancedMovieSelectionAbout(Screen):
             self.skinName = ["AdvancedMovieSelectionAboutSD"]
         self["aboutActions"] = ActionMap(["ShortcutActions", "WizardActions", "InfobarEPGActions"],
         {
-            "red": self.exit,
+            "red": self.close,
             "green": self.showchanges,
-            "back": self.exit,
-            "ok": self.exit,
+            "back": self.close,
+            "ok": self.close,
         }, -1)
         self["version"] = StaticText(_("Version:\n") + "  " + __version__)
         self["author"] = StaticText(_("Developer:\n  JackDaniel, cmikula"))
@@ -118,13 +115,11 @@ class AdvancedMovieSelectionAbout(Screen):
     def setWindowTitle(self):
         self.setTitle(_("About Advanced Movie Selection"))
 
-    def exit(self):
-        self.close()
-
     def showchanges(self):
-        self.session.openWithCallback(self.exit, AdvancedMovieSelectionAboutDetails)
+        #self.session.openWithCallback(self.exit, AboutDetails)
+        self.session.open(AboutDetails)
 
-class AdvancedMovieSelectionAboutDetails(Screen):
+class AboutDetails(Screen):
     def __init__(self, session):
         Screen.__init__(self, session)
         try:
@@ -139,8 +134,8 @@ class AdvancedMovieSelectionAboutDetails(Screen):
             self.skinName = ["AdvancedMovieSelectionAboutDetails_SD"]
         self["aboutActions"] = ActionMap(["ShortcutActions", "WizardActions", "InfobarEPGActions", "EPGSelectActions"],
         {
-            "red": self.exit,
-            "back": self.exit,
+            "red": self.close,
+            "back": self.close,
             "nextBouquet": self.pageUp,
             "nextBouquet": self.pageUp,
             "prevBouquet": self.pageDown,
@@ -153,59 +148,37 @@ class AdvancedMovieSelectionAboutDetails(Screen):
         self["bouquet+"].hide()
         self["bouquet-"] = Pixmap()
         self["bouquet-"].hide()
-        self["version_list"] = AdvancedMovieSelectionVersionList()
+        self["version_list"] = VersionList()
         self["version_list"].hide()
         self["details"] = ScrollLabel()
         self["details"].hide()
-        self["waiting_txt"] = StaticText()
-        self.version_timer = eTimer()
-        self.version_timer.callback.append(self.parseVersion)
         self.onShown.append(self.setWindowTitle)
 
     def setWindowTitle(self):
         self.setTitle(_("Advanced Movie Selection - History"))
-        self.waiting()
-
-    def waiting(self):
-        self["waiting_txt"].setText(_("Parse changes text, please wait ..."))
-        self.version_timer.start(100, True)
+        versions = AboutParser.parseChanges()
+        versionList = []
+        for version in versions:
+            versionList.append((version, ) )
+            
+        self["bouquet+"].show()
+        self["bouquet-"].show()
+        self["red"].show()
+        self["key_red"].setText(_("Close"))
+        self["version_list"].setList(versionList)
+        self["version_list"].show()                            
+        if not self.selectionChanged in self["version_list"].onSelectionChanged:
+            self["version_list"].onSelectionChanged.append(self.selectionChanged)
+        self.selectionChanged()
 
     def selectionChanged(self):
-        self.parseInfos()
-        
-    def exit(self):
-        self.close()
+        cur = self["version_list"].getCurrent()
+        if cur is not None:
+            self["details"].setText(str(cur))
+            self["details"].show()
 
     def pageUp(self):
         self["details"].pageUp()
 
     def pageDown(self):
         self["details"].pageDown()
-        
-    def parseVersion(self):
-        versions = AboutParser.parseChanges()
-        versionList = []
-        for version in versions:
-            versions = version.getVersion()
-            infos = version.getInfo()
-            versionList.append((versions, infos), )
-            self["waiting_txt"].setText("")
-            self["bouquet+"].show()
-            self["bouquet-"].show()
-            self["red"].show()
-            self["key_red"].setText(_("Close"))
-            self["version_list"].setList(versionList)
-            self["version_list"].show()                            
-            if not self.selectionChanged in self["version_list"].onSelectionChanged:
-                self["version_list"].onSelectionChanged.append(self.selectionChanged)
-            
-    def parseInfos(self):
-        cur = self["version_list"].getCurrent()
-        if cur is not None:
-            versions = AboutParser.parseChanges()
-            for version in versions:
-                versions = version.getVersion()
-                infos = version.getTotal()
-                if infos.startswith(cur):
-                    self["details"].setText(infos)
-                    self["details"].show()      
