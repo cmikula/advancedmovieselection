@@ -271,7 +271,7 @@ class MovieList(GUIComponent):
                 m = mount.split(' type')[0].split(' on ')
                 m_dev, m_path = m[0], m[1]
                 label = os.path.split(m_path)[-1]
-                if os.path.normpath(m_path) == "/media/hdd" or label == "DUMBO":
+                if os.path.normpath(m_path) == "/media/hdd" or label in ("DUMBO", "TIMOTHY"):
                     continue
                 if not self.movieConfig.isHiddenHotplug(label):
                     service = eServiceReferenceHotplug(eServiceReference.idFile, eServiceReference.flagDirectory, m_path + "/")
