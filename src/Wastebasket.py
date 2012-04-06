@@ -126,7 +126,7 @@ class TrashMovieList(GUIComponent):
 
     def load(self, root):
         self.list = [ ]
-        if not root:
+        if not root or Trashcan.isCurrentlyDeleting():
             return
         if config.AdvancedMovieSelection.wastelist_buildtype.value == 'listMovies':
             trash = Trashcan.listMovies(root.getPath())
@@ -278,8 +278,7 @@ class Wastebasket(Screen):
             self["freeDiskSpace"].path = path
         if sel is None:
             sel = self.getCurrent()
-        if not Trashcan.isCurrentlyDeleting():
-            self["list"].reload(self.current_ref)
+        self["list"].reload(self.current_ref)
         if config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMoviesMedia':
             title = _("Wastebasket: %s") % ("/media")
         else:
