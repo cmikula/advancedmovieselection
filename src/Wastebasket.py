@@ -51,8 +51,6 @@ from Client import getClients
 from ClientSetup import ClientSetup
 from Components.Pixmap import Pixmap
 
-staticIP = None
-
 class TrashMovieList(GUIComponent):
     def __init__(self, root):
         GUIComponent.__init__(self)
