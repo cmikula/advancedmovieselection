@@ -36,6 +36,16 @@ from shutil import copyfile
 from Components.AVSwitch import AVSwitch
 from enigma import ePicLoad
 import ping
+from bisect import insort
+
+def cutlist_changed(self):
+    from plugin import PlayerInstance
+    if PlayerInstance:
+        self.cutlist = [] # don't delete this 
+    self.cutlist = self.source.cutlist or [ ]
+
+from Components.Renderer.PositionGauge import PositionGauge
+PositionGauge.cutlist_changed = cutlist_changed
 
 if fileExists("/usr/lib/enigma2/python/Plugins/Bp/geminimain/plugin.pyo"):
     __CONF__ = "/etc/enigma2/gemini_DateiBrowser.conf"
@@ -282,7 +292,7 @@ def getCutList(fileName):
                 break
             where = struct.unpack('>Q', data[0:8])[0]
             what = struct.unpack('>I', data[8:12])[0]
-            cutList.append((where, what))
+            cutList.append((long(where), what))
     except Exception, e:
         print "ERROR reading cutlist", fileName + ".cuts:", e
     finally:
@@ -537,7 +547,11 @@ class CutListSupportBase:
         service = self.session.nav.getCurrentService()
         if service is None:
             return None
-        return service.cueSheet()
+        cue = service.cueSheet()
+        if cue:
+            return cue
+        else:
+            self.session.nav.currentlyPlayingService.cueSheet = CueSheet(self.currentService)
 
     def checkResumeSupport(self):
         self.jump_first_mark = None
@@ -584,17 +598,6 @@ class CutListSupportBase:
         except Exception, e:
             print "DownloadCutList exception:\n" + str(e)
 
-    def __uploadCuesheet__(self):
-        try:
-            seek = self.session.nav.getCurrentService().seek()
-            if seek is None:
-                print "upload failed, no seek interface"
-                return
-            self.modifyCutListEnries()
-            writeCutList(self.currentService.getPath(), self.cut_list)
-        except Exception, e:
-            print "uploadCutList exception:\n" + str(e)
-
     def modifyCutListEnries(self):
         seek = self.session.nav.getCurrentService().seek()
         if seek is None:
@@ -615,12 +618,15 @@ class CutListSupportBase:
                     self.cut_list[index] = (length, self.CUT_TYPE_OUT)
                     endInList = True
             if not inList:
-                self.cut_list.append((stopPosition, self.CUT_TYPE_LAST))
+                insort(self.cut_list, (stopPosition, self.CUT_TYPE_LAST))
+                #self.cut_list.append((stopPosition, self.CUT_TYPE_LAST))
             if not endInList:
-                self.cut_list.append((length, self.CUT_TYPE_OUT))
+                insort(self.cut_list, (length, self.CUT_TYPE_OUT))
+                #self.cut_list.append((length, self.CUT_TYPE_OUT))
         else:
             self.cut_list = [(stopPosition, self.CUT_TYPE_LAST)]
-            self.cut_list.append((length, self.CUT_TYPE_OUT))
+            insort(self.cut_list, (length, self.CUT_TYPE_OUT))
+            #self.cut_list.append((length, self.CUT_TYPE_OUT))
         
     def getCuePositions(self):
         length = 0

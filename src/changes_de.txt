@@ -238,6 +238,7 @@ version: 2.6
 * neu: überprüfung ob lesezeichen/mounts auch wirklich online sind (wenn nicht werden sie nicht angezeigt)
 * neu: anzeige der versions änderungen
 * neu: änderungstext nun in deutsch, englisch und niederländisch
+* neu: marker werden f�r nicht ts filme angezeigt
 * fix: dvd wiedergabe von *.img dateien
 * fix: wiedergabe fortsetzen bei dvd´s
 * fix: crash bei verzeichnis einstellungen wenn nicht geskinnt

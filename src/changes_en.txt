@@ -238,6 +238,7 @@ version 2.6
 * new: check if bookmarks/mounts are online
 * new: display changelog for the versions
 * new: changelog in German, English and Dutch
+* new: marker is displayed for non-ts movies
 * fix: playing dvd from *.img files
 * fix: resume for dvd´s
 * fix: crash with directory settings if not skinned
