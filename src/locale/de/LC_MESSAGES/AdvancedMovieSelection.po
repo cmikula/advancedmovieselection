@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-25 16:24+0100\n"
-"PO-Revision-Date: 2012-03-25 16:25+0100\n"
+"POT-Creation-Date: 2012-04-06 07:47+0100\n"
+"PO-Revision-Date: 2012-04-06 07:47+0100\n"
 "Last-Translator: JackDanie <JackDaniel@i-have-a-dreambox.com>\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
@@ -17,11 +17,11 @@ msgstr ""
 "X-Poedit-Bookmarks: -1,-1,-1,-1,-1,-1,-1,120,-1,-1\n"
 "X-Poedit-SearchPath-0: ../../..\n"
 
-#: ../../../About.py:107
+#: ../../../About.py:104
 msgid "Version:\n"
 msgstr "Version:\n"
 
-#: ../../../About.py:108
+#: ../../../About.py:105
 msgid ""
 "Developer:\n"
 "  JackDaniel, cmikula"
@@ -29,40 +29,36 @@ msgstr ""
 "Entwickler:\n"
 " JackDaniel, cmikula"
 
-#: ../../../About.py:109
+#: ../../../About.py:106
 msgid "Thanks for translation to:\n"
 msgstr "Danke für die Übersetzung an:\n"
 
-#: ../../../About.py:110
+#: ../../../About.py:107
 msgid "This plugin may only executed on hardware which is licensed by Dream Multimedia GmbH."
 msgstr "Diese Erweiterung darf nur auf Hardware ausgeführt werden die von Dream Multimedia GmbH lizenziert ist."
 
-#: ../../../About.py:111
+#: ../../../About.py:108
 msgid "Thanks to all other for help and so many very good code."
 msgstr "Danke an alle für die Hilfe und für so manch sehr guten Code :)"
 
-#: ../../../About.py:112
-#: ../../../About.py:196
+#: ../../../About.py:109
+#: ../../../About.py:166
 #: ../../../AdvancedMovieSelectionSetup.py:168
 #: ../../../ClientSetup.py:166
 msgid "Close"
 msgstr "Schließen"
 
-#: ../../../About.py:113
+#: ../../../About.py:110
 msgid "Show changes"
 msgstr "Änderungen anzeigen"
 
-#: ../../../About.py:119
+#: ../../../About.py:116
 msgid "About Advanced Movie Selection"
 msgstr "Über die Erweiterte Filmauswahl"
 
-#: ../../../About.py:166
+#: ../../../About.py:157
 msgid "Advanced Movie Selection - History"
 msgstr "Erweiterte Filmauswahl - Geschichte"
-
-#: ../../../About.py:170
-msgid "Parse changes text, please wait ..."
-msgstr "Analysiere den Änderungstext, bitte warten ..."
 
 #: ../../../AdvancedMovieSelectionEventView.py:67
 #: ../../../ClientSetup.py:73
@@ -2165,7 +2161,7 @@ msgstr "Das Ende des Filmes wurde erreicht, die Box fährt nun in den Bereitscha
 msgid "End of the movie is reached, the box now go to shut down. Shutdown now?"
 msgstr "Das Ende des Filmes wurde erreicht, die Box schaltet sich nun aus. Soll das nun durchgeführt werden?"
 
-#: ../../../plugin.py:531
+#: ../../../plugin.py:530
 msgid "No DVD-Player found!"
 msgstr "DVD-Player Erweiterung nicht gefunden!"
 
@@ -2900,6 +2896,9 @@ msgstr ""
 #: ../../../Wastebasket.py:399
 msgid "Restore failed!"
 msgstr "Wiederherstellen fehlgeschlagen!"
+
+#~ msgid "Parse changes text, please wait ..."
+#~ msgstr "Analysiere den Änderungstext, bitte warten ..."
 
 #~ msgid "Deleting in progress! Please wait..."
 #~ msgstr "Papierkorb leeren wird durchgeführt, bitte warten ..."

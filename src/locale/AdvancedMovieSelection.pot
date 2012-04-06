@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection(POT)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-25 16:23+0100\n"
-"PO-Revision-Date: 2012-03-25 16:24+0100\n"
+"POT-Creation-Date: 2012-04-06 07:47+0100\n"
+"PO-Revision-Date: 2012-04-06 07:47+0100\n"
 "Last-Translator: JackDanie <JackDaniel@i-have-a-dreambox.com>\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
@@ -16,49 +16,45 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../About.py:107
+#: ../About.py:104
 msgid "Version:\n"
 msgstr ""
 
-#: ../About.py:108
+#: ../About.py:105
 msgid ""
 "Developer:\n"
 "  JackDaniel, cmikula"
 msgstr ""
 
-#: ../About.py:109
+#: ../About.py:106
 msgid "Thanks for translation to:\n"
 msgstr ""
 
-#: ../About.py:110
+#: ../About.py:107
 msgid "This plugin may only executed on hardware which is licensed by Dream Multimedia GmbH."
 msgstr ""
 
-#: ../About.py:111
+#: ../About.py:108
 msgid "Thanks to all other for help and so many very good code."
 msgstr ""
 
-#: ../About.py:112
-#: ../About.py:196
+#: ../About.py:109
+#: ../About.py:166
 #: ../AdvancedMovieSelectionSetup.py:168
 #: ../ClientSetup.py:166
 msgid "Close"
 msgstr ""
 
-#: ../About.py:113
+#: ../About.py:110
 msgid "Show changes"
 msgstr ""
 
-#: ../About.py:119
+#: ../About.py:116
 msgid "About Advanced Movie Selection"
 msgstr ""
 
-#: ../About.py:166
+#: ../About.py:157
 msgid "Advanced Movie Selection - History"
-msgstr ""
-
-#: ../About.py:170
-msgid "Parse changes text, please wait ..."
 msgstr ""
 
 #: ../AdvancedMovieSelectionEventView.py:67
@@ -2119,7 +2115,7 @@ msgstr ""
 msgid "End of the movie is reached, the box now go to shut down. Shutdown now?"
 msgstr ""
 
-#: ../plugin.py:531
+#: ../plugin.py:530
 msgid "No DVD-Player found!"
 msgstr ""
 
