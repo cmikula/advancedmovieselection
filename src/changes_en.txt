@@ -236,8 +236,10 @@ version 2.5.1
 version 2.6
 * new: preview of the selected movie in the movie list
 * new: check if bookmarks/mounts are online
+* new: display changelog for the versions
+* new: changelog in German, English and Dutch
 * fix: playing dvd from *.img files
 * fix: resume for dvd´s
 * fix: crash with directory settings if not skinned
 * fix: delete movie info and covers for non-ts files
- 
+Skinners ATTENTION ,AdvancedMovieSelectionAboutDetails_HD, AdvancedMovieSelectionAboutDetails_XD are AdvancedMovieSelectionAboutDetails_SD are new

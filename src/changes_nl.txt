@@ -236,8 +236,10 @@ versie 2.5.1
 versie 2.6
 * nieuw: filmen in de filmlijst worden als preview afgespeeld
 * nieuw: controle of bookmarks/mounts werkelijk online zijn
+* nieuw: weergave van de wijzigingen per versie
+* nieuw: lijst met wijzigingen vertaald in Duits, Engels en Nederlands
 * fix: dvd-weergave van *.img-bestanden
 * fix: afspelen hervatten bij dvd´s
 * fix: crash bij mapinstellingen indien niet geskint
 * fix: verwijderen van filminfo en covers voor niet-ts bestanden
- 
+OPGELET voor de skinners, AdvancedMovieSelectionAboutDetails_HD, AdvancedMovieSelectionAboutDetails_XD en AdvancedMovieSelectionAboutDetails_SD toegevoegd
