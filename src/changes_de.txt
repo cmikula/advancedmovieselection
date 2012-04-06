@@ -235,11 +235,12 @@ version: 2.5.1
 
 version: 2.6
 * neu: filme in der filmliste werden zur vorschau angespielt
-* neu: überprüfung ob lesezeichen/mounts auch wirklich online sind 
+* neu: überprüfung ob lesezeichen/mounts auch wirklich online sind (wenn nicht werden sie nicht angezeigt)
 * neu: anzeige der versions änderungen
+* neu: änderungstext nun in deutsch, englisch und niederländisch
 * fix: dvd wiedergabe von *.img dateien
 * fix: wiedergabe fortsetzen bei dvd´s
 * fix: crash bei verzeichnis einstellungen wenn nicht geskinnt
-* fix: löschen von filminfo und cover's für nicht ts files
+* fix: löschen von filminfo und cover's für nicht ts dateien
 ACHTUNG an die skinner, AdvancedMovieSelectionAboutDetails_HD, AdvancedMovieSelectionAboutDetails_XD und AdvancedMovieSelectionAboutDetails_SD sind neu
  

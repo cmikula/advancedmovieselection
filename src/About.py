@@ -116,8 +116,7 @@ class AdvancedMovieSelectionAbout(Screen):
         self.setTitle(_("About Advanced Movie Selection"))
 
     def showchanges(self):
-        #self.session.openWithCallback(self.exit, AboutDetails)
-        self.session.open(AboutDetails)
+        self.session.openWithCallback(self.close, AboutDetails)
 
 class AboutDetails(Screen):
     def __init__(self, session):
