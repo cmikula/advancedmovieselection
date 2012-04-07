@@ -41,7 +41,7 @@ from bisect import insort
 def cutlist_changed(self):
     from plugin import PlayerInstance
     if PlayerInstance:
-        self.cutlist = [] # don't delete this 
+        self.cutlist = [] # we need to update the property 
     self.cutlist = self.source.cutlist or [ ]
 
 from Components.Renderer.PositionGauge import PositionGauge
@@ -751,3 +751,8 @@ class CutListSupport(CutListSupportBase):
             self.resume_point = self.jump_first_play_last
             answer = True
         InfoBarCueSheetSupport.playLastCB(self, answer)
+
+    def toggleMark(self, onlyremove=False, onlyadd=False, tolerance=5 * 90000, onlyreturn=False):
+        if not self.currentService.getPath().endswith(".ts"):
+            tolerance = 20 * 90000
+        InfoBarCueSheetSupport.toggleMark(self, onlyremove=False, onlyadd=False, tolerance=tolerance, onlyreturn=False)
