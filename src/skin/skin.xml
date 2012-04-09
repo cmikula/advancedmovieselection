@@ -9,6 +9,24 @@
             <widget name="bouquet+" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_bouquet+.png" position="60,400" size="35,25" transparent="1" alphatest="blend"/>
             <widget name="bouquet-" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_bouquet-.png" position="100,400" size="35,25" transparent="1" alphatest="blend"/>
     </screen>
+        <screen name="AdvancedMovieSelectionAboutDetails_XD" position="center,center" title=" " size="1024,576" flags="wfNoBorder">
+            <widget source="Title" render="Label" position="60,60" size="750,30" zPosition="3" font="Regular;26" transparent="1"/>
+            <widget source="session.VideoPicture" render="Pig" position="60,100" size="304,175" zPosition="3" backgroundColor="#ff000000"/>
+            <widget name="version_list" position="380,100" zPosition="2" size="584,180" scrollbarMode="showOnDemand" transparent="1" enableWrapAround="1"/>
+            <widget name="details" position="60,290" zPosition="3" size="904,205" font="Regular;20" transparent="1"/>
+            <widget name="red" pixmap="skin_default/buttons/button_red.png" position="60,500" size="15,16" transparent="1" alphatest="on"/>
+            <widget source="key_red" render="Label" position="90,496" zPosition="2" size="200,28" font="Regular;24" valign="top" halign="left"/>
+            <widget name="bouquet+" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_bouquet+.png" position="889,498" size="35,25" transparent="1" alphatest="on"/>
+            <widget name="bouquet-" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_bouquet-.png" position="929,498" size="35,25" transparent="1" alphatest="on"/>
+    </screen>
+        <screen name="AdvancedMovieSelectionAboutDetails_SD" position="center,center" title=" " size="560,400">
+            <ePixmap pixmap="skin_default/buttons/red.png" position="0,0" size="140,40" alphatest="on"/>
+            <widget source="key_red" render="Label" position="0,0" zPosition="1" size="140,40" halign="center" valign="center" font="Regular;17" transparent="1" shadowColor="black" shadowOffset="-1,-1"/>
+            <widget name="bouquet+" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_bouquet+.png" position="485,7" size="35,25" transparent="1" alphatest="on"/>
+            <widget name="bouquet-" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_bouquet-.png" position="525,7" size="35,25" transparent="1" alphatest="on"/>
+            <widget name="version_list" position="5,45" zPosition="2" size="200,350" scrollbarMode="showOnDemand" transparent="1" enableWrapAround="1"/>
+            <widget name="details" position="210,45" zPosition="3" size="350,350" font="Regular;18" transparent="1"/>
+    </screen>
         <screen name="TheTVDBMainHD" position="center,center" title="" size="1280,720" flags="wfNoBorder">
             <widget source="Title" render="Label" position="60,40" size="1160,30" font="Regular;26" transparent="1"/>
             <widget name="thetvdb_logo" position="1045,40" zPosition="4" size="175,54" transparent="1" alphatest="on"/>
