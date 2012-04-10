@@ -222,7 +222,7 @@ class Wastebasket(Screen):
             })
         self["MenuActions"] = HelpableActionMap(self, "MenuActions",
             {
-                "menu": (self.clientsetup, _("Clientbox setup"))
+                "menu": (self.clientSetup, _("Clientbox setup"))
             })        
         self.inited = False
         self.onShown.append(self.setWindowTitle)
@@ -298,7 +298,7 @@ class Wastebasket(Screen):
         else:
             self["wastetxt"].setText(wastebasket_info)
 
-    def clientsetup(self):
+    def clientSetup(self):
         self.session.open(ClientSetup)
 
     def getCurrent(self):
@@ -341,13 +341,13 @@ class Wastebasket(Screen):
         if not confirmed:
             return
         try:
+            self["list"].removeService(self.service)
             Trashcan.delete(self.service.getPath())
         except Exception, e:
             print e
             self.session.open(MessageBox, _("Delete failed!"), MessageBox.TYPE_ERROR)
             return
         self.delayTimer.start(0, 1)
-        #self["list"].removeService(self.service)
 
     def deleteAllcheckRecord(self, confirmed):
         if not confirmed:
@@ -376,21 +376,21 @@ class Wastebasket(Screen):
         try:
             if not self.getCurrent():
                 return
+            self["list"].removeService(self.getCurrent())
             Trashcan.restore(self.getCurrent().getPath())
         except Exception, e:
             print e
             self.session.open(MessageBox, _("Restore failed!"), MessageBox.TYPE_ERROR)
             return
         self.delayTimer.start(0, 1)        
-        #self["list"].removeService(self.getCurrent())
 
     def restoreAll(self):
         try:
             print "Start restoring all movies"
             for x in self.list.list[:]:
                 service = x[0]
-                Trashcan.restore(service.getPath())
                 self["list"].removeService(service)
+                Trashcan.restore(service.getPath())
         except Exception, e:
             print e
             self.session.open(MessageBox, _("Restore failed!"), MessageBox.TYPE_ERROR)
