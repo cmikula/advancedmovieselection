@@ -247,3 +247,5 @@ ACHTUNG an die skinner, AdvancedMovieSelectionAboutDetails_HD, AdvancedMovieSele
  
  version: 2.7
  * fix: crash beim leeren des papierkorbes
+ * fix: löschen von dvd
+ 

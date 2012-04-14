@@ -792,7 +792,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             self.to_delete = [self.service]
         
         serviceHandler = ServiceCenter.getInstance()
-        offline = serviceHandler.offlineOperations(self.service)
         info = serviceHandler.info(self.service)
         name = info and info.getName(self.service) or _("this recording")
 
@@ -809,24 +808,11 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                             recording = True
                             continue
   
-        result = False
-        if self.service.flags & eServiceReference.mustDescent:
-            if self.service.getName() != "..":
-                result = True
-                name = self.service.getPath()
+        if not config.AdvancedMovieSelection.askdelete.value:
+            self.deleteConfirmed(True)
         else:
-            if offline is not None:
-                if not offline.deleteFromDisk(1):
-                    result = True
-
-        if result == True:
-            if not config.AdvancedMovieSelection.askdelete.value:
-                self.deleteConfirmed(True)
-            else:
-                text = self.getTrashMessage(len(self.to_delete), config.AdvancedMovieSelection.use_wastebasket.value, recording, name)
-                self.session.openWithCallback(self.deleteConfirmed, MessageBox, text)
-        else:
-            self.session.open(MessageBox, _("You cannot delete this!"), MessageBox.TYPE_ERROR)
+            text = self.getTrashMessage(len(self.to_delete), config.AdvancedMovieSelection.use_wastebasket.value, recording, name)
+            self.session.openWithCallback(self.deleteConfirmed, MessageBox, text)
 
     def stopRemoveTimer(self, file_path):
         if NavigationInstance.instance.getRecordings():
