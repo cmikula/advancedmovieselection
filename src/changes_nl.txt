@@ -244,3 +244,7 @@ versie 2.6
 * fix: crash bij mapinstellingen indien niet geskint
 * fix: verwijderen van filminfo en covers voor niet-ts bestanden
 OPGELET voor de skinners, AdvancedMovieSelectionAboutDetails_HD, AdvancedMovieSelectionAboutDetails_XD en AdvancedMovieSelectionAboutDetails_SD toegevoegd
+
+versie: 2.6.1
+* fix: crash bij ledigen prullemand
+* fix: verwijderen van dvd´s

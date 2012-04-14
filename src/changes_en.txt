@@ -244,3 +244,7 @@ version 2.6
 * fix: crash with directory settings if not skinned
 * fix: delete movie info and covers for non-ts files
 Skinners ATTENTION ,AdvancedMovieSelectionAboutDetails_HD, AdvancedMovieSelectionAboutDetails_XD are AdvancedMovieSelectionAboutDetails_SD are new
+
+version: 2.6.1
+* fix: crash while emptying trashcan
+* fix: deleting dvd´s
