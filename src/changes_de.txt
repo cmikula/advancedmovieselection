@@ -245,3 +245,5 @@ version: 2.6
 * fix: löschen von filminfo und cover's für nicht ts dateien
 ACHTUNG an die skinner, AdvancedMovieSelectionAboutDetails_HD, AdvancedMovieSelectionAboutDetails_XD und AdvancedMovieSelectionAboutDetails_SD sind neu
  
+ version: 2.7
+ * fix: crash beim leeren des papierkorbes
