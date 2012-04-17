@@ -269,6 +269,13 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         if config.AdvancedMovieSelection.video_preview_autostart.isChanged():
             config.AdvancedMovieSelection.video_preview_autostart.save()
             needRefresh = True
+        if config.AdvancedMovieSelection.video_preview_fullscreen.isChanged():
+            config.AdvancedMovieSelection.video_preview_fullscreen.save()
+            self.needsReopenFlag = True
+        if config.AdvancedMovieSelection.video_preview.value and config.AdvancedMovieSelection.video_preview_fullscreen.isChanged():
+            config.AdvancedMovieSelection.video_preview.save()
+            config.AdvancedMovieSelection.video_preview_fullscreen.save()
+            self.needsReopenFlag = True
         
         if needRefresh:
             self.createSetup()
@@ -397,6 +404,9 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         if config.AdvancedMovieSelection.minitv.value:
             self.list.append(getConfigListEntry(_("Use video preview:"), config.AdvancedMovieSelection.video_preview, _("If you enable this function, selected movie in movielist will bring you a preview.")))
         if config.AdvancedMovieSelection.minitv.value and config.AdvancedMovieSelection.video_preview.value:
+            getSkin = getDesktop(0).size().width()
+            if getSkin >= 1024:
+                self.list.append(getConfigListEntry(_("Show video preview in fullscreen:"), config.AdvancedMovieSelection.video_preview_fullscreen, _("If you enable this function, the video preview function will display as full screen in skin.")))
             self.list.append(getConfigListEntry(_("Video preview autostart:"), config.AdvancedMovieSelection.video_preview_autostart, _("If you enable this feature, the movie preview starts automatically after the delay with a change in the movie list.")))
             if config.AdvancedMovieSelection.video_preview_autostart.value:
                 self.list.append(getConfigListEntry(_("Video preview delay:"), config.AdvancedMovieSelection.video_preview_delay, _("Setup the delay in seconds to start the video preview.")))

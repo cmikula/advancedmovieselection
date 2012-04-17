@@ -198,7 +198,7 @@ class MovieContextMenu(Screen):
                 (_("List style compact"), boundFunction(self.listType, MovieList.LISTTYPE_COMPACT)),
                 (_("List style compact with description"), boundFunction(self.listType, MovieList.LISTTYPE_COMPACT_DESCRIPTION)),
                 (_("List style single line"), boundFunction(self.listType, MovieList.LISTTYPE_MINIMAL)),
-                (_("List style Advanced Movie Selection single line"), boundFunction(self.listType, MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection))
+                (_("List style Advanced Movie Selection single line"), boundFunction(self.listType, MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection)),
             ))
         if config.AdvancedMovieSelection.showliststyle.value and config.movielist.listtype.value == MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection:
             if config.movielist.showservice.value == MovieList.SHOW_SERVICE:
@@ -585,7 +585,7 @@ class SelectionEventInfo:
         self.onShown.append(self.__selectionChanged)
 
     def __selectionChanged(self):
-        if self.execing and config.movielist.description.value == MovieList.SHOW_DESCRIPTION or config.AdvancedMovieSelection.showpreview.value:
+        if self.execing and config.movielist.description.value == MovieList.SHOW_DESCRIPTION or config.AdvancedMovieSelection.showpreview.value or config.AdvancedMovieSelection.video_preview.value:
             self.timer.start(100, True)
 
     def updateEventInfo(self):
@@ -601,6 +601,8 @@ class SelectionEventInfo:
             self.loadPreview(serviceref)
         if config.AdvancedMovieSelection.video_preview_autostart.value:
             self.preparePlayMovie(serviceref, evt)
+        if not config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.video_preview.value:
+            self.loadPreview(serviceref)        
         
 class AdvancedMovieSelection_summary(Screen):
     def __init__(self, session, parent):
@@ -656,6 +658,26 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                 self.skinName = ["AdvancedMovieSelection1_noMiniTV_XD", "AdvancedMovieSelection"]
             else:
                 self.skinName = ["AdvancedMovieSelection1_noMiniTV_SD", "AdvancedMovieSelection"]
+        if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.video_preview.value and config.AdvancedMovieSelection.video_preview_fullscreen.value and config.movielist.description.value == MovieList.SHOW_DESCRIPTION:
+            if sz_w == 1280:
+                self.skinName = ["AdvancedMovieSelection_Preview_HD", "AdvancedMovieSelection"]
+            elif sz_w == 1024:
+                self.skinName = ["AdvancedMovieSelection_Preview_XD", "AdvancedMovieSelection"]
+        if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.video_preview.value and config.AdvancedMovieSelection.video_preview_fullscreen.value and config.movielist.description.value == MovieList.HIDE_DESCRIPTION:
+            if sz_w == 1280:
+                self.skinName = ["AdvancedMovieSelection_Preview_noDescription_HD", "AdvancedMovieSelection"]
+            elif sz_w == 1024:
+                self.skinName = ["AdvancedMovieSelection_Preview_noDescription_XD", "AdvancedMovieSelection"]
+        if not config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.video_preview.value and config.AdvancedMovieSelection.video_preview_fullscreen.value and config.movielist.description.value == MovieList.SHOW_DESCRIPTION:
+            if sz_w == 1280:
+                self.skinName = ["AdvancedMovieSelection_Preview_noCover_HD", "AdvancedMovieSelection"]
+            elif sz_w == 1024:
+                self.skinName = ["AdvancedMovieSelection_Preview_noCover_XD", "AdvancedMovieSelection"]
+        if not config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.video_preview.value and config.AdvancedMovieSelection.video_preview_fullscreen.value and config.movielist.description.value == MovieList.HIDE_DESCRIPTION:
+            if sz_w == 1280:
+                self.skinName = ["AdvancedMovieSelection_Preview_noDescription_noCover_HD", "AdvancedMovieSelection"]
+            elif sz_w == 1024:
+                self.skinName = ["AdvancedMovieSelection_Preview_noDescription_noCover_XD", "AdvancedMovieSelection"]
         self.tags = [ ]
         if selectedmovie:
             self.selected_tags = config.movielist.last_selected_tags.value
@@ -900,6 +922,8 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             self["Service"].newService(None)
             self["DescriptionBorder"].hide()
             self["list"].instance.resize(eSize(self.listWidth, self.listHeight))
+        if config.AdvancedMovieSelection.video_preview_fullscreen.value and config.movielist.description.isChanged():
+            self.session.open(MessageBox, _("Some settings changes require close/reopen the movielist to take effect."), type=MessageBox.TYPE_INFO)
 
     def updateSettings(self):
         self.updateVideoPreviewSettings()

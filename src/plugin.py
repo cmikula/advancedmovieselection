@@ -200,6 +200,7 @@ config.AdvancedMovieSelection.video_preview_delay = ConfigInteger(default=1, lim
 config.AdvancedMovieSelection.video_preview_marker = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.video_preview_jump_time = ConfigInteger(default=5, limits=(1, 60))
 config.AdvancedMovieSelection.video_preview_autostart = ConfigYesNo(default=True)
+config.AdvancedMovieSelection.video_preview_fullscreen = ConfigYesNo(default=True)
 
 PlayerInstance = None
 
