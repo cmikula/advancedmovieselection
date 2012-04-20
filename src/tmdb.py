@@ -24,6 +24,9 @@ def setLocale(lng):
     config['urls']['media.getInfo'] = "http://api.themoviedb.org/2.1/Media.getInfo/%(locale)s/xml/%(apikey)s/%%s/%%s" % (config)
     config['urls']['imdb.lookUp'] = "http://api.themoviedb.org/2.1/Movie.imdbLookup/%(locale)s/xml/%(apikey)s/%%s" % (config)
 
+def getLocale():
+    return config['locale']
+
 setLocale("de")
 
 import os,struct,urllib,urllib2,xml.etree.cElementTree as ElementTree
