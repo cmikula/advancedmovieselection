@@ -43,6 +43,12 @@ def printStackTrace():
     traceback.print_exc(file=sys.stdout)
     print '-' * 60
 
+def getLanguageCode(db):
+    lng = db.getLocale()
+    if lng == "ru":
+        return "rus"
+    return "DEU"
+
 def toDate(mjd):
     year = int(((mjd - 15078.2) / 365.25))
     month = int(((mjd - 14956 - int(year * 365.25)) / 30.6001))
@@ -63,7 +69,7 @@ def fromBCD(bcd):
         return -1
     return ((bcd & 0xF0) >> 4) * 10 + (bcd & 0xF)
 
-def parseDVBtime(t1, t2, t3, t4, t5, hash=None):
+def parseDVBtime(t1, t2, t3, t4, t5, _hash=None):
     tm_sec = fromBCD(t5)
     tm_min = fromBCD(t4)
     tm_hour = fromBCD(t3)
@@ -85,8 +91,8 @@ def parseDVBtime(t1, t2, t3, t4, t5, hash=None):
     #tm_gmtoff = 0
 
     if hash:
-        hash = tm_hour * 60 + tm_min
-        hash |= tm_mday << 11
+        _hash = tm_hour * 60 + tm_min
+        _hash |= tm_mday << 11
 
     return timegm((tm_year, tm_mon, tm_mday, tm_hour, tm_min, tm_sec))
 
@@ -106,16 +112,15 @@ def toMJD(date):
         return 51544
      
 class Descriptor:
-    def __init__(self, tag):
-        self.descriptor_tag = tag
+    def __init__(self):
         self.descriptor_length = 0
 
     def decode1(self, data):
-        self.descriptor_tag = ord(data[0])
+        self.tag = ord(data[0])
         self.descriptor_length = ord(data[1])
 
     def encode1(self, data):
-        data.append(pack('B', self.descriptor_tag))
+        data.append(pack('B', self.tag))
         data.append(pack('B', self.descriptor_length))
     
     @staticmethod
@@ -135,7 +140,7 @@ class TextDescriptor:
 class ContentDescriptor(Descriptor):
     tag = 0x54
     def __init__(self, content, user):
-        Descriptor.__init__(self, ContentDescriptor.tag)
+        Descriptor.__init__(self)
         self.content_nibble_level_1 = (content >> 4) & 0x0f
         self.content_nibble_level_2 = content & 0x0f
         self.user = user
@@ -189,7 +194,7 @@ class ItemDescriptor:
 class ShortEventDescriptor(Descriptor):
     tag = 0x4D
     def __init__(self, event_name, text, language_code="DEU"):
-        Descriptor.__init__(self, ShortEventDescriptor.tag)
+        Descriptor.__init__(self)
         self.ISO_639_language_code = language_code
         self.event_name = TextDescriptor(event_name)
         self.text = TextDescriptor(text)
@@ -212,7 +217,10 @@ class ShortEventDescriptor(Descriptor):
     
     @staticmethod
     def encode(data, event_name, text, language_code="DEU"):
-        descr = ShortEventDescriptor(event_name.encode("cp1252", "ignore"), text.encode("cp1252", "ignore"), language_code)
+        if language_code == "rus":
+            descr = ShortEventDescriptor(event_name.encode("iso8859_5", "ignore"), text.encode("iso8859_5", "ignore"), language_code)
+        else:
+            descr = ShortEventDescriptor(event_name.encode("cp1252", "ignore"), text.encode("cp1252", "ignore"), language_code)
         descr.encode1(data)
         data.append(descr.ISO_639_language_code)
         data.append(pack('B', descr.event_name.length))
@@ -224,8 +232,8 @@ class ShortEventDescriptor(Descriptor):
 class ExtendedEventDescriptor(Descriptor):
     tag = 0x4E
     def __init__(self, descriptor_number, last_descriptor_number, item_description, item, text, language_code="DEU"):
-        Descriptor.__init__(self, ExtendedEventDescriptor.tag)
-        self.descriptor_tag = ExtendedEventDescriptor.tag
+        Descriptor.__init__(self)
+        #self.tag = ExtendedEventDescriptor.tag
         self.descriptor_number = descriptor_number & 0x0f
         self.last_descriptor_number = last_descriptor_number & 0x0f
         self.ISO_639_language_code = language_code
@@ -254,7 +262,10 @@ class ExtendedEventDescriptor(Descriptor):
 
     @staticmethod
     def encode(data, item_description, language_code="DEU"):
-        text = item_description.encode("cp1252", "ignore")
+        if language_code == "rus":
+            text = item_description.encode("iso8859_5", "ignore")
+        else:
+            text = item_description.encode("cp1252", "ignore")
         descriptor_text = []
         length = len(text)
         while(length > 0):
@@ -280,7 +291,7 @@ class ExtendedEventDescriptor(Descriptor):
 class ComponentDescriptor:
     tag = 0x50
     def __init__(self, text, language_code="DEU"):
-        self.descriptor_tag = ComponentDescriptor.tag
+        #self.tag = ComponentDescriptor.tag
         self.reserved_future_use = 0 >> 4
         self.stream_content = 0 & 0x0f
         self.component_type = 0
@@ -292,7 +303,7 @@ class ComponentDescriptor:
     @staticmethod
     def decode(data, descriptor):
         descr = ComponentDescriptor("")
-        descr.descriptor_tag = ord(data[0])
+        descr.tag = ord(data[0])
         descr.descriptor_length = ord(data[1])
         descr.reserved_future_use = ord(data[2]) >> 4
         descr.stream_content = ord(data[2]) & 0x0f
@@ -306,7 +317,7 @@ class ComponentDescriptor:
     @staticmethod
     def encode(data, text, language_code="DEU"):
         descr = ComponentDescriptor(text, language_code)
-        data.append(pack('B', descr.descriptor_tag))
+        data.append(pack('B', descr.tag))
         data.append(pack('B', descr.descriptor_length))
         data.append(pack('B', ((descr.reserved_future_use << 4) & 0xf0) | (descr.stream_content & 0x0f)))
         data.append(pack('B', descr.component_type))
@@ -336,22 +347,22 @@ def appendShortDescriptionToMeta(service_path, short_descr):
         print e
 
 INV_CHARS = [("é", "e"), ("Č", "C"), ("č", "c"), ("Ć", "c"), ("ć", "c"), ("Đ", "D"), ("đ", "d"), ("Š", "S"), ("š", "s"),
-             ("Ž", "Z"), ("ž", "z"), ("„", "\""), ("“", "\""), ("”", "\""), ("’", "'"), ("‘", "'")]
+             ("Ž", "Z"), ("ž", "z"), ("„", "\""), ("“", "\""), ("”", "\""), ("’", "'"), ("‘", "'"), ("«", "<"), ("»", ">")]
 
-def replaceInvalidChars(text):
+def convertToUTF8(text):
     for ic in INV_CHARS:
         text = text.replace(ic[0], ic[1])
-    return text
+    return text.encode("utf-8")
 
-def writeEIT(file_name, eit_file, name, overview, genre, extended_info, released, runtime):
+def writeEIT(file_name, eit_file, name, overview, genre, extended_info, released, runtime, language_code="DEU"):
     _file = None
     try:
         data = []
-        name = replaceInvalidChars(name)
-        overview = replaceInvalidChars(overview)
-        extended_info = replaceInvalidChars(extended_info)
-        ShortEventDescriptor.encode(data, name, genre)
-        ExtendedEventDescriptor.encode(data, overview + "\n" + extended_info)
+        name = convertToUTF8(name)
+        overview = convertToUTF8(overview)
+        extended_info = convertToUTF8(extended_info)
+        ShortEventDescriptor.encode(data, name, genre, language_code)
+        ExtendedEventDescriptor.encode(data, overview + "\n" + extended_info, language_code)
         data = "".join(data)
 
         if runtime:
@@ -514,10 +525,13 @@ def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=Fa
         if has_actor:
             ex_info.append("Mit " + ", ".join(actors))
         extended_info = ". ".join(ex_info)
+        print "Overview:"
+        print " " * 4, overview
         print "Extended info:"
         print " " * 4, extended_info
         
-        return writeEIT(file_name, eit_file, name, overview, genre, extended_info, released, runtime)
+        language_code = getLanguageCode(tmdb)
+        return writeEIT(file_name, eit_file, name, overview, genre, extended_info, released, runtime, language_code)
     except:
         printStackTrace()
         return False
@@ -620,7 +634,8 @@ def createEITtvdb(file_name, title, cover_type='poster', overwrite_jpg=False, ov
         print "Extended info:"
         print " " * 4, extended_info
 
-        return writeEIT(file_name, eit_file, name, overview, genre, extended_info, released, runtime)
+        language_code = getLanguageCode(tvdb)
+        return writeEIT(file_name, eit_file, name, overview, genre, extended_info, released, runtime, language_code)
     except:
         printStackTrace()
         return False
@@ -689,17 +704,24 @@ class EventInformationTable:
                     data = data[length:]
 
                 for descr in short_event_descriptor:
-                    #if descr.ISO_639_language_code.lower() == "deu":
-                    self.event_name = descr.event_name.text.decode("cp1252").encode("utf-8")
-                    self.short_description = descr.text.text.decode("cp1252").encode("utf-8")
+                    if descr.ISO_639_language_code.lower() == "rus":
+                        self.event_name = descr.event_name.text.decode("iso8859_5").encode("utf-8")
+                        self.short_description = descr.text.text.decode("iso8859_5").encode("utf-8")
+                    else:
+                        self.event_name = descr.event_name.text.decode("cp1252").encode("utf-8")
+                        self.short_description = descr.text.text.decode("cp1252").encode("utf-8")
                 text = []
                 for descr in extended_event_descriptor:
                     #if descr.ISO_639_language_code.lower() == "deu":
                     text.append(descr.item_description.item_description.text)
-                self.extended_description = "".join(text).decode("cp1252").encode("utf-8")
+
+                encoding = descr.ISO_639_language_code.lower() == "rus" and "iso8859_5" or "cp1252"
+                self.extended_description = "".join(text).decode(encoding).encode("utf-8")
                 for descr in component_descriptor:
-                    #if descr.ISO_639_language_code.lower() == "deu":
-                    self.components.append(descr.text.decode("cp1252").encode("utf-8"))
+                    if descr.ISO_639_language_code.lower() == "rus":
+                        self.components.append(descr.text.decode("iso8859_5").encode("utf-8"))
+                    else:
+                        self.components.append(descr.text.decode("cp1252").encode("utf-8"))
                 
         except:
             printStackTrace()
@@ -841,15 +863,61 @@ def printEIT(file_name):
     print "Length: " + str(eit.descriptors_loop_length)
     print "\n"
 
-if __name__ == '__main__':
-    eit = EventInformationTable("./tmp/Der Kautions-Cop.eit")
-    print eit.getBeginTimeString()
-    print time.strftime("%d.%m.%Y %H:%M", time.gmtime(eit.getBeginTime()))
-    print eit.getBeginTime()
+def compareResult(org, ref):
+    if isinstance(ref, str):
+        if org != ref:
+            raise Exception("data not match")
+    if isinstance(ref, list):
+        for r in ref:
+            if org != r:
+                raise Exception("data not match")
 
+def testEIT(language_code, TEST_STRING):
+    print TEST_STRING
+    file_name = "./tmp/eit_test.mkv"
+    eit_file = "./tmp/eit_test.eit"
+    name = TEST_STRING
+    overview = TEST_STRING
+    genre = TEST_STRING
+    extended_info = TEST_STRING
+    released = "2012.10.31"
+    runtime = 90
+    writeEIT(file_name, eit_file, name, overview, genre, extended_info, released, runtime, language_code)
+    
+    eit = EventInformationTable(eit_file)
+    compareResult(TEST_STRING, eit.getEventName())
+    compareResult(TEST_STRING, eit.getShortDescription())
+    compareResult(TEST_STRING, eit.getExtendedDescription().split("\n"))
+    if eit.getDuration() != 90 * 60:
+        raise Exception("data not match")
+    tuple1 = eit.getBeginTimeString().split(' ')[0].split(".")
+    tuple2 = released.split(".")
+    tuple2.reverse()
+    if tuple1 != tuple2:  
+        raise Exception("data not match")
+
+def testMultiEit():
+    TEST_RUS1 = "АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя"
+    TEST_RUS2 = "0123456789 abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ @ -^!\"§$%&/()=?+-/*~#'_.:,;<>|`{[]}"
+    TEST_DEU = "0123456789 abcdefghijklmnopqrstuvwxyz äöüß ABCDEFGHIJKLMNOPQRSTUVWXYZ ÄÖÜ@€ -^°!\"§$%&/()=?+-/*~#'_.:,;<>|´`{[]}"
+    testEIT("DEU", TEST_DEU)
+    testEIT("rus", TEST_RUS1)
+    testEIT("rus", TEST_RUS2)
+
+if __name__ == '__main__':
     path = "./tmp/"
     if not os.path.exists(path):
         os.makedirs(path) 
+
+    testMultiEit()
+    tmdb.setLocale("ru")
+    createEIT("./tmp/Blitz_ru.ts", "Черная Молния", "cover", overwrite_eit=True)
+    printEIT("./tmp/Blitz_ru.eit")
+    printEIT("./tmp/russia.eit")
+    printEIT("./tmp/Shutter Island ru Original.eit")
+    printEIT("./tmp/Shutter Island ru tmdb.eit")
+
+    printEIT("./tmp/22 Bullets.eit")
 
     results = tvdb.search("Law & Order")
     #results = search("The Mentalist")

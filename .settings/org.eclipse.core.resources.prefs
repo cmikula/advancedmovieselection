@@ -1,5 +1,7 @@
-#Tue Apr 10 16:59:02 CEST 2012
 eclipse.preferences.version=1
+encoding//build/arfile.py=utf-8
+encoding//build/build.py=utf-8
+encoding//build/tarfile.py=iso-8859-1
 encoding//src/About.py=utf-8
 encoding//src/AboutParser.py=utf-8
 encoding//src/AdvancedMovieSelectionEventView.py=utf-8
