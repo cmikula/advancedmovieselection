@@ -17,6 +17,23 @@ Required Packages for building with dreambox:
 
 To build the code always use the same python version as the device has installed.
 * Currently used version is 2.6.7 but 2.6.6 can be used
+
+usage:
+
+start building the installer package use command line
+
+> python build.py
+
+this command exports the trunk from svn server and builds the package in the current python script location.
+
+use command line parameters to export other svn locations
+-s or --svn       # specifies the subversion repository path
+-d or --deploy    # specifies the output path for the ipk file
+
+for example: export the tag version 2.6.1 and the ipk should stored to location /media/net/hdd1/enigma/deploy/ams/
+
+> python build.py -s tags/v2.6.1 -d /media/net/hdd1/enigma/deploy/ams
+
 '''
 
 import compileall
@@ -286,7 +303,9 @@ def moveToDeploy():
     os.chdir(CURRENT_PATH)
     if not os.path.exists(DEPLOY_PATH):
         os.makedirs(DEPLOY_PATH)
-    shutil.move(os.path.join(BUILD_PATH, branding_info['ipkg_name']), os.path.join(DEPLOY_PATH, branding_info['ipkg_name']))
+    src = os.path.join(BUILD_PATH, branding_info['ipkg_name'])
+    dst = os.path.join(DEPLOY_PATH, branding_info['ipkg_name'])
+    shutil.move(src, dst)
 
 def cleanup():
     #clean = os.path.join(BUILD_PATH, "CONTROL")
@@ -311,7 +330,7 @@ def exportSVNRepository():
     lines = list.readlines()
     list.close()
     for line in lines:
-        if line.startswith("Revision:"):
+        if line.startswith("Last Changed Rev:"):
             print line
             branding_info['svn_revision'] = line.strip().split(' ')[-1]
             break
@@ -333,7 +352,24 @@ def removeLibrarySources():
         else:
             print "library not exists", library
 
+def applyUserSettings():
+    from optparse import OptionParser
+    parser = OptionParser()
+    parser.add_option("-d", "--deploy", dest="deploypath", help="path to deploy")
+    parser.add_option("-s", "--svn", dest="repository", help="repository location") #, default="trunk")
+    
+    (options, args) = parser.parse_args()
+    if options.deploypath:
+        global DEPLOY_PATH
+        DEPLOY_PATH = options.deploypath
+        print "set deploy path to:", DEPLOY_PATH
+    if options.repository:
+        global SVN_REPOSITORY_EXPORT
+        SVN_REPOSITORY_EXPORT = SVN_REPOSITORY_EXPORT.replace("trunk", options.repository)
+        print "set repository export to:", SVN_REPOSITORY_EXPORT
+
 def main():
+    applyUserSettings()
     print "start building enigma2 package"
     clearPluginPath()
     exportSVNRepository()
