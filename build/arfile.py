@@ -63,7 +63,7 @@ class FileInfo(object):
         """
         """
         self.name = name + "/"# TODO: Ensure ar-compatible
-        self.modificationTime = modificationTime
+        self.modificationTime = int(modificationTime)
         self.userId = userId
         self.groupId = groupId
         self.fileMode = fileMode
