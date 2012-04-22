@@ -260,6 +260,14 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         if config.AdvancedMovieSelection.video_preview.isChanged():
             config.AdvancedMovieSelection.video_preview.save()
             needRefresh = True
+        if config.AdvancedMovieSelection.video_preview.isChanged(): 
+            if not config.AdvancedMovieSelection.video_preview_fullscreen.value:
+                config.AdvancedMovieSelection.video_preview.save()
+                needRefresh = True
+            else:
+                config.AdvancedMovieSelection.video_preview.save()
+                needRefresh = True
+                self.needsReopenFlag = True 
         if config.AdvancedMovieSelection.minitv.isChanged():
             config.AdvancedMovieSelection.minitv.save()
             if not config.AdvancedMovieSelection.minitv.value:
