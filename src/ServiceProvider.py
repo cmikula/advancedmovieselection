@@ -186,19 +186,25 @@ class Network():
 
 def getFolderSize(loadPath):
     folder_size = 0
-    for (path, dirs, files) in os.walk(loadPath):
-        for file in files:    
-            filename = os.path.join(path, file)    
-            if os.path.exists(filename):
-                folder_size += os.path.getsize(filename)
+    try:
+        for (path, dirs, files) in os.walk(loadPath):
+            for file in files:    
+                filename = os.path.join(path, file)    
+                if os.path.exists(filename):
+                    folder_size += os.path.getsize(filename)
+    except Exception, e:
+        print e
     return folder_size
 
 def getDirSize(root):
     folder_size = 0
-    for filename in os.listdir(root):
-        p = os.path.join(root, filename)
-        if os.path.exists(p):
-            folder_size += os.path.getsize(p)
+    try:
+        for filename in os.listdir(root):
+            p = os.path.join(root, filename)
+            if os.path.exists(p):
+                folder_size += os.path.getsize(p)
+    except Exception, e:
+        print e
     return folder_size
 
 def detectDVDStructure(loadPath):
