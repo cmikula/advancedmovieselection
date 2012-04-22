@@ -63,7 +63,7 @@ PLUGIN_VERSION_FILE = os.path.join(PLUGIN, "Version.py")
 
 PACKAGE_PREFIX = "enigma2-plugin-extensions"
 PACKAGE = "%s-%s" % (PACKAGE_PREFIX, PLUGIN_NAME.lower())
-PACKAGE_DESCRIPTION = "Advanst Movie Selection for enigma2" #"Erweiterte Filmauswahl"
+PACKAGE_DESCRIPTION = "Advanced Movie Selection for enigma2" #"Erweiterte Filmauswahl"
 PACKAGE_ARCHITECTURE = "mipsel"
 PACKAGE_SECTION = "extra"
 PACKAGE_PRIORITY = "optional"
@@ -383,6 +383,7 @@ def main():
     moveToDeploy()
     cleanup()
     print "build success:", branding_info['ipkg_name']
+    print "stored in:", DEPLOY_PATH
 
 if __name__ == '__main__':
     main()
