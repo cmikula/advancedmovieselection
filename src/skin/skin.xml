@@ -31,7 +31,7 @@
                     <convert type="ClockToText">InMinutes</convert>
             </widget>
             <widget source="Service" render="Label" position="60,477" zPosition="3" size="1160,22" font="Regular;20" halign="center" foregroundColor="yellow" backgroundColor="darkgrey" transparent="1">
-                    <convert type="HDMovieInfo">FileSize</convert>
+                    <convert type="MovieInfo">FileSize</convert>
             </widget>
             <widget source="Service" render="Label" position="60,520" zPosition="3" size="1160,140" font="Regular;20" foregroundColor="white" backgroundColor="darkgrey" transparent="1">
                     <convert type="EventName">ExtendedDescription</convert>
