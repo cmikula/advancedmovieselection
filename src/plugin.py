@@ -698,9 +698,9 @@ def Plugins(**kwargs):
     except Exception, e:
         print e
     if not config.AdvancedMovieSelection.ml_disable.value:
-        descriptors = [PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=autostart)]
-        descriptors.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, fnc=Setup))
+        descriptors = [PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=autostart, needsRestart = True)]
+        descriptors.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, fnc=Setup, needsRestart = True))
     else:
-        descriptors = [PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=nostart)]
-        descriptors.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, fnc=Setup))
+        descriptors = [PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=nostart, needsRestart = True)]
+        descriptors.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, fnc=Setup, needsRestart = True))
     return descriptors
