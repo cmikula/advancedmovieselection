@@ -295,11 +295,11 @@ class QuickButton:
     def openAccessChoice(self):
         fsk = []
         fsk.append((_("Clear"), None))        
-        fsk.append((_("FSK-0"), "FSK-0"))        
-        fsk.append((_("FSK-6"), "FSK-6"))        
-        fsk.append((_("FSK-12"), "FSK-12"))        
-        fsk.append((_("FSK-16"), "FSK-16"))        
-        fsk.append((_("FSK-18"), "FSK-18"))        
+        fsk.append((_("FSK-0 (General Audience)"), "FSK-0"))        
+        fsk.append((_("FSK-6 (Parental Guidance Suggested)"), "FSK-6"))        
+        fsk.append((_("FSK-12 (Parents Strongly Cautioned)"), "FSK-12"))        
+        fsk.append((_("FSK-16 (Restricted)"), "FSK-16"))        
+        fsk.append((_("FSK-18 (No One 17 And Under Admitted)"), "FSK-18"))        
         self.session.openWithCallback(self.setAccessChoice, ChoiceBox, title=_("Select FSK"), list=fsk)
         
     def setAccessChoice(self, answer):
