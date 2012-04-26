@@ -156,6 +156,8 @@ class MovieContextMenu(Screen):
                 "cancel": self.cancelClick
             })
         menu = []
+        if not (self.service.flags & eServiceReference.mustDescent):
+            menu.append((_("Set FSK"), boundFunction(self.openAccessChoice)))
         if config.AdvancedMovieSelection.hotplug.value and isinstance(service, eServiceReferenceHotplug):
             menu.append((_("Unmount") + " " + service.getName(), boundFunction(self.unmount)))
         if config.AdvancedMovieSelection.showtmdb.value:
@@ -283,6 +285,10 @@ class MovieContextMenu(Screen):
 
     def setWindowTitle(self):
         self.setTitle(_("Advanced Movie Selection Menu"))
+
+    def openAccessChoice(self):
+        self.csel.openAccessChoice()
+        self.close()
 
     def thetvdbsearch(self):
         from SearchTVDb import TheTVDBMain

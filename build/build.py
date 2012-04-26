@@ -29,6 +29,7 @@ this command exports the trunk from svn server and builds the package in the cur
 use command line parameters to export other svn locations
 -s or --svn       # specifies the subversion repository path
 -d or --deploy    # specifies the output path for the ipk file
+-b or --build     # specifies the build path for the ipk file
 
 for example: export the tag version 2.6.1 and the ipk should stored to location /media/net/hdd1/enigma/deploy/ams/
 
@@ -79,7 +80,7 @@ PACKAGE_RECOMENDS = None
 
 CONTROL_CONFFILES = ()
 
-LIBRARY_SOURCES = ("ServiceProvider.py", "EventInformationTable.py", "tmdb.py", "tvdb.py", "SearchTMDb.py", "SearchTVDb.py")
+LIBRARY_SOURCES = ("ServiceProvider.py", "EventInformationTable.py", "tmdb.py", "tvdb.py", "SearchTMDb.py", "SearchTVDb.py", "EpgListExtension.py")
 
 POSTINST = "#!/bin/sh\n\
 echo \"* plugin installed successfully *\"\n\
@@ -135,7 +136,9 @@ def genBrandingInfo(package_revision=None):
     version_file = open(PLUGIN_VERSION_FILE, 'rb')
     version = version_file.readlines()
     version_file.close()
+    new_version = []
     for index, item in enumerate(version):
+        new_version.append(item)
         line = item.strip()
         if len(line) == 0:
             continue
@@ -145,10 +148,13 @@ def genBrandingInfo(package_revision=None):
         branding_info[key] = value.replace("\"", "")
         if line.startswith("__version__") and branding_info.has_key('svn_revision'):
             print "write new version file, for revision", branding_info['svn_revision']
-            version[index] = "__version__ = \"" + branding_info["__version__"] + ".r" + branding_info['svn_revision'] + "\"\r\n" 
+            new_version.append("__date__ = \"" + date.today().strftime("%Y.%m.%d") + "\"\r\n")
+            new_version.append("__branch__ = \"" + branding_info["__branch__"] + "\"\r\n")
+            new_version.append("__refision__ = \"" + branding_info['svn_revision'] + "\"\r\n") 
             version_file = open(PLUGIN_VERSION_FILE, 'wb')
-            version_file.writelines(version)
+            version_file.writelines(new_version)
             version_file.close()
+            break
     
     branding_info['version'] = "%s-%s-r%d" % (branding_info["__version__"], current_date, package_revision)
     branding_info['ipkg_name'] = "%s_%s_%s.ipk" % (PACKAGE, branding_info['version'], PACKAGE_ARCHITECTURE)
@@ -330,10 +336,13 @@ def exportSVNRepository():
     lines = list.readlines()
     list.close()
     for line in lines:
-        if line.startswith("Last Changed Rev:"):
+        if line.startswith("Last Changed Rev:") or line.startswith("Letzte geänderte Rev:"):
             print line
             branding_info['svn_revision'] = line.strip().split(' ')[-1]
             break
+    # checking svn revision, we can not update the version file without this info
+    if not branding_info.has_key('svn_revision'):
+        raise Exception("error getting last changed revision from svn server")
     
     cmd = "svn export %s %s" % (SVN_REPOSITORY_EXPORT, PLUGIN)
     exit_code = os.system(cmd)
@@ -357,6 +366,7 @@ def applyUserSettings():
     parser = OptionParser()
     parser.add_option("-d", "--deploy", dest="deploypath", help="path to deploy")
     parser.add_option("-s", "--svn", dest="repository", help="repository location") #, default="trunk")
+    parser.add_option("-b", "--build", dest="build_path", help="build location")
     
     (options, args) = parser.parse_args()
     if options.deploypath:
@@ -365,8 +375,15 @@ def applyUserSettings():
         print "set deploy path to:", DEPLOY_PATH
     if options.repository:
         global SVN_REPOSITORY_EXPORT
+        branding_info["__branch__"] = options.repository
         SVN_REPOSITORY_EXPORT = SVN_REPOSITORY_EXPORT.replace("trunk", options.repository)
         print "set repository export to:", SVN_REPOSITORY_EXPORT
+    else:
+        branding_info["__branch__"] = "trunk"
+    if options.build_path:
+        global BUILD_PATH
+        BUILD_PATH = options.build_path
+        print "set build path to", BUILD_PATH
 
 def main():
     applyUserSettings()

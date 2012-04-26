@@ -40,6 +40,8 @@ from ServiceProvider import detectDVDStructure, getCutList, Info, ServiceCenter,
 from Trashcan import TRASH_NAME
 from Components.Harddisk import Harddisk
 from EventInformationTable import EventInformationTable
+from AccessRestriction import accessRestriction
+from locale import currency
 
 IMAGE_PATH = "Extensions/AdvancedMovieSelection/images/"
 
@@ -358,9 +360,9 @@ class MovieList(GUIComponent):
     def buildMovieListEntry(self, serviceref, info, begin, len, selection_index= -1):
         width = self.l.getItemSize().width()
         offset = 0
+        res = [ None ]
         if self.show_folders:
             if serviceref.flags & eServiceReference.mustDescent:
-                res = [ None ]
 
                 if isinstance(serviceref, eServiceReferenceVDir):
                     png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "bookmark.png"))
@@ -457,7 +459,6 @@ class MovieList(GUIComponent):
         else:
             len = ""
         
-        res = [ None ]
         if info is not None:
             service_name = info.getName(serviceref)
             if not isinstance(info, Info):
@@ -616,15 +617,15 @@ class MovieList(GUIComponent):
             res.append(MultiContentEntryProgress(pos=(130 + offset, 63), size=(50, 6), percent=perc, borderWidth=1, foreColor=color))
             res.append(MultiContentEntryText(pos=(190 + offset, 55), size=(60, 20), font=1, flags=RT_HALIGN_LEFT, text=prec_text, color=color))
             if tags:
-                res.append(MultiContentEntryText(pos=(250 + offset, 55), size=(300, 20), font=1, flags=RT_HALIGN_LEFT, text=tags, color=color))
-            res.append(MultiContentEntryText(pos=(width - 205, 55), size=(200, 20), font=1, flags=RT_HALIGN_RIGHT, text=len, color=color))
+                res.append(MultiContentEntryText(pos=(250 + offset, 55), size=(500, 20), font=1, flags=RT_HALIGN_LEFT, text=self.arrangeTags(tags), color=color))
+            res.append(MultiContentEntryText(pos=(width - 105, 55), size=(100, 20), font=1, flags=RT_HALIGN_RIGHT, text=len, color=color))
 
         elif self.list_type == MovieList.LISTTYPE_ORIGINAL:
             if self.show_folders:
                 res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 29, 20, 20, png))
             res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 265, 30), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
-            if self.tags and self.show_tags == MovieList.SHOW_TAGS:
-                res.append(MultiContentEntryText(pos=(width - 255, 0), size=(250, 30), font=2, flags=RT_HALIGN_RIGHT, text=tags, color=color))
+            if tags and self.show_tags == MovieList.SHOW_TAGS:
+                res.append(MultiContentEntryText(pos=(width - 255, 0), size=(250, 30), font=2, flags=RT_HALIGN_RIGHT, text=self.arrangeTags(tags), color=color))
                 if service is not None:
                     res.append(MultiContentEntryText(pos=(300, 55), size=(200, 25), font=1, flags=RT_HALIGN_LEFT, text=service.getServiceName(), color=color))
             else:
@@ -657,8 +658,8 @@ class MovieList(GUIComponent):
                 res.append(MultiContentEntryText(pos=(offset, 22), size=(200, 17), font=1, flags=RT_HALIGN_LEFT, text=begin_string, color=color))            
             if self.show_time == MovieList.SHOW_TIME:
                 res.append(MultiContentEntryText(pos=(width - 80, 0), size=(75, 20), font=0, flags=RT_HALIGN_RIGHT, text=len, color=color))            
-            if self.tags and self.show_tags == MovieList.SHOW_TAGS:
-                res.append(MultiContentEntryText(pos=(width - 205, 22), size=(200, 17), font=1, flags=RT_HALIGN_RIGHT, text=tags, color=color))
+            if tags and self.show_tags == MovieList.SHOW_TAGS:
+                res.append(MultiContentEntryText(pos=(width - 205, 22), size=(200, 17), font=1, flags=RT_HALIGN_RIGHT, text=self.arrangeTags(tags), color=color))
                 if service is not None:
                     res.append(MultiContentEntryText(pos=(250, 22), size=(200, 17), font=1, flags=RT_HALIGN_LEFT, text=service.getServiceName(), color=color))
             else:
@@ -691,9 +692,9 @@ class MovieList(GUIComponent):
                 res.append(MultiContentEntryText(pos=(width - 175, 2), size=(170, 20), font=0, flags=RT_HALIGN_RIGHT, text=servicename, color=color))
                 if servicename:
                     offsetServiceName = 175
-            if self.tags and self.show_tags == MovieList.SHOW_TAGS and self.show_service == MovieList.HIDE_SERVICE:
-                res.append(MultiContentEntryText(pos=(width - 175, 2), size=(170, 20), font=0, flags=RT_HALIGN_RIGHT, text=tags, color=color))
-                offsetServiceName = 175
+            if tags and self.show_tags == MovieList.SHOW_TAGS and self.show_service == MovieList.HIDE_SERVICE:
+                res.append(MultiContentEntryText(pos=(width - 255, 2), size=(250, 20), font=0, flags=RT_HALIGN_RIGHT, text=self.arrangeTags(tags, False), color=color))
+                offsetServiceName = 255
             res.append(MultiContentEntryText(pos=(0 + offset, 2), size=(width - (0 + offset + offsetServiceName), 25), font=0, flags=RT_HALIGN_LEFT, text=displaytext, color=color))
         else:
             assert(self.list_type == MovieList.LISTTYPE_MINIMAL)
@@ -886,6 +887,8 @@ class MovieList(GUIComponent):
 
             # convert space-seperated list of tags into a set
             this_tags = info.getInfoString(serviceref, iServiceInformation.sTags).split(' ')
+            if not accessRestriction.isAccessible(this_tags):
+                continue
             if this_tags is None or this_tags == ['']:
                 this_tags = []
             this_tags = set(this_tags)
@@ -975,6 +978,22 @@ class MovieList(GUIComponent):
         info = self.serviceHandler.info(ref)
         name = info and info.getName(ref)
         return (name and name.lower() or "", -x[2])
+
+    def arrangeTags(self, tags, fsk_left=True):
+        tag_list = []
+        fsk = None
+        for t in tags.split():
+            if t.startswith("FSK"):
+                fsk = t
+            else:
+                tag_list.append(t)
+        tag_list.sort()
+        if fsk:
+            if fsk_left:
+                tag_list.insert(0, fsk)
+            else:
+                tag_list.append(fsk)
+        return ", ".join(tag_list)
 
     def moveTo(self, serviceref):
         count = 0
@@ -1078,3 +1097,19 @@ class MovieList(GUIComponent):
                 from EventInformationTable import EventInformationTable, appendShortDescriptionToMeta
                 eit = EventInformationTable(eit_file)
                 appendShortDescriptionToMeta(serviceref.getPath(), eit.short_description)
+
+    def setAccess(self, access=18):
+        accessRestriction.setAccess(access)
+
+    def getAccess(self):
+        return accessRestriction.getAccess()
+
+    def setAccessRestriction(self, access=None):
+        service = self.getCurrent()
+        if service:
+            clear = access == None
+            if len(self.multiSelection) > 0:
+                for service in self.multiSelection:
+                    accessRestriction.setToService(service.getPath(), access, clear)
+            else:
+                accessRestriction.setToService(service.getPath(), access, clear)

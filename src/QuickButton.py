@@ -23,10 +23,11 @@ from __init__ import _
 from Components.config import config
 from Components.ActionMap import HelpableActionMap
 from Components.Button import Button
-from MovieList import MovieList
+from MovieList import MovieList, accessRestriction
 from Components.PluginComponent import plugins
 from Plugins.Plugin import PluginDescriptor
 from MoveCopy import MovieMove
+from Screens.ChoiceBox import ChoiceBox
 from Screens.MessageBox import MessageBox
 from Rename import MovieRetitle
 from Wastebasket import Wastebasket
@@ -46,6 +47,8 @@ def getPluginCaption(pname):
                 return _("Show folders")
             else:
                 return _("Hide folders")
+        if pname == "Toggle FSK":
+            return "FSK-%d"%(accessRestriction.getAccess())
         if pname == "Toggle seen":
             return _("Mark as seen")
         elif pname == "Bookmark(s) on/off":
@@ -247,6 +250,19 @@ class QuickButton:
                         else:
                             self.setMovieStatus(1)
                             key_number.setText(_("Mark as unseen"))
+                elif pname == "Toggle FSK":
+                    from AccessRestriction import FSK
+                    access = "FSK-%d"%(self.list.getAccess()) 
+                    for index, item in enumerate(FSK):
+                        if item == access:
+                            if len(FSK)-1 == index:
+                                access = FSK[0]
+                            else:
+                                access = FSK[index + 1]
+                            break
+                    self.list.setAccess(int(access[4:]))
+                    self.reloadList()
+                    key_number.setText(access)
                 elif pname == "Mark as seen":
                     if not (service.flags):
                         self.setMovieStatus(status=1)
@@ -275,3 +291,19 @@ class QuickButton:
             errorText = _("No plugin assigned!")
         if errorText:
             self.session.open(MessageBox, errorText, MessageBox.TYPE_INFO)
+
+    def openAccessChoice(self):
+        fsk = []
+        fsk.append((_("Clear"), None))        
+        fsk.append((_("FSK-0"), "FSK-0"))        
+        fsk.append((_("FSK-6"), "FSK-6"))        
+        fsk.append((_("FSK-12"), "FSK-12"))        
+        fsk.append((_("FSK-16"), "FSK-16"))        
+        fsk.append((_("FSK-18"), "FSK-18"))        
+        self.session.openWithCallback(self.setAccessChoice, ChoiceBox, title=_("Select FSK"), list=fsk)
+        
+    def setAccessChoice(self, answer):
+        if answer:
+            answer = answer[1] 
+            self.list.setAccessRestriction(answer)
+            self.reloadList()

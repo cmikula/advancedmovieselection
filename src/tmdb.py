@@ -556,11 +556,17 @@ def searchByHashingFile(filename):
     """
     return mediaGetInfo(opensubtitleHashFile(filename), os.path.getsize(filename))
 
+def decodeCertification(cert):
+    certification = {"G":"FSK0", "PG":"FSK6", "PG13":"FSK12", "PG-13":"FSK12", "R":"FSK16", "NC-13":"FSK18", "NC17":"FSK18"}
+    if certification.has_key(cert):
+        return certification[cert]
+
 def main():
     results = search("Fight Club")
     searchResult = results[0]
     movie = getMovieInfo(searchResult['id'])
     print movie['name']
+    print decodeCertification(movie['certification'])
 
     print "Producers:"
     for prodr in movie['cast']['producer']:

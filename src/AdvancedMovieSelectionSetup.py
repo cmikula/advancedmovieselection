@@ -420,6 +420,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
                 self.list.append(getConfigListEntry(_("Video preview delay:"), config.AdvancedMovieSelection.video_preview_delay, _("Setup the delay in seconds to start the video preview.")))
             self.list.append(getConfigListEntry(_("Use last stop mark:"), config.AdvancedMovieSelection.video_preview_marker, _("Preview will start on last stop marker.")))
             self.list.append(getConfigListEntry(_("Video preview jump time (in minutes):"), config.AdvancedMovieSelection.video_preview_jump_time, _("Here you can set the jump time for the movie preview (< > buttons or bouquet +/- buttons).")))
+        self.list.append(getConfigListEntry(_("Show recorded movies in epg:"), config.AdvancedMovieSelection.epg_extension, _("If you enable this function, your recorded movies will be marked in epg list.")))
         self.list.append(getConfigListEntry(_("Enable Enigma2 debug:"), config.AdvancedMovieSelection.debug, _("If you enable this function, all standard output from enigma will be stored to /tmp folder.")))
         self["config"].setList(self.list)
 
@@ -491,6 +492,9 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
                 serverInstance.shutdown()
                 serverInstance.active_clients = []
         
+        from EpgListExtension import epgListExtension
+        epgListExtension.enabled(config.AdvancedMovieSelection.epg_extension.value)
+        
         if self.csel:
             self.csel.updateSettings()
         if self.needsRestartFlag == True:
@@ -543,7 +547,7 @@ class ConfigSelection(eConfigSelection):
 __dummy1__ = (_("Nothing"), _("Delete"), _("Wastebasket"), _("Sort"), _("Home"), _("Bookmark 1"), _("Bookmark 2"), _("Bookmark 3"), _("Bookmark(s) on/off"), _("Filter by Tags"), _("Tag Editor"), _("Move-Copy"), _("Rename"), 
             _("TMDb Info & D/L"), _("Mark as seen"), _("Mark as unseen"), _("Show/Hide folders"), _("Trailer search"), _("Toggle seen"), _("Show Timer"), _("TheTVDB Info & D/L"))
 __dummy2__ = (_("DM-600PVR"), _("DM-7000"), _("DM-7025"), _("DM-8000HD"), _("DM-500HD"), _("DM-800HD"), _("DM-800HDse"), _("DM-7020HD"), _("internal HDD"), _("NAS"), _("NAS-Movies"))
-__dummy3__ = (_("Display plugin name"), _("Display plugin description"))
+__dummy3__ = (_("Display plugin name"), _("Display plugin description"), _("Toggle FSK"))
 
 class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
     def __init__(self, session, csel=None):
@@ -586,8 +590,9 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         self.entryguilist.append(("17", "Mark as unseen"))
         self.entryguilist.append(("18", "Show/Hide folders"))
         self.entryguilist.append(("19", "Show Timer"))
+        self.entryguilist.append(("20", "Toggle FSK"))
         if YTTrailerPresent == True:
-            self.entryguilist.append(("20", "Trailer search"))
+            self.entryguilist.append(("21", "Trailer search"))
         self.entryguilist2 = []
         self.entryguilist2.append(("0", "Nothing"))
         self.entryguilist2.append(("1", "DM-600PVR"))
@@ -760,7 +765,9 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
             self.session.openWithCallback(self.dirnameSelected, MovieLocationBox, _("Movie Quick Button Bookmark 2 path"), preferredPath(self.bookmark2_dirname.value))     
         elif currentry == self.bookmark3:
             self.entrydirname = self.bookmark3_dirname
-            self.session.openWithCallback(self.dirnameSelected, MovieLocationBox, _("Movie Quick Button Bookmark 3 path"), preferredPath(self.bookmark3_dirname.value))                 
+            self.session.openWithCallback(self.dirnameSelected, MovieLocationBox, _("Movie Quick Button Bookmark 3 path"), preferredPath(self.bookmark3_dirname.value))
+        else:
+            self.keySave()                 
 
     def dirnameSelected(self, res):
         if res is not None:

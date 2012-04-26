@@ -292,7 +292,6 @@ class TMDbMain(Screen):
                 name = movie["name"].encode('utf-8', 'ignore')
                 description = movie["overview"]
                 released = movie["released"]
-                certification = movie["certification"]
                 rating = movie["rating"]
                 runtime = movie["runtime"]
                 last_modified_at = movie["last_modified_at"]
@@ -318,20 +317,11 @@ class TMDbMain(Screen):
                     extended = (_("Appeared: %s") % released) + ' / '
                 if runtime:
                     extended += (_("Runtime: %s minutes") % runtime) + ' / '
+
+                certification = tmdb.decodeCertification(movie["certification"])
                 if certification:
-                    if certification == "G":
-                        certification = "FSK 0"
-                    elif certification == "PG":
-                        certification = "FSK 6"
-                    elif certification == "PG-13" or certification == "PG13":
-                        certification = "FSK 12"
-                    elif certification == "R":
-                        certification = "FSK 16"
-                    elif certification == "NC-13" or certification == "NC17":
-                        certification = "FSK 18"
-                    else:
-                        certification = "N/A"
                     extended += (_("Certification: %s") % certification) + ' / '
+
                 if movie.has_key("rating"):
                     rating = movie["rating"].encode('utf-8','ignore')    
                     extended += (_("Rating: %s\n") % rating)

@@ -201,6 +201,7 @@ config.AdvancedMovieSelection.video_preview_marker = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.video_preview_jump_time = ConfigInteger(default=5, limits=(1, 60))
 config.AdvancedMovieSelection.video_preview_autostart = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.video_preview_fullscreen = ConfigYesNo(default=True)
+config.AdvancedMovieSelection.epg_extension = ConfigYesNo(default=False)
 
 PlayerInstance = None
 
@@ -695,6 +696,8 @@ def Plugins(**kwargs):
             setPreferredTagEditor(TagEditor)
         if not config.AdvancedMovieSelection.ml_disable.value and config.AdvancedMovieSelection.useseekbar.value:
             from Seekbar import Seekbar
+        from EpgListExtension import epgListExtension
+        epgListExtension.enabled(config.AdvancedMovieSelection.epg_extension.value)
     except Exception, e:
         print e
     if not config.AdvancedMovieSelection.ml_disable.value:
