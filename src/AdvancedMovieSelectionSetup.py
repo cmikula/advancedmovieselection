@@ -548,7 +548,7 @@ class ConfigSelection(eConfigSelection):
 __dummy1__ = (_("Nothing"), _("Delete"), _("Wastebasket"), _("Sort"), _("Home"), _("Bookmark 1"), _("Bookmark 2"), _("Bookmark 3"), _("Bookmark(s) on/off"), _("Filter by Tags"), _("Tag Editor"), _("Move-Copy"), _("Rename"), 
             _("TMDb Info & D/L"), _("Mark as seen"), _("Mark as unseen"), _("Show/Hide folders"), _("Trailer search"), _("Toggle seen"), _("Show Timer"), _("TheTVDB Info & D/L"))
 __dummy2__ = (_("DM-600PVR"), _("DM-7000"), _("DM-7025"), _("DM-8000HD"), _("DM-500HD"), _("DM-800HD"), _("DM-800HDse"), _("DM-7020HD"), _("internal HDD"), _("NAS"), _("NAS-Movies"))
-__dummy3__ = (_("Display plugin name"), _("Display plugin description"), _("Toggle FSK"))
+__dummy3__ = (_("Display plugin name"), _("Display plugin description"), _("Show up to FSK-X"))
 
 class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
     def __init__(self, session, csel=None):
@@ -591,7 +591,7 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         self.entryguilist.append(("17", "Mark as unseen"))
         self.entryguilist.append(("18", "Show/Hide folders"))
         self.entryguilist.append(("19", "Show Timer"))
-        self.entryguilist.append(("20", "Toggle FSK"))
+        self.entryguilist.append(("20", "Show up to FSK-X"))
         if YTTrailerPresent == True:
             self.entryguilist.append(("21", "Trailer search"))
         self.entryguilist2 = []

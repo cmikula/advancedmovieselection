@@ -41,7 +41,7 @@ class AccessRestriction:
         if not tags:
             return True
         for tag in tags:
-            if tag.startswith("FSK"):
+            if tag.startswith("FSK-"):
                 fsk = int(tag[4:])
                 if fsk > self.access:
                     return False

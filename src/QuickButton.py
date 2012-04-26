@@ -47,8 +47,8 @@ def getPluginCaption(pname):
                 return _("Show folders")
             else:
                 return _("Hide folders")
-        if pname == "Toggle FSK":
-            return "FSK-%d"%(accessRestriction.getAccess())
+        if pname == "Show up to FSK-X":
+            return (_("Show up to FSK-%d") % accessRestriction.getAccess())
         if pname == "Toggle seen":
             return _("Mark as seen")
         elif pname == "Bookmark(s) on/off":
@@ -250,7 +250,7 @@ class QuickButton:
                         else:
                             self.setMovieStatus(1)
                             key_number.setText(_("Mark as unseen"))
-                elif pname == "Toggle FSK":
+                elif pname == "Show up to FSK-X":
                     from AccessRestriction import FSK
                     access = "FSK-%d"%(self.list.getAccess()) 
                     for index, item in enumerate(FSK):
@@ -262,7 +262,7 @@ class QuickButton:
                             break
                     self.list.setAccess(int(access[4:]))
                     self.reloadList()
-                    key_number.setText(access)
+                    key_number.setText(_("Show up to") + ' ' + access)
                 elif pname == "Mark as seen":
                     if not (service.flags):
                         self.setMovieStatus(status=1)
@@ -300,7 +300,7 @@ class QuickButton:
         fsk.append((_("FSK-12 (Parents Strongly Cautioned)"), "FSK-12"))        
         fsk.append((_("FSK-16 (Restricted)"), "FSK-16"))        
         fsk.append((_("FSK-18 (No One 17 And Under Admitted)"), "FSK-18"))        
-        self.session.openWithCallback(self.setAccessChoice, ChoiceBox, title=_("Select FSK"), list=fsk)
+        self.session.openWithCallback(self.setAccessChoice, ChoiceBox, title=_("Please select the FSK here:"), list=fsk)
         
     def setAccessChoice(self, answer):
         if answer:
