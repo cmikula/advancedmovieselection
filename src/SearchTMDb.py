@@ -320,7 +320,7 @@ class TMDbMain(Screen):
 
                 certification = tmdb.decodeCertification(movie["certification"])
                 if certification:
-                    extended += (_("Certification: %s") % certification) + ' / '
+                    extended += (_("Certification: %s") % _(certification)) + ' / '
 
                 if movie.has_key("rating"):
                     rating = movie["rating"].encode('utf-8','ignore')    

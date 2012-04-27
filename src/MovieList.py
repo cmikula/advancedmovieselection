@@ -39,9 +39,8 @@ from datetime import datetime
 from ServiceProvider import detectDVDStructure, getCutList, Info, ServiceCenter, eServiceReferenceDvd, MovieConfig, hasLastPosition, getDirSize, getFolderSize, PicLoader, getServiceInfoValue, Network
 from Trashcan import TRASH_NAME
 from Components.Harddisk import Harddisk
-from EventInformationTable import EventInformationTable
+from EventInformationTable import EventInformationTable, appendShortDescriptionToMeta
 from AccessRestriction import accessRestriction
-from locale import currency
 
 IMAGE_PATH = "Extensions/AdvancedMovieSelection/images/"
 
@@ -983,7 +982,7 @@ class MovieList(GUIComponent):
         tag_list = []
         vsr = None
         for t in tags.split():
-            if t.startswith("FSK"):
+            if t.startswith("VSR"):
                 vsr = t
             else:
                 tag_list.append(t)
@@ -1095,7 +1094,6 @@ class MovieList(GUIComponent):
             else:
                 eit_file = file_name + ".eit"
             if os.path.exists(eit_file):
-                from EventInformationTable import EventInformationTable, appendShortDescriptionToMeta
                 eit = EventInformationTable(eit_file)
                 appendShortDescriptionToMeta(serviceref.getPath(), eit.short_description)
 

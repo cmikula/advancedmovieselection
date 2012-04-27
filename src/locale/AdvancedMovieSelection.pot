@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection(POT)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-26 20:05+0100\n"
-"PO-Revision-Date: 2012-04-26 20:05+0100\n"
-"Last-Translator: JackDaniel <JackDaniel@i-have-a-dreambox.com>\n"
+"POT-Creation-Date: 2012-04-27 14:58+0100\n"
+"PO-Revision-Date: 2012-04-27 14:58+0100\n"
+"Last-Translator: cmikula\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -400,11 +400,11 @@ msgid "Displays search trailer on web function in the menu at the movie list."
 msgstr ""
 
 #: ../AdvancedMovieSelectionSetup.py:355
-msgid "Show Set FSK in extensions menu from movielist:"
+msgid "Show Set VSR in extensions menu from movielist:"
 msgstr ""
 
 #: ../AdvancedMovieSelectionSetup.py:355
-msgid "Displays set FSK function in the menu at the movie list."
+msgid "Displays set VSR function in the menu at the movie list."
 msgstr ""
 
 #: ../AdvancedMovieSelectionSetup.py:356
@@ -797,7 +797,7 @@ msgid "YTTrailer plugin NOT installed. Search for trailers on the Web is NOT pos
 msgstr ""
 
 #: ../AdvancedMovieSelectionSetup.py:462
-#: ../AdvancedMovieSelectionSetup.py:995
+#: ../AdvancedMovieSelectionSetup.py:996
 #: ../ClientSetup.py:236
 msgid "Really close without saving settings?"
 msgstr ""
@@ -962,148 +962,168 @@ msgid "Display plugin description"
 msgstr ""
 
 #: ../AdvancedMovieSelectionSetup.py:551
-msgid "Show up to FSK-X"
+msgid "Show up to VSR-X"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:567
-msgid "IMPORTANT: If changes are made here the Advanced Movie Selection must be completely closed so the changes can be adopted!!"
+#: ../AdvancedMovieSelectionSetup.py:552
+msgid "VSR-0"
+msgstr ""
+
+#: ../AdvancedMovieSelectionSetup.py:552
+msgid "VSR-6"
+msgstr ""
+
+#: ../AdvancedMovieSelectionSetup.py:552
+msgid "VSR-12"
+msgstr ""
+
+#: ../AdvancedMovieSelectionSetup.py:552
+msgid "VSR-16"
+msgstr ""
+
+#: ../AdvancedMovieSelectionSetup.py:552
+msgid "VSR-18"
 msgstr ""
 
 #: ../AdvancedMovieSelectionSetup.py:568
+msgid "IMPORTANT: If changes are made here the Advanced Movie Selection must be completely closed so the changes can be adopted!!"
+msgstr ""
+
+#: ../AdvancedMovieSelectionSetup.py:569
 #: ../DownloadMovies.py:72
 msgid "Cancel"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:569
-#: ../AdvancedMovieSelectionSetup.py:878
+#: ../AdvancedMovieSelectionSetup.py:570
+#: ../AdvancedMovieSelectionSetup.py:879
 msgid "Save/Close"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:570
+#: ../AdvancedMovieSelectionSetup.py:571
 msgid "Own button description"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:664
+#: ../AdvancedMovieSelectionSetup.py:665
 msgid "Movie Quick Button Setup"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:704
+#: ../AdvancedMovieSelectionSetup.py:705
 msgid "Assigned to red key"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:706
+#: ../AdvancedMovieSelectionSetup.py:707
 msgid "Assigned to green key"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:708
+#: ../AdvancedMovieSelectionSetup.py:709
 msgid "Assigned to yellow key"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:710
+#: ../AdvancedMovieSelectionSetup.py:711
 msgid "Assigned to blue key"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:712
+#: ../AdvancedMovieSelectionSetup.py:713
 msgid "Button caption"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:714
+#: ../AdvancedMovieSelectionSetup.py:715
 msgid "Home button text"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:716
+#: ../AdvancedMovieSelectionSetup.py:717
 msgid "Bookmark 1 button text"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:718
+#: ../AdvancedMovieSelectionSetup.py:719
 msgid "Bookmark 2 button text"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:720
+#: ../AdvancedMovieSelectionSetup.py:721
 msgid "Bookmark 3 button text"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:722
+#: ../AdvancedMovieSelectionSetup.py:723
 msgid "Home path"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:724
+#: ../AdvancedMovieSelectionSetup.py:725
 msgid "Bookmark 1 path"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:726
+#: ../AdvancedMovieSelectionSetup.py:727
 msgid "Bookmark 2 path"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:728
+#: ../AdvancedMovieSelectionSetup.py:729
 msgid "Bookmark 3 path"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:760
+#: ../AdvancedMovieSelectionSetup.py:761
 msgid "Movie Quick Button Home path"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:763
+#: ../AdvancedMovieSelectionSetup.py:764
 msgid "Movie Quick Button Bookmark 1 path"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:766
+#: ../AdvancedMovieSelectionSetup.py:767
 msgid "Movie Quick Button Bookmark 2 path"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:769
+#: ../AdvancedMovieSelectionSetup.py:770
 msgid "Movie Quick Button Bookmark 3 path"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:887
+#: ../AdvancedMovieSelectionSetup.py:888
 msgid "Movie Quick Button Name Setup"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:899
+#: ../AdvancedMovieSelectionSetup.py:900
 msgid "Enter Home button descrition:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:901
+#: ../AdvancedMovieSelectionSetup.py:902
 msgid "Enter Bookmark 1 button descrition:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:903
+#: ../AdvancedMovieSelectionSetup.py:904
 msgid "Enter Bookmark 2 button descrition:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:905
+#: ../AdvancedMovieSelectionSetup.py:906
 msgid "Enter Bookmark 3 button descrition:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:929
+#: ../AdvancedMovieSelectionSetup.py:930
 msgid "Home button description:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:930
+#: ../AdvancedMovieSelectionSetup.py:931
 msgid "Bookmark 1 button description:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:931
+#: ../AdvancedMovieSelectionSetup.py:932
 msgid "Bookmark 2 button description:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:932
+#: ../AdvancedMovieSelectionSetup.py:933
 msgid "Bookmark 3 button description:"
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:945
+#: ../AdvancedMovieSelectionSetup.py:946
 msgid "Here you can give the home button a special name. After saving the changes color key settings will be closed, reopen it then the changes is to selection."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:949
+#: ../AdvancedMovieSelectionSetup.py:950
 msgid "Here you can give the bookmark 1 button a special name. After saving the changes color key settings will be closed, reopen it then the changes is to selection."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:953
+#: ../AdvancedMovieSelectionSetup.py:954
 msgid "Here you can give the bookmark 2 button a special name. After saving the changes color key settings will be closed, reopen it then the changes is to selection."
 msgstr ""
 
-#: ../AdvancedMovieSelectionSetup.py:957
+#: ../AdvancedMovieSelectionSetup.py:958
 msgid "Here you can give the bookmark 3 button a special name. After saving the changes color key settings will be closed, reopen it then the changes is to selection."
 msgstr ""
 
@@ -1462,7 +1482,7 @@ msgid "Show all movies"
 msgstr ""
 
 #: ../MovieSelection.py:162
-msgid "Set FSK"
+msgid "Set VSR"
 msgstr ""
 
 #: ../MovieSelection.py:164
@@ -2170,7 +2190,7 @@ msgstr ""
 
 #: ../QuickButton.py:51
 #, python-format
-msgid "Show up to FSK-%d"
+msgid "Show up to VSR-%d"
 msgstr ""
 
 #: ../QuickButton.py:56
@@ -2264,27 +2284,27 @@ msgid "Clear"
 msgstr ""
 
 #: ../QuickButton.py:298
-msgid "FSK-0 (General Audience)"
+msgid "VSR-0 (General Audience)"
 msgstr ""
 
 #: ../QuickButton.py:299
-msgid "FSK-6 (Parental Guidance Suggested)"
+msgid "VSR-6 (Parental Guidance Suggested)"
 msgstr ""
 
 #: ../QuickButton.py:300
-msgid "FSK-12 (Parents Strongly Cautioned)"
+msgid "VSR-12 (Parents Strongly Cautioned)"
 msgstr ""
 
 #: ../QuickButton.py:301
-msgid "FSK-16 (Restricted)"
+msgid "VSR-16 (Restricted)"
 msgstr ""
 
 #: ../QuickButton.py:302
-msgid "FSK-18 (No One 17 And Under Admitted)"
+msgid "VSR-18 (No One 17 And Under Admitted)"
 msgstr ""
 
 #: ../QuickButton.py:303
-msgid "Please select the FSK here:"
+msgid "Please select the VSR here:"
 msgstr ""
 
 #: ../RecordPaths.py:34

@@ -204,7 +204,6 @@ config.AdvancedMovieSelection.video_preview_fullscreen = ConfigYesNo(default=Tru
 config.AdvancedMovieSelection.epg_extension = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.show_set_vsr = ConfigYesNo(default=False)
 
-
 PlayerInstance = None
 
 class MoviePlayerExtended_summary(Screen):
@@ -703,9 +702,9 @@ def Plugins(**kwargs):
     except Exception, e:
         print e
     if not config.AdvancedMovieSelection.ml_disable.value:
-        descriptors = [PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=autostart, needsRestart = True)]
-        descriptors.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, fnc=Setup, needsRestart = True))
+        descriptors = [PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=autostart, needsRestart=True)]
+        descriptors.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, fnc=Setup, needsRestart=True))
     else:
-        descriptors = [PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=nostart, needsRestart = True)]
-        descriptors.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, fnc=Setup, needsRestart = True))
+        descriptors = [PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=nostart, needsRestart=True)]
+        descriptors.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, fnc=Setup, needsRestart=True))
     return descriptors
