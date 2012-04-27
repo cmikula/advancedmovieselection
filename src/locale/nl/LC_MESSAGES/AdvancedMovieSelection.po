@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-25 16:23+0100\n"
-"PO-Revision-Date: 2012-04-06 08:09+0100\n"
-"Last-Translator: bschaar\n"
+"POT-Creation-Date: 2012-04-27 14:58+0100\n"
+"PO-Revision-Date: 2012-04-27 16:20+0100\n"
+"Last-Translator: cmikula\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,9 +17,13 @@ msgstr ""
 "X-Poedit-Bookmarks: -1,-1,-1,-1,-1,-1,-1,120,-1,-1\n"
 "X-Poedit-SearchPath-0: /Users/JackDaniel/Übersetzungen/AdvancedMovieSelection\n"
 
-#: ../About.py:107
-msgid "Version:\n"
-msgstr "Versie:\n"
+#: ../About.py:104
+msgid "Version:"
+msgstr "Versie:"
+
+#: ../About.py:105
+msgid "Branch:"
+msgstr "Branch:"
 
 #: ../About.py:108
 msgid ""
@@ -44,7 +48,7 @@ msgid "Thanks to all other for help and so many very good code."
 msgstr "Dank aan iedereen voor de hulp en excellente code :-)"
 
 #: ../About.py:112
-#: ../About.py:196
+#: ../About.py:169
 #: ../AdvancedMovieSelectionSetup.py:168
 #: ../ClientSetup.py:166
 msgid "Close"
@@ -58,13 +62,9 @@ msgstr "Toon wijzigingen"
 msgid "About Advanced Movie Selection"
 msgstr "Over de Geavanceerde Filmselectie"
 
-#: ../About.py:166
+#: ../About.py:160
 msgid "Advanced Movie Selection - History"
 msgstr "Geavanceerde Filmselectie - Geschiedenis"
-
-#: ../About.py:170
-msgid "Parse changes text, please wait ..."
-msgstr "Inlezen tekstbestand, eventjes geduld ..."
 
 #: ../AdvancedMovieSelectionEventView.py:67
 #: ../ClientSetup.py:73
@@ -107,683 +107,707 @@ msgstr "Standaard paden"
 msgid "Advanced Movie Selection Setup"
 msgstr "Geavanceerde Filmselectie Instellingen"
 
-#: ../AdvancedMovieSelectionSetup.py:299
+#: ../AdvancedMovieSelectionSetup.py:314
 msgid "Disable Advanced Movie Selection:"
 msgstr "Geavanceerde Filmselectie uitschakelen:"
 
-#: ../AdvancedMovieSelectionSetup.py:299
+#: ../AdvancedMovieSelectionSetup.py:314
 msgid "Switch on/off the Advanced Movie Selection."
 msgstr "Met deze optie wordt de Geavanceerde Filmselectie aan/uit geschakeld."
 
-#: ../AdvancedMovieSelectionSetup.py:300
+#: ../AdvancedMovieSelectionSetup.py:315
 msgid "Start Advanced Movie Selection with:"
 msgstr "Geavanceerde Filmselectie starten met:"
 
-#: ../AdvancedMovieSelectionSetup.py:300
+#: ../AdvancedMovieSelectionSetup.py:315
 msgid "Select Start button for the Advanced Movie Selection."
 msgstr "Kies de start-knop voor de Geavanceerde Filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:301
+#: ../AdvancedMovieSelectionSetup.py:316
 msgid "Start on last movie location:"
 msgstr "Start in de laatste locatie:"
 
-#: ../AdvancedMovieSelectionSetup.py:301
+#: ../AdvancedMovieSelectionSetup.py:316
 msgid "Opens the film list on the last used location."
 msgstr "Met deze optie wordt de Geavanceerde Filmselectie gestart in de laatst gebruikte locatie."
 
-#: ../AdvancedMovieSelectionSetup.py:302
+#: ../AdvancedMovieSelectionSetup.py:317
 msgid "Start on first position in movielist:"
 msgstr "Op eerste positie van de filmselectie starten:"
 
-#: ../AdvancedMovieSelectionSetup.py:302
+#: ../AdvancedMovieSelectionSetup.py:317
 msgid "Always show selection in the first position in the movie list."
 msgstr "Met deze optie wordt de Geavanceerde Filmselectie gestart op de eerste positie van de lijst."
 
-#: ../AdvancedMovieSelectionSetup.py:303
+#: ../AdvancedMovieSelectionSetup.py:318
 msgid "Show plugin config in extensions menu from movielist:"
 msgstr "Instellingen in menu weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:303
+#: ../AdvancedMovieSelectionSetup.py:318
 msgid "Displays the Settings option in the menu at the movie list."
 msgstr "Met deze optie wordt \"Instellingen\" weergegeven in het menu van de Filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:304
+#: ../AdvancedMovieSelectionSetup.py:319
 msgid "Show color key setup in extensions menu from movielist:"
 msgstr "Instellingen kleurknoppen in menu weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:304
+#: ../AdvancedMovieSelectionSetup.py:319
 msgid "Displays color key setup option in the menu at the movie list."
 msgstr "Met deze optie wordt \"kleurknoppen\" weergegeven in het menu van de Filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:305
+#: ../AdvancedMovieSelectionSetup.py:320
 msgid "Show movie plugins in extensions menu from movielist:"
 msgstr "Plugins voor opnames in menu weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:305
+#: ../AdvancedMovieSelectionSetup.py:320
 msgid "Displays E2 movie list extensions in the menu at the movie list."
 msgstr "Met deze optie worden E2-plugins voor de filmlijst weergegeven in het menu van de Filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:306
+#: ../AdvancedMovieSelectionSetup.py:321
 msgid "Load Length of Movies in Movielist:"
 msgstr "Speelduur weergeven in de Filmselectie:"
 
-#: ../AdvancedMovieSelectionSetup.py:306
+#: ../AdvancedMovieSelectionSetup.py:321
 msgid "This option is for many of the functions from the Advanced Movie Selection necessary. If this option is disabled are many functions not available."
 msgstr "Deze optie is voor vele functies van de Geavanceerde Filmselectie noodzakelijk.  Indien deze uitgeschakeld wordt zijn deze functies niet meer bruikbaar."
 
-#: ../AdvancedMovieSelectionSetup.py:308
+#: ../AdvancedMovieSelectionSetup.py:323
 msgid "Show directory size in movie list:"
 msgstr "Mapgrootte weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:308
+#: ../AdvancedMovieSelectionSetup.py:323
 msgid "Displays the size from directories in movie list."
 msgstr "Met deze optie wordt de grootte van de mappen weergegeven in de uitgebreide Filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:310
-#: ../AdvancedMovieSelectionSetup.py:385
+#: ../AdvancedMovieSelectionSetup.py:325
+#: ../AdvancedMovieSelectionSetup.py:401
 msgid "Show decimal points:"
 msgstr "Decimalen weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:310
+#: ../AdvancedMovieSelectionSetup.py:325
 msgid "Here you can choose how many decimal points for the directory size in the movie list will be displayed."
 msgstr "Hier kan ingesteld worden hoeveel decimalen weergegeven worden voor de grootte van de mappen."
 
-#: ../AdvancedMovieSelectionSetup.py:311
+#: ../AdvancedMovieSelectionSetup.py:326
 msgid "Show full depth of directories:"
 msgstr "Grootte onderliggende mappen weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:311
+#: ../AdvancedMovieSelectionSetup.py:326
 msgid "Displays the full size of all sub directories of directory size."
 msgstr "Met deze optie wordt de grootte van alle onderliggende mappen weergegeven."
 
-#: ../AdvancedMovieSelectionSetup.py:312
+#: ../AdvancedMovieSelectionSetup.py:327
 msgid "Show list options in extensions menu from movielist:"
 msgstr "Weergave-opties in menu weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:312
+#: ../AdvancedMovieSelectionSetup.py:327
 msgid "Displays the various list view options in the menu at the movie list (Progressbar,View folders...)."
 msgstr "Met deze optie worden de verschillende weergave-opties (voortgang, mappen, ...) weergegeven in het menu van de Filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:313
+#: ../AdvancedMovieSelectionSetup.py:328
 msgid "Show mark movie in extensions menu from movielist:"
 msgstr "Markeeropties in menu weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:313
+#: ../AdvancedMovieSelectionSetup.py:328
 msgid "Displays mark movie as seen/unseen in the menu at the movie list."
 msgstr "Met deze optie worden de opties  \"gezien/ongezien\" weergegeven in het menu van de Filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:314
+#: ../AdvancedMovieSelectionSetup.py:329
 msgid "Mark movie as seen at position (in percent):"
 msgstr "Film als gezien markeren vanaf positie (in %):"
 
-#: ../AdvancedMovieSelectionSetup.py:314
+#: ../AdvancedMovieSelectionSetup.py:329
 msgid "With this option you can assign as when a film is marked as seen."
 msgstr "Met deze opties kan u instellen vanaf wenneer een film als \"gezien\" wordt gemarkeerd."
 
-#: ../AdvancedMovieSelectionSetup.py:315
+#: ../AdvancedMovieSelectionSetup.py:330
 msgid "Show sort options in extensions menu from movielist:"
 msgstr "Sorteeropties in menu weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:315
+#: ../AdvancedMovieSelectionSetup.py:330
 msgid "Displays sorting function in the menu at the movie list."
 msgstr "Met deze optie worden de \"Sorteerfunties\" weergegeven in het menu van de Filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:316
+#: ../AdvancedMovieSelectionSetup.py:331
 msgid "Show list styles in extensions menu from movielist:"
 msgstr "Selectiestijlen in menu weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:316
+#: ../AdvancedMovieSelectionSetup.py:331
 msgid "Displays various lists typs in the menu at the movie list (Minimal,Compact...)."
 msgstr "Met deze optie worden \"lijsttypes\" (minimaal, compact, ...) weergegeven in het menu van de Filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:317
+#: ../AdvancedMovieSelectionSetup.py:332
 msgid "Show delete option in extensions menu from movielist:"
 msgstr "Verwijderen in menu weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:317
+#: ../AdvancedMovieSelectionSetup.py:332
 msgid "Displays the movie delete function in the menu at the movie list."
 msgstr "Met deze optie wordt \"Verwijderen\" weergegeven in het menu van de Filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:318
+#: ../AdvancedMovieSelectionSetup.py:333
 msgid "Show move/copy option in extensions menu from movielist:"
 msgstr "Verplaatsen/kopiëren in menu weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:318
+#: ../AdvancedMovieSelectionSetup.py:333
 msgid "Displays the movie move/copy function in the menu at the movie list."
 msgstr "Met deze optie worden \"Verplaatsen/kopiëren\" weergegeven in het menu van de Filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:319
+#: ../AdvancedMovieSelectionSetup.py:334
 msgid "Show movie search in extensions menu from movielist:"
 msgstr "Zoekfunctie in menu weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:319
+#: ../AdvancedMovieSelectionSetup.py:334
 msgid "Displays the movie search function in the menu at the movie list."
 msgstr "Met deze optie wordt \"Film zoeken\" weergegeven in het menu van de Filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:320
+#: ../AdvancedMovieSelectionSetup.py:335
 msgid "Show covers in movielist:"
 msgstr "Covers in de filmselectie weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:320
+#: ../AdvancedMovieSelectionSetup.py:335
 msgid "Displays the cover in the movie list."
 msgstr "Met deze optie worden de covers weergegeven in de uitgebreide Filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:322
+#: ../AdvancedMovieSelectionSetup.py:337
 msgid "Set coversize:"
 msgstr "Coverafmetingen:"
 
-#: ../AdvancedMovieSelectionSetup.py:322
+#: ../AdvancedMovieSelectionSetup.py:337
 msgid "Here you can determine the coverfile size for the download/save."
 msgstr "Met deze optie kunnen de afmetingen ingegeven worden van de cover voor het downloaden en bewaren."
 
-#: ../AdvancedMovieSelectionSetup.py:323
+#: ../AdvancedMovieSelectionSetup.py:338
 msgid "Show D/L and store info/cover in movielist extensions menu:"
 msgstr "D/L en bewaren Filminfo/Cover in menu:"
 
-#: ../AdvancedMovieSelectionSetup.py:323
+#: ../AdvancedMovieSelectionSetup.py:338
 msgid "Displays movie info/cover options in the menu at the movie list."
 msgstr "Met deze optie worden de opties voor het downloaden/bewaren van de filminfo/cover weergegeven in het menu van de Filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:324
+#: ../AdvancedMovieSelectionSetup.py:339
 msgid "Show D/L and store ALL info/cover in movielist extensions menu:"
 msgstr "D/L en bewaren Filminfo/Cover voor alle in menu:"
 
-#: ../AdvancedMovieSelectionSetup.py:324
+#: ../AdvancedMovieSelectionSetup.py:339
 msgid "Displays download and save movie info/cover for all movies options in the menu at the movie list."
 msgstr "Met deze optie worden de opties voor het downloaden/bewaren van de filminfo/cover weergegeven in het menu van de Filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:325
+#: ../AdvancedMovieSelectionSetup.py:340
 msgid "Show delete info and cover in extensions menu from movielist:"
 msgstr "Filminfo en Cover verwijderen in menu weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:325
+#: ../AdvancedMovieSelectionSetup.py:340
 msgid "Displays delete movie info and cover function in the menu at the movie list."
 msgstr "Met deze optie worden de opties voor het verwijderen van de filminfo/cover weergegeven in het menu van de Filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:326
+#: ../AdvancedMovieSelectionSetup.py:341
 msgid "Show delete cover in extensions menu from movielist:"
 msgstr "Cover verwijderen in menu weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:326
+#: ../AdvancedMovieSelectionSetup.py:341
 msgid "Displays delete cover function in the menu at the movie list."
 msgstr "Met deze optie wordt de optie \"cover verwijderen\" weergegeven in het menu van de Filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:327
+#: ../AdvancedMovieSelectionSetup.py:342
 msgid "Show delete movie info in extensions menu from movielist:"
 msgstr "Filminfo verwijderen in menu weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:327
+#: ../AdvancedMovieSelectionSetup.py:342
 msgid "Displays delete movie info function in the menu at the movie list."
 msgstr "Met deze optie wordt de optie \"filminfo verwijderen\" weergegeven in het menu van de Filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:328
+#: ../AdvancedMovieSelectionSetup.py:343
 msgid "Show Provider Logo:"
 msgstr "Kanaalpicon weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:328
+#: ../AdvancedMovieSelectionSetup.py:343
 msgid "Displays the Provider Logo when no Cover available."
 msgstr "Kanaalpicon weergeven indien geen cover beschikbaar."
 
-#: ../AdvancedMovieSelectionSetup.py:329
+#: ../AdvancedMovieSelectionSetup.py:344
 msgid "Show update genre in extensions menu from movielist:"
 msgstr "Categorieën actualiseren in menu weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:329
+#: ../AdvancedMovieSelectionSetup.py:344
 msgid "Displays Update all genre in meta from eit options in the menu at the movie list."
 msgstr "Met deze optie wordt de optie \"Actualiseer alle categorieën\" weergegeven in het menu van de Filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:331
+#: ../AdvancedMovieSelectionSetup.py:346
 msgid "Show Provider Logo in original size:"
 msgstr "Originele afmetingen kanaalpicon:"
 
-#: ../AdvancedMovieSelectionSetup.py:331
+#: ../AdvancedMovieSelectionSetup.py:346
 msgid "Displays the Provider Logo in original size. Otherwise, the provider logo be displayed zoomed up to cover size."
 msgstr "Geeft het kanaalpicon met originele afmetingen weer. Indien \"nee\", wordt het picon gecentreerd en gezoomd."
 
-#: ../AdvancedMovieSelectionSetup.py:332
+#: ../AdvancedMovieSelectionSetup.py:347
 msgid "Provider Logo path:"
 msgstr "Pad kanaallogo's:"
 
-#: ../AdvancedMovieSelectionSetup.py:332
+#: ../AdvancedMovieSelectionSetup.py:347
 msgid "Where to look for the provider logos? (Default is /usr/share/enigma2/picon)"
 msgstr "Waar bevinden zich de kanaalpicons? (Standaard: /usr/share/enigma2/picon)"
 
-#: ../AdvancedMovieSelectionSetup.py:333
+#: ../AdvancedMovieSelectionSetup.py:348
 msgid "Show rename in extensions menu from movielist:"
 msgstr "Hernoemen in menu weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:333
+#: ../AdvancedMovieSelectionSetup.py:348
 msgid "Displays rename function in the menu at the movie list."
 msgstr "Met deze optie wordt de optie \"Hernoemen\" weergegeven in het menu van de Filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:334
+#: ../AdvancedMovieSelectionSetup.py:349
 msgid "Show TMDb Info & D/L in extensions menu from movielist:"
 msgstr "Zoeken & D/L via TMDb in menu weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:334
+#: ../AdvancedMovieSelectionSetup.py:349
 msgid "Displays TMDb Info & D/L in the menu at the movie list."
 msgstr "Met deze optie wordt de optie \"Zoeken & D/L met TMDb\" weergegeven in het menu van de Filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:335
+#: ../AdvancedMovieSelectionSetup.py:350
 msgid "Show TheTVDB Info & D/L in extensions menu from movielist:"
 msgstr "Zoeken & D/L via TTheTVDB in menu weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:335
+#: ../AdvancedMovieSelectionSetup.py:350
 msgid "Displays TheTVDB Info & D/L in the menu at the movie list."
 msgstr "Met deze optie wordt de optie \"Zoeken & D/L met TheTVDB\" weergegeven in het menu van de Filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:336
+#: ../AdvancedMovieSelectionSetup.py:351
 msgid "Jump to first mark when starts playing movie:"
 msgstr "Naar eerste markering springen bij afspelen:"
 
-#: ../AdvancedMovieSelectionSetup.py:336
+#: ../AdvancedMovieSelectionSetup.py:351
 msgid "If this option is activated automatically when a movie does not start from the last position, the movie starts at the first marker."
 msgstr "Als deze optie geactiveerd is wordt de film automatisch gestart bij de eerste markering, tenzij hij start bij de laatste positie."
 
-#: ../AdvancedMovieSelectionSetup.py:337
+#: ../AdvancedMovieSelectionSetup.py:352
 msgid "Show movie tags in extensions menu from movielist:"
 msgstr "Labels in menu weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:337
+#: ../AdvancedMovieSelectionSetup.py:352
 msgid "Displays movie tags function in the menu at the movie list."
 msgstr "Met deze optie worden de labelfuncties weergegeven in het menu van de Filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:338
+#: ../AdvancedMovieSelectionSetup.py:353
 msgid "Show filter by tags in extensions menu from movielist:"
 msgstr "Labelfilter in menu weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:338
+#: ../AdvancedMovieSelectionSetup.py:353
 msgid "Displays filter by tags function in the menu at the movie list."
 msgstr "Met deze optie worden het filteren van labels weergegeven in het menu van de Filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:339
+#: ../AdvancedMovieSelectionSetup.py:354
 msgid "Show search trailer on web in extensions menu from movielist:"
 msgstr "Trailer zoeken op het web in menu weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:339
+#: ../AdvancedMovieSelectionSetup.py:354
 msgid "Displays search trailer on web function in the menu at the movie list."
 msgstr "Geeft een zoekfunctie op het web voor Trailers weer in het menu van de filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:340
+#: ../AdvancedMovieSelectionSetup.py:355
+msgid "Show Set VSR in extensions menu from movielist:"
+msgstr "VZR in menu weergeven:"
+
+#: ../AdvancedMovieSelectionSetup.py:355
+msgid "Displays set VSR function in the menu at the movie list."
+msgstr "Met deze optie worden de \"VZR-funtie\" weergegeven in het menu van de Filmselectie."
+
+#: ../AdvancedMovieSelectionSetup.py:356
 msgid "Ask before delete:"
 msgstr "Vragen voor het verwijderen:"
 
-#: ../AdvancedMovieSelectionSetup.py:340
+#: ../AdvancedMovieSelectionSetup.py:356
 msgid "With this option you can turn on/off the security question before delete a movie."
 msgstr "OPGELET: met deze optie kan u de bevestigingsvraag bij het verwijderen uitschakelen."
 
-#: ../AdvancedMovieSelectionSetup.py:342
-#: ../AdvancedMovieSelectionSetup.py:344
-#: ../AdvancedMovieSelectionSetup.py:346
-#: ../AdvancedMovieSelectionSetup.py:348
-#: ../AdvancedMovieSelectionSetup.py:350
-#: ../AdvancedMovieSelectionSetup.py:352
-#: ../AdvancedMovieSelectionSetup.py:354
+#: ../AdvancedMovieSelectionSetup.py:358
+#: ../AdvancedMovieSelectionSetup.py:360
+#: ../AdvancedMovieSelectionSetup.py:362
+#: ../AdvancedMovieSelectionSetup.py:364
+#: ../AdvancedMovieSelectionSetup.py:366
+#: ../AdvancedMovieSelectionSetup.py:368
+#: ../AdvancedMovieSelectionSetup.py:370
 msgid "INFO button function:"
 msgstr "Functie INFO-knop:"
 
-#: ../AdvancedMovieSelectionSetup.py:342
-#: ../AdvancedMovieSelectionSetup.py:344
-#: ../AdvancedMovieSelectionSetup.py:346
-#: ../AdvancedMovieSelectionSetup.py:348
-#: ../AdvancedMovieSelectionSetup.py:350
-#: ../AdvancedMovieSelectionSetup.py:352
-#: ../AdvancedMovieSelectionSetup.py:354
+#: ../AdvancedMovieSelectionSetup.py:358
+#: ../AdvancedMovieSelectionSetup.py:360
+#: ../AdvancedMovieSelectionSetup.py:362
+#: ../AdvancedMovieSelectionSetup.py:364
+#: ../AdvancedMovieSelectionSetup.py:366
+#: ../AdvancedMovieSelectionSetup.py:368
+#: ../AdvancedMovieSelectionSetup.py:370
 msgid "With this option you can assign what function should have the info button. The selection depends on the installed plugins."
 msgstr "Met deze optie kan u aan de INFO-knop een functie toewijzen.  De keuze wordt bepaald door de geïnstalleerde plugins."
 
-#: ../AdvancedMovieSelectionSetup.py:355
+#: ../AdvancedMovieSelectionSetup.py:371
 msgid "Behavior when a movie is started:"
 msgstr "Gedrag bij starten van een film:"
 
-#: ../AdvancedMovieSelectionSetup.py:355
+#: ../AdvancedMovieSelectionSetup.py:371
 msgid "With this option you can assign what should happen when a movie start."
 msgstr "Met deze optie kan u instellen welke actie moet volgen bij het starten van een film."
 
-#: ../AdvancedMovieSelectionSetup.py:356
+#: ../AdvancedMovieSelectionSetup.py:372
 msgid "Behavior when a movie is stopped:"
 msgstr "Gedrag bij stoppen van een film:"
 
-#: ../AdvancedMovieSelectionSetup.py:356
+#: ../AdvancedMovieSelectionSetup.py:372
 msgid "With this option you can assign what should happen when a movie stop."
 msgstr "Met deze optie kan u instellen welke actie moet volgen bij het stoppen van een film."
 
-#: ../AdvancedMovieSelectionSetup.py:357
+#: ../AdvancedMovieSelectionSetup.py:373
 msgid "Behavior when a movie reaches the end:"
 msgstr "Gedrag bij bereiken filmeinde:"
 
-#: ../AdvancedMovieSelectionSetup.py:357
+#: ../AdvancedMovieSelectionSetup.py:373
 msgid "With this option you can assign what should happen when the end of the films was achieved."
 msgstr "Met deze optie kan u instellen welke actie moet volgen bij het bereiken van een filmeinde."
 
-#: ../AdvancedMovieSelectionSetup.py:358
+#: ../AdvancedMovieSelectionSetup.py:374
 msgid "Show Moviebar position setup in extensions menu from movielist:"
 msgstr "Wijzigen positie infobar in menu weergeven::"
 
-#: ../AdvancedMovieSelectionSetup.py:358
+#: ../AdvancedMovieSelectionSetup.py:374
 msgid "Displays the moviebar position setup function in the menu at the movie list."
 msgstr "Met deze optie wordt \"positie infobar aanpassen\" weergegeven in het menu van de Filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:360
+#: ../AdvancedMovieSelectionSetup.py:376
 msgid "Color for not ready seen movies:"
 msgstr "Kleur voor onvolledig afgespeelde films: "
 
-#: ../AdvancedMovieSelectionSetup.py:360
+#: ../AdvancedMovieSelectionSetup.py:376
 msgid "With this option you can assign what color should displayed for not ready seen movies in movie list."
 msgstr "Met deze optie kan u instellen welke kleur gebruikt wordt voor gedeeltelijk geziene films in de filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:361
+#: ../AdvancedMovieSelectionSetup.py:377
 msgid "Color for ready seen movies:"
 msgstr "Kleur voor volledig afgespeelde films: "
 
-#: ../AdvancedMovieSelectionSetup.py:361
+#: ../AdvancedMovieSelectionSetup.py:377
 msgid "With this option you can assign what color should displayed for ready seen movies in movie list."
 msgstr "Met deze optie kan u instellen welke kleur gebruikt wordt voor geziene films in de filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:362
+#: ../AdvancedMovieSelectionSetup.py:378
 msgid "Color for recording movies:"
 msgstr "Kleur voor lopende opnames: "
 
-#: ../AdvancedMovieSelectionSetup.py:362
+#: ../AdvancedMovieSelectionSetup.py:378
 msgid "With this option you can assign what color should displayed for recording movies in movie list."
 msgstr "Met deze optie kan u instellen welke kleur gebruikt wordt voor lopende opnames in de filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:363
+#: ../AdvancedMovieSelectionSetup.py:379
 msgid "Color for multiple selection:"
 msgstr "Kleur voor multi-selectie:"
 
-#: ../AdvancedMovieSelectionSetup.py:363
+#: ../AdvancedMovieSelectionSetup.py:379
 msgid "With this option you can assign what color should displayed for multiple selection in movie list."
 msgstr "Met deze optie kan u instellen welke kleur gebruikt wordt voor multi-selectie in de filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:364
+#: ../AdvancedMovieSelectionSetup.py:380
 msgid "Assign the date format for movielist:"
 msgstr "Datumformaat in de filmselectie:"
 
-#: ../AdvancedMovieSelectionSetup.py:364
+#: ../AdvancedMovieSelectionSetup.py:380
 msgid "With this option you can assign the date format in movie list (7 different sizes are available)."
 msgstr "Met deze opties kan u het datumformaat instellen (7 verschillende formaten beschikbaar)."
 
-#: ../AdvancedMovieSelectionSetup.py:366
+#: ../AdvancedMovieSelectionSetup.py:382
 msgid "Show new recordings icon:"
 msgstr "Icoon voor nieuwe opname weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:366
+#: ../AdvancedMovieSelectionSetup.py:382
 msgid "With this option you can display a icon for new recordings."
 msgstr "Met deze optie kan u instellen of er een icoon weergegeven wordt voor nieuwe opnames."
 
-#: ../AdvancedMovieSelectionSetup.py:367
+#: ../AdvancedMovieSelectionSetup.py:383
 msgid "Show Mini TV:"
 msgstr "Mini TV weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:367
+#: ../AdvancedMovieSelectionSetup.py:383
 msgid "With this option you can switch on/off the Mini TV in the movie list."
 msgstr "Met deze optie kan de Mini TV in de filmselectie aan/uit geschakeld worden."
 
-#: ../AdvancedMovieSelectionSetup.py:368
+#: ../AdvancedMovieSelectionSetup.py:384
 msgid "Use folder name for display covers:"
 msgstr "Gebruik mapnaam voor weergeven covers:"
 
-#: ../AdvancedMovieSelectionSetup.py:368
+#: ../AdvancedMovieSelectionSetup.py:384
 msgid "With this option you can use the foldername instead of folder.jpg to display covers in folders."
 msgstr "Met deze optie kan u de mapnaam gebruiken i.p.v. folder.jpg voor het weergven van covers."
 
-#: ../AdvancedMovieSelectionSetup.py:369
+#: ../AdvancedMovieSelectionSetup.py:385
 msgid "Close with EXIT key:"
 msgstr "Sluiten met EXIT knop:"
 
-#: ../AdvancedMovieSelectionSetup.py:369
+#: ../AdvancedMovieSelectionSetup.py:385
 msgid "If this option is enabled you can stop play a movie with the EXIT button, and the Advanced Movie Selection plugin will also be closed immediately (if the next option is disabled)."
 msgstr "Als deze optie geactiveerd is wordt de film eveneens gestopt bij het drukken van de EXIT knop, en de Geavanceerde Filmselectie zal ook gesloten worden (als de volgende optie uitgeschakeld is)."
 
-#: ../AdvancedMovieSelectionSetup.py:371
+#: ../AdvancedMovieSelectionSetup.py:387
 msgid "Use behavior when a movie is stopped:"
 msgstr "Gedrag bij stoppen van een film:"
 
-#: ../AdvancedMovieSelectionSetup.py:371
+#: ../AdvancedMovieSelectionSetup.py:387
 msgid "If this option is activated the behavior when stop a film also will used when you use the EXIT button."
 msgstr "Als deze optie geactiveerd is wordt de film eveneens gestopt bij het drukken van de EXIT knop."
 
-#: ../AdvancedMovieSelectionSetup.py:372
+#: ../AdvancedMovieSelectionSetup.py:388
 msgid "Show hotplug devices:"
 msgstr "Hotplug-media weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:372
+#: ../AdvancedMovieSelectionSetup.py:388
 msgid "Enable this option to use USB-Devices."
 msgstr "Activeer deze optie om USB-media te bebruiken."
 
-#: ../AdvancedMovieSelectionSetup.py:373
+#: ../AdvancedMovieSelectionSetup.py:389
 msgid "Show bookmarks in movielist:"
 msgstr "Bookmarks in de filmselectie weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:373
+#: ../AdvancedMovieSelectionSetup.py:389
 msgid "When enabled all created bookmarks appear in the movie list."
 msgstr "Indien geactiveerd worden alle bookmarks weergegeven in de filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:374
+#: ../AdvancedMovieSelectionSetup.py:390
 msgid "Show info messages:"
 msgstr "Informatie weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:374
+#: ../AdvancedMovieSelectionSetup.py:390
 msgid "If this option is activated will be displayed different info message. This should help with the operation of the extension."
 msgstr "Indien deze optie geactiveerd is worden er infoberichten weergegeven. Dit zou een hulp moeten zijn bij het gebruik van de plugin."
 
-#: ../AdvancedMovieSelectionSetup.py:375
+#: ../AdvancedMovieSelectionSetup.py:391
 msgid "Use alternative jump function:"
 msgstr "Gebruik alternatieve spoelfuncties:"
 
-#: ../AdvancedMovieSelectionSetup.py:375
+#: ../AdvancedMovieSelectionSetup.py:391
 msgid "If this option is activated more jump functions ar available. ATTENTION: Enigma 2 restart is necessary!"
 msgstr "Indien deze optie geactiveerd is komen er bijkomende spoelfuncties beschikbaar.  OPGELET: Enigma2 herstart noodzakelijk!"
 
-#: ../AdvancedMovieSelectionSetup.py:378
+#: ../AdvancedMovieSelectionSetup.py:394
 msgid "Change function from left/right buttons:"
 msgstr "Functie van links/rechts aanpassen:"
 
-#: ../AdvancedMovieSelectionSetup.py:378
+#: ../AdvancedMovieSelectionSetup.py:394
 msgid "If this option is activated the function of the left/right arrow buttons will changed. Normal you can use the buttons also for winding, if is changed you have quick access to the new jump function. ATTENTION: Enigma 2 restart is necessary!"
 msgstr "Indien deze optie geactiveerd is worden de functies van links/rechts aangepast. Normaal kunnen deze knoppen gebruikt worden om te spoelen, indien aangepast zijn er bijkomende spoelfuncties beschikbaar.  OPGELET: Enigma2 herstart noodzakelijk!"
 
-#: ../AdvancedMovieSelectionSetup.py:379
+#: ../AdvancedMovieSelectionSetup.py:395
 msgid "Manual jump sensibility:"
 msgstr "Grootte manueel springen:"
 
-#: ../AdvancedMovieSelectionSetup.py:379
+#: ../AdvancedMovieSelectionSetup.py:395
 msgid "Here you can adjust the manually jump length relative to the film length in percent."
 msgstr "Hier kan ingesteld worden met welke afstand manueel gesprongen wordt. Percentage t.o.v. de filmlengte. "
 
-#: ../AdvancedMovieSelectionSetup.py:380
+#: ../AdvancedMovieSelectionSetup.py:396
 msgid "Use wastebasket:"
 msgstr "Prullemand gebruiken:"
 
-#: ../AdvancedMovieSelectionSetup.py:380
+#: ../AdvancedMovieSelectionSetup.py:396
 msgid "If this option is activated the movie will not be deleted but moved into the wastebasket."
 msgstr "Als deze optie geactiveerd is wordt de film niet verwijderd, maar naar de prullemand verplaatst."
 
-#: ../AdvancedMovieSelectionSetup.py:382
+#: ../AdvancedMovieSelectionSetup.py:398
 msgid "Show Wastebasket in extensions menu from movielist:"
 msgstr "Prullemand in menu weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:382
+#: ../AdvancedMovieSelectionSetup.py:398
 msgid "Displays wastebasket function in the menu at the movie list."
 msgstr "Met deze optie wordt de prullemand weergegeven in het menu van de Filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:383
+#: ../AdvancedMovieSelectionSetup.py:399
 msgid "Show Clientbox setup in movielist:"
 msgstr "Clientbox in de filmselectie weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:383
+#: ../AdvancedMovieSelectionSetup.py:399
 msgid "Displays Clientbox setup function in the menu at the movie list."
 msgstr "Met deze optie wordt de optie \"Clientbox Instellingen\" weergegeven in het menu van de Filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:384
+#: ../AdvancedMovieSelectionSetup.py:400
 msgid "Wastebasket file(s):"
 msgstr "Bestanden in prullemand:"
 
-#: ../AdvancedMovieSelectionSetup.py:384
+#: ../AdvancedMovieSelectionSetup.py:400
 msgid "Here you can select which files to Wastebasket are displayed. ATTENTION: All directorys below '/media' will take very long until the list is displayed!"
 msgstr "Hier kan ingesteld worden welke bestanden de prullemand weergeeft. OPGELET: alle mappen onder '/media' heeft tot gevolg dat het laden lang kan duren alvorens de lijst weergegeven wordt!"
 
-#: ../AdvancedMovieSelectionSetup.py:385
+#: ../AdvancedMovieSelectionSetup.py:401
 msgid "Here you can choose how many decimal points for the file size in the wastebasket will be displayed."
 msgstr "Hier kan ingesteld worden hoeveel decimalen weergegeven worden voor de grootte van de prullemand."
 
-#: ../AdvancedMovieSelectionSetup.py:386
+#: ../AdvancedMovieSelectionSetup.py:402
 msgid "Server enabled:"
 msgstr "Server actief:"
 
-#: ../AdvancedMovieSelectionSetup.py:386
+#: ../AdvancedMovieSelectionSetup.py:402
 msgid "If you enable this feature, all remote functions are enabled."
 msgstr "Indien deze functie geactiveerd wordt, zijn alle remote functies beschikbaar."
 
-#: ../AdvancedMovieSelectionSetup.py:387
+#: ../AdvancedMovieSelectionSetup.py:403
 msgid "Auto empty wastebasket:"
 msgstr "Prullemand automatisch ledigen:"
 
-#: ../AdvancedMovieSelectionSetup.py:387
+#: ../AdvancedMovieSelectionSetup.py:403
 msgid "If you enable this function the wastebasket will be emptied automatically at the set time."
 msgstr "Met deze optie wordt de prullemand automatisch geledigd op de ingestelde tijd."
 
-#: ../AdvancedMovieSelectionSetup.py:389
+#: ../AdvancedMovieSelectionSetup.py:405
 msgid "Auto empty wastebasket time:"
 msgstr "Uur prullemand ledigen:"
 
-#: ../AdvancedMovieSelectionSetup.py:389
+#: ../AdvancedMovieSelectionSetup.py:405
 msgid "Here you can define when to empty the wastebasket."
 msgstr "Hier kan ingesteld worden wanneer de prullemand automatisch geledigd wordt."
 
-#: ../AdvancedMovieSelectionSetup.py:390
+#: ../AdvancedMovieSelectionSetup.py:406
 msgid "Check again in x minutes:"
 msgstr "Onieuw controleren na x minuten:"
 
-#: ../AdvancedMovieSelectionSetup.py:390
+#: ../AdvancedMovieSelectionSetup.py:406
 msgid "If recordings are active again after the set time is trying to empty the wastebasket."
 msgstr "Indien opnames actief zijn op het ingestelde uur wordt later nog eens geprobeerd de prullemand te ledigen."
 
-#: ../AdvancedMovieSelectionSetup.py:391
+#: ../AdvancedMovieSelectionSetup.py:407
 msgid "Start at the beginning depends on end (in Minutes):"
 msgstr "Afspelen van begin afhankeleijk van einde (in minuten):"
 
-#: ../AdvancedMovieSelectionSetup.py:391
+#: ../AdvancedMovieSelectionSetup.py:407
 msgid "Here you can set off when a movie to play automatically from the beginning when you start again (On settings=0, functions is disabled)."
 msgstr "Als een film herstart wordt en het markeerpunt bevindt zich op x minuten van het einde, wordt de film automatisch vanaf het begin afgespeeld. (als ingesteld op 0: functie uitgeschakeld)"
 
-#: ../AdvancedMovieSelectionSetup.py:392
+#: ../AdvancedMovieSelectionSetup.py:408
 msgid "Use activ Skin LCD/OLED representation:"
 msgstr "Gebruik LCD/OLED van de actieve skin:"
 
-#: ../AdvancedMovieSelectionSetup.py:392
+#: ../AdvancedMovieSelectionSetup.py:408
 msgid "If you enable this function, the display summary from aktiv skin will be used."
 msgstr "Indien geactiveerd wordt de LCD/OLED weergave van de actieve skin gebruikt."
 
-#: ../AdvancedMovieSelectionSetup.py:394
+#: ../AdvancedMovieSelectionSetup.py:410
 msgid "Show date:"
 msgstr "Datum weergeven"
 
-#: ../AdvancedMovieSelectionSetup.py:394
+#: ../AdvancedMovieSelectionSetup.py:410
 msgid "If this option is activated the date will be displayed on the lcd/oled when no short description is available."
 msgstr "Als deze optie geactiveerd is wordt de film niet verwijderd, maar naar de prullemand verplaatst."
 
-#: ../AdvancedMovieSelectionSetup.py:396
+#: ../AdvancedMovieSelectionSetup.py:412
 msgid "Use date from timestamp:"
 msgstr "Gebruik datum van bestand:"
 
-#: ../AdvancedMovieSelectionSetup.py:396
+#: ../AdvancedMovieSelectionSetup.py:412
 msgid "If this option is activated the date from the file create instead today's date will be displayed on the lcd/oled when no short description is available."
 msgstr "Als deze optie geactiveerd is wordt de de datum van het bestand i.p.v. de actuele datum op de lcd/oled weergegeven indien geen korte beschrijving beschikbaar is."
 
-#: ../AdvancedMovieSelectionSetup.py:398
+#: ../AdvancedMovieSelectionSetup.py:414
 msgid "Use video preview:"
 msgstr "Preview weergeven:"
 
-#: ../AdvancedMovieSelectionSetup.py:398
+#: ../AdvancedMovieSelectionSetup.py:414
 msgid "If you enable this function, selected movie in movielist will bring you a preview."
 msgstr "Indien geactiveerd wordt er een preview van de geselecteerde film weergegeven."
 
-#: ../AdvancedMovieSelectionSetup.py:400
+#: ../AdvancedMovieSelectionSetup.py:418
+msgid "Show video preview in fullscreen:"
+msgstr "Filmpreview als volledig beeld:"
+
+#: ../AdvancedMovieSelectionSetup.py:418
+msgid "If you enable this function, the video preview function will display as full screen in skin."
+msgstr "Indien geactiveerd wordt er een preview van de geselecteerde film weergegeven op het volledige scherm."
+
+#: ../AdvancedMovieSelectionSetup.py:419
 msgid "Video preview autostart:"
 msgstr "Preview autostart:"
 
-#: ../AdvancedMovieSelectionSetup.py:400
+#: ../AdvancedMovieSelectionSetup.py:419
 msgid "If you enable this feature, the movie preview starts automatically after the delay with a change in the movie list."
 msgstr "Indien geactiveerd wordt de filmpreview automatisch gestart na de ingestelde vertraging."
 
-#: ../AdvancedMovieSelectionSetup.py:402
+#: ../AdvancedMovieSelectionSetup.py:421
 msgid "Video preview delay:"
 msgstr "Preview vertraging:"
 
-#: ../AdvancedMovieSelectionSetup.py:402
+#: ../AdvancedMovieSelectionSetup.py:421
 msgid "Setup the delay in seconds to start the video preview."
 msgstr "Vetraging (seconden) voor het starten van de preview."
 
-#: ../AdvancedMovieSelectionSetup.py:403
+#: ../AdvancedMovieSelectionSetup.py:422
 msgid "Use last stop mark:"
 msgstr "Laatste markeerpunt gebruiken: "
 
-#: ../AdvancedMovieSelectionSetup.py:403
+#: ../AdvancedMovieSelectionSetup.py:422
 msgid "Preview will start on last stop marker."
 msgstr "Preview start op laatste markeerpunt."
 
-#: ../AdvancedMovieSelectionSetup.py:404
+#: ../AdvancedMovieSelectionSetup.py:423
 msgid "Video preview jump time (in minutes):"
 msgstr "Preview tijd voor springen (minuten):"
 
-#: ../AdvancedMovieSelectionSetup.py:404
+#: ../AdvancedMovieSelectionSetup.py:423
 msgid "Here you can set the jump time for the movie preview (< > buttons or bouquet +/- buttons)."
 msgstr "Hier kan de tijd voor het springen van de preview ingesteld worden (< > knoppen of bouquet +/- )."
 
-#: ../AdvancedMovieSelectionSetup.py:405
+#: ../AdvancedMovieSelectionSetup.py:424
+msgid "Show recorded movies in epg:"
+msgstr "Opgenomen filmen in EPG markeren:"
+
+#: ../AdvancedMovieSelectionSetup.py:424
+msgid "If you enable this function, your recorded movies will be marked in epg list."
+msgstr "Indien geactiveerd worden opgenomen filmen in de EPG gemarkeerd."
+
+#: ../AdvancedMovieSelectionSetup.py:425
 msgid "Enable Enigma2 debug:"
 msgstr "Enigma2-debugging activeren:"
 
-#: ../AdvancedMovieSelectionSetup.py:405
+#: ../AdvancedMovieSelectionSetup.py:425
 msgid "If you enable this function, all standard output from enigma will be stored to /tmp folder."
 msgstr "Indien geactiveerd worden alle standaardberichten van enigma bewaard in de /tmp map."
 
-#: ../AdvancedMovieSelectionSetup.py:413
+#: ../AdvancedMovieSelectionSetup.py:433
 #: ../ClientSetup.py:225
 msgid "No Helptext available!"
 msgstr "Geen hulptekst beschikbaar!"
 
-#: ../AdvancedMovieSelectionSetup.py:417
+#: ../AdvancedMovieSelectionSetup.py:437
 msgid "IMDb plugin installed. Assign function to info button is possible."
 msgstr "IMDb Plugin is geïnstalleerd. Functie kan aan de INFO-knop toegewezen worden."
 
-#: ../AdvancedMovieSelectionSetup.py:419
+#: ../AdvancedMovieSelectionSetup.py:439
 msgid "IMDb plugin NOT installed. Assign function to info button is NOT possible."
 msgstr "IMDb Plugin is NIET geïnstalleerd. Functie kan NIET aan de INFO-knop toegewezen worden."
 
-#: ../AdvancedMovieSelectionSetup.py:421
+#: ../AdvancedMovieSelectionSetup.py:441
 msgid "OFDb plugin installed. Assign function to info button is possible."
 msgstr "OFDb Plugin is geïnstalleerd. Functie kan aan de INFO-knop toegewezen worden."
 
-#: ../AdvancedMovieSelectionSetup.py:423
+#: ../AdvancedMovieSelectionSetup.py:443
 msgid "OFDb plugin NOT installed. Assign function to info button is NOT possible."
 msgstr "OFD Plugin is NIET geïnstalleerd. Functie kan NIET aan de INFO-knop toegewezen worden."
 
-#: ../AdvancedMovieSelectionSetup.py:425
+#: ../AdvancedMovieSelectionSetup.py:445
 msgid "TMDb plugin installed. Assign function to info button is possible."
 msgstr "TMDb Plugin is geïnstalleerd. Functie kan aan de INFO-knop toegewezen worden."
 
-#: ../AdvancedMovieSelectionSetup.py:427
+#: ../AdvancedMovieSelectionSetup.py:447
 msgid "TMDb plugin NOT installed. Assign function to info button is NOT possible."
 msgstr "TMDb Plugin is NIET geïnstalleerd. Functie kan NIET aan de INFO-knop toegewezen worden."
 
-#: ../AdvancedMovieSelectionSetup.py:429
+#: ../AdvancedMovieSelectionSetup.py:449
 msgid "YTTrailer plugin installed. Search for trailers on the Web is possible."
 msgstr "YTTrailer Plugin is geïnstalleerd. Zoeken naar trailers op het web is mogelijk."
 
-#: ../AdvancedMovieSelectionSetup.py:431
+#: ../AdvancedMovieSelectionSetup.py:451
 msgid "YTTrailer plugin NOT installed. Search for trailers on the Web is NOT possible."
 msgstr "YTTrailer Plugin is NIET geïnstalleerd. Zoeken naar trailers op het web is NIET mogelijk."
 
-#: ../AdvancedMovieSelectionSetup.py:442
-#: ../AdvancedMovieSelectionSetup.py:969
+#: ../AdvancedMovieSelectionSetup.py:462
+#: ../AdvancedMovieSelectionSetup.py:996
 #: ../ClientSetup.py:236
 msgid "Really close without saving settings?"
 msgstr "Sluiten zonder de instellingen te bewaren?"
 
-#: ../AdvancedMovieSelectionSetup.py:479
+#: ../AdvancedMovieSelectionSetup.py:502
 msgid ""
 "Some settings changes require a restart to take effect.\n"
 "If you  use a skin without PiG (Picture in Graphic) you have to restart the box (not only Enigma 2)!\n"
@@ -793,7 +817,7 @@ msgstr ""
 "Indien een Skin zonder PiG (Beeld in Grafiek/MiniTV) gebruikt wordt, is een volledige herstart van de Box noodzakeleijk (Enigma 2 alleen is onvoldoende) !\n"
 "Met JA wordt \"enkel\" Enigma 2 herstart, met NEE de volledige Box."
 
-#: ../AdvancedMovieSelectionSetup.py:481
+#: ../AdvancedMovieSelectionSetup.py:504
 msgid ""
 "Some settings changes require a Enigma 2 restart to take effect.\n"
 "\n"
@@ -803,290 +827,314 @@ msgstr ""
 "\n"
 "Enigma2 herstarten?"
 
-#: ../AdvancedMovieSelectionSetup.py:484
+#: ../AdvancedMovieSelectionSetup.py:507
 msgid "Some settings changes require close/reopen the movielist to take effect."
 msgstr "Sommige aanpassingen vereisen het stoppen/starten van de filmselectie."
 
-#: ../AdvancedMovieSelectionSetup.py:490
-#: ../AdvancedMovieSelectionSetup.py:500
+#: ../AdvancedMovieSelectionSetup.py:513
+#: ../AdvancedMovieSelectionSetup.py:523
 msgid "Aborted by user!!"
 msgstr "Annulatie door gebruiker!!"
 
-#: ../AdvancedMovieSelectionSetup.py:525
+#: ../AdvancedMovieSelectionSetup.py:548
 msgid "Nothing"
 msgstr "niets toegewezen"
 
-#: ../AdvancedMovieSelectionSetup.py:525
+#: ../AdvancedMovieSelectionSetup.py:548
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: ../AdvancedMovieSelectionSetup.py:525
+#: ../AdvancedMovieSelectionSetup.py:548
 msgid "Wastebasket"
 msgstr "Prullemand"
 
-#: ../AdvancedMovieSelectionSetup.py:525
+#: ../AdvancedMovieSelectionSetup.py:548
 msgid "Sort"
 msgstr "Sorteren"
 
-#: ../AdvancedMovieSelectionSetup.py:525
+#: ../AdvancedMovieSelectionSetup.py:548
 msgid "Home"
 msgstr "Home"
 
-#: ../AdvancedMovieSelectionSetup.py:525
+#: ../AdvancedMovieSelectionSetup.py:548
 msgid "Bookmark 1"
 msgstr "Favoriet 1"
 
-#: ../AdvancedMovieSelectionSetup.py:525
+#: ../AdvancedMovieSelectionSetup.py:548
 msgid "Bookmark 2"
 msgstr "Favoriet 2"
 
-#: ../AdvancedMovieSelectionSetup.py:525
+#: ../AdvancedMovieSelectionSetup.py:548
 msgid "Bookmark 3"
 msgstr "Favoriet 3"
 
-#: ../AdvancedMovieSelectionSetup.py:525
+#: ../AdvancedMovieSelectionSetup.py:548
 msgid "Bookmark(s) on/off"
 msgstr "Bookmark(s) aan/uit"
 
-#: ../AdvancedMovieSelectionSetup.py:525
+#: ../AdvancedMovieSelectionSetup.py:548
 msgid "Filter by Tags"
 msgstr "Filteren volgens label"
 
-#: ../AdvancedMovieSelectionSetup.py:525
+#: ../AdvancedMovieSelectionSetup.py:548
 msgid "Tag Editor"
 msgstr "Labeleditor"
 
-#: ../AdvancedMovieSelectionSetup.py:525
+#: ../AdvancedMovieSelectionSetup.py:548
 msgid "Move-Copy"
 msgstr "Verplaatsen/Kopiëren"
 
-#: ../AdvancedMovieSelectionSetup.py:525
+#: ../AdvancedMovieSelectionSetup.py:548
 msgid "Rename"
 msgstr "Naam wijzigen"
 
-#: ../AdvancedMovieSelectionSetup.py:526
+#: ../AdvancedMovieSelectionSetup.py:549
 msgid "TMDb Info & D/L"
 msgstr "Zoeken & D/L via TMDb"
 
-#: ../AdvancedMovieSelectionSetup.py:526
+#: ../AdvancedMovieSelectionSetup.py:549
 msgid "Mark as seen"
 msgstr "Film als gezien markeren"
 
-#: ../AdvancedMovieSelectionSetup.py:526
+#: ../AdvancedMovieSelectionSetup.py:549
 msgid "Mark as unseen"
 msgstr "Film als ongezien markeren"
 
-#: ../AdvancedMovieSelectionSetup.py:526
+#: ../AdvancedMovieSelectionSetup.py:549
 msgid "Show/Hide folders"
 msgstr "Weergeven/Verbergen mappen"
 
-#: ../AdvancedMovieSelectionSetup.py:526
+#: ../AdvancedMovieSelectionSetup.py:549
 msgid "Trailer search"
 msgstr "Zoeken Trailer"
 
-#: ../AdvancedMovieSelectionSetup.py:526
+#: ../AdvancedMovieSelectionSetup.py:549
 msgid "Toggle seen"
 msgstr "Gezien/Ongezien"
 
-#: ../AdvancedMovieSelectionSetup.py:526
+#: ../AdvancedMovieSelectionSetup.py:549
 msgid "Show Timer"
 msgstr "Timerlijst"
 
-#: ../AdvancedMovieSelectionSetup.py:526
+#: ../AdvancedMovieSelectionSetup.py:549
 msgid "TheTVDB Info & D/L"
 msgstr "Zoeken & D/L via TheTVDB"
 
-#: ../AdvancedMovieSelectionSetup.py:527
+#: ../AdvancedMovieSelectionSetup.py:550
 msgid "DM-600PVR"
 msgstr "DM-600PVR"
 
-#: ../AdvancedMovieSelectionSetup.py:527
+#: ../AdvancedMovieSelectionSetup.py:550
 msgid "DM-7000"
 msgstr "DM-7000"
 
-#: ../AdvancedMovieSelectionSetup.py:527
+#: ../AdvancedMovieSelectionSetup.py:550
 msgid "DM-7025"
 msgstr "DM-7025"
 
-#: ../AdvancedMovieSelectionSetup.py:527
+#: ../AdvancedMovieSelectionSetup.py:550
 msgid "DM-8000HD"
 msgstr "DM-8000HD"
 
-#: ../AdvancedMovieSelectionSetup.py:527
+#: ../AdvancedMovieSelectionSetup.py:550
 msgid "DM-500HD"
 msgstr "DM-500HD"
 
-#: ../AdvancedMovieSelectionSetup.py:527
+#: ../AdvancedMovieSelectionSetup.py:550
 msgid "DM-800HD"
 msgstr "DM-800HD"
 
-#: ../AdvancedMovieSelectionSetup.py:527
+#: ../AdvancedMovieSelectionSetup.py:550
 msgid "DM-800HDse"
 msgstr "DM-800HDse"
 
-#: ../AdvancedMovieSelectionSetup.py:527
+#: ../AdvancedMovieSelectionSetup.py:550
 msgid "DM-7020HD"
 msgstr "DM-7020HD"
 
-#: ../AdvancedMovieSelectionSetup.py:527
+#: ../AdvancedMovieSelectionSetup.py:550
 msgid "internal HDD"
 msgstr "interne HDD"
 
-#: ../AdvancedMovieSelectionSetup.py:527
+#: ../AdvancedMovieSelectionSetup.py:550
 msgid "NAS"
 msgstr "NAS"
 
-#: ../AdvancedMovieSelectionSetup.py:527
+#: ../AdvancedMovieSelectionSetup.py:550
 msgid "NAS-Movies"
 msgstr "NAS-Films"
 
-#: ../AdvancedMovieSelectionSetup.py:528
+#: ../AdvancedMovieSelectionSetup.py:551
 msgid "Display plugin name"
 msgstr "Plugin-naam"
 
-#: ../AdvancedMovieSelectionSetup.py:528
+#: ../AdvancedMovieSelectionSetup.py:551
 msgid "Display plugin description"
 msgstr "Plugin-beschrijving"
 
-#: ../AdvancedMovieSelectionSetup.py:544
+#: ../AdvancedMovieSelectionSetup.py:551
+msgid "Show up to VSR-X"
+msgstr "Tot VZR-X weergeven"
+
+#: ../AdvancedMovieSelectionSetup.py:552
+msgid "VSR-0"
+msgstr "VZR-0"
+
+#: ../AdvancedMovieSelectionSetup.py:552
+msgid "VSR-6"
+msgstr "VZR-6"
+
+#: ../AdvancedMovieSelectionSetup.py:552
+msgid "VSR-12"
+msgstr "VZR-12"
+
+#: ../AdvancedMovieSelectionSetup.py:552
+msgid "VSR-16"
+msgstr "VZR-16"
+
+#: ../AdvancedMovieSelectionSetup.py:552
+msgid "VSR-18"
+msgstr "VZR-18"
+
+#: ../AdvancedMovieSelectionSetup.py:568
 msgid "IMPORTANT: If changes are made here the Advanced Movie Selection must be completely closed so the changes can be adopted!!"
 msgstr "BELANGRIJK: indien hier wijzigingen doorgevoerd worden moet de Geavanceerde FilmSelectie volledig gesloten worden !!"
 
-#: ../AdvancedMovieSelectionSetup.py:545
+#: ../AdvancedMovieSelectionSetup.py:569
 #: ../DownloadMovies.py:72
 msgid "Cancel"
 msgstr "Annuleren"
 
-#: ../AdvancedMovieSelectionSetup.py:546
-#: ../AdvancedMovieSelectionSetup.py:852
+#: ../AdvancedMovieSelectionSetup.py:570
+#: ../AdvancedMovieSelectionSetup.py:879
 msgid "Save/Close"
 msgstr "Bewaren/Sluiten"
 
-#: ../AdvancedMovieSelectionSetup.py:547
+#: ../AdvancedMovieSelectionSetup.py:571
 msgid "Own button description"
 msgstr "Eigen Knopbeschrijving"
 
-#: ../AdvancedMovieSelectionSetup.py:640
+#: ../AdvancedMovieSelectionSetup.py:665
 msgid "Movie Quick Button Setup"
 msgstr "Kleurknoppen instellen"
 
-#: ../AdvancedMovieSelectionSetup.py:680
+#: ../AdvancedMovieSelectionSetup.py:705
 msgid "Assigned to red key"
 msgstr "Toewijzen ROOD:"
 
-#: ../AdvancedMovieSelectionSetup.py:682
+#: ../AdvancedMovieSelectionSetup.py:707
 msgid "Assigned to green key"
 msgstr "Toewijzen GROEN:"
 
-#: ../AdvancedMovieSelectionSetup.py:684
+#: ../AdvancedMovieSelectionSetup.py:709
 msgid "Assigned to yellow key"
 msgstr "Toewijzen GEEL:"
 
-#: ../AdvancedMovieSelectionSetup.py:686
+#: ../AdvancedMovieSelectionSetup.py:711
 msgid "Assigned to blue key"
 msgstr "Toewijzen BLAUW:"
 
-#: ../AdvancedMovieSelectionSetup.py:688
+#: ../AdvancedMovieSelectionSetup.py:713
 msgid "Button caption"
 msgstr "Knopbenaming:"
 
-#: ../AdvancedMovieSelectionSetup.py:690
+#: ../AdvancedMovieSelectionSetup.py:715
 msgid "Home button text"
 msgstr "Naam HOME-knop:"
 
-#: ../AdvancedMovieSelectionSetup.py:692
+#: ../AdvancedMovieSelectionSetup.py:717
 msgid "Bookmark 1 button text"
 msgstr "Naam Favoriet1-knop"
 
-#: ../AdvancedMovieSelectionSetup.py:694
+#: ../AdvancedMovieSelectionSetup.py:719
 msgid "Bookmark 2 button text"
 msgstr "Naam Favoriet2-knop"
 
-#: ../AdvancedMovieSelectionSetup.py:696
+#: ../AdvancedMovieSelectionSetup.py:721
 msgid "Bookmark 3 button text"
 msgstr "Naam Favoriet3-knop"
 
-#: ../AdvancedMovieSelectionSetup.py:698
+#: ../AdvancedMovieSelectionSetup.py:723
 msgid "Home path"
 msgstr "HOME-pad"
 
-#: ../AdvancedMovieSelectionSetup.py:700
+#: ../AdvancedMovieSelectionSetup.py:725
 msgid "Bookmark 1 path"
 msgstr "Favoriet1-pad:"
 
-#: ../AdvancedMovieSelectionSetup.py:702
+#: ../AdvancedMovieSelectionSetup.py:727
 msgid "Bookmark 2 path"
 msgstr "Favoriet2-pad:"
 
-#: ../AdvancedMovieSelectionSetup.py:704
+#: ../AdvancedMovieSelectionSetup.py:729
 msgid "Bookmark 3 path"
 msgstr "Favoriet3-pad:"
 
-#: ../AdvancedMovieSelectionSetup.py:736
+#: ../AdvancedMovieSelectionSetup.py:761
 msgid "Movie Quick Button Home path"
 msgstr "Keuze van het HOME-pad"
 
-#: ../AdvancedMovieSelectionSetup.py:739
+#: ../AdvancedMovieSelectionSetup.py:764
 msgid "Movie Quick Button Bookmark 1 path"
 msgstr "Keuze van het Favoriet1-pad:"
 
-#: ../AdvancedMovieSelectionSetup.py:742
+#: ../AdvancedMovieSelectionSetup.py:767
 msgid "Movie Quick Button Bookmark 2 path"
 msgstr "Keuze van het Favoriet2-pad:"
 
-#: ../AdvancedMovieSelectionSetup.py:745
+#: ../AdvancedMovieSelectionSetup.py:770
 msgid "Movie Quick Button Bookmark 3 path"
 msgstr "Keuze van het Favoriet3-pad:"
 
-#: ../AdvancedMovieSelectionSetup.py:861
+#: ../AdvancedMovieSelectionSetup.py:888
 msgid "Movie Quick Button Name Setup"
 msgstr "Benaming kleurknoppen"
 
-#: ../AdvancedMovieSelectionSetup.py:873
+#: ../AdvancedMovieSelectionSetup.py:900
 msgid "Enter Home button descrition:"
 msgstr "Benaming HOME-knop:"
 
-#: ../AdvancedMovieSelectionSetup.py:875
+#: ../AdvancedMovieSelectionSetup.py:902
 msgid "Enter Bookmark 1 button descrition:"
 msgstr "Benaming Favoriet1-knop:"
 
-#: ../AdvancedMovieSelectionSetup.py:877
+#: ../AdvancedMovieSelectionSetup.py:904
 msgid "Enter Bookmark 2 button descrition:"
 msgstr "Benaming Favoriet2-knop:"
 
-#: ../AdvancedMovieSelectionSetup.py:879
+#: ../AdvancedMovieSelectionSetup.py:906
 msgid "Enter Bookmark 3 button descrition:"
 msgstr "Benaming Favoriet3-knop:"
 
-#: ../AdvancedMovieSelectionSetup.py:903
+#: ../AdvancedMovieSelectionSetup.py:930
 msgid "Home button description:"
 msgstr "Beschrijving HOME-knop:"
 
-#: ../AdvancedMovieSelectionSetup.py:904
+#: ../AdvancedMovieSelectionSetup.py:931
 msgid "Bookmark 1 button description:"
 msgstr "Beschrijving Favoriet1-knop:"
 
-#: ../AdvancedMovieSelectionSetup.py:905
+#: ../AdvancedMovieSelectionSetup.py:932
 msgid "Bookmark 2 button description:"
 msgstr "Beschrijving Favoriet3-knop:"
 
-#: ../AdvancedMovieSelectionSetup.py:906
+#: ../AdvancedMovieSelectionSetup.py:933
 msgid "Bookmark 3 button description:"
 msgstr "Beschrijving Favoriet3-knop:"
 
-#: ../AdvancedMovieSelectionSetup.py:919
+#: ../AdvancedMovieSelectionSetup.py:946
 msgid "Here you can give the home button a special name. After saving the changes color key settings will be closed, reopen it then the changes is to selection."
 msgstr "Hier kan u de naam van de HOME-knop wijzigen. Na het bewaren worden de instellingen gesloten, en na het heropnen zijn de wijzigingen beschikbaar."
 
-#: ../AdvancedMovieSelectionSetup.py:923
+#: ../AdvancedMovieSelectionSetup.py:950
 msgid "Here you can give the bookmark 1 button a special name. After saving the changes color key settings will be closed, reopen it then the changes is to selection."
 msgstr "Hier kan u de naam van de Favoriet1-knop wijzigen. Na het bewaren worden de instellingen gesloten, en na het heropnen zijn de wijzigingen beschikbaar."
 
-#: ../AdvancedMovieSelectionSetup.py:927
+#: ../AdvancedMovieSelectionSetup.py:954
 msgid "Here you can give the bookmark 2 button a special name. After saving the changes color key settings will be closed, reopen it then the changes is to selection."
 msgstr "Hier kan u de naam van de Favoriet2-knop wijzigen. Na het bewaren worden de instellingen gesloten, en na het heropnen zijn de wijzigingen beschikbaar."
 
-#: ../AdvancedMovieSelectionSetup.py:931
+#: ../AdvancedMovieSelectionSetup.py:958
 msgid "Here you can give the bookmark 3 button a special name. After saving the changes color key settings will be closed, reopen it then the changes is to selection."
 msgstr "Hier kan u de naam van de Favoriet3-knop wijzigen. Na het bewaren worden de instellingen gesloten, en na het heropnen zijn de wijzigingen beschikbaar."
 
@@ -1433,12 +1481,12 @@ msgstr ""
 "Verplaatsen/Kopiëren werd afgebroken!\n"
 "%s"
 
-#: ../MovieList.py:557
-#: ../MovieList.py:560
+#: ../MovieList.py:558
+#: ../MovieList.py:561
 msgid "REC"
 msgstr "REC"
 
-#: ../MovieList.py:562
+#: ../MovieList.py:563
 msgid "Records"
 msgstr "Opname loopt"
 
@@ -1458,214 +1506,218 @@ msgstr ""
 msgid "Show all movies"
 msgstr "Alle films weergeven"
 
-#: ../MovieSelection.py:160
+#: ../MovieSelection.py:162
+msgid "Set VSR"
+msgstr "VZR instellen"
+
+#: ../MovieSelection.py:164
 msgid "Unmount"
 msgstr "Unmount"
 
-#: ../MovieSelection.py:173
+#: ../MovieSelection.py:175
 msgid "Move/Copy"
 msgstr "Verplaatsen/Kopiëren"
 
-#: ../MovieSelection.py:178
+#: ../MovieSelection.py:180
 msgid "Movie search"
 msgstr "Film zoeken"
 
-#: ../MovieSelection.py:180
+#: ../MovieSelection.py:182
 msgid "Mark movie as seen"
 msgstr "Film als gezien markeren"
 
-#: ../MovieSelection.py:181
+#: ../MovieSelection.py:183
 msgid "Mark movie as unseen"
 msgstr "Film als ongezien markeren"
 
-#: ../MovieSelection.py:187
+#: ../MovieSelection.py:189
 msgid "Alphabetic sort"
 msgstr "Alfabetisch sorteren"
 
-#: ../MovieSelection.py:189
+#: ../MovieSelection.py:191
 msgid "Sort by description"
 msgstr "Sorteren volgens beschrijving"
 
-#: ../MovieSelection.py:191
+#: ../MovieSelection.py:193
 msgid "Sort by date (descending)"
 msgstr "Sorteren volgens datum (aflopend)"
 
-#: ../MovieSelection.py:193
+#: ../MovieSelection.py:195
 msgid "Sort by date (ascending)"
 msgstr "Sorteren volgens datum (oplopend)"
 
-#: ../MovieSelection.py:196
+#: ../MovieSelection.py:198
 msgid "List style default"
 msgstr "Standaard lijstweergave"
 
-#: ../MovieSelection.py:197
+#: ../MovieSelection.py:199
 msgid "List style extended"
 msgstr "Uitgebreide lijstweergave"
 
-#: ../MovieSelection.py:198
+#: ../MovieSelection.py:200
 msgid "List style compact"
 msgstr "Compacte lijstweergave"
 
-#: ../MovieSelection.py:199
+#: ../MovieSelection.py:201
 msgid "List style compact with description"
 msgstr "Compacte lijstweergave met filmbeschrijving"
 
-#: ../MovieSelection.py:200
+#: ../MovieSelection.py:202
 msgid "List style single line"
 msgstr "Single-lijn lijstweergave"
 
-#: ../MovieSelection.py:201
+#: ../MovieSelection.py:203
 msgid "List style Advanced Movie Selection single line"
 msgstr "Geavanceerde single-lijn lijstweergave"
 
-#: ../MovieSelection.py:205
+#: ../MovieSelection.py:207
 msgid "Hide broadcaster"
 msgstr "Kanaalnaam verbergen"
 
-#: ../MovieSelection.py:207
+#: ../MovieSelection.py:209
 msgid "Show broadcaster"
 msgstr "Kanaalnaam weergeven"
 
-#: ../MovieSelection.py:210
+#: ../MovieSelection.py:212
 msgid "Hide tags in movielist"
 msgstr "Labels in filmselectie verbergen"
 
-#: ../MovieSelection.py:212
+#: ../MovieSelection.py:214
 msgid "Show tags in movielist"
 msgstr "Labels in de filmselectie weergeven:"
 
-#: ../MovieSelection.py:215
+#: ../MovieSelection.py:217
 msgid "Hide extended description"
 msgstr "Filmbeschrijving verbergen"
 
-#: ../MovieSelection.py:217
+#: ../MovieSelection.py:219
 msgid "Show extended description"
 msgstr "Filmbeschrijving weergeven"
 
-#: ../MovieSelection.py:219
+#: ../MovieSelection.py:221
 msgid "Hide date entry in movielist"
 msgstr "Datum in filmselectie niet weergeven"
 
-#: ../MovieSelection.py:221
+#: ../MovieSelection.py:223
 msgid "Show date entry in movielist"
 msgstr "Datum in filmselectie weergeven"
 
-#: ../MovieSelection.py:223
+#: ../MovieSelection.py:225
 msgid "Hide runtime entry in movielist"
 msgstr "Duur in filmselectie niet weergeven"
 
-#: ../MovieSelection.py:225
+#: ../MovieSelection.py:227
 msgid "Show runtime entry in movielist"
 msgstr "Duur in filmselectie weergeven:"
 
-#: ../MovieSelection.py:228
+#: ../MovieSelection.py:230
 msgid "Hide folders in movielist"
 msgstr "Mappen in filmselectie niet weergeven"
 
-#: ../MovieSelection.py:230
+#: ../MovieSelection.py:232
 msgid "Show folders in movielist"
 msgstr "Mappen in filmselectie weergeven"
 
-#: ../MovieSelection.py:233
+#: ../MovieSelection.py:235
 msgid "Hide progressbar in movielist"
 msgstr "Voortgang in filmselectie niet weergeven"
 
-#: ../MovieSelection.py:235
+#: ../MovieSelection.py:237
 msgid "Show progressbar in movielist"
 msgstr "Voortgang in filmselectie weergeven"
 
-#: ../MovieSelection.py:238
+#: ../MovieSelection.py:240
 msgid "Hide percent in movielist"
 msgstr "Percentage in filmselectie niet weergeven"
 
-#: ../MovieSelection.py:240
+#: ../MovieSelection.py:242
 msgid "Show percent in movielist"
 msgstr "Percentage in filmselectie weergeven"
 
-#: ../MovieSelection.py:243
+#: ../MovieSelection.py:245
 msgid "Hide movie status icon in movielist"
 msgstr "Filmstatus Symbool in filmselectie niet weergeven"
 
-#: ../MovieSelection.py:245
+#: ../MovieSelection.py:247
 msgid "Show movie status icon in movielist"
 msgstr "Filmstatus Symbool in filmselectie weergeven"
 
-#: ../MovieSelection.py:248
+#: ../MovieSelection.py:250
 msgid "Hide movie color status in movielist"
 msgstr "Kleurenstatus in filmselectie niet weergeven"
 
-#: ../MovieSelection.py:250
+#: ../MovieSelection.py:252
 msgid "Show movie color status in movielist"
 msgstr "Kleurenstatus in filmselectie weergeven"
 
-#: ../MovieSelection.py:254
+#: ../MovieSelection.py:256
 msgid "Download and save movie info/cover for all movies"
 msgstr "Downloaden en bewaren van Filminfo/Cover voor alle films"
 
-#: ../MovieSelection.py:257
+#: ../MovieSelection.py:259
 msgid "Download and save movie info/cover"
 msgstr "Downloaden en bewaren van Filminfo/Cover"
 
-#: ../MovieSelection.py:259
+#: ../MovieSelection.py:261
 msgid "Update all genre in meta from eit"
 msgstr "Actualiseer alle categorieën in meta van eit"
 
-#: ../MovieSelection.py:262
+#: ../MovieSelection.py:264
 msgid "Delete cover"
 msgstr "Cover verwijderen"
 
-#: ../MovieSelection.py:265
+#: ../MovieSelection.py:267
 msgid "Delete movie info"
 msgstr "Filminfo verwijderen"
 
-#: ../MovieSelection.py:268
+#: ../MovieSelection.py:270
 msgid "Delete movie info and cover"
 msgstr "Filminfo en Cover verwijderen"
 
-#: ../MovieSelection.py:270
+#: ../MovieSelection.py:272
 msgid "Movie tags"
 msgstr "Filmlabels"
 
-#: ../MovieSelection.py:274
+#: ../MovieSelection.py:276
 msgid "Setup Moviebar position"
 msgstr "Positie van de infobar instellen"
 
-#: ../MovieSelection.py:276
+#: ../MovieSelection.py:278
 msgid "Search Trailer on web"
 msgstr "Trailer zoeken op web"
 
-#: ../MovieSelection.py:278
+#: ../MovieSelection.py:280
 msgid "Clientbox setup"
 msgstr "Clientbox instellingen"
 
-#: ../MovieSelection.py:280
+#: ../MovieSelection.py:282
 msgid "Setup"
 msgstr "Instellingen"
 
-#: ../MovieSelection.py:285
+#: ../MovieSelection.py:287
 msgid "Advanced Movie Selection Menu"
 msgstr "Menu Geavanceerde Filmselectie"
 
-#: ../MovieSelection.py:299
+#: ../MovieSelection.py:305
 #, python-format
 msgid "The device '%s' can now removed!"
 msgstr "Het medium '%s' kan nu verwijderd worden!"
 
-#: ../MovieSelection.py:303
+#: ../MovieSelection.py:309
 msgid "Error occurred during unmounting device!"
 msgstr "Fout opgetreden tijdens het unmounten van het medium!"
 
-#: ../MovieSelection.py:328
-#: ../SearchTMDb.py:413
+#: ../MovieSelection.py:334
+#: ../SearchTMDb.py:403
 #: ../SearchTVDb.py:606
 msgid "No internet connection available!"
 msgstr "Geen internetverbinding beschikbaar!"
 
-#: ../MovieSelection.py:375
+#: ../MovieSelection.py:381
 msgid "Move/Copy not possible here!"
 msgstr "Verplaatsen/kopiëren niet mogelijk!"
 
-#: ../MovieSelection.py:502
+#: ../MovieSelection.py:508
 #, python-format
 msgid ""
 "Do you really want to delete info/cover from:\n"
@@ -1674,14 +1726,13 @@ msgstr ""
 "De Filminfo en de Cover van:\n"
 "%s verwijderen?"
 
-#: ../MovieSelection.py:506
-#: ../MovieSelection.py:531
-#: ../MovieSelection.py:559
-#: ../MovieSelection.py:829
+#: ../MovieSelection.py:512
+#: ../MovieSelection.py:537
+#: ../MovieSelection.py:565
 msgid "You cannot delete this!"
 msgstr "Dit kan niet verwijderd worden!"
 
-#: ../MovieSelection.py:527
+#: ../MovieSelection.py:533
 #, python-format
 msgid ""
 "Do you really want to delete cover from:\n"
@@ -1690,7 +1741,7 @@ msgstr ""
 "De Cover van:\n"
 "%s verwijderen?"
 
-#: ../MovieSelection.py:555
+#: ../MovieSelection.py:561
 #, python-format
 msgid ""
 "Do you really want to delete movie info from:\n"
@@ -1699,61 +1750,61 @@ msgstr ""
 "De Filminfo van:\n"
 "%s verwijderen?"
 
-#: ../MovieSelection.py:672
+#: ../MovieSelection.py:700
 msgid "Please wait... Loading list..."
 msgstr "Filmlijst laden,eventjes geduld ..."
 
-#: ../MovieSelection.py:677
+#: ../MovieSelection.py:705
 msgid "ATTENTION: Ask before delete is disabled!"
 msgstr "OPGELET: vragen voor verwijderen is uitgeschakeld!"
 
-#: ../MovieSelection.py:716
+#: ../MovieSelection.py:744
 msgid "Select the movie path"
 msgstr "Filmpad selecteren"
 
-#: ../MovieSelection.py:717
+#: ../MovieSelection.py:745
 msgid "Multiselection"
 msgstr "Multi-selectie..."
 
-#: ../MovieSelection.py:721
+#: ../MovieSelection.py:749
 msgid "Advanced movielist menu"
 msgstr "Menu Geavanceerde Filmselectie"
 
-#: ../MovieSelection.py:722
-#: ../plugin.py:273
+#: ../MovieSelection.py:750
+#: ../plugin.py:277
 msgid "Show event details"
 msgstr "details weergeven"
 
-#: ../MovieSelection.py:726
+#: ../MovieSelection.py:754
 msgid "Exit movielist"
 msgstr "filmselectie verlaten"
 
-#: ../MovieSelection.py:727
+#: ../MovieSelection.py:755
 msgid "Select movie"
 msgstr "film selecteren"
 
-#: ../MovieSelection.py:731
-#: ../MovieSelection.py:737
+#: ../MovieSelection.py:759
+#: ../MovieSelection.py:765
 msgid "Video preview jump forward"
 msgstr "Preview vooruitspringen"
 
-#: ../MovieSelection.py:732
-#: ../MovieSelection.py:738
+#: ../MovieSelection.py:760
+#: ../MovieSelection.py:766
 msgid "Video preview jump backward"
 msgstr "Preview terugspringen"
 
-#: ../MovieSelection.py:742
-#: ../MovieSelection.py:746
+#: ../MovieSelection.py:770
+#: ../MovieSelection.py:774
 msgid "Start/Stop video preview"
 msgstr "Preview start/stop"
 
-#: ../MovieSelection.py:767
-#: ../MovieSelection.py:772
+#: ../MovieSelection.py:795
+#: ../MovieSelection.py:800
 #, python-format
 msgid "%s is currently recording!"
 msgstr "%s wordt momenteel opgenomen!"
 
-#: ../MovieSelection.py:767
+#: ../MovieSelection.py:795
 #, python-format
 msgid ""
 "\n"
@@ -1768,12 +1819,12 @@ msgstr ""
 "\n"
 "Bent u zeker?"
 
-#: ../MovieSelection.py:769
+#: ../MovieSelection.py:797
 #, python-format
 msgid "Do you really want to move %s to trashcan?"
 msgstr "Wilt u %s naar de prullemand verplaatsen?"
 
-#: ../MovieSelection.py:772
+#: ../MovieSelection.py:800
 #, python-format
 msgid ""
 "\n"
@@ -1788,38 +1839,38 @@ msgstr ""
 "\n"
 "Bent u zeker?"
 
-#: ../MovieSelection.py:774
-#: ../plugin.py:441
-#: ../plugin.py:448
+#: ../MovieSelection.py:802
+#: ../plugin.py:445
+#: ../plugin.py:452
 #, python-format
 msgid "Do you really want to delete %s?"
 msgstr "%s verwijderen?"
 
-#: ../MovieSelection.py:776
+#: ../MovieSelection.py:804
 msgid "Recordings are active, the timer(s) will also be deleted!\n"
 msgstr "Opnames actief, de timer(s) worden ook verwijderd!\n"
 
-#: ../MovieSelection.py:778
+#: ../MovieSelection.py:806
 msgid "Do you really want to move selected movies to trashcan?"
 msgstr "Wilt u de geselecteerde filmen naar de prullemand verplaatsen?"
 
-#: ../MovieSelection.py:780
+#: ../MovieSelection.py:808
 msgid "Do you really want to delete selected movies?"
 msgstr "Wilt u de geselecteerde filmen verwijderen?"
 
-#: ../MovieSelection.py:786
+#: ../MovieSelection.py:814
 msgid "This cannot deleted, please select a movie for!"
 msgstr "Verwijderen niet mogelijk, gelieve een film te selecteren!"
 
-#: ../MovieSelection.py:856
+#: ../MovieSelection.py:870
 msgid "Delete failed!"
 msgstr "Verwijderen mislukt!"
 
-#: ../MovieSelection.py:905
+#: ../MovieSelection.py:919
 msgid "Advanced Movie Selection"
 msgstr "Geavanceerde Filmselectie"
 
-#: ../MovieSelection.py:1082
+#: ../MovieSelection.py:1098
 msgid ""
 "Load Length of Movies in Movielist has been disabled.\n"
 "Close and reopen Movielist is required to apply the setting."
@@ -1827,36 +1878,36 @@ msgstr ""
 "Weergave van de speeltijd in de filmselectie werd uitgeschakeld.\n"
 "De Filmselectie moet gesloten en weer geopend worden om de instellingen te activeren."
 
-#: ../MovieSelection.py:1129
+#: ../MovieSelection.py:1145
 msgid "Tag 1"
 msgstr "Label 1"
 
-#: ../MovieSelection.py:1134
+#: ../MovieSelection.py:1150
 msgid "Tag 2"
 msgstr "Label 2"
 
-#: ../MovieSelection.py:1192
+#: ../MovieSelection.py:1208
 msgid "Movie location:"
 msgstr "Pad:"
 
-#: ../MovieSelection.py:1208
+#: ../MovieSelection.py:1224
 msgid "Please select the movie path..."
 msgstr "Gelieve het filmpad te selecteren..."
 
-#: ../MovieSelection.py:1230
+#: ../MovieSelection.py:1246
 #, python-format
 msgid "Directory %s nonexistent."
 msgstr "Map %s bestaat niet."
 
-#: ../MovieSelection.py:1273
+#: ../MovieSelection.py:1289
 msgid "Please select tag to filter..."
 msgstr "Gelieve een label te kiezen om te filteren..."
 
-#: ../MovieSelection.py:1276
+#: ../MovieSelection.py:1292
 msgid "No tags are set on these movies."
 msgstr "Geen labels op deze films.."
 
-#: ../MovieSelection.py:1295
+#: ../MovieSelection.py:1311
 msgid ""
 "Use direction keys to move the Moviebar.\n"
 "Press OK button for save or the EXIT button to cancel.\n"
@@ -2112,16 +2163,16 @@ msgstr "2"
 msgid "3"
 msgstr "3"
 
-#: ../plugin.py:274
+#: ../plugin.py:278
 msgid "Open servicelist"
 msgstr "open servicelijst"
 
-#: ../plugin.py:279
-#: ../plugin.py:284
+#: ../plugin.py:283
+#: ../plugin.py:288
 msgid "Leave movie player"
 msgstr "Filmpspeler verlaten"
 
-#: ../plugin.py:387
+#: ../plugin.py:391
 msgid ""
 "Not possible!\n"
 "MerlinEPG and CoolTVGuide or/and MerlinEPGCenter present or neither installed from this three plugins."
@@ -2129,143 +2180,180 @@ msgstr ""
 "Niet mogelijk!\n"
 "MerlinEPG en CoolTVGuide zijn beide geïnstalleerd, of geen van beide ist geïnstalleerd."
 
-#: ../plugin.py:407
-#: ../plugin.py:412
+#: ../plugin.py:411
+#: ../plugin.py:416
 msgid "Yes"
 msgstr "Ja"
 
-#: ../plugin.py:408
-#: ../plugin.py:416
+#: ../plugin.py:412
+#: ../plugin.py:420
 msgid "No"
 msgstr "Nee"
 
-#: ../plugin.py:413
+#: ../plugin.py:417
 msgid "Yes, returning to movie list"
 msgstr "Ja en terug naar de filmlijst"
 
-#: ../plugin.py:414
+#: ../plugin.py:418
 msgid "Yes, and delete this movie"
 msgstr "Ja en ververwijder deze film"
 
-#: ../plugin.py:415
+#: ../plugin.py:419
 msgid "Yes, and after deleting return to movie list"
 msgstr "Ja en terug naar de filmlijst"
 
-#: ../plugin.py:417
+#: ../plugin.py:421
 msgid "No, but restart from begin"
 msgstr "Nee, van begin herstarten"
 
-#: ../plugin.py:421
+#: ../plugin.py:425
 msgid "Stop playing this movie?"
 msgstr "Stoppen met afspelen?"
 
-#: ../plugin.py:462
+#: ../plugin.py:466
 msgid "End of the movie is reached, the box now go to standby. Do that now?"
 msgstr "Het filmeinde is bereikt, de Box gaat naar standby. Nu uitvoeren?"
 
-#: ../plugin.py:465
+#: ../plugin.py:469
 msgid "End of the movie is reached, the box now go to shut down. Shutdown now?"
 msgstr "Het filmeinde is bereikt, de Box gaat afsluiten. Nu uitvoeren?"
 
-#: ../plugin.py:531
+#: ../plugin.py:534
 msgid "No DVD-Player found!"
 msgstr "geen DVD-Player gevonden!"
 
-#: ../plugin.py:680
+#: ../plugin.py:684
 msgid "Setup Advanced Movie Selection"
 msgstr "Geavanceerde Filmselectie"
 
-#: ../QuickButton.py:46
-#: ../QuickButton.py:164
+#: ../QuickButton.py:47
+#: ../QuickButton.py:167
 msgid "Show folders"
 msgstr "Mappen weergeven"
 
-#: ../QuickButton.py:48
-#: ../QuickButton.py:166
+#: ../QuickButton.py:49
+#: ../QuickButton.py:169
 msgid "Hide folders"
 msgstr "Mappen verbergen"
 
-#: ../QuickButton.py:53
-#: ../QuickButton.py:155
+#: ../QuickButton.py:51
+#, python-format
+msgid "Show up to VSR-%d"
+msgstr "Tot VZR-%d weergeven"
+
+#: ../QuickButton.py:56
+#: ../QuickButton.py:158
 msgid "Show bookmarks"
 msgstr "Bookmarks weergeven"
 
-#: ../QuickButton.py:55
-#: ../QuickButton.py:157
+#: ../QuickButton.py:58
+#: ../QuickButton.py:160
 msgid "Hide bookmarks"
 msgstr "Bookmarks verbergen"
 
-#: ../QuickButton.py:58
+#: ../QuickButton.py:61
 msgid "Sort by Description"
 msgstr "Sorteren volgens beschrijving"
 
-#: ../QuickButton.py:60
+#: ../QuickButton.py:63
 msgid "Sort by Date (1->9)"
 msgstr "Volgens datum (1->9)"
 
-#: ../QuickButton.py:62
+#: ../QuickButton.py:65
 msgid "Sort by Date (9->1)"
 msgstr "Volgens datum (9->1)"
 
-#: ../QuickButton.py:64
+#: ../QuickButton.py:67
 msgid "Sort alphabetically"
 msgstr "Alfabetisch"
 
-#: ../QuickButton.py:86
+#: ../QuickButton.py:89
 msgid "Assigned function for red key"
 msgstr "Toewijzen ROOD:"
 
-#: ../QuickButton.py:87
+#: ../QuickButton.py:90
 msgid "Assigned function for green key"
 msgstr "Toewijzen GROEN:"
 
-#: ../QuickButton.py:88
+#: ../QuickButton.py:91
 msgid "Assigned function for yellow key"
 msgstr "Toewijzen GEEL:"
 
-#: ../QuickButton.py:89
+#: ../QuickButton.py:92
 msgid "Assigned function for blue key"
 msgstr "Toewijzen BLAUW:"
 
-#: ../QuickButton.py:202
+#: ../QuickButton.py:205
 msgid "Set tag here not possible, please select a movie for!"
 msgstr "Label toevoegen niet mogelijk, gelieve een film te selecteren!"
 
-#: ../QuickButton.py:208
+#: ../QuickButton.py:211
 msgid "Trailer search here not possible, please select a movie!"
 msgstr "Trailer zoeken niet mogelijk, gelieve een film te selecteren!"
 
-#: ../QuickButton.py:214
+#: ../QuickButton.py:217
 msgid "Move/Copy from complete directory/symlink not possible, please select a single movie!"
 msgstr "Verplaatsen/kopiëren van een volledige map/symlink niet mogelijk, gelieve enkel 1 film te selecteren!"
 
-#: ../QuickButton.py:220
+#: ../QuickButton.py:223
 msgid "Rename here not possible, please select a movie!"
 msgstr "Naam wijzigen niet mogelijk, gelieve een film te selecteren!"
 
-#: ../QuickButton.py:240
+#: ../QuickButton.py:243
 msgid "TMDb search here not possible, please select a movie!"
 msgstr "TMDb niet mogelijk, gelieve een film te selecteren!"
 
-#: ../QuickButton.py:255
+#: ../QuickButton.py:265
+msgid "Show up to"
+msgstr "Weergeven tot"
+
+#: ../QuickButton.py:271
 msgid "This may not be marked as seen!"
 msgstr "Dit kan niet als gezien gemarkeerd worden!"
 
-#: ../QuickButton.py:261
+#: ../QuickButton.py:277
 msgid "This may not be marked as unseen!"
 msgstr "Dit kan niet als ongezien gemarkeerd worden!"
 
-#: ../QuickButton.py:271
+#: ../QuickButton.py:287
 msgid "Unknown error!"
 msgstr "Ongekende fout!"
 
-#: ../QuickButton.py:273
+#: ../QuickButton.py:289
 msgid "Plugin not found!"
 msgstr "Plugin niet gevonden!"
 
-#: ../QuickButton.py:275
+#: ../QuickButton.py:291
 msgid "No plugin assigned!"
 msgstr "Geen Plugin toegewezen!"
+
+#: ../QuickButton.py:297
+msgid "Clear"
+msgstr "Wissen"
+
+#: ../QuickButton.py:298
+msgid "VSR-0 (General Audience)"
+msgstr "VZR-0 (Voor iedereen geschikt)"
+
+#: ../QuickButton.py:299
+msgid "VSR-6 (Parental Guidance Suggested)"
+msgstr "VZR-18 (Toezicht aangeraden)"
+
+#: ../QuickButton.py:300
+msgid "VSR-12 (Parents Strongly Cautioned)"
+msgstr "VZR-12 (Toezicht aangewezen)"
+
+#: ../QuickButton.py:301
+msgid "VSR-16 (Restricted)"
+msgstr "VZR-18 (Niet onder 16 jaar)"
+
+#: ../QuickButton.py:302
+msgid "VSR-18 (No One 17 And Under Admitted)"
+msgstr "VZR-18 (Niet onder 18 jaar)"
+
+#: ../QuickButton.py:303
+msgid "Please select the VSR here:"
+msgstr "Gelieve de VZR te selecteren:"
 
 #: ../RecordPaths.py:34
 msgid "Record Paths Settings"
@@ -2353,7 +2441,7 @@ msgstr ""
 "Wilt u de zoeknaam editeren en manueel zoeken?"
 
 #: ../SearchTMDb.py:258
-#: ../SearchTMDb.py:393
+#: ../SearchTMDb.py:383
 #, python-format
 msgid ""
 "Error!\n"
@@ -2380,66 +2468,66 @@ msgstr "gevonden film"
 msgid "movies found"
 msgstr "gevonden films"
 
-#: ../SearchTMDb.py:303
+#: ../SearchTMDb.py:302
 #, python-format
 msgid "No description for ' %s ' at themoviedb.org found!"
 msgstr "Geen gegevens voor ' %s ' gevonden via themoviedb.org!"
 
-#: ../SearchTMDb.py:318
+#: ../SearchTMDb.py:317
 #, python-format
 msgid "Appeared: %s"
 msgstr "Verschenen: %s"
 
-#: ../SearchTMDb.py:320
+#: ../SearchTMDb.py:319
 #, python-format
 msgid "Runtime: %s minutes"
 msgstr "Lengte: %s minuten"
 
-#: ../SearchTMDb.py:334
+#: ../SearchTMDb.py:323
 #: ../SearchTVDb.py:493
 #, python-format
 msgid "Certification: %s"
 msgstr "Leeftijd: %s"
 
-#: ../SearchTMDb.py:337
+#: ../SearchTMDb.py:327
 #: ../SearchTVDb.py:502
 #, python-format
 msgid "Rating: %s\n"
 msgstr "Beoordeling: %s\n"
 
-#: ../SearchTMDb.py:348
+#: ../SearchTMDb.py:338
 #: ../SearchTVDb.py:489
 #, python-format
 msgid "Genre: %s\n"
 msgstr "Categorie: %s\n"
 
-#: ../SearchTMDb.py:354
+#: ../SearchTMDb.py:344
 #, python-format
 msgid "Studio: %s"
 msgstr "Filmstudio: %s"
 
-#: ../SearchTMDb.py:360
+#: ../SearchTMDb.py:350
 #, python-format
 msgid "Production Countries: %s\n"
 msgstr "Landen productie: %s\n"
 
-#: ../SearchTMDb.py:366
+#: ../SearchTMDb.py:356
 #, python-format
 msgid "Director: %s"
 msgstr "Producent: %s"
 
-#: ../SearchTMDb.py:372
+#: ../SearchTMDb.py:362
 #, python-format
 msgid "Production: %s\n"
 msgstr "Productie: %s\n"
 
-#: ../SearchTMDb.py:378
+#: ../SearchTMDb.py:368
 #: ../SearchTVDb.py:506
 #, python-format
 msgid "Actors: %s\n"
 msgstr "Acteurs: %s\n"
 
-#: ../SearchTMDb.py:380
+#: ../SearchTMDb.py:370
 #, python-format
 msgid ""
 "\n"
@@ -2448,66 +2536,66 @@ msgstr ""
 "\n"
 "Laatste wijziging bij themoviedb.org: %s"
 
-#: ../SearchTMDb.py:384
+#: ../SearchTMDb.py:374
 msgid "Unknown error!!"
 msgstr "Ongekende fout!"
 
-#: ../SearchTMDb.py:388
+#: ../SearchTMDb.py:378
 #: ../SearchTVDb.py:518
 #, python-format
 msgid "Voted: %s"
 msgstr "Gestemd: %s"
 
-#: ../SearchTMDb.py:388
+#: ../SearchTMDb.py:378
 #: ../SearchTVDb.py:518
 msgid "times"
 msgstr "Tijdes"
 
-#: ../SearchTMDb.py:390
+#: ../SearchTMDb.py:380
 #: ../SearchTVDb.py:520
 msgid "No user voted!"
 msgstr "Geen steùùe,!"
 
-#: ../SearchTMDb.py:428
-#: ../SearchTMDb.py:526
+#: ../SearchTMDb.py:418
+#: ../SearchTMDb.py:516
 #: ../SearchTVDb.py:646
 #, python-format
 msgid "Search result for: %s"
 msgstr "Resultaten voor: %s"
 
-#: ../SearchTMDb.py:430
-#: ../SearchTMDb.py:515
+#: ../SearchTMDb.py:420
+#: ../SearchTMDb.py:505
 #: ../SearchTVDb.py:631
 #: ../SearchTVDb.py:735
 #, python-format
 msgid "Details for: %s"
 msgstr "Details voor: %s"
 
-#: ../SearchTMDb.py:437
-#: ../SearchTMDb.py:455
+#: ../SearchTMDb.py:427
+#: ../SearchTMDb.py:445
 #: ../SearchTVDb.py:774
 #, python-format
 msgid "Getting show details for ' %s ', please wait ..."
 msgstr "Zoeken details naar voor ' %s ', eventjes geduld ..."
 
-#: ../SearchTMDb.py:439
-#: ../SearchTMDb.py:457
+#: ../SearchTMDb.py:429
+#: ../SearchTMDb.py:447
 #, python-format
 msgid "Getting search result for ' %s ', please wait ..."
 msgstr "Zoeken naar ' %s , eventjes geduld ..."
 
-#: ../SearchTMDb.py:465
+#: ../SearchTMDb.py:455
 #: ../SearchTVDb.py:753
 #, python-format
 msgid "Save Info/Cover for ' %s ', please wait ..."
 msgstr "Info/Cover voor ' %s ' bewaren, eventjes geduld ..."
 
-#: ../SearchTMDb.py:478
+#: ../SearchTMDb.py:468
 #, python-format
 msgid "Sorry, no info/cover found for title: %s"
 msgstr "Sorry geen Filminfo/Cover voor %s gevonden."
 
-#: ../SearchTMDb.py:488
+#: ../SearchTMDb.py:478
 #: ../SearchTVDb.py:776
 #, python-format
 msgid "Search trailer for ' %s ', please wait ..."
@@ -2770,111 +2858,111 @@ msgstr "Verwijder ongebruikte labels uit de lijst"
 msgid "Delete all tags"
 msgstr "Alle labels verwijderen"
 
-#: ../Wastebasket.py:85
+#: ../Wastebasket.py:83
 msgid "Record date:"
 msgstr "Opname datum:"
 
-#: ../Wastebasket.py:86
+#: ../Wastebasket.py:84
 msgid "Record time:"
 msgstr "Opname tijd:"
 
-#: ../Wastebasket.py:201
+#: ../Wastebasket.py:199
 msgid "Delete selected movie"
 msgstr "Geselecteerde film verwijderen"
 
-#: ../Wastebasket.py:202
-#: ../Wastebasket.py:207
+#: ../Wastebasket.py:200
+#: ../Wastebasket.py:205
 msgid "Restore movie"
 msgstr "Film herstellen"
 
-#: ../Wastebasket.py:203
+#: ../Wastebasket.py:201
 msgid "Empty wastbasket"
 msgstr "Prullemand ledigen"
 
-#: ../Wastebasket.py:204
-#: ../Wastebasket.py:209
+#: ../Wastebasket.py:202
+#: ../Wastebasket.py:207
 msgid "Restore all movies"
 msgstr "Alle Filmen herstellen"
 
-#: ../Wastebasket.py:206
+#: ../Wastebasket.py:204
 msgid "Delete movie"
 msgstr "Film verwijderen"
 
-#: ../Wastebasket.py:208
+#: ../Wastebasket.py:206
 msgid "Empty Trash"
 msgstr "Ledigen"
 
-#: ../Wastebasket.py:210
+#: ../Wastebasket.py:208
 msgid "Please wait... Loading trash list..."
 msgstr "Prullemand laden,eventjes geduld ..."
 
-#: ../Wastebasket.py:223
+#: ../Wastebasket.py:221
 msgid "Exit wastebasket"
 msgstr "Sluiten"
 
-#: ../Wastebasket.py:233
+#: ../Wastebasket.py:231
 msgid "Advanced Movie Selection - Wastebasket"
 msgstr "Geavanceerde Filmselectie - Prullemand"
 
-#: ../Wastebasket.py:242
+#: ../Wastebasket.py:240
 msgid "Last automated wastebasket empty:"
 msgstr "Prullemand automatisch geledigd op:"
 
-#: ../Wastebasket.py:242
+#: ../Wastebasket.py:240
 msgid "Never!"
 msgstr "Nooit!"
 
-#: ../Wastebasket.py:246
+#: ../Wastebasket.py:244
 #, python-format
 msgid "Last automated wastebasket empty at %s"
 msgstr "Laatste automatische lediging om %s"
 
-#: ../Wastebasket.py:249
+#: ../Wastebasket.py:247
 #, python-format
 msgid "Next automated wastebasket empty at %s"
 msgstr "Volgende automatische lediging om %s"
 
-#: ../Wastebasket.py:263
+#: ../Wastebasket.py:261
 msgid "No last empty status available!"
 msgstr "Geen laatste lediging beschikbaar!"
 
-#: ../Wastebasket.py:264
+#: ../Wastebasket.py:262
 msgid "No next empty status available!"
 msgstr "Geen volgende lediging beschikbaar!"
 
-#: ../Wastebasket.py:266
+#: ../Wastebasket.py:264
 msgid "Auto empty wastebasket is disabled"
 msgstr "Prullemand automatisch ledigen niet actief"
 
-#: ../Wastebasket.py:284
-#: ../Wastebasket.py:286
+#: ../Wastebasket.py:281
+#: ../Wastebasket.py:283
 #, python-format
 msgid "Wastebasket: %s"
 msgstr "Prullemand: %s"
 
-#: ../Wastebasket.py:295
+#: ../Wastebasket.py:292
 #, python-format
 msgid "Trash count: %d"
 msgstr "Aantal: %d"
 
-#: ../Wastebasket.py:295
+#: ../Wastebasket.py:292
 #, python-format
 msgid "Trash size: %d MB"
 msgstr "Prullemand: %d MB"
 
-#: ../Wastebasket.py:297
+#: ../Wastebasket.py:294
 msgid "Trash size:"
 msgstr "Prullemand:"
 
-#: ../Wastebasket.py:298
+#: ../Wastebasket.py:295
 msgid "Trash count:"
 msgstr "Aantal:"
 
-#: ../Wastebasket.py:300
+#: ../Wastebasket.py:297
 msgid "Wastebasket is empty!"
 msgstr "Prullemand is leeg!"
 
-#: ../Wastebasket.py:330
+#: ../Wastebasket.py:327
 msgid ""
 "Recording(s) are in progress or coming up in few seconds!\n"
 "Now movie delete can damage the recording(s)!\n"
@@ -2884,11 +2972,11 @@ msgstr ""
 "Filmen nu verwijderen kan de opnames beschadigen!\n"
 "Verwijderen filmen uitvoeren?"
 
-#: ../Wastebasket.py:339
+#: ../Wastebasket.py:336
 msgid "Do you really want to delete all movies?"
 msgstr "Wilt u werkelijk alle filmen verwijderen?"
 
-#: ../Wastebasket.py:363
+#: ../Wastebasket.py:360
 msgid ""
 "Recording(s) are in progress or coming up in few seconds!\n"
 "Now empty the Wastebasket can damage the recording(s)!\n"
@@ -2898,10 +2986,13 @@ msgstr ""
 "De prullemand nu ledigen kan de opnames beschadigen!\n"
 "Ledigen prullemand uitvoeren?"
 
-#: ../Wastebasket.py:385
-#: ../Wastebasket.py:399
+#: ../Wastebasket.py:384
+#: ../Wastebasket.py:397
 msgid "Restore failed!"
 msgstr "Herstellen mislukt!"
+
+#~ msgid "Parse changes text, please wait ..."
+#~ msgstr "Inlezen tekstbestand, eventjes geduld ..."
 
 #~ msgid ""
 #~ "Please select the default storage device you want to use for recordings. "
@@ -3023,9 +3114,6 @@ msgstr "Herstellen mislukt!"
 #~ "Indien geactiveerd wordt het icoon voor nieuwe opname weergeven nadat een "
 #~ "film als ongezien gemarkeerd wordt. Enkel Dreambox-opnames kunnen met dit "
 #~ "icoon gemarkeerd worden."
-
-#~ msgid "Show new icon"
-#~ msgstr "Icoon voor nieuwe opname weergeven:"
 
 #~ msgid "Mark movie with new recordings icon"
 #~ msgstr "Film met icoon voor nieuwe opname markeren"
