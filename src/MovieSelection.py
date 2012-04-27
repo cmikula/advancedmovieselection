@@ -158,8 +158,8 @@ class MovieContextMenu(Screen):
         menu = []
         if config.AdvancedMovieSelection.use_wastebasket.value and config.AdvancedMovieSelection.show_wastebasket.value:
             menu.append((_("Wastebasket"), self.waste))
-        if config.AdvancedMovieSelection.show_set_fsk.value and not (self.service.flags & eServiceReference.mustDescent):
-            menu.append((_("Set FSK"), boundFunction(self.openAccessChoice)))
+        if config.AdvancedMovieSelection.show_set_vsr.value and not (self.service.flags & eServiceReference.mustDescent):
+            menu.append((_("Set VSR"), boundFunction(self.openAccessChoice)))
         if config.AdvancedMovieSelection.hotplug.value and isinstance(service, eServiceReferenceHotplug):
             menu.append((_("Unmount") + " " + service.getName(), boundFunction(self.unmount)))
         if config.AdvancedMovieSelection.showtmdb.value:

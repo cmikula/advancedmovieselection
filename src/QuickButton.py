@@ -47,8 +47,8 @@ def getPluginCaption(pname):
                 return _("Show folders")
             else:
                 return _("Hide folders")
-        if pname == "Show up to FSK-X":
-            return (_("Show up to FSK-%d") % accessRestriction.getAccess())
+        if pname == "Show up to VSR-X":
+            return (_("Show up to VSR-%d") % accessRestriction.getAccess())
         if pname == "Toggle seen":
             return _("Mark as seen")
         elif pname == "Bookmark(s) on/off":
@@ -250,15 +250,15 @@ class QuickButton:
                         else:
                             self.setMovieStatus(1)
                             key_number.setText(_("Mark as unseen"))
-                elif pname == "Show up to FSK-X":
-                    from AccessRestriction import FSK
-                    access = "FSK-%d"%(self.list.getAccess()) 
-                    for index, item in enumerate(FSK):
+                elif pname == "Show up to VSR-X":
+                    from AccessRestriction import VSR
+                    access = "VSR-%d"%(self.list.getAccess()) 
+                    for index, item in enumerate(VSR):
                         if item == access:
-                            if len(FSK)-1 == index:
-                                access = FSK[0]
+                            if len(VSR)-1 == index:
+                                access = VSR[0]
                             else:
-                                access = FSK[index + 1]
+                                access = VSR[index + 1]
                             break
                     self.list.setAccess(int(access[4:]))
                     self.reloadList()
@@ -293,14 +293,14 @@ class QuickButton:
             self.session.open(MessageBox, errorText, MessageBox.TYPE_INFO)
 
     def openAccessChoice(self):
-        fsk = []
-        fsk.append((_("Clear"), None))        
-        fsk.append((_("FSK-0 (General Audience)"), "FSK-0"))        
-        fsk.append((_("FSK-6 (Parental Guidance Suggested)"), "FSK-6"))        
-        fsk.append((_("FSK-12 (Parents Strongly Cautioned)"), "FSK-12"))        
-        fsk.append((_("FSK-16 (Restricted)"), "FSK-16"))        
-        fsk.append((_("FSK-18 (No One 17 And Under Admitted)"), "FSK-18"))        
-        self.session.openWithCallback(self.setAccessChoice, ChoiceBox, title=_("Please select the FSK here:"), list=fsk)
+        vsr = []
+        vsr.append((_("Clear"), None))        
+        vsr.append((_("VSR-0 (General Audience)"), "VSR-0"))        
+        vsr.append((_("VSR-6 (Parental Guidance Suggested)"), "VSR-6"))        
+        vsr.append((_("VSR-12 (Parents Strongly Cautioned)"), "VSR-12"))        
+        vsr.append((_("VSR-16 (Restricted)"), "VSR-16"))        
+        vsr.append((_("VSR-18 (No One 17 And Under Admitted)"), "VSR-18"))        
+        self.session.openWithCallback(self.setAccessChoice, ChoiceBox, title=_("Please select the VSR here:"), list=vsr)
         
     def setAccessChoice(self, answer):
         if answer:

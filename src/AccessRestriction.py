@@ -24,14 +24,14 @@ that they, too, receive or can get the source code. And you must show them these
 '''
 import os
 
-FSK = ["FSK-0", "FSK-6", "FSK-12", "FSK-16", "FSK-18"]
+VSR = ["VSR-0", "VSR-6", "VSR-12", "VSR-16", "VSR-18"]
 
 class AccessRestriction:
     def __init__(self):
         self.access = 18
     
     def setAccess(self, access):
-        print "set FSK:", access
+        print "set VSR:", access
         self.access = int(access)
 
     def getAccess(self):
@@ -41,9 +41,9 @@ class AccessRestriction:
         if not tags:
             return True
         for tag in tags:
-            if tag.startswith("FSK-"):
-                fsk = int(tag[4:])
-                if fsk > self.access:
+            if tag.startswith("VSR-"):
+                vsr = int(tag[4:])
+                if vsr > self.access:
                     return False
         return True
 
@@ -53,7 +53,7 @@ class AccessRestriction:
             if not clear_access:
                 print "Set %s to %s"%(access, meta_file)
             else:
-                print "Clear FSK to", meta_file
+                print "Clear VSR to", meta_file
             if os.path.exists(meta_file):
                 metafile = open(meta_file, "r")
                 sid = metafile.readline().rstrip()
@@ -74,7 +74,7 @@ class AccessRestriction:
             tag_list = tags.split()
             new_tags = []
             for t in tag_list:
-                if not t.startswith("FSK"):
+                if not t.startswith("VSR"):
                     new_tags.append(t)
             
             if not clear_access:

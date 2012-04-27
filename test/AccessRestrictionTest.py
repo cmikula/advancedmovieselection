@@ -34,11 +34,11 @@ def main():
 
     createTestFiles()
     service_file = os.path.join(path, "access_test.ts")
-    print restriction.isAccessible(("FSK12",))
-    restriction.setToService(service_file, "FSK0")
-    restriction.setToService(service_file, "FSK12")
-    restriction.setToService(service_file, "FSK19")
-    restriction.setToService(service_file, "FSK19", True)
+    print restriction.isAccessible(("VSR-12",))
+    restriction.setToService(service_file, "VSR-0")
+    restriction.setToService(service_file, "VSR-12")
+    restriction.setToService(service_file, "VSR-19")
+    restriction.setToService(service_file, "VSR-19", True)
 
 
 if __name__ == '__main__':

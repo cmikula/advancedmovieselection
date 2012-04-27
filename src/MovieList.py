@@ -979,20 +979,21 @@ class MovieList(GUIComponent):
         name = info and info.getName(ref)
         return (name and name.lower() or "", -x[2])
 
-    def arrangeTags(self, tags, fsk_left=True):
+    def arrangeTags(self, tags, vsr_left=True):
         tag_list = []
-        fsk = None
+        vsr = None
         for t in tags.split():
             if t.startswith("FSK"):
-                fsk = t
+                vsr = t
             else:
                 tag_list.append(t)
         tag_list.sort()
-        if fsk:
-            if fsk_left:
-                tag_list.insert(0, fsk)
+        if vsr:
+            vsr = _(vsr)
+            if vsr_left:
+                tag_list.insert(0, vsr)
             else:
-                tag_list.append(fsk)
+                tag_list.append(vsr)
         return ", ".join(tag_list)
 
     def moveTo(self, serviceref):

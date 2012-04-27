@@ -202,7 +202,7 @@ config.AdvancedMovieSelection.video_preview_jump_time = ConfigInteger(default=5,
 config.AdvancedMovieSelection.video_preview_autostart = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.video_preview_fullscreen = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.epg_extension = ConfigYesNo(default=False)
-config.AdvancedMovieSelection.show_set_fsk = ConfigYesNo(default=False)
+config.AdvancedMovieSelection.show_set_vsr = ConfigYesNo(default=False)
 
 
 PlayerInstance = None

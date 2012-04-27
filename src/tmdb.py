@@ -557,7 +557,7 @@ def searchByHashingFile(filename):
     return mediaGetInfo(opensubtitleHashFile(filename), os.path.getsize(filename))
 
 def decodeCertification(cert):
-    certification = {"G":"FSK-0", "PG":"FSK-6", "PG13":"FSK-12", "PG-13":"FSK-12", "R":"FSK-16", "NC-13":"FSK-18", "NC17":"FSK-18"}
+    certification = {"G":"VSR-0", "PG":"VSR-6", "PG13":"VSR-12", "PG-13":"VSR-12", "R":"VSR-16", "NC-13":"VSR-18", "NC17":"VSR-18"}
     if certification.has_key(cert):
         return certification[cert]
 

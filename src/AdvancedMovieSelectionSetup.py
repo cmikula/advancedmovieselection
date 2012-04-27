@@ -352,7 +352,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append(getConfigListEntry(_("Show movie tags in extensions menu from movielist:"), config.AdvancedMovieSelection.showmovietagsinmenu, _("Displays movie tags function in the menu at the movie list.")))
         self.list.append(getConfigListEntry(_("Show filter by tags in extensions menu from movielist:"), config.AdvancedMovieSelection.showfiltertags, _("Displays filter by tags function in the menu at the movie list.")))
         self.list.append(getConfigListEntry(_("Show search trailer on web in extensions menu from movielist:"), config.AdvancedMovieSelection.showtrailer, _("Displays search trailer on web function in the menu at the movie list.")))
-        self.list.append(getConfigListEntry(_("Show Set FSK in extensions menu from movielist:"), config.AdvancedMovieSelection.show_set_fsk, _("Displays set FSK function in the menu at the movie list.")))
+        self.list.append(getConfigListEntry(_("Show Set VSR in extensions menu from movielist:"), config.AdvancedMovieSelection.show_set_vsr, _("Displays set VSR function in the menu at the movie list.")))
         self.list.append(getConfigListEntry(_("Ask before delete:"), config.AdvancedMovieSelection.askdelete, _("With this option you can turn on/off the security question before delete a movie.")))
         if IMDbPresent and OFDbPresent and TMDbPresent:
             self.list.append(getConfigListEntry(_("INFO button function:"), config.AdvancedMovieSelection.Eventinfotyp, _("With this option you can assign what function should have the info button. The selection depends on the installed plugins.")))
@@ -548,7 +548,7 @@ class ConfigSelection(eConfigSelection):
 __dummy1__ = (_("Nothing"), _("Delete"), _("Wastebasket"), _("Sort"), _("Home"), _("Bookmark 1"), _("Bookmark 2"), _("Bookmark 3"), _("Bookmark(s) on/off"), _("Filter by Tags"), _("Tag Editor"), _("Move-Copy"), _("Rename"), 
             _("TMDb Info & D/L"), _("Mark as seen"), _("Mark as unseen"), _("Show/Hide folders"), _("Trailer search"), _("Toggle seen"), _("Show Timer"), _("TheTVDB Info & D/L"))
 __dummy2__ = (_("DM-600PVR"), _("DM-7000"), _("DM-7025"), _("DM-8000HD"), _("DM-500HD"), _("DM-800HD"), _("DM-800HDse"), _("DM-7020HD"), _("internal HDD"), _("NAS"), _("NAS-Movies"))
-__dummy3__ = (_("Display plugin name"), _("Display plugin description"), _("Show up to FSK-X"))
+__dummy3__ = (_("Display plugin name"), _("Display plugin description"), _("Show up to VSR-X"))
 
 class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
     def __init__(self, session, csel=None):
@@ -591,7 +591,7 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         self.entryguilist.append(("17", "Mark as unseen"))
         self.entryguilist.append(("18", "Show/Hide folders"))
         self.entryguilist.append(("19", "Show Timer"))
-        self.entryguilist.append(("20", "Show up to FSK-X"))
+        self.entryguilist.append(("20", "Show up to VSR-X"))
         if YTTrailerPresent == True:
             self.entryguilist.append(("21", "Trailer search"))
         self.entryguilist2 = []
