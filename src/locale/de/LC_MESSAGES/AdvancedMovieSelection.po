@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-04-27 14:58+0100\n"
-"PO-Revision-Date: 2012-04-27 15:45+0100\n"
+"PO-Revision-Date: 2012-04-27 16:30+0100\n"
 "Last-Translator: cmikula\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
@@ -2237,7 +2237,7 @@ msgstr "Ordner ausblenden"
 #: ../QuickButton.py:51
 #, python-format
 msgid "Show up to VSR-%d"
-msgstr "zeige bis FSK-%d"
+msgstr "Zeige bis FSK-%d"
 
 #: ../QuickButton.py:56
 #: ../QuickButton.py:158
@@ -2303,7 +2303,7 @@ msgstr "TMDb suche hier nicht möglich, wählen Sie bitte dafür einen Film aus!
 
 #: ../QuickButton.py:265
 msgid "Show up to"
-msgstr "zeige bis"
+msgstr "Zeige bis"
 
 #: ../QuickButton.py:271
 msgid "This may not be marked as seen!"

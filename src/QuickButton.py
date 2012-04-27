@@ -262,7 +262,7 @@ class QuickButton:
                             break
                     self.list.setAccess(int(access[4:]))
                     self.reloadList()
-                    key_number.setText(_("Show up to") + ' ' + access)
+                    key_number.setText(_("Show up to") + ' ' + _(access))
                 elif pname == "Mark as seen":
                     if not (service.flags):
                         self.setMovieStatus(status=1)
