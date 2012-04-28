@@ -826,8 +826,9 @@ class MovieList(GUIComponent):
 
         self.serviceHandler = ServiceCenter.getInstance()
         
-        if not Network.isMountOnline(root.getPath()):
-            root = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + "/media")
+        # TODO: if path of root is set to other path, the gui not show the new path | fix or delete me
+        #if not Network.isMountOnline(root.getPath()):
+        #    root = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + "/media/")
         self.root = root
         list = self.serviceHandler.list(root)
         if list is None:
