@@ -53,10 +53,7 @@ def buildSimilarEntry(self, service, eventId, beginTime, service_name, duration)
     return savedBuildSimilarEntry(self, service, eventId, beginTime, service_name, duration)
 
 class EPGListExtension():
-    ORIGINAL = 0
-    EXTENDED = 1
     def __init__(self):
-        self.status = self.ORIGINAL 
         self.current_name = ""
         self.recorded_movies = []
         self.isWorking = False
