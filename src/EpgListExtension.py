@@ -28,7 +28,7 @@ from Tools.LoadPixmap import LoadPixmap
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
 
 IMAGE_PATH = "Extensions/AdvancedMovieSelection/images/"
-av_pixmap = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "movie_new.png"))
+av_pixmap = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "movie.png"))
 
 savedPixmapForEntry = EPGList.getPixmapForEntry
 savedBuildSingleEntry = EPGList.buildSingleEntry
