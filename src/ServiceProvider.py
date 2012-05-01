@@ -27,6 +27,7 @@ from Components.Element import cached
 from Components.Sources.ServiceEvent import ServiceEvent as eServiceEvent
 from enigma import eServiceCenter, iServiceInformation, eServiceReference
 from Tools.Directories import fileExists
+from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN, SCOPE_CONFIG
 from EventInformationTable import EventInformationTable
 from Components.config import config
 from Screens.InfoBarGenerics import InfoBarCueSheetSupport
@@ -47,13 +48,13 @@ def cutlist_changed(self):
 from Components.Renderer.PositionGauge import PositionGauge
 PositionGauge.cutlist_changed = cutlist_changed
 
-if fileExists("/usr/lib/enigma2/python/Plugins/Bp/geminimain/plugin.pyo"):
-    __CONF__ = "/etc/enigma2/gemini_DateiBrowser.conf"
+if fileExists(resolveFilename(SCOPE_CURRENT_PLUGIN, "Bp/geminimain/plugin.pyo")):
+    __CONF__ = resolveFilename(SCOPE_CONFIG, "gemini_DateiBrowser.conf")
 else:
-    __CONF__ = "/etc/enigma2/AdvancedMovieSelection.conf"
+    __CONF__ = resolveFilename(SCOPE_CONFIG, "AdvancedMovieSelection.conf")
 
 if not fileExists(__CONF__):
-    copyfile("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/AdvancedMovieSelection.conf", __CONF__)
+    copyfile(resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/AdvancedMovieSelection.conf"), __CONF__)
 DMCONFFILE = __CONF__
 
 instance = None

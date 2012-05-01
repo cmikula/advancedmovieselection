@@ -26,7 +26,7 @@ from Components.Pixmap import Pixmap
 from Components.ActionMap import ActionMap
 from enigma import getDesktop
 import Version
-import AboutParser
+from AboutParser import AboutParser
 from Components.GUIComponent import GUIComponent
 from enigma import RT_HALIGN_LEFT, gFont, eListbox, eListboxPythonMultiContent
 from Components.ScrollLabel import ScrollLabel

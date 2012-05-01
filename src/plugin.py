@@ -668,7 +668,8 @@ def autostart(reason, **kwargs):
 
 def updateLocale():
     # set locale for tmdb search
-    import tmdb, tvdb, AboutParser
+    import tmdb, tvdb
+    from AboutParser import AboutParser
     from Components.Language import language
     ln = language.lang[language.activeLanguage][1]
     tmdb.setLocale(ln)

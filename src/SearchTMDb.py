@@ -41,16 +41,16 @@ import shutil
 from os import environ
 from ServiceProvider import PicLoader
 from Tools.Directories import fileExists
+from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
 
-tmdb_logodir = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images"
 IMAGE_TEMPFILE = "/tmp/TMDb_temp"
 
 if environ["LANGUAGE"] == "de" or environ["LANGUAGE"] == "de_DE":
-    nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_de.png")
+    nocover = resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/nocover_de.png")
 else:
-    nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_en.png")
+    nocover = resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/nocover_en.png")
 
-if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/YTTrailer/plugin.pyo"):
+if fileExists(resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/YTTrailer/plugin.pyo")):
     from Plugins.Extensions.YTTrailer.plugin import YTTrailerList
     YTTrailerPresent = True
 else:
@@ -204,7 +204,7 @@ class TMDbMain(Screen):
         self.startSearch()
 
     def layoutFinished(self):
-        self["tmdblogo"].instance.setPixmapFromFile("%s/tmdb.png" % tmdb_logodir)
+        self["tmdblogo"].instance.setPixmapFromFile(resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/tmdb.png"))
         sc = AVSwitch().getFramebufferScale()
         self.picload.setPara((self["cover"].instance.size().width(), self["cover"].instance.size().height(), sc[0], sc[1], False, 1, "#00000000"))
 
@@ -222,7 +222,7 @@ class TMDbMain(Screen):
         self["status"].show()
         self.timer.start(100, True)
 
-    def cancel(self, retval = None):
+    def cancel(self, retval=None):
         self.close(False)
 
     def searchForMovies(self):
@@ -323,9 +323,9 @@ class TMDbMain(Screen):
                     extended += (_("Certification: %s") % _(certification)) + ' / '
 
                 if movie.has_key("rating"):
-                    rating = movie["rating"].encode('utf-8','ignore')    
+                    rating = movie["rating"].encode('utf-8', 'ignore')    
                     extended += (_("Rating: %s\n") % rating)
-                    self.ratingstars = int(10*round(float(rating.replace(',','.')),1))
+                    self.ratingstars = int(10 * round(float(rating.replace(',', '.')), 1))
                     if self.ratingstars > 0:
                         self["stars"].setValue(self.ratingstars) 
                         #self["stars"].show()
@@ -373,7 +373,7 @@ class TMDbMain(Screen):
                 else:
                     self["extended"].setText(_("Unknown error!!"))
                 if movie.has_key("votes"):
-                    vote = movie["votes"].encode('utf-8','ignore')
+                    vote = movie["votes"].encode('utf-8', 'ignore')
                     if not vote == "0":
                         self["vote"].setText(_("Voted: %s") % (vote) + ' ' + _("times"))
                     else:

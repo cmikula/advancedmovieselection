@@ -356,21 +356,22 @@ def setTmdbCertificationtion(movie, file_name):
     except Exception, e:
         print e
 
-INV_CHARS = [("é", "e"), ("Č", "C"), ("č", "c"), ("Ć", "c"), ("ć", "c"), ("Đ", "D"), ("đ", "d"), ("Š", "S"), ("š", "s"),
-             ("Ž", "Z"), ("ž", "z"), ("„", "\""), ("“", "\""), ("”", "\""), ("’", "'"), ("‘", "'"), ("«", "<"), ("»", ">")]
-
-def convertToUTF8(text):
+INV_CHARS = [(u"é", "e"), (u"Č", "C"), (u"č", "c"), (u"Ć", "c"), (u"ć", "c"), (u"Đ", "D"), (u"đ", "d"), (u"Š", "S"), (u"š", "s"),
+             (u"Ž", "Z"), (u"ž", "z"), (u"„", "\""), (u"“", "\""), (u"”", "\""), (u"’", "'"), (u"‘", "'"), (u"«", "<"), (u"»", ">")]
+ 
+def convertToUnicode(text):
+    text = unicode(text)
     for ic in INV_CHARS:
         text = text.replace(ic[0], ic[1])
-    return text.encode("utf-8")
+    return unicode(text)
 
 def writeEIT(file_name, eit_file, name, overview, genre, extended_info, released, runtime, language_code="DEU"):
     _file = None
     try:
         data = []
-        name = convertToUTF8(name)
-        overview = convertToUTF8(overview)
-        extended_info = convertToUTF8(extended_info)
+        name = convertToUnicode(name)
+        overview = convertToUnicode(overview)
+        extended_info = convertToUnicode(extended_info)
         ShortEventDescriptor.encode(data, name, genre, language_code)
         ExtendedEventDescriptor.encode(data, overview + "\n" + extended_info, language_code)
         data = "".join(data)

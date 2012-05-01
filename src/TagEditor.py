@@ -34,6 +34,7 @@ from os import path as os_path
 from Screens.Console import eConsoleAppContainer
 from Screens.TimerEntry import TimerEntry
 from ServiceProvider import ServiceCenter
+from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN, SCOPE_CONFIG
 
 class TagEditor(Screen):
     def __init__(self, session, tags, txt = None, parent = None):
@@ -81,16 +82,15 @@ class TagEditor(Screen):
             self.setTitle(_("Add Tag(s) for Recordings/Timer or AutoTimer"))
         else:
             try:
-                from ServiceProvider import ServiceCenter
                 Title = ServiceCenter.getInstance().info(self.service).getName(self.service)
                 self.setTitle(_("Edit Tag(s) for: %s") % (Title))
             except:
                 self.setTitle(_("Edit Tag(s)"))
 
     def defaulttaglist(self, tags):
-        if not fileExists("/etc/enigma2/movietags"):
-            sourceDir = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/movietags"
-            targetDir = "/etc/enigma2/"
+        if not fileExists(resolveFilename(SCOPE_CONFIG, "movietags")):
+            sourceDir = resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/movietags")
+            targetDir = resolveFilename(SCOPE_CONFIG)
             eConsoleAppContainer().execute("cp \""+sourceDir+"\" \""+targetDir+"\"")
             self.loadTagsFile()
             self.updateMenuList(tags)
@@ -110,7 +110,7 @@ class TagEditor(Screen):
 
     def loadTagsFile(self):
         try:
-            file = open("/etc/enigma2/movietags")
+            file = open(resolveFilename(SCOPE_CONFIG, "movietags"))
             tags = [x.rstrip() for x in file]
             #tags = [x.rstrip() for x in file.readlines()]
             while "" in tags:
@@ -122,7 +122,7 @@ class TagEditor(Screen):
 
     def saveTagsFile(self, tags):
         try:
-            file = open("/etc/enigma2/movietags", "w")
+            file = open(resolveFilename(SCOPE_CONFIG, "movietags"), "w")
             file.write("\n".join(tags)+"\n")
             file.close()
         except IOError: #, ioe:
