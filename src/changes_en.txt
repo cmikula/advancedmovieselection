@@ -250,6 +250,7 @@ version: 2.6.1
 
 version: 2.7
 * fix: display and save descriptions (eit) in Cyrillic
+* fix: busy tuner after stby during playback
 * new: movie preview as fullscreen
 * new: voluntary self-control with updating from tmdb
 * new: recorded movies are marked in the EPG (adjustable in setup)

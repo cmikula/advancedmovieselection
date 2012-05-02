@@ -251,6 +251,7 @@ version: 2.6.1
 
 version: 2.7
 * fix: anzeigen und speichern von beschreibungen (eit) in kyrillisch
+* fix: tunen fehlgeschlagen nach standby während der wiedergabe
 * neu: filmvorschau als vollbild
 * neu: freiwillige selbstkontrolle mit aktualisierung von tmdb
 * neu: aufgenommene filme werden im EPG gekennzeichnet (im setup einstellbar)
