@@ -1124,8 +1124,11 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             pass
 
     def getTagDescription(self, tag):
+        from AccessRestriction import VSR
+        if tag in VSR:
+            return _(tag), tag
         # TODO: access the tag database
-        return tag
+        return tag, tag
 
     def updateTags(self):
         # get a list of tags available in this list
@@ -1277,15 +1280,15 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             self.showAll()
             return
         if tag is not None:
-            self.selected_tags = set([tag[0]])
+            self.selected_tags = set([tag[1]])
             if self.selected_tags_ele:
-                self.selected_tags_ele.value = tag[0]
+                self.selected_tags_ele.value = tag[1]
                 self.selected_tags_ele.save()
             self.reloadList(home=True)
 
     def showTagsMenu(self, tagele):
         self.selected_tags_ele = tagele
-        list = [(tag, self.getTagDescription(tag)) for tag in self.tags ]
+        list = [(self.getTagDescription(tag)) for tag in self.tags ]
         self.session.openWithCallback(self.tagChosen, ChoiceBox, title=_("Please select tag to filter..."), list=list)
 
     def showTagWarning(self):
