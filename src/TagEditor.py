@@ -189,12 +189,18 @@ class TagEditor(Screen):
                         continue
                     func(serviceref, tags)
 
+    def getTagDescription(self, tag):
+        from AccessRestriction import VSR
+        if tag in VSR:
+            return _(tag)
+        return tag
+
     def updateMenuList(self, tags, extrasel = []):
         seltags = [x[1] for x in self["list"].getSelectionsList()] + extrasel
         tags.sort()
         self["list"].setList([])
         for tag in tags:
-            self["list"].addSelection(tag, tag, 0, tag in seltags)
+            self["list"].addSelection(self.getTagDescription(tag), tag, 0, tag in seltags)
 
     def loadFromHdd(self):
         tags = self.tags[:]
