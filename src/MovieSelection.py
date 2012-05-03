@@ -1289,7 +1289,13 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
     def showTagsMenu(self, tagele):
         self.selected_tags_ele = tagele
         list = [(self.getTagDescription(tag)) for tag in self.tags ]
-        self.session.openWithCallback(self.tagChosen, ChoiceBox, title=_("Please select tag to filter..."), list=list)
+        selection = 0
+        current = self.selected_tags and "".join(self.selected_tags)
+        for index, item in enumerate(list):
+            if item[1] == current:
+                selection = index
+                break
+        self.session.openWithCallback(self.tagChosen, ChoiceBox, title=_("Please select tag to filter..."), list=list, selection=selection)
 
     def showTagWarning(self):
         self.session.open(MessageBox, _("No tags are set on these movies."), MessageBox.TYPE_ERROR)
