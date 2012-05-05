@@ -94,7 +94,7 @@ class MoviePreview():
                         self["CoverPreview"].setPosition(self.piconX, self.piconY)
                     else:
                         self.picload.startDecode(piconpath)
-                return
+                    return
             self.picload.startDecode(nocover)
                 
     def showPreviewCallback(self, picInfo=None):
