@@ -313,11 +313,12 @@ class QuickButton:
     def openFilterByDescriptionChoice(self):
         from ServiceProvider import ServiceCenter
         from enigma import eServiceReference, iServiceInformation
+        from MovieSelection import SHOW_ALL_MOVIES
         serviceHandler = ServiceCenter.getInstance()
         descr = []
-        list = serviceHandler.list(self.list.root)
+        l = serviceHandler.list(self.list.root)
         while 1:
-            serviceref = list.getNext()
+            serviceref = l.getNext()
             if not serviceref.valid():
                 break
             if serviceref.flags & eServiceReference.mustDescent:
@@ -329,7 +330,7 @@ class QuickButton:
             if description[0] != "" and not description in descr: 
                 descr.append(description)
         descr = sorted(descr)
-        descr.insert(0, (_("Show all"), ))
+        descr.insert(0, (_(SHOW_ALL_MOVIES), ))
         
         current = self.list.filter_description
         selection = 0
@@ -341,9 +342,10 @@ class QuickButton:
         self.session.openWithCallback(self.filterByDescription, ChoiceBox, title=_("Select movie by description:"), list=descr, selection=selection)
 
     def filterByDescription(self, answer):
+        from MovieSelection import SHOW_ALL_MOVIES
         if not answer:
             return
-        if answer[0] == _("Show all"):
+        if answer[0] == _(SHOW_ALL_MOVIES):
             self.list.filter_description = None
         else:
             self.list.filter_description = answer[0] 
