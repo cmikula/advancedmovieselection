@@ -46,10 +46,17 @@ import sys
 py_ver = "python version: %s" % (sys.version) 
 print py_ver
 
+py_version = 0 
 # checking python version
-if not (sys.version_info < (2, 6, 8) and sys.version_info > (2, 6, 6)):
-    sys.stderr.write("You need python 2.6.6 to 2.6.8 to build package compiled for dream multimedia devices\n") 
-    exit(1) 
+if (sys.version_info < (2, 6, 8) and sys.version_info > (2, 6, 6)):
+    #sys.stderr.write("You need python 2.6.6 to 2.6.8 to build package compiled for dream multimedia devices\n") 
+    ARCH = "mipsel"
+    py_version = 2.6
+
+if (sys.version_info < (2, 7, 4) and sys.version_info > (2, 7, 0)):
+    #sys.stderr.write("You need python 2.7 to build package compiled for opendreambox-2.0.0\n") 
+    ARCH = "mips32el"
+    py_version = 2.7
 
 BUILD_PATH = "deploy/build"
 DEPLOY_PATH = "deploy"
@@ -65,7 +72,7 @@ PLUGIN_VERSION_FILE = os.path.join(PLUGIN, "Version.py")
 PACKAGE_PREFIX = "enigma2-plugin-extensions"
 PACKAGE = "%s-%s" % (PACKAGE_PREFIX, PLUGIN_NAME.lower())
 PACKAGE_DESCRIPTION = "Advanced Movie Selection for enigma2" #"Erweiterte Filmauswahl"
-PACKAGE_ARCHITECTURE = "mipsel"
+PACKAGE_ARCHITECTURE = ARCH
 PACKAGE_SECTION = "extra"
 PACKAGE_PRIORITY = "optional"
 PACKAGE_MAINTAINER = "JackDaniel, cmikula"
@@ -367,6 +374,7 @@ def applyUserSettings():
     parser.add_option("-d", "--deploy", dest="deploypath", help="path to deploy")
     parser.add_option("-s", "--svn", dest="repository", help="repository location") #, default="trunk")
     parser.add_option("-b", "--build", dest="build_path", help="build location")
+    parser.add_option("-a", "--arch", dest="architecture", help="pakage architecture")
     
     (options, args) = parser.parse_args()
     if options.deploypath:
@@ -384,10 +392,29 @@ def applyUserSettings():
         global BUILD_PATH
         BUILD_PATH = options.build_path
         print "set build path to", BUILD_PATH
+    if options.architecture:
+        global PACKAGE_ARCHITECTURE
+        PACKAGE_ARCHITECTURE = options.architecture
+        print "set package architecture to", PACKAGE_ARCHITECTURE
+
+def checkingBuildOptions():
+    sys.stdout.write("checking build options...")
+    if py_version == 0:
+        raise Exception("unrecognized python version!")
+    
+    if py_version == 2.6:
+        if PACKAGE_ARCHITECTURE != "mipsel": 
+            raise Exception("python version with package version is not compatibel!")
+    if py_version == 2.7:
+        if PACKAGE_ARCHITECTURE != "mips32el": 
+            raise Exception("python version with package version is not compatibel!")
+    
+    print " pass!"
 
 def main():
     applyUserSettings()
-    print "start building enigma2 package"
+    print "--- start building enigma2.%s package ---" % (PACKAGE_ARCHITECTURE)
+    checkingBuildOptions()
     clearPluginPath()
     exportSVNRepository()
     compilePlugin()
