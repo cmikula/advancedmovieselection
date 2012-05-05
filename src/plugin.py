@@ -527,8 +527,7 @@ def movieSelected(self, service):
                 except Exception, e:
                     print "Player instance closed exception: " + str(e) 
 
-                Notifications.AddNotification(DVDPlayer, service) 
-                #self.session.open(DVDPlayerExtended, service)
+                self.session.open(DVDPlayer, service)
             else:
                 self.session.open(MessageBox, _("No DVD-Player found!"), MessageBox.TYPE_ERROR, 10)
         else:
