@@ -44,16 +44,16 @@ from ServiceProvider import PicLoader, ServiceCenter
 from EventInformationTable import createEITtvdb
 import tvdb
 import shutil
-from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
 
 temp_dir = "/tmp/TheTVDB_temp/"
+logodir = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images"
 
 if environ["LANGUAGE"] == "de" or environ["LANGUAGE"] == "de_DE":
-    nocover = resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/nocover_de.png")
+    nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_de.png")
 else:
-    nocover = resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/nocover_en.png")
+    nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_en.png")
 
-if fileExists(resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/YTTrailer/plugin.pyo")):
+if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/YTTrailer/plugin.pyo"):
     from Plugins.Extensions.YTTrailer.plugin import YTTrailerList
     YTTrailerPresent = True
 else:
@@ -266,7 +266,7 @@ class TheTVDBMain(Screen):
         self.startSearch()
 
     def layoutFinished(self):
-        self["thetvdb_logo"].instance.setPixmapFromFile(resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/thetvdb_logo.png"))
+        self["thetvdb_logo"].instance.setPixmapFromFile("%s/thetvdb_logo.png" % logodir)
         sc = AVSwitch().getFramebufferScale()
         self.picload.setPara((self["cover"].instance.size().width(), self["cover"].instance.size().height(), sc[0], sc[1], False, 1, "#00000000"))
         self.picload2.setPara((self["banner"].instance.size().width(), self["banner"].instance.size().height(), sc[0], sc[1], False, 1, "#00000000"))

@@ -200,9 +200,6 @@ config.AdvancedMovieSelection.video_preview_delay = ConfigInteger(default=1, lim
 config.AdvancedMovieSelection.video_preview_marker = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.video_preview_jump_time = ConfigInteger(default=5, limits=(1, 60))
 config.AdvancedMovieSelection.video_preview_autostart = ConfigYesNo(default=True)
-config.AdvancedMovieSelection.video_preview_fullscreen = ConfigYesNo(default=True)
-config.AdvancedMovieSelection.epg_extension = ConfigYesNo(default=False)
-config.AdvancedMovieSelection.show_set_vsr = ConfigYesNo(default=False)
 
 PlayerInstance = None
 
@@ -472,7 +469,7 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
             self.returning = True
             self.session.openWithCallback(self.movieSelected, MovieSelection, ref, True)
             self.session.nav.stopService()
-            # self.session.nav.playService(self.lastservice) # Fix busy tuner after stby with playing service
+            self.session.nav.playService(self.lastservice)
         elif answer == "restart":
             self.doSeek(0)
             self.setSeekState(self.SEEK_STATE_PLAY)
@@ -667,8 +664,7 @@ def autostart(reason, **kwargs):
 
 def updateLocale():
     # set locale for tmdb search
-    import tmdb, tvdb
-    from AboutParser import AboutParser
+    import tmdb, tvdb, AboutParser
     from Components.Language import language
     ln = language.lang[language.activeLanguage][1]
     tmdb.setLocale(ln)
@@ -697,14 +693,12 @@ def Plugins(**kwargs):
             setPreferredTagEditor(TagEditor)
         if not config.AdvancedMovieSelection.ml_disable.value and config.AdvancedMovieSelection.useseekbar.value:
             from Seekbar import Seekbar
-        from EpgListExtension import epgListExtension
-        epgListExtension.enabled(config.AdvancedMovieSelection.epg_extension.value)
     except Exception, e:
         print e
     if not config.AdvancedMovieSelection.ml_disable.value:
-        descriptors = [PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=autostart, needsRestart=True)]
-        descriptors.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, fnc=Setup, needsRestart=True))
+        descriptors = [PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=autostart)]
+        descriptors.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, fnc=Setup))
     else:
-        descriptors = [PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=nostart, needsRestart=True)]
-        descriptors.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, fnc=Setup, needsRestart=True))
+        descriptors = [PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=nostart)]
+        descriptors.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, fnc=Setup))
     return descriptors

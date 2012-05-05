@@ -38,7 +38,6 @@ from Components.config import config
 from Screens.VirtualKeyBoard import VirtualKeyBoard
 import os
 from Components.ScrollLabel import ScrollLabel
-from Tools.Directories import resolveFilename, SCOPE_PLUGINS
 
 is_hidden = False
 this_session = None
@@ -46,7 +45,7 @@ fetchingMovies = None
 current = 0
 total = 0
 movie_title = ""
-tmdb_logodir = resolveFilename(SCOPE_PLUGINS) + "Extensions/AdvancedMovieSelection/images"
+tmdb_logodir = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images"
 
 class DownloadMovies(Screen):
     def __init__(self, session, items, coverSize, service=None):

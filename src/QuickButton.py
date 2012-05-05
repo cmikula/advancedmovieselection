@@ -23,11 +23,10 @@ from __init__ import _
 from Components.config import config
 from Components.ActionMap import HelpableActionMap
 from Components.Button import Button
-from MovieList import MovieList, accessRestriction
+from MovieList import MovieList
 from Components.PluginComponent import plugins
 from Plugins.Plugin import PluginDescriptor
 from MoveCopy import MovieMove
-from Screens.ChoiceBox import ChoiceBox
 from Screens.MessageBox import MessageBox
 from Rename import MovieRetitle
 from Wastebasket import Wastebasket
@@ -47,8 +46,6 @@ def getPluginCaption(pname):
                 return _("Show folders")
             else:
                 return _("Hide folders")
-        if pname == "Show up to VSR-X":
-            return (_("Show up to VSR-%d") % accessRestriction.getAccess())
         if pname == "Toggle seen":
             return _("Mark as seen")
         elif pname == "Bookmark(s) on/off":
@@ -250,19 +247,6 @@ class QuickButton:
                         else:
                             self.setMovieStatus(1)
                             key_number.setText(_("Mark as unseen"))
-                elif pname == "Show up to VSR-X":
-                    from AccessRestriction import VSR
-                    access = "VSR-%d"%(self.list.getAccess()) 
-                    for index, item in enumerate(VSR):
-                        if item == access:
-                            if len(VSR)-1 == index:
-                                access = VSR[0]
-                            else:
-                                access = VSR[index + 1]
-                            break
-                    self.list.setAccess(int(access[4:]))
-                    self.reloadList()
-                    key_number.setText(_("Show up to") + ' ' + _(access))
                 elif pname == "Mark as seen":
                     if not (service.flags):
                         self.setMovieStatus(status=1)
@@ -291,19 +275,3 @@ class QuickButton:
             errorText = _("No plugin assigned!")
         if errorText:
             self.session.open(MessageBox, errorText, MessageBox.TYPE_INFO)
-
-    def openAccessChoice(self):
-        vsr = []
-        vsr.append((_("Clear"), None))        
-        vsr.append((_("VSR-0 (General Audience)"), "VSR-0"))        
-        vsr.append((_("VSR-6 (Parental Guidance Suggested)"), "VSR-6"))        
-        vsr.append((_("VSR-12 (Parents Strongly Cautioned)"), "VSR-12"))        
-        vsr.append((_("VSR-16 (Restricted)"), "VSR-16"))        
-        vsr.append((_("VSR-18 (No One 17 And Under Admitted)"), "VSR-18"))        
-        self.session.openWithCallback(self.setAccessChoice, ChoiceBox, title=_("Please select the VSR here:"), list=vsr)
-        
-    def setAccessChoice(self, answer):
-        if answer:
-            answer = answer[1] 
-            self.list.setAccessRestriction(answer)
-            self.reloadList()

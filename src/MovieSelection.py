@@ -156,10 +156,6 @@ class MovieContextMenu(Screen):
                 "cancel": self.cancelClick
             })
         menu = []
-        if config.AdvancedMovieSelection.use_wastebasket.value and config.AdvancedMovieSelection.show_wastebasket.value:
-            menu.append((_("Wastebasket"), self.waste))
-        if config.AdvancedMovieSelection.show_set_vsr.value and not (self.service.flags & eServiceReference.mustDescent):
-            menu.append((_("Set VSR"), boundFunction(self.openAccessChoice)))
         if config.AdvancedMovieSelection.hotplug.value and isinstance(service, eServiceReferenceHotplug):
             menu.append((_("Unmount") + " " + service.getName(), boundFunction(self.unmount)))
         if config.AdvancedMovieSelection.showtmdb.value:
@@ -171,6 +167,8 @@ class MovieContextMenu(Screen):
         if config.AdvancedMovieSelection.showdelete.value:
             if not (self.service.flags & eServiceReference.mustDescent):
                 menu.append((_("Delete"), self.delete))
+        if config.AdvancedMovieSelection.use_wastebasket.value and config.AdvancedMovieSelection.show_wastebasket.value:
+            menu.append((_("Wastebasket"), self.waste))
         if config.AdvancedMovieSelection.showmove.value and not (self.service.flags & eServiceReference.mustDescent):
             menu.append((_("Move/Copy"), self.movecopy))
         if not (isinstance(service, eServiceReferenceBackDir) or isinstance(service, eServiceReferenceHotplug)):
@@ -200,7 +198,7 @@ class MovieContextMenu(Screen):
                 (_("List style compact"), boundFunction(self.listType, MovieList.LISTTYPE_COMPACT)),
                 (_("List style compact with description"), boundFunction(self.listType, MovieList.LISTTYPE_COMPACT_DESCRIPTION)),
                 (_("List style single line"), boundFunction(self.listType, MovieList.LISTTYPE_MINIMAL)),
-                (_("List style Advanced Movie Selection single line"), boundFunction(self.listType, MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection)),
+                (_("List style Advanced Movie Selection single line"), boundFunction(self.listType, MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection))
             ))
         if config.AdvancedMovieSelection.showliststyle.value and config.movielist.listtype.value == MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection:
             if config.movielist.showservice.value == MovieList.SHOW_SERVICE:
@@ -285,10 +283,6 @@ class MovieContextMenu(Screen):
 
     def setWindowTitle(self):
         self.setTitle(_("Advanced Movie Selection Menu"))
-
-    def openAccessChoice(self):
-        self.csel.openAccessChoice()
-        self.close()
 
     def thetvdbsearch(self):
         from SearchTVDb import TheTVDBMain
@@ -664,26 +658,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                 self.skinName = ["AdvancedMovieSelection1_noMiniTV_XD", "AdvancedMovieSelection"]
             else:
                 self.skinName = ["AdvancedMovieSelection1_noMiniTV_SD", "AdvancedMovieSelection"]
-        if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.video_preview.value and config.AdvancedMovieSelection.video_preview_fullscreen.value and config.movielist.description.value == MovieList.SHOW_DESCRIPTION:
-            if sz_w == 1280:
-                self.skinName = ["AdvancedMovieSelection_Preview_HD", "AdvancedMovieSelection"]
-            elif sz_w == 1024:
-                self.skinName = ["AdvancedMovieSelection_Preview_XD", "AdvancedMovieSelection"]
-        if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.video_preview.value and config.AdvancedMovieSelection.video_preview_fullscreen.value and config.movielist.description.value == MovieList.HIDE_DESCRIPTION:
-            if sz_w == 1280:
-                self.skinName = ["AdvancedMovieSelection_Preview_noDescription_HD", "AdvancedMovieSelection"]
-            elif sz_w == 1024:
-                self.skinName = ["AdvancedMovieSelection_Preview_noDescription_XD", "AdvancedMovieSelection"]
-        if not config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.video_preview.value and config.AdvancedMovieSelection.video_preview_fullscreen.value and config.movielist.description.value == MovieList.SHOW_DESCRIPTION:
-            if sz_w == 1280:
-                self.skinName = ["AdvancedMovieSelection_Preview_noCover_HD", "AdvancedMovieSelection"]
-            elif sz_w == 1024:
-                self.skinName = ["AdvancedMovieSelection_Preview_noCover_XD", "AdvancedMovieSelection"]
-        if not config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.video_preview.value and config.AdvancedMovieSelection.video_preview_fullscreen.value and config.movielist.description.value == MovieList.HIDE_DESCRIPTION:
-            if sz_w == 1280:
-                self.skinName = ["AdvancedMovieSelection_Preview_noDescription_noCover_HD", "AdvancedMovieSelection"]
-            elif sz_w == 1024:
-                self.skinName = ["AdvancedMovieSelection_Preview_noDescription_noCover_XD", "AdvancedMovieSelection"]
         self.tags = [ ]
         if selectedmovie:
             self.selected_tags = config.movielist.last_selected_tags.value
@@ -928,8 +902,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             self["Service"].newService(None)
             self["DescriptionBorder"].hide()
             self["list"].instance.resize(eSize(self.listWidth, self.listHeight))
-        if config.AdvancedMovieSelection.video_preview_fullscreen.value and config.movielist.description.isChanged():
-            self.session.open(MessageBox, _("Some settings changes require close/reopen the movielist to take effect."), type=MessageBox.TYPE_INFO)
 
     def updateSettings(self):
         self.updateVideoPreviewSettings()
@@ -1124,11 +1096,8 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             pass
 
     def getTagDescription(self, tag):
-        from AccessRestriction import VSR
-        if tag in VSR:
-            return _(tag), tag
         # TODO: access the tag database
-        return tag, tag
+        return tag
 
     def updateTags(self):
         # get a list of tags available in this list
@@ -1280,22 +1249,16 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             self.showAll()
             return
         if tag is not None:
-            self.selected_tags = set([tag[1]])
+            self.selected_tags = set([tag[0]])
             if self.selected_tags_ele:
-                self.selected_tags_ele.value = tag[1]
+                self.selected_tags_ele.value = tag[0]
                 self.selected_tags_ele.save()
             self.reloadList(home=True)
 
     def showTagsMenu(self, tagele):
         self.selected_tags_ele = tagele
-        list = [(self.getTagDescription(tag)) for tag in self.tags ]
-        selection = 0
-        current = self.selected_tags and "".join(self.selected_tags)
-        for index, item in enumerate(list):
-            if item[1] == current:
-                selection = index
-                break
-        self.session.openWithCallback(self.tagChosen, ChoiceBox, title=_("Please select tag to filter..."), list=list, selection=selection)
+        list = [(tag, self.getTagDescription(tag)) for tag in self.tags ]
+        self.session.openWithCallback(self.tagChosen, ChoiceBox, title=_("Please select tag to filter..."), list=list)
 
     def showTagWarning(self):
         self.session.open(MessageBox, _("No tags are set on these movies."), MessageBox.TYPE_ERROR)

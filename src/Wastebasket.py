@@ -374,11 +374,10 @@ class Wastebasket(Screen):
 
     def restore(self):
         try:
-            service = self.getCurrent() 
-            if not service:
+            if not self.getCurrent():
                 return
-            self["list"].removeService(service)
-            Trashcan.restore(service.getPath())
+            self["list"].removeService(self.getCurrent())
+            Trashcan.restore(self.getCurrent().getPath())
         except Exception, e:
             print e
             self.session.open(MessageBox, _("Restore failed!"), MessageBox.TYPE_ERROR)

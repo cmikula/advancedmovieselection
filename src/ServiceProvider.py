@@ -27,7 +27,6 @@ from Components.Element import cached
 from Components.Sources.ServiceEvent import ServiceEvent as eServiceEvent
 from enigma import eServiceCenter, iServiceInformation, eServiceReference
 from Tools.Directories import fileExists
-from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN, SCOPE_CONFIG
 from EventInformationTable import EventInformationTable
 from Components.config import config
 from Screens.InfoBarGenerics import InfoBarCueSheetSupport
@@ -48,13 +47,13 @@ def cutlist_changed(self):
 from Components.Renderer.PositionGauge import PositionGauge
 PositionGauge.cutlist_changed = cutlist_changed
 
-if fileExists(resolveFilename(SCOPE_CURRENT_PLUGIN, "Bp/geminimain/plugin.pyo")):
-    __CONF__ = resolveFilename(SCOPE_CONFIG, "gemini_DateiBrowser.conf")
+if fileExists("/usr/lib/enigma2/python/Plugins/Bp/geminimain/plugin.pyo"):
+    __CONF__ = "/etc/enigma2/gemini_DateiBrowser.conf"
 else:
-    __CONF__ = resolveFilename(SCOPE_CONFIG, "AdvancedMovieSelection.conf")
+    __CONF__ = "/etc/enigma2/AdvancedMovieSelection.conf"
 
 if not fileExists(__CONF__):
-    copyfile(resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/AdvancedMovieSelection.conf"), __CONF__)
+    copyfile("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/AdvancedMovieSelection.conf", __CONF__)
 DMCONFFILE = __CONF__
 
 instance = None
@@ -187,25 +186,19 @@ class Network():
 
 def getFolderSize(loadPath):
     folder_size = 0
-    try:
-        for (path, dirs, files) in os.walk(loadPath):
-            for file in files:    
-                filename = os.path.join(path, file)    
-                if os.path.exists(filename):
-                    folder_size += os.path.getsize(filename)
-    except Exception, e:
-        print e
+    for (path, dirs, files) in os.walk(loadPath):
+        for file in files:    
+            filename = os.path.join(path, file)    
+            if os.path.exists(filename):
+                folder_size += os.path.getsize(filename)
     return folder_size
 
 def getDirSize(root):
     folder_size = 0
-    try:
-        for filename in os.listdir(root):
-            p = os.path.join(root, filename)
-            if os.path.exists(p):
-                folder_size += os.path.getsize(p)
-    except Exception, e:
-        print e
+    for filename in os.listdir(root):
+        p = os.path.join(root, filename)
+        if os.path.exists(p):
+            folder_size += os.path.getsize(p)
     return folder_size
 
 def detectDVDStructure(loadPath):

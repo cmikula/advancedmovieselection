@@ -41,8 +41,7 @@ class writer:
                     f.write(text)
                     f.close()
                 except:
-                    pass
-                    #Debug.disable()
+                    Debug.disable()
                 continue
             w.write(text) 
  

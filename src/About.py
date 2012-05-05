@@ -25,8 +25,8 @@ from Components.Sources.StaticText import StaticText
 from Components.Pixmap import Pixmap
 from Components.ActionMap import ActionMap
 from enigma import getDesktop
-import Version
-from AboutParser import AboutParser
+from Version import __version__
+import AboutParser
 from Components.GUIComponent import GUIComponent
 from enigma import RT_HALIGN_LEFT, gFont, eListbox, eListboxPythonMultiContent
 from Components.ScrollLabel import ScrollLabel
@@ -101,10 +101,7 @@ class AdvancedMovieSelectionAbout(Screen):
             "back": self.close,
             "ok": self.close,
         }, -1)
-        v = _("Version:")
-        b = _("Branch:")
-        info = "%s %s.r%s, %s\n  %s %s" % (v, Version.__version__, Version.__refision__, Version.__date__, b, Version.__branch__)
-        self["version"] = StaticText(info)
+        self["version"] = StaticText(_("Version:\n") + "  " + __version__)
         self["author"] = StaticText(_("Developer:\n  JackDaniel, cmikula"))
         self["translation"] = StaticText(_("Thanks for translation to:\n") + '  nl=Bschaar')
         self["license"] = StaticText(_("This plugin may only executed on hardware which is licensed by Dream Multimedia GmbH."))
@@ -161,7 +158,7 @@ class AboutDetails(Screen):
         versions = AboutParser.parseChanges()
         versionList = []
         for version in versions:
-            versionList.append((version,))
+            versionList.append((version, ) )
             
         self["bouquet+"].show()
         self["bouquet-"].show()
@@ -170,7 +167,7 @@ class AboutDetails(Screen):
         self["version_list"].setList(versionList)
         self["version_list"].show()
         if len(versionList) > 0:
-            self["version_list"].instance.moveSelectionTo(len(versionList) - 1)
+            self["version_list"].instance.moveSelectionTo(len(versionList)-1)
         if not self.selectionChanged in self["version_list"].onSelectionChanged:
             self["version_list"].onSelectionChanged.append(self.selectionChanged)
         self.selectionChanged()

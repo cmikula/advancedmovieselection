@@ -41,16 +41,16 @@ import shutil
 from os import environ
 from ServiceProvider import PicLoader
 from Tools.Directories import fileExists
-from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
 
+tmdb_logodir = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images"
 IMAGE_TEMPFILE = "/tmp/TMDb_temp"
 
 if environ["LANGUAGE"] == "de" or environ["LANGUAGE"] == "de_DE":
-    nocover = resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/nocover_de.png")
+    nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_de.png")
 else:
-    nocover = resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/nocover_en.png")
+    nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_en.png")
 
-if fileExists(resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/YTTrailer/plugin.pyo")):
+if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/YTTrailer/plugin.pyo"):
     from Plugins.Extensions.YTTrailer.plugin import YTTrailerList
     YTTrailerPresent = True
 else:
@@ -204,7 +204,7 @@ class TMDbMain(Screen):
         self.startSearch()
 
     def layoutFinished(self):
-        self["tmdblogo"].instance.setPixmapFromFile(resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/tmdb.png"))
+        self["tmdblogo"].instance.setPixmapFromFile("%s/tmdb.png" % tmdb_logodir)
         sc = AVSwitch().getFramebufferScale()
         self.picload.setPara((self["cover"].instance.size().width(), self["cover"].instance.size().height(), sc[0], sc[1], False, 1, "#00000000"))
 
@@ -222,7 +222,7 @@ class TMDbMain(Screen):
         self["status"].show()
         self.timer.start(100, True)
 
-    def cancel(self, retval=None):
+    def cancel(self, retval = None):
         self.close(False)
 
     def searchForMovies(self):
@@ -292,6 +292,7 @@ class TMDbMain(Screen):
                 name = movie["name"].encode('utf-8', 'ignore')
                 description = movie["overview"]
                 released = movie["released"]
+                certification = movie["certification"]
                 rating = movie["rating"]
                 runtime = movie["runtime"]
                 last_modified_at = movie["last_modified_at"]
@@ -317,15 +318,24 @@ class TMDbMain(Screen):
                     extended = (_("Appeared: %s") % released) + ' / '
                 if runtime:
                     extended += (_("Runtime: %s minutes") % runtime) + ' / '
-
-                certification = tmdb.decodeCertification(movie["certification"])
                 if certification:
-                    extended += (_("Certification: %s") % _(certification)) + ' / '
-
+                    if certification == "G":
+                        certification = "FSK 0"
+                    elif certification == "PG":
+                        certification = "FSK 6"
+                    elif certification == "PG-13" or certification == "PG13":
+                        certification = "FSK 12"
+                    elif certification == "R":
+                        certification = "FSK 16"
+                    elif certification == "NC-13" or certification == "NC17":
+                        certification = "FSK 18"
+                    else:
+                        certification = "N/A"
+                    extended += (_("Certification: %s") % certification) + ' / '
                 if movie.has_key("rating"):
-                    rating = movie["rating"].encode('utf-8', 'ignore')    
+                    rating = movie["rating"].encode('utf-8','ignore')    
                     extended += (_("Rating: %s\n") % rating)
-                    self.ratingstars = int(10 * round(float(rating.replace(',', '.')), 1))
+                    self.ratingstars = int(10*round(float(rating.replace(',','.')),1))
                     if self.ratingstars > 0:
                         self["stars"].setValue(self.ratingstars) 
                         #self["stars"].show()
@@ -373,7 +383,7 @@ class TMDbMain(Screen):
                 else:
                     self["extended"].setText(_("Unknown error!!"))
                 if movie.has_key("votes"):
-                    vote = movie["votes"].encode('utf-8', 'ignore')
+                    vote = movie["votes"].encode('utf-8','ignore')
                     if not vote == "0":
                         self["vote"].setText(_("Voted: %s") % (vote) + ' ' + _("times"))
                     else:
