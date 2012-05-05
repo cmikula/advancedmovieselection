@@ -185,6 +185,8 @@ class QuickButton:
                 self.setSortType(newType)
                 self.reloadList()
                 key_number.setText(getPluginCaption(pname))
+            elif pname == "Filter by description":
+                self.openFilterByDescriptionChoice()
             elif pname == "Show Timer":
                 from Screens.TimerEdit import TimerEditList
                 self.session.open(TimerEditList)
@@ -307,3 +309,42 @@ class QuickButton:
             answer = answer[1] 
             self.list.setAccessRestriction(answer)
             self.reloadList()
+
+    def openFilterByDescriptionChoice(self):
+        from ServiceProvider import ServiceCenter
+        from enigma import eServiceReference, iServiceInformation
+        serviceHandler = ServiceCenter.getInstance()
+        descr = []
+        list = serviceHandler.list(self.list.root)
+        while 1:
+            serviceref = list.getNext()
+            if not serviceref.valid():
+                break
+            if serviceref.flags & eServiceReference.mustDescent:
+                continue
+            info = serviceHandler.info(serviceref)
+            if not info:
+                continue
+            description = (info.getInfoString(serviceref, iServiceInformation.sDescription),)
+            if description[0] != "" and not description in descr: 
+                descr.append(description)
+        descr = sorted(descr)
+        descr.insert(0, (_("Show all"), ))
+        
+        current = self.list.filter_description
+        selection = 0
+        for index, item in enumerate(descr):
+            if item[0] == current:
+                selection = index
+                break
+        
+        self.session.openWithCallback(self.filterByDescription, ChoiceBox, title=_("Select movie by description:"), list=descr, selection=selection)
+
+    def filterByDescription(self, answer):
+        if not answer:
+            return
+        if answer[0] == _("Show all"):
+            self.list.filter_description = None
+        else:
+            self.list.filter_description = answer[0] 
+        self.reloadList()

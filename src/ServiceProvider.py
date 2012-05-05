@@ -167,7 +167,7 @@ class Network():
                         return False
             return True
         except:
-            return False
+            return True
     
     @staticmethod
     def updateAutoNetwork():

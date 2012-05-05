@@ -122,6 +122,7 @@ class MovieList(GUIComponent):
         self.show_tags = show_tags or self.SHOW_TAGS
         self.l = eListboxPythonMultiContent()
         self.tags = set()
+        self.filter_description = None
         
         if root is not None:
             self.reload(root)
@@ -885,6 +886,11 @@ class MovieList(GUIComponent):
             else:
                 begin = info.getInfo(serviceref, iServiceInformation.sTimeCreate)
 
+            if self.filter_description:
+                descr = info.getInfoString(serviceref, iServiceInformation.sDescription)
+                if descr != self.filter_description:
+                    continue 
+            
             # convert space-seperated list of tags into a set
             this_tags = info.getInfoString(serviceref, iServiceInformation.sTags).split(' ')
             if not accessRestriction.isAccessible(this_tags):
