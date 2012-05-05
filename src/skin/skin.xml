@@ -1,7 +1,6 @@
 <skin>
     <colors>
             <color name="white" value="#ffffff"/>
-            <color name="darkgrey" value="#605F5E"/>
             <color name="black" value="#000000"/>
             <color name="yellow" value="#ffcc00"/>
     </colors>
@@ -10,44 +9,44 @@
             <widget source="session.VideoPicture" render="Pig" position="0,0" size="1280,720" zPosition="1" backgroundColor="#ff000000"/>
             <widget name="freeDiskSpace" position="60,40" size="1050,29" zPosition="3" font="Regular;26" foregroundColor="white" backgroundColor="black" transparent="1"/>
             <widget source="Title" render="Label" position="60,72" size="840,26" zPosition="3" font="Regular;20" foregroundColor="#ffcc00" backgroundColor="black" transparent="1"/>
-            <widget source="global.CurrentTime" render="Label" position="1140,40" size="80,26" font="Regular;26" halign="right" backgroundColor="darkgrey" transparent="1">
+            <widget source="global.CurrentTime" render="Label" position="1140,40" size="80,26" font="Regular;26" halign="right" backgroundColor="#605F5E" transparent="1">
                     <convert type="ClockToText">Default</convert>
             </widget>
-            <widget source="global.CurrentTime" render="Label" position="910,72" size="310,26" font="Regular;20" halign="right" backgroundColor="darkgrey" transparent="1">
+            <widget source="global.CurrentTime" render="Label" position="910,72" size="310,26" font="Regular;20" halign="right" backgroundColor="#605F5E" transparent="1">
                     <convert type="ClockToText">Date</convert>
             </widget>
-            <widget source="Service" render="Label" position="60,477" zPosition="3" size="1160,24" font="Regular;20" foregroundColor="white" backgroundColor="darkgrey" halign="left" transparent="1">
+            <widget source="Service" render="Label" position="60,477" zPosition="3" size="1160,24" font="Regular;20" foregroundColor="white" backgroundColor="#605F5E" halign="left" transparent="1">
                     <convert type="MovieInfo">RecordServiceName</convert>
             </widget>
-            <widget source="Service" render="Label" position="60,498" zPosition="3" size="1160,24" font="Regular;20" foregroundColor="yellow" backgroundColor="darkgrey" halign="left" transparent="1">
+            <widget source="Service" render="Label" position="60,498" zPosition="3" size="1160,24" font="Regular;20" foregroundColor="yellow" backgroundColor="#605F5E" halign="left" transparent="1">
                     <convert type="MovieInfo">ShortDescription</convert>
             </widget>
-            <widget source="Service" render="Label" position="60,477" size="1160,24" font="Regular;20" foregroundColor="white" backgroundColor="darkgrey" halign="right" transparent="1" zPosition="3">
+            <widget source="Service" render="Label" position="60,477" size="1160,24" font="Regular;20" foregroundColor="white" backgroundColor="#605F5E" halign="right" transparent="1" zPosition="3">
                     <convert type="ServiceTime">StartTime</convert>
                     <convert type="ClockToText">Date</convert>
             </widget>
-            <widget source="Service" render="Label" position="60,498" zPosition="3" size="1160,22" font="Regular;20" foregroundColor="yellow" backgroundColor="darkgrey" halign="right" transparent="1">
+            <widget source="Service" render="Label" position="60,498" zPosition="3" size="1160,22" font="Regular;20" foregroundColor="yellow" backgroundColor="#605F5E" halign="right" transparent="1">
                     <convert type="ServiceTime">Duration</convert>
                     <convert type="ClockToText">InMinutes</convert>
             </widget>
-            <widget source="Service" render="Label" position="60,477" zPosition="3" size="1160,22" font="Regular;20" halign="center" foregroundColor="yellow" backgroundColor="darkgrey" transparent="1">
+            <widget source="Service" render="Label" position="60,477" zPosition="3" size="1160,22" font="Regular;20" halign="center" foregroundColor="yellow" backgroundColor="#605F5E" transparent="1">
                     <convert type="MovieInfo">FileSize</convert>
             </widget>
-            <widget source="Service" render="Label" position="60,520" zPosition="3" size="1160,140" font="Regular;20" foregroundColor="white" backgroundColor="darkgrey" transparent="1">
+            <widget source="Service" render="Label" position="60,520" zPosition="3" size="1160,140" font="Regular;20" foregroundColor="white" backgroundColor="#605F5E" transparent="1">
                     <convert type="EventName">ExtendedDescription</convert>
             </widget>
-            <widget name="waitingtext" position="450,130" size="770,375" zPosition="3" font="Regular;26" halign="center" valign="center" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
-            <widget name="warning" position="345,102" size="875,28" zPosition="3" font="Regular;20" halign="center" foregroundColor="yellow" backgroundColor="darkgrey" transparent="1"/>
+            <widget name="waitingtext" position="450,130" size="770,375" zPosition="3" font="Regular;26" halign="center" valign="center" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
+            <widget name="warning" position="345,102" size="875,28" zPosition="3" font="Regular;20" halign="center" foregroundColor="yellow" backgroundColor="#605F5E" transparent="1"/>
             <widget name="list" position="345,130" size="875,314" zPosition="3" scrollbarMode="showAlways" backgroundPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sepmovie.png" 
                     selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sel.png" transparent="1" enableWrapAround="1"/>
             <ePixmap pixmap="skin_default/buttons/button_red.png" position="60,340" size="30,30" zPosition="3" alphatest="blend"/>
             <ePixmap pixmap="skin_default/buttons/button_green.png" position="60,370" size="30,30" zPosition="3" alphatest="blend"/>
             <ePixmap pixmap="skin_default/buttons/button_yellow.png" position="60,400" size="30,30" zPosition="3" alphatest="blend"/>
             <ePixmap pixmap="skin_default/buttons/button_blue.png" position="60,430" size="30,30" zPosition="3" alphatest="blend"/>
-            <widget name="key_red" position="90,338" size="265,28" font="Regular;24" zPosition="3" halign="left" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
-            <widget name="key_green" position="90,368" size="265,28" font="Regular;24" zPosition="3" halign="left" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
-            <widget name="key_yellow" position="90,398" size="265,28" font="Regular;24" zPosition="3" halign="left" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
-            <widget name="key_blue" position="90,428" size="265,28" font="Regular;24" zPosition="3" halign="left" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
+            <widget name="key_red" position="90,338" size="265,28" font="Regular;24" zPosition="3" halign="left" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
+            <widget name="key_green" position="90,368" size="265,28" font="Regular;24" zPosition="3" halign="left" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
+            <widget name="key_yellow" position="90,398" size="265,28" font="Regular;24" zPosition="3" halign="left" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
+            <widget name="key_blue" position="90,428" size="265,28" font="Regular;24" zPosition="3" halign="left" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
             <ePixmap position="60,300" size="35,25" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" transparent="1" alphatest="blend"/>
             <ePixmap position="117,300" size="35,25" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" transparent="1" alphatest="blend"/>
             <ePixmap position="174,300" size="35,25" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" transparent="1" alphatest="blend"/>
@@ -59,26 +58,26 @@
         <screen name="AdvancedMovieSelection_Preview_noDescription_HD" position="center,center" size="1280,720" title=" " flags="wfNoBorder">
             <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/background.png" position="0,0" zPosition="2" size="1280,720"/>
             <widget source="session.VideoPicture" render="Pig" position="0,0" size="1280,720" zPosition="1" backgroundColor="#ff000000"/>
-            <widget name="freeDiskSpace" position="60,40" size="1050,29" zPosition="3" font="Regular;26" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
-            <widget source="Title" render="Label" position="60,72" size="840,26" zPosition="3" font="Regular;20" foregroundColor="yellow" backgroundColor="darkgrey" transparent="1"/>
-            <widget source="global.CurrentTime" render="Label" position="1140,40" size="80,26" zPosition="3" font="Regular;26" halign="right" foregroundColor="white" backgroundColor="darkgrey" transparent="1">
+            <widget name="freeDiskSpace" position="60,40" size="1050,29" zPosition="3" font="Regular;26" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
+            <widget source="Title" render="Label" position="60,72" size="840,26" zPosition="3" font="Regular;20" foregroundColor="yellow" backgroundColor="#605F5E" transparent="1"/>
+            <widget source="global.CurrentTime" render="Label" position="1140,40" size="80,26" zPosition="3" font="Regular;26" halign="right" foregroundColor="white" backgroundColor="#605F5E" transparent="1">
                     <convert type="ClockToText">Default</convert>
             </widget>
-            <widget source="global.CurrentTime" render="Label" position="910,72" zPosition="3" size="310,26" font="Regular;20" halign="right" foregroundColor="white" backgroundColor="darkgrey" transparent="1">
+            <widget source="global.CurrentTime" render="Label" position="910,72" zPosition="3" size="310,26" font="Regular;20" halign="right" foregroundColor="white" backgroundColor="#605F5E" transparent="1">
                     <convert type="ClockToText">Date</convert>
             </widget>
-            <widget name="waitingtext" position="450,130" size="770,375" zPosition="3" font="Regular;26" halign="center" valign="center" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
-            <widget name="warning" position="345,102" size="875,28" zPosition="3" font="Regular;20" halign="center" foregroundColor="yellow" backgroundColor="darkgrey" transparent="1"/>
+            <widget name="waitingtext" position="450,130" size="770,375" zPosition="3" font="Regular;26" halign="center" valign="center" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
+            <widget name="warning" position="345,102" size="875,28" zPosition="3" font="Regular;20" halign="center" foregroundColor="yellow" backgroundColor="#605F5E" transparent="1"/>
             <widget name="list" position="345,130" size="875,470" zPosition="3" scrollbarMode="showAlways" backgroundPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sepmovie.png" 
                     selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sel.png" transparent="1" enableWrapAround="1"/>
             <ePixmap pixmap="skin_default/buttons/button_red.png" position="60,340" size="30,30" zPosition="3" alphatest="blend"/>
             <ePixmap pixmap="skin_default/buttons/button_green.png" position="60,370" size="30,30" zPosition="3" alphatest="blend"/>
             <ePixmap pixmap="skin_default/buttons/button_yellow.png" position="60,400" size="30,30" zPosition="3" alphatest="blend"/>
             <ePixmap pixmap="skin_default/buttons/button_blue.png" position="60,430" size="30,30" zPosition="3" alphatest="blend"/>
-            <widget name="key_red" position="90,338" size="265,28" font="Regular;24" zPosition="3" halign="left" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
-            <widget name="key_green" position="90,368" size="265,28" font="Regular;24" zPosition="3" halign="left" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
-            <widget name="key_yellow" position="90,398" size="265,28" font="Regular;24" zPosition="3" halign="left" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
-            <widget name="key_blue" position="90,428" size="265,28" font="Regular;24" zPosition="3" halign="left" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
+            <widget name="key_red" position="90,338" size="265,28" font="Regular;24" zPosition="3" halign="left" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
+            <widget name="key_green" position="90,368" size="265,28" font="Regular;24" zPosition="3" halign="left" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
+            <widget name="key_yellow" position="90,398" size="265,28" font="Regular;24" zPosition="3" halign="left" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
+            <widget name="key_blue" position="90,428" size="265,28" font="Regular;24" zPosition="3" halign="left" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
             <ePixmap position="60,300" size="35,25" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" transparent="1" alphatest="blend"/>
             <ePixmap position="117,300" size="35,25" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" transparent="1" alphatest="blend"/>
             <ePixmap position="174,300" size="35,25" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" transparent="1" alphatest="blend"/>
@@ -92,44 +91,44 @@
             <widget source="session.VideoPicture" render="Pig" position="0,0" size="1280,720" zPosition="1" backgroundColor="#ff000000"/>
             <widget name="freeDiskSpace" position="60,40" size="1050,29" zPosition="3" font="Regular;26" foregroundColor="white" backgroundColor="black" transparent="1"/>
             <widget source="Title" render="Label" position="60,72" size="840,26" zPosition="3" font="Regular;20" foregroundColor="yellow" backgroundColor="black" transparent="1"/>
-            <widget source="global.CurrentTime" render="Label" position="1140,40" zPosition="3" size="80,26" font="Regular;26" halign="right" backgroundColor="darkgrey" transparent="1">
+            <widget source="global.CurrentTime" render="Label" position="1140,40" zPosition="3" size="80,26" font="Regular;26" halign="right" backgroundColor="#605F5E" transparent="1">
                     <convert type="ClockToText">Default</convert>
             </widget>
-            <widget source="global.CurrentTime" render="Label" position="910,72" zPosition="3" size="310,26" font="Regular;20" halign="right" backgroundColor="darkgrey" transparent="1">
+            <widget source="global.CurrentTime" render="Label" position="910,72" zPosition="3" size="310,26" font="Regular;20" halign="right" backgroundColor="#605F5E" transparent="1">
                     <convert type="ClockToText">Date</convert>
             </widget>
-            <widget source="Service" render="Label" position="60,447" zPosition="3" size="1160,24" font="Regular;20" foregroundColor="white" backgroundColor="darkgrey" halign="left" transparent="1">
+            <widget source="Service" render="Label" position="60,447" zPosition="3" size="1160,24" font="Regular;20" foregroundColor="white" backgroundColor="#605F5E" halign="left" transparent="1">
                     <convert type="MovieInfo">RecordServiceName</convert>
             </widget>
-            <widget source="Service" render="Label" position="60,468" zPosition="3" size="1160,24" font="Regular;20" foregroundColor="yellow" backgroundColor="darkgrey" halign="left" transparent="1">
+            <widget source="Service" render="Label" position="60,468" zPosition="3" size="1160,24" font="Regular;20" foregroundColor="yellow" backgroundColor="#605F5E" halign="left" transparent="1">
                     <convert type="MovieInfo">ShortDescription</convert>
             </widget>
-            <widget source="Service" render="Label" position="60,447" zPosition="3" size="1160,24" font="Regular;20" foregroundColor="white" backgroundColor="darkgrey" halign="right" transparent="1">
+            <widget source="Service" render="Label" position="60,447" zPosition="3" size="1160,24" font="Regular;20" foregroundColor="white" backgroundColor="#605F5E" halign="right" transparent="1">
                     <convert type="ServiceTime">StartTime</convert>
                     <convert type="ClockToText">Date</convert>
             </widget>
-            <widget source="Service" render="Label" position="60,468" zPosition="3" size="1160,22" font="Regular;20" foregroundColor="yellow" backgroundColor="darkgrey" halign="right" transparent="1">
+            <widget source="Service" render="Label" position="60,468" zPosition="3" size="1160,22" font="Regular;20" foregroundColor="yellow" backgroundColor="#605F5E" halign="right" transparent="1">
                     <convert type="ServiceTime">Duration</convert>
                     <convert type="ClockToText">InMinutes</convert>
             </widget>
-            <widget source="Service" render="Label" position="60,447" zPosition="3" size="1160,22" font="Regular;20" halign="center" foregroundColor="yellow" backgroundColor="darkgrey" transparent="1">
+            <widget source="Service" render="Label" position="60,447" zPosition="3" size="1160,22" font="Regular;20" halign="center" foregroundColor="yellow" backgroundColor="#605F5E" transparent="1">
                     <convert type="MovieInfo">FileSize</convert>
             </widget>
-            <widget source="Service" render="Label" position="60,490" zPosition="3" size="1160,140" font="Regular;20" foregroundColor="white" backgroundColor="darkgrey" transparent="1">
+            <widget source="Service" render="Label" position="60,490" zPosition="3" size="1160,140" font="Regular;20" foregroundColor="white" backgroundColor="#605F5E" transparent="1">
                     <convert type="EventName">ExtendedDescription</convert>
             </widget>
-            <widget name="waitingtext" position="450,130" size="770,375" zPosition="3" font="Regular;26" halign="center" valign="center" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
-            <widget name="warning" position="345,102" size="875,28" zPosition="3" font="Regular;20" halign="center" foregroundColor="yellow" backgroundColor="darkgrey" transparent="1"/>
+            <widget name="waitingtext" position="450,130" size="770,375" zPosition="3" font="Regular;26" halign="center" valign="center" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
+            <widget name="warning" position="345,102" size="875,28" zPosition="3" font="Regular;20" halign="center" foregroundColor="yellow" backgroundColor="#605F5E" transparent="1"/>
             <widget name="list" position="60,130" size="1160,314" zPosition="3" scrollbarMode="showAlways" backgroundPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sepmovie.png" 
                     selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sel.png" transparent="1" enableWrapAround="1"/>
             <ePixmap pixmap="skin_default/buttons/button_red.png" position="60,640" size="30,30" zPosition="3" alphatest="blend"/>
             <ePixmap pixmap="skin_default/buttons/button_green.png" position="220,640" size="30,30" zPosition="3" alphatest="blend"/>
             <ePixmap pixmap="skin_default/buttons/button_yellow.png" position="500,640" size="30,30" zPosition="3" alphatest="blend"/>
             <ePixmap pixmap="skin_default/buttons/button_blue.png" position="740,640" size="30,30" zPosition="3" alphatest="blend"/>
-            <widget name="key_red" position="80,635" size="265,28" font="Regular;24" zPosition="3" halign="left" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
-            <widget name="key_green" position="240,635" size="265,28" font="Regular;24" zPosition="3" halign="left" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
-            <widget name="key_yellow" position="520,635" size="265,28" font="Regular;24" zPosition="3" halign="left" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
-            <widget name="key_blue" position="760,635" size="265,28" font="Regular;24" zPosition="3" halign="left" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
+            <widget name="key_red" position="80,635" size="265,28" font="Regular;24" zPosition="3" halign="left" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
+            <widget name="key_green" position="240,635" size="265,28" font="Regular;24" zPosition="3" halign="left" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
+            <widget name="key_yellow" position="520,635" size="265,28" font="Regular;24" zPosition="3" halign="left" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
+            <widget name="key_blue" position="760,635" size="265,28" font="Regular;24" zPosition="3" halign="left" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
             <ePixmap position="1025,635" size="35,25" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" transparent="1" alphatest="blend"/>
             <ePixmap position="1065,635" size="35,25" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" transparent="1" alphatest="blend"/>
             <ePixmap position="1105,635" size="35,25" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" transparent="1" alphatest="blend"/>
@@ -140,26 +139,26 @@
         <screen name="AdvancedMovieSelection_Preview_noDescription_noCover_HD" position="center,center" size="1280,720" title=" " flags="wfNoBorder">
             <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/background.png" position="0,0" zPosition="2" size="1280,720"/>
             <widget source="session.VideoPicture" render="Pig" position="0,0" size="1280,720" zPosition="1" backgroundColor="#ff000000"/>
-            <widget name="freeDiskSpace" position="60,40" size="1050,29" zPosition="3" font="Regular;26" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
-            <widget source="Title" render="Label" position="60,72" size="840,26" zPosition="3" font="Regular;20" foregroundColor="yellow" backgroundColor="darkgrey" transparent="1"/>
-            <widget source="global.CurrentTime" render="Label" position="1140,40" size="80,26" zPosition="3" font="Regular;26" halign="right" foregroundColor="white" backgroundColor="darkgrey" transparent="1">
+            <widget name="freeDiskSpace" position="60,40" size="1050,29" zPosition="3" font="Regular;26" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
+            <widget source="Title" render="Label" position="60,72" size="840,26" zPosition="3" font="Regular;20" foregroundColor="yellow" backgroundColor="#605F5E" transparent="1"/>
+            <widget source="global.CurrentTime" render="Label" position="1140,40" size="80,26" zPosition="3" font="Regular;26" halign="right" foregroundColor="white" backgroundColor="#605F5E" transparent="1">
                     <convert type="ClockToText">Default</convert>
             </widget>
-            <widget source="global.CurrentTime" render="Label" position="910,72" zPosition="3" size="310,26" font="Regular;20" halign="right" foregroundColor="white" backgroundColor="darkgrey" transparent="1">
+            <widget source="global.CurrentTime" render="Label" position="910,72" zPosition="3" size="310,26" font="Regular;20" halign="right" foregroundColor="white" backgroundColor="#605F5E" transparent="1">
                     <convert type="ClockToText">Date</convert>
             </widget>
-            <widget name="waitingtext" position="450,130" size="770,375" zPosition="3" font="Regular;26" halign="center" valign="center" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
-            <widget name="warning" position="345,102" size="875,28" zPosition="3" font="Regular;20" halign="center" foregroundColor="yellow" backgroundColor="darkgrey" transparent="1"/>
+            <widget name="waitingtext" position="450,130" size="770,375" zPosition="3" font="Regular;26" halign="center" valign="center" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
+            <widget name="warning" position="345,102" size="875,28" zPosition="3" font="Regular;20" halign="center" foregroundColor="yellow" backgroundColor="#605F5E" transparent="1"/>
             <widget name="list" position="60,130" size="1160,470" zPosition="3" scrollbarMode="showAlways" backgroundPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sepmovie.png" 
                     selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sel.png" transparent="1" enableWrapAround="1"/>
             <ePixmap pixmap="skin_default/buttons/button_red.png" position="60,640" size="30,30" zPosition="3" alphatest="blend"/>
             <ePixmap pixmap="skin_default/buttons/button_green.png" position="220,640" size="30,30" zPosition="3" alphatest="blend"/>
             <ePixmap pixmap="skin_default/buttons/button_yellow.png" position="500,640" size="30,30" zPosition="3" alphatest="blend"/>
             <ePixmap pixmap="skin_default/buttons/button_blue.png" position="740,640" size="30,30" zPosition="3" alphatest="blend"/>
-            <widget name="key_red" position="80,635" size="265,28" font="Regular;24" zPosition="3" halign="left" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
-            <widget name="key_green" position="240,635" size="265,28" font="Regular;24" zPosition="3" halign="left" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
-            <widget name="key_yellow" position="520,635" size="265,28" font="Regular;24" zPosition="3" halign="left" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
-            <widget name="key_blue" position="760,635" size="265,28" font="Regular;24" zPosition="3" halign="left" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
+            <widget name="key_red" position="80,635" size="265,28" font="Regular;24" zPosition="3" halign="left" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
+            <widget name="key_green" position="240,635" size="265,28" font="Regular;24" zPosition="3" halign="left" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
+            <widget name="key_yellow" position="520,635" size="265,28" font="Regular;24" zPosition="3" halign="left" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
+            <widget name="key_blue" position="760,635" size="265,28" font="Regular;24" zPosition="3" halign="left" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
             <ePixmap position="1025,635" size="35,25" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" transparent="1" alphatest="blend"/>
             <ePixmap position="1065,635" size="35,25" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" transparent="1" alphatest="blend"/>
             <ePixmap position="1105,635" size="35,25" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" transparent="1" alphatest="blend"/>
@@ -171,45 +170,45 @@
             <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/background.png" position="0,0" zPosition="2" size="1024,576"/>
             <widget source="session.VideoPicture" render="Pig" position="0,0" size="1024,576" zPosition="1" backgroundColor="#ff000000"/>
             <widget name="freeDiskSpace"  position="60,40" size="904,29" zPosition="3" font="Regular;26" transparent="1"/>
-            <widget name="warning" position="490,45" size="420,28" zPosition="3" font="Regular;20" halign="center" backgroundColor="darkgrey" foregroundColor="yellow" transparent="1"/>
-            <widget source="Title" render="Label" position="60,72" size="840,26" zPosition="3" font="Regular;20" backgroundColor="darkgrey" foregroundColor="yellow" transparent="1"/>
-            <widget source="global.CurrentTime" render="Label" position="884,40" size="80,26" zPosition="3" font="Regular;26" halign="right" backgroundColor="darkgrey" foregroundColor="white" transparent="1">
+            <widget name="warning" position="490,45" size="420,28" zPosition="3" font="Regular;20" halign="center" backgroundColor="#605F5E" foregroundColor="yellow" transparent="1"/>
+            <widget source="Title" render="Label" position="60,72" size="840,26" zPosition="3" font="Regular;20" backgroundColor="#605F5E" foregroundColor="yellow" transparent="1"/>
+            <widget source="global.CurrentTime" render="Label" position="884,40" size="80,26" zPosition="3" font="Regular;26" halign="right" backgroundColor="#605F5E" foregroundColor="white" transparent="1">
                     <convert type="ClockToText">Default</convert>
             </widget>
-            <widget source="global.CurrentTime" render="Label" position="654,72" size="310,26" zPosition="3" font="Regular;20" halign="right" backgroundColor="darkgrey" foregroundColor="white" transparent="1">
+            <widget source="global.CurrentTime" render="Label" position="654,72" size="310,26" zPosition="3" font="Regular;20" halign="right" backgroundColor="#605F5E" foregroundColor="white" transparent="1">
                     <convert type="ClockToText">Date</convert>
             </widget>
-            <widget source="Service" render="Label" position="60,418" zPosition="3" size="904,24" font="Regular;16" backgroundColor="darkgrey" foregroundColor="white" halign="left" transparent="1">
+            <widget source="Service" render="Label" position="60,418" zPosition="3" size="904,24" font="Regular;16" backgroundColor="#605F5E" foregroundColor="white" halign="left" transparent="1">
                     <convert type="MovieInfo">RecordServiceName</convert>
             </widget>
-            <widget source="Service" render="Label" position="60,436" zPosition="3" size="904,24" font="Regular;16" backgroundColor="darkgrey" foregroundColor="yellow" halign="left" transparent="1">
+            <widget source="Service" render="Label" position="60,436" zPosition="3" size="904,24" font="Regular;16" backgroundColor="#605F5E" foregroundColor="yellow" halign="left" transparent="1">
                     <convert type="MovieInfo">ShortDescription</convert>
             </widget>
-            <widget source="Service" render="Label" position="60,418" size="904,24" zPosition="3" font="Regular;16" backgroundColor="darkgrey" foregroundColor="white" halign="right" transparent="1">
+            <widget source="Service" render="Label" position="60,418" size="904,24" zPosition="3" font="Regular;16" backgroundColor="#605F5E" foregroundColor="white" halign="right" transparent="1">
                     <convert type="ServiceTime">StartTime</convert>
                     <convert type="ClockToText">Date</convert>
             </widget>
-            <widget source="Service" render="Label" position="60,436" zPosition="3" size="904,22" font="Regular;16" backgroundColor="darkgrey" foregroundColor="yellow" halign="right" transparent="1">
+            <widget source="Service" render="Label" position="60,436" zPosition="3" size="904,22" font="Regular;16" backgroundColor="#605F5E" foregroundColor="yellow" halign="right" transparent="1">
                     <convert type="ServiceTime">Duration</convert>
                     <convert type="ClockToText">InMinutes</convert>
             </widget>
-            <widget source="Service" render="Label" position="60,418" zPosition="3" size="904,22" font="Regular;16" halign="center" backgroundColor="darkgrey" foregroundColor="yellow" transparent="1">
+            <widget source="Service" render="Label" position="60,418" zPosition="3" size="904,22" font="Regular;16" halign="center" backgroundColor="#605F5E" foregroundColor="yellow" transparent="1">
                     <convert type="MovieInfo">FileSize</convert>
             </widget>
-            <widget source="Service" render="Label" position="60,454" zPosition="3" size="904,85" font="Regular;15" backgroundColor="darkgrey" foregroundColor="white" transparent="1">
+            <widget source="Service" render="Label" position="60,454" zPosition="3" size="904,85" font="Regular;15" backgroundColor="#605F5E" foregroundColor="white" transparent="1">
                     <convert type="EventName">ExtendedDescription</convert>
             </widget>
-            <widget name="waitingtext" position="250,110" size="714,300" zPosition="3" font="Regular;26" halign="center" valign="center" backgroundColor="darkgrey" foregroundColor="white" transparent="1"/>
+            <widget name="waitingtext" position="250,110" size="714,300" zPosition="3" font="Regular;26" halign="center" valign="center" backgroundColor="#605F5E" foregroundColor="white" transparent="1"/>
             <widget name="list" position="250,98" size="714,312" zPosition="3" scrollbarMode="showOnDemand" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sel.png" 
                     backgroundPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sepmovie.png" transparent="1" enableWrapAround="1"/>
             <ePixmap pixmap="skin_default/buttons/button_red.png" position="60,315" size="21,21" zPosition="3" alphatest="blend"/>
             <ePixmap pixmap="skin_default/buttons/button_green.png" position="60,340" size="21,21" zPosition="3" alphatest="blend"/>
             <ePixmap pixmap="skin_default/buttons/button_yellow.png" position="60,365" size="21,21" zPosition="3" alphatest="blend"/>
             <ePixmap pixmap="skin_default/buttons/button_blue.png" position="60,390" size="21,21" zPosition="3" alphatest="blend"/>
-            <widget name="key_red" position="80,313" size="300,26" zPosition="3" font="Regular;18" halign="left" valign="top" backgroundColor="darkgrey" foregroundColor="white" transparent="1"/>
-            <widget name="key_green" position="80,338" size="300,26" zPosition="3" font="Regular;18" halign="left" valign="top" backgroundColor="darkgrey" foregroundColor="white" transparent="1"/>
-            <widget name="key_yellow" position="80,362" size="300,26" zPosition="3" font="Regular;18" halign="left" valign="top" backgroundColor="darkgrey" foregroundColor="white" transparent="1"/>
-            <widget name="key_blue" position="80,388" size="300,26" zPosition="3" font="Regular;18" halign="left" valign="top" backgroundColor="darkgrey" foregroundColor="white" transparent="1"/>
+            <widget name="key_red" position="80,313" size="300,26" zPosition="3" font="Regular;18" halign="left" valign="top" backgroundColor="#605F5E" foregroundColor="white" transparent="1"/>
+            <widget name="key_green" position="80,338" size="300,26" zPosition="3" font="Regular;18" halign="left" valign="top" backgroundColor="#605F5E" foregroundColor="white" transparent="1"/>
+            <widget name="key_yellow" position="80,362" size="300,26" zPosition="3" font="Regular;18" halign="left" valign="top" backgroundColor="#605F5E" foregroundColor="white" transparent="1"/>
+            <widget name="key_blue" position="80,388" size="300,26" zPosition="3" font="Regular;18" halign="left" valign="top" backgroundColor="#605F5E" foregroundColor="white" transparent="1"/>
             <ePixmap position="60,285" size="35,25" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" transparent="1" alphatest="blend"/>
             <ePixmap position="97,285" size="35,25" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" transparent="1" alphatest="blend"/>
             <ePixmap position="134,285" size="35,25" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" transparent="1" alphatest="blend"/>
@@ -221,26 +220,26 @@
         <screen name="AdvancedMovieSelection_Preview_noDescription_XD" position="center,center" size="1024,576" title=" " flags="wfNoBorder">
             <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/background.png" position="0,0" zPosition="2" size="1024,576"/>
             <widget source="session.VideoPicture" render="Pig" position="0,0" size="1024,576" zPosition="1" backgroundColor="#ff000000"/>
-            <widget name="freeDiskSpace"  position="60,40" size="800,29" zPosition="3" font="Regular;26" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
-            <widget source="Title" render="Label" position="60,72" size="550,26" zPosition="3" font="Regular;20" foregroundColor="yellow" backgroundColor="darkgrey" transparent="1"/>
-            <widget name="warning" position="490,45" size="420,28" zPosition="3" font="Regular;20" halign="center" foregroundColor="yellow" backgroundColor="darkgrey" transparent="1"/>
+            <widget name="freeDiskSpace"  position="60,40" size="800,29" zPosition="3" font="Regular;26" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
+            <widget source="Title" render="Label" position="60,72" size="550,26" zPosition="3" font="Regular;20" foregroundColor="yellow" backgroundColor="#605F5E" transparent="1"/>
+            <widget name="warning" position="490,45" size="420,28" zPosition="3" font="Regular;20" halign="center" foregroundColor="yellow" backgroundColor="#605F5E" transparent="1"/>
             <widget source="global.CurrentTime" render="Label" position="884,40" size="80,26" zPosition="3" font="Regular;26" halign="right" transparent="1">
                     <convert type="ClockToText">Default</convert>
             </widget>
             <widget source="global.CurrentTime" render="Label" position="654,72" size="310,26" zPosition="3" font="Regular;20" halign="right" transparent="1">
                     <convert type="ClockToText">Date</convert>
             </widget>
-            <widget name="waitingtext" position="300,110" size="664,300" zPosition="3" font="Regular;26" halign="center" valign="center" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
+            <widget name="waitingtext" position="300,110" size="664,300" zPosition="3" font="Regular;26" halign="center" valign="center" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
             <widget name="list" position="300,115" size="664,390" zPosition="3" scrollbarMode="showOnDemand" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sel.png" 
                     backgroundPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sepmovie.png" transparent="1" enableWrapAround="1"/>
             <ePixmap pixmap="skin_default/buttons/button_red.png" position="60,315" size="21,21" zPosition="3" alphatest="blend"/>
             <ePixmap pixmap="skin_default/buttons/button_green.png" position="60,340" size="21,21" zPosition="3" alphatest="blend"/>
             <ePixmap pixmap="skin_default/buttons/button_yellow.png" position="60,365" size="21,21" zPosition="3" alphatest="blend"/>
             <ePixmap pixmap="skin_default/buttons/button_blue.png" position="60,390" size="21,21" zPosition="3" alphatest="blend"/>
-            <widget name="key_red" position="80,313" size="300,26" zPosition="3" font="Regular;18" halign="left" valign="top" backgroundColor="darkgrey" foregroundColor="white" transparent="1"/>
-            <widget name="key_green" position="80,338" size="300,26" zPosition="3" font="Regular;18" halign="left" valign="top" backgroundColor="darkgrey" foregroundColor="white" transparent="1"/>
-            <widget name="key_yellow" position="80,362" size="300,26" zPosition="3" font="Regular;18" halign="left" valign="top" backgroundColor="darkgrey" foregroundColor="white" transparent="1"/>
-            <widget name="key_blue" position="80,388" size="300,26" zPosition="3" font="Regular;18" halign="left" valign="top" backgroundColor="darkgrey" foregroundColor="white" transparent="1"/>
+            <widget name="key_red" position="80,313" size="300,26" zPosition="3" font="Regular;18" halign="left" valign="top" backgroundColor="#605F5E" foregroundColor="white" transparent="1"/>
+            <widget name="key_green" position="80,338" size="300,26" zPosition="3" font="Regular;18" halign="left" valign="top" backgroundColor="#605F5E" foregroundColor="white" transparent="1"/>
+            <widget name="key_yellow" position="80,362" size="300,26" zPosition="3" font="Regular;18" halign="left" valign="top" backgroundColor="#605F5E" foregroundColor="white" transparent="1"/>
+            <widget name="key_blue" position="80,388" size="300,26" zPosition="3" font="Regular;18" halign="left" valign="top" backgroundColor="#605F5E" foregroundColor="white" transparent="1"/>
             <ePixmap position="60,285" size="35,25" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" transparent="1" alphatest="blend"/>
             <ePixmap position="97,285" size="35,25" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" transparent="1" alphatest="blend"/>
             <ePixmap position="134,285" size="35,25" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" transparent="1" alphatest="blend"/>
@@ -252,42 +251,42 @@
         <screen name="AdvancedMovieSelection_Preview_noCover_XD" position="center,center" size="1024,576" title=" " flags="wfNoBorder">
             <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/background.png" position="0,0" zPosition="2" size="1024,576"/>
             <widget source="session.VideoPicture" render="Pig" position="0,0" size="1024,576" zPosition="1" backgroundColor="#ff000000"/>
-            <widget name="freeDiskSpace"  position="60,40" size="800,29" zPosition="3" font="Regular;26" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
-            <widget source="Title" render="Label" position="60,72" size="550,26" zPosition="3" font="Regular;20" foregroundColor="yellow" backgroundColor="darkgrey" transparent="1"/>
-            <widget name="warning" position="490,45" size="420,28" zPosition="3" font="Regular;20" halign="center" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
-            <widget source="global.CurrentTime" render="Label" position="884,40" size="80,26" zPosition="3" font="Regular;26" halign="right" foregroundColor="white" backgroundColor="darkgrey" transparent="1">
+            <widget name="freeDiskSpace"  position="60,40" size="800,29" zPosition="3" font="Regular;26" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
+            <widget source="Title" render="Label" position="60,72" size="550,26" zPosition="3" font="Regular;20" foregroundColor="yellow" backgroundColor="#605F5E" transparent="1"/>
+            <widget name="warning" position="490,45" size="420,28" zPosition="3" font="Regular;20" halign="center" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
+            <widget source="global.CurrentTime" render="Label" position="884,40" size="80,26" zPosition="3" font="Regular;26" halign="right" foregroundColor="white" backgroundColor="#605F5E" transparent="1">
                     <convert type="ClockToText">Default</convert>
             </widget>
-            <widget source="global.CurrentTime" render="Label" position="654,72" zPosition="3" size="310,26" font="Regular;20" halign="right" foregroundColor="white" backgroundColor="darkgrey" transparent="1">
+            <widget source="global.CurrentTime" render="Label" position="654,72" zPosition="3" size="310,26" font="Regular;20" halign="right" foregroundColor="white" backgroundColor="#605F5E" transparent="1">
                     <convert type="ClockToText">Date</convert>
             </widget>
-            <widget source="Service" render="Label" position="60,115" zPosition="3" size="230,24" font="Regular;16" foregroundColor="white" backgroundColor="darkgrey" halign="left" transparent="1">
+            <widget source="Service" render="Label" position="60,115" zPosition="3" size="230,24" font="Regular;16" foregroundColor="white" backgroundColor="#605F5E" halign="left" transparent="1">
                     <convert type="MovieInfo">RecordServiceName</convert>
             </widget>
-            <widget source="Service" render="Label" position="60,135" zPosition="3" size="230,22" font="Regular;16" foregroundColor="yellow" backgroundColor="darkgrey" halign="left" transparent="1">
+            <widget source="Service" render="Label" position="60,135" zPosition="3" size="230,22" font="Regular;16" foregroundColor="yellow" backgroundColor="#605F5E" halign="left" transparent="1">
                     <convert type="ServiceTime">Duration</convert>
                     <convert type="ClockToText">InMinutes</convert>
             </widget>
-            <widget source="Service" render="Label" position="60,135" zPosition="3" size="225,22" font="Regular;16" halign="right" foregroundColor="yellow" backgroundColor="darkgrey" transparent="1">
+            <widget source="Service" render="Label" position="60,135" zPosition="3" size="225,22" font="Regular;16" halign="right" foregroundColor="yellow" backgroundColor="#605F5E" transparent="1">
                     <convert type="MovieInfo">FileSize</convert>
             </widget>
-            <widget source="Service" render="Label" position="60,155" zPosition="3" size="230,45" font="Regular;16" foregroundColor="yellow" backgroundColor="darkgrey" halign="left" transparent="1">
+            <widget source="Service" render="Label" position="60,155" zPosition="3" size="230,45" font="Regular;16" foregroundColor="yellow" backgroundColor="#605F5E" halign="left" transparent="1">
                     <convert type="MovieInfo">ShortDescription</convert>
             </widget>
-            <widget source="Service" render="Label" position="60,200" zPosition="3" size="230,265" font="Regular;16" foregroundColor="white" backgroundColor="darkgrey" transparent="1">
+            <widget source="Service" render="Label" position="60,200" zPosition="3" size="230,265" font="Regular;16" foregroundColor="white" backgroundColor="#605F5E" transparent="1">
                     <convert type="EventName">ExtendedDescription</convert>
             </widget>
-            <widget name="waitingtext" position="300,110" size="664,300" zPosition="3" font="Regular;26" halign="center" valign="center" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
+            <widget name="waitingtext" position="300,110" size="664,300" zPosition="3" font="Regular;26" halign="center" valign="center" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
             <widget name="list" position="300,115" size="664,390" zPosition="3" scrollbarMode="showOnDemand" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sel.png" 
                     backgroundPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sepmovie.png" transparent="1" enableWrapAround="1"/>
             <ePixmap pixmap="skin_default/buttons/button_red.png" position="60,518" size="21,21" zPosition="3" alphatest="blend"/>
             <ePixmap pixmap="skin_default/buttons/button_green.png" position="190,518" size="21,21" zPosition="3" alphatest="blend"/>
             <ePixmap pixmap="skin_default/buttons/button_yellow.png" position="450,518" size="21,21" zPosition="3" alphatest="blend"/>
             <ePixmap pixmap="skin_default/buttons/button_blue.png" position="700,518" size="21,21" zPosition="3" alphatest="blend"/>
-            <widget name="key_red" position="85,516" size="300,26" zPosition="3" font="Regular;20" halign="left" valign="top" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
-            <widget name="key_green" position="215,516" size="300,26" zPosition="3" font="Regular;20" halign="left" valign="top" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
-            <widget name="key_yellow" position="475,516" size="300,26" zPosition="3" font="Regular;20" halign="left" valign="top" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
-            <widget name="key_blue" position="725,516" size="300,26" zPosition="3" font="Regular;20" halign="left" valign="top" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
+            <widget name="key_red" position="85,516" size="300,26" zPosition="3" font="Regular;20" halign="left" valign="top" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
+            <widget name="key_green" position="215,516" size="300,26" zPosition="3" font="Regular;20" halign="left" valign="top" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
+            <widget name="key_yellow" position="475,516" size="300,26" zPosition="3" font="Regular;20" halign="left" valign="top" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
+            <widget name="key_blue" position="725,516" size="300,26" zPosition="3" font="Regular;20" halign="left" valign="top" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
             <ePixmap position="60,480" size="35,25" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" transparent="1" alphatest="blend"/>
             <ePixmap position="100,480" size="35,25" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" transparent="1" alphatest="blend"/>
             <ePixmap position="140,480" size="35,25" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" transparent="1" alphatest="blend"/>
@@ -298,26 +297,26 @@
         <screen name="AdvancedMovieSelection_Preview_noDescription_noCover_XD" position="center,center" size="1024,576" title=" " flags="wfNoBorder">
             <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/background.png" position="0,0" zPosition="2" size="1024,576"/>
             <widget source="session.VideoPicture" render="Pig" position="0,0" size="1024,576" zPosition="1" backgroundColor="#ff000000"/>
-            <widget name="freeDiskSpace"  position="60,40" size="800,29" zPosition="3" font="Regular;26" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
-            <widget source="Title" render="Label" position="60,72" size="550,26" zPosition="3" font="Regular;20" foregroundColor="yellow" backgroundColor="darkgrey" transparent="1"/>
-            <widget name="warning" position="490,45" size="420,28" zPosition="3" font="Regular;20" halign="center" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
-            <widget source="global.CurrentTime" render="Label" position="884,40" size="80,26" zPosition="3" font="Regular;26" halign="right" foregroundColor="white" backgroundColor="darkgrey" transparent="1">
+            <widget name="freeDiskSpace"  position="60,40" size="800,29" zPosition="3" font="Regular;26" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
+            <widget source="Title" render="Label" position="60,72" size="550,26" zPosition="3" font="Regular;20" foregroundColor="yellow" backgroundColor="#605F5E" transparent="1"/>
+            <widget name="warning" position="490,45" size="420,28" zPosition="3" font="Regular;20" halign="center" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
+            <widget source="global.CurrentTime" render="Label" position="884,40" size="80,26" zPosition="3" font="Regular;26" halign="right" foregroundColor="white" backgroundColor="#605F5E" transparent="1">
                     <convert type="ClockToText">Default</convert>
             </widget>
-            <widget source="global.CurrentTime" render="Label" position="654,72" zPosition="3" size="310,26" font="Regular;20" halign="right" foregroundColor="white" backgroundColor="darkgrey" transparent="1">
+            <widget source="global.CurrentTime" render="Label" position="654,72" zPosition="3" size="310,26" font="Regular;20" halign="right" foregroundColor="white" backgroundColor="#605F5E" transparent="1">
                     <convert type="ClockToText">Date</convert>
             </widget>
-            <widget name="waitingtext" position="300,110" size="664,300" zPosition="3" font="Regular;26" halign="center" valign="center" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
+            <widget name="waitingtext" position="300,110" size="664,300" zPosition="3" font="Regular;26" halign="center" valign="center" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
             <widget name="list" position="60,115" size="904,390" zPosition="3" scrollbarMode="showOnDemand" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sel.png" 
                     backgroundPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sepmovie.png" transparent="1" enableWrapAround="1"/>
             <ePixmap pixmap="skin_default/buttons/button_red.png" position="60,518" size="21,21" zPosition="3" alphatest="blend"/>
             <ePixmap pixmap="skin_default/buttons/button_green.png" position="190,518" size="21,21" zPosition="3" alphatest="blend"/>
             <ePixmap pixmap="skin_default/buttons/button_yellow.png" position="400,518" size="21,21" zPosition="3" alphatest="blend"/>
             <ePixmap pixmap="skin_default/buttons/button_blue.png" position="590,518" size="21,21" zPosition="3" alphatest="blend"/>
-            <widget name="key_red" position="85,516" size="300,26" zPosition="3" font="Regular;18" halign="left" valign="top" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
-            <widget name="key_green" position="215,516" size="300,26" zPosition="3" font="Regular;18" halign="left" valign="top" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
-            <widget name="key_yellow" position="425,516" size="300,26" zPosition="3" font="Regular;18" halign="left" valign="top" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
-            <widget name="key_blue" position="615,516" size="300,26" zPosition="3" font="Regular;18" halign="left" valign="top" foregroundColor="white" backgroundColor="darkgrey" transparent="1"/>
+            <widget name="key_red" position="85,516" size="300,26" zPosition="3" font="Regular;18" halign="left" valign="top" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
+            <widget name="key_green" position="215,516" size="300,26" zPosition="3" font="Regular;18" halign="left" valign="top" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
+            <widget name="key_yellow" position="425,516" size="300,26" zPosition="3" font="Regular;18" halign="left" valign="top" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
+            <widget name="key_blue" position="615,516" size="300,26" zPosition="3" font="Regular;18" halign="left" valign="top" foregroundColor="white" backgroundColor="#605F5E" transparent="1"/>
             <ePixmap position="789,516" size="35,25" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" transparent="1" alphatest="blend"/>
             <ePixmap position="824,516" size="35,25" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" transparent="1" alphatest="blend"/>
             <ePixmap position="859,516" size="35,25" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" transparent="1" alphatest="blend"/>
