@@ -129,9 +129,6 @@ class VideoPreview():
         self.service = None
         self.currentlyPlayingService = None
         self.cut_list = None
-        self.updateVideoPreviewSettings()
-        self.onClose.append(self.__playLastService)
-        self.dvdScreen = self.session.instantiateDialog(DVDOverlay)
         from plugin import PlayerInstance
         self.lastService = self.session.nav.getCurrentlyPlayingServiceReference()
         if PlayerInstance:
@@ -139,6 +136,9 @@ class VideoPreview():
                 self.lastService = None
             else:
                 self.lastService = PlayerInstance.lastservice
+        self.updateVideoPreviewSettings()
+        self.onClose.append(self.__playLastService)
+        self.dvdScreen = self.session.instantiateDialog(DVDOverlay)
         
     def updateVideoPreviewSettings(self):
         self.enabled = config.AdvancedMovieSelection.video_preview.value
