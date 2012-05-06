@@ -126,13 +126,19 @@ class VideoPreview():
         self.dvd_preview_timer.timeout.get().append(self.playLastDVD)
         self.video_preview_timer = eTimer()
         self.video_preview_timer.timeout.get().append(self.playMovie)
-        self.lastService = None
         self.service = None
         self.currentlyPlayingService = None
         self.cut_list = None
         self.updateVideoPreviewSettings()
         self.onClose.append(self.__playLastService)
         self.dvdScreen = self.session.instantiateDialog(DVDOverlay)
+        from plugin import PlayerInstance
+        self.lastService = self.session.nav.getCurrentlyPlayingServiceReference()
+        if PlayerInstance:
+            if PlayerInstance.isCurrentlyPlaying():
+                self.lastService = None
+            else:
+                self.lastService = PlayerInstance.lastservice
         
     def updateVideoPreviewSettings(self):
         self.enabled = config.AdvancedMovieSelection.video_preview.value
@@ -170,7 +176,6 @@ class VideoPreview():
         if not config.AdvancedMovieSelection.video_preview_autostart.value and self.lastService:
             self.stopCurrentlyPlayingService()
             self.session.nav.playService(self.lastService)
-            self.lastService = None
         else:
             if service:
                 self.service = service
@@ -205,12 +210,12 @@ class VideoPreview():
             from plugin import PlayerInstance
             if PlayerInstance and PlayerInstance.isCurrentlyPlaying():
                 return
-            if self.session.nav.getCurrentlyPlayingServiceReference() == self.service:
+            cpsr = self.session.nav.getCurrentlyPlayingServiceReference()
+            if cpsr and cpsr == self.service:
                 return 
-            if not self.lastService:
-                self.lastService = self.session.nav.getCurrentlyPlayingServiceReference()
-            if self.currentlyPlayingService:
-                self.stopCurrentlyPlayingService()
+            #if not self.lastService:
+            #    self.lastService = self.session.nav.getCurrentlyPlayingServiceReference()
+            self.stopCurrentlyPlayingService()
             self.currentlyPlayingService = self.service
             if isinstance(self.service, eServiceReferenceDvd):
                 newref = eServiceReference(4369, 0, self.service.getPath())
@@ -294,7 +299,6 @@ class VideoPreview():
         return self.currentlyPlayingService
 
     def __playLastService(self):
+        self.stopCurrentlyPlayingService()
         if self.lastService:
-            self.stopCurrentlyPlayingService()
             self.session.nav.playService(self.lastService)
-            self.lastService = None            
