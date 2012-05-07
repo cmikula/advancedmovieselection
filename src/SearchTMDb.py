@@ -42,6 +42,7 @@ from os import environ
 from ServiceProvider import PicLoader
 from Tools.Directories import fileExists
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
+from Screens.ChoiceBox import ChoiceBox
 
 IMAGE_TEMPFILE = "/tmp/TMDb_temp"
 
@@ -55,6 +56,67 @@ if fileExists(resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/YTTrailer/plugin
     YTTrailerPresent = True
 else:
     YTTrailerPresent = False
+
+class InfoChecker:
+    INFO = 0x01
+    COVER = 0x02
+    BOTH = INFO | COVER
+    def __init__(self):
+        pass
+    
+    @classmethod
+    def check(self, file_name):
+        present = 0
+        if InfoChecker.checkExtension(file_name, ".eit"):
+            present |= InfoChecker.INFO
+        if InfoChecker.checkExtension(file_name, ".jpg"):
+            present |= InfoChecker.COVER
+        return present
+
+    @classmethod
+    def checkExtension(self, file_name, ext):
+        import os
+        # DVD directory
+        if not os.path.isdir(file_name):
+            f_name = os.path.splitext(file_name)[0]
+        else:
+            f_name = file_name
+        file_name = f_name + ext
+        return os.path.exists(file_name)
+
+class InfoLoadChoice():
+    def __init__(self, callback):
+        self.__callback = callback
+        self.__timer = eTimer()
+        self.__timer.callback.append(self.__timerCallback)
+    
+    def checkExistEnce(self, file_name):
+        list = []
+        present = InfoChecker.check(file_name)
+        default = (False, False)
+        if False: # TODO: implement settings for disable choice here 
+            self.startTimer(default)
+            return
+        list.append((_("Only those, which are not available!"), default))
+        if present & InfoChecker.BOTH == InfoChecker.BOTH:
+            list.append((_("Overwrite both (description & cover)"), (True, True)))
+        if present & InfoChecker.INFO:
+            list.append((_("Overwrite movie description"), (True, False)))
+        if present & InfoChecker.COVER:
+            list.append((_("Overwrite movie cover"), (False, True)))
+            
+        if present & InfoChecker.BOTH != 0:
+            self.session.openWithCallback(self.startTimer, ChoiceBox, title=_("Data already exists! Should anything be updated?"), list=list)
+        else:
+            self.__callback(("Default", default))
+
+    def startTimer(self, answer):
+        print "InfoLoadChoice", answer
+        self.answer = answer
+        self.__timer.start(100, True)
+
+    def __timerCallback(self):
+        self.__callback(self.answer)
 
 class TMDbList(GUIComponent, object):
     def __init__(self):
@@ -124,7 +186,7 @@ class TMDbList(GUIComponent, object):
     def getLength(self):
         return len(self.list)
 
-class TMDbMain(Screen):
+class TMDbMain(Screen, InfoLoadChoice):
     SHOW_DETAIL_TEXT = _("Show movie detail")
     SHOW_SEARCH_RESULT_TEXT = _("Show search result")
     MANUAL_SEARCH_TEXT = _("Manual search")
@@ -138,6 +200,7 @@ class TMDbMain(Screen):
         
     def __init__(self, session, searchTitle, service):
         Screen.__init__(self, session)
+        InfoLoadChoice.__init__(self, self.callback_green_pressed)
         try:
             sz_w = getDesktop(0).size().width()
         except:
@@ -191,8 +254,6 @@ class TMDbMain(Screen):
         self.timer.callback.append(self.searchForMovies)
         self.red_button_timer = eTimer()
         self.red_button_timer.callback.append(self.callback_red_pressed)
-        self.green_button_timer = eTimer()
-        self.green_button_timer.callback.append(self.callback_green_pressed)
         self.blue_button_timer = eTimer()
         self.blue_button_timer.callback.append(self.callback_blue_pressed) 
         self.ok_button_timer = eTimer()
@@ -453,16 +514,18 @@ class TMDbMain(Screen):
 
     def green_pressed(self):
         self.setTitle(_("Save Info/Cover for ' %s ', please wait ...") % self.searchTitle)  
-        self.green_button_timer.start(100, True) 
+        self.checkExistEnce(self.service.getPath())
+        #self.green_button_timer.start(100, True) 
 
-    def callback_green_pressed(self):
+    def callback_green_pressed(self, answer=None):
         if self.checkConnection() == False or not self["list"].getCurrent():
             return
+        overwrite_eit, overwrite_jpg = answer and answer[1] or (False, False)
         from EventInformationTable import createEIT
         current_movie = self["list"].getCurrent()[0]
         title = current_movie["name"].encode('utf-8')
         if self.service is not None:
-            createEIT(self.service.getPath(), title, config.AdvancedMovieSelection.coversize.value, movie=current_movie)
+            createEIT(self.service.getPath(), title, config.AdvancedMovieSelection.coversize.value, movie=current_movie, overwrite_jpg=overwrite_jpg, overwrite_eit=overwrite_eit)
             self.close(False)
         else:
             self.session.openWithCallback(self.close, MessageBox, _("Sorry, no info/cover found for title: %s") % (title), MessageBox.TYPE_ERROR)
@@ -475,7 +538,7 @@ class TMDbMain(Screen):
         current_movie = self["list"].getCurrent()[0]
         title = current_movie["name"].encode('utf-8')
         if text == self.TRAILER_SEARCH_TEXT:
-             self.setTitle(_("Search trailer for ' %s ', please wait ...") % title)
+            self.setTitle(_("Search trailer for ' %s ', please wait ...") % title)
         self.blue_button_timer.start(100, True)
 
     def callback_blue_pressed(self):

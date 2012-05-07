@@ -45,6 +45,7 @@ from EventInformationTable import createEITtvdb
 import tvdb
 import shutil
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
+from SearchTMDb import InfoLoadChoice
 
 temp_dir = "/tmp/TheTVDB_temp/"
 
@@ -164,7 +165,7 @@ class EpisodesList(ListBase):
         res.append((eListboxPythonMultiContent.TYPE_TEXT, 5, 52, width - 5, 79, 1, RT_HALIGN_LEFT | RT_WRAP, "%s" % episode_overview))
         return res
         
-class TheTVDBMain(Screen):
+class TheTVDBMain(Screen, InfoLoadChoice):
     SHOW_DETAIL_TEXT = _("Show serie detail")
     SHOW_EPISODE_TEXT = _("Show episode detail")
     SHOW_ALL_EPISODES_TEXT = _("Show episodes overview")
@@ -183,6 +184,7 @@ class TheTVDBMain(Screen):
     
     def __init__(self, session, service, args=None):
         Screen.__init__(self, session)
+        InfoLoadChoice.__init__(self, self.callback_green_pressed)
         try:
             sz_w = getDesktop(0).size().width()
         except:
@@ -255,8 +257,6 @@ class TheTVDBMain(Screen):
         self.timer.callback.append(self.getSeriesList)
         self.red_button_timer = eTimer()
         self.red_button_timer.callback.append(self.callback_red_pressed)
-        self.green_button_timer = eTimer()
-        self.green_button_timer.callback.append(self.callback_green_pressed)
         self.blue_button_timer = eTimer()
         self.blue_button_timer.callback.append(self.callback_blue_pressed)        
         self.onLayoutFinish.append(self.layoutFinished)
@@ -751,12 +751,13 @@ class TheTVDBMain(Screen):
 
     def green_pressed(self):
         self.setTitle(_("Save Info/Cover for ' %s ', please wait ...") % self.searchTitle)  
-        self.green_button_timer.start(100, True)      
+        self.checkExistEnce(self.service.getPath())
 
-    def callback_green_pressed(self):
+    def callback_green_pressed(self, answer=None):
         cur = self["list"].getCurrent()
         if not self.checkConnection() or not cur:
             return
+        overwrite_eit, overwrite_jpg = answer and answer[1] or (False, False)
         current_movie = cur[0]['Serie'][0]
         title = current_movie['SeriesName'].encode('utf-8', 'ignore')
         episode = None
@@ -765,7 +766,7 @@ class TheTVDBMain(Screen):
         if cur_epi and (self.view_mode == self.SHOW_EPISODE_LIST or self.view_mode == self.SHOW_EPISODE_DETAIL):
             episode = cur_epi[0]
         if self.service is not None:
-            createEITtvdb(self.service.getPath(), title, serie=current_movie, episode=episode)
+            createEITtvdb(self.service.getPath(), title, serie=current_movie, episode=episode, overwrite_jpg=overwrite_jpg, overwrite_eit=overwrite_eit)
             self.close(False)
 
     def red_pressed(self):

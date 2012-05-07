@@ -254,6 +254,7 @@ version: 2.7
 * new: movie preview as fullscreen
 * new: voluntary self-control with updating from tmdb
 * new: movies can be filtered according to the description
+* new: selection, whether data will be overwritten by tmdb and tvdb
 * new: recorded movies are marked in the EPG (adjustable in setup)
 Skinners ATTENTION,  AdvancedMovieSelection_Preview_HD, AdvancedMovieSelection_Preview_noDescription_HD, AdvancedMovieSelection_Preview_noCover_HD, AdvancedMovieSelection_Preview_noDescription_noCover_HD,
 AdvancedMovieSelection_Preview_XD, AdvancedMovieSelection_Preview_noDescription_XD, AdvancedMovieSelection_Preview_noCover_XD, AdvancedMovieSelection_Preview_noDescription_noCover_XD (SD makes no sense)
