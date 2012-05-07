@@ -1129,9 +1129,10 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             pass
 
     def getTagDescription(self, tag):
-        from AccessRestriction import VSR
-        if tag in VSR:
-            return _(tag), tag
+        from AccessRestriction import accessRestriction
+        if tag.startswith("VSR"):
+            vsr = _("VSR") + "-%d" % (accessRestriction.decodeAccess(tag))
+            return vsr, tag
         # TODO: access the tag database
         return tag, tag
 

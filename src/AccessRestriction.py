@@ -36,6 +36,13 @@ class AccessRestriction:
 
     def getAccess(self):
         return self.access
+
+    def decodeAccess(self, access):
+        try:
+            return int(access[4:])
+        except Exception, e:
+            print e
+            return -1 # type as error
     
     def isAccessible(self, tags):
         if not tags:

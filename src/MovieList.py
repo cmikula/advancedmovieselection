@@ -995,7 +995,7 @@ class MovieList(GUIComponent):
                 tag_list.append(t)
         tag_list.sort()
         if vsr:
-            vsr = _(vsr)
+            vsr = _("VSR") + "-%d" % (accessRestriction.decodeAccess(vsr))
             if vsr_left:
                 tag_list.insert(0, vsr)
             else:
