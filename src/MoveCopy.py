@@ -111,22 +111,36 @@ class MovieMove(ChoiceBox):
                     if os.path.exists(self.destinationpath + "/%s" % self.getMovieFileName(service)) is True:
                         self.skipMoveFile(_("File already exists"))
                         return
-                    
+                
+                cmd = ["mv"]
+                for service in self.service_list:
+                    cmd.append("\"%s/%s.\"*" % (self.sourcepath, self.getMovieFileName(service)))
+                cmd.append("\"%s\"" % (self.destinationpath))
+                #print " ".join(cmd)
+                
                 if confirmed[1] == "VS":
-                    for service in self.service_list:
-                        os.system("mv \"%s/%s.\"* \"%s\"" % (self.sourcepath, self.getMovieFileName(service), self.destinationpath))
+                    #for service in self.service_list:
+                    #    os.system("mv \"%s/%s.\"* \"%s\"" % (self.sourcepath, self.getMovieFileName(service), self.destinationpath))
+                    os.system(" ".join(cmd))
                     self.session.openWithCallback(self.__doClose, MessageBox, _("The move was successful."), MessageBox.TYPE_INFO, timeout=3)
                 elif confirmed[1] == "VH":
-                    for service in self.service_list:
-                        os.system("mv \"%s/%s.\"* \"%s\" &" % (self.sourcepath, self.getMovieFileName(service), self.destinationpath))
+                    #for service in self.service_list:
+                    #    os.system("mv \"%s/%s.\"* \"%s\" &" % (self.sourcepath, self.getMovieFileName(service), self.destinationpath))
+                    cmd.append("&")
+                    os.system(" ".join(cmd))
                     self.session.openWithCallback(self.__doClose, MessageBox, _("Moving in the background.\n\nThe movie list appears updated after full completion."), MessageBox.TYPE_INFO, timeout=12)
                 elif confirmed[1] == "KS":
-                    for service in self.service_list:
-                        os.system("cp \"%s/%s.\"* \"%s\"" % (self.sourcepath, self.getMovieFileName(service), self.destinationpath))
+                    #for service in self.service_list:
+                    #    os.system("cp \"%s/%s.\"* \"%s\"" % (self.sourcepath, self.getMovieFileName(service), self.destinationpath))
+                    cmd[0] = "cp"
+                    os.system(" ".join(cmd))
                     self.session.openWithCallback(self.__doClose, MessageBox, _("The copying was successful."), MessageBox.TYPE_INFO, timeout=3)
                 elif confirmed[1] == "KH":
-                    for service in self.service_list:
-                        os.system("cp \"%s/%s.\"* \"%s\" &" % (self.sourcepath, self.getMovieFileName(service), self.destinationpath))
+                    #for service in self.service_list:
+                    #    os.system("cp \"%s/%s.\"* \"%s\" &" % (self.sourcepath, self.getMovieFileName(service), self.destinationpath))
+                    cmd[0] = "cp"
+                    cmd.append("&")
+                    os.system(" ".join(cmd))
                     self.session.openWithCallback(self.__doClose, MessageBox, _("Copying in the background.\n\nThe movie list appears updated after full completion."), MessageBox.TYPE_INFO, timeout=12)
             else:
                 MovieMove(session=self.session, csel=self.csel, service=self.service_list[0])
