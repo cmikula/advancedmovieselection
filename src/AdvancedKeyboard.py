@@ -65,7 +65,12 @@ class AdvancedKeyBoard(VirtualKeyBoard, NumericalTextInput):
         NumericalTextInput.__init__(self, nextFunc=self.nextFunc)
         #self.skinName = "VirtualKeyBoard"
         self.configText = None
-        use = self.BOTH
+        if config.AdvancedMovieSelection.keyboard.value == "virtual":
+            use = self.KEYBOARD
+        elif config.AdvancedMovieSelection.keyboard.value == "numerical":
+            use = self.NUM_KEYB
+        else:
+            use = self.BOTH
         if not use & self.KEYBOARD:
             # hide the keyboard
             self["list"].hide()
