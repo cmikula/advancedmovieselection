@@ -27,7 +27,6 @@ from Components.MenuList import MenuList
 from Components.Sources.StaticText import StaticText
 from Screens.HelpMenu import HelpableScreen
 from MovieList import MovieList, eServiceReferenceHotplug, eServiceReferenceBackDir
-from MovieSearch import MovieSearchScreen
 from Components.DiskInfo import DiskInfo
 from Components.Pixmap import Pixmap
 from Components.Label import Label
@@ -394,7 +393,28 @@ class MovieContextMenu(Screen):
         self.close()
 
     def searchmovie(self):
-        MovieSearchScreen(session=self.session)
+        from AdvancedKeyboard import AdvancedKeyBoard
+        self.session.openWithCallback(self.searchCallback, AdvancedKeyBoard, _("Enter text to search for"))
+        
+    def searchCallback(self, retval):
+        searchString = retval
+        print searchString
+        if not searchString:
+            return self.csel.reloadList()
+    
+        movieList = self.csel["list"].list
+        newList = []
+        for movie in movieList:
+            # we have no idea what this input could be, just add it back
+            if len(movie) < 2: newList.append(movie)
+            else:
+                if not (movie[0].flags & eServiceReference.mustDescent and not isinstance(movie[0], eServiceReferenceDvd)):
+                    name = movie[1].getName(movie[0])
+                    if searchString.lower() in name.lower(): # force case-insensitive for now
+                        newList.append(movie)
+        self.csel["list"].list = newList
+        self.csel["list"].l.setList(newList)
+        self.closeafterfinish()
 
     def setMovieStatus(self, status):
         self.csel.setMovieStatus(status)

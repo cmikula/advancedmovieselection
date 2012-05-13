@@ -26,13 +26,12 @@ from Screens.Screen import Screen
 from Components.ActionMap import ActionMap
 from Components.Sources.StaticText import StaticText
 from Components.Pixmap import Pixmap
-from os import path as os_path, mkdir as os_mkdir, rename as os_rename
+from os import path as os_path, mkdir as os_mkdir
 from enigma import ePicLoad, eTimer
 from Components.Label import Label
 from Components.ScrollLabel import ScrollLabel
 from Components.AVSwitch import AVSwitch
 from Screens.MessageBox import MessageBox
-from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Components.config import config
 from enigma import getDesktop
 import tmdb, urllib
@@ -531,7 +530,8 @@ class TMDbMain(Screen, InfoLoadChoice):
             self.session.openWithCallback(self.close, MessageBox, _("Sorry, no info/cover found for title: %s") % (title), MessageBox.TYPE_ERROR)
 
     def yellow_pressed(self):
-        self.session.openWithCallback(self.newSearchFinished, VirtualKeyBoard, title=_("Enter new moviename to search for"), text=self.searchTitle)
+        from AdvancedKeyboard import AdvancedKeyBoard
+        self.session.openWithCallback(self.newSearchFinished, AdvancedKeyBoard, title=_("Enter new moviename to search for"), text=self.searchTitle)
 
     def blue_pressed(self):
         text = self["key_blue"].getText()

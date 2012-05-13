@@ -32,7 +32,6 @@ from Components.ActionMap import ActionMap
 from Components.GUIComponent import GUIComponent
 from enigma import RT_WRAP, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, gFont, eListbox, eListboxPythonMultiContent
 from Components.Label import Label
-from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Components.ScrollLabel import ScrollLabel
 from Tools.Directories import pathExists, fileExists
 import os
@@ -439,7 +438,8 @@ class TheTVDBMain(Screen, InfoLoadChoice):
                 self.updateView(self.SHOW_EPISODE_NO_RESULT)
 
     def searchManual(self):
-        self.session.openWithCallback(self.newSearchCallback, VirtualKeyBoard, title=_("Enter new movie name for search:"), text=self.searchTitle)        
+        from AdvancedKeyboard import AdvancedKeyBoard
+        self.session.openWithCallback(self.newSearchCallback, AdvancedKeyBoard, title=_("Enter new movie name for search:"), text=self.searchTitle)        
 
     def newSearchCallback(self, text=None):
         if text:
