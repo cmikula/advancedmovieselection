@@ -118,8 +118,9 @@ class AdvancedKeyBoard(VirtualKeyBoard, NumericalTextInput):
             self.configText.help_window.show()
                 
     def __onClose(self):
-        if self.configText:
-            self.configText.onDeselect(self.session)
+        if self.help_window:
+            self.session.deleteDialog(self.help_window)
+            self.help_window = None
     
     def dummy(self):
         pass
