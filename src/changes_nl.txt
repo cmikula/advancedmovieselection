@@ -250,8 +250,11 @@ versie: 2.6.1
 
 versie: 2.7
 * fix: weergeven en bewaren van beschrijvingen (eit) in Cyrillisch
+* fix: tune failes na standby tijdens het afspelen
 * nieuw: filmpreview als volledig beeld
 * nieuw: Vrijwillige ZelfRegulering Self Regulation met actualisering via tmdb
 * nieuw: opgenomen filmen worden in de EPG gemarkeerd (instelbaar)
+* nieuw: filmen kunnen gefilterd worden volgens de beschrijving
+* nieuw: keuze of info van tmdb en tvdb overschreven wordt
 OPGELET voor de skinners, AdvancedMovieSelection_Preview_HD, AdvancedMovieSelection_Preview_noDescription_HD, AdvancedMovieSelection_Preview_noCover_HD, AdvancedMovieSelection_Preview_noDescription_noCover_HD,
 AdvancedMovieSelection_Preview_XD, AdvancedMovieSelection_Preview_noDescription_XD, AdvancedMovieSelection_Preview_noCover_XD, AdvancedMovieSelection_Preview_noDescription_noCover_XD (SD is niet zinvol)

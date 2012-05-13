@@ -250,11 +250,11 @@ version: 2.6.1
 
 version: 2.7
 * fix: display and save descriptions (eit) in Cyrillic
-* fix: busy tuner after stby during playback
-* new: movie preview as fullscreen
-* new: voluntary self-control with updating from tmdb
+* fix: tune failed after standby while playing
+* new: film preview as fullscreen
+* new: voluntary self regulation with sync from tmdb
+* new: recorded movies are marked in the EPG (configurable in the settings)
 * new: movies can be filtered according to the description
-* new: selection, whether data will be overwritten by tmdb and tvdb
-* new: recorded movies are marked in the EPG (adjustable in setup)
+* new: choice if info from tmbd and tvdb should be overwritten
 Skinners ATTENTION,  AdvancedMovieSelection_Preview_HD, AdvancedMovieSelection_Preview_noDescription_HD, AdvancedMovieSelection_Preview_noCover_HD, AdvancedMovieSelection_Preview_noDescription_noCover_HD,
 AdvancedMovieSelection_Preview_XD, AdvancedMovieSelection_Preview_noDescription_XD, AdvancedMovieSelection_Preview_noCover_XD, AdvancedMovieSelection_Preview_noDescription_noCover_XD (SD makes no sense)

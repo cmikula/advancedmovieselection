@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-07 11:15-0000\n"
-"PO-Revision-Date: 2012-05-07 11:15-0000\n"
+"POT-Creation-Date: 2012-05-13 07:30-0000\n"
+"PO-Revision-Date: 2012-05-13 07:30-0000\n"
 "Last-Translator: cmikula\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "Language: \n"
@@ -18,51 +18,51 @@ msgstr ""
 "X-Poedit-Bookmarks: -1,-1,-1,-1,-1,-1,-1,120,-1,-1\n"
 "X-Poedit-SearchPath-0: ../../..\n"
 
-#: ../../../SearchTVDb.py:133
+#: ../../../SearchTVDb.py:134
 msgid "Sorry, no description found at www.thetvdb.com!"
 msgstr "Geen gegevens gevonden via TheTVDB.com!"
 
-#: ../../../SearchTVDb.py:135
-#: ../../../SearchTVDb.py:157
+#: ../../../SearchTVDb.py:136
+#: ../../../SearchTVDb.py:158
 #, python-format
 msgid "ID: %s"
 msgstr "ID: %s"
 
-#: ../../../SearchTVDb.py:158
+#: ../../../SearchTVDb.py:159
 #, python-format
 msgid "Season: %s"
 msgstr "Reeks: %s"
 
-#: ../../../SearchTVDb.py:159
+#: ../../../SearchTVDb.py:160
 #, python-format
 msgid "Episode: %s"
 msgstr "Aflevering: %s"
 
-#: ../../../SearchTVDb.py:168
+#: ../../../SearchTVDb.py:169
 msgid "Show serie detail"
 msgstr "Serie details weergeven"
 
-#: ../../../SearchTVDb.py:169
+#: ../../../SearchTVDb.py:170
 msgid "Show episode detail"
 msgstr "Episode details weergeven"
 
-#: ../../../SearchTVDb.py:170
+#: ../../../SearchTVDb.py:171
 msgid "Show episodes overview"
 msgstr "Overzicht episodes weergeven"
 
-#: ../../../SearchTVDb.py:171
+#: ../../../SearchTVDb.py:172
 msgid "Show search result"
 msgstr "Resultaten weergeven"
 
-#: ../../../SearchTVDb.py:172
+#: ../../../SearchTVDb.py:173
 msgid "Manual search"
 msgstr "Manueel zoeken"
 
-#: ../../../SearchTVDb.py:173
+#: ../../../SearchTVDb.py:174
 msgid "Info/Cover save"
 msgstr "Info/Cover bewaren"
 
-#: ../../../SearchTVDb.py:174
+#: ../../../SearchTVDb.py:175
 msgid "Trailer search"
 msgstr "Zoeken Trailer"
 
@@ -234,27 +234,27 @@ msgstr "Resultaten voor: %s"
 msgid "Save Info/Cover for ' %s ', please wait ..."
 msgstr "Info/Cover voor ' %s ' bewaren, eventjes geduld ..."
 
-#: ../../../SearchTVDb.py:774
+#: ../../../SearchTVDb.py:775
 #, python-format
 msgid "Getting show details for ' %s ', please wait ..."
 msgstr "Zoeken details naar voor ' %s ', eventjes geduld ..."
 
-#: ../../../SearchTVDb.py:776
+#: ../../../SearchTVDb.py:777
 #, python-format
 msgid "Search trailer for ' %s ', please wait ..."
 msgstr "Zoeken naar trailer voor ' %s , eventjes geduld ..."
 
-#: ../../../SearchTVDb.py:778
+#: ../../../SearchTVDb.py:779
 #, python-format
 msgid "Getting search result for ' %s ', please wit ..."
 msgstr "Zoeken naar ' %s , eventjes geduld ..."
 
-#: ../../../SearchTVDb.py:788
+#: ../../../SearchTVDb.py:789
 #, python-format
 msgid "Getting episodes list for ' %s ', please wait ..."
 msgstr "Zoeken naar episode-lijst van ' %s ', eventjes geduld ..."
 
-#: ../../../SearchTVDb.py:792
+#: ../../../SearchTVDb.py:793
 #, python-format
 msgid "Getting episodes details for ' %s ', please wait ..."
 msgstr "Zoeken naar episode-details van %s, eventjes geduld ..."
@@ -1186,7 +1186,7 @@ msgstr "VZR-0 (Voor iedereen geschikt)"
 
 #: ../../../QuickButton.py:301
 msgid "VSR-6 (Parental Guidance Suggested)"
-msgstr "VZR-18 (Toezicht aangeraden)"
+msgstr "VZR-6 (Toezicht aangeraden)"
 
 #: ../../../QuickButton.py:302
 msgid "VSR-12 (Parents Strongly Cautioned)"
@@ -1194,7 +1194,7 @@ msgstr "VZR-12 (Toezicht aangewezen)"
 
 #: ../../../QuickButton.py:303
 msgid "VSR-16 (Restricted)"
-msgstr "VZR-18 (Niet onder 16 jaar)"
+msgstr "VZR-16 (Niet onder 16 jaar)"
 
 #: ../../../QuickButton.py:304
 msgid "VSR-18 (No One 17 And Under Admitted)"
@@ -1205,9 +1205,8 @@ msgid "Please select the VSR here:"
 msgstr "Gelieve de VZR te selecteren:"
 
 #: ../../../QuickButton.py:342
-#, fuzzy
 msgid "Select movie by description:"
-msgstr "Sorteren volgens beschrijving"
+msgstr "Selecteer film volgens beschrijving:"
 
 #: ../../../AdvancedMovieSelectionSetup.py:170
 #: ../../../MovieSelection.py:255
@@ -1967,9 +1966,8 @@ msgstr "Sorteren"
 
 #: ../../../AdvancedMovieSelectionSetup.py:548
 #: ../../../MovieSelection.py:161
-#, fuzzy
 msgid "Filter by description"
-msgstr "Sorteren volgens beschrijving"
+msgstr "Filter volgens beschrijving"
 
 #: ../../../AdvancedMovieSelectionSetup.py:548
 msgid "Bookmark(s) on/off"
@@ -2873,21 +2871,41 @@ msgstr "Geavanceerde Filmselectie Zoeken"
 msgid "Manual jump to:"
 msgstr "Manueel springen naar:"
 
-#: ../../../SearchTMDb.py:128
+#: ../../../SearchTMDb.py:100
+msgid "Only those, which are not available!"
+msgstr "Enkel de ontbrekende gegevens aanvullen!"
+
+#: ../../../SearchTMDb.py:102
+msgid "Overwrite both (description & cover)"
+msgstr "Beide overschrijven (beschrijving & cover)"
+
+#: ../../../SearchTMDb.py:104
+msgid "Overwrite movie description"
+msgstr "Filminfo overschrijven"
+
+#: ../../../SearchTMDb.py:106
+msgid "Overwrite movie cover"
+msgstr "Filmcover overschrijven"
+
+#: ../../../SearchTMDb.py:109
+msgid "Data already exists! Should anything be updated?"
+msgstr "Gegevens bestaan reeds! Actualiseren?"
+
+#: ../../../SearchTMDb.py:190
 msgid "Show movie detail"
 msgstr "Film details weergeven"
 
-#: ../../../SearchTMDb.py:221
+#: ../../../SearchTMDb.py:282
 #, python-format
 msgid "Searching for ' %s ' on TMDb, please wait ..."
 msgstr "Zoeken naar %s op TMDb, eventjes geduld ..."
 
-#: ../../../SearchTMDb.py:248
+#: ../../../SearchTMDb.py:309
 #, python-format
 msgid "No data found for ' %s ' at themoviedb.org!"
 msgstr "Geen gegevens gevonden voor ' %s ' via themoviedb.org!"
 
-#: ../../../SearchTMDb.py:249
+#: ../../../SearchTMDb.py:310
 #, python-format
 msgid ""
 "No data found for ' %s ' at themoviedb.org!\n"
@@ -2896,8 +2914,8 @@ msgstr ""
 "Geen gegevens gevonden voor ' %s ' via themoviedb.org!\n"
 "Wilt u de zoeknaam editeren en manueel zoeken?"
 
-#: ../../../SearchTMDb.py:258
-#: ../../../SearchTMDb.py:383
+#: ../../../SearchTMDb.py:319
+#: ../../../SearchTMDb.py:444
 #, python-format
 msgid ""
 "Error!\n"
@@ -2906,50 +2924,50 @@ msgstr ""
 "Fout!\n"
 "%s"
 
-#: ../../../SearchTMDb.py:266
+#: ../../../SearchTMDb.py:327
 msgid "movie found"
 msgstr "gevonden film"
 
-#: ../../../SearchTMDb.py:268
+#: ../../../SearchTMDb.py:329
 msgid "movies found"
 msgstr "gevonden films"
 
-#: ../../../SearchTMDb.py:302
+#: ../../../SearchTMDb.py:363
 #, python-format
 msgid "No description for ' %s ' at themoviedb.org found!"
 msgstr "Geen gegevens voor ' %s ' gevonden via themoviedb.org!"
 
-#: ../../../SearchTMDb.py:317
+#: ../../../SearchTMDb.py:378
 #, python-format
 msgid "Appeared: %s"
 msgstr "Verschenen: %s"
 
-#: ../../../SearchTMDb.py:319
+#: ../../../SearchTMDb.py:380
 #, python-format
 msgid "Runtime: %s minutes"
 msgstr "Lengte: %s minuten"
 
-#: ../../../SearchTMDb.py:344
+#: ../../../SearchTMDb.py:405
 #, python-format
 msgid "Studio: %s"
 msgstr "Filmstudio: %s"
 
-#: ../../../SearchTMDb.py:350
+#: ../../../SearchTMDb.py:411
 #, python-format
 msgid "Production Countries: %s\n"
 msgstr "Landen productie: %s\n"
 
-#: ../../../SearchTMDb.py:356
+#: ../../../SearchTMDb.py:417
 #, python-format
 msgid "Director: %s"
 msgstr "Producent: %s"
 
-#: ../../../SearchTMDb.py:362
+#: ../../../SearchTMDb.py:423
 #, python-format
 msgid "Production: %s\n"
 msgstr "Productie: %s\n"
 
-#: ../../../SearchTMDb.py:370
+#: ../../../SearchTMDb.py:431
 #, python-format
 msgid ""
 "\n"
@@ -2958,17 +2976,17 @@ msgstr ""
 "\n"
 "Laatste wijziging bij themoviedb.org: %s"
 
-#: ../../../SearchTMDb.py:374
+#: ../../../SearchTMDb.py:435
 msgid "Unknown error!!"
 msgstr "Ongekende fout!"
 
-#: ../../../SearchTMDb.py:429
-#: ../../../SearchTMDb.py:447
+#: ../../../SearchTMDb.py:490
+#: ../../../SearchTMDb.py:508
 #, python-format
 msgid "Getting search result for ' %s ', please wait ..."
 msgstr "Zoeken naar ' %s , eventjes geduld ..."
 
-#: ../../../SearchTMDb.py:468
+#: ../../../SearchTMDb.py:531
 #, python-format
 msgid "Sorry, no info/cover found for title: %s"
 msgstr "Sorry geen Filminfo/Cover voor %s gevonden."
@@ -2981,18 +2999,6 @@ msgstr "Ongekende service"
 #, python-format
 msgid "Infos for: %s"
 msgstr "Info voor: %s"
-
-#~ msgid "VSR-6"
-#~ msgstr "VZR-6"
-
-#~ msgid "VSR-12"
-#~ msgstr "VZR-12"
-
-#~ msgid "VSR-16"
-#~ msgstr "VZR-16"
-
-#~ msgid "VSR-18"
-#~ msgstr "VZR-18"
 
 #~ msgid "Parse changes text, please wait ..."
 #~ msgstr "Inlezen tekstbestand, eventjes geduld ..."
@@ -3058,9 +3064,6 @@ msgstr "Info voor: %s"
 
 #~ msgid "Extended Info"
 #~ msgstr "Uitgebreide Info"
-
-#~ msgid "Save movie info/cover"
-#~ msgstr "Filminfo/Cover bewaren"
 
 #~ msgid "Show search results"
 #~ msgstr "Resultaten weergeven"
