@@ -41,31 +41,7 @@ from Components.ActionMap import ActionMap, NumberActionMap
 from enigma import getDesktop, quitMainloop
 from Tools.Directories import fileExists
 from ClientSetup import ClientSetup
-
-if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
-    IMDbPresent = True
-else:
-    IMDbPresent = False
-if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/OFDb/plugin.pyo"):
-    OFDbPresent = True
-else:
-    OFDbPresent = False
-if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/TMDb/plugin.pyo"):
-    TMDbPresent = True
-else:
-    TMDbPresent = False
-if fileExists("/usr/lib/enigma2/python/Plugins/Bp/geminimain/plugin.pyo"):
-    GP3Present = True
-else:
-    GP3Present = False
-if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/YTTrailer/plugin.pyo"):
-    YTTrailerPresent = True
-else:
-    YTTrailerPresent = False
-if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/pipzap/plugin.pyo"):
-    PiPZapPresent = True
-else:
-    PiPZapPresent = False
+from Globals import pluginPresent
 
 class ConfigList(eConfigList.ConfigList):
     def __init__(self, list, session=None):
@@ -354,19 +330,19 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append(getConfigListEntry(_("Show search trailer on web in extensions menu from movielist:"), config.AdvancedMovieSelection.showtrailer, _("Displays search trailer on web function in the menu at the movie list.")))
         self.list.append(getConfigListEntry(_("Show Set VSR in extensions menu from movielist:"), config.AdvancedMovieSelection.show_set_vsr, _("Displays set VSR function in the menu at the movie list.")))
         self.list.append(getConfigListEntry(_("Ask before delete:"), config.AdvancedMovieSelection.askdelete, _("With this option you can turn on/off the security question before delete a movie.")))
-        if IMDbPresent and OFDbPresent and TMDbPresent:
+        if pluginPresent.IMDb and pluginPresent.OFDb and pluginPresent.TMDb:
             self.list.append(getConfigListEntry(_("INFO button function:"), config.AdvancedMovieSelection.Eventinfotyp, _("With this option you can assign what function should have the info button. The selection depends on the installed plugins.")))
-        if IMDbPresent and not OFDbPresent and not TMDbPresent:
+        if pluginPresent.IMDb and not pluginPresent.OFDb and not pluginPresent.TMDb:
             self.list.append(getConfigListEntry(_("INFO button function:"), config.AdvancedMovieSelection.Eventinfotyp2, _("With this option you can assign what function should have the info button. The selection depends on the installed plugins.")))
-        if OFDbPresent and not TMDbPresent and not IMDbPresent:
+        if pluginPresent.OFDb and not pluginPresent.TMDb and not pluginPresent.IMDb:
             self.list.append(getConfigListEntry(_("INFO button function:"), config.AdvancedMovieSelection.Eventinfotyp3, _("With this option you can assign what function should have the info button. The selection depends on the installed plugins.")))
-        if TMDbPresent and not OFDbPresent and not IMDbPresent:
+        if pluginPresent.TMDb and not pluginPresent.OFDb and not pluginPresent.IMDb:
             self.list.append(getConfigListEntry(_("INFO button function:"), config.AdvancedMovieSelection.Eventinfotyp4, _("With this option you can assign what function should have the info button. The selection depends on the installed plugins.")))
-        if TMDbPresent and not OFDbPresent and IMDbPresent:
+        if pluginPresent.TMDb and not pluginPresent.OFDb and pluginPresent.IMDb:
             self.list.append(getConfigListEntry(_("INFO button function:"), config.AdvancedMovieSelection.Eventinfotyp5, _("With this option you can assign what function should have the info button. The selection depends on the installed plugins.")))
-        if TMDbPresent and OFDbPresent and not IMDbPresent:
+        if pluginPresent.TMDb and pluginPresent.OFDb and not pluginPresent.IMDb:
             self.list.append(getConfigListEntry(_("INFO button function:"), config.AdvancedMovieSelection.Eventinfotyp6, _("With this option you can assign what function should have the info button. The selection depends on the installed plugins.")))
-        if not TMDbPresent and OFDbPresent and IMDbPresent:
+        if not pluginPresent.TMDb and pluginPresent.OFDb and pluginPresent.IMDb:
             self.list.append(getConfigListEntry(_("INFO button function:"), config.AdvancedMovieSelection.Eventinfotyp7, _("With this option you can assign what function should have the info button. The selection depends on the installed plugins.")))
         self.list.append(getConfigListEntry(_("Behavior when a movie is started:"), config.usage.on_movie_start, _("With this option you can assign what should happen when a movie start.")))
         self.list.append(getConfigListEntry(_("Behavior when a movie is stopped:"), config.usage.on_movie_stop, _("With this option you can assign what should happen when a movie stop.")))
@@ -390,7 +366,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append(getConfigListEntry(_("Show info messages:"), config.AdvancedMovieSelection.showinfo, _("If this option is activated will be displayed different info message. This should help with the operation of the extension.")))
         self.list.append(getConfigListEntry(_("Use alternative jump function:"), config.AdvancedMovieSelection.useseekbar, _("If this option is activated more jump functions ar available. ATTENTION: Enigma 2 restart is necessary!")))
         if config.AdvancedMovieSelection.useseekbar.value:
-            if config.AdvancedMovieSelection.useseekbar.value and not PiPZapPresent:
+            if config.AdvancedMovieSelection.useseekbar.value and not pluginPresent.pipzap:
                 self.list.append(getConfigListEntry(_("Change function from left/right buttons:"), config.AdvancedMovieSelection.overwrite_left_right, _("If this option is activated the function of the left/right arrow buttons will changed. Normal you can use the buttons also for winding, if is changed you have quick access to the new jump function. ATTENTION: Enigma 2 restart is necessary!")))
             self.list.append(getConfigListEntry(_("Manual jump sensibility:"), config.AdvancedMovieSelection.sensibility, _("Here you can adjust the manually jump length relative to the film length in percent.")))
         self.list.append(getConfigListEntry(_("Use wastebasket:"), config.AdvancedMovieSelection.use_wastebasket, _("If this option is activated the movie will not be deleted but moved into the wastebasket.")))
@@ -434,19 +410,19 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self["help"].setText(_("No Helptext available!"))
         
     def pluginsavailable(self):
-        if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
+        if pluginPresent.IMDb:
             self["IMDbtxt"].setText(_("IMDb plugin installed. Assign function to info button is possible."))
         else:
             self["IMDbtxt"].setText(_("IMDb plugin NOT installed. Assign function to info button is NOT possible."))
-        if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/OFDb/plugin.pyo"):
+        if pluginPresent.OFDb:
             self["OFDbtxt"].setText(_("OFDb plugin installed. Assign function to info button is possible."))
         else:
             self["OFDbtxt"].setText(_("OFDb plugin NOT installed. Assign function to info button is NOT possible."))
-        if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/TMDb/plugin.pyo"):
+        if pluginPresent.TMDb:
             self["TMDbtxt"].setText(_("TMDb plugin installed. Assign function to info button is possible."))
         else:
             self["TMDbtxt"].setText(_("TMDb plugin NOT installed. Assign function to info button is NOT possible.")) 
-        if  YTTrailerPresent == True:
+        if  pluginPresent.YTTrailer:
             self["Trailertxt"].setText(_("YTTrailer plugin installed. Search for trailers on the Web is possible."))
         else:
             self["Trailertxt"].setText(_("YTTrailer plugin NOT installed. Search for trailers on the Web is NOT possible."))           
@@ -594,7 +570,7 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         self.entryguilist.append(("19", "Show Timer"))
         self.entryguilist.append(("20", "Show up to VSR-X"))
         self.entryguilist.append(("21", "Filter by description"))
-        if YTTrailerPresent == True:
+        if pluginPresent.YTTrailer == True:
             self.entryguilist.append(("22", "Trailer search"))
         self.entryguilist2 = []
         self.entryguilist2.append(("0", "Nothing"))

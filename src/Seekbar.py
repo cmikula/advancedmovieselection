@@ -182,8 +182,8 @@ def seekbarBack(instance):
 MoviePlayer.seekFwdManual = seekbar
 MoviePlayer.seekBackManual = seekbarBack
 
-dvdPlayer = "%s%s"%(resolveFilename(SCOPE_PLUGINS), "Extensions/DVDPlayer/plugin.py")
-if fileExists(dvdPlayer) or fileExists("%sc"%dvdPlayer):
+from Globals import pluginPresent
+if pluginPresent.DVDPlayer:
     from Plugins.Extensions.DVDPlayer.plugin import DVDPlayer
     DVDPlayer.seekFwdManual = seekbar
     DVDPlayer.seekBackManual = seekbarBack

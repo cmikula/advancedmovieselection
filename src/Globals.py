@@ -20,6 +20,7 @@
 #  distributed other than under the conditions noted above.
 #
 from enigma import eServiceReference, eSize, ePoint, eTimer, getDesktop
+from Tools.Directories import fileExists, resolveFilename, SCOPE_HDD, SCOPE_CURRENT_SKIN, SCOPE_CURRENT_PLUGIN
 
 class SkinTools():
     DESKTOP_WIDTH_SD = 720
@@ -46,3 +47,24 @@ class SkinTools():
         except:
             desktopWidth = self.DESKTOP_WIDTH_SD
         return desktopWidth
+
+class Installed:
+    def __init__(self):
+        self.GP3 = resolveFilename(SCOPE_CURRENT_PLUGIN, "Bp/geminimain/plugin.pyo")
+        self.DVDPlayer = self.pluginInstalled("DVDPlayer")
+        self.TMDb = self.pluginInstalled("TMDb")
+        self.IMDb = self.pluginInstalled("IMDb")
+        self.OFDb = self.pluginInstalled("OFDb")
+        self.AdvancedProgramGuide = self.pluginInstalled("AdvancedProgramGuide")
+        self.MerlinEPG = self.pluginInstalled("MerlinEPG")
+        self.MerlinEPGCenter = self.pluginInstalled("MerlinEPGCenter")
+        self.CoolTVGuide = self.pluginInstalled("CoolTVGuide")
+        self.YTTrailer = self.pluginInstalled("YTTrailer")
+        self.pipzap = self.pluginInstalled("pipzap")
+    
+    def pluginInstalled(self, name):
+        plugin_path = resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/%s/plugin.pyo" % (name))
+        return fileExists(plugin_path)
+
+
+pluginPresent = Installed()

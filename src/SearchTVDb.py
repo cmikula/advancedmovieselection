@@ -45,6 +45,7 @@ import tvdb
 import shutil
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
 from SearchTMDb import InfoLoadChoice
+from Globals import pluginPresent
 
 temp_dir = "/tmp/TheTVDB_temp/"
 
@@ -52,12 +53,6 @@ if environ["LANGUAGE"] == "de" or environ["LANGUAGE"] == "de_DE":
     nocover = resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/nocover_de.png")
 else:
     nocover = resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/nocover_en.png")
-
-if fileExists(resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/YTTrailer/plugin.pyo")):
-    from Plugins.Extensions.YTTrailer.plugin import YTTrailerList
-    YTTrailerPresent = True
-else:
-    YTTrailerPresent = False
 
 def getImage(serie):
     thumb = serie['poster']
@@ -677,7 +672,7 @@ class TheTVDBMain(Screen, InfoLoadChoice):
             self["button_blue"].show()
         elif self.view_mode == self.SHOW_SERIE_DETAIL:
             self.serieDetailView()
-            if YTTrailerPresent:
+            if pluginPresent.YTTrailer:
                 self["key_red"].setText(self.TRAILER_SEARCH_TEXT)
                 self["button_red"].show()
             else:
@@ -731,7 +726,7 @@ class TheTVDBMain(Screen, InfoLoadChoice):
 
     def buttonAction(self, text):
         if text == self.TRAILER_SEARCH_TEXT:
-            if YTTrailerPresent:
+            if pluginPresent.YTTrailer:
                 self.setTitle(_("Details for: %s") % (self.getInfoText()))
                 self.session.open(YTTrailerList, self.searchTitle)
         elif text == self.SHOW_ALL_SERIES_TEXT:

@@ -42,38 +42,7 @@ from Components.Label import Label
 from Components.ServiceEventTracker import ServiceEventTracker
 from time import time, localtime, mktime
 from datetime import datetime, timedelta
-
-if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
-    IMDbPresent = True
-else:
-    IMDbPresent = False
-if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/OFDb/plugin.pyo"):
-    OFDbPresent = True
-else:
-    OFDbPresent = False
-if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedProgramGuide/plugin.pyo"):
-    from Plugins.Extensions.AdvancedProgramGuide.plugin import AdvancedProgramGuideII, AdvancedProgramGuide
-    AdvancedProgramGuidePresent = True
-else:
-    AdvancedProgramGuidePresent = False
-if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/MerlinEPG/plugin.pyo"):
-    from Plugins.Extensions.MerlinEPG.plugin import Merlin_PGII, Merlin_PGd
-    MerlinEPGPresent = True
-else:
-    MerlinEPGPresent = False
-if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/CoolTVGuide/plugin.pyo"):
-    CoolTVGuidePresent = True
-else:
-    CoolTVGuidePresent = False
-if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/YTTrailer/plugin.pyo"):
-    from Plugins.Extensions.YTTrailer.plugin import YTTrailerList
-    YTTrailerPresent = True
-else:
-    YTTrailerPresent = False
-if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/MerlinEPGCenter/plugin.pyo"):
-    MerlinEPGCenterPresent = True
-else:
-    MerlinEPGCenterPresent = False
+from Globals import pluginPresent
 
 config.AdvancedMovieSelection = ConfigSubsection()
 config.AdvancedMovieSelection.wastelist_buildtype = ConfigSelection(default="listMovies" , choices=[("listMovies", _("Only current location")), ("listAllMovies", _("Current location and all subdirectories")), ("listAllMoviesMedia", _("All directorys below '/media'")) ])
@@ -342,7 +311,8 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
         pass # prevent merlin crash, Select last played movie is disabled
 
     def openServiceList(self):
-        if AdvancedProgramGuidePresent:
+        if pluginPresent.AdvancedProgramGuide:
+            from Plugins.Extensions.AdvancedProgramGuide.plugin import AdvancedProgramGuideII, AdvancedProgramGuide
             if config.plugins.AdvancedProgramGuide.StartFirst.value and config.plugins.AdvancedProgramGuide.Columns.value:
                 self.session.open(AdvancedProgramGuideII)
             else:
@@ -360,35 +330,36 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
                             if InfoBar.instance:
                                 servicelist = InfoBar.instance.servicelist
                                 self.session.open(AdvancedProgramGuide, servicelist)
-        else:
-            if MerlinEPGPresent and not AdvancedProgramGuidePresent and not CoolTVGuidePresent and not MerlinEPGCenterPresent:
-                if config.plugins.MerlinEPG.StartFirst.value and config.plugins.MerlinEPG.Columns.value:
-                    self.session.open(Merlin_PGII)
+        
+        elif pluginPresent.MerlinEPGCenter and not pluginPresent.AdvancedProgramGuide and not pluginPresent.CoolTVGuide and not pluginPresent.MerlinEPGCenter:
+            from Plugins.Extensions.MerlinEPG.plugin import Merlin_PGII, Merlin_PGd
+            if config.plugins.MerlinEPG.StartFirst.value and config.plugins.MerlinEPG.Columns.value:
+                self.session.open(Merlin_PGII)
+            else:
+                if config.plugins.MerlinEPG.StartFirst.value and not config.plugins.MerlinEPG.Columns.value:
+                    self.session.open(Merlin_PGd)
                 else:
-                    if config.plugins.MerlinEPG.StartFirst.value and not config.plugins.MerlinEPG.Columns.value:
-                        self.session.open(Merlin_PGd)
+                    if not config.plugins.MerlinEPG.StartFirst.value and config.plugins.MerlinEPG.Columns.value:
+                        from Screens.InfoBar import InfoBar
+                        if InfoBar.instance:
+                            servicelist = InfoBar.instance.servicelist
+                            self.session.open(Merlin_PGII, servicelist)
                     else:
-                        if not config.plugins.MerlinEPG.StartFirst.value and config.plugins.MerlinEPG.Columns.value:
+                        if not config.plugins.MerlinEPG.StartFirst.value and not config.plugins.MerlinEPG.Columns.value:
                             from Screens.InfoBar import InfoBar
                             if InfoBar.instance:
                                 servicelist = InfoBar.instance.servicelist
-                                self.session.open(Merlin_PGII, servicelist)
-                        else:
-                            if not config.plugins.MerlinEPG.StartFirst.value and not config.plugins.MerlinEPG.Columns.value:
-                                from Screens.InfoBar import InfoBar
-                                if InfoBar.instance:
-                                    servicelist = InfoBar.instance.servicelist
-                                    self.session.open(Merlin_PGd, servicelist)
-            else:
-                if CoolTVGuidePresent and not AdvancedProgramGuidePresent and not MerlinEPGPresent and not MerlinEPGCenterPresent:
-                    from Plugins.Extensions.CoolTVGuide.plugin import main as ctvmain
-                    ctvmain(self.session)
-                else:
-                    if MerlinEPGCenterPresent and not CoolTVGuidePresent and not AdvancedProgramGuidePresent and not MerlinEPGPresent:
-                        from Plugins.Extensions.MerlinEPGCenter.plugin import MerlinEPGCenterStarter
-                        MerlinEPGCenterStarter.instance.openMerlinEPGCenter()
-                    else:
-                        self.session.open(MessageBox, _("Not possible!\nMerlinEPG and CoolTVGuide or/and MerlinEPGCenter present or neither installed from this three plugins."), MessageBox.TYPE_INFO)
+                                self.session.open(Merlin_PGd, servicelist)
+        
+        elif pluginPresent.CoolTVGuide and not pluginPresent.AdvancedProgramGuide and not pluginPresent.MerlinEPGCenter and not pluginPresent.MerlinEPGCenter:
+            from Plugins.Extensions.CoolTVGuide.plugin import main as ctvmain
+            ctvmain(self.session)
+        
+        elif pluginPresent.MerlinEPGCenter and not pluginPresent.CoolTVGuide and not pluginPresent.AdvancedProgramGuide and not pluginPresent.MerlinEPGCenter:
+            from Plugins.Extensions.MerlinEPGCenter.plugin import MerlinEPGCenterStarter
+            MerlinEPGCenterStarter.instance.openMerlinEPGCenter()
+        else:
+            self.session.open(MessageBox, _("Not possible!\nMerlinEPG and CoolTVGuide or/and MerlinEPGCenter present or neither installed from this three plugins."), MessageBox.TYPE_INFO)
             
     def openInfoView(self):
         from AdvancedMovieSelectionEventView import EventViewSimple
@@ -510,7 +481,7 @@ def showMovies(self):
 def movieSelected(self, service):
     if service is not None:
         if isinstance(service, eServiceReferenceDvd):
-            if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/DVDPlayer/plugin.py"):
+            if pluginPresent.DVDPlayer:
                 from Plugins.Extensions.DVDPlayer.plugin import DVDPlayer as eDVDPlayer
                 class DVDPlayer(DVDCutListSupport, eDVDPlayer):
                     def __init__(self, session, service):

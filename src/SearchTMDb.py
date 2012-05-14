@@ -42,6 +42,7 @@ from ServiceProvider import PicLoader
 from Tools.Directories import fileExists
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
 from Screens.ChoiceBox import ChoiceBox
+from Globals import pluginPresent
 
 IMAGE_TEMPFILE = "/tmp/TMDb_temp"
 
@@ -49,12 +50,6 @@ if environ["LANGUAGE"] == "de" or environ["LANGUAGE"] == "de_DE":
     nocover = resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/nocover_de.png")
 else:
     nocover = resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/nocover_en.png")
-
-if fileExists(resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/YTTrailer/plugin.pyo")):
-    from Plugins.Extensions.YTTrailer.plugin import YTTrailerList
-    YTTrailerPresent = True
-else:
-    YTTrailerPresent = False
 
 class InfoChecker:
     INFO = 0x01
@@ -471,7 +466,7 @@ class TMDbMain(Screen, InfoLoadChoice):
         elif text == self.SHOW_SEARCH_RESULT_TEXT:
             self.searchForMovies()
         elif text == self.TRAILER_SEARCH_TEXT:
-            if YTTrailerPresent:
+            if pluginPresent.YTTrailer:
                 current_movie = self["list"].getCurrent()[0]
                 title = current_movie["name"].encode('utf-8')
                 if self.view_mode == self.SHOW_RESULT_LIST:
@@ -608,7 +603,7 @@ class TMDbMain(Screen, InfoLoadChoice):
             self["key_red"].setText(self.SHOW_DETAIL_TEXT)
             self["key_green"].setText(self.INFO_SAVE_TEXT)
             self["key_yellow"].setText(self.MANUAL_SEARCH_TEXT)
-            if YTTrailerPresent:
+            if pluginPresent.YTTrailer:
                 self["key_blue"].setText(self.TRAILER_SEARCH_TEXT)
                 self["button_blue"].show()
             else:
@@ -622,7 +617,7 @@ class TMDbMain(Screen, InfoLoadChoice):
             self["key_red"].setText(self.SHOW_SEARCH_RESULT_TEXT)
             self["key_green"].setText(self.INFO_SAVE_TEXT)
             self["key_yellow"].setText(self.MANUAL_SEARCH_TEXT)
-            if YTTrailerPresent:
+            if pluginPresent.YTTrailer:
                 self["key_blue"].setText(self.TRAILER_SEARCH_TEXT)
                 self["button_blue"].show()
             else:

@@ -60,31 +60,16 @@ from ClientSetup import ClientSetup
 from time import localtime, strftime
 from datetime import datetime
 from Tools.FuzzyDate import FuzzyTime
+from Globals import pluginPresent
 
-if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
+if pluginPresent.IMDb:
     from Plugins.Extensions.IMDb.plugin import IMDB
-    IMDbPresent = True
-else:
-    IMDbPresent = False
-if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/OFDb/plugin.pyo"):
+if pluginPresent.OFDb:
     from Plugins.Extensions.OFDb.plugin import OFDB
-    OFDbPresent = True
-else:
-    OFDbPresent = False
-if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/TMDb/plugin.pyo"):
+if pluginPresent.TMDb:
     from Plugins.Extensions.TMDb.plugin import TMDbMain
-    TMDbPresent = True
-else:
-    TMDbPresent = False
-if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/YTTrailer/plugin.pyo"):
+if pluginPresent.YTTrailer:
     from Plugins.Extensions.YTTrailer.plugin import YTTrailerList
-    YTTrailerPresent = True
-else:
-    YTTrailerPresent = False
-if fileExists("/usr/lib/enigma2/python/Plugins/Bp/geminimain/plugin.pyo"):
-    GP3Present = True
-else:
-    GP3Present = False
 
 config.movielist = ConfigSubsection()
 config.movielist.moviesort = ConfigInteger(default=MovieList.SORT_ALPHANUMERIC)
@@ -274,7 +259,7 @@ class MovieContextMenu(Screen):
             menu.append((_("Filter by Tags"), boundFunction(self.filterbytags)))
         if config.AdvancedMovieSelection.showmenu.value and config.AdvancedMovieSelection.show_infobar_position.value:
             menu.append((_("Setup Moviebar position"), self.moviebarsetup))
-        if YTTrailerPresent == True and config.AdvancedMovieSelection.showtrailer.value and not (self.service.flags & eServiceReference.mustDescent): 
+        if pluginPresent.YTTrailer == True and config.AdvancedMovieSelection.showtrailer.value and not (self.service.flags & eServiceReference.mustDescent): 
             menu.append((_("Search Trailer on web"), boundFunction(self.showTrailer)))
         if config.AdvancedMovieSelection.show_remote_setup.value:
             menu.append((_("Clientbox setup"), boundFunction(self.serversetup)))
@@ -320,7 +305,7 @@ class MovieContextMenu(Screen):
         self.session.openWithCallback(self.closeafterfinish, Wastebasket)
 
     def showTrailer(self):
-        if YTTrailerPresent == True:
+        if pluginPresent.YTTrailer == True:
             eventname = ServiceCenter.getInstance().info(self.service).getName(self.service)
             self.session.open(YTTrailerList, eventname)
         else:
@@ -969,49 +954,49 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self.togglePreviewStatus(self.getCurrent())
     
     def showEventInformation(self):
-        if IMDbPresent and OFDbPresent and TMDbPresent and config.AdvancedMovieSelection.Eventinfotyp.value == "Ei":
+        if pluginPresent.IMDb and pluginPresent.OFDb and pluginPresent.TMDb and config.AdvancedMovieSelection.Eventinfotyp.value == "Ei":
             self.showConfirmedInfo([None, "Ei"])
-        elif IMDbPresent and OFDbPresent and TMDbPresent and config.AdvancedMovieSelection.Eventinfotyp.value == "Ti":
+        elif pluginPresent.IMDb and pluginPresent.OFDb and pluginPresent.TMDb and config.AdvancedMovieSelection.Eventinfotyp.value == "Ti":
             self.showConfirmedInfo([None, "Ti"])
-        elif IMDbPresent and OFDbPresent and TMDbPresent and config.AdvancedMovieSelection.Eventinfotyp.value == "Ii":
+        elif pluginPresent.IMDb and pluginPresent.OFDb and pluginPresent.TMDb and config.AdvancedMovieSelection.Eventinfotyp.value == "Ii":
             self.showConfirmedInfo([None, "Ii"])
-        elif IMDbPresent and OFDbPresent and TMDbPresent and config.AdvancedMovieSelection.Eventinfotyp.value == "Oi":
+        elif pluginPresent.IMDb and pluginPresent.OFDb and pluginPresent.TMDb and config.AdvancedMovieSelection.Eventinfotyp.value == "Oi":
             self.showConfirmedInfo([None, "Oi"])
         else:
-            if IMDbPresent and not OFDbPresent and not TMDbPresent and config.AdvancedMovieSelection.Eventinfotyp2.value == "Ei":
+            if pluginPresent.IMDb and not pluginPresent.OFDb and not pluginPresent.TMDb and config.AdvancedMovieSelection.Eventinfotyp2.value == "Ei":
                 self.showConfirmedInfo([None, "Ei"])
-            elif IMDbPresent and not OFDbPresent and not TMDbPresent and config.AdvancedMovieSelection.Eventinfotyp2.value == "Ii":
+            elif pluginPresent.IMDb and not pluginPresent.OFDb and not pluginPresent.TMDb and config.AdvancedMovieSelection.Eventinfotyp2.value == "Ii":
                 self.showConfirmedInfo([None, "Ii"])
             else:
-                if OFDbPresent and not IMDbPresent and not TMDbPresent and config.AdvancedMovieSelection.Eventinfotyp3.value == "Ei":
+                if pluginPresent.OFDb and not pluginPresent.IMDb and not pluginPresent.TMDb and config.AdvancedMovieSelection.Eventinfotyp3.value == "Ei":
                     self.showConfirmedInfo([None, "Ei"])
-                elif OFDbPresent and not IMDbPresent and not TMDbPresent and config.AdvancedMovieSelection.Eventinfotyp3.value == "Oi":
+                elif pluginPresent.OFDb and not pluginPresent.IMDb and not pluginPresent.TMDb and config.AdvancedMovieSelection.Eventinfotyp3.value == "Oi":
                     self.showConfirmedInfo([None, "Oi"])
                 else:
-                    if TMDbPresent and not OFDbPresent and not IMDbPresent and config.AdvancedMovieSelection.Eventinfotyp4.value == "Ei":
+                    if pluginPresent.TMDb and not pluginPresent.OFDb and not pluginPresent.IMDb and config.AdvancedMovieSelection.Eventinfotyp4.value == "Ei":
                         self.showConfirmedInfo([None, "Ei"])
-                    elif TMDbPresent and not OFDbPresent and not IMDbPresent and config.AdvancedMovieSelection.Eventinfotyp4.value == "Ti":
+                    elif pluginPresent.TMDb and not pluginPresent.OFDb and not pluginPresent.IMDb and config.AdvancedMovieSelection.Eventinfotyp4.value == "Ti":
                         self.showConfirmedInfo([None, "Ti"])
                     else:
-                        if TMDbPresent and not OFDbPresent and IMDbPresent and config.AdvancedMovieSelection.Eventinfotyp5.value == "Ei":
+                        if pluginPresent.TMDb and not pluginPresent.OFDb and pluginPresent.IMDb and config.AdvancedMovieSelection.Eventinfotyp5.value == "Ei":
                             self.showConfirmedInfo([None, "Ei"])
-                        elif TMDbPresent and not OFDbPresent and IMDbPresent and config.AdvancedMovieSelection.Eventinfotyp5.value == "Ti":
+                        elif pluginPresent.TMDb and not pluginPresent.OFDb and pluginPresent.IMDb and config.AdvancedMovieSelection.Eventinfotyp5.value == "Ti":
                             self.showConfirmedInfo([None, "Ti"])
-                        elif TMDbPresent and not OFDbPresent and IMDbPresent and config.AdvancedMovieSelection.Eventinfotyp5.value == "Ii":
+                        elif pluginPresent.TMDb and not pluginPresent.OFDb and pluginPresent.IMDb and config.AdvancedMovieSelection.Eventinfotyp5.value == "Ii":
                             self.showConfirmedInfo([None, "Ii"])
                         else:
-                            if TMDbPresent and OFDbPresent and not IMDbPresent and config.AdvancedMovieSelection.Eventinfotyp6.value == "Ei":
+                            if pluginPresent.TMDb and pluginPresent.OFDb and not pluginPresent.IMDb and config.AdvancedMovieSelection.Eventinfotyp6.value == "Ei":
                                 self.showConfirmedInfo([None, "Ei"])
-                            elif TMDbPresent and OFDbPresent and not IMDbPresent and config.AdvancedMovieSelection.Eventinfotyp6.value == "Ti":
+                            elif pluginPresent.TMDb and pluginPresent.OFDb and not pluginPresent.IMDb and config.AdvancedMovieSelection.Eventinfotyp6.value == "Ti":
                                 self.showConfirmedInfo([None, "Ti"])
-                            elif TMDbPresent and OFDbPresent and not IMDbPresent and config.AdvancedMovieSelection.Eventinfotyp6.value == "Oi":
+                            elif pluginPresent.TMDb and pluginPresent.OFDb and not pluginPresent.IMDb and config.AdvancedMovieSelection.Eventinfotyp6.value == "Oi":
                                 self.showConfirmedInfo([None, "Oi"])
                             else:
-                                if not TMDbPresent and OFDbPresent and IMDbPresent and config.AdvancedMovieSelection.Eventinfotyp7.value == "Ei":
+                                if not pluginPresent.TMDb and pluginPresent.OFDb and pluginPresent.IMDb and config.AdvancedMovieSelection.Eventinfotyp7.value == "Ei":
                                     self.showConfirmedInfo([None, "Ei"])
-                                elif not TMDbPresent and OFDbPresent and IMDbPresent and config.AdvancedMovieSelection.Eventinfotyp7.value == "Ii":
+                                elif not pluginPresent.TMDb and pluginPresent.OFDb and pluginPresent.IMDb and config.AdvancedMovieSelection.Eventinfotyp7.value == "Ii":
                                     self.showConfirmedInfo([None, "Ii"])
-                                elif not TMDbPresent and OFDbPresent and IMDbPresent and config.AdvancedMovieSelection.Eventinfotyp7.value == "Oi":
+                                elif not pluginPresent.TMDb and pluginPresent.OFDb and pluginPresent.IMDb and config.AdvancedMovieSelection.Eventinfotyp7.value == "Oi":
                                     self.showConfirmedInfo([None, "Oi"])
                                 else:
                                     self.showConfirmedInfo([None, "Ei"])
@@ -1138,7 +1123,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         config.AdvancedMovieSelection.show_bookmarks.save()
 
     def showTrailer(self):
-        if YTTrailerPresent == True:
+        if pluginPresent.YTTrailer == True:
             event = self["list"].getCurrentEvent()
             if event is not None:
                 eventname = event.getEventName()
