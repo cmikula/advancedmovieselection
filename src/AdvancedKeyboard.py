@@ -95,6 +95,9 @@ class AdvancedKeyBoard(VirtualKeyBoard, NumericalTextInput):
             self.timer = eTimer()
             self.timer.callback.append(self.timeout)
             self.configText = ConfigText("", False)
+            if text:
+                self.configText.text = text
+                self.configText.marked_pos = len(text)
             self["config_actions"] = NumberActionMap(["SetupActions", "InputAsciiActions", "KeyboardInputActions"],
             {
                 "1": self.keyNumberGlobal,
