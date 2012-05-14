@@ -60,7 +60,7 @@ from ClientSetup import ClientSetup
 from time import localtime, strftime
 from datetime import datetime
 from Tools.FuzzyDate import FuzzyTime
-from Globals import pluginPresent
+from Globals import pluginPresent, SkinTools
 
 if pluginPresent.IMDb:
     from Plugins.Extensions.IMDb.plugin import IMDB
@@ -642,58 +642,23 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         HelpableScreen.__init__(self)
         MoviePreview.__init__(self, session)
         VideoPreview.__init__(self)
-        try:
-            sz_w = getDesktop(0).size().width()
-        except:
-            sz_w = 720
+        self.skinName = ["AdvancedMovieSelection"]
         if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.minitv.value:
-            if sz_w == 1280:
-                self.skinName = ["AdvancedMovieSelectionHD", "AdvancedMovieSelection"]
-            elif sz_w == 1024:
-                self.skinName = ["AdvancedMovieSelectionXD", "AdvancedMovieSelection"]
-            else:
-                self.skinName = ["AdvancedMovieSelectionSD", "AdvancedMovieSelection"]
+            self.skinName.insert(0, SkinTools.appendResolution("AdvancedMovieSelection"))
         if not config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.minitv.value:
-            if sz_w == 1280:
-                self.skinName = ["AdvancedMovieSelection1HD", "AdvancedMovieSelection"]
-            elif sz_w == 1024:
-                self.skinName = ["AdvancedMovieSelection1XD", "AdvancedMovieSelection"]
-            else:
-                self.skinName = ["AdvancedMovieSelection1SD", "AdvancedMovieSelection"]            
+            self.skinName.insert(0, SkinTools.appendResolution("AdvancedMovieSelection1"))
         if config.AdvancedMovieSelection.showpreview.value and not config.AdvancedMovieSelection.minitv.value:
-            if sz_w == 1280:
-                self.skinName = ["AdvancedMovieSelection_noMiniTV_HD", "AdvancedMovieSelection"]
-            elif sz_w == 1024:
-                self.skinName = ["AdvancedMovieSelection_noMiniTV_XD", "AdvancedMovieSelection"]
-            else:
-                self.skinName = ["AdvancedMovieSelection_noMiniTV_SD", "AdvancedMovieSelection"]
+            self.skinName.insert(0, SkinTools.appendResolution("AdvancedMovieSelection_noMiniTV_"))
         if not config.AdvancedMovieSelection.showpreview.value and not config.AdvancedMovieSelection.minitv.value:
-            if sz_w == 1280:
-                self.skinName = ["AdvancedMovieSelection1_noMiniTV_HD", "AdvancedMovieSelection"]
-            elif sz_w == 1024:
-                self.skinName = ["AdvancedMovieSelection1_noMiniTV_XD", "AdvancedMovieSelection"]
-            else:
-                self.skinName = ["AdvancedMovieSelection1_noMiniTV_SD", "AdvancedMovieSelection"]
+            self.skinName.insert(0, SkinTools.appendResolution("AdvancedMovieSelection1_noMiniTV_"))
         if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.video_preview.value and config.AdvancedMovieSelection.video_preview_fullscreen.value and config.movielist.description.value == MovieList.SHOW_DESCRIPTION:
-            if sz_w == 1280:
-                self.skinName = ["AdvancedMovieSelection_Preview_HD", "AdvancedMovieSelection"]
-            elif sz_w == 1024:
-                self.skinName = ["AdvancedMovieSelection_Preview_XD", "AdvancedMovieSelection"]
+            self.skinName.insert(0, SkinTools.appendResolution("AdvancedMovieSelection_Preview_"))
         if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.video_preview.value and config.AdvancedMovieSelection.video_preview_fullscreen.value and config.movielist.description.value == MovieList.HIDE_DESCRIPTION:
-            if sz_w == 1280:
-                self.skinName = ["AdvancedMovieSelection_Preview_noDescription_HD", "AdvancedMovieSelection"]
-            elif sz_w == 1024:
-                self.skinName = ["AdvancedMovieSelection_Preview_noDescription_XD", "AdvancedMovieSelection"]
+            self.skinName.insert(0, SkinTools.appendResolution("AdvancedMovieSelection_Preview_noDescription_"))
         if not config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.video_preview.value and config.AdvancedMovieSelection.video_preview_fullscreen.value and config.movielist.description.value == MovieList.SHOW_DESCRIPTION:
-            if sz_w == 1280:
-                self.skinName = ["AdvancedMovieSelection_Preview_noCover_HD", "AdvancedMovieSelection"]
-            elif sz_w == 1024:
-                self.skinName = ["AdvancedMovieSelection_Preview_noCover_XD", "AdvancedMovieSelection"]
+            self.skinName.insert(0, SkinTools.appendResolution("AdvancedMovieSelection_Preview_noCover_"))
         if not config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.video_preview.value and config.AdvancedMovieSelection.video_preview_fullscreen.value and config.movielist.description.value == MovieList.HIDE_DESCRIPTION:
-            if sz_w == 1280:
-                self.skinName = ["AdvancedMovieSelection_Preview_noDescription_noCover_HD", "AdvancedMovieSelection"]
-            elif sz_w == 1024:
-                self.skinName = ["AdvancedMovieSelection_Preview_noDescription_noCover_XD", "AdvancedMovieSelection"]
+            self.skinName.insert(0, SkinTools.appendResolution("AdvancedMovieSelection_Preview_noDescription_noCover_"))
         self.tags = [ ]
         if selectedmovie:
             self.selected_tags = config.movielist.last_selected_tags.value
@@ -1318,16 +1283,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
 class MoviebarPositionSetupText(Screen):
     def __init__(self, session):
         Screen.__init__(self, session)
-        try:
-            sz_w = getDesktop(0).size().width()
-        except:
-            sz_w = 720
-        if sz_w == 1280:
-            self.skinName = ["AdvancedMovieSelectionMoviebarPositionSetupHD"]
-        elif sz_w == 1024:
-            self.skinName = ["AdvancedMovieSelectionMoviebarPositionSetupXD"]
-        else:
-            self.skinName = ["AdvancedMovieSelectionMoviebarPositionSetupSD"] 
+        self.skinName = SkinTools.appendResolution("AdvancedMovieSelectionMoviebarPositionSetup")
         self["howtotext"] = StaticText(_("Use direction keys to move the Moviebar.\nPress OK button for save or the EXIT button to cancel.\nUse the red button for reset to the original position."))
 
 class MoviebarPositionSetup(Screen):

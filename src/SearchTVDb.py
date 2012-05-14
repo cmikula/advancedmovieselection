@@ -20,9 +20,8 @@
 #  distributed other than under the conditions noted above.
 #
 from __init__ import _
-import urllib
-import datetime
-import re
+import urllib, datetime, re, os, shutil
+import tvdb
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
 from enigma import getDesktop, iServiceInformation, eTimer
@@ -33,19 +32,16 @@ from Components.GUIComponent import GUIComponent
 from enigma import RT_WRAP, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, gFont, eListbox, eListboxPythonMultiContent
 from Components.Label import Label
 from Components.ScrollLabel import ScrollLabel
-from Tools.Directories import pathExists, fileExists
-import os
+from Tools.Directories import pathExists
 from enigma import ePicLoad
 from Components.AVSwitch import AVSwitch
 from Components.ProgressBar import ProgressBar
 from os import environ
 from ServiceProvider import PicLoader, ServiceCenter
 from EventInformationTable import createEITtvdb
-import tvdb
-import shutil
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
 from SearchTMDb import InfoLoadChoice
-from Globals import pluginPresent
+from Globals import pluginPresent, SkinTools
 
 temp_dir = "/tmp/TheTVDB_temp/"
 
@@ -179,16 +175,7 @@ class TheTVDBMain(Screen, InfoLoadChoice):
     def __init__(self, session, service, args=None):
         Screen.__init__(self, session)
         InfoLoadChoice.__init__(self, self.callback_green_pressed)
-        try:
-            sz_w = getDesktop(0).size().width()
-        except:
-            sz_w = 720
-        if sz_w == 1280:
-            self.skinName = ["TheTVDBMainHD"]
-        elif sz_w == 1024:
-            self.skinName = ["TheTVDBMainXD"]
-        else:
-            self.skinName = ["TheTVDBMainSD"]
+        self.skinName = SkinTools.appendResolution("TheTVDBMain")
 
         if not pathExists(temp_dir):
             os.mkdir(temp_dir, 0777)

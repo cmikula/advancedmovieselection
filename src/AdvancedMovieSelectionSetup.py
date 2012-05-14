@@ -39,9 +39,8 @@ from MessageBoxEx import MessageBox as MessageBoxEx
 from Components.Sources.List import List
 from Components.ActionMap import ActionMap, NumberActionMap
 from enigma import getDesktop, quitMainloop
-from Tools.Directories import fileExists
 from ClientSetup import ClientSetup
-from Globals import pluginPresent
+from Globals import pluginPresent, SkinTools
 
 class ConfigList(eConfigList.ConfigList):
     def __init__(self, list, session=None):
@@ -109,16 +108,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
     def __init__(self, session, csel=None):
         Screen.__init__(self, session)
         self.csel = csel
-        try:
-            sz_w = getDesktop(0).size().width()
-        except:
-            sz_w = 720
-        if sz_w == 1280:
-            self.skinName = ["AdvancedMovieSelectionSetupHD"]
-        elif sz_w == 1024:
-            self.skinName = ["AdvancedMovieSelectionSetupXD"]
-        else:
-            self.skinName = ["AdvancedMovieSelectionSetupSD"]
+        self.skinName = SkinTools.appendResolution("AdvancedMovieSelectionSetup")
         self.bouquet_length = 13
         self.needsRestartFlag = False
         self.needsE2restartFlag = False
@@ -531,16 +521,7 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
     def __init__(self, session, csel=None):
         Screen.__init__(self, session)
         self.csel = csel
-        try:
-            sz_w = getDesktop(0).size().width()
-        except:
-            sz_w = 720
-        if sz_w == 1280:
-            self.skinName = ["AdvancedMovieSelectionButtonSetupHD"]
-        elif sz_w == 1024:
-            self.skinName = ["AdvancedMovieSelectionButtonSetupXD"]
-        else:
-            self.skinName = ["AdvancedMovieSelectionButtonSetupSD"]
+        self.skinName = SkinTools.appendResolution("AdvancedMovieSelectionButtonSetup")
         self["important"] = StaticText(_("IMPORTANT: If changes are made here the Advanced Movie Selection must be completely closed so the changes can be adopted!!"))
         self["key_red"] = Button(_("Cancel"))
         self["key_green"] = Button(_("Save/Close"))
@@ -826,16 +807,7 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
 class AdvancedMovieSelectionOwnButtonName(Screen, ConfigListScreen):        
     def __init__(self, session):
         Screen.__init__(self, session)
-        try:
-            sz_w = getDesktop(0).size().width()
-        except:
-            sz_w = 720
-        if sz_w == 1280:
-            self.skinName = ["AdvancedMovieSelectionOwnButtonNameHD"]
-        elif sz_w == 1024:
-            self.skinName = ["AdvancedMovieSelectionOwnButtonNameXD"]
-        else:
-            self.skinName = ["AdvancedMovieSelectionOwnButtonNameSD"]
+        self.skinName = SkinTools.appendResolution("AdvancedMovieSelectionOwnButtonName")
         self.homebutton = None
         self.bookmark1button = None
         self.bookmark2button = None

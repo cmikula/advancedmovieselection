@@ -22,8 +22,7 @@
 
 from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Components.ActionMap import ActionMap, NumberActionMap
-from Components.config import config, getConfigListEntry, ConfigText, KEY_0, KEY_TIMEOUT, KEY_NUMBERS
-from Components.ConfigList import ConfigListScreen
+from Components.config import config, ConfigText, KEY_0, KEY_TIMEOUT, KEY_NUMBERS
 from Tools.NumericalTextInput import NumericalTextInput
 from enigma import eTimer
 

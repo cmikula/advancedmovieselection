@@ -28,7 +28,7 @@ from Components.Pixmap import Pixmap
 from Components.ActionMap import ActionMap
 from Components.AVSwitch import AVSwitch
 from threading import Thread
-from enigma import eServiceReference, ePicLoad, getDesktop
+from enigma import eServiceReference, ePicLoad
 from timer import eTimer
 from Components.MenuList import MenuList
 from ServiceProvider import ServiceCenter
@@ -39,6 +39,7 @@ from Screens.VirtualKeyBoard import VirtualKeyBoard
 import os
 from Components.ScrollLabel import ScrollLabel
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS
+from Globals import SkinTools
 
 is_hidden = False
 this_session = None
@@ -51,16 +52,7 @@ tmdb_logodir = resolveFilename(SCOPE_PLUGINS) + "Extensions/AdvancedMovieSelecti
 class DownloadMovies(Screen):
     def __init__(self, session, items, coverSize, service=None):
         Screen.__init__(self, session)
-        try:
-            sz_w = getDesktop(0).size().width()
-        except:
-            sz_w = 720
-        if sz_w == 1280:
-            self.skinName = ["AdvancedMovieSelectionDownloadHD"]
-        elif sz_w == 1024:
-            self.skinName = ["AdvancedMovieSelectionDownloadXD"]
-        else:
-            self.skinName = ["AdvancedMovieSelectionDownloadSD"]
+        self.skinName = SkinTools.appendResolution("AdvancedMovieSelectionDownload")
         self.onShow.append(self.selectionChanged)
         self.service = service
         self.coversize = coverSize

@@ -24,12 +24,12 @@ from Screens.Screen import Screen
 from Components.Sources.StaticText import StaticText
 from Components.Pixmap import Pixmap
 from Components.ActionMap import ActionMap
-from enigma import getDesktop
-import Version
 from AboutParser import AboutParser
 from Components.GUIComponent import GUIComponent
 from enigma import RT_HALIGN_LEFT, gFont, eListbox, eListboxPythonMultiContent
 from Components.ScrollLabel import ScrollLabel
+from Globals import SkinTools
+import Version
 
 class VersionList(GUIComponent):
     def __init__(self):
@@ -84,16 +84,7 @@ class VersionList(GUIComponent):
 class AdvancedMovieSelectionAbout(Screen):
     def __init__(self, session):
         Screen.__init__(self, session)
-        try:
-            sz_w = getDesktop(0).size().width()
-        except:
-            sz_w = 720
-        if sz_w == 1280:
-            self.skinName = ["AdvancedMovieSelectionAboutHD"]
-        elif sz_w == 1024:
-            self.skinName = ["AdvancedMovieSelectionAboutXD"]
-        else:
-            self.skinName = ["AdvancedMovieSelectionAboutSD"]
+        self.skinName = SkinTools.appendResolution("AdvancedMovieSelectionAbout")
         self["aboutActions"] = ActionMap(["ShortcutActions", "WizardActions", "InfobarEPGActions"],
         {
             "red": self.close,
@@ -124,16 +115,7 @@ class AdvancedMovieSelectionAbout(Screen):
 class AboutDetails(Screen):
     def __init__(self, session):
         Screen.__init__(self, session)
-        try:
-            sz_w = getDesktop(0).size().width()
-        except:
-            sz_w = 720
-        if sz_w == 1280:
-            self.skinName = ["AdvancedMovieSelectionAboutDetails_HD"]
-        elif sz_w == 1024:
-            self.skinName = ["AdvancedMovieSelectionAboutDetails_XD"]
-        else:
-            self.skinName = ["AdvancedMovieSelectionAboutDetails_SD"]
+        self.skinName = SkinTools.appendResolution("AdvancedMovieSelectionAboutDetails_")
         self["aboutActions"] = ActionMap(["ShortcutActions", "WizardActions", "InfobarEPGActions", "EPGSelectActions"],
         {
             "red": self.close,

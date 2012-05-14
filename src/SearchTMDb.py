@@ -20,6 +20,7 @@
 #  distributed other than under the conditions noted above.
 #
 from __init__ import _
+import tmdb, urllib, shutil
 from enigma import RT_WRAP, RT_VALIGN_CENTER, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, gFont, eListbox, eListboxPythonMultiContent
 from Components.GUIComponent import GUIComponent
 from Screens.Screen import Screen
@@ -33,16 +34,12 @@ from Components.ScrollLabel import ScrollLabel
 from Components.AVSwitch import AVSwitch
 from Screens.MessageBox import MessageBox
 from Components.config import config
-from enigma import getDesktop
-import tmdb, urllib
 from Components.ProgressBar import ProgressBar
-import shutil
 from os import environ
 from ServiceProvider import PicLoader
-from Tools.Directories import fileExists
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
 from Screens.ChoiceBox import ChoiceBox
-from Globals import pluginPresent
+from Globals import pluginPresent, SkinTools
 
 IMAGE_TEMPFILE = "/tmp/TMDb_temp"
 
@@ -195,16 +192,7 @@ class TMDbMain(Screen, InfoLoadChoice):
     def __init__(self, session, searchTitle, service):
         Screen.__init__(self, session)
         InfoLoadChoice.__init__(self, self.callback_green_pressed)
-        try:
-            sz_w = getDesktop(0).size().width()
-        except:
-            sz_w = 720
-        if sz_w == 1280:
-            self.skinName = ["TMDbMainHD"]
-        elif sz_w == 1024:
-            self.skinName = ["TMDbMainXD"]
-        else:
-            self.skinName = ["TMDbMainSD"]
+        self.skinName = SkinTools.appendResolution("TMDbMain")
         self.service = service
         self["actions"] = ActionMap(["WizardActions", "DirectionActions", "ColorActions", "EPGSelectActions", "InfobarActions"],
         {

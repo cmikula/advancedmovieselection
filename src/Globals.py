@@ -19,7 +19,7 @@
 #  modify it (if you keep the license), but it may not be commercially 
 #  distributed other than under the conditions noted above.
 #
-from enigma import eServiceReference, eSize, ePoint, eTimer, getDesktop
+from enigma import getDesktop
 from Tools.Directories import fileExists, resolveFilename, SCOPE_HDD, SCOPE_CURRENT_SKIN, SCOPE_CURRENT_PLUGIN
 
 class SkinTools():
@@ -29,23 +29,23 @@ class SkinTools():
     def __init__(self):
         pass
     
-    @classmethod
-    def parseScinName(self, skinName):
-        dw = self.getDesktopWidth()
-        if dw == self.DESKTOP_WIDTH_XD:
+    @staticmethod
+    def appendResolution(skinName):
+        dw = SkinTools.getDesktopWidth()
+        if dw == SkinTools.DESKTOP_WIDTH_XD:
             return skinName + "XD"
-        elif dw == self.DESKTOP_WIDTH_HD:
+        elif dw == SkinTools.DESKTOP_WIDTH_HD:
             return skinName + "HD"
-        elif dw == self.DESKTOP_WIDTH_SD:
+        elif dw == SkinTools.DESKTOP_WIDTH_SD:
             return skinName + "SD"
         return skinName
     
-    @classmethod
-    def getDesktopWidth(self):
+    @staticmethod
+    def getDesktopWidth():
         try:
             desktopWidth = getDesktop(0).size().width()
         except:
-            desktopWidth = self.DESKTOP_WIDTH_SD
+            desktopWidth = SkinTools.DESKTOP_WIDTH_SD
         return desktopWidth
 
 class Installed:

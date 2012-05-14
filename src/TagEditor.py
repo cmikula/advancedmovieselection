@@ -29,26 +29,18 @@ from Components.config import config
 from Components.ActionMap import ActionMap
 from Components.Sources.StaticText import StaticText
 from Components.SelectionList import SelectionList
-from enigma import eServiceReference, iServiceInformation, getDesktop
+from enigma import eServiceReference, iServiceInformation
 from os import path as os_path
 from Screens.Console import eConsoleAppContainer
 from Screens.TimerEntry import TimerEntry
 from ServiceProvider import ServiceCenter
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN, SCOPE_CONFIG
+from Globals import SkinTools
 
 class TagEditor(Screen):
     def __init__(self, session, tags, txt = None, parent = None):
         Screen.__init__(self, session, parent = parent)
-        try:
-            sz_w = getDesktop(0).size().width()
-        except:
-            sz_w = 720
-        if sz_w == 1280:
-            self.skinName = ["AdvancedMovieSelectionTagEditorHD"]
-        elif sz_w == 1024:
-            self.skinName = ["AdvancedMovieSelectionTagEditorXD"]
-        else:
-            self.skinName = ["AdvancedMovieSelectionTagEditorSD"]
+        self.skinName = SkinTools.appendResolution("AdvancedMovieSelectionTagEditor")
         self["key_red"] = StaticText(_("Cancel"))
         self["key_green"] = StaticText(_("Save/Close"))
         self["key_yellow"] = StaticText(_("Create new Tag"))
