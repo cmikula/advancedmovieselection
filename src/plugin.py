@@ -25,7 +25,8 @@ from Plugins.Plugin import PluginDescriptor
 from Components.ActionMap import HelpableActionMap
 from MovieSelection import MovieSelection, Current, getBeginTimeString, getDateString
 from MovieList import eServiceReferenceDvd
-from ServiceProvider import DVDCutListSupport, CutListSupport, ServiceCenter
+from ServiceProvider import DVDCutListSupport, CutListSupport, ServiceCenter,\
+    eServiceReferenceBludisc
 from Screens.MessageBox import MessageBox
 from Screens.InfoBar import InfoBar, MoviePlayer
 from Tools.Directories import fileExists, resolveFilename, SCOPE_HDD, SCOPE_CURRENT_SKIN
@@ -503,6 +504,22 @@ def movieSelected(self, service):
                 self.session.open(DVDPlayer, service)
             else:
                 self.session.open(MessageBox, _("No DVD-Player found!"), MessageBox.TYPE_ERROR, 10)
+        elif isinstance(service, eServiceReferenceBludisc):
+            if pluginPresent.BludiscPlayer:
+                from Plugins.Extensions.BludiscPlayer.plugin import BludiscPlayer as eBludiscPlayer, BludiscMenu as eBludiscMenu
+                from enigma import eServiceReference
+                class BludiscMenu(eBludiscMenu):
+                    def __init__(self, session, bd_mountpoint = None):
+                        eBludiscMenu.__init__(self, session, bd_mountpoint)
+                        
+                    def moviefinished(self):
+                        print "Bludisc playback finished"
+                    
+                    def ok(self):
+                        eBludiscMenu.ok(self)
+                self.session.open(BludiscMenu, service.getBludisc())
+            else:
+                self.session.open(MessageBox, _("No BludiscPlayer found!"), MessageBox.TYPE_ERROR, 10)
         else:
             self.session.open(MoviePlayerExtended, service)
 

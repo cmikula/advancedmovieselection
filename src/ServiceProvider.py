@@ -97,11 +97,11 @@ class eServiceReferenceBludisc(eServiceReference):
         else:
             self.setName(os.path.basename(os.path.splitext(serviceref.getPath())[0]))
 
-    def getDVD(self):
+    def getBludisc(self):
         if self.isStruct is True:
-            return [self.getPath() + "/"]
+            return self.getPath() + "/"
         else:
-            return [self.getPath()]
+            return self.getPath()
 
 class eServiceReferenceDvd(eServiceReference):
     def __init__(self, serviceref, dvdStruct=False):
