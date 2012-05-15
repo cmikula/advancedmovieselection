@@ -27,7 +27,6 @@ that they, too, receive or can get the source code. And you must show them these
 '''
 
 from __init__ import _
-import os
 from Screens.Screen import Screen
 from Trashcan import Trashcan, eServiceReferenceTrash
 from Components.config import config
@@ -36,7 +35,7 @@ from Components.Button import Button
 from Components.Label import Label
 from ServiceProvider import detectDVDStructure
 from Screens.MessageBox import MessageBox
-from enigma import eTimer
+from enigma import getDesktop, eTimer
 from Tools.Directories import fileExists
 from Components.DiskInfo import DiskInfo
 from Components.UsageConfig import defaultMoviePath
@@ -45,12 +44,12 @@ from enigma import eListboxPythonMultiContent, eListbox, gFont, RT_HALIGN_LEFT, 
 from Components.MultiContent import MultiContentEntryText
 from datetime import datetime
 from Tools.Directories import getSize as getServiceSize
+import os
 from time import time, strftime, localtime
 from MessageServer import getIpAddress
 from Client import getClients
 from ClientSetup import ClientSetup
 from Components.Pixmap import Pixmap
-from Globals import SkinTools
 
 class TrashMovieList(GUIComponent):
     def __init__(self, root):
@@ -182,7 +181,16 @@ class TrashMovieList(GUIComponent):
 class Wastebasket(Screen):
     def __init__(self, session):
         Screen.__init__(self, session)
-        self.skinName = SkinTools.appendResolution("AdvancedMovieSelectionTrash")
+        try:
+            sz_w = getDesktop(0).size().width()
+        except:
+            sz_w = 720
+        if sz_w == 1280:
+            self.skinName = ["AdvancedMovieSelectionTrashHD"]
+        elif sz_w == 1024:
+            self.skinName = ["AdvancedMovieSelectionTrashXD"]
+        else:
+            self.skinName = ["AdvancedMovieSelectionTrashSD"]
         self.delayTimer = eTimer()
         self.delayTimer.callback.append(self.updateHDDData)
         self.current_ref = eServiceReferenceTrash(config.movielist.last_videodir.value)  
@@ -366,11 +374,10 @@ class Wastebasket(Screen):
 
     def restore(self):
         try:
-            service = self.getCurrent() 
-            if not service:
+            if not self.getCurrent():
                 return
-            self["list"].removeService(service)
-            Trashcan.restore(service.getPath())
+            self["list"].removeService(self.getCurrent())
+            Trashcan.restore(self.getCurrent().getPath())
         except Exception, e:
             print e
             self.session.open(MessageBox, _("Restore failed!"), MessageBox.TYPE_ERROR)

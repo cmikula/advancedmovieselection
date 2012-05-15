@@ -20,94 +20,41 @@
 #  distributed other than under the conditions noted above.
 #
 from __init__ import _
-import tmdb, urllib, shutil
 from enigma import RT_WRAP, RT_VALIGN_CENTER, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, gFont, eListbox, eListboxPythonMultiContent
 from Components.GUIComponent import GUIComponent
 from Screens.Screen import Screen
 from Components.ActionMap import ActionMap
 from Components.Sources.StaticText import StaticText
 from Components.Pixmap import Pixmap
-from os import path as os_path, mkdir as os_mkdir
+from os import path as os_path, mkdir as os_mkdir, rename as os_rename
 from enigma import ePicLoad, eTimer
 from Components.Label import Label
 from Components.ScrollLabel import ScrollLabel
 from Components.AVSwitch import AVSwitch
 from Screens.MessageBox import MessageBox
+from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Components.config import config
+from enigma import getDesktop
+import tmdb, urllib
 from Components.ProgressBar import ProgressBar
+import shutil
 from os import environ
 from ServiceProvider import PicLoader
-from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
-from Screens.ChoiceBox import ChoiceBox
-from Globals import pluginPresent, SkinTools
+from Tools.Directories import fileExists
 
+tmdb_logodir = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images"
 IMAGE_TEMPFILE = "/tmp/TMDb_temp"
 
 if environ["LANGUAGE"] == "de" or environ["LANGUAGE"] == "de_DE":
-    nocover = resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/nocover_de.png")
+    nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_de.png")
 else:
-    nocover = resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/nocover_en.png")
+    nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_en.png")
 
-class InfoChecker:
-    INFO = 0x01
-    COVER = 0x02
-    BOTH = INFO | COVER
-    def __init__(self):
-        pass
-    
-    @classmethod
-    def check(self, file_name):
-        present = 0
-        if InfoChecker.checkExtension(file_name, ".eit"):
-            present |= InfoChecker.INFO
-        if InfoChecker.checkExtension(file_name, ".jpg"):
-            present |= InfoChecker.COVER
-        return present
-
-    @classmethod
-    def checkExtension(self, file_name, ext):
-        import os
-        # DVD directory
-        if not os.path.isdir(file_name):
-            f_name = os.path.splitext(file_name)[0]
-        else:
-            f_name = file_name
-        file_name = f_name + ext
-        return os.path.exists(file_name)
-
-class InfoLoadChoice():
-    def __init__(self, callback):
-        self.__callback = callback
-        self.__timer = eTimer()
-        self.__timer.callback.append(self.__timerCallback)
-    
-    def checkExistEnce(self, file_name):
-        list = []
-        present = InfoChecker.check(file_name)
-        default = (False, False)
-        if False: # TODO: implement settings for disable choice here 
-            self.startTimer(default)
-            return
-        list.append((_("Only those, which are not available!"), default))
-        if present & InfoChecker.BOTH == InfoChecker.BOTH:
-            list.append((_("Overwrite both (description & cover)"), (True, True)))
-        if present & InfoChecker.INFO:
-            list.append((_("Overwrite movie description"), (True, False)))
-        if present & InfoChecker.COVER:
-            list.append((_("Overwrite movie cover"), (False, True)))
-            
-        if present & InfoChecker.BOTH != 0:
-            self.session.openWithCallback(self.startTimer, ChoiceBox, title=_("Data already exists! Should anything be updated?"), list=list)
-        else:
-            self.__callback(("Default", default))
-
-    def startTimer(self, answer):
-        print "InfoLoadChoice", answer
-        self.answer = answer
-        self.__timer.start(100, True)
-
-    def __timerCallback(self):
-        self.__callback(self.answer)
+if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/YTTrailer/plugin.pyo"):
+    from Plugins.Extensions.YTTrailer.plugin import YTTrailerList
+    YTTrailerPresent = True
+else:
+    YTTrailerPresent = False
 
 class TMDbList(GUIComponent, object):
     def __init__(self):
@@ -177,7 +124,7 @@ class TMDbList(GUIComponent, object):
     def getLength(self):
         return len(self.list)
 
-class TMDbMain(Screen, InfoLoadChoice):
+class TMDbMain(Screen):
     SHOW_DETAIL_TEXT = _("Show movie detail")
     SHOW_SEARCH_RESULT_TEXT = _("Show search result")
     MANUAL_SEARCH_TEXT = _("Manual search")
@@ -191,8 +138,16 @@ class TMDbMain(Screen, InfoLoadChoice):
         
     def __init__(self, session, searchTitle, service):
         Screen.__init__(self, session)
-        InfoLoadChoice.__init__(self, self.callback_green_pressed)
-        self.skinName = SkinTools.appendResolution("TMDbMain")
+        try:
+            sz_w = getDesktop(0).size().width()
+        except:
+            sz_w = 720
+        if sz_w == 1280:
+            self.skinName = ["TMDbMainHD"]
+        elif sz_w == 1024:
+            self.skinName = ["TMDbMainXD"]
+        else:
+            self.skinName = ["TMDbMainSD"]
         self.service = service
         self["actions"] = ActionMap(["WizardActions", "DirectionActions", "ColorActions", "EPGSelectActions", "InfobarActions"],
         {
@@ -236,6 +191,8 @@ class TMDbMain(Screen, InfoLoadChoice):
         self.timer.callback.append(self.searchForMovies)
         self.red_button_timer = eTimer()
         self.red_button_timer.callback.append(self.callback_red_pressed)
+        self.green_button_timer = eTimer()
+        self.green_button_timer.callback.append(self.callback_green_pressed)
         self.blue_button_timer = eTimer()
         self.blue_button_timer.callback.append(self.callback_blue_pressed) 
         self.ok_button_timer = eTimer()
@@ -247,7 +204,7 @@ class TMDbMain(Screen, InfoLoadChoice):
         self.startSearch()
 
     def layoutFinished(self):
-        self["tmdblogo"].instance.setPixmapFromFile(resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/tmdb.png"))
+        self["tmdblogo"].instance.setPixmapFromFile("%s/tmdb.png" % tmdb_logodir)
         sc = AVSwitch().getFramebufferScale()
         self.picload.setPara((self["cover"].instance.size().width(), self["cover"].instance.size().height(), sc[0], sc[1], False, 1, "#00000000"))
 
@@ -265,7 +222,7 @@ class TMDbMain(Screen, InfoLoadChoice):
         self["status"].show()
         self.timer.start(100, True)
 
-    def cancel(self, retval=None):
+    def cancel(self, retval = None):
         self.close(False)
 
     def searchForMovies(self):
@@ -335,6 +292,7 @@ class TMDbMain(Screen, InfoLoadChoice):
                 name = movie["name"].encode('utf-8', 'ignore')
                 description = movie["overview"]
                 released = movie["released"]
+                certification = movie["certification"]
                 rating = movie["rating"]
                 runtime = movie["runtime"]
                 last_modified_at = movie["last_modified_at"]
@@ -360,15 +318,24 @@ class TMDbMain(Screen, InfoLoadChoice):
                     extended = (_("Appeared: %s") % released) + ' / '
                 if runtime:
                     extended += (_("Runtime: %s minutes") % runtime) + ' / '
-
-                certification = tmdb.decodeCertification(movie["certification"])
                 if certification:
-                    extended += (_("Certification: %s") % _(certification)) + ' / '
-
+                    if certification == "G":
+                        certification = "FSK 0"
+                    elif certification == "PG":
+                        certification = "FSK 6"
+                    elif certification == "PG-13" or certification == "PG13":
+                        certification = "FSK 12"
+                    elif certification == "R":
+                        certification = "FSK 16"
+                    elif certification == "NC-13" or certification == "NC17":
+                        certification = "FSK 18"
+                    else:
+                        certification = "N/A"
+                    extended += (_("Certification: %s") % certification) + ' / '
                 if movie.has_key("rating"):
-                    rating = movie["rating"].encode('utf-8', 'ignore')    
+                    rating = movie["rating"].encode('utf-8','ignore')    
                     extended += (_("Rating: %s\n") % rating)
-                    self.ratingstars = int(10 * round(float(rating.replace(',', '.')), 1))
+                    self.ratingstars = int(10*round(float(rating.replace(',','.')),1))
                     if self.ratingstars > 0:
                         self["stars"].setValue(self.ratingstars) 
                         #self["stars"].show()
@@ -416,7 +383,7 @@ class TMDbMain(Screen, InfoLoadChoice):
                 else:
                     self["extended"].setText(_("Unknown error!!"))
                 if movie.has_key("votes"):
-                    vote = movie["votes"].encode('utf-8', 'ignore')
+                    vote = movie["votes"].encode('utf-8','ignore')
                     if not vote == "0":
                         self["vote"].setText(_("Voted: %s") % (vote) + ' ' + _("times"))
                     else:
@@ -454,7 +421,7 @@ class TMDbMain(Screen, InfoLoadChoice):
         elif text == self.SHOW_SEARCH_RESULT_TEXT:
             self.searchForMovies()
         elif text == self.TRAILER_SEARCH_TEXT:
-            if pluginPresent.YTTrailer:
+            if YTTrailerPresent:
                 current_movie = self["list"].getCurrent()[0]
                 title = current_movie["name"].encode('utf-8')
                 if self.view_mode == self.SHOW_RESULT_LIST:
@@ -496,32 +463,29 @@ class TMDbMain(Screen, InfoLoadChoice):
 
     def green_pressed(self):
         self.setTitle(_("Save Info/Cover for ' %s ', please wait ...") % self.searchTitle)  
-        self.checkExistEnce(self.service.getPath())
-        #self.green_button_timer.start(100, True) 
+        self.green_button_timer.start(100, True) 
 
-    def callback_green_pressed(self, answer=None):
+    def callback_green_pressed(self):
         if self.checkConnection() == False or not self["list"].getCurrent():
             return
-        overwrite_eit, overwrite_jpg = answer and answer[1] or (False, False)
         from EventInformationTable import createEIT
         current_movie = self["list"].getCurrent()[0]
         title = current_movie["name"].encode('utf-8')
         if self.service is not None:
-            createEIT(self.service.getPath(), title, config.AdvancedMovieSelection.coversize.value, movie=current_movie, overwrite_jpg=overwrite_jpg, overwrite_eit=overwrite_eit)
+            createEIT(self.service.getPath(), title, config.AdvancedMovieSelection.coversize.value, movie=current_movie)
             self.close(False)
         else:
             self.session.openWithCallback(self.close, MessageBox, _("Sorry, no info/cover found for title: %s") % (title), MessageBox.TYPE_ERROR)
 
     def yellow_pressed(self):
-        from AdvancedKeyboard import AdvancedKeyBoard
-        self.session.openWithCallback(self.newSearchFinished, AdvancedKeyBoard, title=_("Enter new moviename to search for"), text=self.searchTitle)
+        self.session.openWithCallback(self.newSearchFinished, VirtualKeyBoard, title=_("Enter new moviename to search for"), text=self.searchTitle)
 
     def blue_pressed(self):
         text = self["key_blue"].getText()
         current_movie = self["list"].getCurrent()[0]
         title = current_movie["name"].encode('utf-8')
         if text == self.TRAILER_SEARCH_TEXT:
-            self.setTitle(_("Search trailer for ' %s ', please wait ...") % title)
+             self.setTitle(_("Search trailer for ' %s ', please wait ...") % title)
         self.blue_button_timer.start(100, True)
 
     def callback_blue_pressed(self):
@@ -591,7 +555,7 @@ class TMDbMain(Screen, InfoLoadChoice):
             self["key_red"].setText(self.SHOW_DETAIL_TEXT)
             self["key_green"].setText(self.INFO_SAVE_TEXT)
             self["key_yellow"].setText(self.MANUAL_SEARCH_TEXT)
-            if pluginPresent.YTTrailer:
+            if YTTrailerPresent:
                 self["key_blue"].setText(self.TRAILER_SEARCH_TEXT)
                 self["button_blue"].show()
             else:
@@ -605,7 +569,7 @@ class TMDbMain(Screen, InfoLoadChoice):
             self["key_red"].setText(self.SHOW_SEARCH_RESULT_TEXT)
             self["key_green"].setText(self.INFO_SAVE_TEXT)
             self["key_yellow"].setText(self.MANUAL_SEARCH_TEXT)
-            if pluginPresent.YTTrailer:
+            if YTTrailerPresent:
                 self["key_blue"].setText(self.TRAILER_SEARCH_TEXT)
                 self["button_blue"].show()
             else:

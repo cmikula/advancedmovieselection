@@ -25,8 +25,7 @@ from Plugins.Plugin import PluginDescriptor
 from Components.ActionMap import HelpableActionMap
 from MovieSelection import MovieSelection, Current, getBeginTimeString, getDateString
 from MovieList import eServiceReferenceDvd
-from ServiceProvider import DVDCutListSupport, CutListSupport, ServiceCenter,\
-    eServiceReferenceBludisc
+from ServiceProvider import DVDCutListSupport, CutListSupport, ServiceCenter
 from Screens.MessageBox import MessageBox
 from Screens.InfoBar import InfoBar, MoviePlayer
 from Tools.Directories import fileExists, resolveFilename, SCOPE_HDD, SCOPE_CURRENT_SKIN
@@ -43,7 +42,38 @@ from Components.Label import Label
 from Components.ServiceEventTracker import ServiceEventTracker
 from time import time, localtime, mktime
 from datetime import datetime, timedelta
-from Globals import pluginPresent
+
+if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
+    IMDbPresent = True
+else:
+    IMDbPresent = False
+if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/OFDb/plugin.pyo"):
+    OFDbPresent = True
+else:
+    OFDbPresent = False
+if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedProgramGuide/plugin.pyo"):
+    from Plugins.Extensions.AdvancedProgramGuide.plugin import AdvancedProgramGuideII, AdvancedProgramGuide
+    AdvancedProgramGuidePresent = True
+else:
+    AdvancedProgramGuidePresent = False
+if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/MerlinEPG/plugin.pyo"):
+    from Plugins.Extensions.MerlinEPG.plugin import Merlin_PGII, Merlin_PGd
+    MerlinEPGPresent = True
+else:
+    MerlinEPGPresent = False
+if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/CoolTVGuide/plugin.pyo"):
+    CoolTVGuidePresent = True
+else:
+    CoolTVGuidePresent = False
+if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/YTTrailer/plugin.pyo"):
+    from Plugins.Extensions.YTTrailer.plugin import YTTrailerList
+    YTTrailerPresent = True
+else:
+    YTTrailerPresent = False
+if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/MerlinEPGCenter/plugin.pyo"):
+    MerlinEPGCenterPresent = True
+else:
+    MerlinEPGCenterPresent = False
 
 config.AdvancedMovieSelection = ConfigSubsection()
 config.AdvancedMovieSelection.wastelist_buildtype = ConfigSelection(default="listMovies" , choices=[("listMovies", _("Only current location")), ("listAllMovies", _("Current location and all subdirectories")), ("listAllMoviesMedia", _("All directorys below '/media'")) ])
@@ -170,11 +200,6 @@ config.AdvancedMovieSelection.video_preview_delay = ConfigInteger(default=1, lim
 config.AdvancedMovieSelection.video_preview_marker = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.video_preview_jump_time = ConfigInteger(default=5, limits=(1, 60))
 config.AdvancedMovieSelection.video_preview_autostart = ConfigYesNo(default=True)
-config.AdvancedMovieSelection.video_preview_fullscreen = ConfigYesNo(default=True)
-config.AdvancedMovieSelection.epg_extension = ConfigYesNo(default=False)
-config.AdvancedMovieSelection.show_set_vsr = ConfigYesNo(default=False)
-config.AdvancedMovieSelection.keyboard = ConfigSelection(default="virtual_numerical" , choices=[("virtual_numerical" , _("Virtual and Numerical")), ("virtual" , _("Virtual")), ("numerical" , _("Numerical"))])
-config.AdvancedMovieSelection.show_filter_by_description = ConfigYesNo(default=False)
 
 PlayerInstance = None
 
@@ -313,8 +338,7 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
         pass # prevent merlin crash, Select last played movie is disabled
 
     def openServiceList(self):
-        if pluginPresent.AdvancedProgramGuide:
-            from Plugins.Extensions.AdvancedProgramGuide.plugin import AdvancedProgramGuideII, AdvancedProgramGuide
+        if AdvancedProgramGuidePresent:
             if config.plugins.AdvancedProgramGuide.StartFirst.value and config.plugins.AdvancedProgramGuide.Columns.value:
                 self.session.open(AdvancedProgramGuideII)
             else:
@@ -332,36 +356,35 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
                             if InfoBar.instance:
                                 servicelist = InfoBar.instance.servicelist
                                 self.session.open(AdvancedProgramGuide, servicelist)
-        
-        elif pluginPresent.MerlinEPGCenter and not pluginPresent.AdvancedProgramGuide and not pluginPresent.CoolTVGuide and not pluginPresent.MerlinEPGCenter:
-            from Plugins.Extensions.MerlinEPG.plugin import Merlin_PGII, Merlin_PGd
-            if config.plugins.MerlinEPG.StartFirst.value and config.plugins.MerlinEPG.Columns.value:
-                self.session.open(Merlin_PGII)
-            else:
-                if config.plugins.MerlinEPG.StartFirst.value and not config.plugins.MerlinEPG.Columns.value:
-                    self.session.open(Merlin_PGd)
+        else:
+            if MerlinEPGPresent and not AdvancedProgramGuidePresent and not CoolTVGuidePresent and not MerlinEPGCenterPresent:
+                if config.plugins.MerlinEPG.StartFirst.value and config.plugins.MerlinEPG.Columns.value:
+                    self.session.open(Merlin_PGII)
                 else:
-                    if not config.plugins.MerlinEPG.StartFirst.value and config.plugins.MerlinEPG.Columns.value:
-                        from Screens.InfoBar import InfoBar
-                        if InfoBar.instance:
-                            servicelist = InfoBar.instance.servicelist
-                            self.session.open(Merlin_PGII, servicelist)
+                    if config.plugins.MerlinEPG.StartFirst.value and not config.plugins.MerlinEPG.Columns.value:
+                        self.session.open(Merlin_PGd)
                     else:
-                        if not config.plugins.MerlinEPG.StartFirst.value and not config.plugins.MerlinEPG.Columns.value:
+                        if not config.plugins.MerlinEPG.StartFirst.value and config.plugins.MerlinEPG.Columns.value:
                             from Screens.InfoBar import InfoBar
                             if InfoBar.instance:
                                 servicelist = InfoBar.instance.servicelist
-                                self.session.open(Merlin_PGd, servicelist)
-        
-        elif pluginPresent.CoolTVGuide and not pluginPresent.AdvancedProgramGuide and not pluginPresent.MerlinEPGCenter and not pluginPresent.MerlinEPGCenter:
-            from Plugins.Extensions.CoolTVGuide.plugin import main as ctvmain
-            ctvmain(self.session)
-        
-        elif pluginPresent.MerlinEPGCenter and not pluginPresent.CoolTVGuide and not pluginPresent.AdvancedProgramGuide and not pluginPresent.MerlinEPGCenter:
-            from Plugins.Extensions.MerlinEPGCenter.plugin import MerlinEPGCenterStarter
-            MerlinEPGCenterStarter.instance.openMerlinEPGCenter()
-        else:
-            self.session.open(MessageBox, _("Not possible!\nMerlinEPG and CoolTVGuide or/and MerlinEPGCenter present or neither installed from this three plugins."), MessageBox.TYPE_INFO)
+                                self.session.open(Merlin_PGII, servicelist)
+                        else:
+                            if not config.plugins.MerlinEPG.StartFirst.value and not config.plugins.MerlinEPG.Columns.value:
+                                from Screens.InfoBar import InfoBar
+                                if InfoBar.instance:
+                                    servicelist = InfoBar.instance.servicelist
+                                    self.session.open(Merlin_PGd, servicelist)
+            else:
+                if CoolTVGuidePresent and not AdvancedProgramGuidePresent and not MerlinEPGPresent and not MerlinEPGCenterPresent:
+                    from Plugins.Extensions.CoolTVGuide.plugin import main as ctvmain
+                    ctvmain(self.session)
+                else:
+                    if MerlinEPGCenterPresent and not CoolTVGuidePresent and not AdvancedProgramGuidePresent and not MerlinEPGPresent:
+                        from Plugins.Extensions.MerlinEPGCenter.plugin import MerlinEPGCenterStarter
+                        MerlinEPGCenterStarter.instance.openMerlinEPGCenter()
+                    else:
+                        self.session.open(MessageBox, _("Not possible!\nMerlinEPG and CoolTVGuide or/and MerlinEPGCenter present or neither installed from this three plugins."), MessageBox.TYPE_INFO)
             
     def openInfoView(self):
         from AdvancedMovieSelectionEventView import EventViewSimple
@@ -446,7 +469,7 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
             self.returning = True
             self.session.openWithCallback(self.movieSelected, MovieSelection, ref, True)
             self.session.nav.stopService()
-            self.session.nav.playService(self.lastservice) # Fix busy tuner after stby with playing service
+            self.session.nav.playService(self.lastservice)
         elif answer == "restart":
             self.doSeek(0)
             self.setSeekState(self.SEEK_STATE_PLAY)
@@ -483,7 +506,7 @@ def showMovies(self):
 def movieSelected(self, service):
     if service is not None:
         if isinstance(service, eServiceReferenceDvd):
-            if pluginPresent.DVDPlayer:
+            if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/DVDPlayer/plugin.py"):
                 from Plugins.Extensions.DVDPlayer.plugin import DVDPlayer as eDVDPlayer
                 class DVDPlayer(DVDCutListSupport, eDVDPlayer):
                     def __init__(self, session, service):
@@ -504,42 +527,6 @@ def movieSelected(self, service):
                 self.session.open(DVDPlayer, service)
             else:
                 self.session.open(MessageBox, _("No DVD-Player found!"), MessageBox.TYPE_ERROR, 10)
-        elif isinstance(service, eServiceReferenceBludisc):
-            if pluginPresent.BludiscPlayer:
-                from Plugins.Extensions.BludiscPlayer.plugin import BludiscPlayer as eBludiscPlayer, BludiscMenu as eBludiscMenu
-                from enigma import eServiceReference
-                class BludiscPlayer(eBludiscPlayer):
-                    def handleLeave(self, how):
-                        self.is_closing = True
-                        if how == "ask":
-                            list = (
-                                (_("Yes"), "quit"),
-                                (_("No"), "continue")
-                            )
-                            from Screens.ChoiceBox import ChoiceBox
-                            self.session.openWithCallback(self.leavePlayerConfirmed, ChoiceBox, title=_("Stop playing this movie?"), list = list)
-                        else:
-                            self.leavePlayerConfirmed([True, "quit"])
-                
-                class BludiscMenu(eBludiscMenu):
-                    def __init__(self, session, bd_mountpoint = None):
-                        eBludiscMenu.__init__(self, session, bd_mountpoint)
-                        
-                    def ok(self):
-                        if type(self["menu"].getCurrent()) is type(None):
-                            self.exit()
-                            return
-                        name = self["menu"].getCurrent()[0]
-                        idx = self["menu"].getCurrent()[1]
-                        newref = eServiceReference(0x04, 0, "%s:%03d" % (self.bd_mountpoint, idx))
-                        newref.setData(1,1)
-                        newref.setName("Bludisc title %d" % idx)
-                        print "[Bludisc] play: ", name, newref.toString()        
-                        self.session.openWithCallback(self.moviefinished, BludiscPlayer, newref)
-                    
-                self.session.open(BludiscMenu, service.getBludisc())
-            else:
-                self.session.open(MessageBox, _("No BludiscPlayer found!"), MessageBox.TYPE_ERROR, 10)
         else:
             self.session.open(MoviePlayerExtended, service)
 
@@ -677,8 +664,7 @@ def autostart(reason, **kwargs):
 
 def updateLocale():
     # set locale for tmdb search
-    import tmdb, tvdb
-    from AboutParser import AboutParser
+    import tmdb, tvdb, AboutParser
     from Components.Language import language
     ln = language.lang[language.activeLanguage][1]
     tmdb.setLocale(ln)
@@ -707,14 +693,12 @@ def Plugins(**kwargs):
             setPreferredTagEditor(TagEditor)
         if not config.AdvancedMovieSelection.ml_disable.value and config.AdvancedMovieSelection.useseekbar.value:
             from Seekbar import Seekbar
-        from EpgListExtension import epgListExtension
-        epgListExtension.enabled(config.AdvancedMovieSelection.epg_extension.value)
     except Exception, e:
         print e
     if not config.AdvancedMovieSelection.ml_disable.value:
-        descriptors = [PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=autostart, needsRestart=True)]
-        descriptors.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, fnc=Setup, needsRestart=True))
+        descriptors = [PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=autostart)]
+        descriptors.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, fnc=Setup))
     else:
-        descriptors = [PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=nostart, needsRestart=True)]
-        descriptors.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, fnc=Setup, needsRestart=True))
+        descriptors = [PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=nostart)]
+        descriptors.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, fnc=Setup))
     return descriptors

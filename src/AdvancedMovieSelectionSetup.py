@@ -39,8 +39,33 @@ from MessageBoxEx import MessageBox as MessageBoxEx
 from Components.Sources.List import List
 from Components.ActionMap import ActionMap, NumberActionMap
 from enigma import getDesktop, quitMainloop
+from Tools.Directories import fileExists
 from ClientSetup import ClientSetup
-from Globals import pluginPresent, SkinTools
+
+if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
+    IMDbPresent = True
+else:
+    IMDbPresent = False
+if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/OFDb/plugin.pyo"):
+    OFDbPresent = True
+else:
+    OFDbPresent = False
+if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/TMDb/plugin.pyo"):
+    TMDbPresent = True
+else:
+    TMDbPresent = False
+if fileExists("/usr/lib/enigma2/python/Plugins/Bp/geminimain/plugin.pyo"):
+    GP3Present = True
+else:
+    GP3Present = False
+if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/YTTrailer/plugin.pyo"):
+    YTTrailerPresent = True
+else:
+    YTTrailerPresent = False
+if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/pipzap/plugin.pyo"):
+    PiPZapPresent = True
+else:
+    PiPZapPresent = False
 
 class ConfigList(eConfigList.ConfigList):
     def __init__(self, list, session=None):
@@ -108,7 +133,16 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
     def __init__(self, session, csel=None):
         Screen.__init__(self, session)
         self.csel = csel
-        self.skinName = SkinTools.appendResolution("AdvancedMovieSelectionSetup")
+        try:
+            sz_w = getDesktop(0).size().width()
+        except:
+            sz_w = 720
+        if sz_w == 1280:
+            self.skinName = ["AdvancedMovieSelectionSetupHD"]
+        elif sz_w == 1024:
+            self.skinName = ["AdvancedMovieSelectionSetupXD"]
+        else:
+            self.skinName = ["AdvancedMovieSelectionSetupSD"]
         self.bouquet_length = 13
         self.needsRestartFlag = False
         self.needsE2restartFlag = False
@@ -226,14 +260,6 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         if config.AdvancedMovieSelection.video_preview.isChanged():
             config.AdvancedMovieSelection.video_preview.save()
             needRefresh = True
-        if config.AdvancedMovieSelection.video_preview.isChanged(): 
-            if not config.AdvancedMovieSelection.video_preview_fullscreen.value:
-                config.AdvancedMovieSelection.video_preview.save()
-                needRefresh = True
-            else:
-                config.AdvancedMovieSelection.video_preview.save()
-                needRefresh = True
-                self.needsReopenFlag = True 
         if config.AdvancedMovieSelection.minitv.isChanged():
             config.AdvancedMovieSelection.minitv.save()
             if not config.AdvancedMovieSelection.minitv.value:
@@ -243,13 +269,6 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         if config.AdvancedMovieSelection.video_preview_autostart.isChanged():
             config.AdvancedMovieSelection.video_preview_autostart.save()
             needRefresh = True
-        if config.AdvancedMovieSelection.video_preview_fullscreen.isChanged():
-            config.AdvancedMovieSelection.video_preview_fullscreen.save()
-            self.needsReopenFlag = True
-        if config.AdvancedMovieSelection.video_preview.value and config.AdvancedMovieSelection.video_preview_fullscreen.isChanged():
-            config.AdvancedMovieSelection.video_preview.save()
-            config.AdvancedMovieSelection.video_preview_fullscreen.save()
-            self.needsReopenFlag = True
         
         if needRefresh:
             self.createSetup()
@@ -318,22 +337,20 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append(getConfigListEntry(_("Show movie tags in extensions menu from movielist:"), config.AdvancedMovieSelection.showmovietagsinmenu, _("Displays movie tags function in the menu at the movie list.")))
         self.list.append(getConfigListEntry(_("Show filter by tags in extensions menu from movielist:"), config.AdvancedMovieSelection.showfiltertags, _("Displays filter by tags function in the menu at the movie list.")))
         self.list.append(getConfigListEntry(_("Show search trailer on web in extensions menu from movielist:"), config.AdvancedMovieSelection.showtrailer, _("Displays search trailer on web function in the menu at the movie list.")))
-        self.list.append(getConfigListEntry(_("Show Set VSR in extensions menu from movielist:"), config.AdvancedMovieSelection.show_set_vsr, _("Displays set VSR function in the menu at the movie list.")))
-        self.list.append(getConfigListEntry(_("Show Filter by description in extensions menu from movielist:"), config.AdvancedMovieSelection.show_filter_by_description, _("Displays the Filter by description function in the menu at the movie list.")))
         self.list.append(getConfigListEntry(_("Ask before delete:"), config.AdvancedMovieSelection.askdelete, _("With this option you can turn on/off the security question before delete a movie.")))
-        if pluginPresent.IMDb and pluginPresent.OFDb and pluginPresent.TMDb:
+        if IMDbPresent and OFDbPresent and TMDbPresent:
             self.list.append(getConfigListEntry(_("INFO button function:"), config.AdvancedMovieSelection.Eventinfotyp, _("With this option you can assign what function should have the info button. The selection depends on the installed plugins.")))
-        if pluginPresent.IMDb and not pluginPresent.OFDb and not pluginPresent.TMDb:
+        if IMDbPresent and not OFDbPresent and not TMDbPresent:
             self.list.append(getConfigListEntry(_("INFO button function:"), config.AdvancedMovieSelection.Eventinfotyp2, _("With this option you can assign what function should have the info button. The selection depends on the installed plugins.")))
-        if pluginPresent.OFDb and not pluginPresent.TMDb and not pluginPresent.IMDb:
+        if OFDbPresent and not TMDbPresent and not IMDbPresent:
             self.list.append(getConfigListEntry(_("INFO button function:"), config.AdvancedMovieSelection.Eventinfotyp3, _("With this option you can assign what function should have the info button. The selection depends on the installed plugins.")))
-        if pluginPresent.TMDb and not pluginPresent.OFDb and not pluginPresent.IMDb:
+        if TMDbPresent and not OFDbPresent and not IMDbPresent:
             self.list.append(getConfigListEntry(_("INFO button function:"), config.AdvancedMovieSelection.Eventinfotyp4, _("With this option you can assign what function should have the info button. The selection depends on the installed plugins.")))
-        if pluginPresent.TMDb and not pluginPresent.OFDb and pluginPresent.IMDb:
+        if TMDbPresent and not OFDbPresent and IMDbPresent:
             self.list.append(getConfigListEntry(_("INFO button function:"), config.AdvancedMovieSelection.Eventinfotyp5, _("With this option you can assign what function should have the info button. The selection depends on the installed plugins.")))
-        if pluginPresent.TMDb and pluginPresent.OFDb and not pluginPresent.IMDb:
+        if TMDbPresent and OFDbPresent and not IMDbPresent:
             self.list.append(getConfigListEntry(_("INFO button function:"), config.AdvancedMovieSelection.Eventinfotyp6, _("With this option you can assign what function should have the info button. The selection depends on the installed plugins.")))
-        if not pluginPresent.TMDb and pluginPresent.OFDb and pluginPresent.IMDb:
+        if not TMDbPresent and OFDbPresent and IMDbPresent:
             self.list.append(getConfigListEntry(_("INFO button function:"), config.AdvancedMovieSelection.Eventinfotyp7, _("With this option you can assign what function should have the info button. The selection depends on the installed plugins.")))
         self.list.append(getConfigListEntry(_("Behavior when a movie is started:"), config.usage.on_movie_start, _("With this option you can assign what should happen when a movie start.")))
         self.list.append(getConfigListEntry(_("Behavior when a movie is stopped:"), config.usage.on_movie_stop, _("With this option you can assign what should happen when a movie stop.")))
@@ -357,7 +374,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append(getConfigListEntry(_("Show info messages:"), config.AdvancedMovieSelection.showinfo, _("If this option is activated will be displayed different info message. This should help with the operation of the extension.")))
         self.list.append(getConfigListEntry(_("Use alternative jump function:"), config.AdvancedMovieSelection.useseekbar, _("If this option is activated more jump functions ar available. ATTENTION: Enigma 2 restart is necessary!")))
         if config.AdvancedMovieSelection.useseekbar.value:
-            if config.AdvancedMovieSelection.useseekbar.value and not pluginPresent.pipzap:
+            if config.AdvancedMovieSelection.useseekbar.value and not PiPZapPresent:
                 self.list.append(getConfigListEntry(_("Change function from left/right buttons:"), config.AdvancedMovieSelection.overwrite_left_right, _("If this option is activated the function of the left/right arrow buttons will changed. Normal you can use the buttons also for winding, if is changed you have quick access to the new jump function. ATTENTION: Enigma 2 restart is necessary!")))
             self.list.append(getConfigListEntry(_("Manual jump sensibility:"), config.AdvancedMovieSelection.sensibility, _("Here you can adjust the manually jump length relative to the film length in percent.")))
         self.list.append(getConfigListEntry(_("Use wastebasket:"), config.AdvancedMovieSelection.use_wastebasket, _("If this option is activated the movie will not be deleted but moved into the wastebasket.")))
@@ -380,16 +397,11 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         if config.AdvancedMovieSelection.minitv.value:
             self.list.append(getConfigListEntry(_("Use video preview:"), config.AdvancedMovieSelection.video_preview, _("If you enable this function, selected movie in movielist will bring you a preview.")))
         if config.AdvancedMovieSelection.minitv.value and config.AdvancedMovieSelection.video_preview.value:
-            getSkin = getDesktop(0).size().width()
-            if getSkin >= 1024:
-                self.list.append(getConfigListEntry(_("Show video preview in fullscreen:"), config.AdvancedMovieSelection.video_preview_fullscreen, _("If you enable this function, the video preview function will display as full screen in skin.")))
             self.list.append(getConfigListEntry(_("Video preview autostart:"), config.AdvancedMovieSelection.video_preview_autostart, _("If you enable this feature, the movie preview starts automatically after the delay with a change in the movie list.")))
             if config.AdvancedMovieSelection.video_preview_autostart.value:
                 self.list.append(getConfigListEntry(_("Video preview delay:"), config.AdvancedMovieSelection.video_preview_delay, _("Setup the delay in seconds to start the video preview.")))
             self.list.append(getConfigListEntry(_("Use last stop mark:"), config.AdvancedMovieSelection.video_preview_marker, _("Preview will start on last stop marker.")))
             self.list.append(getConfigListEntry(_("Video preview jump time (in minutes):"), config.AdvancedMovieSelection.video_preview_jump_time, _("Here you can set the jump time for the movie preview (< > buttons or bouquet +/- buttons).")))
-        self.list.append(getConfigListEntry(_("Select keyboard:"), config.AdvancedMovieSelection.keyboard, _("You can select yout prefered keyboard (Virtual, Numerical or both).")))
-        self.list.append(getConfigListEntry(_("Show recorded movies in epg:"), config.AdvancedMovieSelection.epg_extension, _("If you enable this function, your recorded movies will be marked in epg list.")))
         self.list.append(getConfigListEntry(_("Enable Enigma2 debug:"), config.AdvancedMovieSelection.debug, _("If you enable this function, all standard output from enigma will be stored to /tmp folder.")))
         self["config"].setList(self.list)
 
@@ -401,19 +413,19 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self["help"].setText(_("No Helptext available!"))
         
     def pluginsavailable(self):
-        if pluginPresent.IMDb:
+        if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/IMDb/plugin.pyo"):
             self["IMDbtxt"].setText(_("IMDb plugin installed. Assign function to info button is possible."))
         else:
             self["IMDbtxt"].setText(_("IMDb plugin NOT installed. Assign function to info button is NOT possible."))
-        if pluginPresent.OFDb:
+        if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/OFDb/plugin.pyo"):
             self["OFDbtxt"].setText(_("OFDb plugin installed. Assign function to info button is possible."))
         else:
             self["OFDbtxt"].setText(_("OFDb plugin NOT installed. Assign function to info button is NOT possible."))
-        if pluginPresent.TMDb:
+        if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/TMDb/plugin.pyo"):
             self["TMDbtxt"].setText(_("TMDb plugin installed. Assign function to info button is possible."))
         else:
             self["TMDbtxt"].setText(_("TMDb plugin NOT installed. Assign function to info button is NOT possible.")) 
-        if  pluginPresent.YTTrailer:
+        if  YTTrailerPresent == True:
             self["Trailertxt"].setText(_("YTTrailer plugin installed. Search for trailers on the Web is possible."))
         else:
             self["Trailertxt"].setText(_("YTTrailer plugin NOT installed. Search for trailers on the Web is NOT possible."))           
@@ -460,9 +472,6 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             else:
                 serverInstance.shutdown()
                 serverInstance.active_clients = []
-        
-        from EpgListExtension import epgListExtension
-        epgListExtension.enabled(config.AdvancedMovieSelection.epg_extension.value)
         
         if self.csel:
             self.csel.updateSettings()
@@ -513,16 +522,25 @@ class ConfigSelection(eConfigSelection):
         sel = eConfigSelection.getMulti(self, selected)
         return (sel[0], _(sel[1]))
 
-__dummy1__ = (_("Nothing"), _("Delete"), _("Wastebasket"), _("Sort"), _("Filter by description"), _("Home"), _("Bookmark 1"), _("Bookmark 2"), _("Bookmark 3"), _("Bookmark(s) on/off"), _("Filter by Tags"), _("Tag Editor"), _("Move-Copy"), _("Rename"),
+__dummy1__ = (_("Nothing"), _("Delete"), _("Wastebasket"), _("Sort"), _("Home"), _("Bookmark 1"), _("Bookmark 2"), _("Bookmark 3"), _("Bookmark(s) on/off"), _("Filter by Tags"), _("Tag Editor"), _("Move-Copy"), _("Rename"), 
             _("TMDb Info & D/L"), _("Mark as seen"), _("Mark as unseen"), _("Show/Hide folders"), _("Trailer search"), _("Toggle seen"), _("Show Timer"), _("TheTVDB Info & D/L"))
 __dummy2__ = (_("DM-600PVR"), _("DM-7000"), _("DM-7025"), _("DM-8000HD"), _("DM-500HD"), _("DM-800HD"), _("DM-800HDse"), _("DM-7020HD"), _("internal HDD"), _("NAS"), _("NAS-Movies"))
-__dummy3__ = (_("Display plugin name"), _("Display plugin description"), _("Show up to VSR-X"))
+__dummy3__ = (_("Display plugin name"), _("Display plugin description"))
 
 class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
     def __init__(self, session, csel=None):
         Screen.__init__(self, session)
         self.csel = csel
-        self.skinName = SkinTools.appendResolution("AdvancedMovieSelectionButtonSetup")
+        try:
+            sz_w = getDesktop(0).size().width()
+        except:
+            sz_w = 720
+        if sz_w == 1280:
+            self.skinName = ["AdvancedMovieSelectionButtonSetupHD"]
+        elif sz_w == 1024:
+            self.skinName = ["AdvancedMovieSelectionButtonSetupXD"]
+        else:
+            self.skinName = ["AdvancedMovieSelectionButtonSetupSD"]
         self["important"] = StaticText(_("IMPORTANT: If changes are made here the Advanced Movie Selection must be completely closed so the changes can be adopted!!"))
         self["key_red"] = Button(_("Cancel"))
         self["key_green"] = Button(_("Save/Close"))
@@ -550,10 +568,8 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         self.entryguilist.append(("17", "Mark as unseen"))
         self.entryguilist.append(("18", "Show/Hide folders"))
         self.entryguilist.append(("19", "Show Timer"))
-        self.entryguilist.append(("20", "Show up to VSR-X"))
-        self.entryguilist.append(("21", "Filter by description"))
-        if pluginPresent.YTTrailer == True:
-            self.entryguilist.append(("22", "Trailer search"))
+        if YTTrailerPresent == True:
+            self.entryguilist.append(("20", "Trailer search"))
         self.entryguilist2 = []
         self.entryguilist2.append(("0", "Nothing"))
         self.entryguilist2.append(("1", "DM-600PVR"))
@@ -726,9 +742,7 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
             self.session.openWithCallback(self.dirnameSelected, MovieLocationBox, _("Movie Quick Button Bookmark 2 path"), preferredPath(self.bookmark2_dirname.value))     
         elif currentry == self.bookmark3:
             self.entrydirname = self.bookmark3_dirname
-            self.session.openWithCallback(self.dirnameSelected, MovieLocationBox, _("Movie Quick Button Bookmark 3 path"), preferredPath(self.bookmark3_dirname.value))
-        else:
-            self.keySave()                 
+            self.session.openWithCallback(self.dirnameSelected, MovieLocationBox, _("Movie Quick Button Bookmark 3 path"), preferredPath(self.bookmark3_dirname.value))                 
 
     def dirnameSelected(self, res):
         if res is not None:
@@ -808,7 +822,16 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
 class AdvancedMovieSelectionOwnButtonName(Screen, ConfigListScreen):        
     def __init__(self, session):
         Screen.__init__(self, session)
-        self.skinName = SkinTools.appendResolution("AdvancedMovieSelectionOwnButtonName")
+        try:
+            sz_w = getDesktop(0).size().width()
+        except:
+            sz_w = 720
+        if sz_w == 1280:
+            self.skinName = ["AdvancedMovieSelectionOwnButtonNameHD"]
+        elif sz_w == 1024:
+            self.skinName = ["AdvancedMovieSelectionOwnButtonNameXD"]
+        else:
+            self.skinName = ["AdvancedMovieSelectionOwnButtonNameSD"]
         self.homebutton = None
         self.bookmark1button = None
         self.bookmark2button = None

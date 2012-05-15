@@ -24,9 +24,6 @@ def setLocale(lng):
     config['urls']['media.getInfo'] = "http://api.themoviedb.org/2.1/Media.getInfo/%(locale)s/xml/%(apikey)s/%%s/%%s" % (config)
     config['urls']['imdb.lookUp'] = "http://api.themoviedb.org/2.1/Movie.imdbLookup/%(locale)s/xml/%(apikey)s/%%s" % (config)
 
-def getLocale():
-    return config['locale']
-
 setLocale("de")
 
 import os,struct,urllib,urllib2,xml.etree.cElementTree as ElementTree
@@ -556,17 +553,11 @@ def searchByHashingFile(filename):
     """
     return mediaGetInfo(opensubtitleHashFile(filename), os.path.getsize(filename))
 
-def decodeCertification(cert):
-    certification = {"G":"VSR-0", "PG":"VSR-6", "PG13":"VSR-12", "PG-13":"VSR-12", "R":"VSR-16", "NC-13":"VSR-18", "NC17":"VSR-18"}
-    if certification.has_key(cert):
-        return certification[cert]
-
 def main():
     results = search("Fight Club")
     searchResult = results[0]
     movie = getMovieInfo(searchResult['id'])
     print movie['name']
-    print decodeCertification(movie['certification'])
 
     print "Producers:"
     for prodr in movie['cast']['producer']:

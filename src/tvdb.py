@@ -42,9 +42,6 @@ def setLocale(lng):
     config['urls']['movie.getInfo'] = "http://www.thetvdb.com/api/%(apikey)s/series/%%s/all/%(locale)s" % (config)
     config['urls']['movie.getImage'] = "http://www.thetvdb.com/banners/_cache/%%s" % (config)
 
-def getLocale():
-    return config['locale']
-
 setLocale("de")
 
 import urllib, urllib2, xml.etree.cElementTree as ElementTree

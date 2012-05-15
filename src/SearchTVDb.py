@@ -20,8 +20,9 @@
 #  distributed other than under the conditions noted above.
 #
 from __init__ import _
-import urllib, datetime, re, os, shutil
-import tvdb
+import urllib
+import datetime
+import re
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
 from enigma import getDesktop, iServiceInformation, eTimer
@@ -31,24 +32,32 @@ from Components.ActionMap import ActionMap
 from Components.GUIComponent import GUIComponent
 from enigma import RT_WRAP, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, gFont, eListbox, eListboxPythonMultiContent
 from Components.Label import Label
+from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Components.ScrollLabel import ScrollLabel
-from Tools.Directories import pathExists
+from Tools.Directories import pathExists, fileExists
+import os
 from enigma import ePicLoad
 from Components.AVSwitch import AVSwitch
 from Components.ProgressBar import ProgressBar
 from os import environ
 from ServiceProvider import PicLoader, ServiceCenter
 from EventInformationTable import createEITtvdb
-from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
-from SearchTMDb import InfoLoadChoice
-from Globals import pluginPresent, SkinTools
+import tvdb
+import shutil
 
 temp_dir = "/tmp/TheTVDB_temp/"
+logodir = "/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images"
 
 if environ["LANGUAGE"] == "de" or environ["LANGUAGE"] == "de_DE":
-    nocover = resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/nocover_de.png")
+    nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_de.png")
 else:
-    nocover = resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/nocover_en.png")
+    nocover = ("/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/nocover_en.png")
+
+if fileExists("/usr/lib/enigma2/python/Plugins/Extensions/YTTrailer/plugin.pyo"):
+    from Plugins.Extensions.YTTrailer.plugin import YTTrailerList
+    YTTrailerPresent = True
+else:
+    YTTrailerPresent = False
 
 def getImage(serie):
     thumb = serie['poster']
@@ -155,7 +164,7 @@ class EpisodesList(ListBase):
         res.append((eListboxPythonMultiContent.TYPE_TEXT, 5, 52, width - 5, 79, 1, RT_HALIGN_LEFT | RT_WRAP, "%s" % episode_overview))
         return res
         
-class TheTVDBMain(Screen, InfoLoadChoice):
+class TheTVDBMain(Screen):
     SHOW_DETAIL_TEXT = _("Show serie detail")
     SHOW_EPISODE_TEXT = _("Show episode detail")
     SHOW_ALL_EPISODES_TEXT = _("Show episodes overview")
@@ -174,8 +183,16 @@ class TheTVDBMain(Screen, InfoLoadChoice):
     
     def __init__(self, session, service, args=None):
         Screen.__init__(self, session)
-        InfoLoadChoice.__init__(self, self.callback_green_pressed)
-        self.skinName = SkinTools.appendResolution("TheTVDBMain")
+        try:
+            sz_w = getDesktop(0).size().width()
+        except:
+            sz_w = 720
+        if sz_w == 1280:
+            self.skinName = ["TheTVDBMainHD"]
+        elif sz_w == 1024:
+            self.skinName = ["TheTVDBMainXD"]
+        else:
+            self.skinName = ["TheTVDBMainSD"]
 
         if not pathExists(temp_dir):
             os.mkdir(temp_dir, 0777)
@@ -238,6 +255,8 @@ class TheTVDBMain(Screen, InfoLoadChoice):
         self.timer.callback.append(self.getSeriesList)
         self.red_button_timer = eTimer()
         self.red_button_timer.callback.append(self.callback_red_pressed)
+        self.green_button_timer = eTimer()
+        self.green_button_timer.callback.append(self.callback_green_pressed)
         self.blue_button_timer = eTimer()
         self.blue_button_timer.callback.append(self.callback_blue_pressed)        
         self.onLayoutFinish.append(self.layoutFinished)
@@ -247,7 +266,7 @@ class TheTVDBMain(Screen, InfoLoadChoice):
         self.startSearch()
 
     def layoutFinished(self):
-        self["thetvdb_logo"].instance.setPixmapFromFile(resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/thetvdb_logo.png"))
+        self["thetvdb_logo"].instance.setPixmapFromFile("%s/thetvdb_logo.png" % logodir)
         sc = AVSwitch().getFramebufferScale()
         self.picload.setPara((self["cover"].instance.size().width(), self["cover"].instance.size().height(), sc[0], sc[1], False, 1, "#00000000"))
         self.picload2.setPara((self["banner"].instance.size().width(), self["banner"].instance.size().height(), sc[0], sc[1], False, 1, "#00000000"))
@@ -420,8 +439,7 @@ class TheTVDBMain(Screen, InfoLoadChoice):
                 self.updateView(self.SHOW_EPISODE_NO_RESULT)
 
     def searchManual(self):
-        from AdvancedKeyboard import AdvancedKeyBoard
-        self.session.openWithCallback(self.newSearchCallback, AdvancedKeyBoard, title=_("Enter new movie name for search:"), text=self.searchTitle)        
+        self.session.openWithCallback(self.newSearchCallback, VirtualKeyBoard, title=_("Enter new movie name for search:"), text=self.searchTitle)        
 
     def newSearchCallback(self, text=None):
         if text:
@@ -659,7 +677,7 @@ class TheTVDBMain(Screen, InfoLoadChoice):
             self["button_blue"].show()
         elif self.view_mode == self.SHOW_SERIE_DETAIL:
             self.serieDetailView()
-            if pluginPresent.YTTrailer:
+            if YTTrailerPresent:
                 self["key_red"].setText(self.TRAILER_SEARCH_TEXT)
                 self["button_red"].show()
             else:
@@ -713,7 +731,7 @@ class TheTVDBMain(Screen, InfoLoadChoice):
 
     def buttonAction(self, text):
         if text == self.TRAILER_SEARCH_TEXT:
-            if pluginPresent.YTTrailer:
+            if YTTrailerPresent:
                 self.setTitle(_("Details for: %s") % (self.getInfoText()))
                 self.session.open(YTTrailerList, self.searchTitle)
         elif text == self.SHOW_ALL_SERIES_TEXT:
@@ -733,13 +751,12 @@ class TheTVDBMain(Screen, InfoLoadChoice):
 
     def green_pressed(self):
         self.setTitle(_("Save Info/Cover for ' %s ', please wait ...") % self.searchTitle)  
-        self.checkExistEnce(self.service.getPath())
+        self.green_button_timer.start(100, True)      
 
-    def callback_green_pressed(self, answer=None):
+    def callback_green_pressed(self):
         cur = self["list"].getCurrent()
         if not self.checkConnection() or not cur:
             return
-        overwrite_eit, overwrite_jpg = answer and answer[1] or (False, False)
         current_movie = cur[0]['Serie'][0]
         title = current_movie['SeriesName'].encode('utf-8', 'ignore')
         episode = None
@@ -748,7 +765,7 @@ class TheTVDBMain(Screen, InfoLoadChoice):
         if cur_epi and (self.view_mode == self.SHOW_EPISODE_LIST or self.view_mode == self.SHOW_EPISODE_DETAIL):
             episode = cur_epi[0]
         if self.service is not None:
-            createEITtvdb(self.service.getPath(), title, serie=current_movie, episode=episode, overwrite_jpg=overwrite_jpg, overwrite_eit=overwrite_eit)
+            createEITtvdb(self.service.getPath(), title, serie=current_movie, episode=episode)
             self.close(False)
 
     def red_pressed(self):
