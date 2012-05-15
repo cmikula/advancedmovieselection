@@ -142,7 +142,8 @@ class MovieContextMenu(Screen):
         menu = []
         if config.AdvancedMovieSelection.use_wastebasket.value and config.AdvancedMovieSelection.show_wastebasket.value:
             menu.append((_("Wastebasket"), self.waste))
-        menu.append((_("Filter by description"), boundFunction(self.openFilterByDescriptionChoice)))
+        if config.AdvancedMovieSelection.show_filter_by_description.value:
+            menu.append((_("Filter by description"), boundFunction(self.openFilterByDescriptionChoice)))
         if config.AdvancedMovieSelection.show_set_vsr.value and not (self.service.flags & eServiceReference.mustDescent):
             menu.append((_("Set VSR"), boundFunction(self.openAccessChoice)))
         if config.AdvancedMovieSelection.hotplug.value and isinstance(service, eServiceReferenceHotplug):

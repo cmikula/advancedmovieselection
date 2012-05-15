@@ -173,6 +173,7 @@ config.AdvancedMovieSelection.video_preview_fullscreen = ConfigYesNo(default=Tru
 config.AdvancedMovieSelection.epg_extension = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.show_set_vsr = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.keyboard = ConfigSelection(default="virtual_numerical" , choices=[("virtual_numerical" , _("Virtual and Numerical")), ("virtual" , _("Virtual")), ("numerical" , _("Numerical"))])
+config.AdvancedMovieSelection.show_filter_by_description = ConfigYesNo(default=False)
 
 PlayerInstance = None
 
