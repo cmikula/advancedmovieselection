@@ -62,6 +62,7 @@ auto_network = []
 AUTO_NETORK = "/etc/auto.network"
 
 def getServiceInfoValue(ref, what):
+    # only works with ts files, if necessary use the ServiceCenter class
     info = eServiceCenter.getInstance().info(ref)
     v = ref and info.getInfo(ref, what) or info.getInfo(what)
     if v != iServiceInformation.resIsString:
@@ -82,6 +83,25 @@ class PicLoader:
     
     def destroy(self):
         del self.picload
+
+class eServiceReferenceBludisc(eServiceReference):
+    def __init__(self, serviceref, isStruct=False):
+        idx = 0
+        eServiceReference.__init__(self, 4369, 0, serviceref.getPath())
+        #eServiceReference.__init__(self, 0x04, 0, "%s:%03d" % (serviceref.getPath(), idx))
+        self.isStruct = isStruct
+        if isStruct is True:
+            # remove trailing slash
+            self.setPath(serviceref.getPath()[0:-1])
+            self.setName(os.path.basename(self.getPath()))
+        else:
+            self.setName(os.path.basename(os.path.splitext(serviceref.getPath())[0]))
+
+    def getDVD(self):
+        if self.isStruct is True:
+            return [self.getPath() + "/"]
+        else:
+            return [self.getPath()]
 
 class eServiceReferenceDvd(eServiceReference):
     def __init__(self, serviceref, dvdStruct=False):
@@ -207,6 +227,13 @@ def getDirSize(root):
     except Exception, e:
         print e
     return folder_size
+
+def detectBludiscStructure(loadPath):
+    if not os.path.isdir(loadPath):
+        return None
+    if fileExists(loadPath + "BDMV/"):
+        return loadPath + "BDMV/"
+    return None
 
 def detectDVDStructure(loadPath):
     if not os.path.isdir(loadPath):

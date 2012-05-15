@@ -51,6 +51,7 @@ class SkinTools():
 class Installed:
     def __init__(self):
         self.GP3 = resolveFilename(SCOPE_CURRENT_PLUGIN, "Bp/geminimain/plugin.pyo")
+        self.BludiscPlayer = self.pluginInstalled("BludiscPlayer")
         self.DVDPlayer = self.pluginInstalled("DVDPlayer")
         self.TMDb = self.pluginInstalled("TMDb")
         self.IMDb = self.pluginInstalled("IMDb")

@@ -36,7 +36,9 @@ from stat import ST_MTIME as stat_ST_MTIME
 from time import time as time_time
 from math import fabs as math_fabs
 from datetime import datetime
-from ServiceProvider import detectDVDStructure, getCutList, Info, ServiceCenter, eServiceReferenceDvd, MovieConfig, hasLastPosition, getDirSize, getFolderSize, PicLoader, getServiceInfoValue, Network
+from ServiceProvider import getCutList, Info, ServiceCenter, MovieConfig, hasLastPosition, getDirSize, getFolderSize, PicLoader, getServiceInfoValue, Network
+from ServiceProvider import detectDVDStructure, eServiceReferenceDvd
+from ServiceProvider import detectBludiscStructure, eServiceReferenceBludisc
 from Trashcan import TRASH_NAME
 from Components.Harddisk import Harddisk
 from EventInformationTable import EventInformationTable, appendShortDescriptionToMeta
@@ -431,7 +433,7 @@ class MovieList(GUIComponent):
                     else:
                         png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + MEDIAEXTENSIONS[extension] + ".png"))
                 else:
-                    if isinstance(serviceref, eServiceReferenceDvd):
+                    if isinstance(serviceref, eServiceReferenceDvd) or isinstance(serviceref, eServiceReferenceBludisc):
                         png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "dvd_watching.png"))
                     else:
                         png = None
@@ -586,7 +588,8 @@ class MovieList(GUIComponent):
                 png = self.picloader.load(series_path)
             elif os.path.exists(filename):
                 png = self.picloader.load(filename)
-            else:
+            elif serviceref.getPath().endswith("ts"):
+                # picon, make sure only ts files goes here
                 picon = getServiceInfoValue(serviceref, iServiceInformation.sServiceref).rstrip(':').replace(':', '_') + ".png"
                 piconpath = os.path.join(config.AdvancedMovieSelection.piconpath.value, picon)
                 if os.path.exists(piconpath):
@@ -852,6 +855,11 @@ class MovieList(GUIComponent):
                     if serviceref.getPath()[:-1].endswith(TRASH_NAME):
                         continue
                     serviceref = eServiceReferenceDvd(serviceref, True)
+                bludisc = detectBludiscStructure(serviceref.getPath())
+                if bludisc is not None:
+                    if serviceref.getPath()[:-1].endswith(TRASH_NAME):
+                        continue
+                    serviceref = eServiceReferenceBludisc(serviceref, True)
                     
             if dvd is None:
                 if self.show_folders:
