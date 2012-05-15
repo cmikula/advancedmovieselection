@@ -19,50 +19,25 @@
 #  modify it (if you keep the license), but it may not be commercially 
 #  distributed other than under the conditions noted above.
 #
-
 from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Components.ActionMap import ActionMap, NumberActionMap
 from Components.config import config, ConfigText, KEY_0, KEY_TIMEOUT, KEY_NUMBERS
 from Tools.NumericalTextInput import NumericalTextInput
 from enigma import eTimer
+from Globals import SkinTools
 
 from Screens.NumericalTextInputHelpDialog import NumericalTextInputHelpDialog
 class AdvancedTextInputHelpDialog(NumericalTextInputHelpDialog):
-    skin = """
-        <screen name="AdvancedTextInputHelpDialog" position="center,480" zPosition="100" size="394,124" backgroundColor="#202020" flags="wfNoBorder">
-            <eLabel position="0,0" size="392,122" backgroundColor="#c0c0c0" zPosition="-1" />
-            <widget name="key1" position="2,2" size="130,30" font="Regular;18" halign="center" valign="center" />
-            <widget name="key2" position="132,2" size="130,30" font="Regular;18" halign="center" valign="center" />
-            <widget name="key3" position="262,2" size="130,30" font="Regular;18" halign="center" valign="center" />
-            <widget name="key4" position="2,32" size="130,30" font="Regular;18" halign="center" valign="center" />
-            <widget name="key5" position="132,32" size="130,30" font="Regular;18" halign="center" valign="center" />
-            <widget name="key6" position="262,32" size="130,30" font="Regular;18" halign="center" valign="center" />
-            <widget name="key7" position="2,62" size="130,30" font="Regular;18" halign="center" valign="center" />
-            <widget name="key8" position="132,62" size="130,30" font="Regular;18" halign="center" valign="center" />
-            <widget name="key9" position="262,62" size="130,30" font="Regular;18" halign="center" valign="center" />
-            <widget name="help1" position="2,92" size="130,30" font="Regular;18" halign="center" valign="center" />
-            <widget name="key0" position="132,92" size="130,30" font="Regular;14" halign="center" valign="center" />
-            <widget name="help2" position="262,92" size="130,30" font="Regular;18" halign="center" valign="center" />
-        </screen>"""
+    skinName = SkinTools.appendResolution("AdvancedTextInputHelpDialog")
 
 class AdvancedKeyBoard(VirtualKeyBoard, NumericalTextInput):
-    skin = """
-        <screen name="AdvancedKeyBoard" position="center,center" size="560,550" zPosition="99" title="Virtual KeyBoard">
-            <ePixmap pixmap="skin_default/vkey_text.png" position="9,45" zPosition="-4" size="542,52" alphatest="on"/>
-            <widget source="country" render="Pixmap" position="490,0" size="60,40" alphatest="on" borderWidth="2" borderColor="yellow">
-            <convert type="ValueToPixmap">LanguageCode</convert>
-            </widget>
-            <widget name="header" position="10,20" size="500,20" font="Regular;20" transparent="1" noWrap="1"/>
-            <widget name="text" position="12,45" size="536,46" font="Regular;46" transparent="1" noWrap="1" halign="right"/>
-            <widget name="list" position="10,110" size="540,225" selectionDisabled="1" transparent="1"/>
-        </screen>"""
     KEYBOARD = 0x01
     NUM_KEYB = 0x02
     BOTH = KEYBOARD|NUM_KEYB
     def __init__(self, session, title="", text=""):
+        self.skinName = SkinTools.appendResolution("AdvancedKeyBoard")
         VirtualKeyBoard.__init__(self, session, title, text)
         NumericalTextInput.__init__(self, nextFunc=self.nextFunc)
-        #self.skinName = "VirtualKeyBoard"
         self.configText = None
         if config.AdvancedMovieSelection.keyboard.value == "virtual":
             use = self.KEYBOARD
