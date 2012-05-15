@@ -24,18 +24,16 @@ from Components.ActionMap import ActionMap, NumberActionMap
 from Components.config import config, ConfigText, KEY_0, KEY_TIMEOUT, KEY_NUMBERS
 from Tools.NumericalTextInput import NumericalTextInput
 from enigma import eTimer
-from Globals import SkinTools
 
 from Screens.NumericalTextInputHelpDialog import NumericalTextInputHelpDialog
 class AdvancedTextInputHelpDialog(NumericalTextInputHelpDialog):
-    skinName = SkinTools.appendResolution("AdvancedTextInputHelpDialog")
+    pass
 
 class AdvancedKeyBoard(VirtualKeyBoard, NumericalTextInput):
     KEYBOARD = 0x01
     NUM_KEYB = 0x02
     BOTH = KEYBOARD|NUM_KEYB
     def __init__(self, session, title="", text=""):
-        self.skinName = SkinTools.appendResolution("AdvancedKeyBoard")
         VirtualKeyBoard.__init__(self, session, title, text)
         NumericalTextInput.__init__(self, nextFunc=self.nextFunc)
         self.configText = None
