@@ -508,15 +508,35 @@ def movieSelected(self, service):
             if pluginPresent.BludiscPlayer:
                 from Plugins.Extensions.BludiscPlayer.plugin import BludiscPlayer as eBludiscPlayer, BludiscMenu as eBludiscMenu
                 from enigma import eServiceReference
+                class BludiscPlayer(eBludiscPlayer):
+                    def handleLeave(self, how):
+                        self.is_closing = True
+                        if how == "ask":
+                            list = (
+                                (_("Yes"), "quit"),
+                                (_("No"), "continue")
+                            )
+                            from Screens.ChoiceBox import ChoiceBox
+                            self.session.openWithCallback(self.leavePlayerConfirmed, ChoiceBox, title=_("Stop playing this movie?"), list = list)
+                        else:
+                            self.leavePlayerConfirmed([True, "quit"])
+                
                 class BludiscMenu(eBludiscMenu):
                     def __init__(self, session, bd_mountpoint = None):
                         eBludiscMenu.__init__(self, session, bd_mountpoint)
                         
-                    def moviefinished(self):
-                        print "Bludisc playback finished"
-                    
                     def ok(self):
-                        eBludiscMenu.ok(self)
+                        if type(self["menu"].getCurrent()) is type(None):
+                            self.exit()
+                            return
+                        name = self["menu"].getCurrent()[0]
+                        idx = self["menu"].getCurrent()[1]
+                        newref = eServiceReference(0x04, 0, "%s:%03d" % (self.bd_mountpoint, idx))
+                        newref.setData(1,1)
+                        newref.setName("Bludisc title %d" % idx)
+                        print "[Bludisc] play: ", name, newref.toString()        
+                        self.session.openWithCallback(self.moviefinished, BludiscPlayer, newref)
+                    
                 self.session.open(BludiscMenu, service.getBludisc())
             else:
                 self.session.open(MessageBox, _("No BludiscPlayer found!"), MessageBox.TYPE_ERROR, 10)
