@@ -22,6 +22,13 @@
 from enigma import getDesktop
 from Tools.Directories import fileExists, resolveFilename, SCOPE_HDD, SCOPE_CURRENT_SKIN, SCOPE_CURRENT_PLUGIN
 
+class SkinResolutionHelper():
+    def __init__(self, alternativeSkinName=None):
+        if alternativeSkinName:
+            self.skinName = alternativeSkinName
+        else:
+            self.skinName = SkinTools.appendResolution(self.__class__.__name__)
+
 class SkinTools():
     DESKTOP_WIDTH_SD = 720
     DESKTOP_WIDTH_XD = 1024
