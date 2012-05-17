@@ -482,6 +482,17 @@ def showMovies(self):
 
 def movieSelected(self, service):
     if service is not None:
+        if isinstance(service, eServiceReferenceDvd) and service.getPath().endswith(".iso"):
+            from ServiceProvider import ISOInfo
+            iso = ISOInfo()
+            iso_format = iso.getFormat(service.getPath())
+            if iso_format == ISOInfo.UNKNOWN:
+                self.session.open(MessageBox, _("Selected iso file is not playable!"), MessageBox.TYPE_ERROR)
+                return
+            if iso_format == ISOInfo.BLUDISC:
+                iso.mount(service.getPath())
+                service = eServiceReferenceBludisc(service)
+                service.setPath(iso.getPath())
         if isinstance(service, eServiceReferenceDvd):
             if pluginPresent.DVDPlayer:
                 from Plugins.Extensions.DVDPlayer.plugin import DVDPlayer as eDVDPlayer
@@ -536,6 +547,11 @@ def movieSelected(self, service):
                         newref.setName("Bludisc title %d" % idx)
                         print "[Bludisc] play: ", name, newref.toString()        
                         self.session.openWithCallback(self.moviefinished, BludiscPlayer, newref)
+                    
+                    def exit(self):
+                        from ServiceProvider import ISOInfo
+                        ISOInfo().umount()
+                        self.close()
                     
                 self.session.open(BludiscMenu, service.getBludisc())
             else:

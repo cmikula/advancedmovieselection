@@ -120,6 +120,44 @@ class eServiceReferenceDvd(eServiceReference):
         else:
             return [self.getPath()]
 
+class ISOInfo():
+    UNKNOWN = 0
+    DVD = 1
+    BLUDISC = 2
+    MOUNT_PATH = "/media/bludisc.iso"
+    def __init__(self):
+        pass
+    
+    def getFormat(self, iso):
+        #if os.path.exists(iso):
+        #    print True
+        print "checking iso:", iso 
+        cmd = "isoinfo -p -i \"%s\"" % (iso)
+        dirs = os.popen(cmd)
+        for d in dirs.readlines():
+            if "BDMV" in d:
+                print "Bludisc iso file"
+                return self.BLUDISC
+            elif "VIDEO_TS" in d:
+                print "DVD iso file"
+                return self.DVD
+        print "Unknown iso file"
+        return self.UNKNOWN
+    
+    def mount(self, iso):
+        self.umount()
+        if not os.path.exists(self.MOUNT_PATH):
+            os.mkdir(self.MOUNT_PATH)
+        cmd = "mount -o loop \"%s\" \"%s\"" % (iso, self.MOUNT_PATH)
+        print os.popen(cmd)
+
+    def umount(self):
+        cmd = "umount \"%s\"" % (self.MOUNT_PATH)
+        print os.popen(cmd)
+    
+    def getPath(self):
+        return self.MOUNT_PATH
+
 class MovieConfig:
     def __init__(self):
         self.readDMconf()
