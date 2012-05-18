@@ -420,6 +420,7 @@ def main():
     compilePlugin()
     removeLibrarySources()
     genBrandingInfo()
+    print "subversion path:", SVN_REPOSITORY_EXPORT
     print "build package:", PLUGIN_NAME, branding_info['version']
     
     createPluginStructure()
