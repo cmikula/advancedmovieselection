@@ -248,9 +248,16 @@ version: 2.6.1
 * fix: crash while emptying trashcan
 * fix: deleting dvd´s 
 
+version: 2.6.2
+* fix: DVDPlayer crash (opendreambox-2.0.0)
+
+version: 2.6.3
+* fix: movies are not always displayed
+
 version: 2.7
 * fix: display and save descriptions (eit) in Cyrillic
 * fix: tune failed after standby while playing
+* new: playing blu-ray disc formats (iso and structures)
 * new: film preview as fullscreen
 * new: voluntary self regulation with sync from tmdb
 * new: recorded movies are marked in the EPG (configurable in the settings)

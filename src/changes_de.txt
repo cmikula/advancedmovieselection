@@ -249,9 +249,16 @@ version: 2.6.1
 * fix: crash beim leeren des papierkorbes
 * fix: löschen von dvd´s
 
+version: 2.6.2
+* fix: DVDPlayer crash (opendreambox-2.0.0)
+
+version: 2.6.3
+* fix: filme werden nicht immer angezeigt
+
 version: 2.7
 * fix: anzeigen und speichern von beschreibungen (eit) in kyrillisch
 * fix: tunen fehlgeschlagen nach standby während der wiedergabe
+* neu: abspielen von Blu-Ray Disc formaten (iso und strukturen)
 * neu: filmvorschau als vollbild
 * neu: freiwillige selbstkontrolle mit aktualisierung von tmdb
 * neu: filme können nach der beschreibung gefiltert werden
