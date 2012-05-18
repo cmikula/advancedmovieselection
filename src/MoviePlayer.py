@@ -359,12 +359,13 @@ def movieSelected(self, service):
         if isinstance(service, eServiceReferenceDvd) and service.getPath().endswith(".iso"):
             from ServiceProvider import ISOInfo
             iso = ISOInfo()
-            iso_format = iso.getFormat(service)
-            if iso_format == ISOInfo.UNKNOWN:
-                self.session.open(MessageBox, _("Selected iso file is not playable!"), MessageBox.TYPE_ERROR)
-                return
-            if iso_format == ISOInfo.BLUDISC:
-                service = iso.getService(service)
+            if iso.getFormatISO9660(service) != ISOInfo.DVD:
+                iso_format = iso.getFormat(service)
+                if iso_format == ISOInfo.UNKNOWN:
+                    self.session.open(MessageBox, _("Selected iso file is not playable!"), MessageBox.TYPE_ERROR)
+                    return
+                if iso_format == ISOInfo.BLUDISC:
+                    service = iso.getService(service)
         if isinstance(service, eServiceReferenceDvd):
             if pluginPresent.DVDPlayer:
                 from Plugins.Extensions.DVDPlayer.plugin import DVDPlayer as eDVDPlayer
