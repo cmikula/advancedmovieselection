@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection(POT)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-15 17:47+0100\n"
-"PO-Revision-Date: 2012-05-15 17:47+0100\n"
-"Last-Translator: JackDaniel <JackDaniel@i-have-a-dreambox.com>\n"
+"POT-Creation-Date: 2012-05-18 12:27+0100\n"
+"PO-Revision-Date: 2012-05-18 12:27+0100\n"
+"Last-Translator: JackDanie <JackDaniel@i-have-a-dreambox.com>\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -60,6 +60,10 @@ msgstr ""
 
 #: ../About.py:142
 msgid "Advanced Movie Selection - History"
+msgstr ""
+
+#: ../AdvancedKeyboard.py:95
+msgid "Advanced Movie Selection - Input help"
 msgstr ""
 
 #: ../AdvancedMovieSelectionEventView.py:67
@@ -1741,7 +1745,7 @@ msgid "Advanced movielist menu"
 msgstr ""
 
 #: ../MovieSelection.py:726
-#: ../plugin.py:247
+#: ../plugin.py:248
 msgid "Show event details"
 msgstr ""
 
@@ -1800,8 +1804,8 @@ msgid ""
 msgstr ""
 
 #: ../MovieSelection.py:778
-#: ../plugin.py:417
-#: ../plugin.py:424
+#: ../plugin.py:418
+#: ../plugin.py:425
 #, python-format
 msgid "Do you really want to delete %s?"
 msgstr ""
@@ -1872,322 +1876,333 @@ msgid ""
 "Use the red button for reset to the original position."
 msgstr ""
 
-#: ../plugin.py:48
+#: ../plugin.py:49
 msgid "Only current location"
 msgstr ""
 
-#: ../plugin.py:48
+#: ../plugin.py:49
 msgid "Current location and all subdirectories"
 msgstr ""
 
-#: ../plugin.py:48
+#: ../plugin.py:49
 msgid "All directorys below '/media'"
 msgstr ""
 
-#: ../plugin.py:64
+#: ../plugin.py:65
 msgid "German (without Year)"
 msgstr ""
 
-#: ../plugin.py:64
+#: ../plugin.py:65
 msgid "German (with Year)"
 msgstr ""
 
-#: ../plugin.py:64
+#: ../plugin.py:65
 msgid "German (with Starttime)"
 msgstr ""
 
-#: ../plugin.py:64
+#: ../plugin.py:65
 msgid "Enigma 2 default"
 msgstr ""
 
-#: ../plugin.py:64
+#: ../plugin.py:65
 msgid "English (without Year)"
 msgstr ""
 
-#: ../plugin.py:64
+#: ../plugin.py:65
 msgid "English (with Year)"
 msgstr ""
 
-#: ../plugin.py:64
+#: ../plugin.py:65
 msgid "English (with Starttime)"
 msgstr ""
 
-#: ../plugin.py:65
 #: ../plugin.py:66
 #: ../plugin.py:67
 #: ../plugin.py:68
+#: ../plugin.py:69
 msgid "Yellow"
 msgstr ""
 
-#: ../plugin.py:65
 #: ../plugin.py:66
 #: ../plugin.py:67
 #: ../plugin.py:68
+#: ../plugin.py:69
 msgid "Blue"
 msgstr ""
 
-#: ../plugin.py:65
 #: ../plugin.py:66
 #: ../plugin.py:67
 #: ../plugin.py:68
+#: ../plugin.py:69
 msgid "Red"
 msgstr ""
 
-#: ../plugin.py:65
 #: ../plugin.py:66
 #: ../plugin.py:67
 #: ../plugin.py:68
+#: ../plugin.py:69
 msgid "Black"
 msgstr ""
 
-#: ../plugin.py:65
 #: ../plugin.py:66
 #: ../plugin.py:67
 #: ../plugin.py:68
+#: ../plugin.py:69
 msgid "Green"
 msgstr ""
 
-#: ../plugin.py:68
+#: ../plugin.py:69
 msgid "Grey"
 msgstr ""
 
-#: ../plugin.py:68
+#: ../plugin.py:69
 msgid "Orange"
 msgstr ""
 
-#: ../plugin.py:91
+#: ../plugin.py:92
 msgid "Homebutton"
 msgstr ""
 
-#: ../plugin.py:92
+#: ../plugin.py:93
 msgid "Own text 1"
 msgstr ""
 
-#: ../plugin.py:93
+#: ../plugin.py:94
 msgid "Own text 2"
 msgstr ""
 
-#: ../plugin.py:94
+#: ../plugin.py:95
 msgid "Own text 3"
 msgstr ""
 
-#: ../plugin.py:95
+#: ../plugin.py:96
 msgid "Own text 4"
 msgstr ""
 
-#: ../plugin.py:96
+#: ../plugin.py:97
 msgid "No override"
 msgstr ""
 
-#: ../plugin.py:97
+#: ../plugin.py:98
 msgid "Video-button"
 msgstr ""
 
-#: ../plugin.py:98
+#: ../plugin.py:99
 msgid "TV-button"
 msgstr ""
 
-#: ../plugin.py:99
+#: ../plugin.py:100
 msgid "Radio-button"
 msgstr ""
 
-#: ../plugin.py:100
+#: ../plugin.py:101
 msgid "Timeshift-button"
 msgstr ""
 
-#: ../plugin.py:105
 #: ../plugin.py:106
 #: ../plugin.py:107
 #: ../plugin.py:108
 #: ../plugin.py:109
 #: ../plugin.py:110
 #: ../plugin.py:111
+#: ../plugin.py:112
 msgid "Advanced Movie Selection info"
 msgstr ""
 
-#: ../plugin.py:105
-#: ../plugin.py:108
+#: ../plugin.py:106
 #: ../plugin.py:109
 #: ../plugin.py:110
+#: ../plugin.py:111
 msgid "TMDb info"
 msgstr ""
 
-#: ../plugin.py:105
 #: ../plugin.py:106
-#: ../plugin.py:109
-#: ../plugin.py:111
+#: ../plugin.py:107
+#: ../plugin.py:110
+#: ../plugin.py:112
 msgid "IMDb info"
 msgstr ""
 
-#: ../plugin.py:105
-#: ../plugin.py:107
-#: ../plugin.py:110
+#: ../plugin.py:106
+#: ../plugin.py:108
 #: ../plugin.py:111
+#: ../plugin.py:112
 msgid "OFDb info"
 msgstr ""
 
-#: ../plugin.py:127
+#: ../plugin.py:128
 msgid "Original (1000x1500)"
 msgstr ""
 
-#: ../plugin.py:127
+#: ../plugin.py:128
 msgid "Mid (500x750)"
 msgstr ""
 
-#: ../plugin.py:127
+#: ../plugin.py:128
 msgid "Cover (185x278)"
 msgstr ""
 
-#: ../plugin.py:127
+#: ../plugin.py:128
 msgid "Thumb (92x138)"
 msgstr ""
 
-#: ../plugin.py:133
 #: ../plugin.py:134
 #: ../plugin.py:135
+#: ../plugin.py:136
 msgid "Ask user"
 msgstr ""
 
-#: ../plugin.py:133
+#: ../plugin.py:134
 msgid "Resume from last position"
 msgstr ""
 
-#: ../plugin.py:133
+#: ../plugin.py:134
 msgid "Start from the beginning"
 msgstr ""
 
-#: ../plugin.py:134
 #: ../plugin.py:135
+#: ../plugin.py:136
 msgid "Return to movie list"
 msgstr ""
 
-#: ../plugin.py:134
 #: ../plugin.py:135
+#: ../plugin.py:136
 msgid "Return to previous service"
 msgstr ""
 
-#: ../plugin.py:135
+#: ../plugin.py:136
 msgid "Pause movie at end"
 msgstr ""
 
-#: ../plugin.py:135
+#: ../plugin.py:136
 msgid "Shutdown"
 msgstr ""
 
-#: ../plugin.py:148
+#: ../plugin.py:149
 msgid "Disabled"
 msgstr ""
 
-#: ../plugin.py:148
+#: ../plugin.py:149
 msgid "Daily"
 msgstr ""
 
-#: ../plugin.py:148
+#: ../plugin.py:149
 msgid "Every second day"
 msgstr ""
 
-#: ../plugin.py:148
+#: ../plugin.py:149
 msgid "Weekly"
 msgstr ""
 
-#: ../plugin.py:148
+#: ../plugin.py:149
 msgid "Every two weeks"
 msgstr ""
 
-#: ../plugin.py:148
+#: ../plugin.py:149
 msgid "Monthly"
 msgstr ""
 
-#: ../plugin.py:163
-#: ../plugin.py:165
+#: ../plugin.py:164
+#: ../plugin.py:166
 msgid "0"
 msgstr ""
 
-#: ../plugin.py:163
-#: ../plugin.py:165
+#: ../plugin.py:164
+#: ../plugin.py:166
 msgid "1"
 msgstr ""
 
-#: ../plugin.py:163
-#: ../plugin.py:165
+#: ../plugin.py:164
+#: ../plugin.py:166
 msgid "2"
 msgstr ""
 
-#: ../plugin.py:163
-#: ../plugin.py:165
+#: ../plugin.py:164
+#: ../plugin.py:166
 msgid "3"
 msgstr ""
 
-#: ../plugin.py:175
+#: ../plugin.py:176
 msgid "Virtual and Numerical"
 msgstr ""
 
-#: ../plugin.py:175
+#: ../plugin.py:176
 msgid "Virtual"
 msgstr ""
 
-#: ../plugin.py:175
+#: ../plugin.py:176
 msgid "Numerical"
 msgstr ""
 
-#: ../plugin.py:248
+#: ../plugin.py:249
 msgid "Open servicelist"
 msgstr ""
 
-#: ../plugin.py:253
-#: ../plugin.py:258
+#: ../plugin.py:254
+#: ../plugin.py:259
 msgid "Leave movie player"
 msgstr ""
 
-#: ../plugin.py:363
+#: ../plugin.py:364
 msgid ""
 "Not possible!\n"
 "MerlinEPG and CoolTVGuide or/and MerlinEPGCenter present or neither installed from this three plugins."
 msgstr ""
 
-#: ../plugin.py:383
-#: ../plugin.py:388
+#: ../plugin.py:384
+#: ../plugin.py:389
+#: ../plugin.py:527
 msgid "Yes"
 msgstr ""
 
-#: ../plugin.py:384
-#: ../plugin.py:392
+#: ../plugin.py:385
+#: ../plugin.py:393
+#: ../plugin.py:528
 msgid "No"
 msgstr ""
 
-#: ../plugin.py:389
+#: ../plugin.py:390
 msgid "Yes, returning to movie list"
 msgstr ""
 
-#: ../plugin.py:390
+#: ../plugin.py:391
 msgid "Yes, and delete this movie"
 msgstr ""
 
-#: ../plugin.py:391
+#: ../plugin.py:392
 msgid "Yes, and after deleting return to movie list"
 msgstr ""
 
-#: ../plugin.py:393
+#: ../plugin.py:394
 msgid "No, but restart from begin"
 msgstr ""
 
-#: ../plugin.py:397
+#: ../plugin.py:398
+#: ../plugin.py:531
 msgid "Stop playing this movie?"
 msgstr ""
 
-#: ../plugin.py:438
+#: ../plugin.py:439
 msgid "End of the movie is reached, the box now go to standby. Do that now?"
 msgstr ""
 
-#: ../plugin.py:441
+#: ../plugin.py:442
 msgid "End of the movie is reached, the box now go to shut down. Shutdown now?"
 msgstr ""
 
-#: ../plugin.py:505
+#: ../plugin.py:490
+msgid "Selected iso file is not playable!"
+msgstr ""
+
+#: ../plugin.py:517
 msgid "No DVD-Player found!"
 msgstr ""
 
-#: ../plugin.py:656
+#: ../plugin.py:558
+msgid "No BludiscPlayer found!"
+msgstr ""
+
+#: ../plugin.py:709
 msgid "Setup Advanced Movie Selection"
 msgstr ""
 

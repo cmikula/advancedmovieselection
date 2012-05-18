@@ -19,6 +19,7 @@
 #  modify it (if you keep the license), but it may not be commercially 
 #  distributed other than under the conditions noted above.
 #
+from __init__ import _
 from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Components.ActionMap import ActionMap, NumberActionMap
 from Components.config import config, ConfigText, KEY_0, KEY_TIMEOUT, KEY_NUMBERS
@@ -92,6 +93,7 @@ class AdvancedKeyBoard(VirtualKeyBoard, NumericalTextInput, SkinResolutionHelper
         self.onClose.append(self.__onClose)
     
     def __onLayoutFinish(self):
+        self.setTitle(_("Advanced Movie Selection - Input help"))
         if self.configText:
             self.configText.help_window = self.session.instantiateDialog(AdvancedTextInputHelpDialog, self)
             self.configText.help_window.show()
