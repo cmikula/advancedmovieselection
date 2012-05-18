@@ -85,11 +85,11 @@ class EPGListExtension():
     def updateMovieList(self, search_path):
         try:
             self.isWorking = True
-            print "[AdvancedMovieSelection] Start update recorded movies in location", search_path[0]
+            print "[AdvancedMovieSelection] Start update recorded movies in location", search_path
             import os
             from Trashcan import TRASH_EXCLUDE
             self.recorded_movies = []
-            for (path, dirs, files) in os.walk(search_path[0]):
+            for (path, dirs, files) in os.walk(search_path):
                 # Skip excluded directories here
                 sp = path.split("/")
                 if len(sp) > 2:

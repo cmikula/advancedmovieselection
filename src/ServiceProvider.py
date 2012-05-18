@@ -96,12 +96,16 @@ class eServiceReferenceBludisc(eServiceReference):
             self.setName(os.path.basename(self.getPath()))
         else:
             self.setName(os.path.basename(os.path.splitext(serviceref.getPath())[0]))
+        self.bludisc_path = self.getPath()
 
     def getBludisc(self):
         if self.isStruct is True:
-            return self.getPath() + "/"
+            return self.bludisc_path + "/"
         else:
-            return self.getPath()
+            return self.bludisc_path
+
+    def setBludisc(self, path):
+        self.bludisc_path = path
 
 class eServiceReferenceDvd(eServiceReference):
     def __init__(self, serviceref, dvdStruct=False):
@@ -120,6 +124,7 @@ class eServiceReferenceDvd(eServiceReference):
         else:
             return [self.getPath()]
 
+import commands
 class ISOInfo():
     UNKNOWN = 0
     DVD = 1
@@ -128,7 +133,21 @@ class ISOInfo():
     def __init__(self):
         pass
     
-    def getFormat(self, iso):
+    def getFormat(self, service):
+        print "checking iso:", service.getPath()
+        if not self.mount(service.getPath()):
+            return self.UNKNOWN 
+        if os.path.exists(self.MOUNT_PATH + "/BDMV/"):
+            print "Bludisc iso file detected"
+            return self.BLUDISC
+        if os.path.exists(self.MOUNT_PATH + "/VIDEO_TS/") or os.path.exists(self.MOUNT_PATH + "/VIDEO_TS.IFO"):
+            print "DVD iso file detected"
+            self.umount()
+            return self.DVD
+        print "Unknown iso file"
+        return self.UNKNOWN
+
+    def getFormatIsoInfo(self, iso):
         #if os.path.exists(iso):
         #    print True
         print "checking iso:", iso 
@@ -147,16 +166,31 @@ class ISOInfo():
     def mount(self, iso):
         self.umount()
         if not os.path.exists(self.MOUNT_PATH):
+            print "Creating mount path for bludisc iso on:", self.MOUNT_PATH
             os.mkdir(self.MOUNT_PATH)
         cmd = "mount -o loop \"%s\" \"%s\"" % (iso, self.MOUNT_PATH)
-        print os.popen(cmd)
+        print "exec command:", cmd
+        out = commands.getoutput(cmd)
+        if out:
+            print "error:", out
+        return not out
 
+    @classmethod
     def umount(self):
-        cmd = "umount \"%s\"" % (self.MOUNT_PATH)
-        print os.popen(cmd)
+        cmd = "umount \"%s\"" % (ISOInfo.MOUNT_PATH)
+        print "exec command:", cmd
+        out = commands.getoutput(cmd)
+        if out:
+            print "error:", out
+        return not out
     
     def getPath(self):
         return self.MOUNT_PATH
+    
+    def getService(self, service):
+        service = eServiceReferenceBludisc(service)
+        service.setBludisc(self.MOUNT_PATH)
+        return service
 
 class MovieConfig:
     def __init__(self):
@@ -828,3 +862,16 @@ class CutListSupport(CutListSupportBase):
         if not self.currentService.getPath().endswith(".ts"):
             tolerance = 20 * 90000
         InfoBarCueSheetSupport.toggleMark(self, onlyremove=False, onlyadd=False, tolerance=tolerance, onlyreturn=False)
+
+class BludiscCutListSupport(CutListSupportBase):
+    def __init__(self, service):
+        CutListSupportBase.__init__(self, service)
+
+    def playerClosed(self, service=None):
+        seek = self.session.nav.getCurrentService().seek()
+        if seek is None:
+            return
+        #stopPosition = seek.getPlayPosition()[1]
+        length = seek.getLength()[1]
+        if length > 90000 * 60 * 5: # only write cutlist if length of movie > 5 minutes
+            CutListSupportBase.playerClosed(self, service)
