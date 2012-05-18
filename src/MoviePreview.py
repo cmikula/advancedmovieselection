@@ -25,7 +25,7 @@ from enigma import ePicLoad, eTimer
 from Tools.Directories import fileExists
 import os
 from Components.config import config
-from ServiceProvider import eServiceReferenceDvd, getServiceInfoValue, ServiceCenter
+from ServiceProvider import eServiceReferenceDvd, getServiceInfoValue, ServiceCenter, ISOInfo, eServiceReferenceBludisc
 from enigma import iServiceInformation, eServiceReference
 from os import environ
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
@@ -197,7 +197,7 @@ class VideoPreview():
     def playMovie(self):
         if self.service and self.enabled:
             print "play service"
-            if self.service.flags & eServiceReference.mustDescent:
+            if self.service.flags & eServiceReference.mustDescent or isinstance(self.service, eServiceReferenceBludisc):
                 print "Skipping video preview"
                 self.__playLastService()
                 return
@@ -210,8 +210,12 @@ class VideoPreview():
             #if not self.lastService:
             #    self.lastService = self.session.nav.getCurrentlyPlayingServiceReference()
             self.stopCurrentlyPlayingService()
-            self.currentlyPlayingService = self.service
             if isinstance(self.service, eServiceReferenceDvd):
+                if self.service.getPath().endswith(".iso"):
+                    if ISOInfo().getFormatISO9660(self.service) != ISOInfo.DVD:
+                        print "Skipping video preview"
+                        self.__playLastService()
+                        return
                 newref = eServiceReference(4369, 0, self.service.getPath())
                 print "play", newref.toString()
                 self.session.nav.playService(newref)
@@ -220,6 +224,7 @@ class VideoPreview():
                     subs.enableSubtitles(self.dvdScreen.instance, None)
             else:
                 self.session.nav.playService(self.service)
+            self.currentlyPlayingService = self.service
             seekable = self.getSeek()
             if seekable:
                 try:

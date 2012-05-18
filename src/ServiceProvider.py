@@ -147,18 +147,18 @@ class ISOInfo():
         print "Unknown iso file"
         return self.UNKNOWN
 
-    def getFormatIsoInfo(self, iso):
+    def getFormatISO9660(self, service):
         #if os.path.exists(iso):
         #    print True
-        print "checking iso:", iso 
-        cmd = "isoinfo -p -i \"%s\"" % (iso)
+        print "checking iso:", service.getPath()
+        cmd = "isoinfo -p -i \"%s\"" % (service.getPath())
         dirs = os.popen(cmd)
         for d in dirs.readlines():
             if "BDMV" in d:
-                print "Bludisc iso file"
+                print "Bludisc iso file detected"
                 return self.BLUDISC
             elif "VIDEO_TS" in d:
-                print "DVD iso file"
+                print "DVD iso file detected"
                 return self.DVD
         print "Unknown iso file"
         return self.UNKNOWN
