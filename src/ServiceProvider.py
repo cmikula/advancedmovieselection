@@ -880,6 +880,23 @@ class BludiscCutListSupport(CutListSupport):
             CutListSupportBase.playerClosed(self, service)
 
     def getCuesheet(self):
+        service = self.session.nav.getCurrentService()
+        if service is None:
+            return None
+        cue = service.cueSheet()
+        cut_bd = cue.getCutList()
         cue = CueSheet(self.currentService)
+        cut_hd = cue.getCutList()
+        update_cue = False
+        # add existing cuts from BludiscPlayer  
+        if cut_bd and not (0L, 2) in cut_bd:
+            for cut in cut_bd:
+                if not cut in cut_hd:
+                    print "add cut:", cut
+                    insort(cut_hd, cut)
+                    update_cue = True
+        if update_cue:
+            print "update cue"
+            cue.setCutList(cut_hd)
         self.session.nav.currentlyPlayingService.cueSheet = cue
         return cue
