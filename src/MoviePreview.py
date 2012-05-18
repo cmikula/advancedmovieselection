@@ -129,7 +129,7 @@ class VideoPreview():
         self.service = None
         self.currentlyPlayingService = None
         self.cut_list = None
-        from plugin import PlayerInstance
+        from MoviePlayer import PlayerInstance
         self.lastService = self.session.nav.getCurrentlyPlayingServiceReference()
         if PlayerInstance:
             if PlayerInstance.isCurrentlyPlaying():
@@ -201,7 +201,7 @@ class VideoPreview():
                 print "Skipping video preview"
                 self.__playLastService()
                 return
-            from plugin import PlayerInstance
+            from MoviePlayer import PlayerInstance
             if PlayerInstance and PlayerInstance.isCurrentlyPlaying():
                 return
             cpsr = self.session.nav.getCurrentlyPlayingServiceReference()

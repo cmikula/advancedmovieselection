@@ -432,7 +432,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.close()
 
     def keySave(self):
-        from plugin import waste_timer
+        from Wastebasket import waste_timer
         if waste_timer:
             waste_timer.configChange()
         if not config.AdvancedMovieSelection.use_wastebasket.value:

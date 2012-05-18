@@ -388,3 +388,104 @@ class Wastebasket(Screen):
             print e
             self.session.open(MessageBox, _("Restore failed!"), MessageBox.TYPE_ERROR)
         self.close()
+
+import Screens.Standby
+from time import mktime
+from datetime import timedelta
+class WastebasketTimer():
+    def __init__(self, session):
+        self.session = session
+        self.recTimer = eTimer()
+        self.recTimer.callback.append(self.autoDeleteAllMovies)
+        self.wastebasketTimer = eTimer()
+        self.wastebasketTimer.callback.append(self.autoDeleteAllMovies)
+        self.startTimer()
+        config.AdvancedMovieSelection.empty_wastebasket_time.addNotifier(self.startTimer, initial_call=False)
+    
+    def stopTimer(self):
+        self.wastebasketTimer.stop()
+    
+    def startTimer(self, dummy=None):
+        if self.wastebasketTimer.isActive():
+            self.wastebasketTimer.stop()
+        value = int(config.AdvancedMovieSelection.auto_empty_wastebasket.value)
+        if value != -1:
+            nowSec = int(time())           
+            now = localtime(nowSec)
+            w_h = config.AdvancedMovieSelection.empty_wastebasket_time.value[0]
+            w_m = config.AdvancedMovieSelection.empty_wastebasket_time.value[1]
+            dt = datetime(now.tm_year, now.tm_mon, now.tm_mday, w_h, w_m)
+            if value == 1:
+                nextUpdateSeconds = int(mktime(dt.timetuple()))
+                if nowSec > nextUpdateSeconds:
+                    dt += timedelta(value)
+                    nextUpdateSeconds = int(mktime(dt.timetuple()))
+            else:
+                dt += timedelta(value)
+                nextUpdateSeconds = int(mktime(dt.timetuple()))
+            config.AdvancedMovieSelection.next_auto_empty_wastebasket.value = nextUpdateSeconds
+            config.AdvancedMovieSelection.next_auto_empty_wastebasket.save()
+            self.wastebasketTimer.startLongTimer(nextUpdateSeconds - nowSec)
+            print "[AdvancedMovieSelection] Next wastebasket auto empty at", dt.strftime("%c")
+        else:
+            if self.wastebasketTimer.isActive():
+                self.wastebasketTimer.stop()
+            if self.recTimer.isActive():
+                self.recTimer.stop()
+
+    def configChange(self):
+        if self.wastebasketTimer.isActive():
+            self.wastebasketTimer.stop()
+        print "[AdvancedMovieSelection] Setup values have changed"
+        self.startTimer()
+        
+    def autoDeleteAllMovies(self):
+        from Client import isAnyRecording
+        remote_recordings = isAnyRecording()
+        
+        retryvalue = "%s minutes" % int(config.AdvancedMovieSelection.next_empty_check.value)
+
+        if self.recTimer.isActive():
+            self.recTimer.stop()
+
+        if remote_recordings:
+            print "[AdvancedMovieSelection] Start automated deleting all movies but remote recordings activ, retry at", retryvalue
+            self.recTimer.start(config.AdvancedMovieSelection.next_empty_check.value * 60000)
+            return
+        
+        if not Screens.Standby.inStandby:
+            print "[AdvancedMovieSelection] Start automated deleting all movies but box not in standby, retry in", retryvalue
+            self.recTimer.start(config.AdvancedMovieSelection.next_empty_check.value * 60000)
+        else:
+            recordings = self.session.nav.getRecordings()
+            next_rec_time = -1
+            if not recordings:
+                next_rec_time = self.session.nav.RecordTimer.getNextRecordingTime()    
+            if config.movielist.last_videodir.value == "/hdd/movie/" and recordings or (next_rec_time > 0 and (next_rec_time - time()) < 360):           
+                print "[AdvancedMovieSelection] Start automated deleting all movies but recordings activ, retry at", retryvalue
+                self.recTimer.start(config.AdvancedMovieSelection.next_empty_check.value * 60000)
+            else:
+                if self.recTimer.isActive():
+                    self.recTimer.stop()
+                self.list = [ ]
+                
+                path = config.movielist.last_videodir.value
+                if not fileExists(path):
+                    path = defaultMoviePath()
+                    config.movielist.last_videodir.value = path
+                    config.movielist.last_videodir.save()
+                    
+                if config.AdvancedMovieSelection.wastelist_buildtype.value == 'listMovies':
+                    trash = Trashcan.listMovies(path)
+                elif config.AdvancedMovieSelection.wastelist_buildtype.value == 'listAllMovies':
+                    trash = Trashcan.listAllMovies(path)
+                else:
+                    trash = Trashcan.listAllMovies("/media")
+                
+                print "[AdvancedMovieSelection] Start automated deleting all movies in trash list"
+                Trashcan.deleteAsynch(trash)
+                config.AdvancedMovieSelection.last_auto_empty_wastebasket.value = int(time())
+                config.AdvancedMovieSelection.last_auto_empty_wastebasket.save()
+                self.configChange()
+
+waste_timer = None

@@ -40,7 +40,7 @@ import ping
 from bisect import insort
 
 def cutlist_changed(self):
-    from plugin import PlayerInstance
+    from MoviePlayer import PlayerInstance
     if PlayerInstance:
         self.cutlist = [] # we need to update the property 
     self.cutlist = self.source.cutlist or [ ]
@@ -657,7 +657,9 @@ class CutListSupportBase:
         if cue:
             return cue
         else:
-            self.session.nav.currentlyPlayingService.cueSheet = CueSheet(self.currentService)
+            cue = CueSheet(self.currentService)
+            self.session.nav.currentlyPlayingService.cueSheet = cue
+            return cue
 
     def checkResumeSupport(self):
         self.jump_first_mark = None
@@ -665,7 +667,7 @@ class CutListSupportBase:
         stop_before_end_time = int(config.AdvancedMovieSelection.stop_before_end_time.value)
         length, last = self.getCuePositions()  
         if stop_before_end_time > 0:
-            if ((length - last) / 60) < stop_before_end_time:
+            if ((length - last) / 60) < stop_before_end_time or length < last:
                 self.ENABLE_RESUME_SUPPORT = False
             else:
                 self.ENABLE_RESUME_SUPPORT = True
@@ -698,6 +700,7 @@ class CutListSupportBase:
                     self.cut_list = getCutList(self.currentService.getPath())
             else:
                 self.cut_list = cue.getCutList()
+            print self.cut_list
             self.checkResumeSupport()
             if self.jump_first_mark:
                 self.doSeek(self.resume_point)
@@ -863,7 +866,7 @@ class CutListSupport(CutListSupportBase):
             tolerance = 20 * 90000
         InfoBarCueSheetSupport.toggleMark(self, onlyremove=False, onlyadd=False, tolerance=tolerance, onlyreturn=False)
 
-class BludiscCutListSupport(CutListSupportBase):
+class BludiscCutListSupport(CutListSupport):
     def __init__(self, service):
         CutListSupportBase.__init__(self, service)
 
@@ -875,3 +878,8 @@ class BludiscCutListSupport(CutListSupportBase):
         length = seek.getLength()[1]
         if length > 90000 * 60 * 5: # only write cutlist if length of movie > 5 minutes
             CutListSupportBase.playerClosed(self, service)
+
+    def getCuesheet(self):
+        cue = CueSheet(self.currentService)
+        self.session.nav.currentlyPlayingService.cueSheet = cue
+        return cue

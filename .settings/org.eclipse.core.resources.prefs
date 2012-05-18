@@ -17,6 +17,7 @@ encoding//src/Globals.py=utf-8
 encoding//src/MessageServer.py=utf-8
 encoding//src/MoveCopy.py=utf-8
 encoding//src/MovieList.py=utf-8
+encoding//src/MoviePlayer.py=utf-8
 encoding//src/MoviePreview.py=utf-8
 encoding//src/MovieSelection.py=utf-8
 encoding//src/QuickButton.py=utf-8
