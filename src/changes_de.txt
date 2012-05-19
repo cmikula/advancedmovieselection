@@ -261,8 +261,9 @@ version: 2.7
 * neu: abspielen von Blu-Ray Disc formaten (iso und strukturen)
 * neu: filmvorschau als vollbild
 * neu: freiwillige selbstkontrolle mit aktualisierung von tmdb
-* neu: filme können nach der beschreibung gefiltert werden
+* neu: filme können nach der kurzbeschreibung gefiltert werden
 * neu: auswahl, ob daten von tmdb und tvdb überschrieben werden
-* neu: aufgenommene filme werden im EPG gekennzeichnet (im setup einstellbar)
+* neu: aufgenommene filme werden im EPG gekennzeichnet (einstellbar)
 ACHTUNG an die skinner, AdvancedMovieSelection_Preview_HD, AdvancedMovieSelection_Preview_noDescription_HD, AdvancedMovieSelection_Preview_noCover_HD, AdvancedMovieSelection_Preview_noDescription_noCover_HD,
-AdvancedMovieSelection_Preview_XD, AdvancedMovieSelection_Preview_noDescription_XD, AdvancedMovieSelection_Preview_noCover_XD, AdvancedMovieSelection_Preview_noDescription_noCover_XD (SD macht keinen sinn)
+AdvancedMovieSelection_Preview_XD, AdvancedMovieSelection_Preview_noDescription_XD, AdvancedMovieSelection_Preview_noCover_XD, AdvancedMovieSelection_Preview_noDescription_noCover_XD (SD macht keinen sinn),
+AdvancedKeyBoardHD, AdvancedKeyBoardXD, AdvancedKeyBoardSD, AdvancedTextInputHelpDialogHD, AdvancedTextInputHelpDialogXD und AdvancedTextInputHelpDialogSD sind dazugekommen

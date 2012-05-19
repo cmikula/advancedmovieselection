@@ -3,7 +3,7 @@
 
 <pydev_project>
 <pydev_property name="org.python.pydev.PYTHON_PROJECT_INTERPRETER">Default</pydev_property>
-<pydev_property name="org.python.pydev.PYTHON_PROJECT_VERSION">python 2.6</pydev_property>
+<pydev_property name="org.python.pydev.PYTHON_PROJECT_VERSION">python 2.7</pydev_property>
 <pydev_pathproperty name="org.python.pydev.PROJECT_SOURCE_PATH">
 <path>/AdvancedMovieSelection/src</path>
 </pydev_pathproperty>
@@ -11,4 +11,8 @@
 <pydev_pathproperty name="org.python.pydev.PROJECT_EXTERNAL_SOURCE_PATH">
 <path>${ENIGMA2}</path>
 </pydev_pathproperty>
+<pydev_variables_property name="org.python.pydev.PROJECT_VARIABLE_SUBSTITUTION">
+<key>ENIGMA2</key>
+<value>/Users/JackDaniel/Eclipse Arbeitskopie/enigma2_oe2.0</value>
+</pydev_variables_property>
 </pydev_project>
