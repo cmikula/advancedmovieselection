@@ -354,6 +354,61 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
             else:
                 self.close()
 
+if pluginPresent.DVDPlayer:
+    from Plugins.Extensions.DVDPlayer.plugin import DVDPlayer as eDVDPlayer
+    class DVDPlayer(DVDCutListSupport, eDVDPlayer):
+        def __init__(self, session, service):
+            DVDCutListSupport.__init__(self, service)
+            eDVDPlayer.__init__(self, session, dvd_filelist=service.getDVD())
+            self.addPlayerEvents()
+
+if pluginPresent.BludiscPlayer:
+    from Plugins.Extensions.BludiscPlayer.plugin import BludiscPlayer as eBludiscPlayer, BludiscMenu as eBludiscMenu
+    from enigma import eServiceReference
+    from ServiceProvider import BludiscCutListSupport
+    class BludiscPlayer(BludiscCutListSupport, eBludiscPlayer):
+        def __init__(self, session, service, file_name):
+            s = eServiceReferenceBludisc(service)
+            if file_name:
+                s.setPath(file_name)
+            BludiscCutListSupport.__init__(self, s)
+            eBludiscPlayer.__init__(self, session, service)
+            self.addPlayerEvents()
+
+        def handleLeave(self, how):
+            self.is_closing = True
+            if how == "ask":
+                list = (
+                    (_("Yes"), "quit"),
+                    (_("No"), "continue")
+                )
+                from Screens.ChoiceBox import ChoiceBox
+                self.session.openWithCallback(self.leavePlayerConfirmed, ChoiceBox, title=_("Stop playing this movie?"), list = list)
+            else:
+                self.leavePlayerConfirmed([True, "quit"])
+    
+    class BludiscMenu(eBludiscMenu):
+        def __init__(self, session, bd_mountpoint = None, file_name = None):
+            eBludiscMenu.__init__(self, session, bd_mountpoint)
+            self.file_name = file_name
+            
+        def ok(self):
+            if type(self["menu"].getCurrent()) is type(None):
+                self.exit()
+                return
+            name = self["menu"].getCurrent()[0]
+            idx = self["menu"].getCurrent()[1]
+            newref = eServiceReference(0x04, 0, "%s:%03d" % (self.bd_mountpoint, idx))
+            newref.setData(1,1)
+            newref.setName("Bludisc title %d" % idx)
+            print "[Bludisc] play: ", name, newref.toString()        
+            self.session.openWithCallback(self.moviefinished, BludiscPlayer, newref, self.file_name)
+        
+        def exit(self):
+            from ServiceProvider import ISOInfo
+            ISOInfo().umount()
+            self.close()
+
 def movieSelected(self, service):
     if service is not None:
         if isinstance(service, eServiceReferenceDvd) and service.getPath().endswith(".iso"):
@@ -371,65 +426,12 @@ def movieSelected(self, service):
                     service = iso.getService(service)
         if isinstance(service, eServiceReferenceDvd):
             if pluginPresent.DVDPlayer:
-                from Plugins.Extensions.DVDPlayer.plugin import DVDPlayer as eDVDPlayer
-                class DVDPlayer(DVDCutListSupport, eDVDPlayer):
-                    def __init__(self, session, service):
-                        DVDCutListSupport.__init__(self, service)
-                        eDVDPlayer.__init__(self, session, dvd_filelist=service.getDVD())
-                        self.addPlayerEvents()
-                        
                 stopPlayingService(self)
                 self.session.open(DVDPlayer, service)
             else:
                 self.session.open(MessageBox, _("No DVD-Player found!"), MessageBox.TYPE_ERROR, 10)
         elif isinstance(service, eServiceReferenceBludisc):
             if pluginPresent.BludiscPlayer:
-                from Plugins.Extensions.BludiscPlayer.plugin import BludiscPlayer as eBludiscPlayer, BludiscMenu as eBludiscMenu
-                from enigma import eServiceReference
-                from ServiceProvider import BludiscCutListSupport
-                class BludiscPlayer(BludiscCutListSupport, eBludiscPlayer):
-                    def __init__(self, session, service, file_name):
-                        s = eServiceReferenceBludisc(service)
-                        if file_name:
-                            s.setPath(file_name)
-                        BludiscCutListSupport.__init__(self, s)
-                        eBludiscPlayer.__init__(self, session, service)
-                        self.addPlayerEvents()
-
-                    def handleLeave(self, how):
-                        self.is_closing = True
-                        if how == "ask":
-                            list = (
-                                (_("Yes"), "quit"),
-                                (_("No"), "continue")
-                            )
-                            from Screens.ChoiceBox import ChoiceBox
-                            self.session.openWithCallback(self.leavePlayerConfirmed, ChoiceBox, title=_("Stop playing this movie?"), list = list)
-                        else:
-                            self.leavePlayerConfirmed([True, "quit"])
-                
-                class BludiscMenu(eBludiscMenu):
-                    def __init__(self, session, bd_mountpoint = None, file_name = None):
-                        eBludiscMenu.__init__(self, session, bd_mountpoint)
-                        self.file_name = file_name
-                        
-                    def ok(self):
-                        if type(self["menu"].getCurrent()) is type(None):
-                            self.exit()
-                            return
-                        name = self["menu"].getCurrent()[0]
-                        idx = self["menu"].getCurrent()[1]
-                        newref = eServiceReference(0x04, 0, "%s:%03d" % (self.bd_mountpoint, idx))
-                        newref.setData(1,1)
-                        newref.setName("Bludisc title %d" % idx)
-                        print "[Bludisc] play: ", name, newref.toString()        
-                        self.session.openWithCallback(self.moviefinished, BludiscPlayer, newref, self.file_name)
-                    
-                    def exit(self):
-                        from ServiceProvider import ISOInfo
-                        ISOInfo().umount()
-                        self.close()
-                    
                 stopPlayingService(self)
                 self.session.open(BludiscMenu, service.getBludisc(), service.getPath())
             else:

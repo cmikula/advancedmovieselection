@@ -177,7 +177,7 @@ class ISOInfo():
             if not os.path.exists(self.MOUNT_PATH):
                 print "Creating mount path for bludisc iso on:", self.MOUNT_PATH
                 os.mkdir(self.MOUNT_PATH)
-            cmd = "mount -o loop \"%s\" \"%s\"" % (iso, self.MOUNT_PATH)
+            cmd = "mount -r -o loop \"%s\" \"%s\"" % (iso, self.MOUNT_PATH)
             print "exec command:", cmd
             out = commands.getoutput(cmd)
             if out:
@@ -190,7 +190,7 @@ class ISOInfo():
     @classmethod
     def umount(self):
         try:
-            cmd = "umount \"%s\"" % (ISOInfo.MOUNT_PATH)
+            cmd = "umount -df \"%s\"" % (ISOInfo.MOUNT_PATH)
             print "exec command:", cmd
             out = commands.getoutput(cmd)
             if out:
