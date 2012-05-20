@@ -61,6 +61,13 @@ instance = None
 auto_network = []
 AUTO_NETORK = "/etc/auto.network"
 
+def printStackTrace():
+    import sys, traceback
+    print "--- [AdvancedMovieSelection] print stack trace ---"
+    print '-' * 50
+    traceback.print_exc(file=sys.stdout)
+    print '-' * 50
+
 def getServiceInfoValue(ref, what):
     # only works with ts files, if necessary use the ServiceCenter class
     info = eServiceCenter.getInstance().info(ref)
@@ -126,6 +133,7 @@ class eServiceReferenceDvd(eServiceReference):
 
 import commands
 class ISOInfo():
+    ERROR = -1
     UNKNOWN = 0
     DVD = 1
     BLUDISC = 2
@@ -136,7 +144,7 @@ class ISOInfo():
     def getFormat(self, service):
         print "checking iso:", service.getPath()
         if not self.mount(service.getPath()):
-            return self.UNKNOWN 
+            return self.ERROR 
         if os.path.exists(self.MOUNT_PATH + "/BDMV/"):
             print "Bludisc iso file detected"
             return self.BLUDISC
@@ -165,24 +173,32 @@ class ISOInfo():
     
     def mount(self, iso):
         self.umount()
-        if not os.path.exists(self.MOUNT_PATH):
-            print "Creating mount path for bludisc iso on:", self.MOUNT_PATH
-            os.mkdir(self.MOUNT_PATH)
-        cmd = "mount -o loop \"%s\" \"%s\"" % (iso, self.MOUNT_PATH)
-        print "exec command:", cmd
-        out = commands.getoutput(cmd)
-        if out:
-            print "error:", out
-        return not out
+        try:
+            if not os.path.exists(self.MOUNT_PATH):
+                print "Creating mount path for bludisc iso on:", self.MOUNT_PATH
+                os.mkdir(self.MOUNT_PATH)
+            cmd = "mount -o loop \"%s\" \"%s\"" % (iso, self.MOUNT_PATH)
+            print "exec command:", cmd
+            out = commands.getoutput(cmd)
+            if out:
+                print "error:", out
+            return not out
+        except:
+            printStackTrace()
+            return False
 
     @classmethod
     def umount(self):
-        cmd = "umount \"%s\"" % (ISOInfo.MOUNT_PATH)
-        print "exec command:", cmd
-        out = commands.getoutput(cmd)
-        if out:
-            print "error:", out
-        return not out
+        try:
+            cmd = "umount \"%s\"" % (ISOInfo.MOUNT_PATH)
+            print "exec command:", cmd
+            out = commands.getoutput(cmd)
+            if out:
+                print "error:", out
+            return not out
+        except:
+            printStackTrace()
+            return False
     
     def getPath(self):
         return self.MOUNT_PATH
