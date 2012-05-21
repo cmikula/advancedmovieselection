@@ -130,6 +130,9 @@ class eServiceReferenceDvd(eServiceReference):
             return [self.getPath() + "/"]
         else:
             return [self.getPath()]
+        
+    def isIsoImage(self):
+        return not self.dvdStruct
 
 import commands
 class ISOInfo():

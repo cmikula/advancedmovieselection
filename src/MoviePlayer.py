@@ -411,7 +411,7 @@ if pluginPresent.BludiscPlayer:
 
 def movieSelected(self, service):
     if service is not None:
-        if isinstance(service, eServiceReferenceDvd) and service.getPath().endswith(".iso"):
+        if isinstance(service, eServiceReferenceDvd) and service.isIsoImage():
             from ServiceProvider import ISOInfo
             iso = ISOInfo()
             if iso.getFormatISO9660(service) != ISOInfo.DVD:

@@ -211,7 +211,7 @@ class VideoPreview():
             #    self.lastService = self.session.nav.getCurrentlyPlayingServiceReference()
             self.stopCurrentlyPlayingService()
             if isinstance(self.service, eServiceReferenceDvd):
-                if self.service.getPath().endswith(".iso"):
+                if self.service.isIsoImage():
                     if ISOInfo().getFormatISO9660(self.service) != ISOInfo.DVD:
                         print "Skipping video preview"
                         self.__playLastService()
