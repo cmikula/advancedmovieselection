@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-05-21 13:28-0000\n"
-"PO-Revision-Date: 2012-05-21 13:29-0000\n"
+"PO-Revision-Date: 2012-05-21 13:48-0000\n"
 "Last-Translator: cmikula\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "Language: \n"
@@ -859,11 +859,11 @@ msgstr "Verzeichnis für die Sicherung:"
 
 #: ../../../AdvancedMovieSelectionSetup.py:131
 msgid "Restore settings"
-msgstr "Einstellungen widerherstellen"
+msgstr "Widerherstellen"
 
 #: ../../../AdvancedMovieSelectionSetup.py:132
 msgid "Backup settings"
-msgstr "Einstellungen sichern"
+msgstr "Sichern"
 
 #: ../../../AdvancedMovieSelectionSetup.py:140
 msgid "Backup/Restore movie list settings"

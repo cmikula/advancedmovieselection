@@ -134,7 +134,7 @@ class BackupRestore(ConfigListScreen, Screen):
         self["key_blue"].hide()
         self["help"] = Button("")
         self["help"].hide()
-        self.onLayoutFinish.append(self.setWindowTitle)
+        self.onShown.append(self.setWindowTitle)
 
     def setWindowTitle(self):
         self.setTitle(_("Backup/Restore movie list settings"))

@@ -18,22 +18,11 @@
 #  modify it (if you keep the license), but it may not be commercially 
 #  distributed other than under the conditions noted above.
 #
-from enigma import eTimer, iPlayableService, iServiceInformation, eServiceReference, iServiceKeys, getDesktop
 from Screens.Screen import Screen
-from Screens.MessageBox import MessageBox
-from Screens.ChoiceBox import ChoiceBox
-from Screens.HelpMenu import HelpableScreen
-from Screens.InfoBarGenerics import InfoBarSeek, InfoBarPVRState, InfoBarCueSheetSupport, InfoBarShowHide, InfoBarNotifications, InfoBarAudioSelection, InfoBarSubtitleSupport
-from Components.ActionMap import ActionMap, NumberActionMap, HelpableActionMap
-from Components.Label import Label
+from Components.ActionMap import ActionMap
 from Components.Sources.StaticText import StaticText
-from Components.Pixmap import Pixmap
 from Components.FileList import FileList
-from Components.MenuList import MenuList
-from Components.ServiceEventTracker import ServiceEventTracker, InfoBarBase
-from Components.config import config
-from Tools.Directories import pathExists, fileExists
-from Components.Harddisk import harddiskmanager
+from Tools.Directories import pathExists
 
 lastpath = ""
 
@@ -66,9 +55,9 @@ class FileBrowser(Screen):
             })
         self["key_red"] = StaticText(_("Cancel"))
         self["key_green"] = StaticText(_("OK"))
-        self.onLayoutFinish.append(self.layoutFinished)
+        self.onShown.append(self.setWindowTitle)
 
-    def layoutFinished(self):
+    def setWindowTitle(self):
         self.setTitle(_("File Browser"))
 
     def ok(self):
