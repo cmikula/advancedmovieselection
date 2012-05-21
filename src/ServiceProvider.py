@@ -908,7 +908,7 @@ class BludiscCutListSupport(CutListSupport):
         cut_hd = cue.getCutList()
         update_cue = False
         # add existing cuts from BludiscPlayer  
-        if cut_bd and not (0L, 2) in cut_bd:
+        if cut_bd and not (0L, 2) in cut_hd:
             for cut in cut_bd:
                 if not cut in cut_hd:
                     print "add cut:", cut
