@@ -157,3 +157,51 @@ config.AdvancedMovieSelection.show_filter_by_description = ConfigYesNo(default=F
 
 def initializeConfig():
     pass
+
+CONFIG_BACKUP = ("AdvancedMovieSelection", "movielist")
+BACKUP_FILE_NAME = "settings.backup"
+
+def getChanges(config_entry, changes):
+    print "get changes for:", config_entry
+    entry = config.content.items[config_entry]
+    for item in entry.dict():
+        conf = entry.__getattr__(item)
+        if conf.default != conf.value: 
+            txt = "config.%s.%s=%s" % (config_entry, item, conf.saved_value)
+            print txt
+            changes.append(txt)
+
+def createBackup(path="/media/hdd/"):
+    changes = []
+    for item in CONFIG_BACKUP:
+        getChanges(item, changes)
+
+    import os
+    file_name = os.path.join(path, BACKUP_FILE_NAME)
+    print "create backup", file_name
+    try: 
+        backup = open(file_name, 'wb')
+        backup.write("\n".join(changes))
+        backup.close()
+    except:
+        printStackTrace()
+        return
+    return file_name
+
+def loadBackup(file_name):
+    from ServiceProvider import printStackTrace
+    print "load backup", file_name 
+    backup = open(file_name, 'rb')
+    for line in backup.readlines():
+        try:
+            config_entry = line.split(".")[1]
+            config_item = line.split(".")[2].split("=")[0]
+            value = line.split("=")[-1].strip()
+            print config_entry, config_item, value
+            entry = config.content.items[config_entry]
+            conf = entry.__getattr__(config_item)
+            conf.saved_value = conf._value = value
+            conf.load()
+        except:
+            printStackTrace()
+    backup.close()

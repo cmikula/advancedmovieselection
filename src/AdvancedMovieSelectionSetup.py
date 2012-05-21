@@ -104,6 +104,68 @@ class ConfigListScreen(eConfigList.ConfigListScreen):
         if not self.handleInputHelpers in self["config"].onSelectionChanged:
             self["config"].onSelectionChanged.append(self.handleInputHelpers)
 
+class BackupRestore(ConfigListScreen, Screen):
+    def __init__(self, session, csel=None):
+        Screen.__init__(self, session)
+        self.csel = csel
+        self.skinName = SkinTools.appendResolution("AdvancedMovieSelectionSetup")
+        self["setupActions"] = ActionMap(["ColorActions", "OkCancelActions", "MenuActions", "EPGSelectActions"],
+        {
+            "ok": self.close,
+            "cancel": self.close,
+            "red": self.close,
+            "green": self.openFilebrowser,
+            "yellow": self.backup
+        }, -2)
+        self.list = [ ]
+        tmp = config.movielist.videodirs.value
+        default = config.usage.default_path.value
+        if default not in tmp:
+            tmp = tmp[:]
+            tmp.append(default)
+        print "DefaultPath: ", default, tmp
+        backup_config_path = ConfigSelection(default=default, choices=tmp)
+        self.list.append(getConfigListEntry(_("Backup directory path:"), backup_config_path))
+        ConfigListScreen.__init__(self, self.list, session=self.session)
+        self["key_red"] = StaticText(_("Close"))
+        self["key_green"] = StaticText(_("Restore"))
+        self["key_yellow"] = StaticText(_("Backup"))
+        self["key_blue"] = Button("")
+        self["key_blue"].hide()
+        self["help"] = Button("")
+        self["help"].hide()
+        self.onLayoutFinish.append(self.setWindowTitle)
+
+    def setWindowTitle(self):
+        self.setTitle(_("Backup & Restore"))
+    
+    def getCurrent(self):
+        current = self["config"].getCurrent()
+        return current and current[1].value
+    
+    def backup(self):
+        from Config import createBackup
+        path = self.getCurrent()
+        result = createBackup(path)
+        if result:
+            self.session.open(MessageBox, _("Settings backup successfully created.") + "\n%s" % (result), type=MessageBox.TYPE_INFO)
+            self.close()
+        else:
+            self.session.open(MessageBox, _("Error creating settings backup."), type=MessageBox.TYPE_ERROR)
+    
+    def openFilebrowser(self):
+        from FileBrowser import FileBrowser
+        path = self.getCurrent()
+        self.session.openWithCallback(self.restoreCallback, FileBrowser, path)
+
+    def restoreCallback(self, answer):
+        print answer
+        if answer:
+            from Config import loadBackup
+            loadBackup(answer)
+            self.session.open(MessageBox, _("Some settings changes require close/reopen the movielist to take effect."), type=MessageBox.TYPE_INFO)
+            self.close()
+
 class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
     def __init__(self, session, csel=None):
         Screen.__init__(self, session)
