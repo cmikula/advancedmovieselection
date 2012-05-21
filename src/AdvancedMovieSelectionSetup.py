@@ -128,8 +128,8 @@ class BackupRestore(ConfigListScreen, Screen):
         self.list.append(getConfigListEntry(_("Backup directory path:"), backup_config_path))
         ConfigListScreen.__init__(self, self.list, session=self.session)
         self["key_red"] = StaticText(_("Close"))
-        self["key_green"] = StaticText(_("Restore"))
-        self["key_yellow"] = StaticText(_("Backup"))
+        self["key_green"] = StaticText(_("Restore settings"))
+        self["key_yellow"] = StaticText(_("Backup settings"))
         self["key_blue"] = Button("")
         self["key_blue"].hide()
         self["help"] = Button("")
@@ -137,7 +137,7 @@ class BackupRestore(ConfigListScreen, Screen):
         self.onLayoutFinish.append(self.setWindowTitle)
 
     def setWindowTitle(self):
-        self.setTitle(_("Backup & Restore"))
+        self.setTitle(_("Backup/Restore movie list settings"))
     
     def getCurrent(self):
         current = self["config"].getCurrent()
