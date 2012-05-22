@@ -109,7 +109,7 @@ class BackupRestore(ConfigListScreen, Screen):
         Screen.__init__(self, session)
         self.csel = csel
         self.skinName = SkinTools.appendResolution("AdvancedMovieSelectionSetup")
-        self["setupActions"] = ActionMap(["ColorActions", "OkCancelActions", "MenuActions", "EPGSelectActions"],
+        self["setupActions"] = ActionMap(["OkCancelActions", "ColorActions"],
         {
             "ok": self.close,
             "cancel": self.close,
@@ -123,17 +123,19 @@ class BackupRestore(ConfigListScreen, Screen):
         if default not in tmp:
             tmp = tmp[:]
             tmp.append(default)
-        print "DefaultPath: ", default, tmp
         backup_config_path = ConfigSelection(default=default, choices=tmp)
         self.list.append(getConfigListEntry(_("Backup directory path:"), backup_config_path))
         ConfigListScreen.__init__(self, self.list, session=self.session)
         self["key_red"] = StaticText(_("Close"))
         self["key_green"] = StaticText(_("Restore settings"))
         self["key_yellow"] = StaticText(_("Backup settings"))
-        self["key_blue"] = Button("")
-        self["key_blue"].hide()
-        self["help"] = Button("")
-        self["help"].hide()
+        self["key_blue"] = StaticText()
+        self["help"] = StaticText()
+        self["MenuIcon"] = Pixmap()
+        self["MenuIcon"].hide()
+        self["TMDbtxt"] = StaticText()
+        self["IMDbtxt"] = StaticText()
+        self["OFDbtxt"] = StaticText()
         self.onShown.append(self.setWindowTitle)
 
     def setWindowTitle(self):

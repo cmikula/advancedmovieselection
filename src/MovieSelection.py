@@ -264,7 +264,7 @@ class MovieContextMenu(Screen):
             menu.append((_("Search Trailer on web"), boundFunction(self.showTrailer)))
         if config.AdvancedMovieSelection.show_remote_setup.value:
             menu.append((_("Clientbox setup"), boundFunction(self.serversetup)))
-        menu.append((_("Backup/Restore"), boundFunction(self.openBackupRestor)))
+        menu.append((_("Backup/Restore"), boundFunction(self.openBackupRestore)))
         if config.AdvancedMovieSelection.showmenu.value:
             menu.append((_("Setup"), boundFunction(self.menusetup)))
         self["menu"] = MenuList(menu)
@@ -273,7 +273,7 @@ class MovieContextMenu(Screen):
     def setWindowTitle(self):
         self.setTitle(_("Advanced Movie Selection Menu"))
 
-    def openBackupRestor(self):
+    def openBackupRestore(self):
         from AdvancedMovieSelectionSetup import BackupRestore
         self.session.open(BackupRestore)
         self.close()
