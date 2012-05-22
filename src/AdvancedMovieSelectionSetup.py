@@ -104,11 +104,12 @@ class ConfigListScreen(eConfigList.ConfigListScreen):
         if not self.handleInputHelpers in self["config"].onSelectionChanged:
             self["config"].onSelectionChanged.append(self.handleInputHelpers)
 
-class BackupRestore(ConfigListScreen, Screen):
+from Globals import SkinResolutionHelper
+class BackupRestore(ConfigListScreen, Screen, SkinResolutionHelper):
     def __init__(self, session, csel=None):
         Screen.__init__(self, session)
+        SkinResolutionHelper.__init__(self)
         self.csel = csel
-        self.skinName = SkinTools.appendResolution("AdvancedMovieSelectionSetup")
         self["setupActions"] = ActionMap(["OkCancelActions", "ColorActions"],
         {
             "ok": self.close,
@@ -129,14 +130,6 @@ class BackupRestore(ConfigListScreen, Screen):
         self["key_red"] = StaticText(_("Close"))
         self["key_green"] = StaticText(_("Restore settings"))
         self["key_yellow"] = StaticText(_("Backup settings"))
-        self["key_blue"] = StaticText()
-        self["help"] = StaticText()
-        self["MenuIcon"] = Pixmap()
-        self["MenuIcon"].hide()
-        self["TMDbtxt"] = StaticText()
-        self["IMDbtxt"] = StaticText()
-        self["OFDbtxt"] = StaticText()
-        self["Trailertxt"] = StaticText("")
         self.onShown.append(self.setWindowTitle)
 
     def setWindowTitle(self):
