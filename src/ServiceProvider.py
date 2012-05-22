@@ -719,7 +719,6 @@ class CutListSupportBase:
                     self.cut_list = getCutList(self.currentService.getPath())
             else:
                 self.cut_list = cue.getCutList()
-            print self.cut_list
             self.checkResumeSupport()
             if self.jump_first_mark:
                 self.doSeek(self.resume_point)
@@ -886,29 +885,29 @@ class CutListSupport(CutListSupportBase):
         InfoBarCueSheetSupport.toggleMark(self, onlyremove=False, onlyadd=False, tolerance=tolerance, onlyreturn=False)
 
 class BludiscCutListSupport(CutListSupport):
-    def __init__(self, service):
+    def __init__(self, service, main_movie):
         CutListSupportBase.__init__(self, service)
+        self.main_movie = main_movie
 
     def playerClosed(self, service=None):
         seek = self.session.nav.getCurrentService().seek()
         if seek is None:
             return
         #stopPosition = seek.getPlayPosition()[1]
-        length = seek.getLength()[1]
-        if length > 90000 * 60 * 5: # only write cutlist if length of movie > 5 minutes
+        if self.main_movie:
             CutListSupportBase.playerClosed(self, service)
 
     def getCuesheet(self):
         service = self.session.nav.getCurrentService()
         if service is None:
             return None
-        cue = service.cueSheet()
-        cut_bd = cue.getCutList()
+        cue_bd = service.cueSheet()
+        cut_bd = cue_bd.getCutList()
         cue = CueSheet(self.currentService)
         cut_hd = cue.getCutList()
         update_cue = False
         # add existing cuts from BludiscPlayer  
-        if cut_bd and not (0L, 2) in cut_hd:
+        if cut_bd and not (0L, 2) in cut_hd and self.main_movie:
             for cut in cut_bd:
                 if not cut in cut_hd:
                     print "add cut:", cut
@@ -917,5 +916,20 @@ class BludiscCutListSupport(CutListSupport):
         if update_cue:
             print "update cue"
             cue.setCutList(cut_hd)
+        # disable resume support if not the main movie is selected
+        if not self.main_movie:
+            print "no bludisc main movie, disable resume support"
+            self.ENABLE_RESUME_SUPPORT = False
+            return cue_bd
         self.session.nav.currentlyPlayingService.cueSheet = cue
         return cue
+
+    def toggleMark(self, onlyremove=False, onlyadd=False, tolerance=5 * 90000, onlyreturn=False):
+        # only toggle mark, if main movie is selected
+        if self.main_movie:
+            InfoBarCueSheetSupport.toggleMark(self, onlyremove=False, onlyadd=False, tolerance=tolerance, onlyreturn=False)
+
+    def checkResumeSupport(self):
+        # only check resume support, if main movie is selected
+        if self.main_movie:
+            CutListSupport.checkResumeSupport(self)

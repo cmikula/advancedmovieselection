@@ -367,11 +367,11 @@ if pluginPresent.BludiscPlayer:
     from enigma import eServiceReference
     from ServiceProvider import BludiscCutListSupport
     class BludiscPlayer(BludiscCutListSupport, eBludiscPlayer):
-        def __init__(self, session, service, file_name):
+        def __init__(self, session, service, file_name, is_main_movie):
             s = eServiceReferenceBludisc(service)
             if file_name:
                 s.setPath(file_name)
-            BludiscCutListSupport.__init__(self, s)
+            BludiscCutListSupport.__init__(self, s, is_main_movie)
             eBludiscPlayer.__init__(self, session, service)
             self.addPlayerEvents()
 
@@ -391,7 +391,17 @@ if pluginPresent.BludiscPlayer:
         def __init__(self, session, bd_mountpoint = None, file_name = None):
             eBludiscMenu.__init__(self, session, bd_mountpoint)
             self.file_name = file_name
-            
+        
+        def getMainMovieIndex(self):
+            index = -1
+            dur = 0
+            if isinstance(self.discinfo, dict):
+                for idx, duration, chapters, angels, clips, title_no, title_name in self.discinfo["titles"]:
+                    if dur < duration:
+                        dur = duration
+                        index = idx
+            return index
+ 
         def ok(self):
             if type(self["menu"].getCurrent()) is type(None):
                 self.exit()
@@ -401,8 +411,9 @@ if pluginPresent.BludiscPlayer:
             newref = eServiceReference(0x04, 0, "%s:%03d" % (self.bd_mountpoint, idx))
             newref.setData(1,1)
             newref.setName("Bludisc title %d" % idx)
-            print "[Bludisc] play: ", name, newref.toString()        
-            self.session.openWithCallback(self.moviefinished, BludiscPlayer, newref, self.file_name)
+            print "[Bludisc] play: ", name, newref.toString()
+            main_movie = idx == self.getMainMovieIndex()
+            self.session.openWithCallback(self.moviefinished, BludiscPlayer, newref, self.file_name, main_movie)
         
         def exit(self):
             from ServiceProvider import ISOInfo
