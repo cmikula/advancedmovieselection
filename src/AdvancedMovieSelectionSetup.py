@@ -136,6 +136,7 @@ class BackupRestore(ConfigListScreen, Screen):
         self["TMDbtxt"] = StaticText()
         self["IMDbtxt"] = StaticText()
         self["OFDbtxt"] = StaticText()
+        self["Trailertxt"] = StaticText("")
         self.onShown.append(self.setWindowTitle)
 
     def setWindowTitle(self):
