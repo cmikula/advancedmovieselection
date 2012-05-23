@@ -112,20 +112,20 @@ class BackupRestore(ConfigListScreen, Screen, SkinResolutionHelper):
         self.csel = csel
         self["setupActions"] = ActionMap(["OkCancelActions", "ColorActions"],
         {
-            "ok": self.close,
+            "ok": self.okPressed,
             "cancel": self.close,
             "red": self.close,
             "green": self.openFilebrowser,
             "yellow": self.backup
         }, -2)
         self.list = [ ]
-        tmp = config.movielist.videodirs.value
+        self.backup_dirs = config.movielist.videodirs.value[:]
+        print self.backup_dirs
         default = config.usage.default_path.value
-        if default not in tmp:
-            tmp = tmp[:]
-            tmp.append(default)
-        backup_config_path = ConfigSelection(default=default, choices=tmp)
-        self.list.append(getConfigListEntry(_("Backup directory path:"), backup_config_path))
+        if default not in self.backup_dirs:
+            self.backup_dirs.append(default)
+        self.backup_config_path = ConfigSelection(default=default, choices=self.backup_dirs)
+        self.list.append(getConfigListEntry(_("Backup directory path:"), self.backup_config_path))
         ConfigListScreen.__init__(self, self.list, session=self.session)
         self["key_red"] = StaticText(_("Close"))
         self["key_green"] = StaticText(_("Restore settings"))
@@ -161,6 +161,21 @@ class BackupRestore(ConfigListScreen, Screen, SkinResolutionHelper):
             loadBackup(answer)
             self.session.open(MessageBox, _("Some settings changes require close/reopen the movielist to take effect."), type=MessageBox.TYPE_INFO)
             self.close()
+            
+    def okPressed(self):
+        from Screens.LocationBox import LocationBox
+        path = self.getCurrent()
+        from Components.config import ConfigLocations
+        locations = ConfigLocations(self.backup_dirs)
+        self.session.openWithCallback(self.dirnameSelected, LocationBox, _("Select backup path"), currDir=path, bookmarks=locations)
+    
+    def dirnameSelected(self, answer):
+        if not answer:
+            return
+        if answer not in self.backup_dirs:
+            self.backup_dirs.append(answer)
+        self.backup_config_path.setChoices(self.backup_dirs, default=answer)
+        self.backup_config_path.setValue(answer)
 
 class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
     def __init__(self, session, csel=None):
@@ -231,7 +246,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self["config"].setCurrentIndex(max(self["config"].getCurrentIndex() - self.bouquet_length, 0))
 
     def prevBouquet(self):
-        self["config"].setCurrentIndex(min(self["config"].getCurrentIndex() + self.bouquet_length, len(self["config"].list) - 1))
+        self["config"].setCurrentIndex(min(self["config"].getCurrentIndex() + self.bouquet_length, len(self.list) - 1))
 
     def setWindowTitle(self):
         self.setTitle(_("Advanced Movie Selection Setup"))

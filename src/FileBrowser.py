@@ -27,10 +27,8 @@ from Tools.Directories import pathExists
 lastpath = ""
 
 class FileBrowser(Screen):
-
     def __init__(self, session, current_path=None):
         Screen.__init__(self, session)
-        self.selected_filelist = []
         global lastpath
         if current_path:
             lastpath = current_path
@@ -43,7 +41,7 @@ class FileBrowser(Screen):
         if lastpath == "":  # 'None' is magic to start at the list of mountpoints
             currDir = None
 
-        inhibitDirs = ["/bin", "/boot", "/dev", "/etc", "/home", "/lib", "/proc", "/sbin", "/share", "/sys", "/tmp", "/usr", "/var"]
+        #inhibitDirs = ["/bin", "/boot", "/dev", "/etc", "/home", "/lib", "/proc", "/sbin", "/share", "/sys", "/tmp", "/usr", "/var"]
         self.filelist = FileList(currDir, matchingPattern = "(?i)^.*\.(backup)", useServiceRef = False)
         self["filelist"] = self.filelist
 
