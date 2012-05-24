@@ -249,11 +249,8 @@ versie: 2.6.1
 * fix: crash bij ledigen prullemand
 * fix: verwijderen van dvd´s
 
-versie: 2.6.2
+version: 2.6.2
 * fix: DVDPlayer crash (opendreambox-2.0.0)
-
-versie: 2.6.3
-* fix: films worden niet altijd weergegeven
 
 versie: 2.7
 * fix: weergeven en bewaren van beschrijvingen (eit) in Cyrillisch
@@ -262,8 +259,9 @@ versie: 2.7
 * nieuw: filmpreview als volledig beeld
 * nieuw: Vrijwillige ZelfRegulering Self Regulation met actualisering via tmdb
 * nieuw: opgenomen filmen worden in de EPG gemarkeerd (instelbaar)
-* nieuw: filmen kunnen gefilterd worden volgens de beschrijving
+* nieuw: filmen kunnen gefilterd worden volgens de korte beschrijving
 * nieuw: keuze of info van tmdb en tvdb overschreven wordt
+* nieuw: backup en herstellen van de instellingen
 OPGELET voor de skinners, AdvancedMovieSelection_Preview_HD, AdvancedMovieSelection_Preview_noDescription_HD, AdvancedMovieSelection_Preview_noCover_HD, AdvancedMovieSelection_Preview_noDescription_noCover_HD,
 AdvancedMovieSelection_Preview_XD, AdvancedMovieSelection_Preview_noDescription_XD, AdvancedMovieSelection_Preview_noCover_XD, AdvancedMovieSelection_Preview_noDescription_noCover_XD (SD is niet zinvol)
 AdvancedKeyBoardHD, AdvancedKeyBoardXD, AdvancedKeyBoardSD, AdvancedTextInputHelpDialogHD, AdvancedTextInputHelpDialogXD und AdvancedTextInputHelpDialogSD toegevoegd
