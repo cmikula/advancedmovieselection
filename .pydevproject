@@ -12,4 +12,8 @@
 <path>${ENIGMA2}</path>
 </pydev_pathproperty>
 
+<pydev_variables_property name="org.python.pydev.PROJECT_VARIABLE_SUBSTITUTION">
+<key>ENIGMA2</key>
+<value>/Users/JackDaniel/Eclipse Arbeitskopie/enigma2/enigma.py</value>
+</pydev_variables_property>
 </pydev_project>

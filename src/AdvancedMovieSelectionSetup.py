@@ -133,7 +133,7 @@ class BackupRestore(ConfigListScreen, Screen, SkinResolutionHelper):
         self.onShown.append(self.setWindowTitle)
 
     def setWindowTitle(self):
-        self.setTitle(_("Backup/Restore movie list settings"))
+        self.setTitle(_("Backup/Restore Advanced Movie Selection settings"))
     
     def getCurrent(self):
         current = self["config"].getCurrent()
@@ -144,10 +144,10 @@ class BackupRestore(ConfigListScreen, Screen, SkinResolutionHelper):
         path = self.getCurrent()
         result = createBackup(path)
         if result:
-            self.session.open(MessageBox, _("Settings backup successfully created.") + "\n%s" % (result), type=MessageBox.TYPE_INFO)
+            self.session.open(MessageBox, _("Settings backup successfully created in %s.") % (result), type=MessageBox.TYPE_INFO)
             self.close()
         else:
-            self.session.open(MessageBox, _("Error creating settings backup."), type=MessageBox.TYPE_ERROR)
+            self.session.open(MessageBox, _("Error creating settings backup!"), type=MessageBox.TYPE_ERROR)
     
     def openFilebrowser(self):
         from FileBrowser import FileBrowser
@@ -167,7 +167,7 @@ class BackupRestore(ConfigListScreen, Screen, SkinResolutionHelper):
         path = self.getCurrent()
         from Components.config import ConfigLocations
         locations = ConfigLocations(self.backup_dirs)
-        self.session.openWithCallback(self.dirnameSelected, LocationBox, _("Select backup path"), currDir=path, bookmarks=locations)
+        self.session.openWithCallback(self.dirnameSelected, LocationBox, _("Please select backup path here:"), currDir=path, bookmarks=locations)
     
     def dirnameSelected(self, answer):
         if not answer:
@@ -393,6 +393,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append(getConfigListEntry(_("Show search trailer on web in extensions menu from movielist:"), config.AdvancedMovieSelection.showtrailer, _("Displays search trailer on web function in the menu at the movie list.")))
         self.list.append(getConfigListEntry(_("Show Set VSR in extensions menu from movielist:"), config.AdvancedMovieSelection.show_set_vsr, _("Displays set VSR function in the menu at the movie list.")))
         self.list.append(getConfigListEntry(_("Show Filter by description in extensions menu from movielist:"), config.AdvancedMovieSelection.show_filter_by_description, _("Displays the Filter by description function in the menu at the movie list.")))
+        self.list.append(getConfigListEntry(_("Show backup/restore in extensions menu from movielist:"), config.AdvancedMovieSelection.show_backup_restore, _("Displays the backup/restore function in the menu at the movie list.")))
         self.list.append(getConfigListEntry(_("Ask before delete:"), config.AdvancedMovieSelection.askdelete, _("With this option you can turn on/off the security question before delete a movie.")))
         if pluginPresent.IMDb and pluginPresent.OFDb and pluginPresent.TMDb:
             self.list.append(getConfigListEntry(_("INFO button function:"), config.AdvancedMovieSelection.Eventinfotyp, _("With this option you can assign what function should have the info button. The selection depends on the installed plugins.")))

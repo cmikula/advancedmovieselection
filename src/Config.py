@@ -154,12 +154,13 @@ config.AdvancedMovieSelection.epg_extension = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.show_set_vsr = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.keyboard = ConfigSelection(default="virtual_numerical" , choices=[("virtual_numerical" , _("Virtual and Numerical")), ("virtual" , _("Virtual")), ("numerical" , _("Numerical"))])
 config.AdvancedMovieSelection.show_filter_by_description = ConfigYesNo(default=False)
+config.AdvancedMovieSelection.show_backup_restore = ConfigYesNo(default=False)
 
 def initializeConfig():
     pass
 
 CONFIG_BACKUP = ("AdvancedMovieSelection", "movielist")
-BACKUP_FILE_NAME = "settings.backup"
+BACKUP_FILE_NAME = "AMS.settings.backup"
 
 def getChanges(config_entry, changes):
     print "get changes for:", config_entry
