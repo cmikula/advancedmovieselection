@@ -254,7 +254,6 @@ version: 2.6.2
 
 versie: 2.7
 * fix: weergeven en bewaren van beschrijvingen (eit) in Cyrillisch
-* fix: tune failes na standby tijdens het afspelen
 * nieuw: afspelen Blu-Ray Disc formaten (iso en structuren)
 * nieuw: filmpreview als volledig beeld
 * nieuw: Vrijwillige ZelfRegulering Self Regulation met actualisering via tmdb

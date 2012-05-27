@@ -256,7 +256,6 @@ version: 2.6.3
 
 version: 2.7
 * fix: display and save descriptions (eit) in Cyrillic
-* fix: tune failed after standby while playing
 * new: playing blu-ray disc formats (iso and structures)
 * new: movie preview in fullscreen
 * new: voluntary self regulation with sync from tmdb
