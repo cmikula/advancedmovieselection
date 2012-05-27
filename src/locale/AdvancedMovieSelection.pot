@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection(POT)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-26 07:46+0100\n"
-"PO-Revision-Date: 2012-05-26 07:46+0100\n"
+"POT-Creation-Date: 2012-05-27 13:12+0100\n"
+"PO-Revision-Date: 2012-05-27 13:12+0100\n"
 "Last-Translator: JackDanie <JackDaniel@i-have-a-dreambox.com>\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
@@ -1043,7 +1043,7 @@ msgstr ""
 
 #: ../AdvancedMovieSelectionSetup.py:601
 #: ../DownloadMovies.py:65
-#: ../FileBrowser.py:54
+#: ../FileBrowser.py:55
 msgid "Cancel"
 msgstr ""
 
@@ -1595,7 +1595,7 @@ msgstr ""
 
 #: ../DownloadMovies.py:150
 #: ../DownloadMovies.py:169
-#: ../FileBrowser.py:55
+#: ../FileBrowser.py:56
 msgid "OK"
 msgstr ""
 
@@ -1628,7 +1628,7 @@ msgstr ""
 msgid "Download and save from movie infos and covers to %s complete."
 msgstr ""
 
-#: ../FileBrowser.py:59
+#: ../FileBrowser.py:60
 msgid "File Browser"
 msgstr ""
 
@@ -2266,6 +2266,11 @@ msgstr ""
 
 #: ../plugin.py:80
 msgid "Setup Advanced Movie Selection"
+msgstr ""
+
+#: ../plugin.py:103
+#: ../plugin.py:106
+msgid "Alternate Movie Selection"
 msgstr ""
 
 #: ../QuickButton.py:47

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-26 07:46+0100\n"
-"PO-Revision-Date: 2012-05-26 07:50+0100\n"
+"POT-Creation-Date: 2012-05-27 13:12+0100\n"
+"PO-Revision-Date: 2012-05-27 13:13+0100\n"
 "Last-Translator: JackDanie <JackDaniel@i-have-a-dreambox.com>\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
@@ -1052,7 +1052,7 @@ msgstr "WICHTIG: Wenn Sie hier Änderungen vornehmen muss zum übernehmen dieser
 
 #: ../../../AdvancedMovieSelectionSetup.py:601
 #: ../../../DownloadMovies.py:65
-#: ../../../FileBrowser.py:54
+#: ../../../FileBrowser.py:55
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -1604,7 +1604,7 @@ msgstr "Automatisches suchen und speichern nach %s ist abgeschlossen."
 
 #: ../../../DownloadMovies.py:150
 #: ../../../DownloadMovies.py:169
-#: ../../../FileBrowser.py:55
+#: ../../../FileBrowser.py:56
 msgid "OK"
 msgstr "OK"
 
@@ -1637,7 +1637,7 @@ msgstr "Bitte Filmnamen für die Suche eingeben "
 msgid "Download and save from movie infos and covers to %s complete."
 msgstr "Herunterladen und speichern der Filminfos/Covers nach %s abgeschlossen."
 
-#: ../../../FileBrowser.py:59
+#: ../../../FileBrowser.py:60
 msgid "File Browser"
 msgstr "Datei Browser"
 
@@ -2311,6 +2311,11 @@ msgstr ""
 #: ../../../plugin.py:80
 msgid "Setup Advanced Movie Selection"
 msgstr "Erw. Filmauswahl Einstellungen"
+
+#: ../../../plugin.py:103
+#: ../../../plugin.py:106
+msgid "Alternate Movie Selection"
+msgstr "Alternative Filmauswahl"
 
 #: ../../../QuickButton.py:47
 #: ../../../QuickButton.py:167
