@@ -261,6 +261,7 @@ versie: 2.7
 * nieuw: filmen kunnen gefilterd worden volgens de korte beschrijving
 * nieuw: keuze of info van tmdb en tvdb overschreven wordt
 * nieuw: backup en herstellen van de instellingen
+* nieuw: automatisch cover downloaden van tmdb na timeropname
 OPGELET voor de skinners, AdvancedMovieSelection_Preview_HD, AdvancedMovieSelection_Preview_noDescription_HD, AdvancedMovieSelection_Preview_noCover_HD, AdvancedMovieSelection_Preview_noDescription_noCover_HD,
 AdvancedMovieSelection_Preview_XD, AdvancedMovieSelection_Preview_noDescription_XD, AdvancedMovieSelection_Preview_noCover_XD, AdvancedMovieSelection_Preview_noDescription_noCover_XD (SD is niet zinvol)
 AdvancedKeyBoardHD, AdvancedKeyBoardXD, AdvancedKeyBoardSD, AdvancedTextInputHelpDialogHD, AdvancedTextInputHelpDialogXD und AdvancedTextInputHelpDialogSD toegevoegd

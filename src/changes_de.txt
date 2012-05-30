@@ -264,6 +264,7 @@ version: 2.7
 * neu: auswahl, ob daten von tmdb und tvdb überschrieben werden
 * neu: aufgenommene filme werden im EPG gekennzeichnet (einstellbar)
 * neu: einstellungen können gesichert werden
+* neu: automatisches herunterladen der cover von tmdb nach einer timeraufnahme
 ACHTUNG an die skinner, AdvancedMovieSelection_Preview_HD, AdvancedMovieSelection_Preview_noDescription_HD, AdvancedMovieSelection_Preview_noCover_HD, AdvancedMovieSelection_Preview_noDescription_noCover_HD,
 AdvancedMovieSelection_Preview_XD, AdvancedMovieSelection_Preview_noDescription_XD, AdvancedMovieSelection_Preview_noCover_XD, AdvancedMovieSelection_Preview_noDescription_noCover_XD (SD macht keinen sinn),
 AdvancedKeyBoardHD, AdvancedKeyBoardXD, AdvancedKeyBoardSD, AdvancedTextInputHelpDialogHD, AdvancedTextInputHelpDialogXD und AdvancedTextInputHelpDialogSD sind dazugekommen
