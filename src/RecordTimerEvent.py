@@ -47,17 +47,15 @@ class RecordTimerEvent():
 
 recordTimerEvent = RecordTimerEvent()
 
+from Components.config import config
+
 class CoverLoader():
     def __init__(self):
-        pass
-
-    def enabled(self, enabled):
-        if enabled:
-            recordTimerEvent.appendCallback(self.timerStateChanged)
-        else:
-            recordTimerEvent.removeCallback(self.timerStateChanged)
+        recordTimerEvent.appendCallback(self.timerStateChanged)
 
     def timerStateChanged(self, timer):
+        if not config.AdvancedMovieSelection.cover_auto_download.value:
+            return
         from timer import TimerEntry 
         if timer.state == TimerEntry.StateEnded:
             from thread import start_new_thread
@@ -66,7 +64,6 @@ class CoverLoader():
     def downloadMovieInfo(self, name, filename=None):
         import tmdb
         from EventInformationTable import createEIT
-        from Components.config import config
         results = tmdb.search(name)
         if results and len(results) > 0:
             searchResult = results[0]

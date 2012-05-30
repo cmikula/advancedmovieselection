@@ -72,9 +72,6 @@ def autostart(reason, **kwargs):
                 
                 from EpgListExtension import epgListExtension
                 epgListExtension.enabled(config.AdvancedMovieSelection.epg_extension.value)
-                
-                from RecordTimerEvent import coverLoader
-                coverLoader.enabled(config.AdvancedMovieSelection.cover_auto_download.value)
             except:
                 pass
 
