@@ -155,6 +155,7 @@ config.AdvancedMovieSelection.show_set_vsr = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.keyboard = ConfigSelection(default="virtual_numerical" , choices=[("virtual_numerical" , _("Virtual and Numerical")), ("virtual" , _("Virtual")), ("numerical" , _("Numerical"))])
 config.AdvancedMovieSelection.show_filter_by_description = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.show_backup_restore = ConfigYesNo(default=True)
+config.AdvancedMovieSelection.cover_auto_download = ConfigYesNo(default=True)
 
 def initializeConfig():
     pass

@@ -23,6 +23,7 @@ must pass on to the recipients the same freedoms that you received. You must mak
 that they, too, receive or can get the source code. And you must show them these terms so they know their rights.
 '''
 import os
+from RecordTimerEvent import recordTimerEvent
 from Components.EpgList import EPGList
 from Tools.LoadPixmap import LoadPixmap
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
@@ -59,7 +60,6 @@ class EPGListExtension():
         self.isWorking = False
     
     def enabled(self, enabled):
-        import NavigationInstance
         print "[AdvancedMovieSelection] Set epg extension:", str(enabled)
         if enabled:
             EPGList.getPixmapForEntry = getPixmapForEntry
@@ -67,15 +67,13 @@ class EPGListExtension():
             EPGList.buildMultiEntry = buildMultiEntry
             #EPGList.buildSimilarEntry = buildSimilarEntry
             self.reloadMoviesAsync()
-            if not self.timerStateChanged in NavigationInstance.instance.RecordTimer.on_state_change:
-                NavigationInstance.instance.RecordTimer.on_state_change.append(self.timerStateChanged)
+            recordTimerEvent.appendCallback(self.timerStateChanged)
         else:
             EPGList.getPixmapForEntry = savedPixmapForEntry
             EPGList.buildSingleEntry = savedBuildSingleEntry
             EPGList.buildMultiEntry = savedBuildMultiEntry
             #EPGList.buildSimilarEntry = savedBuildSimilarEntry
-            if self.timerStateChanged in NavigationInstance.instance.RecordTimer.on_state_change:
-                NavigationInstance.instance.RecordTimer.on_state_change.remove(self.timerStateChanged)
+            recordTimerEvent.removeCallback(self.timerStateChanged)
             
     def isMovieRecorded(self):
         return self.recorded_movies.__contains__(self.current_name)
@@ -117,10 +115,12 @@ class EPGListExtension():
     def addMovie(self, name):
         if not name in self.recorded_movies:
             self.recorded_movies.append(name)
+            print "[AdvancedMovieSelection] add to epg list:", name
 
     def removeMovie(self, name):
         if name in self.recorded_movies:
             self.recorded_movies.remove(name)
+            print "[AdvancedMovieSelection] remove from epg list:", name
     
     def removeService(self, filename):
         if filename.endswith(".ts"):
@@ -136,7 +136,7 @@ class EPGListExtension():
         try:
             from timer import TimerEntry 
             if timer.state == TimerEntry.StateEnded:
-                print "timer finished"
+                print "timer finished", timer.name
                 self.addMovie(timer.name)
         except Exception, e:
             print e
