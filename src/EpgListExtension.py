@@ -22,7 +22,7 @@ For example, if you distribute copies of such a program, whether gratis or for a
 must pass on to the recipients the same freedoms that you received. You must make sure 
 that they, too, receive or can get the source code. And you must show them these terms so they know their rights.
 '''
-
+import os
 from Components.EpgList import EPGList
 from Tools.LoadPixmap import LoadPixmap
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
@@ -59,6 +59,7 @@ class EPGListExtension():
         self.isWorking = False
     
     def enabled(self, enabled):
+        import NavigationInstance
         print "[AdvancedMovieSelection] Set epg extension:", str(enabled)
         if enabled:
             EPGList.getPixmapForEntry = getPixmapForEntry
@@ -66,11 +67,15 @@ class EPGListExtension():
             EPGList.buildMultiEntry = buildMultiEntry
             #EPGList.buildSimilarEntry = buildSimilarEntry
             self.reloadMoviesAsync()
+            if not self.timerStateChanged in NavigationInstance.instance.RecordTimer.on_state_change:
+                NavigationInstance.instance.RecordTimer.on_state_change.append(self.timerStateChanged)
         else:
             EPGList.getPixmapForEntry = savedPixmapForEntry
             EPGList.buildSingleEntry = savedBuildSingleEntry
             EPGList.buildMultiEntry = savedBuildMultiEntry
             #EPGList.buildSimilarEntry = savedBuildSimilarEntry
+            if self.timerStateChanged in NavigationInstance.instance.RecordTimer.on_state_change:
+                NavigationInstance.instance.RecordTimer.on_state_change.remove(self.timerStateChanged)
             
     def isMovieRecorded(self):
         return self.recorded_movies.__contains__(self.current_name)
@@ -86,7 +91,6 @@ class EPGListExtension():
         try:
             self.isWorking = True
             print "[AdvancedMovieSelection] Start update recorded movies in location", search_path
-            import os
             from Trashcan import TRASH_EXCLUDE
             self.recorded_movies = []
             for (path, dirs, files) in os.walk(search_path):
@@ -104,11 +108,38 @@ class EPGListExtension():
                             f.readline()
                             name = f.readline().rstrip("\r\n")
                             f.close()
-                            #print "[AdvancedMovieSelection] Add movie per name:", name
-                            self.recorded_movies.append(name)
+                            self.addMovie(name)
         except Exception, e:
             print e
         self.isWorking = False
         print "[AdvancedMovieSelection] Finished update recorded movies"
 
+    def addMovie(self, name):
+        if not name in self.recorded_movies:
+            self.recorded_movies.append(name)
+
+    def removeMovie(self, name):
+        if name in self.recorded_movies:
+            self.recorded_movies.remove(name)
+    
+    def removeService(self, filename):
+        if filename.endswith(".ts"):
+            meta_path = filename + ".meta"
+            if os.path.exists(meta_path):
+                f = open(meta_path, "r")
+                f.readline()
+                name = f.readline().rstrip("\r\n")
+                f.close()
+                self.removeMovie(name)
+
+    def timerStateChanged(self, timer):
+        try:
+            from timer import TimerEntry 
+            if timer.state == TimerEntry.StateEnded:
+                print "timer finished"
+                self.addMovie(timer.name)
+        except Exception, e:
+            print e
+
 epgListExtension = EPGListExtension()
+

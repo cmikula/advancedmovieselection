@@ -69,6 +69,9 @@ def autostart(reason, **kwargs):
                 from Components.Language import language
                 language.addCallback(updateLocale)
                 updateLocale()
+                
+                from EpgListExtension import epgListExtension
+                epgListExtension.enabled(config.AdvancedMovieSelection.epg_extension.value)
             except:
                 pass
 
@@ -94,8 +97,6 @@ def Plugins(**kwargs):
             setPreferredTagEditor(TagEditor)
         if not config.AdvancedMovieSelection.ml_disable.value and config.AdvancedMovieSelection.useseekbar.value:
             from Seekbar import Seekbar
-        from EpgListExtension import epgListExtension
-        epgListExtension.enabled(config.AdvancedMovieSelection.epg_extension.value)
     except Exception, e:
         print e
     
