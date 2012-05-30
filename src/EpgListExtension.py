@@ -115,12 +115,12 @@ class EPGListExtension():
     def addMovie(self, name):
         if not name in self.recorded_movies:
             self.recorded_movies.append(name)
-            print "[AdvancedMovieSelection] add to epg list:", name
+            #print "[AdvancedMovieSelection] add to epg list:", name
 
     def removeMovie(self, name):
         if name in self.recorded_movies:
             self.recorded_movies.remove(name)
-            print "[AdvancedMovieSelection] remove from epg list:", name
+            #print "[AdvancedMovieSelection] remove from epg list:", name
     
     def removeService(self, filename):
         if filename.endswith(".ts"):
