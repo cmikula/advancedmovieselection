@@ -3,8 +3,8 @@ msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-05-31 07:12-0000\n"
-"PO-Revision-Date: 2012-05-31 07:18-0000\n"
-"Last-Translator: cmikula\n"
+"PO-Revision-Date: 2012-06-01 05:32+0100\n"
+"Last-Translator: JackDaniel <JackDaniel@i-have-a-dreambox.com>\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -1076,7 +1076,7 @@ msgstr "Mit dieser Option können Sie die Größe vom Cover für das Herunterlad
 
 #: ../../../AdvancedMovieSelectionSetup.py:377
 msgid "Download cover from TMDB after timer is finished:"
-msgstr "Cover von TMDB nach Timeraufnahme herunterlafen:"
+msgstr "Cover von TMDB nach Timeraufnahme herunterladen:"
 
 #: ../../../AdvancedMovieSelectionSetup.py:377
 msgid "If this function is enabled the cover is automatically downloaded from TMDB after timer is finished."
