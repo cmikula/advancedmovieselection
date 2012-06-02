@@ -98,9 +98,9 @@ class MoviePreview():
             self.picload.startDecode(nocover)
                 
     def showPreviewCallback(self, picInfo=None):
-        if picInfo and self.working:
+        if picInfo:
             ptr = self.picload.getData()
-            if ptr != None:
+            if ptr != None and self.working:
                 self["CoverPreview"].instance.setPixmap(ptr)
         self.working = False
 
