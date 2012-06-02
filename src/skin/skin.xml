@@ -34,13 +34,13 @@
             <widget source="key_yellow" render="Label" position="280,0" zPosition="2" size="135,40" halign="center" valign="center" font="Regular;16" transparent="1" shadowColor="#000000" shadowOffset="-1,-1"/> 
 	    </screen>
         <!-- AdvancedKeyBoardHD and AdvancedTextInputHelpDialogHD will be shown together-->
-        <screen name="AdvancedKeyBoardHD" position="center,center" size="1280,720" zPosition="99" title="Virtual KeyBoard">
-            <ePixmap pixmap="skin_default/vkey_text.png" position="9,45" zPosition="-4" size="542,52" alphatest="on"/>
+        <screen name="AdvancedKeyBoardHD" position="center,center" size="560,550" zPosition="99" title="Virtual KeyBoard">
+            <ePixmap pixmap="skin_default/vkey_text.png" position="9,50" zPosition="-4" size="542,52" alphatest="on"/>
             <widget source="country" render="Pixmap" position="490,0" size="60,40" alphatest="on" borderWidth="2" borderColor="yellow">
                 <convert type="ValueToPixmap">LanguageCode</convert>
             </widget>
-            <widget name="header" position="10,20" size="500,20" font="Regular;20" transparent="1" noWrap="1"/>
-            <widget name="text" position="12,45" size="536,46" font="Regular;46" transparent="1" noWrap="1" halign="right"/>
+            <widget name="header" position="10,20" size="500,25" font="Regular;20" transparent="1" noWrap="1"/>
+            <widget name="text" position="12,60" size="536,35" font="Regular;30" transparent="1" noWrap="1" halign="right"/>
             <widget name="list" position="10,110" size="540,225" selectionDisabled="1" transparent="1"/>
         </screen>
         <screen name="AdvancedTextInputHelpDialogHD" position="center,480" zPosition="100" size="394,124" backgroundColor="#202020" flags="wfNoBorder">
