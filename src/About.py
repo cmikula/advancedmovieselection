@@ -151,8 +151,8 @@ class AboutDetails(Screen):
         self["key_red"].setText(_("Close"))
         self["version_list"].setList(versionList)
         self["version_list"].show()
-        if len(versionList) > 0:
-            self["version_list"].instance.moveSelectionTo(len(versionList) - 1)
+        #if len(versionList) > 0:
+        #    self["version_list"].instance.moveSelectionTo(len(versionList) - 1)
         if not self.selectionChanged in self["version_list"].onSelectionChanged:
             self["version_list"].onSelectionChanged.append(self.selectionChanged)
         self.selectionChanged()
