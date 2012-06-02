@@ -38,6 +38,7 @@ from MoviePreview import MoviePreview
 from Components.Label import Label
 from Components.ServiceEventTracker import ServiceEventTracker
 from Globals import pluginPresent
+from Version import __version__
 
 PlayerInstance = None
 
@@ -48,6 +49,11 @@ def showMovies(self):
         self.session.openWithCallback(self.movieSelected, MovieSelection)
     else:
         self.session.openWithCallback(self.movieSelected, MovieSelection, Current.selection)
+    if config.AdvancedMovieSelection.version.value != __version__:
+        from About import AboutDetails
+        self.session.open(AboutDetails)
+        config.AdvancedMovieSelection.version.value = __version__
+        config.AdvancedMovieSelection.version.save()
 
 def stopPlayingService(self):
     try:
