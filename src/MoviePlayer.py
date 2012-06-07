@@ -21,6 +21,7 @@
 #
 
 import Screens.Standby
+from __init__ import _
 from Components.config import config
 from Screens.Screen import Screen
 from Components.ActionMap import HelpableActionMap
@@ -122,20 +123,36 @@ class SelectionEventInfo:
             self["ShortDesc"].setText(desc)
             self["ServiceEvent"].newService(serviceref)
 
-class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, MoviePreview, MoviePlayerExtended_summary):
-    def __init__(self, session, service):
-        CutListSupport.__init__(self, service)
-        MoviePlayer.__init__(self, session, service)
+class PlayerBase(MoviePreview, SelectionEventInfo):
+    def __init__(self, session):
         MoviePreview.__init__(self, session)
         SelectionEventInfo.__init__(self)
-        self.skinName = ["MoviePlayerExtended", "MoviePlayer"]
-        global PlayerInstance
-        PlayerInstance = self
         self["EPGActions"] = HelpableActionMap(self, "InfobarEPGActions",
             {
                 "showEventInfo": (self.openInfoView, _("Show event details")),
                 "showEventInfoPlugin": (self.openServiceList, _("Open servicelist"))
             })
+    
+    def openServiceList(self):
+        pass
+
+    def openInfoView(self):
+        from AdvancedMovieSelectionEventView import EventViewSimple
+        serviceref = self.session.nav.getCurrentlyPlayingServiceReference()
+        info = ServiceCenter.getInstance().info(serviceref)
+        evt = info.getEvent(serviceref)
+        if evt:
+            self.session.open(EventViewSimple, evt, serviceref)
+
+
+class MoviePlayerExtended(CutListSupport, MoviePlayer, PlayerBase):
+    def __init__(self, session, service):
+        CutListSupport.__init__(self, service)
+        MoviePlayer.__init__(self, session, service)
+        PlayerBase.__init__(self, session)
+        self.skinName = ["MoviePlayerExtended", "MoviePlayer"]
+        global PlayerInstance
+        PlayerInstance = self
         if config.AdvancedMovieSelection.exitkey.value and config.AdvancedMovieSelection.exitprompt.value:
             self["closeactions"] = HelpableActionMap(self, "WizardActions",
                 {
@@ -251,14 +268,6 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
         else:
             self.session.open(MessageBox, _("Not possible!\nMerlinEPG and CoolTVGuide or/and MerlinEPGCenter present or neither installed from this three plugins."), MessageBox.TYPE_INFO)
             
-    def openInfoView(self):
-        from AdvancedMovieSelectionEventView import EventViewSimple
-        serviceref = self.session.nav.getCurrentlyPlayingServiceReference()
-        info = ServiceCenter.getInstance().info(serviceref)
-        evt = info.getEvent(serviceref)
-        if evt:
-            self.session.open(EventViewSimple, evt, serviceref)
-
     def showMovies(self):
         ref = self.session.nav.getCurrentlyPlayingServiceReference()
         self.session.openWithCallback(self.movieSelected, MovieSelection, ref, True)
@@ -362,10 +371,12 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, SelectionEventInfo, Movie
 
 if pluginPresent.DVDPlayer:
     from Plugins.Extensions.DVDPlayer.plugin import DVDPlayer as eDVDPlayer
-    class DVDPlayer(DVDCutListSupport, eDVDPlayer):
+    class DVDPlayer(DVDCutListSupport, eDVDPlayer, PlayerBase):
         def __init__(self, session, service):
             DVDCutListSupport.__init__(self, service)
             eDVDPlayer.__init__(self, session, dvd_filelist=service.getDVD())
+            PlayerBase.__init__(self, session)
+            self.skinName = ["DVDPlayerExtended", "DVDPlayer"]
             self.addPlayerEvents()
 
 if pluginPresent.BludiscPlayer:
