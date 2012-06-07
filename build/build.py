@@ -87,7 +87,7 @@ PACKAGE_RECOMENDS = None
 
 CONTROL_CONFFILES = ()
 
-LIBRARY_SOURCES = ("ServiceProvider.py", "EventInformationTable.py", "tmdb.py", "tvdb.py", "SearchTMDb.py", "SearchTVDb.py", "EpgListExtension.py")
+LIBRARY_SOURCES = ("ServiceProvider.py", "EventInformationTable.py", "tmdb.py", "tvdb.py", "SearchTMDb.py", "SearchTVDb.py", "EpgListExtension.py", "ISOInfo.py")
 
 POSTINST = "#!/bin/sh\n\
 echo \"* plugin installed successfully *\"\n\
