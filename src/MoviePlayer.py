@@ -33,6 +33,7 @@ from Screens.InfoBar import MoviePlayer
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_SKIN
 from enigma import ePoint, eTimer, iPlayableService
 from Tools import Notifications
+from Screens.ChoiceBox import ChoiceBox
 from Components.Sources.ServiceEvent import ServiceEvent
 from Components.Sources.StaticText import StaticText
 from MoviePreview import MoviePreview
@@ -379,6 +380,19 @@ if pluginPresent.DVDPlayer:
             self.skinName = ["DVDPlayerExtended", "DVDPlayer"]
             self.addPlayerEvents()
 
+        def askLeavePlayer(self):
+            if config.AdvancedMovieSelection.exitkey.value:
+                self.exitCB([None, "exit"])
+            else:
+                choices = [(_("Exit"), "exit"), (_("Continue playing"), "play")]
+                if True or not self.physicalDVD:
+                    choices.insert(1,(_("Return to file browser"), "browser"))
+                if self.physicalDVD:
+                    cur = self.session.nav.getCurrentlyPlayingServiceReference()
+                    if cur and not cur.toString().endswith(harddiskmanager.getAutofsMountpoint(harddiskmanager.getCD())):
+                        choices.insert(0,(_("Play DVD"), "playPhysical" ))
+                self.session.openWithCallback(self.exitCB, ChoiceBox, title=_("Leave DVD Player?"), list = choices)
+
 if pluginPresent.BludiscPlayer:
     from Plugins.Extensions.BludiscPlayer.plugin import BludiscPlayer as eBludiscPlayer, BludiscMenu as eBludiscMenu
     from enigma import eServiceReference
@@ -433,14 +447,14 @@ if pluginPresent.BludiscPlayer:
             self.session.openWithCallback(self.moviefinished, BludiscPlayer, newref, self.file_name, main_movie)
         
         def exit(self):
-            from ISOInfo import ISOInfo
+            from ServiceProvider import ISOInfo
             ISOInfo().umount()
             self.close()
 
 def movieSelected(self, service):
     if service is not None:
         if isinstance(service, eServiceReferenceDvd) and service.isIsoImage():
-            from ISOInfo import ISOInfo
+            from ServiceProvider import ISOInfo
             iso = ISOInfo()
             if iso.getFormatISO9660(service) != ISOInfo.DVD:
                 iso_format = iso.getFormat(service)
