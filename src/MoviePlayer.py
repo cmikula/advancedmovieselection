@@ -433,14 +433,14 @@ if pluginPresent.BludiscPlayer:
             self.session.openWithCallback(self.moviefinished, BludiscPlayer, newref, self.file_name, main_movie)
         
         def exit(self):
-            from ServiceProvider import ISOInfo
+            from ISOInfo import ISOInfo
             ISOInfo().umount()
             self.close()
 
 def movieSelected(self, service):
     if service is not None:
         if isinstance(service, eServiceReferenceDvd) and service.isIsoImage():
-            from ServiceProvider import ISOInfo
+            from ISOInfo import ISOInfo
             iso = ISOInfo()
             if iso.getFormatISO9660(service) != ISOInfo.DVD:
                 iso_format = iso.getFormat(service)

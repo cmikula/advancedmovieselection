@@ -25,7 +25,8 @@ from enigma import ePicLoad, eTimer
 from Tools.Directories import fileExists
 import os
 from Components.config import config
-from ServiceProvider import eServiceReferenceDvd, getServiceInfoValue, ServiceCenter, ISOInfo, eServiceReferenceBludisc
+from ServiceProvider import eServiceReferenceDvd, getServiceInfoValue, ServiceCenter, eServiceReferenceBludisc
+from ISOInfo import ISOInfo
 from enigma import iServiceInformation, eServiceReference
 from os import environ
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
