@@ -33,8 +33,8 @@ from Screens.InfoBar import MoviePlayer
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_SKIN
 from enigma import ePoint, eTimer, iPlayableService
 from Tools import Notifications
-from Screens.ChoiceBox import ChoiceBox
 from Components.Sources.ServiceEvent import ServiceEvent
+#from ServiceProvider import ServiceEvent
 from Components.Sources.StaticText import StaticText
 from MoviePreview import MoviePreview
 from Components.Label import Label
@@ -440,14 +440,14 @@ if pluginPresent.BludiscPlayer:
             self.session.openWithCallback(self.moviefinished, BludiscPlayer, newref, self.file_name, main_movie)
         
         def exit(self):
-            from ServiceProvider import ISOInfo
+            from ISOInfo import ISOInfo
             ISOInfo().umount()
             self.close()
 
 def movieSelected(self, service):
     if service is not None:
         if isinstance(service, eServiceReferenceDvd) and service.isIsoImage():
-            from ServiceProvider import ISOInfo
+            from ISOInfo import ISOInfo
             iso = ISOInfo()
             if iso.getFormatISO9660(service) != ISOInfo.DVD:
                 iso_format = iso.getFormat(service)
