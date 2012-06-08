@@ -79,8 +79,8 @@ class EventViewBase:
         ref = self.currentService
         description = event.getExtendedDescription()
         self["epg_description"].setText(description)
-        from enigma import eServiceCenter
-        serviceHandler = eServiceCenter.getInstance()
+        from ServiceProvider import ServiceCenter
+        serviceHandler = ServiceCenter.getInstance()
         info = serviceHandler.info(ref)
         name = info and info.getName(ref) or _("this recording")
         if name.endswith(".ts"):
