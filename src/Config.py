@@ -23,6 +23,7 @@
 from __init__ import _
 from Tools.Directories import resolveFilename, SCOPE_HDD
 from Components.config import config, ConfigSubsection, ConfigText, ConfigYesNo, ConfigInteger, ConfigSelection, ConfigClock
+from ServiceProvider import printStackTrace
 
 config.AdvancedMovieSelection = ConfigSubsection()
 config.AdvancedMovieSelection.wastelist_buildtype = ConfigSelection(default="listMovies" , choices=[("listMovies", _("Only current location")), ("listAllMovies", _("Current location and all subdirectories")), ("listAllMoviesMedia", _("All directorys below '/media'")) ])
@@ -192,7 +193,6 @@ def createBackup(path="/media/hdd/"):
     return file_name
 
 def loadBackup(file_name):
-    from ServiceProvider import printStackTrace
     print "load backup", file_name 
     backup = open(file_name, 'rb')
     for line in backup.readlines():
