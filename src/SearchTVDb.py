@@ -715,6 +715,7 @@ class TheTVDBMain(Screen, InfoLoadChoice):
         if text == self.TRAILER_SEARCH_TEXT:
             if pluginPresent.YTTrailer:
                 self.setTitle(_("Details for: %s") % (self.getInfoText()))
+                from Plugins.Extensions.YTTrailer.plugin import YTTrailerList
                 self.session.open(YTTrailerList, self.searchTitle)
         elif text == self.SHOW_ALL_SERIES_TEXT:
             self.showSeriesList()

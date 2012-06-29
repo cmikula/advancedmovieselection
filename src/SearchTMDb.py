@@ -492,6 +492,7 @@ class TMDbMain(Screen, InfoLoadChoice):
                     self.setTitle(_("Search result for: %s") % self.searchTitle)
                 else:
                     self.setTitle(_("Details for: %s") % title)
+                from Plugins.Extensions.YTTrailer.plugin import YTTrailerList
                 self.session.open(YTTrailerList, title)
 
     def ok_pressed(self):
