@@ -561,6 +561,16 @@ def decodeCertification(cert):
     if certification.has_key(cert):
         return certification[cert]
 
+def nextImageIndex(movie):
+    if len(movie['images']) > 1:
+        item = movie['images'].pop(0)
+        movie['images'].append(item)
+
+def prevImageIndex(movie):
+    if len(movie['images']) > 1:
+        item = movie['images'].pop(-1)
+        movie['images'].insert(0, item)
+
 def main():
     results = search("Fight Club")
     searchResult = results[0]
@@ -571,7 +581,14 @@ def main():
     print "Producers:"
     for prodr in movie['cast']['producer']:
         print " " * 4, prodr['name']
-    print movie['images']
+    print movie['images'][0]['thumb']
+    
+    nextImageIndex(movie)
+    print movie['images'][0]['thumb']
+    prevImageIndex(movie)
+    print movie['images'][0]['thumb']
+    print movie['images'][len(movie['images'])-1]['thumb']
+    
     for genreName in movie['categories']['genre']:
         print "%s (%s)" % (genreName, movie['categories']['genre'][genreName])
 

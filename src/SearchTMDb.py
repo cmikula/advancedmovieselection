@@ -20,7 +20,7 @@
 #  distributed other than under the conditions noted above.
 #
 from __init__ import _
-import tmdb, urllib, shutil
+import tmdb, urllib, shutil, os
 from enigma import RT_WRAP, RT_VALIGN_CENTER, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, gFont, eListbox, eListboxPythonMultiContent
 from Components.GUIComponent import GUIComponent
 from Screens.Screen import Screen
@@ -117,8 +117,6 @@ class TMDbList(GUIComponent, object):
         self.l.setFont(0, gFont("Regular", 20))
         self.l.setFont(1, gFont("Regular", 17))
         self.l.setItemHeight(140)
-        if not os_path.exists(IMAGE_TEMPFILE):
-            os_mkdir(IMAGE_TEMPFILE)
         self.picloader = PicLoader(92, 138)
 
     def destroy(self):
@@ -145,10 +143,11 @@ class TMDbList(GUIComponent, object):
             cover_url = images[0]['thumb']
         if not cover_url:
             png = self.picloader.load(nocover)
-        else:    
+        else:
             parts = cover_url.split("/")
             filename = os_path.join(IMAGE_TEMPFILE , movie_id + parts[-1])
-            urllib.urlretrieve(cover_url, filename)
+            if not os.path.exists(filename):
+                urllib.urlretrieve(cover_url, filename)
             png = self.picloader.load(filename)        
         res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 1, 92, 138, png))
         res.append((eListboxPythonMultiContent.TYPE_TEXT, 100, 5, width - 100 , 20, 0, RT_HALIGN_LEFT | RT_VALIGN_CENTER, "%s" % name.encode('utf-8', 'ignore')))
@@ -176,7 +175,7 @@ class TMDbList(GUIComponent, object):
     
     def getLength(self):
         return len(self.list)
-
+    
 class TMDbMain(Screen, InfoLoadChoice):
     SHOW_DETAIL_TEXT = _("Show movie detail")
     SHOW_SEARCH_RESULT_TEXT = _("Show search result")
@@ -194,18 +193,23 @@ class TMDbMain(Screen, InfoLoadChoice):
         InfoLoadChoice.__init__(self, self.callback_green_pressed)
         self.skinName = SkinTools.appendResolution("TMDbMain")
         self.service = service
+        self.movies = []
+        if not os_path.exists(IMAGE_TEMPFILE):
+            os_mkdir(IMAGE_TEMPFILE)
         self["actions"] = ActionMap(["WizardActions", "DirectionActions", "ColorActions", "EPGSelectActions", "InfobarActions"],
         {
             "ok": self.ok_pressed,
             "back": self.cancel,
             "green": self.green_pressed,
-            "red": self.red_pressed,
+            "red": self.ok_pressed,
             "blue": self.blue_pressed,
             "yellow": self.yellow_pressed,
             "upUp": self.pageUp,
             "leftUp": self.pageUp,
             "downUp": self.pageDown,
             "rightUp": self.pageDown,
+            "left": self.left,
+            "right": self.right,
         }, -1)
         self["list"] = TMDbList()
         self["tmdblogo"] = Pixmap()
@@ -234,12 +238,8 @@ class TMDbMain(Screen, InfoLoadChoice):
         self.useTMDbInfoAsEventInfo = True
         self.timer = eTimer()
         self.timer.callback.append(self.searchForMovies)
-        self.red_button_timer = eTimer()
-        self.red_button_timer.callback.append(self.callback_red_pressed)
         self.blue_button_timer = eTimer()
         self.blue_button_timer.callback.append(self.callback_blue_pressed) 
-        self.ok_button_timer = eTimer()
-        self.ok_button_timer.callback.append(self.callback_ok_pressed) 
         self.onClose.append(self.deleteTempDir)
         self.onLayoutFinish.append(self.layoutFinished)
         self.view_mode = self.SHOW_SEARCH
@@ -291,11 +291,11 @@ class TMDbMain(Screen, InfoLoadChoice):
                 self["status"].setText(_("No data found for ' %s ' at themoviedb.org!") % self.searchTitle)
                 self.session.openWithCallback(self.askForSearchCallback, MessageBox, _("No data found for ' %s ' at themoviedb.org!\nDo you want to edit the search name?") % self.searchTitle)
                 return             
-            movies = []
+            self.movies = []
             for searchResult in results:
                 movie_id = searchResult['id']
-                movies.append((tmdb.getMovieInfo(searchResult['id']), movie_id),)
-            self["list"].setList(movies)
+                self.movies.append((tmdb.getMovieInfo(searchResult['id']), movie_id),)
+            self["list"].setList(self.movies)
             self.showMovieList()
         except Exception, e:
             self["status"].setText(_("Error!\n%s" % e))
@@ -303,11 +303,15 @@ class TMDbMain(Screen, InfoLoadChoice):
             return
 
     def showMovieList(self):
-        self.updateView(self.SHOW_RESULT_LIST)
         count = self["list"].getLength()
         if count == 1:
             txt = (_("Total %s") % count + ' ' + _("movie found"))
+            cur = self["list"].getCurrent()
+            if cur is not None:
+                self.getMovieInfo(cur[0])
+                self.updateView(self.SHOW_MOVIE_DETAIL)
         else:
+            self.updateView(self.SHOW_RESULT_LIST)
             txt = (_("Total %s") % count + ' ' + _("movies found"))
         self["result_txt"].setText(txt) 
         
@@ -343,19 +347,7 @@ class TMDbMain(Screen, InfoLoadChoice):
                     self["description"].setText(description_text)
                 else:
                     self["description"].setText(_("No description for ' %s ' at themoviedb.org found!") % name)
-                cover_url = None
-                images = movie['images']
-                if len(images) > 0:
-                    cover_url = images[0]['thumb']
-                if not cover_url:
-                    self.setCover(nocover)
-                else:    
-                    parts = cover_url.split("/")
-                    filename = os_path.join(IMAGE_TEMPFILE , movie['id'] + parts[-1])
-                    if os_path.exists(filename):
-                        self.setCover(filename)
-                    else:
-                        self.setCover(nocover)
+                
                 if released:
                     extended = (_("Appeared: %s") % released) + ' / '
                 if runtime:
@@ -422,20 +414,59 @@ class TMDbMain(Screen, InfoLoadChoice):
                     else:
                         self["vote"].setText(_("No user voted!"))
             self.updateView(self.SHOW_MOVIE_DETAIL)
+            self.updateCover(movie)
         except Exception, e:
             self["status"].setText(_("Error!\n%s" % e))
             self["status"].show()
             return
-
-    def setCover(self, image):
-        filename = image
-        self.picload.startDecode(filename)
 
     def paintCoverPixmapCB(self, picInfo=None):
         ptr = self.picload.getData()
         if ptr != None:
             self["cover"].instance.setPixmap(ptr.__deref__())
             self["cover"].show()
+
+    def updateCover(self, movie):
+        if self.view_mode != self.SHOW_MOVIE_DETAIL:
+            return
+        images = movie['images']
+        cover_url = None
+        if len(images) > 0:
+            cover_url = images[0]['thumb']
+        if not cover_url:
+            self.picload.startDecode(nocover)
+        else:    
+            parts = cover_url.split("/")
+            filename = os_path.join(IMAGE_TEMPFILE , movie['id'] + parts[-1])
+            if not os.path.exists(filename):
+                urllib.urlretrieve(cover_url, filename)
+            if os_path.exists(filename):
+                self.picload.startDecode(filename)
+            else:
+                self.picload.startDecode(nocover)
+
+    def updateImageIndex(self, method):
+        if len(self.movies) == 0:
+            return
+        index = self["list"].getCurrentIndex()
+        cur = self["list"].getCurrent()
+        movie = cur[0]
+        if len(movie['images']) == 0:
+            return
+        method(movie)
+        cnt = 0
+        while not movie['images'][0].has_key(config.AdvancedMovieSelection.coversize.value) and cnt < len(movie['images']):
+            method(movie)
+            cnt += 1
+        self.movies[index] = (movie, cur[1])
+        self["list"].l.invalidateEntry(index)
+        self.updateCover(movie)
+
+    def left(self):
+        self.updateImageIndex(tmdb.prevImageIndex)
+    
+    def right(self):
+        self.updateImageIndex(tmdb.nextImageIndex)
 
     def checkConnection(self):
         try:
@@ -465,34 +496,12 @@ class TMDbMain(Screen, InfoLoadChoice):
 
     def ok_pressed(self):
         if self.view_mode == self.SHOW_RESULT_LIST:
-            current_movie = self["list"].getCurrent()[0]
-            title = current_movie["name"].encode('utf-8')
-            self.setTitle(_("Getting show details for ' %s ', please wait ...") % title)
-        elif self.view_mode == self.SHOW_MOVIE_DETAIL:
-            self.setTitle(_("Getting search result for ' %s ', please wait ...") % self.searchTitle)
-        self.ok_button_timer.start(100, True)
-
-    def callback_ok_pressed(self):
-        if self.view_mode == self.SHOW_RESULT_LIST:
             cur = self["list"].getCurrent()
             if cur is not None:
                 self.getMovieInfo(cur[0])
-        elif self.view_mode == self.SHOW_MOVIE_DETAIL:
-            self.searchForMovies()
-
-    def red_pressed(self):
-        text = self["key_red"].getText()
-        if text == self.SHOW_DETAIL_TEXT:
-            current_movie = self["list"].getCurrent()[0]
-            title = current_movie["name"].encode('utf-8')
-            self.setTitle(_("Getting show details for ' %s ', please wait ...") % title)   
-        elif text == self.SHOW_SEARCH_RESULT_TEXT:
-            self.setTitle(_("Getting search result for ' %s ', please wait ...") % self.searchTitle)
-        self.red_button_timer.start(100, True)   
-            
-    def callback_red_pressed(self):
-        text = self["key_red"].getText()
-        self.buttonAction(text)
+                self.updateView(self.SHOW_MOVIE_DETAIL)
+        else:
+            self.updateView(self.SHOW_RESULT_LIST)
 
     def green_pressed(self):
         self.setTitle(_("Save Info/Cover for ' %s ', please wait ...") % self.searchTitle)  
