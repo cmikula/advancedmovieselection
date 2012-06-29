@@ -4,4 +4,4 @@
 __version__ = "2.8"
 __date__ = "?"
 __branch__ = "?"
-__refision__ = "?"
+__revision__ = "?"

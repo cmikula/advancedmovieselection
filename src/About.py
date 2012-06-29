@@ -94,7 +94,7 @@ class AdvancedMovieSelectionAbout(Screen):
         }, -1)
         v = _("Version:")
         b = _("Branch:")
-        info = "%s %s.r%s, %s\n  %s %s" % (v, Version.__version__, Version.__refision__, Version.__date__, b, Version.__branch__)
+        info = "%s %s.r%s, %s\n  %s %s" % (v, Version.__version__, Version.__revision__, Version.__date__, b, Version.__branch__)
         self["version"] = StaticText(info)
         self["author"] = StaticText(_("Developer:\n  JackDaniel, cmikula"))
         self["translation"] = StaticText(_("Thanks for translation to:\n") + '  nl=Bschaar')
