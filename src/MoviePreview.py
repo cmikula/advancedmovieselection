@@ -130,13 +130,7 @@ class VideoPreview():
         self.service = None
         self.currentlyPlayingService = None
         self.cut_list = None
-        from MoviePlayer import PlayerInstance
         self.lastService = self.session.nav.getCurrentlyPlayingServiceReference()
-        if PlayerInstance:
-            if PlayerInstance.isCurrentlyPlaying():
-                self.lastService = None
-            else:
-                self.lastService = PlayerInstance.lastservice
         self.updateVideoPreviewSettings()
         self.onClose.append(self.__playLastService)
         self.dvdScreen = self.session.instantiateDialog(DVDOverlay)
@@ -197,13 +191,13 @@ class VideoPreview():
 
     def playMovie(self):
         if self.service and self.enabled:
-            print "play service"
             if self.service.flags & eServiceReference.mustDescent or isinstance(self.service, eServiceReferenceBludisc):
                 print "Skipping video preview"
                 self.__playLastService()
                 return
-            from MoviePlayer import PlayerInstance
-            if PlayerInstance and PlayerInstance.isCurrentlyPlaying():
+            from MoviePlayer import player
+            if player and player.isPlaying():
+                print "Skipping video preview"
                 return
             cpsr = self.session.nav.getCurrentlyPlayingServiceReference()
             if cpsr and cpsr == self.service:
@@ -218,13 +212,13 @@ class VideoPreview():
                         self.__playLastService()
                         return
                 newref = eServiceReference(4369, 0, self.service.getPath())
-                print "play", newref.toString()
                 self.session.nav.playService(newref)
                 subs = self.getServiceInterface("subtitle")
                 if subs:
                     subs.enableSubtitles(self.dvdScreen.instance, None)
             else:
                 self.session.nav.playService(self.service)
+            print "play", self.service.getPath()
             self.currentlyPlayingService = self.service
             seekable = self.getSeek()
             if seekable:

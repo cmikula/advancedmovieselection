@@ -1056,13 +1056,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                 self.gotFilename(current.getPath())
             else:
                 self.saveconfig()
-                from MoviePlayer import PlayerInstance
-                if isinstance(current, eServiceReferenceDvd):
-                    from MoviePlayer import movieSelected
-                    movieSelected(self, current)
-                    current = None
-                elif PlayerInstance is not None:
-                    PlayerInstance.playerClosed(current)
                 self.close(current)
 
     def doContext(self, retval=None):

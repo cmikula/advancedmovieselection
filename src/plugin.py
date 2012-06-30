@@ -44,8 +44,7 @@ def autostart(reason, **kwargs):
         session = kwargs["session"]
         if not config.AdvancedMovieSelection.ml_disable.value:
             try:
-                from MoviePlayer import showMovies, movieSelected
-                InfoBar.movieSelected = movieSelected
+                from MoviePlayer import showMovies
                 value = config.AdvancedMovieSelection.movie_launch.value
                 if value == "showMovies": InfoBar.showMovies = showMovies
                 elif value == "showTv": InfoBar.showTv = showMovies

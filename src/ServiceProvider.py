@@ -40,8 +40,8 @@ import ping
 from bisect import insort
 
 def cutlist_changed(self):
-    from MoviePlayer import PlayerInstance
-    if PlayerInstance:
+    from MoviePlayer import player
+    if player and player.isPlaying():
         self.cutlist = [] # we need to update the property 
     self.cutlist = self.source.cutlist or [ ]
 
@@ -591,6 +591,14 @@ class CutListSupportBase:
         self.jump_first_play_last = None
         self.currently_playing = False
 
+    def playNewService(self, service):
+        if self.currentService == service:
+            return
+        self.ENABLE_RESUME_SUPPORT = True
+        self.playerClosed(service)
+        self.currentService = service
+        self.session.nav.playService(service)
+    
     def getCuesheet(self):
         service = self.session.nav.getCurrentService()
         if service is None:
