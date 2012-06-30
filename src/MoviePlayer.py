@@ -470,6 +470,7 @@ class PlayerChoice():
     def __init__(self, session):
         self.session = session
         self.playing = False
+        self.dialog = None
 
     def getBestPlayableService(self, service):
         if isinstance(service, eServiceReferenceDvd) and service.isIsoImage():
@@ -505,15 +506,18 @@ class PlayerChoice():
         return player
 
     def playService(self, service):
-        self.newService = service
         if service is not None:
             service = self.getBestPlayableService(service)
             player = self.getPlayerForService(service)
             if player:
                 self.playing = True
-                self.session.openWithCallback(self.playerClosed, player, service)
-        elif isinstance(self.session.current_dialog, MoviePlayerExtended):
-            self.session.current_dialog.close()
+                dlg = self.dialog
+                self.dialog = self.session.openWithCallback(self.playerClosed, player, service)
+                if dlg:
+                    dlg.close()
+        elif self.dialog:
+            self.dialog.close()
+            self.dialog = None
     
     def playerClosed(self, service=None):
         self.playing = False
