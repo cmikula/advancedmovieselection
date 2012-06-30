@@ -42,15 +42,15 @@ from Components.ServiceEventTracker import ServiceEventTracker
 from Globals import pluginPresent
 from Version import __version__
 
-player = None
+playerChoice = None
 
 def showMovies(self):
-    initPlayer(self.session)
+    initPlayerChoice(self.session)
     self.lastservice = self.session.nav.getCurrentlyPlayingServiceReference()
     if config.AdvancedMovieSelection.startonfirst.value:
-        self.session.openWithCallback(player.play, MovieSelection)
+        self.session.openWithCallback(playerChoice.playService, MovieSelection)
     else:
-        self.session.openWithCallback(player.play, MovieSelection, Current.selection)
+        self.session.openWithCallback(playerChoice.playService, MovieSelection, Current.selection)
     if config.AdvancedMovieSelection.version.value != __version__:
         from About import AboutDetails
         self.session.open(AboutDetails)
@@ -144,12 +144,12 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, PlayerBase):
         if config.AdvancedMovieSelection.exitkey.value and config.AdvancedMovieSelection.exitprompt.value:
             self["closeactions"] = HelpableActionMap(self, "WizardActions",
                 {
-                    "back": (self.leavePlayer, _("Leave movie player"))
+                    "back": (self.leavePlayer, _("Leave movie playerChoice"))
                 })
         if config.AdvancedMovieSelection.exitkey.value and not config.AdvancedMovieSelection.exitprompt.value: 
             self["closeactions"] = HelpableActionMap(self, "WizardActions",
                 {
-                    "back": (self.close, _("Leave movie player"))
+                    "back": (self.close, _("Leave movie playerChoice"))
                 })
         if config.AdvancedMovieSelection.use_original_movieplayer_summary.value == True: 
             self.__event_tracker = ServiceEventTracker(screen=self, eventmap=
@@ -263,8 +263,8 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, PlayerBase):
     
     def newServiceSelected(self, service):
         if service:
-            s = player.getBestPlayableService(service)
-            p = player.getPlayerForService(s)
+            s = playerChoice.getBestPlayableService(service)
+            p = playerChoice.getPlayerForService(s)
             if not isinstance(self, p):
                 self.playerClosed()
                 self.close(service)
@@ -342,8 +342,8 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, PlayerBase):
             self.returning = True
             self.session.nav.stopService()
             self.session.nav.playService(self.lastservice) # Fix busy tuner after stby with playing service
-            player.playing = False
-            self.session.openWithCallback(player.play, MovieSelection, ref, True)
+            playerChoice.playing = False
+            self.session.openWithCallback(playerChoice.playService, MovieSelection, ref, True)
         elif answer == "restart":
             self.doSeek(0)
             self.setSeekState(self.SEEK_STATE_PLAY)
@@ -400,8 +400,8 @@ if pluginPresent.DVDPlayer:
 
         def newServiceSelected(self, service):
             if service:
-                s = player.getBestPlayableService(service)
-                p = player.getPlayerForService(s)
+                s = playerChoice.getBestPlayableService(service)
+                p = playerChoice.getPlayerForService(s)
                 if not isinstance(self, p):
                     self.close(service)
                 elif self.currentService != service: 
@@ -457,7 +457,7 @@ if pluginPresent.BludiscPlayer:
             newref = eServiceReference(0x04, 0, "%s:%03d" % (self.bd_mountpoint, idx))
             newref.setData(1,1)
             newref.setName("Bludisc title %d" % idx)
-            print "[Bludisc] play: ", name, newref.toString()
+            print "[Bludisc] playService: ", name, newref.toString()
             main_movie = idx == self.getMainMovieIndex()
             self.session.openWithCallback(self.moviefinished, BludiscPlayer, newref, self.file_name, main_movie)
         
@@ -466,7 +466,7 @@ if pluginPresent.BludiscPlayer:
             ISOInfo().umount()
             self.close()
 
-class Player():
+class PlayerChoice():
     def __init__(self, session):
         self.session = session
         self.playing = False
@@ -494,7 +494,7 @@ class Player():
                 if pluginPresent.DVDPlayer:
                     player = DVDPlayer
                 else:
-                    self.session.open(MessageBox, _("No DVD-Player found!"), MessageBox.TYPE_ERROR, 10)
+                    self.session.open(MessageBox, _("No DVD-PlayerChoice found!"), MessageBox.TYPE_ERROR, 10)
             elif isinstance(service, eServiceReferenceBludisc):
                 if pluginPresent.BludiscPlayer:
                     player = BludiscMenu
@@ -504,7 +504,7 @@ class Player():
                 player = MoviePlayerExtended
         return player
 
-    def play(self, service):
+    def playService(self, service):
         self.newService = service
         if service is not None:
             service = self.getBestPlayableService(service)
@@ -518,7 +518,7 @@ class Player():
     def playerClosed(self, service=None):
         self.playing = False
         if service:
-            self.play(service)
+            self.playService(service)
     
     def isPlaying(self):
         return self.playing
@@ -526,8 +526,8 @@ class Player():
     def stopPlaying(self):
         self.playing = False
 
-def initPlayer(session):
-    global player
-    if player:
+def initPlayerChoice(session):
+    global playerChoice
+    if playerChoice:
         return
-    player = Player(session)
+    playerChoice = PlayerChoice(session)

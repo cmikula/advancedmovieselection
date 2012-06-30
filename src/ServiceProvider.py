@@ -40,8 +40,8 @@ import ping
 from bisect import insort
 
 def cutlist_changed(self):
-    from MoviePlayer import player
-    if player and player.isPlaying():
+    from MoviePlayer import playerChoice
+    if playerChoice and playerChoice.isPlaying():
         self.cutlist = [] # we need to update the property 
     self.cutlist = self.source.cutlist or [ ]
 

@@ -195,8 +195,8 @@ class VideoPreview():
                 print "Skipping video preview"
                 self.__playLastService()
                 return
-            from MoviePlayer import player
-            if player and player.isPlaying():
+            from MoviePlayer import playerChoice
+            if playerChoice and playerChoice.isPlaying():
                 print "Skipping video preview"
                 return
             cpsr = self.session.nav.getCurrentlyPlayingServiceReference()
