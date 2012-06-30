@@ -157,7 +157,7 @@ def genBrandingInfo(package_revision=None):
             print "write new version file, for revision", branding_info['svn_revision']
             new_version.append("__date__ = \"" + date.today().strftime("%Y.%m.%d") + "\"\r\n")
             new_version.append("__branch__ = \"" + branding_info["__branch__"] + "\"\r\n")
-            new_version.append("__refision__ = \"" + branding_info['svn_revision'] + "\"\r\n") 
+            new_version.append("__revision__ = \"" + branding_info['svn_revision'] + "\"\r\n") 
             version_file = open(PLUGIN_VERSION_FILE, 'wb')
             version_file.writelines(new_version)
             version_file.close()
