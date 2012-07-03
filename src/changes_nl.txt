@@ -249,7 +249,7 @@ versie: 2.6.1
 * fix: crash bij ledigen prullemand
 * fix: verwijderen van dvd´s
 
-version: 2.6.2
+versie: 2.6.2
 * fix: DVDPlayer crash (opendreambox-2.0.0)
 
 versie: 2.7
@@ -261,11 +261,12 @@ versie: 2.7
 * nieuw: filmen kunnen gefilterd worden volgens de korte beschrijving
 * nieuw: keuze of info van tmdb en tvdb overschreven wordt
 * nieuw: backup en herstellen van de instellingen
-* nieuw: automatisch cover downloaden van tmdb na timeropname
 OPGELET voor de skinners, AdvancedMovieSelection_Preview_HD, AdvancedMovieSelection_Preview_noDescription_HD, AdvancedMovieSelection_Preview_noCover_HD, AdvancedMovieSelection_Preview_noDescription_noCover_HD,
 AdvancedMovieSelection_Preview_XD, AdvancedMovieSelection_Preview_noDescription_XD, AdvancedMovieSelection_Preview_noCover_XD, AdvancedMovieSelection_Preview_noDescription_noCover_XD (SD is niet zinvol)
 AdvancedKeyBoardHD, AdvancedKeyBoardXD, AdvancedKeyBoardSD, AdvancedTextInputHelpDialogHD, AdvancedTextInputHelpDialogXD und AdvancedTextInputHelpDialogSD toegevoegd
 
-versie: 2.8
-* nieuw: automatisch tonen de veranderingen na update 
+version: 2.8
+* nieuw: wijzigingen worden na update automatisch weergegeven
 * nieuw: DVDPlayerExtended met CoverPreview en InfoView
+* nieuw: stoppen afspelen dvd met exit zonder vraag
+* nieuw: cover van tmdb kan gekozen worden met rechts/links
