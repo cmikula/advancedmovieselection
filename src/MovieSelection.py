@@ -504,7 +504,11 @@ class MovieContextMenu(Screen):
 
     def execPlugin(self, plugin):
         if not (self.service.flags & eServiceReference.mustDescent):
-            plugin(session=self.session, service=self.service)
+            print "Starting plugin:", plugin.description
+            if len(self.csel.list.multiSelection) > 0:
+                plugin(self.session, self.service, self.csel.list.multiSelection)
+            else:
+                plugin(self.session, self.service)
 
     def delete(self):
         self.csel.delete()
