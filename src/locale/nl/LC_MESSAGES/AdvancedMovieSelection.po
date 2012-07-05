@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-30 17:22+0100\n"
-"PO-Revision-Date: 2012-05-31 08:25+0100\n"
+"POT-Creation-Date: 2012-07-03 17:53+0100\n"
+"PO-Revision-Date: 2012-07-04 08:13+0100\n"
 "Last-Translator: bschaar\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
@@ -67,7 +67,7 @@ msgstr "Over de Geavanceerde Filmselectie"
 msgid "Advanced Movie Selection - History"
 msgstr "Geavanceerde Filmselectie - Geschiedenis"
 
-#: ../AdvancedKeyboard.py:96
+#: ../AdvancedKeyboard.py:98
 msgid "Advanced Movie Selection - Input help"
 msgstr "Menu Geavanceerde Filmselectie - Ingave help"
 
@@ -621,7 +621,7 @@ msgstr "Hotplug-media weergeven:"
 
 #: ../AdvancedMovieSelectionSetup.py:430
 msgid "Enable this option to use USB-Devices."
-msgstr "Activeer deze optie om USB-media te bebruiken."
+msgstr "Activeer deze optie om USB-media weer te geven."
 
 #: ../AdvancedMovieSelectionSetup.py:431
 msgid "Show bookmarks in movielist:"
@@ -904,14 +904,14 @@ msgid "Aborted by user!!"
 msgstr "Annulatie door gebruiker!!"
 
 #: ../AdvancedMovieSelectionSetup.py:591
-#: ../Config.py:59
 #: ../Config.py:60
 #: ../Config.py:61
+#: ../Config.py:62
 msgid "Nothing"
 msgstr "niets toegewezen"
 
 #: ../AdvancedMovieSelectionSetup.py:591
-#: ../Config.py:58
+#: ../Config.py:59
 msgid "Delete"
 msgstr "Verwijderen"
 
@@ -928,22 +928,22 @@ msgid "Filter by description"
 msgstr "Filter volgens beschrijving"
 
 #: ../AdvancedMovieSelectionSetup.py:591
-#: ../Config.py:65
+#: ../Config.py:66
 msgid "Home"
 msgstr "Home"
 
 #: ../AdvancedMovieSelectionSetup.py:591
-#: ../Config.py:62
+#: ../Config.py:63
 msgid "Bookmark 1"
 msgstr "Favoriet 1"
 
 #: ../AdvancedMovieSelectionSetup.py:591
-#: ../Config.py:63
+#: ../Config.py:64
 msgid "Bookmark 2"
 msgstr "Favoriet 2"
 
 #: ../AdvancedMovieSelectionSetup.py:591
-#: ../Config.py:64
+#: ../Config.py:65
 msgid "Bookmark 3"
 msgstr "Favoriet 3"
 
@@ -1205,7 +1205,7 @@ msgid "Status:"
 msgstr "Status:"
 
 #: ../ClientSetup.py:76
-#: ../Config.py:115
+#: ../Config.py:116
 msgid "Standby"
 msgstr "Standby"
 
@@ -1310,261 +1310,261 @@ msgstr "Zoeken naar clients, eventjes geduld ..."
 msgid "Manual search finished"
 msgstr "Manueel zoeken klaar"
 
-#: ../Config.py:28
+#: ../Config.py:29
 msgid "Only current location"
 msgstr "Enkel actuele locatie"
 
-#: ../Config.py:28
+#: ../Config.py:29
 msgid "Current location and all subdirectories"
 msgstr "Actuele locatie en alle submappen"
 
-#: ../Config.py:28
+#: ../Config.py:29
 msgid "All directorys below '/media'"
 msgstr "Alle mappen onder '/media'"
 
-#: ../Config.py:44
+#: ../Config.py:45
 msgid "German (without Year)"
 msgstr "Duits (zonder jaar)"
 
-#: ../Config.py:44
+#: ../Config.py:45
 msgid "German (with Year)"
 msgstr "Duits (met jaar)"
 
-#: ../Config.py:44
+#: ../Config.py:45
 msgid "German (with Starttime)"
 msgstr "Duits (met starttijd)"
 
-#: ../Config.py:44
+#: ../Config.py:45
 msgid "Enigma 2 default"
 msgstr "E2 Standaard"
 
-#: ../Config.py:44
+#: ../Config.py:45
 msgid "English (without Year)"
 msgstr "Engels (zonder jaar)"
 
-#: ../Config.py:44
+#: ../Config.py:45
 msgid "English (with Year)"
 msgstr "Engels (met jaar)"
 
-#: ../Config.py:44
+#: ../Config.py:45
 msgid "English (with Starttime)"
 msgstr "Engels (met starttijd)"
 
-#: ../Config.py:45
 #: ../Config.py:46
 #: ../Config.py:47
 #: ../Config.py:48
+#: ../Config.py:49
 msgid "Yellow"
 msgstr "Geel"
 
-#: ../Config.py:45
 #: ../Config.py:46
 #: ../Config.py:47
 #: ../Config.py:48
+#: ../Config.py:49
 msgid "Blue"
 msgstr "Blauw"
 
-#: ../Config.py:45
 #: ../Config.py:46
 #: ../Config.py:47
 #: ../Config.py:48
+#: ../Config.py:49
 msgid "Red"
 msgstr "Rood"
 
-#: ../Config.py:45
 #: ../Config.py:46
 #: ../Config.py:47
 #: ../Config.py:48
+#: ../Config.py:49
 msgid "Black"
 msgstr "Zwart"
 
-#: ../Config.py:45
 #: ../Config.py:46
 #: ../Config.py:47
 #: ../Config.py:48
+#: ../Config.py:49
 msgid "Green"
 msgstr "Groen"
 
-#: ../Config.py:48
+#: ../Config.py:49
 msgid "Grey"
 msgstr "Grijs"
 
-#: ../Config.py:48
+#: ../Config.py:49
 msgid "Orange"
 msgstr "Oranje"
 
-#: ../Config.py:71
+#: ../Config.py:72
 msgid "Homebutton"
 msgstr "HOME-knop"
 
-#: ../Config.py:72
+#: ../Config.py:73
 msgid "Own text 1"
 msgstr "Eigen Tekst 1"
 
-#: ../Config.py:73
+#: ../Config.py:74
 msgid "Own text 2"
 msgstr "Eigen Tekst 2"
 
-#: ../Config.py:74
+#: ../Config.py:75
 msgid "Own text 3"
 msgstr "Eigen Tekst 3"
 
-#: ../Config.py:75
+#: ../Config.py:76
 msgid "Own text 4"
 msgstr "Eigen Tekst 4"
 
-#: ../Config.py:76
+#: ../Config.py:77
 msgid "No override"
 msgstr "Geen functie"
 
-#: ../Config.py:77
+#: ../Config.py:78
 msgid "Video-button"
 msgstr "Video-knop"
 
-#: ../Config.py:78
+#: ../Config.py:79
 msgid "TV-button"
 msgstr "TV-knop"
 
-#: ../Config.py:79
+#: ../Config.py:80
 msgid "Radio-button"
 msgstr "Radio-knop"
 
-#: ../Config.py:80
+#: ../Config.py:81
 msgid "Timeshift-button"
 msgstr "Timeshift-knop"
 
-#: ../Config.py:85
 #: ../Config.py:86
 #: ../Config.py:87
 #: ../Config.py:88
 #: ../Config.py:89
 #: ../Config.py:90
 #: ../Config.py:91
+#: ../Config.py:92
 msgid "Advanced Movie Selection info"
 msgstr "Info Geavanceerde Filmselectie"
 
-#: ../Config.py:85
-#: ../Config.py:88
+#: ../Config.py:86
 #: ../Config.py:89
 #: ../Config.py:90
+#: ../Config.py:91
 msgid "TMDb info"
 msgstr "Info TMDb"
 
-#: ../Config.py:85
 #: ../Config.py:86
-#: ../Config.py:89
-#: ../Config.py:91
+#: ../Config.py:87
+#: ../Config.py:90
+#: ../Config.py:92
 msgid "IMDb info"
 msgstr "Info IMDb"
 
-#: ../Config.py:85
-#: ../Config.py:87
-#: ../Config.py:90
+#: ../Config.py:86
+#: ../Config.py:88
 #: ../Config.py:91
+#: ../Config.py:92
 msgid "OFDb info"
 msgstr "Info OFDb"
 
-#: ../Config.py:107
+#: ../Config.py:108
 msgid "Original (1000x1500)"
 msgstr "Origineel (1000x1500)"
 
-#: ../Config.py:107
+#: ../Config.py:108
 msgid "Mid (500x750)"
 msgstr "Medium (500x750)"
 
-#: ../Config.py:107
+#: ../Config.py:108
 msgid "Cover (185x278)"
 msgstr "Cover (185x278)"
 
-#: ../Config.py:107
+#: ../Config.py:108
 msgid "Thumb (92x138)"
 msgstr "Mini (92x138)"
 
-#: ../Config.py:113
 #: ../Config.py:114
 #: ../Config.py:115
+#: ../Config.py:116
 msgid "Ask user"
 msgstr "Vraag gebruiker"
 
-#: ../Config.py:113
+#: ../Config.py:114
 msgid "Resume from last position"
 msgstr "Vanaf laatste positie starten"
 
-#: ../Config.py:113
+#: ../Config.py:114
 msgid "Start from the beginning"
 msgstr "Vanaf begin starten"
 
-#: ../Config.py:114
 #: ../Config.py:115
+#: ../Config.py:116
 msgid "Return to movie list"
 msgstr "Terug naar de filmselectie"
 
-#: ../Config.py:114
 #: ../Config.py:115
+#: ../Config.py:116
 msgid "Return to previous service"
 msgstr "Terug naar het TV-kanaal"
 
-#: ../Config.py:115
+#: ../Config.py:116
 msgid "Pause movie at end"
 msgstr "Aan het einde pauzeren"
 
-#: ../Config.py:115
+#: ../Config.py:116
 msgid "Shutdown"
 msgstr "Afsluiten"
 
-#: ../Config.py:128
+#: ../Config.py:129
 msgid "Disabled"
 msgstr "Uitgeschakeld"
 
-#: ../Config.py:128
+#: ../Config.py:129
 msgid "Daily"
 msgstr "Dagelijks"
 
-#: ../Config.py:128
+#: ../Config.py:129
 msgid "Every second day"
 msgstr "Elke tweede dag"
 
-#: ../Config.py:128
+#: ../Config.py:129
 msgid "Weekly"
 msgstr "Wekelijks"
 
-#: ../Config.py:128
+#: ../Config.py:129
 msgid "Every two weeks"
 msgstr "Elke twee weken"
 
-#: ../Config.py:128
+#: ../Config.py:129
 msgid "Monthly"
 msgstr "Maandelijks"
 
-#: ../Config.py:143
-#: ../Config.py:145
+#: ../Config.py:144
+#: ../Config.py:146
 msgid "0"
 msgstr "0"
 
-#: ../Config.py:143
-#: ../Config.py:145
+#: ../Config.py:144
+#: ../Config.py:146
 msgid "1"
 msgstr "1"
 
-#: ../Config.py:143
-#: ../Config.py:145
+#: ../Config.py:144
+#: ../Config.py:146
 msgid "2"
 msgstr "2"
 
-#: ../Config.py:143
-#: ../Config.py:145
+#: ../Config.py:144
+#: ../Config.py:146
 msgid "3"
 msgstr "3"
 
-#: ../Config.py:155
+#: ../Config.py:156
 msgid "Virtual and Numerical"
 msgstr "Virtueel en numerisch"
 
-#: ../Config.py:155
+#: ../Config.py:156
 msgid "Virtual"
 msgstr "Virtueel"
 
-#: ../Config.py:155
+#: ../Config.py:156
 msgid "Numerical"
 msgstr "Numerisch"
 
@@ -1815,26 +1815,26 @@ msgid "Records"
 msgstr "Opname loopt"
 
 #: ../MovieList.py:1009
-#: ../MovieSelection.py:1112
+#: ../MovieSelection.py:1109
 #: ../QuickButton.py:267
 msgid "VSR"
 msgstr "VZR"
 
-#: ../MoviePlayer.py:130
-#: ../MovieSelection.py:733
+#: ../MoviePlayer.py:122
+#: ../MovieSelection.py:737
 msgid "Show event details"
 msgstr "details weergeven"
 
-#: ../MoviePlayer.py:131
+#: ../MoviePlayer.py:123
 msgid "Open servicelist"
 msgstr "open servicelijst"
 
-#: ../MoviePlayer.py:136
-#: ../MoviePlayer.py:141
-msgid "Leave movie player"
-msgstr "Filmpspeler verlaten"
+#: ../MoviePlayer.py:147
+#: ../MoviePlayer.py:152
+msgid "Leave movie playerChoice"
+msgstr "Filmspelerkeuze verlaten"
 
-#: ../MoviePlayer.py:246
+#: ../MoviePlayer.py:257
 msgid ""
 "Not possible!\n"
 "MerlinEPG and CoolTVGuide or/and MerlinEPGCenter present or neither installed from this three plugins."
@@ -1842,67 +1842,67 @@ msgstr ""
 "Niet mogelijk!\n"
 "MerlinEPG en CoolTVGuide zijn beide geïnstalleerd, of geen van beide ist geïnstalleerd."
 
-#: ../MoviePlayer.py:266
-#: ../MoviePlayer.py:271
-#: ../MoviePlayer.py:382
+#: ../MoviePlayer.py:280
+#: ../MoviePlayer.py:285
+#: ../MoviePlayer.py:428
 msgid "Yes"
 msgstr "Ja"
 
-#: ../MoviePlayer.py:267
-#: ../MoviePlayer.py:275
-#: ../MoviePlayer.py:383
+#: ../MoviePlayer.py:281
+#: ../MoviePlayer.py:289
+#: ../MoviePlayer.py:429
 msgid "No"
 msgstr "Nee"
 
-#: ../MoviePlayer.py:272
+#: ../MoviePlayer.py:286
 msgid "Yes, returning to movie list"
 msgstr "Ja en terug naar de filmlijst"
 
-#: ../MoviePlayer.py:273
+#: ../MoviePlayer.py:287
 msgid "Yes, and delete this movie"
 msgstr "Ja en ververwijder deze film"
 
-#: ../MoviePlayer.py:274
+#: ../MoviePlayer.py:288
 msgid "Yes, and after deleting return to movie list"
 msgstr "Ja en terug naar de filmlijst"
 
-#: ../MoviePlayer.py:276
+#: ../MoviePlayer.py:290
 msgid "No, but restart from begin"
 msgstr "Nee, van begin herstarten"
 
-#: ../MoviePlayer.py:280
-#: ../MoviePlayer.py:386
+#: ../MoviePlayer.py:294
+#: ../MoviePlayer.py:432
 msgid "Stop playing this movie?"
 msgstr "Stoppen met afspelen?"
 
-#: ../MoviePlayer.py:300
-#: ../MoviePlayer.py:307
-#: ../MovieSelection.py:785
+#: ../MoviePlayer.py:314
+#: ../MoviePlayer.py:321
+#: ../MovieSelection.py:789
 #, python-format
 msgid "Do you really want to delete %s?"
 msgstr "%s verwijderen?"
 
-#: ../MoviePlayer.py:321
+#: ../MoviePlayer.py:335
 msgid "End of the movie is reached, the box now go to standby. Do that now?"
 msgstr "Het filmeinde is bereikt, de Box gaat naar standby. Nu uitvoeren?"
 
-#: ../MoviePlayer.py:324
+#: ../MoviePlayer.py:338
 msgid "End of the movie is reached, the box now go to shut down. Shutdown now?"
 msgstr "Het filmeinde is bereikt, de Box gaat afsluiten. Nu uitvoeren?"
 
-#: ../MoviePlayer.py:431
+#: ../MoviePlayer.py:482
 msgid "Error loading ISO image!"
 msgstr "Fout bij laden van ISO-image!"
 
-#: ../MoviePlayer.py:434
+#: ../MoviePlayer.py:485
 msgid "Selected ISO image is not playable!"
 msgstr "Geselecteerd ISO-image is niet afspeelbaar!"
 
-#: ../MoviePlayer.py:443
-msgid "No DVD-Player found!"
-msgstr "geen DVD-Player gevonden!"
+#: ../MoviePlayer.py:498
+msgid "No DVD-PlayerChoice found!"
+msgstr "Geen DVD-Playerkeuze gevonden!"
 
-#: ../MoviePlayer.py:449
+#: ../MoviePlayer.py:503
 msgid "No BludiscPlayer found!"
 msgstr "Geen Bludisc-Player gevonden!"
 
@@ -2116,7 +2116,7 @@ msgid "Error occurred during unmounting device!"
 msgstr "Fout opgetreden tijdens het unmounten van het medium!"
 
 #: ../MovieSelection.py:331
-#: ../SearchTMDb.py:446
+#: ../SearchTMDb.py:477
 #: ../SearchTVDb.py:588
 msgid "No internet connection available!"
 msgstr "Geen internetverbinding beschikbaar!"
@@ -2129,7 +2129,7 @@ msgstr "Verplaatsen/kopiëren niet mogelijk!"
 msgid "Enter text to search for"
 msgstr "Zoektekst ingeven a.u.b."
 
-#: ../MovieSelection.py:526
+#: ../MovieSelection.py:530
 #, python-format
 msgid ""
 "Do you really want to delete info/cover from:\n"
@@ -2138,13 +2138,13 @@ msgstr ""
 "De Filminfo en de Cover van:\n"
 "%s verwijderen?"
 
-#: ../MovieSelection.py:530
-#: ../MovieSelection.py:555
-#: ../MovieSelection.py:583
+#: ../MovieSelection.py:534
+#: ../MovieSelection.py:559
+#: ../MovieSelection.py:587
 msgid "You cannot delete this!"
 msgstr "Dit kan niet verwijderd worden!"
 
-#: ../MovieSelection.py:551
+#: ../MovieSelection.py:555
 #, python-format
 msgid ""
 "Do you really want to delete cover from:\n"
@@ -2153,7 +2153,7 @@ msgstr ""
 "De Cover van:\n"
 "%s verwijderen?"
 
-#: ../MovieSelection.py:579
+#: ../MovieSelection.py:583
 #, python-format
 msgid ""
 "Do you really want to delete movie info from:\n"
@@ -2162,56 +2162,56 @@ msgstr ""
 "De Filminfo van:\n"
 "%s verwijderen?"
 
-#: ../MovieSelection.py:683
+#: ../MovieSelection.py:687
 msgid "Please wait... Loading list..."
 msgstr "Filmlijst laden,eventjes geduld ..."
 
-#: ../MovieSelection.py:688
+#: ../MovieSelection.py:692
 msgid "ATTENTION: Ask before delete is disabled!"
 msgstr "OPGELET: vragen voor verwijderen is uitgeschakeld!"
 
-#: ../MovieSelection.py:727
+#: ../MovieSelection.py:731
 msgid "Select the movie path"
 msgstr "Filmpad selecteren"
 
-#: ../MovieSelection.py:728
+#: ../MovieSelection.py:732
 msgid "Multiselection"
 msgstr "Multi-selectie..."
 
-#: ../MovieSelection.py:732
+#: ../MovieSelection.py:736
 msgid "Advanced movielist menu"
 msgstr "Menu Geavanceerde Filmselectie"
 
-#: ../MovieSelection.py:737
+#: ../MovieSelection.py:741
 msgid "Exit movielist"
 msgstr "filmselectie verlaten"
 
-#: ../MovieSelection.py:738
+#: ../MovieSelection.py:742
 msgid "Select movie"
 msgstr "film selecteren"
 
-#: ../MovieSelection.py:742
-#: ../MovieSelection.py:748
+#: ../MovieSelection.py:746
+#: ../MovieSelection.py:752
 msgid "Video preview jump forward"
 msgstr "Preview vooruitspringen"
 
-#: ../MovieSelection.py:743
-#: ../MovieSelection.py:749
+#: ../MovieSelection.py:747
+#: ../MovieSelection.py:753
 msgid "Video preview jump backward"
 msgstr "Preview terugspringen"
 
-#: ../MovieSelection.py:753
 #: ../MovieSelection.py:757
+#: ../MovieSelection.py:761
 msgid "Start/Stop video preview"
 msgstr "Preview start/stop"
 
-#: ../MovieSelection.py:778
-#: ../MovieSelection.py:783
+#: ../MovieSelection.py:782
+#: ../MovieSelection.py:787
 #, python-format
 msgid "%s is currently recording!"
 msgstr "%s wordt momenteel opgenomen!"
 
-#: ../MovieSelection.py:778
+#: ../MovieSelection.py:782
 #, python-format
 msgid ""
 "\n"
@@ -2226,12 +2226,12 @@ msgstr ""
 "\n"
 "Bent u zeker?"
 
-#: ../MovieSelection.py:780
+#: ../MovieSelection.py:784
 #, python-format
 msgid "Do you really want to move %s to trashcan?"
 msgstr "Wilt u %s naar de prullemand verplaatsen?"
 
-#: ../MovieSelection.py:783
+#: ../MovieSelection.py:787
 #, python-format
 msgid ""
 "\n"
@@ -2246,31 +2246,31 @@ msgstr ""
 "\n"
 "Bent u zeker?"
 
-#: ../MovieSelection.py:787
+#: ../MovieSelection.py:791
 msgid "Recordings are active, the timer(s) will also be deleted!\n"
 msgstr "Opnames actief, de timer(s) worden ook verwijderd!\n"
 
-#: ../MovieSelection.py:789
+#: ../MovieSelection.py:793
 msgid "Do you really want to move selected movies to trashcan?"
 msgstr "Wilt u de geselecteerde filmen naar de prullemand verplaatsen?"
 
-#: ../MovieSelection.py:791
+#: ../MovieSelection.py:795
 msgid "Do you really want to delete selected movies?"
 msgstr "Wilt u de geselecteerde filmen verwijderen?"
 
-#: ../MovieSelection.py:797
+#: ../MovieSelection.py:801
 msgid "This cannot deleted, please select a movie for!"
 msgstr "Verwijderen niet mogelijk, gelieve een film te selecteren!"
 
-#: ../MovieSelection.py:853
+#: ../MovieSelection.py:857
 msgid "Delete failed!"
 msgstr "Verwijderen mislukt!"
 
-#: ../MovieSelection.py:902
+#: ../MovieSelection.py:906
 msgid "Advanced Movie Selection"
 msgstr "Geavanceerde Filmselectie"
 
-#: ../MovieSelection.py:1081
+#: ../MovieSelection.py:1078
 msgid ""
 "Load Length of Movies in Movielist has been disabled.\n"
 "Close and reopen Movielist is required to apply the setting."
@@ -2278,36 +2278,36 @@ msgstr ""
 "Weergave van de speeltijd in de filmselectie werd uitgeschakeld.\n"
 "De Filmselectie moet gesloten en weer geopend worden om de instellingen te activeren."
 
-#: ../MovieSelection.py:1132
+#: ../MovieSelection.py:1129
 msgid "Tag 1"
 msgstr "Label 1"
 
-#: ../MovieSelection.py:1137
+#: ../MovieSelection.py:1134
 msgid "Tag 2"
 msgstr "Label 2"
 
-#: ../MovieSelection.py:1195
+#: ../MovieSelection.py:1192
 msgid "Movie location:"
 msgstr "Pad:"
 
-#: ../MovieSelection.py:1211
+#: ../MovieSelection.py:1208
 msgid "Please select the movie path..."
 msgstr "Gelieve het filmpad te selecteren..."
 
-#: ../MovieSelection.py:1233
+#: ../MovieSelection.py:1230
 #, python-format
 msgid "Directory %s nonexistent."
 msgstr "Map %s bestaat niet."
 
-#: ../MovieSelection.py:1282
+#: ../MovieSelection.py:1279
 msgid "Please select tag to filter..."
 msgstr "Gelieve een label te kiezen om te filteren..."
 
-#: ../MovieSelection.py:1285
+#: ../MovieSelection.py:1282
 msgid "No tags are set on these movies."
 msgstr "Geen labels op deze films.."
 
-#: ../MovieSelection.py:1295
+#: ../MovieSelection.py:1292
 msgid ""
 "Use direction keys to move the Moviebar.\n"
 "Press OK button for save or the EXIT button to cancel.\n"
@@ -2317,11 +2317,11 @@ msgstr ""
 "De OK-knop om te bewaren of de EXIT-knop om af te breken.\n"
 "Met de RODE knop wordt de originele positie hersteld."
 
-#: ../plugin.py:83
+#: ../plugin.py:82
 msgid "Setup Advanced Movie Selection"
 msgstr "Geavanceerde Filmselectie"
 
-#: ../plugin.py:107
+#: ../plugin.py:106
 msgid "Alternate Movie Selection"
 msgstr "Alternatieve Filmselectie"
 
@@ -2530,16 +2530,16 @@ msgstr "Filmcover overschrijven"
 msgid "Data already exists! Should anything be updated?"
 msgstr "Gegevens bestaan reeds! Actualiseren?"
 
-#: ../SearchTMDb.py:181
+#: ../SearchTMDb.py:180
 msgid "Show movie detail"
 msgstr "Film details weergeven"
 
-#: ../SearchTMDb.py:182
+#: ../SearchTMDb.py:181
 #: ../SearchTVDb.py:162
 msgid "Show search result"
 msgstr "Resultaten weergeven"
 
-#: ../SearchTMDb.py:184
+#: ../SearchTMDb.py:183
 #: ../SearchTVDb.py:164
 msgid "Info/Cover save"
 msgstr "Info/Cover bewaren"
@@ -2564,7 +2564,7 @@ msgstr ""
 "Wilt u de zoeknaam editeren en manueel zoeken?"
 
 #: ../SearchTMDb.py:301
-#: ../SearchTMDb.py:426
+#: ../SearchTMDb.py:419
 #, python-format
 msgid ""
 "Error!\n"
@@ -2573,8 +2573,8 @@ msgstr ""
 "Fout!\n"
 "%s"
 
-#: ../SearchTMDb.py:309
-#: ../SearchTMDb.py:311
+#: ../SearchTMDb.py:308
+#: ../SearchTMDb.py:315
 #: ../SearchTVDb.py:320
 #: ../SearchTVDb.py:322
 #: ../SearchTVDb.py:364
@@ -2583,74 +2583,74 @@ msgstr ""
 msgid "Total %s"
 msgstr "Totaal %s"
 
-#: ../SearchTMDb.py:309
+#: ../SearchTMDb.py:308
 msgid "movie found"
 msgstr "gevonden film"
 
-#: ../SearchTMDb.py:311
+#: ../SearchTMDb.py:315
 msgid "movies found"
 msgstr "gevonden films"
 
-#: ../SearchTMDb.py:345
+#: ../SearchTMDb.py:349
 #, python-format
 msgid "No description for ' %s ' at themoviedb.org found!"
 msgstr "Geen gegevens voor ' %s ' gevonden via themoviedb.org!"
 
-#: ../SearchTMDb.py:360
+#: ../SearchTMDb.py:352
 #, python-format
 msgid "Appeared: %s"
 msgstr "Verschenen: %s"
 
-#: ../SearchTMDb.py:362
+#: ../SearchTMDb.py:354
 #, python-format
 msgid "Runtime: %s minutes"
 msgstr "Lengte: %s minuten"
 
-#: ../SearchTMDb.py:366
+#: ../SearchTMDb.py:358
 #: ../SearchTVDb.py:475
 #, python-format
 msgid "Certification: %s"
 msgstr "Leeftijd: %s"
 
-#: ../SearchTMDb.py:370
+#: ../SearchTMDb.py:362
 #: ../SearchTVDb.py:484
 #, python-format
 msgid "Rating: %s\n"
 msgstr "Beoordeling: %s\n"
 
-#: ../SearchTMDb.py:381
+#: ../SearchTMDb.py:373
 #: ../SearchTVDb.py:471
 #, python-format
 msgid "Genre: %s\n"
 msgstr "Categorie: %s\n"
 
-#: ../SearchTMDb.py:387
+#: ../SearchTMDb.py:379
 #, python-format
 msgid "Studio: %s"
 msgstr "Filmstudio: %s"
 
-#: ../SearchTMDb.py:393
+#: ../SearchTMDb.py:385
 #, python-format
 msgid "Production Countries: %s\n"
 msgstr "Landen productie: %s\n"
 
-#: ../SearchTMDb.py:399
+#: ../SearchTMDb.py:391
 #, python-format
 msgid "Director: %s"
 msgstr "Producent: %s"
 
-#: ../SearchTMDb.py:405
+#: ../SearchTMDb.py:397
 #, python-format
 msgid "Production: %s\n"
 msgstr "Productie: %s\n"
 
-#: ../SearchTMDb.py:411
+#: ../SearchTMDb.py:403
 #: ../SearchTVDb.py:488
 #, python-format
 msgid "Actors: %s\n"
 msgstr "Acteurs: %s\n"
 
-#: ../SearchTMDb.py:413
+#: ../SearchTMDb.py:405
 #, python-format
 msgid ""
 "\n"
@@ -2659,67 +2659,54 @@ msgstr ""
 "\n"
 "Laatste wijziging bij themoviedb.org: %s"
 
-#: ../SearchTMDb.py:417
+#: ../SearchTMDb.py:409
 msgid "Unknown error!!"
 msgstr "Ongekende fout!"
 
-#: ../SearchTMDb.py:421
+#: ../SearchTMDb.py:413
 #: ../SearchTVDb.py:500
 #, python-format
 msgid "Voted: %s"
 msgstr "Gestemd: %s"
 
-#: ../SearchTMDb.py:421
+#: ../SearchTMDb.py:413
 #: ../SearchTVDb.py:500
 msgid "times"
 msgstr "Tijdes"
 
-#: ../SearchTMDb.py:423
+#: ../SearchTMDb.py:415
 #: ../SearchTVDb.py:502
 msgid "No user voted!"
 msgstr "Geen steùùe,!"
 
-#: ../SearchTMDb.py:461
-#: ../SearchTMDb.py:562
+#: ../SearchTMDb.py:492
+#: ../SearchTMDb.py:572
 #: ../SearchTVDb.py:628
 #, python-format
 msgid "Search result for: %s"
 msgstr "Resultaten voor: %s"
 
-#: ../SearchTMDb.py:463
-#: ../SearchTMDb.py:551
+#: ../SearchTMDb.py:494
+#: ../SearchTMDb.py:561
 #: ../SearchTVDb.py:613
 #: ../SearchTVDb.py:717
 #, python-format
 msgid "Details for: %s"
 msgstr "Details voor: %s"
 
-#: ../SearchTMDb.py:470
-#: ../SearchTMDb.py:488
-#: ../SearchTVDb.py:757
-#, python-format
-msgid "Getting show details for ' %s ', please wait ..."
-msgstr "Zoeken details naar voor ' %s ', eventjes geduld ..."
-
-#: ../SearchTMDb.py:472
-#: ../SearchTMDb.py:490
-#, python-format
-msgid "Getting search result for ' %s ', please wait ..."
-msgstr "Zoeken naar ' %s , eventjes geduld ..."
-
-#: ../SearchTMDb.py:498
-#: ../SearchTVDb.py:735
+#: ../SearchTMDb.py:508
+#: ../SearchTVDb.py:736
 #, python-format
 msgid "Save Info/Cover for ' %s ', please wait ..."
 msgstr "Info/Cover voor ' %s ' bewaren, eventjes geduld ..."
 
-#: ../SearchTMDb.py:513
+#: ../SearchTMDb.py:523
 #, python-format
 msgid "Sorry, no info/cover found for title: %s"
 msgstr "Sorry geen Filminfo/Cover voor %s gevonden."
 
-#: ../SearchTMDb.py:524
-#: ../SearchTVDb.py:759
+#: ../SearchTMDb.py:534
+#: ../SearchTVDb.py:760
 #, python-format
 msgid "Search trailer for ' %s ', please wait ..."
 msgstr "Zoeken naar trailer voor ' %s , eventjes geduld ..."
@@ -2859,17 +2846,22 @@ msgstr ""
 "\n"
 "Laatste wijziging bij TheTVDB.com: %s"
 
-#: ../SearchTVDb.py:761
+#: ../SearchTVDb.py:758
+#, python-format
+msgid "Getting show details for ' %s ', please wait ..."
+msgstr "Zoeken details naar voor ' %s ', eventjes geduld ..."
+
+#: ../SearchTVDb.py:762
 #, python-format
 msgid "Getting search result for ' %s ', please wit ..."
 msgstr "Zoeken naar ' %s , eventjes geduld ..."
 
-#: ../SearchTVDb.py:771
+#: ../SearchTVDb.py:772
 #, python-format
 msgid "Getting episodes list for ' %s ', please wait ..."
 msgstr "Zoeken naar episode-lijst van ' %s ', eventjes geduld ..."
 
-#: ../SearchTVDb.py:775
+#: ../SearchTVDb.py:776
 #, python-format
 msgid "Getting episodes details for ' %s ', please wait ..."
 msgstr "Zoeken naar episode-details van %s, eventjes geduld ..."
@@ -3113,6 +3105,9 @@ msgstr ""
 #: ../Wastebasket.py:389
 msgid "Restore failed!"
 msgstr "Herstellen mislukt!"
+
+#~ msgid "Getting search result for ' %s ', please wait ..."
+#~ msgstr "Zoeken naar ' %s , eventjes geduld ..."
 
 #~ msgid ""
 #~ "Improperly launched plugin.\n"
