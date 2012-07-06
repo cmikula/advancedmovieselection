@@ -77,7 +77,7 @@ PACKAGE_SECTION = "extra"
 PACKAGE_PRIORITY = "optional"
 PACKAGE_MAINTAINER = "JackDaniel, cmikula"
 PACKAGE_HOMEPAGE = "http://www.i-have-a-dreambox.com"
-PACKAGE_DEPENDS = "enigma2(>3.2cvs20111016)" # TODO: check working enigma version
+PACKAGE_DEPENDS = "kernel-module-isofs, kernel-module-udf" #, enigma2(>3.2cvs20111016)" # TODO: check working enigma version
 PACKAGE_SOURCE = "QNAP from JackDaniel"
 
 SVN_REPOSITORY_EXPORT = "svn://multimedia.ath.cx:4000/AdvancedMovieSelection/trunk/src"
