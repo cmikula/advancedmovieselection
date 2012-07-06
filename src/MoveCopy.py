@@ -23,31 +23,205 @@ from __init__ import _
 from Screens.MessageBox import MessageBox
 from Screens.ChoiceBox import ChoiceBox
 from Screens.LocationBox import MovieLocationBox
-from enigma import eServiceCenter
 from Components.config import config
-from Components.UsageConfig import defaultMoviePath
-from Tools.Directories import createDir
-import os
+from ServiceUtils import serviceUtil, realSize
+from ServiceProvider import ServiceCenter
+import time
+
+def showFinished(job, session):
+    if session:
+        movie_count = job.getMovieCount()
+        full = job.getSizeTotal()
+        copied = job.getSizeCopied()
+        elapsed_time = job.getElapsedTime()
+        b_per_sec = copied / (elapsed_time)
+        mode = job.getMode() and _("moved") or _("copied")
+        if job.isCanceled():
+            mode = _("canceled")
+        etime = time.strftime("%H:%M:%S", time.gmtime(elapsed_time))
+        text = _("Job finished") + "\r\n\r\n"
+        text += "* %s\r\n" % (job.getDestinationPath())
+        text += "* %d %s %s %s\r\n" % (movie_count, _("movie(s)"), realSize(full), mode)
+        text += "* %s %s\r\n" % (_("Duration"), etime) 
+        text += "* %s %s/S\r\n" % (_("Average"), realSize(b_per_sec, 3)) 
+        session.open(MessageBox, text, MessageBox.TYPE_INFO)
+
+from Components.GUIComponent import GUIComponent
+from enigma import eListboxPythonMultiContent, eListbox, gFont, RT_HALIGN_LEFT, RT_HALIGN_RIGHT
+from Components.MultiContent import MultiContentEntryText
+
+class ProgressList(GUIComponent):
+    def __init__(self):
+        GUIComponent.__init__(self)
+        self.list = []
+        self.l = eListboxPythonMultiContent()
+        self.l.setFont(0, gFont("Regular", 20))
+        self.l.setFont(1, gFont("Regular", 18))
+        self.l.setFont(2, gFont("Regular", 16))
+        self.l.setItemHeight(75)
+        self.l.setBuildFunc(self.buildListEntry)
+        
+        self.onSelectionChanged = [ ]
+
+    def connectSelChanged(self, fnc):
+        if not fnc in self.onSelectionChanged:
+            self.onSelectionChanged.append(fnc)
+
+    def disconnectSelChanged(self, fnc):
+        if fnc in self.onSelectionChanged:
+            self.onSelectionChanged.remove(fnc)
+
+    def selectionChanged(self):
+        for x in self.onSelectionChanged:
+            x()
+
+    def buildListEntry(self, job):
+        res = [ None ]
+        width = self.l.getItemSize().width()
+
+        full = job.getSizeTotal()
+        copied = job.getSizeCopied()
+        elapsed_time = job.getElapsedTime()
+        progress = copied * 100 / full
+        b_per_sec = copied / (elapsed_time)
+        mode = job.getMode() and _("Move") or _("Copy")
+        if job.isCanceled():
+            mode = _("Canceled")
+        if job.isFinished():
+            mode = _("Finished")
+        etime = time.strftime("%H:%M:%S", time.gmtime(elapsed_time))
+        main_info = "%s (%d/%d) %s %d%%" % (mode, job.getMovieIndex(), job.getMovieCount(), realSize(full), progress)
+        movie_name = job.getMovieName()
+        file_info = "(%d/%d)" % (job.getFileIndex(), job.getFileCount())
+        speed_info = _("Total files") + file_info + " " + _("Average") + " " + realSize(b_per_sec, 3) + "/" + _("Seconds")
+        res.append(MultiContentEntryText(pos=(5, 2), size=(width - 155, 26), font=0, flags=RT_HALIGN_LEFT, text=main_info))
+        res.append(MultiContentEntryText(pos=(width - 155, 2), size=(150, 26), font=0, flags=RT_HALIGN_RIGHT, text=realSize(copied)))
+        res.append(MultiContentEntryText(pos=(5, 29), size=(width - 205, 22), font=1, flags=RT_HALIGN_LEFT, text=movie_name))
+        res.append(MultiContentEntryText(pos=(width - 205, 29), size=(200, 22), font=1, flags=RT_HALIGN_RIGHT, text=etime))
+        res.append(MultiContentEntryText(pos=(5, 54), size=(width - 205, 20), font=2, flags=RT_HALIGN_LEFT, text=speed_info))
+        return res
+
+    def moveToIndex(self, index):
+        self.instance.moveSelectionTo(index)
+
+    def getCurrentIndex(self):
+        return self.instance.getCurrentIndex()
+
+    def getCurrentEvent(self):
+        l = self.l.getCurrentSelection()
+        return l and l[0] and l[1] and l[1].getEvent(l[0])
+
+    def getCurrent(self):
+        l = self.l.getCurrentSelection()
+        return l and l[0]
+
+    GUI_WIDGET = eListbox
+
+    def postWidgetCreate(self, instance):
+        instance.setContent(self.l)
+        instance.selectionChanged.get().append(self.selectionChanged)
+
+    def preWidgetRemove(self, instance):
+        instance.setContent(None)
+        instance.selectionChanged.get().remove(self.selectionChanged)
+
+    def load(self, jobs):
+        self.list = []
+        for job in jobs:
+            self.list.append((job,))
+        self.l.setList(self.list)
+
+    def updateJobs(self):
+        for index, job in enumerate(self.list):
+            self.l.invalidateEntry(index)
+
+    def __len__(self):
+        return len(self.list)
+
+    def moveTo(self, serviceref):
+        count = 0
+        for x in self.list:
+            if x[0] == serviceref:
+                self.instance.moveSelectionTo(count)
+                return True
+            count += 1
+        return False
+    
+    def moveDown(self):
+        self.instance.moveSelection(self.instance.moveDown)
+
+from Screens.Screen import Screen
+from enigma import eTimer
+from Components.ActionMap import HelpableActionMap
+from Components.Button import Button
+
+class MoveCopyProgress(Screen):
+    def __init__(self, session):
+        Screen.__init__(self, session)
+        self.timer = eTimer()
+        self.timer.callback.append(self.update)
+        self["ColorActions"] = HelpableActionMap(self, "ColorActions",
+        {
+            "red": (self.abort, _("Abort selected job")),
+            "green": (self.close, _("Close")),
+        })
+        self["key_red"] = Button(_("Cancel"))
+        self["key_green"] = Button(_("Close"))
+        self["list"] = ProgressList()
+        self["OkCancelActions"] = HelpableActionMap(self, "OkCancelActions",
+            {
+                "cancel": (self.close, _("Close"))
+            })
+        self.onShown.append(self.setWindowTitle)
+    
+    def setWindowTitle(self):
+        self.setTitle(_("Move/Copy progress"))
+        self["list"].load(serviceUtil.getJobs())
+        self.timer.start(500, False)
+        
+    def cancel(self):
+        self.close()
+    
+    def abort(self):
+        job = self["list"].getCurrent()
+        if job and job.isFinished():
+            return
+        if job and job.isCanceled():
+            text = _("Job already canceled!") + "\r\n"
+            text += _("Please wait until current movie is copied to the end!")
+            self.session.openWithCallback(self.abortCallback, MessageBox, text, MessageBox.TYPE_INFO)
+            return
+        text = _("Would you really abort current job?") + "\r\n"
+        text += _("Movies began to be copied until they are finished")
+        self.session.openWithCallback(self.abortCallback, MessageBox, text, MessageBox.TYPE_YESNO)
+    
+    def abortCallback(self, result):
+        if result == True:
+            job = self["list"].getCurrent()
+            if job:
+                job.cancel()
+    
+    def update(self):
+        self["list"].updateJobs()
 
 class MovieMove(ChoiceBox):
     def __init__(self, session, csel, service):
         self.csel = csel
-        serviceHandler = eServiceCenter.getInstance()
+        serviceHandler = ServiceCenter.getInstance()
         info = serviceHandler.info(service)
         self.sourcepath = service.getPath().rsplit('/', 1)[0]
         if len(self.csel.list.multiSelection) == 0:
             self.name = info.getName(service)
             self.service_list = [service]
         else:
-            self.service_list = self.csel.list.multiSelection  
             self.name = _("Selected movies")
+            self.service_list = self.csel.list.multiSelection  
+        
+        for s in self.service_list:
+            s.setName(info.getName(service))
+
         cbkeys = []
-        listpath = [] 
-        for element in range(len(listpath)):
-            if element <= 10:
-                cbkeys.append(str(element))
-            else:
-                cbkeys.append("")
+        listpath = []
         listpath.append((_("To adjusted move/copy location"), "CALLFUNC", self.selectedLocation))
         cbkeys.append("blue")
         listpath.append((_("Directory Selection"), "CALLFUNC", self.selectDir))
@@ -55,10 +229,8 @@ class MovieMove(ChoiceBox):
         listpath.append((_("Show active move/copy processes"), "CALLFUNC", self.showActive))
         cbkeys.append("green")
         listpath.append((_("Abort"), "CALLFUNC", self.close))
-        cbkeys.append("red")        
-        if len(os.listdir(config.movielist.last_videodir.value)) == 0 and defaultMoviePath() <> config.movielist.last_videodir.value:
-            listpath.append((_("Remove ' %s '") % config.movielist.last_videodir.value, "CALLFUNC", self.remove))
-            cbkeys.append("red")
+        cbkeys.append("red")
+
         ChoiceBox.__init__(self, session, list=listpath, keys=cbkeys)
         self.onShown.append(self.setWindowTitle)
 
@@ -72,80 +244,27 @@ class MovieMove(ChoiceBox):
         self.session.openWithCallback(self.gotFilename, MovieLocationBox, (_("Move/Copy %s") % self.name) + ' ' + _("to:"), config.movielist.last_videodir.value)
 
     def showActive(self, arg):
-        tmp_out = os.popen("ps -ef | grep -e \"   [c]p /\" -e \"   [m]v /\"").readlines()
-        tmpline = ""
-        tmpcount = 0
-        for line in tmp_out:
-            tmpcount = tmpcount + 1
-            tmpline = tmpline + "\n" + line.replace(" cp ", _("|Copy:\n"), 1).replace(" mv ", _("|Move:\n") , 1).split("|", 1)[1].rsplit(".", 1)[0]
-        if tmpcount == 0:
-            self.session.open(MessageBox, _("There are currently no files are moved or copied."), MessageBox.TYPE_INFO, 5)
-        elif tmpcount == 1:
-            self.session.open(MessageBox, (_("The following file is being moved or copied currently:\n%s") % tmpline), MessageBox.TYPE_INFO)
-        else:
-            self.session.open(MessageBox, (_("The following %s") % str(tmpcount) + ' ' + _("files are being moved or copied currently:\n%s") % tmpline), MessageBox.TYPE_INFO)                    
-
-    def remove(self, arg):
-        os.rmdir(config.movielist.last_videodir.value)
-        self.gotFilename(defaultMoviePath())
+        self.session.open(MoveCopyProgress)
 
     def gotFilename(self, destinationpath, retval=None):
-        if destinationpath is None:
-            self.skipMoveFile(_("Directory selection has been canceled"))
-        else:
+        if destinationpath:
             self.destinationpath = destinationpath
-            listtmp = [(_("Move (in the background)"), "VH"), (_("Move (in the foreground)"), "VS"), (_("Copy (in the background)"), "KH"), (_("Copy (in the foreground)"), "KS"), (_("Abort"), "AB") ]
-            self.session.openWithCallback(self.doMove, ChoiceBox, title=((_("How to proceed '%s'") % self.name) + ' ' + (_("from %s") % self.sourcepath) + ' ' + (_("to %s") % self.destinationpath) + ' ' + _("be moved/copied?")), list=listtmp)
+            listtmp = [(_("Move"), "move"), (_("Copy"), "copy"), (_("Abort"), "abort") ]
+            self.session.openWithCallback(self.doAction, ChoiceBox, title=((_("How to proceed '%s'") % self.name) + ' ' + (_("from %s") % self.sourcepath) + ' ' + (_("to %s") % self.destinationpath) + ' ' + _("be moved/copied?")), list=listtmp)
     
-    def getMovieFileName(self, service):
-        filename = service.getPath().rsplit('/', 1)[1]
-        return filename.rsplit(".", 1)[0]
-    
-    def doMove(self, confirmed):
-        if confirmed is not None:
-            if confirmed[1] != "AB":
-                if os.path.exists(self.destinationpath) is False:
-                    os.system("mkdir %s" % self.destinationpath)
-                
-                for service in self.service_list:
-                    if os.path.exists(self.destinationpath + "/%s" % self.getMovieFileName(service)) is True:
-                        self.skipMoveFile(_("File already exists"))
-                        return
-                
-                cmd = ["mv"]
-                for service in self.service_list:
-                    cmd.append("\"%s/%s.\"*" % (self.sourcepath, self.getMovieFileName(service)))
-                cmd.append("\"%s\"" % (self.destinationpath))
-                #print " ".join(cmd)
-                
-                if confirmed[1] == "VS":
-                    #for service in self.service_list:
-                    #    os.system("mv \"%s/%s.\"* \"%s\"" % (self.sourcepath, self.getMovieFileName(service), self.destinationpath))
-                    os.system(" ".join(cmd))
-                    self.session.openWithCallback(self.__doClose, MessageBox, _("The move was successful."), MessageBox.TYPE_INFO, timeout=3)
-                elif confirmed[1] == "VH":
-                    #for service in self.service_list:
-                    #    os.system("mv \"%s/%s.\"* \"%s\" &" % (self.sourcepath, self.getMovieFileName(service), self.destinationpath))
-                    cmd.append("&")
-                    os.system(" ".join(cmd))
-                    self.session.openWithCallback(self.__doClose, MessageBox, _("Moving in the background.\n\nThe movie list appears updated after full completion."), MessageBox.TYPE_INFO, timeout=12)
-                elif confirmed[1] == "KS":
-                    #for service in self.service_list:
-                    #    os.system("cp \"%s/%s.\"* \"%s\"" % (self.sourcepath, self.getMovieFileName(service), self.destinationpath))
-                    cmd[0] = "cp"
-                    os.system(" ".join(cmd))
-                    self.session.openWithCallback(self.__doClose, MessageBox, _("The copying was successful."), MessageBox.TYPE_INFO, timeout=3)
-                elif confirmed[1] == "KH":
-                    #for service in self.service_list:
-                    #    os.system("cp \"%s/%s.\"* \"%s\" &" % (self.sourcepath, self.getMovieFileName(service), self.destinationpath))
-                    cmd[0] = "cp"
-                    cmd.append("&")
-                    os.system(" ".join(cmd))
-                    self.session.openWithCallback(self.__doClose, MessageBox, _("Copying in the background.\n\nThe movie list appears updated after full completion."), MessageBox.TYPE_INFO, timeout=12)
-            else:
-                MovieMove(session=self.session, csel=self.csel, service=self.service_list[0])
+    def doAction(self, confirmed):
+        if not confirmed or confirmed[1] == "abort":
+            return
+        action = confirmed[1]
+        serviceUtil.setCallback(showFinished, self.session)
+        serviceUtil.add(self.service_list, self.destinationpath)
+        if action == "copy":
+            serviceUtil.copy()
+        elif action == "move":
+            serviceUtil.move()
+        self.session.openWithCallback(self.__doClose, MoveCopyProgress)
 
-    def __doClose(self, confirmed):
+    def __doClose(self, dummy=None):
         self.csel.reloadList()
         self.close()
 

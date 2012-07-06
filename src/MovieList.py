@@ -43,6 +43,7 @@ from Trashcan import TRASH_NAME
 from Components.Harddisk import Harddisk
 from EventInformationTable import EventInformationTable, appendShortDescriptionToMeta
 from AccessRestriction import accessRestriction
+from ServiceUtils import serviceUtil
 
 IMAGE_PATH = "Extensions/AdvancedMovieSelection/images/"
 
@@ -885,7 +886,10 @@ class MovieList(GUIComponent):
             file = parts[-1]
             if self.movieConfig.isHidden(file):
                 continue
-        
+            
+            if serviceUtil.isServiceMoving(serviceref):
+                continue
+            
             extension = serviceref.getPath().split(".")[-1].lower()
             if extension == "iso" or extension == "img":
                 serviceref = eServiceReferenceDvd(serviceref)

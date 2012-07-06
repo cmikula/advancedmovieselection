@@ -373,7 +373,7 @@ class MovieContextMenu(Screen):
 
     def movecopy(self):
         if not (self.service.flags & eServiceReference.mustDescent):
-            self.session.openWithCallback(self.closeafterfinish, MovieMove, self.csel, self.service)
+            self.session.openWithCallback(self.close, MovieMove, self.csel, self.service)
         else:
             self.session.open(MessageBox, _("Move/Copy not possible here!"), MessageBox.TYPE_INFO)
 
@@ -505,7 +505,10 @@ class MovieContextMenu(Screen):
     def execPlugin(self, plugin):
         if not (self.service.flags & eServiceReference.mustDescent):
             print "Starting plugin:", plugin.description
-            if len(self.csel.list.multiSelection) > 0:
+            import inspect
+            params = inspect.getargspec(plugin.__call__)
+            print "Params:", params
+            if len(self.csel.list.multiSelection) > 0 and len(params[0]) >= 3:
                 plugin(self.session, self.service, self.csel.list.multiSelection)
             else:
                 plugin(self.session, self.service)
