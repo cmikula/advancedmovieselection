@@ -52,7 +52,7 @@ def showFinished(job, session):
 
 from Components.GUIComponent import GUIComponent
 from enigma import eListboxPythonMultiContent, eListbox, gFont, RT_HALIGN_LEFT, RT_HALIGN_RIGHT
-from Components.MultiContent import MultiContentEntryText
+from Components.MultiContent import MultiContentEntryText, MultiContentEntryProgress
 
 class ProgressList(GUIComponent):
     def __init__(self):
@@ -98,10 +98,11 @@ class ProgressList(GUIComponent):
         movie_name = job.getMovieName()
         file_info = "(%d/%d)" % (job.getFileIndex(), job.getFileCount())
         speed_info = _("Total files") + file_info + " " + _("Average") + " " + realSize(b_per_sec, 3) + "/" + _("Seconds")
-        res.append(MultiContentEntryText(pos=(5, 2), size=(width - 155, 26), font=0, flags=RT_HALIGN_LEFT, text=main_info))
-        res.append(MultiContentEntryText(pos=(width - 155, 2), size=(150, 26), font=0, flags=RT_HALIGN_RIGHT, text=realSize(copied)))
-        res.append(MultiContentEntryText(pos=(5, 29), size=(width - 205, 22), font=1, flags=RT_HALIGN_LEFT, text=movie_name))
-        res.append(MultiContentEntryText(pos=(width - 205, 29), size=(200, 22), font=1, flags=RT_HALIGN_RIGHT, text=etime))
+        res.append(MultiContentEntryProgress(pos=(5, 3), size=(width-10, 5), percent=progress, borderWidth=1))
+        res.append(MultiContentEntryText(pos=(5, 10), size=(width - 155, 26), font=0, flags=RT_HALIGN_LEFT, text=main_info))
+        res.append(MultiContentEntryText(pos=(width - 155, 10), size=(150, 26), font=0, flags=RT_HALIGN_RIGHT, text=realSize(copied)))
+        res.append(MultiContentEntryText(pos=(5, 32), size=(width - 205, 22), font=1, flags=RT_HALIGN_LEFT, text=movie_name))
+        res.append(MultiContentEntryText(pos=(width - 205, 32), size=(200, 22), font=1, flags=RT_HALIGN_RIGHT, text=etime))
         res.append(MultiContentEntryText(pos=(5, 54), size=(width - 205, 20), font=2, flags=RT_HALIGN_LEFT, text=speed_info))
         return res
 
