@@ -675,6 +675,8 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         if not config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.video_preview.value and config.AdvancedMovieSelection.video_preview_fullscreen.value and config.movielist.description.value == MovieList.HIDE_DESCRIPTION:
             self.skinName.insert(0, SkinTools.appendResolution("AdvancedMovieSelection_Preview_noDescription_noCover_"))
         self.tags = [ ]
+        if not config.AdvancedMovieSelection.startonfirst.value and not selectedmovie:
+            selectedmovie = Current.selection
         if selectedmovie:
             self.selected_tags = config.movielist.last_selected_tags.value
         else:
@@ -1024,6 +1026,14 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
 
     def moveDown(self):
         self.list.moveDown()
+
+    def updateList(self, job):
+        if self.current_ref.getPath() != job.getDestinationPath():
+            return 
+        self["waitingtext"].visible = True
+        self.inited = False
+        self.selectedmovie = self.getCurrent()
+        self.go()
 
     def go(self):
         if not self.inited:

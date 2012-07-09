@@ -29,6 +29,10 @@ from ServiceProvider import ServiceCenter
 import time
 
 def showFinished(job, session):
+    from MovieSelection import MovieSelection
+    if isinstance(session.current_dialog, MovieSelection): 
+        session.current_dialog.updateList(job)
+        return
     if session:
         movie_count = job.getMovieCount()
         full = job.getSizeTotal()
@@ -184,7 +188,7 @@ class MoveCopyProgress(Screen):
     
     def abort(self):
         job = self["list"].getCurrent()
-        if job and job.isFinished():
+        if not job or job and job.isFinished():
             return
         if job and job.isCanceled():
             text = _("Job already canceled!") + "\r\n"

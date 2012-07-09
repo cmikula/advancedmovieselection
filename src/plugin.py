@@ -75,16 +75,23 @@ def autostart(reason, **kwargs):
                 pass
 
 def pluginOpen(session, **kwargs):
+    from MoviePlayer import initPlayerChoice
+    initPlayerChoice(session)
+    from MovieSelection import MovieSelection
+    from MoviePlayer import playerChoice
+    session.openWithCallback(playerChoice.playService, MovieSelection)
+
+def openProgress(session, **kwargs):
+    from MoveCopy import MoveCopyProgress
+    session.open(MoveCopyProgress)
+
+def pluginMenu(session, **kwargs):
     session.open(AdvancedMovieSelectionSetup)
 
 def Setup(menuid, **kwargs):
     if menuid == "setup":
-        return [(_("Setup Advanced Movie Selection"), pluginOpen, "SetupAdvancedMovieSelection", None)]
+        return [(_("Setup Advanced Movie Selection"), pluginMenu, "SetupAdvancedMovieSelection", None)]
     return []
-
-def nostart(reason, **kwargs):
-    print"[Advanced Movie Selection] -----> Disabled"
-    pass
 
 def Plugins(**kwargs):
     try:
@@ -99,9 +106,11 @@ def Plugins(**kwargs):
     except Exception, e:
         print e
     
+    descriptors = []
     if not config.AdvancedMovieSelection.ml_disable.value:
-        descriptors = [PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=autostart, needsRestart=True)]
-    else:
-        descriptors = [PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=nostart, needsRestart=True)]
+        descriptors.append(PluginDescriptor(name=_("Advanced Movie Selection"), where=PluginDescriptor.WHERE_SESSIONSTART, description=_("Alternate Movie Selection"), fnc=autostart, needsRestart=True))
+        descriptors.append(PluginDescriptor(name=_("Advanced Movie Selection"), where=PluginDescriptor.WHERE_EXTENSIONSMENU, description=_("Alternate Movie Selection"), fnc=pluginOpen))
+        descriptors.append(PluginDescriptor(name=_("Move Copy Progress"), where=PluginDescriptor.WHERE_EXTENSIONSMENU, description=_("Show progress of move or copy job"), fnc=openProgress))
+    descriptors.append(PluginDescriptor(name=_("Setup Advanced Movie Selection"), where=PluginDescriptor.WHERE_PLUGINMENU, description=_("Alternate Movie Selection"), fnc=pluginMenu, needsRestart=True))
     descriptors.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, description=_("Alternate Movie Selection"), fnc=Setup, needsRestart=True))
     return descriptors

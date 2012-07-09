@@ -47,10 +47,7 @@ playerChoice = None
 def showMovies(self):
     initPlayerChoice(self.session)
     self.lastservice = self.session.nav.getCurrentlyPlayingServiceReference()
-    if config.AdvancedMovieSelection.startonfirst.value:
-        self.session.openWithCallback(playerChoice.playService, MovieSelection)
-    else:
-        self.session.openWithCallback(playerChoice.playService, MovieSelection, Current.selection)
+    self.session.openWithCallback(playerChoice.playService, MovieSelection)
     if config.AdvancedMovieSelection.version.value != __version__:
         from About import AboutDetails
         self.session.open(AboutDetails)
