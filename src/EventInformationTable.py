@@ -446,7 +446,8 @@ def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=Fa
             print "Info's already exists, download skipped!"
             return True
 
-        print "Movie title: " + str(movie['name'])
+        if name:
+            print "Movie title: " + name.encode("utf-8", "ignore")
         images = movie['images']
         cover_url = None
         if len(images) > 0:
@@ -475,9 +476,9 @@ def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=Fa
         actors = []
         # print out extended movie informations
         try:
-            original_name = movie['original_name']
-            print "Original name:"
-            print " " * 4, str(original_name)
+            #original_name = movie['original_name']
+            #print "Original name:"
+            #print " " * 4, str(original_name)
             
             released = movie['released']
             print "Released:"
