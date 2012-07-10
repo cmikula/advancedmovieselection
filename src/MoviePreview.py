@@ -67,15 +67,15 @@ class MoviePreview():
         self.hideDialog()
         if serviceref:
             path = serviceref.getPath()
-            if os.path.isfile(path):
-                path = os.path.splitext(path)[0] + ".jpg"
-            elif isinstance(serviceref, eServiceReferenceDvd):
-                path = path + ".jpg"
-            elif config.AdvancedMovieSelection.usefoldername.value:
-                if path.endswith("/"):
+            if path.endswith("/"):
+                if config.AdvancedMovieSelection.usefoldername.value:
                     path = path[:-1] + ".jpg"
+                else:
+                    path = path + "folder.jpg"
+            elif os.path.isfile(path):
+                path = os.path.splitext(path)[0] + ".jpg"
             else:
-                path = path + "folder.jpg"
+                path = path + ".jpg"
         
             self.working = True
             self["CoverPreview"].setPosition(self.cpX, self.cpY)
