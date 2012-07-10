@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-03 17:53+0100\n"
-"PO-Revision-Date: 2012-07-04 08:13+0100\n"
+"POT-Creation-Date: 2012-07-06 19:02+0100\n"
+"PO-Revision-Date: 2012-07-10 08:26+0100\n"
 "Last-Translator: bschaar\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
@@ -1650,153 +1650,140 @@ msgstr "Downloaden en bewaren van de Filminfos/Covers naar %s beëindigd."
 msgid "File Browser"
 msgstr "Bestandsbrowser"
 
-#: ../MoveCopy.py:43
+#: ../MoveCopy.py:38
+msgid "moved"
+msgstr "verplaatst"
+
+#: ../MoveCopy.py:38
+msgid "copied"
+msgstr "gekopieerd"
+
+#: ../MoveCopy.py:40
+msgid "canceled"
+msgstr "gannuleerd"
+
+#: ../MoveCopy.py:42
+msgid "Job finished"
+msgstr "Actie voltooid"
+
+#: ../MoveCopy.py:44
+msgid "movie(s)"
+msgstr "film(s)"
+
+#: ../MoveCopy.py:45
+msgid "Duration"
+msgstr "Speelduur"
+
+#: ../MoveCopy.py:46
+#: ../MoveCopy.py:96
+msgid "Average"
+msgstr "Gemiddeld"
+
+#: ../MoveCopy.py:87
+#: ../MoveCopy.py:252
+msgid "Move"
+msgstr "Verplaatsen"
+
+#: ../MoveCopy.py:87
+#: ../MoveCopy.py:252
+msgid "Copy"
+msgstr "Kopiëren"
+
+#: ../MoveCopy.py:89
+msgid "Canceled"
+msgstr "Geannuleerd"
+
+#: ../MoveCopy.py:91
+msgid "Finished"
+msgstr "Voltooid"
+
+#: ../MoveCopy.py:96
+msgid "Total files"
+msgstr "Totaal bestanden"
+
+#: ../MoveCopy.py:96
+msgid "Seconds"
+msgstr "Seconden"
+
+#: ../MoveCopy.py:165
+msgid "Abort selected job"
+msgstr "Geselecteerde actie annueleren"
+
+#: ../MoveCopy.py:178
+msgid "Move/Copy progress"
+msgstr "Verplaatsen/Kopiëren voortgang"
+
+#: ../MoveCopy.py:190
+msgid "Job already canceled!"
+msgstr "Actie reeds geannuleerd!"
+
+#: ../MoveCopy.py:191
+msgid "Please wait until current movie is copied to the end!"
+msgstr "Gelieve te wachten tot de actuele film volledig gekopieerd is!"
+
+#: ../MoveCopy.py:194
+msgid "Would you really abort current job?"
+msgstr "Wilt u de actie annuleren?"
+
+#: ../MoveCopy.py:195
+msgid "Movies began to be copied until they are finished"
+msgstr "Films kunnen niet gekopieerd worden voor ze volledig zijn"
+
+#: ../MoveCopy.py:217
 msgid "Selected movies"
 msgstr "Geselecteerde filmen"
 
-#: ../MoveCopy.py:51
+#: ../MoveCopy.py:225
 msgid "To adjusted move/copy location"
 msgstr "In standaardmap verplaatsen/kopiëren"
 
-#: ../MoveCopy.py:53
+#: ../MoveCopy.py:227
 msgid "Directory Selection"
 msgstr "Map kiezen"
 
-#: ../MoveCopy.py:55
+#: ../MoveCopy.py:229
 msgid "Show active move/copy processes"
 msgstr "Actieve verplaats/kopier-acties weergeven"
 
-#: ../MoveCopy.py:57
-#: ../MoveCopy.py:97
+#: ../MoveCopy.py:231
+#: ../MoveCopy.py:252
 msgid "Abort"
 msgstr "Afbreken"
 
-#: ../MoveCopy.py:60
-#, python-format
-msgid "Remove ' %s '"
-msgstr "Verwijder ' %s '"
-
-#: ../MoveCopy.py:66
+#: ../MoveCopy.py:238
 #, python-format
 msgid "Move/Copy from: %s"
 msgstr "Verplaatsen/Kopiëren van: %s"
 
-#: ../MoveCopy.py:72
+#: ../MoveCopy.py:244
 #, python-format
 msgid "Move/Copy %s"
 msgstr "Verplaatsen/Kopiëren %s"
 
-#: ../MoveCopy.py:72
+#: ../MoveCopy.py:244
 msgid "to:"
 msgstr "naar:"
 
-#: ../MoveCopy.py:80
-msgid "|Copy:\n"
-msgstr "|Kopiëren:\n"
-
-#: ../MoveCopy.py:80
-msgid "|Move:\n"
-msgstr "|Verplaatsen:\n"
-
-#: ../MoveCopy.py:82
-msgid "There are currently no files are moved or copied."
-msgstr "Momenteel worden geen bestanden verplaatst of gekopieerd."
-
-#: ../MoveCopy.py:84
-#, python-format
-msgid ""
-"The following file is being moved or copied currently:\n"
-"%s"
-msgstr ""
-"Volgend bestand wordt momenteel verplaatst/gekopieerd:\n"
-"%s"
-
-#: ../MoveCopy.py:86
-#, python-format
-msgid "The following %s"
-msgstr "Volgend %s "
-
-#: ../MoveCopy.py:86
-#, python-format
-msgid ""
-"files are being moved or copied currently:\n"
-"%s"
-msgstr ""
-"bestanden worden momenteel verplaatst/gekopieerd:\n"
-"%s"
-
-#: ../MoveCopy.py:94
-msgid "Directory selection has been canceled"
-msgstr "De mapselectie werd geannuleerd."
-
-#: ../MoveCopy.py:97
-msgid "Move (in the background)"
-msgstr "Verplaatsen (in achtergrond)"
-
-#: ../MoveCopy.py:97
-msgid "Move (in the foreground)"
-msgstr "Verplaatsen (in voorgrond)"
-
-#: ../MoveCopy.py:97
-msgid "Copy (in the background)"
-msgstr "Kopiëren (in achtergrond)"
-
-#: ../MoveCopy.py:97
-msgid "Copy (in the foreground)"
-msgstr "Kopiëren (in voorgrond)"
-
-#: ../MoveCopy.py:98
+#: ../MoveCopy.py:253
 #, python-format
 msgid "How to proceed '%s'"
 msgstr "Hoe verderzetten ' %s '"
 
-#: ../MoveCopy.py:98
+#: ../MoveCopy.py:253
 #, python-format
 msgid "from %s"
 msgstr "van %s"
 
-#: ../MoveCopy.py:98
+#: ../MoveCopy.py:253
 #, python-format
 msgid "to %s"
 msgstr "naar %s"
 
-#: ../MoveCopy.py:98
+#: ../MoveCopy.py:253
 msgid "be moved/copied?"
 msgstr "verplaatsen/kopiëren?"
 
-#: ../MoveCopy.py:112
-msgid "File already exists"
-msgstr "Bestand bestaat reeds"
-
-#: ../MoveCopy.py:125
-msgid "The move was successful."
-msgstr "Het verplaatsen is gelukt."
-
-#: ../MoveCopy.py:131
-msgid ""
-"Moving in the background.\n"
-"\n"
-"The movie list appears updated after full completion."
-msgstr ""
-"Het verplaatsen wordt in achtergrond uitgevoerd.\n"
-"\n"
-"De Filmselectie kan pas na het voltooien geactualiseerd worden."
-
-#: ../MoveCopy.py:137
-msgid "The copying was successful."
-msgstr "Het kopiëren is gelukt."
-
-#: ../MoveCopy.py:144
-msgid ""
-"Copying in the background.\n"
-"\n"
-"The movie list appears updated after full completion."
-msgstr ""
-"Het kopiëren wordt in achtergrond uitgevoerd.\n"
-"\n"
-"De Filmselectie kan pas na het voltooien geactualiseerd worden."
-
-#: ../MoveCopy.py:153
+#: ../MoveCopy.py:272
 #, python-format
 msgid ""
 "Move/Copy aborted due to:\n"
@@ -1805,23 +1792,23 @@ msgstr ""
 "Verplaatsen/Kopiëren werd afgebroken!\n"
 "%s"
 
-#: ../MovieList.py:563
-#: ../MovieList.py:566
+#: ../MovieList.py:564
+#: ../MovieList.py:567
 msgid "REC"
 msgstr "REC"
 
-#: ../MovieList.py:568
+#: ../MovieList.py:569
 msgid "Records"
 msgstr "Opname loopt"
 
-#: ../MovieList.py:1009
-#: ../MovieSelection.py:1109
+#: ../MovieList.py:1013
+#: ../MovieSelection.py:1112
 #: ../QuickButton.py:267
 msgid "VSR"
 msgstr "VZR"
 
 #: ../MoviePlayer.py:122
-#: ../MovieSelection.py:737
+#: ../MovieSelection.py:740
 msgid "Show event details"
 msgstr "details weergeven"
 
@@ -1877,7 +1864,7 @@ msgstr "Stoppen met afspelen?"
 
 #: ../MoviePlayer.py:314
 #: ../MoviePlayer.py:321
-#: ../MovieSelection.py:789
+#: ../MovieSelection.py:792
 #, python-format
 msgid "Do you really want to delete %s?"
 msgstr "%s verwijderen?"
@@ -2129,7 +2116,7 @@ msgstr "Verplaatsen/kopiëren niet mogelijk!"
 msgid "Enter text to search for"
 msgstr "Zoektekst ingeven a.u.b."
 
-#: ../MovieSelection.py:530
+#: ../MovieSelection.py:533
 #, python-format
 msgid ""
 "Do you really want to delete info/cover from:\n"
@@ -2138,13 +2125,13 @@ msgstr ""
 "De Filminfo en de Cover van:\n"
 "%s verwijderen?"
 
-#: ../MovieSelection.py:534
-#: ../MovieSelection.py:559
-#: ../MovieSelection.py:587
+#: ../MovieSelection.py:537
+#: ../MovieSelection.py:562
+#: ../MovieSelection.py:590
 msgid "You cannot delete this!"
 msgstr "Dit kan niet verwijderd worden!"
 
-#: ../MovieSelection.py:555
+#: ../MovieSelection.py:558
 #, python-format
 msgid ""
 "Do you really want to delete cover from:\n"
@@ -2153,7 +2140,7 @@ msgstr ""
 "De Cover van:\n"
 "%s verwijderen?"
 
-#: ../MovieSelection.py:583
+#: ../MovieSelection.py:586
 #, python-format
 msgid ""
 "Do you really want to delete movie info from:\n"
@@ -2162,56 +2149,56 @@ msgstr ""
 "De Filminfo van:\n"
 "%s verwijderen?"
 
-#: ../MovieSelection.py:687
+#: ../MovieSelection.py:690
 msgid "Please wait... Loading list..."
 msgstr "Filmlijst laden,eventjes geduld ..."
 
-#: ../MovieSelection.py:692
+#: ../MovieSelection.py:695
 msgid "ATTENTION: Ask before delete is disabled!"
 msgstr "OPGELET: vragen voor verwijderen is uitgeschakeld!"
 
-#: ../MovieSelection.py:731
+#: ../MovieSelection.py:734
 msgid "Select the movie path"
 msgstr "Filmpad selecteren"
 
-#: ../MovieSelection.py:732
+#: ../MovieSelection.py:735
 msgid "Multiselection"
 msgstr "Multi-selectie..."
 
-#: ../MovieSelection.py:736
+#: ../MovieSelection.py:739
 msgid "Advanced movielist menu"
 msgstr "Menu Geavanceerde Filmselectie"
 
-#: ../MovieSelection.py:741
+#: ../MovieSelection.py:744
 msgid "Exit movielist"
 msgstr "filmselectie verlaten"
 
-#: ../MovieSelection.py:742
+#: ../MovieSelection.py:745
 msgid "Select movie"
 msgstr "film selecteren"
 
-#: ../MovieSelection.py:746
-#: ../MovieSelection.py:752
+#: ../MovieSelection.py:749
+#: ../MovieSelection.py:755
 msgid "Video preview jump forward"
 msgstr "Preview vooruitspringen"
 
-#: ../MovieSelection.py:747
-#: ../MovieSelection.py:753
+#: ../MovieSelection.py:750
+#: ../MovieSelection.py:756
 msgid "Video preview jump backward"
 msgstr "Preview terugspringen"
 
-#: ../MovieSelection.py:757
-#: ../MovieSelection.py:761
+#: ../MovieSelection.py:760
+#: ../MovieSelection.py:764
 msgid "Start/Stop video preview"
 msgstr "Preview start/stop"
 
-#: ../MovieSelection.py:782
-#: ../MovieSelection.py:787
+#: ../MovieSelection.py:785
+#: ../MovieSelection.py:790
 #, python-format
 msgid "%s is currently recording!"
 msgstr "%s wordt momenteel opgenomen!"
 
-#: ../MovieSelection.py:782
+#: ../MovieSelection.py:785
 #, python-format
 msgid ""
 "\n"
@@ -2226,12 +2213,12 @@ msgstr ""
 "\n"
 "Bent u zeker?"
 
-#: ../MovieSelection.py:784
+#: ../MovieSelection.py:787
 #, python-format
 msgid "Do you really want to move %s to trashcan?"
 msgstr "Wilt u %s naar de prullemand verplaatsen?"
 
-#: ../MovieSelection.py:787
+#: ../MovieSelection.py:790
 #, python-format
 msgid ""
 "\n"
@@ -2246,31 +2233,31 @@ msgstr ""
 "\n"
 "Bent u zeker?"
 
-#: ../MovieSelection.py:791
+#: ../MovieSelection.py:794
 msgid "Recordings are active, the timer(s) will also be deleted!\n"
 msgstr "Opnames actief, de timer(s) worden ook verwijderd!\n"
 
-#: ../MovieSelection.py:793
+#: ../MovieSelection.py:796
 msgid "Do you really want to move selected movies to trashcan?"
 msgstr "Wilt u de geselecteerde filmen naar de prullemand verplaatsen?"
 
-#: ../MovieSelection.py:795
+#: ../MovieSelection.py:798
 msgid "Do you really want to delete selected movies?"
 msgstr "Wilt u de geselecteerde filmen verwijderen?"
 
-#: ../MovieSelection.py:801
+#: ../MovieSelection.py:804
 msgid "This cannot deleted, please select a movie for!"
 msgstr "Verwijderen niet mogelijk, gelieve een film te selecteren!"
 
-#: ../MovieSelection.py:857
+#: ../MovieSelection.py:860
 msgid "Delete failed!"
 msgstr "Verwijderen mislukt!"
 
-#: ../MovieSelection.py:906
+#: ../MovieSelection.py:909
 msgid "Advanced Movie Selection"
 msgstr "Geavanceerde Filmselectie"
 
-#: ../MovieSelection.py:1078
+#: ../MovieSelection.py:1081
 msgid ""
 "Load Length of Movies in Movielist has been disabled.\n"
 "Close and reopen Movielist is required to apply the setting."
@@ -2278,36 +2265,36 @@ msgstr ""
 "Weergave van de speeltijd in de filmselectie werd uitgeschakeld.\n"
 "De Filmselectie moet gesloten en weer geopend worden om de instellingen te activeren."
 
-#: ../MovieSelection.py:1129
+#: ../MovieSelection.py:1132
 msgid "Tag 1"
 msgstr "Label 1"
 
-#: ../MovieSelection.py:1134
+#: ../MovieSelection.py:1137
 msgid "Tag 2"
 msgstr "Label 2"
 
-#: ../MovieSelection.py:1192
+#: ../MovieSelection.py:1195
 msgid "Movie location:"
 msgstr "Pad:"
 
-#: ../MovieSelection.py:1208
+#: ../MovieSelection.py:1211
 msgid "Please select the movie path..."
 msgstr "Gelieve het filmpad te selecteren..."
 
-#: ../MovieSelection.py:1230
+#: ../MovieSelection.py:1233
 #, python-format
 msgid "Directory %s nonexistent."
 msgstr "Map %s bestaat niet."
 
-#: ../MovieSelection.py:1279
+#: ../MovieSelection.py:1282
 msgid "Please select tag to filter..."
 msgstr "Gelieve een label te kiezen om te filteren..."
 
-#: ../MovieSelection.py:1282
+#: ../MovieSelection.py:1285
 msgid "No tags are set on these movies."
 msgstr "Geen labels op deze films.."
 
-#: ../MovieSelection.py:1292
+#: ../MovieSelection.py:1295
 msgid ""
 "Use direction keys to move the Moviebar.\n"
 "Press OK button for save or the EXIT button to cancel.\n"
@@ -3106,6 +3093,71 @@ msgstr ""
 msgid "Restore failed!"
 msgstr "Herstellen mislukt!"
 
+#~ msgid "Remove ' %s '"
+#~ msgstr "Verwijder ' %s '"
+
+#~ msgid "There are currently no files are moved or copied."
+#~ msgstr "Momenteel worden geen bestanden verplaatst of gekopieerd."
+
+#~ msgid ""
+#~ "The following file is being moved or copied currently:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Volgend bestand wordt momenteel verplaatst/gekopieerd:\n"
+#~ "%s"
+
+#~ msgid "The following %s"
+#~ msgstr "Volgend %s "
+
+#~ msgid ""
+#~ "files are being moved or copied currently:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "bestanden worden momenteel verplaatst/gekopieerd:\n"
+#~ "%s"
+
+#~ msgid "Directory selection has been canceled"
+#~ msgstr "De mapselectie werd geannuleerd."
+
+#~ msgid "Move (in the background)"
+#~ msgstr "Verplaatsen (in achtergrond)"
+
+#~ msgid "Move (in the foreground)"
+#~ msgstr "Verplaatsen (in voorgrond)"
+
+#~ msgid "Copy (in the background)"
+#~ msgstr "Kopiëren (in achtergrond)"
+
+#~ msgid "Copy (in the foreground)"
+#~ msgstr "Kopiëren (in voorgrond)"
+
+#~ msgid "File already exists"
+#~ msgstr "Bestand bestaat reeds"
+
+#~ msgid "The move was successful."
+#~ msgstr "Het verplaatsen is gelukt."
+
+#~ msgid ""
+#~ "Moving in the background.\n"
+#~ "\n"
+#~ "The movie list appears updated after full completion."
+#~ msgstr ""
+#~ "Het verplaatsen wordt in achtergrond uitgevoerd.\n"
+#~ "\n"
+#~ "De Filmselectie kan pas na het voltooien geactualiseerd worden."
+
+#~ msgid "The copying was successful."
+#~ msgstr "Het kopiëren is gelukt."
+
+#~ msgid ""
+#~ "Copying in the background.\n"
+#~ "\n"
+#~ "The movie list appears updated after full completion."
+#~ msgstr ""
+#~ "Het kopiëren wordt in achtergrond uitgevoerd.\n"
+#~ "\n"
+#~ "De Filmselectie kan pas na het voltooien geactualiseerd worden."
+
 #~ msgid "Getting search result for ' %s ', please wait ..."
 #~ msgstr "Zoeken naar ' %s , eventjes geduld ..."
 
@@ -3329,9 +3381,6 @@ msgstr "Herstellen mislukt!"
 #~ msgid "show all"
 #~ msgstr "alles weergeven"
 
-#~ msgid "show first selected tag"
-#~ msgstr "eerste geselecteerd label weergeven"
-
 #~ msgid "show second selected tag"
 #~ msgstr "tweede geselecteerd label weergeven"
 
@@ -3384,9 +3433,6 @@ msgstr "Herstellen mislukt!"
 
 #~ msgid "Multi search"
 #~ msgstr "Automatische Suche"
-
-#~ msgid "Finised"
-#~ msgstr "Fertig"
 
 #~ msgid "Ask for Eventinfo:"
 #~ msgstr "Fragen wie Filminfos angezeigt werden soll:"

@@ -56,7 +56,6 @@ class ServiceFileInfo:
     def __init__(self, service, dst):
         self.service = service
         self.destination = dst
-        self.name = service.getName()
         if os.path.isfile(service.getPath()):
             # all movie files
             filename = service.getPath().rsplit('.', 1)[0] + ".*"
@@ -81,13 +80,16 @@ class ServiceFileInfo:
         return len(self.file_list)
 
     def getName(self):
-        return self.name
+        return self.service.getName()
+    
+    def getPath(self):
+        return self.service.getPath()
     
     def getDestinationPath(self):
         return self.destination
 
 class Job():
-    def __init__(self, list, cb):
+    def __init__(self, list, cb=None):
         self.list = list
         self.cb = cb
         self.copied = 0
@@ -102,6 +104,7 @@ class Job():
         self.setCurrentFile(None, None)
         self.current_name = ""
         self.current_dst_path = ""
+        self.error = None
         for item in self.list:
             self.total += item.getTotal()
             self.count += item.getFileCount()
@@ -122,7 +125,13 @@ class Job():
                 self.current_dst_path = si.getDestinationPath()
                 self.current_index += 1
                 self.copy(si, do_move)
+        except Exception, e:
+            self.error = e
+        except IOError, e:
+            self.error = e
         finally:
+            if self.error:
+                print "Job failed:", self.error
             self.end_time = time.time()
             self.current_name = ""
             if self.cb:
@@ -160,6 +169,16 @@ class Job():
         # rename movie to original file
         print "rename: \"%s\" -> \"%s\"" % (old, new)
         os.rename(old, new)
+
+    def prepare(self):
+        available = []
+        for si in self.list:
+            fp = si.getPath()
+            file_name = os.path.basename(fp)
+            dst = os.path.join(si.destination, file_name)
+            if os.path.exists(dst):
+                available.append(si.service)
+        return available
 
     def cancel(self):
         """we still process started movies to the end and skipping all following!"""
@@ -219,6 +238,9 @@ class Job():
             return self.end_time - self.start_time
         return time.time() - self.start_time
 
+    def getError(self):
+        return self.error
+
     def isStarted(self):
         return self.start_time != 0
 
@@ -235,6 +257,10 @@ class ServiceUtil():
         self.session = None
         self.callback = None
         
+    def setServices(self, service_list, dst):
+        self.list = []
+        self.add(service_list, dst)
+
     def add(self, service_list, dst):
         # removing finished jobs
         self.cleanup()
@@ -242,7 +268,14 @@ class ServiceUtil():
             service_list = [service_list]
         for s in service_list:
             self.list.append(ServiceFileInfo(s, dst))
-        
+
+    def clear(self):
+        self.list = []
+
+    def prepare(self):
+        job = Job(self.list)
+        return job.prepare()
+
     def move(self):
         self.start(True)
 
@@ -265,9 +298,7 @@ class ServiceUtil():
             self.callback(job, self.session)
 
     def cleanup(self):
-        for pos, job in enumerate(self.proc):
-            if job.isFinished():
-                self.proc.remove(job)
+        self.proc = filter(lambda job: not job.isFinished(), self.proc) 
     
     def removeJob(self, job):
         if job in self.proc:

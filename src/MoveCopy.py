@@ -30,25 +30,33 @@ import time
 
 def showFinished(job, session):
     from MovieSelection import MovieSelection
-    if isinstance(session.current_dialog, MovieSelection): 
+    if isinstance(session.current_dialog, MovieSelection):
         session.current_dialog.updateList(job)
         return
-    if session and not isinstance(session.current_dialog, MoveCopyProgress):
+    error = job.getError()
+    if session and (not isinstance(session.current_dialog, MoveCopyProgress) or error):
         movie_count = job.getMovieCount()
         full = job.getSizeTotal()
         copied = job.getSizeCopied()
         elapsed_time = job.getElapsedTime()
         b_per_sec = copied / (elapsed_time)
+        message_type = MessageBox.TYPE_INFO
         mode = job.getMode() and _("moved") or _("copied")
         if job.isCanceled():
             mode = _("canceled")
+        if error:
+            message_type = MessageBox.TYPE_ERROR
+            mode = _("Error")
         etime = time.strftime("%H:%M:%S", time.gmtime(elapsed_time))
         text = _("Job finished") + "\r\n\r\n"
-        text += "* %s\r\n" % (job.getDestinationPath())
-        text += "* %d %s %s %s\r\n" % (movie_count, _("movie(s)"), realSize(full), mode)
-        text += "* %s %s\r\n" % (_("Duration"), etime) 
-        text += "* %s %s/S\r\n" % (_("Average"), realSize(b_per_sec, 3)) 
-        session.open(MessageBox, text, MessageBox.TYPE_INFO)
+        if error:
+            text += mode + ": " + str(error) + "\r\n"
+        else:
+            text += "* %s\r\n" % (job.getDestinationPath())
+            text += "* %d %s %s %s\r\n" % (movie_count, _("movie(s)"), realSize(full), mode)
+            text += "* %s %s\r\n" % (_("Duration"), etime)
+            text += "* %s %s/S\r\n" % (_("Average"), realSize(b_per_sec, 3))
+        session.open(MessageBox, text, message_type)
 
 from Components.GUIComponent import GUIComponent
 from enigma import eListboxPythonMultiContent, eListbox, gFont, RT_HALIGN_LEFT, RT_HALIGN_RIGHT
@@ -93,16 +101,22 @@ class ProgressList(GUIComponent):
             mode = _("Canceled")
         if job.isFinished():
             mode = _("Finished")
+            movie_name = job.getDestinationPath()
+        else:
+            movie_name = job.getMovieName()
+        error = job.getError() 
+        if error:
+            movie_name = str(error)
+            mode = _("Error")
         etime = time.strftime("%H:%M:%S", time.gmtime(elapsed_time))
         main_info = "%s (%d/%d) %s %d%%" % (mode, job.getMovieIndex(), job.getMovieCount(), realSize(full), progress)
-        movie_name = job.getMovieName()
         file_info = "(%d/%d)" % (job.getFileIndex(), job.getFileCount())
         speed_info = _("Total files") + file_info + " " + _("Average") + " " + realSize(b_per_sec, 3) + "/" + _("Seconds")
         res.append(MultiContentEntryProgress(pos=(5, 3), size=(width-10, 5), percent=progress, borderWidth=1))
-        res.append(MultiContentEntryText(pos=(5, 10), size=(width - 155, 26), font=0, flags=RT_HALIGN_LEFT, text=main_info))
-        res.append(MultiContentEntryText(pos=(width - 155, 10), size=(150, 26), font=0, flags=RT_HALIGN_RIGHT, text=realSize(copied)))
-        res.append(MultiContentEntryText(pos=(5, 32), size=(width - 205, 22), font=1, flags=RT_HALIGN_LEFT, text=movie_name))
-        res.append(MultiContentEntryText(pos=(width - 205, 32), size=(200, 22), font=1, flags=RT_HALIGN_RIGHT, text=etime))
+        res.append(MultiContentEntryText(pos=(5, 10), size=(width - 150, 26), font=0, flags=RT_HALIGN_LEFT, text=main_info))
+        res.append(MultiContentEntryText(pos=(width - 150, 10), size=(150, 26), font=0, flags=RT_HALIGN_RIGHT, text=realSize(copied)))
+        res.append(MultiContentEntryText(pos=(5, 32), size=(width - 150, 22), font=1, flags=RT_HALIGN_LEFT, text=movie_name))
+        res.append(MultiContentEntryText(pos=(width - 150, 32), size=(150, 22), font=1, flags=RT_HALIGN_RIGHT, text=etime))
         res.append(MultiContentEntryText(pos=(5, 54), size=(width - 205, 20), font=2, flags=RT_HALIGN_LEFT, text=speed_info))
         return res
 
@@ -223,7 +237,9 @@ class MovieMove(ChoiceBox):
             self.service_list = self.csel.list.multiSelection  
         
         for s in self.service_list:
-            s.setName(info.getName(service))
+            info = serviceHandler.info(s)
+            name = info.getName(s)
+            s.setName(name)
 
         cbkeys = []
         listpath = []
@@ -269,7 +285,16 @@ class MovieMove(ChoiceBox):
             return
         action = confirmed[1]
         serviceUtil.setCallback(showFinished, self.session)
-        serviceUtil.add(self.service_list, self.destinationpath)
+        serviceUtil.setServices(self.service_list, self.destinationpath)
+        services = serviceUtil.prepare()
+        if len(services) != 0:
+            serviceUtil.clear()
+            text = []
+            for s in services:
+                print s.getName()
+                text.append(s.getName())
+            self.session.open(MessageBox, _("Service(s) are available in destination directory. Operation canceled!") + "\r\n\r\n" + "\r\n".join(text), MessageBox.TYPE_INFO)
+            return
         if action == "copy":
             serviceUtil.copy()
         elif action == "move":
