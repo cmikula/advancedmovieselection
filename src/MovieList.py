@@ -36,9 +36,10 @@ from stat import ST_MTIME as stat_ST_MTIME
 from time import time as time_time
 from math import fabs as math_fabs
 from datetime import datetime
-from ServiceProvider import getCutList, Info, ServiceCenter, MovieConfig, hasLastPosition, getDirSize, getFolderSize, PicLoader, getServiceInfoValue, Network
+from ServiceProvider import getCutList, Info, ServiceCenter, MovieConfig, hasLastPosition, PicLoader, getServiceInfoValue, Network
 from ServiceProvider import detectDVDStructure, eServiceReferenceDvd
 from ServiceProvider import detectBludiscStructure, eServiceReferenceBludisc
+from ServiceUtils import getDirSize, getFolderSize
 from Trashcan import TRASH_NAME
 from Components.Harddisk import Harddisk
 from EventInformationTable import EventInformationTable, appendShortDescriptionToMeta
@@ -583,7 +584,10 @@ class MovieList(GUIComponent):
             txt = service_name
 
         if self.list_type == MovieList.LISTTYPE_EXTENDED:
-            filename = os.path.splitext(serviceref.getPath())[0] + ".jpg"
+            if os.path.isfile(serviceref.getPath()):
+                filename = os.path.splitext(serviceref.getPath())[0] + ".jpg"
+            else:
+                filename = serviceref.getPath() + ".jpg"
             filesize = float(info.getInfoObject(serviceref, iServiceInformation.sFileSize) / (1024 * 1024))
             prec_text = str(perc) + '%'
             png = None

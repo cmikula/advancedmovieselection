@@ -1035,6 +1035,9 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self.selectedmovie = self.getCurrent()
         self.go()
 
+    def getCurrentPath(self):
+        return self.current_ref.getPath()
+
     def go(self):
         if not self.inited:
         # ouch. this should redraw our "Please wait..."-text.

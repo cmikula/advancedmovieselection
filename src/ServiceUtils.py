@@ -28,16 +28,48 @@ that they, too, receive or can get the source code. And you must show them these
 import os, glob, shutil, time, operator
 import threading
 
+def getFolderSize(loadPath):
+    folder_size = 0
+    try:
+        for (path, dirs, files) in os.walk(loadPath):
+            for f in files:    
+                filename = os.path.join(path, f)    
+                if os.path.exists(filename):
+                    folder_size += os.path.getsize(filename)
+    except Exception, e:
+        print e
+    return folder_size
+
+def getDirSize(root):
+    folder_size = 0
+    try:
+        for filename in os.listdir(root):
+            p = os.path.join(root, filename)
+            if os.path.exists(p):
+                folder_size += os.path.getsize(p)
+    except Exception, e:
+        print e
+    return folder_size
+
 class ServiceFileInfo:
     CP_EXT = ".cpmv"
     def __init__(self, service, dst):
         self.service = service
         self.destination = dst
         self.name = service.getName()
-        filename = service.getPath().rsplit('.', 1)[0] + ".*"
-        l = [ [files, os.path.getsize(files)] for files in glob.glob(filename) ]
-        # sort files per size
-        self.file_list = sorted(l, key=operator.itemgetter(1), reverse=True)
+        if os.path.isfile(service.getPath()):
+            # all movie files
+            filename = service.getPath().rsplit('.', 1)[0] + ".*"
+            l = [ [files, os.path.getsize(files)] for files in glob.glob(filename) ]
+            # sort files per size
+            self.file_list = sorted(l, key=operator.itemgetter(1), reverse=True)
+        else:
+            # all services with path structures
+            filename = service.getPath() + ".*"
+            l = [ [files, os.path.getsize(files)] for files in glob.glob(filename) ]
+            # sort files per size
+            self.file_list = sorted(l, key=operator.itemgetter(1), reverse=True)
+            self.file_list.insert(0, (service.getPath(), getFolderSize(service.getPath())))
         self.total = 0
         for item in self.file_list:
             self.total += item[1]
@@ -117,7 +149,10 @@ class Job():
                 shutil.move(src[0], dst)
             else:
                 print "copy: \"%s\" -> \"%s\"" % (src[0], dst)
-                shutil.copy2(src[0], dst)
+                if os.path.isfile(src[0]):
+                    shutil.copy2(src[0], dst)
+                else:
+                    shutil.copytree(src[0], dst)
 
             self.setCurrentFile(None, None)
             

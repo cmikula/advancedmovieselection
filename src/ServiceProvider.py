@@ -38,6 +38,7 @@ from Components.AVSwitch import AVSwitch
 from enigma import ePicLoad
 import ping
 from bisect import insort
+from ServiceUtils import getFolderSize
 
 def cutlist_changed(self):
     from MoviePlayer import playerChoice
@@ -218,29 +219,6 @@ class Network():
                         auto_network.append((val[0], dest_addr))
         except Exception, e:
             print e
-
-def getFolderSize(loadPath):
-    folder_size = 0
-    try:
-        for (path, dirs, files) in os.walk(loadPath):
-            for file in files:    
-                filename = os.path.join(path, file)    
-                if os.path.exists(filename):
-                    folder_size += os.path.getsize(filename)
-    except Exception, e:
-        print e
-    return folder_size
-
-def getDirSize(root):
-    folder_size = 0
-    try:
-        for filename in os.listdir(root):
-            p = os.path.join(root, filename)
-            if os.path.exists(p):
-                folder_size += os.path.getsize(p)
-    except Exception, e:
-        print e
-    return folder_size
 
 def detectBludiscStructure(loadPath):
     if not os.path.isdir(loadPath):

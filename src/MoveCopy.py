@@ -33,7 +33,7 @@ def showFinished(job, session):
     if isinstance(session.current_dialog, MovieSelection): 
         session.current_dialog.updateList(job)
         return
-    if session:
+    if session and not isinstance(session.current_dialog, MoveCopyProgress):
         movie_count = job.getMovieCount()
         full = job.getSizeTotal()
         copied = job.getSizeCopied()
@@ -233,7 +233,7 @@ class MovieMove(ChoiceBox):
         cbkeys.append("yellow")
         listpath.append((_("Show active move/copy processes"), "CALLFUNC", self.showActive))
         cbkeys.append("green")
-        listpath.append((_("Abort"), "CALLFUNC", self.close))
+        listpath.append((_("Close"), "CALLFUNC", self.close))
         cbkeys.append("red")
 
         ChoiceBox.__init__(self, session, list=listpath, keys=cbkeys)
@@ -243,15 +243,22 @@ class MovieMove(ChoiceBox):
         self.setTitle(_("Move/Copy from: %s") % self.name)
 
     def selectedLocation(self, arg):
-        self.gotFilename(config.AdvancedMovieSelection.movecopydirs.value)
+        self.checkLocation(config.AdvancedMovieSelection.movecopydirs.value)
 
     def selectDir(self, arg):
-        self.session.openWithCallback(self.gotFilename, MovieLocationBox, (_("Move/Copy %s") % self.name) + ' ' + _("to:"), config.movielist.last_videodir.value)
+        self.session.openWithCallback(self.checkLocation, MovieLocationBox, (_("Move/Copy %s") % self.name) + ' ' + _("to:"), config.movielist.last_videodir.value)
 
     def showActive(self, arg):
         self.session.open(MoveCopyProgress)
 
-    def gotFilename(self, destinationpath, retval=None):
+    def checkLocation(self, destinationpath):
+        if self.csel.getCurrentPath() == destinationpath:
+            self.session.open(MessageBox, _("Source and destination path must be different."), MessageBox.TYPE_INFO)
+            return
+        if destinationpath:
+            self.gotFilename(destinationpath)
+
+    def gotFilename(self, destinationpath):
         if destinationpath:
             self.destinationpath = destinationpath
             listtmp = [(_("Move"), "move"), (_("Copy"), "copy"), (_("Abort"), "abort") ]
@@ -272,6 +279,3 @@ class MovieMove(ChoiceBox):
     def __doClose(self, dummy=None):
         self.csel.reloadList()
         self.close()
-
-    def skipMoveFile(self, reason):
-        self.session.open(MessageBox, (_("Move/Copy aborted due to:\n%s") % reason), MessageBox.TYPE_INFO)
