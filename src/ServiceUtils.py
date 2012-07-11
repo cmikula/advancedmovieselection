@@ -55,7 +55,12 @@ class ServiceFileInfo:
     CP_EXT = ".cpmv"
     def __init__(self, service, dst):
         self.service = service
-        self.destination = dst
+        self.destination_path = os.path.normpath(dst)
+        self.source_path, self.file_name = os.path.split(service.getPath())
+        print "ServiceFileInfo"
+        print "Name:", self.file_name
+        print "From:", self.source_path
+        print "To:", self.destination_path
         if os.path.isfile(service.getPath()):
             # all movie files
             filename = service.getPath().rsplit('.', 1)[0] + ".*"
@@ -86,7 +91,13 @@ class ServiceFileInfo:
         return self.service.getPath()
     
     def getDestinationPath(self):
-        return self.destination
+        return self.destination_path
+
+    def getSourcePath(self):
+        return self.source_path
+
+    def getFileName(self):
+        return self.file_name
 
 class Job():
     def __init__(self, list, cb=None):
@@ -104,6 +115,7 @@ class Job():
         self.setCurrentFile(None, None)
         self.current_name = ""
         self.current_dst_path = ""
+        self.current_src_path = ""
         self.error = None
         for item in self.list:
             self.total += item.getTotal()
@@ -122,6 +134,7 @@ class Job():
                 if self.abort:
                     return
                 self.current_name = si.getName()
+                self.current_src_path = si.getSourcePath()
                 self.current_dst_path = si.getDestinationPath()
                 self.current_index += 1
                 self.copy(si, do_move)
@@ -140,17 +153,18 @@ class Job():
     def copy(self, si, do_move=False):
         if len(si.file_list) == 0:
             return
-        if not os.path.exists(si.destination):
-            os.makedirs(si.destination)
+        if not os.path.exists(si.getDestinationPath()):
+            os.makedirs(si.getDestinationPath())
         for index, src in enumerate(si.file_list):
             self.file_index += 1
             file_name = os.path.basename(src[0])
-            dst = os.path.join(si.destination, file_name)
+            dst = os.path.join(si.getDestinationPath(), file_name)
             if index == 0:
                 # copy movie first
                 new = dst
                 dst = old = new + si.CP_EXT
-
+            if os.path.exists(dst):
+                raise Exception("File already exists: %s" % (os.path.basename(dst)))
             self.setCurrentFile(src[0], dst)
             # do copy/move
             if do_move:
@@ -175,7 +189,7 @@ class Job():
         for si in self.list:
             fp = si.getPath()
             file_name = os.path.basename(fp)
-            dst = os.path.join(si.destination, file_name)
+            dst = os.path.join(si.getDestinationPath(), file_name)
             if os.path.exists(dst):
                 available.append(si.service)
         return available
@@ -217,6 +231,9 @@ class Job():
 
     def getMovieName(self):
         return self.current_name
+
+    def getSourcePath(self):
+        return self.current_src_path
 
     def getDestinationPath(self):
         return self.current_dst_path

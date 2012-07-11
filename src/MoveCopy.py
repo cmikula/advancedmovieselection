@@ -26,7 +26,7 @@ from Screens.LocationBox import MovieLocationBox
 from Components.config import config
 from ServiceUtils import serviceUtil, realSize
 from ServiceProvider import ServiceCenter
-import time
+import os, time
 
 def showFinished(job, session):
     from MovieSelection import MovieSelection
@@ -48,10 +48,11 @@ def showFinished(job, session):
             message_type = MessageBox.TYPE_ERROR
             mode = _("Error")
         etime = time.strftime("%H:%M:%S", time.gmtime(elapsed_time))
-        text = _("Job finished") + "\r\n\r\n"
         if error:
+            text = _("Job failed") + "\r\n\r\n"
             text += mode + ": " + str(error) + "\r\n"
         else:
+            text = _("Job finished") + "\r\n\r\n"
             text += "* %s\r\n" % (job.getDestinationPath())
             text += "* %d %s %s %s\r\n" % (movie_count, _("movie(s)"), realSize(full), mode)
             text += "* %s %s\r\n" % (_("Duration"), etime)
@@ -69,8 +70,8 @@ class ProgressList(GUIComponent):
         self.l = eListboxPythonMultiContent()
         self.l.setFont(0, gFont("Regular", 20))
         self.l.setFont(1, gFont("Regular", 18))
-        self.l.setFont(2, gFont("Regular", 16))
-        self.l.setItemHeight(75)
+        self.l.setFont(2, gFont("Regular", 17))
+        self.l.setItemHeight(155)
         self.l.setBuildFunc(self.buildListEntry)
         
         self.onSelectionChanged = [ ]
@@ -95,29 +96,69 @@ class ProgressList(GUIComponent):
         copied = job.getSizeCopied()
         elapsed_time = job.getElapsedTime()
         progress = copied * 100 / full
-        b_per_sec = copied / (elapsed_time)
+        b_per_sec = elapsed_time != 0 and copied / elapsed_time or 0
         mode = job.getMode() and _("Move") or _("Copy")
+        name_info = _("Name:")
         if job.isCanceled():
             mode = _("Canceled")
         if job.isFinished():
             mode = _("Finished")
-            movie_name = job.getDestinationPath()
+            movie_name = ""
+            name_info = ""
         else:
             movie_name = job.getMovieName()
         error = job.getError() 
         if error:
-            movie_name = str(error)
             mode = _("Error")
+            movie_name = str(error)
+            name_info = _("Error:")
         etime = time.strftime("%H:%M:%S", time.gmtime(elapsed_time))
-        main_info = "%s (%d/%d) %s %d%%" % (mode, job.getMovieIndex(), job.getMovieCount(), realSize(full), progress)
-        file_info = "(%d/%d)" % (job.getFileIndex(), job.getFileCount())
-        speed_info = _("Total files") + file_info + " " + _("Average") + " " + realSize(b_per_sec, 3) + "/" + _("Seconds")
-        res.append(MultiContentEntryProgress(pos=(5, 3), size=(width-10, 5), percent=progress, borderWidth=1))
-        res.append(MultiContentEntryText(pos=(5, 10), size=(width - 150, 26), font=0, flags=RT_HALIGN_LEFT, text=main_info))
-        res.append(MultiContentEntryText(pos=(width - 150, 10), size=(150, 26), font=0, flags=RT_HALIGN_RIGHT, text=realSize(copied)))
-        res.append(MultiContentEntryText(pos=(5, 32), size=(width - 150, 22), font=1, flags=RT_HALIGN_LEFT, text=movie_name))
-        res.append(MultiContentEntryText(pos=(width - 150, 32), size=(150, 22), font=1, flags=RT_HALIGN_RIGHT, text=etime))
-        res.append(MultiContentEntryText(pos=(5, 54), size=(width - 205, 20), font=2, flags=RT_HALIGN_LEFT, text=speed_info))
+        main_info = "%s  %d/%d (%s)  %d%%" % (mode, job.getMovieIndex(), job.getMovieCount(), realSize(full), progress)
+        #file_info = "(%d/%d)" % (job.getFileIndex(), job.getFileCount())
+        #speed_info = _("Total files") + file_info + " " + _("Average") + " " + realSize(b_per_sec, 3) + "/" + _("Seconds")
+
+        src_p = job.getSourcePath()
+        dst_p = job.getDestinationPath()
+        from_info = os.path.basename(src_p) + " (%s)" % (src_p)
+        to_info = os.path.basename(dst_p) + " (%s)" % (dst_p)
+        remaining_bytes = full - copied
+        remaining_seconds = b_per_sec != 0 and remaining_bytes / b_per_sec or -1
+        remaining_elements = "%d (%s)" % (job.getFileCount() - job.getFileIndex(), realSize(remaining_bytes, 1))
+        if job.isFinished():
+            remaining_time = mode
+        elif remaining_seconds == -1:
+            remaining_time = _("Calculating...")
+        elif remaining_seconds > 60 * 60:
+            remaining_time = time.strftime("%H:%M:%S", time.gmtime(remaining_seconds)) 
+        elif remaining_seconds > 60:
+            remaining_time = time.strftime("%M:%S", time.gmtime(remaining_seconds)) 
+        else:
+            remaining_time = time.strftime("%S", time.gmtime(remaining_seconds)) 
+        speed = realSize(b_per_sec, 3) + "/" + _("Seconds")
+        
+        res.append(MultiContentEntryProgress(pos=(5, 2), size=(width - 10, 5), percent=progress, borderWidth=1))
+        
+        info_width = 180
+        res.append(MultiContentEntryText(pos=(5, 9), size=(width, 26), font=0, flags=RT_HALIGN_LEFT, text=_("Status:")))
+        res.append(MultiContentEntryText(pos=(5, 32), size=(info_width, 22), font=1, flags=RT_HALIGN_LEFT, text=name_info))
+        res.append(MultiContentEntryText(pos=(5, 52), size=(info_width, 20), font=1, flags=RT_HALIGN_LEFT, text=_("From:")))
+        res.append(MultiContentEntryText(pos=(5, 72), size=(info_width, 20), font=1, flags=RT_HALIGN_LEFT, text=_("To:")))
+        if not job.isFinished():
+            res.append(MultiContentEntryText(pos=(5, 92), size=(info_width, 20), font=1, flags=RT_HALIGN_LEFT, text=_("Remaining time:")))
+        res.append(MultiContentEntryText(pos=(5, 112), size=(info_width, 20), font=1, flags=RT_HALIGN_LEFT, text=_("Remaining elements:")))
+        res.append(MultiContentEntryText(pos=(5, 132), size=(info_width, 20), font=1, flags=RT_HALIGN_LEFT, text=_("Speed:")))
+
+        res.append(MultiContentEntryText(pos=(info_width, 9), size=(width, 26), font=0, flags=RT_HALIGN_LEFT, text=main_info))
+        res.append(MultiContentEntryText(pos=(info_width, 32), size=(width, 22), font=1, flags=RT_HALIGN_LEFT, text=movie_name))
+        res.append(MultiContentEntryText(pos=(info_width, 52), size=(width, 20), font=1, flags=RT_HALIGN_LEFT, text=from_info))
+        res.append(MultiContentEntryText(pos=(info_width, 72), size=(width, 20), font=1, flags=RT_HALIGN_LEFT, text=to_info))
+        if not job.isFinished():
+            res.append(MultiContentEntryText(pos=(info_width, 92), size=(width, 20), font=1, flags=RT_HALIGN_LEFT, text=remaining_time))
+        res.append(MultiContentEntryText(pos=(info_width, 112), size=(width, 20), font=1, flags=RT_HALIGN_LEFT, text=remaining_elements))
+        res.append(MultiContentEntryText(pos=(info_width, 132), size=(width, 20), font=1, flags=RT_HALIGN_LEFT, text=speed))
+
+        res.append(MultiContentEntryText(pos=(width - 150, 10), size=(145, 26), font=0, flags=RT_HALIGN_RIGHT, text=realSize(copied)))
+        res.append(MultiContentEntryText(pos=(width - 150, 32), size=(145, 22), font=1, flags=RT_HALIGN_RIGHT, text=etime))
         return res
 
     def moveToIndex(self, index):
@@ -196,7 +237,7 @@ class MoveCopyProgress(Screen):
     def setWindowTitle(self):
         self.setTitle(_("Move/Copy progress"))
         self["list"].load(serviceUtil.getJobs())
-        self.timer.start(500, False)
+        self.timer.start(1000, False)
         
     def cancel(self):
         self.close()
