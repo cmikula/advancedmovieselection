@@ -69,8 +69,7 @@ class ProgressList(GUIComponent):
         self.list = []
         self.l = eListboxPythonMultiContent()
         self.l.setFont(0, gFont("Regular", 20))
-        self.l.setFont(1, gFont("Regular", 18))
-        self.l.setFont(2, gFont("Regular", 17))
+        self.l.setFont(1, gFont("Regular", 16))
         self.l.setItemHeight(155)
         self.l.setBuildFunc(self.buildListEntry)
         
@@ -130,11 +129,13 @@ class ProgressList(GUIComponent):
             remaining_time = _("Calculating...")
         elif remaining_seconds > 60 * 60:
             remaining_time = time.strftime("%H:%M:%S", time.gmtime(remaining_seconds)) 
+        elif remaining_seconds > 120:
+            remaining_time = _("Around %d minutes") % (remaining_seconds / 60)
         elif remaining_seconds > 60:
-            remaining_time = time.strftime("%M:%S", time.gmtime(remaining_seconds)) 
+            remaining_time = _("Around %d minute") % (remaining_seconds / 60)
         else:
-            remaining_time = time.strftime("%S", time.gmtime(remaining_seconds)) 
-        speed = realSize(b_per_sec, 3) + "/" + _("Seconds")
+            remaining_time = "%d %s" % (remaining_seconds, _("Seconds"))
+        speed = realSize(b_per_sec, 3) + "/" + _("Second")
         
         res.append(MultiContentEntryProgress(pos=(5, 2), size=(width - 10, 5), percent=progress, borderWidth=1))
         
@@ -157,8 +158,8 @@ class ProgressList(GUIComponent):
         res.append(MultiContentEntryText(pos=(info_width, 112), size=(width, 20), font=1, flags=RT_HALIGN_LEFT, text=remaining_elements))
         res.append(MultiContentEntryText(pos=(info_width, 132), size=(width, 20), font=1, flags=RT_HALIGN_LEFT, text=speed))
 
-        res.append(MultiContentEntryText(pos=(width - 150, 10), size=(145, 26), font=0, flags=RT_HALIGN_RIGHT, text=realSize(copied)))
-        res.append(MultiContentEntryText(pos=(width - 150, 32), size=(145, 22), font=1, flags=RT_HALIGN_RIGHT, text=etime))
+        res.append(MultiContentEntryText(pos=(width - 200, 9), size=(195, 26), font=0, flags=RT_HALIGN_RIGHT, text=realSize(copied)))
+        #res.append(MultiContentEntryText(pos=(width - 150, 32), size=(145, 22), font=1, flags=RT_HALIGN_RIGHT, text=etime))
         return res
 
     def moveToIndex(self, index):
@@ -228,6 +229,7 @@ class MoveCopyProgress(Screen):
         self["key_red"] = Button(_("Cancel"))
         self["key_green"] = Button(_("Close"))
         self["list"] = ProgressList()
+        self["list"].connectSelChanged(self.selectionChanged)
         self["OkCancelActions"] = HelpableActionMap(self, "OkCancelActions",
             {
                 "cancel": (self.close, _("Close"))
@@ -235,8 +237,8 @@ class MoveCopyProgress(Screen):
         self.onShown.append(self.setWindowTitle)
     
     def setWindowTitle(self):
-        self.setTitle(_("Move/Copy progress"))
         self["list"].load(serviceUtil.getJobs())
+        self.selectionChanged()
         self.timer.start(1000, False)
         
     def cancel(self):
@@ -252,7 +254,7 @@ class MoveCopyProgress(Screen):
             self.session.openWithCallback(self.abortCallback, MessageBox, text, MessageBox.TYPE_INFO)
             return
         text = _("Would you really abort current job?") + "\r\n"
-        text += _("Movies began to be copied until they are finished")
+        text += _("Movies began to be copied until they are finished!")
         self.session.openWithCallback(self.abortCallback, MessageBox, text, MessageBox.TYPE_YESNO)
     
     def abortCallback(self, result):
@@ -263,6 +265,18 @@ class MoveCopyProgress(Screen):
     
     def update(self):
         self["list"].updateJobs()
+
+    def selectionChanged(self):
+        job = self["list"].getCurrent()
+        if job:
+            movie_count = job.getMovieCount()
+            app_info = job.getMode() and _("Move of") or _("Copy of")
+            app_info += " %d " % (movie_count)
+            app_info += movie_count == 1 and _("movie") or _("movies")
+            app_info += " (%s)" % (realSize(job.getSizeTotal()))
+            self.setTitle(app_info)
+        else:
+            self.setTitle(_("Move/Copy progress"))
 
 class MovieMove(ChoiceBox):
     def __init__(self, session, csel, service):

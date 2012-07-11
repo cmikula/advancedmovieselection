@@ -155,34 +155,37 @@ class Job():
             return
         if not os.path.exists(si.getDestinationPath()):
             os.makedirs(si.getDestinationPath())
-        for index, src in enumerate(si.file_list):
-            self.file_index += 1
-            file_name = os.path.basename(src[0])
-            dst = os.path.join(si.getDestinationPath(), file_name)
-            if index == 0:
-                # copy movie first
-                new = dst
-                dst = old = new + si.CP_EXT
-            if os.path.exists(dst):
-                raise Exception("File already exists: %s" % (os.path.basename(dst)))
-            self.setCurrentFile(src[0], dst)
-            # do copy/move
-            if do_move:
-                print "move: \"%s\" -> \"%s\"" % (src[0], dst)
-                shutil.move(src[0], dst)
-            else:
-                print "copy: \"%s\" -> \"%s\"" % (src[0], dst)
-                if os.path.isfile(src[0]):
-                    shutil.copy2(src[0], dst)
+        try:
+            for index, src in enumerate(si.file_list):
+                self.file_index += 1
+                file_name = os.path.basename(src[0])
+                dst = os.path.join(si.getDestinationPath(), file_name)
+                if index == 0:
+                    # copy movie first
+                    new = dst
+                    dst = old = new + si.CP_EXT
+                if os.path.exists(dst):
+                    raise Exception("File already exists: %s" % (os.path.basename(dst)))
+                self.setCurrentFile(src[0], dst)
+                # do copy/move
+                if do_move:
+                    print "move: \"%s\" -> \"%s\"" % (src[0], dst)
+                    shutil.move(src[0], dst)
                 else:
-                    shutil.copytree(src[0], dst)
-
-            self.setCurrentFile(None, None)
-            
-            self.copied += src[1]
-        # rename movie to original file
-        print "rename: \"%s\" -> \"%s\"" % (old, new)
-        os.rename(old, new)
+                    print "copy: \"%s\" -> \"%s\"" % (src[0], dst)
+                    if os.path.isfile(src[0]):
+                        shutil.copy2(src[0], dst)
+                    else:
+                        shutil.copytree(src[0], dst)
+    
+                self.setCurrentFile(None, None)
+                
+                self.copied += src[1]
+        finally:
+            if os.path.exists(old):
+                # rename movie to original file
+                print "rename: \"%s\" -> \"%s\"" % (old, new)
+                os.rename(old, new)
 
     def prepare(self):
         available = []

@@ -141,12 +141,12 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, PlayerBase):
         if config.AdvancedMovieSelection.exitkey.value and config.AdvancedMovieSelection.exitprompt.value:
             self["closeactions"] = HelpableActionMap(self, "WizardActions",
                 {
-                    "back": (self.leavePlayer, _("Leave movie playerChoice"))
+                    "back": (self.leavePlayer, _("Leave movie player"))
                 })
         if config.AdvancedMovieSelection.exitkey.value and not config.AdvancedMovieSelection.exitprompt.value: 
             self["closeactions"] = HelpableActionMap(self, "WizardActions",
                 {
-                    "back": (self.close, _("Leave movie playerChoice"))
+                    "back": (self.close, _("Leave movie player"))
                 })
         if config.AdvancedMovieSelection.use_original_movieplayer_summary.value == True: 
             self.__event_tracker = ServiceEventTracker(screen=self, eventmap=
