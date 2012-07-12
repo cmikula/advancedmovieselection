@@ -1028,7 +1028,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self.list.moveDown()
 
     def updateList(self, job):
-        if self.current_ref.getPath() != job.getDestinationPath():
+        if os.path.normpath(self.current_ref.getPath()) != job.getDestinationPath():
             return 
         self["waitingtext"].visible = True
         self.inited = False
