@@ -201,13 +201,15 @@ class ProgressList(GUIComponent):
         self.instance.moveSelection(self.instance.moveDown)
 
 from Screens.Screen import Screen
+from Screens.HelpMenu import HelpableScreen
 from enigma import eTimer
 from Components.ActionMap import HelpableActionMap
 from Components.Button import Button
 
-class MoveCopyProgress(Screen):
+class MoveCopyProgress(Screen, HelpableScreen):
     def __init__(self, session):
         Screen.__init__(self, session)
+        HelpableScreen.__init__(self)
         self.timer = eTimer()
         self.timer.callback.append(self.update)
         self["ColorActions"] = HelpableActionMap(self, "ColorActions",
