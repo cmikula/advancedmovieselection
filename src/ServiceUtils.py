@@ -53,10 +53,14 @@ def getDirSize(root):
 
 class ServiceFileInfo:
     CP_EXT = ".cpmv"
+    STAT_WAITING = 0
+    STAT_STARTED = 1
+    STAT_FINISHED = 2
     def __init__(self, service, dst):
         self.service = service
         self.destination_path = os.path.normpath(dst)
         self.source_path, self.file_name = os.path.split(service.getPath())
+        self.status = self.STAT_WAITING
         print "ServiceFileInfo"
         print "Name:", self.file_name
         print "From:", self.source_path
@@ -99,6 +103,12 @@ class ServiceFileInfo:
     def getFileName(self):
         return self.file_name
 
+    def getStatus(self):
+        return self.status
+
+    def setStatus(self, status):
+        self.status = status
+
 class Job():
     def __init__(self, list, cb=None):
         self.list = list
@@ -137,7 +147,9 @@ class Job():
                 self.current_src_path = si.getSourcePath()
                 self.current_dst_path = si.getDestinationPath()
                 self.current_index += 1
+                si.setStatus(ServiceFileInfo.STAT_STARTED)
                 self.copy(si, do_move)
+                si.setStatus(ServiceFileInfo.STAT_FINISHED)
         except Exception, e:
             self.error = e
         except IOError, e:
@@ -164,7 +176,7 @@ class Job():
                     # copy movie first
                     new = dst
                     dst = old = new + si.CP_EXT
-                if os.path.exists(dst):
+                elif os.path.exists(dst):
                     raise Exception("File already exists: %s" % (os.path.basename(dst)))
                 self.setCurrentFile(src[0], dst)
                 # do copy/move
@@ -329,7 +341,7 @@ class ServiceUtil():
 
     def isServiceMoving(self, serviceref):
         for job in self.proc:
-            if job.getMode():
+            if job.getMode() and not job.isFinished():
                 for si in job.list:
                     if si.service.getPath() == serviceref.getPath():
                         return True

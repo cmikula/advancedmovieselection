@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-11 13:03-0000\n"
-"PO-Revision-Date: 2012-07-11 13:04-0000\n"
+"POT-Creation-Date: 2012-07-12 10:35-0000\n"
+"PO-Revision-Date: 2012-07-12 10:37-0000\n"
 "Last-Translator: cmikula\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "Language: \n"
@@ -483,7 +483,7 @@ msgid "Save"
 msgstr "Speichern"
 
 #: ../../../Rename.py:69
-#: ../../../MoveCopy.py:229
+#: ../../../MoveCopy.py:218
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -523,223 +523,212 @@ msgstr "Ordnernamen ändern"
 msgid "Change File/Moviename and/or Description"
 msgstr "Datei/Filmnamen und/oder Beschreibung ändern"
 
-#: ../../../MoveCopy.py:44
-msgid "moved"
-msgstr "verschoben"
-
-#: ../../../MoveCopy.py:44
-msgid "copied"
-msgstr "kopiert"
-
-#: ../../../MoveCopy.py:46
-msgid "canceled"
-msgstr "abgebrochen"
-
-#: ../../../MoveCopy.py:49
-#: ../../../MoveCopy.py:111
-msgid "Error"
-msgstr "Fehler"
-
-#: ../../../MoveCopy.py:52
+#: ../../../MoveCopy.py:47
 msgid "Job failed"
 msgstr "Aufgabe fehlgeschlagen!"
 
-#: ../../../MoveCopy.py:55
-msgid "Job finished"
-msgstr "Aufgabe beendet"
+#: ../../../MoveCopy.py:48
+#: ../../../MoveCopy.py:100
+#: ../../../MoveCopy.py:249
+msgid "Error"
+msgstr "Fehler"
 
-#: ../../../MoveCopy.py:57
-msgid "movie(s)"
-msgstr "Film(e)"
-
-#: ../../../MoveCopy.py:58
-msgid "Duration"
-msgstr "Dauer"
-
-#: ../../../MoveCopy.py:59
-msgid "Average"
-msgstr "Durchschnitt"
-
-#: ../../../MoveCopy.py:99
-#: ../../../MoveCopy.py:335
+#: ../../../MoveCopy.py:88
+#: ../../../MoveCopy.py:251
+#: ../../../MoveCopy.py:343
 msgid "Move"
 msgstr "Verschieben"
 
-#: ../../../MoveCopy.py:99
-#: ../../../MoveCopy.py:335
+#: ../../../MoveCopy.py:88
+#: ../../../MoveCopy.py:251
+#: ../../../MoveCopy.py:343
 msgid "Copy"
 msgstr "Kopieren"
 
-#: ../../../MoveCopy.py:100
+#: ../../../MoveCopy.py:89
 msgid "Name:"
 msgstr "Name:"
 
-#: ../../../MoveCopy.py:102
+#: ../../../MoveCopy.py:91
 msgid "Canceled"
 msgstr "Abgebrochen"
 
-#: ../../../MoveCopy.py:104
+#: ../../../MoveCopy.py:93
+#: ../../../MoveCopy.py:247
 msgid "Finished"
 msgstr "Beendet"
 
-#: ../../../MoveCopy.py:113
+#: ../../../MoveCopy.py:102
 msgid "Error:"
 msgstr "Fehler:"
 
-#: ../../../MoveCopy.py:129
+#: ../../../MoveCopy.py:118
 msgid "Calculating..."
 msgstr "Berechnung..."
 
-#: ../../../MoveCopy.py:133
+#: ../../../MoveCopy.py:122
 #, python-format
 msgid "Around %d minutes"
-msgstr "Ungefähr %d Minute"
+msgstr "Ungefähr %d Minuten"
 
-#: ../../../MoveCopy.py:135
+#: ../../../MoveCopy.py:124
 #, python-format
 msgid "Around %d minute"
 msgstr "Ungefähr %d Minute"
 
-#: ../../../MoveCopy.py:137
+#: ../../../MoveCopy.py:126
 msgid "Seconds"
 msgstr "Sekunden"
 
-#: ../../../MoveCopy.py:138
+#: ../../../MoveCopy.py:127
 msgid "Second"
 msgstr "Sekunde"
 
-#: ../../../MoveCopy.py:143
+#: ../../../MoveCopy.py:132
 msgid "Status:"
 msgstr "Status:"
 
-#: ../../../MoveCopy.py:145
+#: ../../../MoveCopy.py:134
+#: ../../../MoveCopy.py:238
 msgid "From:"
 msgstr "Von:"
 
-#: ../../../MoveCopy.py:146
+#: ../../../MoveCopy.py:135
+#: ../../../MoveCopy.py:239
 msgid "To:"
 msgstr "Nach:"
 
-#: ../../../MoveCopy.py:148
+#: ../../../MoveCopy.py:137
 msgid "Remaining time:"
 msgstr "Restdauer:"
 
-#: ../../../MoveCopy.py:149
+#: ../../../MoveCopy.py:138
 msgid "Remaining elements:"
 msgstr "Verbleibend:"
 
-#: ../../../MoveCopy.py:150
+#: ../../../MoveCopy.py:139
 msgid "Speed:"
 msgstr "Geschwindigkeit:"
 
-#: ../../../MoveCopy.py:226
+#: ../../../MoveCopy.py:215
 msgid "Abort selected job"
 msgstr "Gewählte Aufgabe abbrechen"
 
-#: ../../../MoveCopy.py:227
-#: ../../../MoveCopy.py:230
-#: ../../../MoveCopy.py:235
-#: ../../../MoveCopy.py:307
+#: ../../../MoveCopy.py:216
+#: ../../../MoveCopy.py:219
+#: ../../../MoveCopy.py:224
+#: ../../../MoveCopy.py:315
 #: ../../../About.py:103
 #: ../../../About.py:151
 msgid "Close"
 msgstr "Schließen"
 
-#: ../../../MoveCopy.py:240
-#: ../../../MoveCopy.py:279
-msgid "Move/Copy progress"
-msgstr "Fortschritt von Verschieben/Kopieren"
+#: ../../../MoveCopy.py:225
+msgid "Show detail of selected job"
+msgstr "Zeige Details für die aktuelle Auswahl"
 
-#: ../../../MoveCopy.py:252
+#: ../../../MoveCopy.py:243
+msgid "Aborted"
+msgstr "Abgebrochen"
+
+#: ../../../MoveCopy.py:245
+msgid "Waiting"
+msgstr "Warten"
+
+#: ../../../MoveCopy.py:260
 msgid "Job already canceled!"
 msgstr "Aufgabe wurde bereits abgebrochen!"
 
-#: ../../../MoveCopy.py:253
+#: ../../../MoveCopy.py:261
 msgid "Please wait until current movie is copied to the end!"
 msgstr "Bitte warten, bis der aktuelle Film kopiert wurde!"
 
-#: ../../../MoveCopy.py:256
+#: ../../../MoveCopy.py:264
 msgid "Would you really abort current job?"
 msgstr "Soll die Aufgabe wirklich abgebrochen werden?"
 
-#: ../../../MoveCopy.py:257
+#: ../../../MoveCopy.py:265
 msgid "Movies began to be copied until they are finished!"
 msgstr "Angefangene Filme werden bis zum ende kopiert!"
 
-#: ../../../MoveCopy.py:273
+#: ../../../MoveCopy.py:281
 msgid "Move of"
 msgstr "Verschieben von"
 
-#: ../../../MoveCopy.py:273
+#: ../../../MoveCopy.py:281
 msgid "Copy of"
 msgstr "Kopieren von"
 
-#: ../../../MoveCopy.py:275
+#: ../../../MoveCopy.py:283
 msgid "movie"
 msgstr "Film"
 
-#: ../../../MoveCopy.py:275
+#: ../../../MoveCopy.py:283
 msgid "movies"
 msgstr "Filmen"
 
-#: ../../../MoveCopy.py:291
+#: ../../../MoveCopy.py:287
+msgid "Move/Copy progress"
+msgstr "Fortschritt von Verschieben/Kopieren"
+
+#: ../../../MoveCopy.py:299
 msgid "Selected movies"
 msgstr "Ausgewählte Filme"
 
-#: ../../../MoveCopy.py:301
+#: ../../../MoveCopy.py:309
 msgid "To adjusted move/copy location"
 msgstr "In das Standard Verzeichnis für Verschieben/Kopieren"
 
-#: ../../../MoveCopy.py:303
+#: ../../../MoveCopy.py:311
 msgid "Directory Selection"
 msgstr "Verzeichnisauswahl"
 
-#: ../../../MoveCopy.py:305
+#: ../../../MoveCopy.py:313
 msgid "Show active move/copy processes"
 msgstr "Aktive Verschiebe/Kopiervorgänge anzeigen"
 
-#: ../../../MoveCopy.py:314
+#: ../../../MoveCopy.py:322
 #, python-format
 msgid "Move/Copy from: %s"
 msgstr "Verschieben/Kopieren von: %s"
 
-#: ../../../MoveCopy.py:320
+#: ../../../MoveCopy.py:328
 #, python-format
 msgid "Move/Copy %s"
 msgstr "Verschieben/Kopieren von %s"
 
-#: ../../../MoveCopy.py:320
+#: ../../../MoveCopy.py:328
 msgid "to:"
 msgstr "nach:"
 
-#: ../../../MoveCopy.py:327
+#: ../../../MoveCopy.py:335
 msgid "Source and destination path must be different."
 msgstr "Die Filme können nicht in das selbe Verzeichnis kopiert werden!"
 
-#: ../../../MoveCopy.py:335
+#: ../../../MoveCopy.py:343
 msgid "Abort"
 msgstr "Abbrechen"
 
-#: ../../../MoveCopy.py:336
+#: ../../../MoveCopy.py:344
 #, python-format
 msgid "How to proceed '%s'"
 msgstr "Wie soll ' %s '"
 
-#: ../../../MoveCopy.py:336
+#: ../../../MoveCopy.py:344
 #, python-format
 msgid "from %s"
 msgstr "von %s"
 
-#: ../../../MoveCopy.py:336
+#: ../../../MoveCopy.py:344
 #, python-format
 msgid "to %s"
 msgstr "nach %s"
 
-#: ../../../MoveCopy.py:336
+#: ../../../MoveCopy.py:344
 msgid "be moved/copied?"
 msgstr "verschoben/kopiert werden?"
 
-#: ../../../MoveCopy.py:351
+#: ../../../MoveCopy.py:359
 msgid "Service(s) are available in destination directory. Operation canceled!"
 msgstr "Filme sind im Ziehlverzeichnis bereits vorhanden! Operation abgebrochen!"
 
@@ -3153,6 +3142,27 @@ msgstr "unbekannter service"
 #, python-format
 msgid "Infos for: %s"
 msgstr "Info für: %s"
+
+#~ msgid "moved"
+#~ msgstr "verschoben"
+
+#~ msgid "copied"
+#~ msgstr "kopiert"
+
+#~ msgid "canceled"
+#~ msgstr "abgebrochen"
+
+#~ msgid "Job finished"
+#~ msgstr "Aufgabe beendet"
+
+#~ msgid "movie(s)"
+#~ msgstr "Film(e)"
+
+#~ msgid "Duration"
+#~ msgstr "Dauer"
+
+#~ msgid "Average"
+#~ msgstr "Durchschnitt"
 
 #~ msgid "Remove ' %s '"
 #~ msgstr "Remove ' %s '"

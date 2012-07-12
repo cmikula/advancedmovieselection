@@ -29,35 +29,24 @@ from ServiceProvider import ServiceCenter
 import os, time
 
 def showFinished(job, session):
+    error = job.getError()
+    # abort all if we have no session
+    if not session:
+        return
+    # update movie list to show new copied or moved movies 
     from MovieSelection import MovieSelection
     if isinstance(session.current_dialog, MovieSelection):
         session.current_dialog.updateList(job)
-        return
-    error = job.getError()
-    if session and (not isinstance(session.current_dialog, MoveCopyProgress) or error):
-        movie_count = job.getMovieCount()
-        full = job.getSizeTotal()
-        copied = job.getSizeCopied()
-        elapsed_time = job.getElapsedTime()
-        b_per_sec = copied / (elapsed_time)
-        message_type = MessageBox.TYPE_INFO
-        mode = job.getMode() and _("moved") or _("copied")
-        if job.isCanceled():
-            mode = _("canceled")
-        if error:
-            message_type = MessageBox.TYPE_ERROR
-            mode = _("Error")
-        etime = time.strftime("%H:%M:%S", time.gmtime(elapsed_time))
-        if error:
-            text = _("Job failed") + "\r\n\r\n"
-            text += mode + ": " + str(error) + "\r\n"
-        else:
-            text = _("Job finished") + "\r\n\r\n"
-            text += "* %s\r\n" % (job.getDestinationPath())
-            text += "* %d %s %s %s\r\n" % (movie_count, _("movie(s)"), realSize(full), mode)
-            text += "* %s %s\r\n" % (_("Duration"), etime)
-            text += "* %s %s/S\r\n" % (_("Average"), realSize(b_per_sec, 3))
-        session.open(MessageBox, text, message_type)
+        if not error:
+            return
+    # show progress dialog
+    if not isinstance(session.current_dialog, MoveCopyProgress):
+        session.open(MoveCopyProgress)
+    # always show error message box
+    if error:
+        text = _("Job failed") + "\r\n\r\n"
+        text += _("Error") + ": " + str(error) + "\r\n"
+        session.open(MessageBox, text, MessageBox.TYPE_ERROR)
 
 from Components.GUIComponent import GUIComponent
 from enigma import eListboxPythonMultiContent, eListbox, gFont, RT_HALIGN_LEFT, RT_HALIGN_RIGHT
@@ -111,7 +100,7 @@ class ProgressList(GUIComponent):
             mode = _("Error")
             movie_name = str(error)
             name_info = _("Error:")
-        etime = time.strftime("%H:%M:%S", time.gmtime(elapsed_time))
+        #etime = time.strftime("%H:%M:%S", time.gmtime(elapsed_time))
         main_info = "%s  %d/%d (%s)  %d%%" % (mode, job.getMovieIndex(), job.getMovieCount(), realSize(full), progress)
         #file_info = "(%d/%d)" % (job.getFileIndex(), job.getFileCount())
         #speed_info = _("Total files") + file_info + " " + _("Average") + " " + realSize(b_per_sec, 3) + "/" + _("Seconds")
@@ -232,7 +221,8 @@ class MoveCopyProgress(Screen):
         self["list"].connectSelChanged(self.selectionChanged)
         self["OkCancelActions"] = HelpableActionMap(self, "OkCancelActions",
             {
-                "cancel": (self.close, _("Close"))
+                "cancel": (self.close, _("Close")),
+                "ok": (self.ok, _("Show detail of selected job"))
             })
         self.onShown.append(self.setWindowTitle)
     
@@ -241,8 +231,26 @@ class MoveCopyProgress(Screen):
         self.selectionChanged()
         self.timer.start(1000, False)
         
-    def cancel(self):
-        self.close()
+    def ok(self):
+        job = self["list"].getCurrent()
+        if job:
+            l = []
+            l.append("%s %s" % (_("From:"), job.getSourcePath()))
+            l.append("%s %s" % (_("To:"), job.getDestinationPath()))
+            l.append("")
+            for si in job.list:
+                if si.getStatus() == si.STAT_WAITING and job.getError():
+                    info = _("Aborted")
+                elif si.getStatus() == si.STAT_WAITING:
+                    info = _("Waiting")
+                elif si.getStatus() == si.STAT_FINISHED:
+                    info = _("Finished")
+                elif si.getStatus() == si.STAT_STARTED and job.getError():
+                    info = _("Error")
+                else:
+                    info = job.getMode() and _("Move") or _("Copy")
+                l.append(info + ": \"%s\"" % (si.getName()))
+            self.session.open(MessageBox, "\r\n".join(l), MessageBox.TYPE_INFO)
     
     def abort(self):
         job = self["list"].getCurrent()
