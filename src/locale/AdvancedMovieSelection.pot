@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection(POT)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-12 10:34-0000\n"
-"PO-Revision-Date: 2012-07-12 10:34-0000\n"
+"POT-Creation-Date: 2012-07-13 06:03-0000\n"
+"PO-Revision-Date: 2012-07-13 06:04-0000\n"
 "Last-Translator: cmikula\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "Language: \n"
@@ -541,7 +541,7 @@ msgid "Name:"
 msgstr ""
 
 #: ../MoveCopy.py:91
-msgid "Canceled"
+msgid "Cancelled"
 msgstr ""
 
 #: ../MoveCopy.py:93
@@ -627,7 +627,7 @@ msgid "Waiting"
 msgstr ""
 
 #: ../MoveCopy.py:260
-msgid "Job already canceled!"
+msgid "Job already cancelled!"
 msgstr ""
 
 #: ../MoveCopy.py:261
@@ -720,7 +720,7 @@ msgid "be moved/copied?"
 msgstr ""
 
 #: ../MoveCopy.py:359
-msgid "Service(s) are available in destination directory. Operation canceled!"
+msgid "Movie(s) are already in the destination directory. Operation cancelled!"
 msgstr ""
 
 #: ../About.py:95

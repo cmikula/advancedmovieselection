@@ -213,7 +213,7 @@ class Job():
         """we still process started movies to the end and skipping all following!"""
         self.abort = True
 
-    def isCanceled(self):
+    def isCancelled(self):
         return self.abort
 
     def setCurrentFile(self, src_file, dst_file):

@@ -29,6 +29,7 @@ that they, too, receive or can get the source code. And you must show them these
 from __init__ import _
 import os
 from Screens.Screen import Screen
+from Screens.HelpMenu import HelpableScreen
 from Trashcan import Trashcan, eServiceReferenceTrash
 from Components.config import config
 from Components.ActionMap import HelpableActionMap
@@ -179,9 +180,10 @@ class TrashMovieList(GUIComponent):
         d = datetime.fromtimestamp(begin)
         return d.strftime("%H:%M")
     
-class Wastebasket(Screen):
+class Wastebasket(Screen, HelpableScreen):
     def __init__(self, session):
         Screen.__init__(self, session)
+        HelpableScreen.__init__(self)
         self.skinName = SkinTools.appendResolution("AdvancedMovieSelectionTrash")
         self.delayTimer = eTimer()
         self.delayTimer.callback.append(self.updateHDDData)

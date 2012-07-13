@@ -240,7 +240,7 @@ class FetchingMovies(Thread):
         current = 0
         for item_list in self.items:
             if self.cancel:
-                #print "Movie download canceled"
+                #print "Movie download cancelled"
                 self.finish()
                 return
             service = item_list[0]

@@ -87,8 +87,8 @@ class ProgressList(GUIComponent):
         b_per_sec = elapsed_time != 0 and copied / elapsed_time or 0
         mode = job.getMode() and _("Move") or _("Copy")
         name_info = _("Name:")
-        if job.isCanceled():
-            mode = _("Canceled")
+        if job.isCancelled():
+            mode = _("Cancelled")
         if job.isFinished():
             mode = _("Finished")
             movie_name = ""
@@ -213,10 +213,10 @@ class MoveCopyProgress(Screen, HelpableScreen):
         self.timer = eTimer()
         self.timer.callback.append(self.update)
         self["ColorActions"] = HelpableActionMap(self, "ColorActions",
-        {
-            "red": (self.abort, _("Abort selected job")),
-            "green": (self.close, _("Close")),
-        })
+            {
+                "red": (self.abort, _("Abort selected job")),
+                "green": (self.close, _("Close")),
+            })
         self["key_red"] = Button(_("Cancel"))
         self["key_green"] = Button(_("Close"))
         self["list"] = ProgressList()
@@ -258,8 +258,8 @@ class MoveCopyProgress(Screen, HelpableScreen):
         job = self["list"].getCurrent()
         if not job or job and job.isFinished():
             return
-        if job and job.isCanceled():
-            text = _("Job already canceled!") + "\r\n"
+        if job and job.isCancelled():
+            text = _("Job already cancelled!") + "\r\n"
             text += _("Please wait until current movie is copied to the end!")
             self.session.openWithCallback(self.abortCallback, MessageBox, text, MessageBox.TYPE_INFO)
             return
@@ -358,7 +358,7 @@ class MovieMove(ChoiceBox):
             for s in services:
                 print s.getName()
                 text.append(s.getName())
-            self.session.open(MessageBox, _("Service(s) are available in destination directory. Operation canceled!") + "\r\n\r\n" + "\r\n".join(text), MessageBox.TYPE_INFO)
+            self.session.open(MessageBox, _("Movie(s) are already in the destination directory. Operation cancelled!") + "\r\n\r\n" + "\r\n".join(text), MessageBox.TYPE_INFO)
             return
         if action == "copy":
             serviceUtil.copy()

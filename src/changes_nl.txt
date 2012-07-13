@@ -270,4 +270,4 @@ version: 2.8
 * nieuw: DVDPlayerExtended met CoverPreview en InfoView
 * nieuw: stoppen afspelen dvd met exit zonder vraag
 * nieuw: cover van tmdb kan gekozen worden met rechts/links
-* nieuw: verplaatsen en kopiëren van films met de vooruitgang uitzicht
+* nieuw: verplaatsen en kopiëren van films met voortgangsbalk
