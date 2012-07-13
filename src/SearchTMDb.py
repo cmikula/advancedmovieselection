@@ -24,7 +24,8 @@ import tmdb, urllib, shutil, os
 from enigma import RT_WRAP, RT_VALIGN_CENTER, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, gFont, eListbox, eListboxPythonMultiContent
 from Components.GUIComponent import GUIComponent
 from Screens.Screen import Screen
-from Components.ActionMap import ActionMap
+from Screens.HelpMenu import HelpableScreen
+from Components.ActionMap import HelpableActionMap
 from Components.Sources.StaticText import StaticText
 from Components.Pixmap import Pixmap
 from os import path as os_path, mkdir as os_mkdir
@@ -175,8 +176,15 @@ class TMDbList(GUIComponent, object):
     
     def getLength(self):
         return len(self.list)
+
+    def moveUp(self):
+        self.instance.moveSelection(self.instance.moveUp)
+
+    def moveDown(self):
+        self.instance.moveSelection(self.instance.moveDown)
+
     
-class TMDbMain(Screen, InfoLoadChoice):
+class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
     SHOW_DETAIL_TEXT = _("Show movie detail")
     SHOW_SEARCH_RESULT_TEXT = _("Show search result")
     MANUAL_SEARCH_TEXT = _("Manual search")
@@ -190,26 +198,28 @@ class TMDbMain(Screen, InfoLoadChoice):
         
     def __init__(self, session, searchTitle, service):
         Screen.__init__(self, session)
+        HelpableScreen.__init__(self)
         InfoLoadChoice.__init__(self, self.callback_green_pressed)
         self.skinName = SkinTools.appendResolution("TMDbMain")
         self.service = service
         self.movies = []
         if not os_path.exists(IMAGE_TEMPFILE):
             os_mkdir(IMAGE_TEMPFILE)
-        self["actions"] = ActionMap(["WizardActions", "DirectionActions", "ColorActions", "EPGSelectActions", "InfobarActions"],
+        self["ColorActions"] = HelpableActionMap(self, "ColorActions",
         {
-            "ok": self.ok_pressed,
-            "back": self.cancel,
-            "green": self.green_pressed,
-            "red": self.ok_pressed,
-            "blue": self.blue_pressed,
-            "yellow": self.yellow_pressed,
-            "upUp": self.pageUp,
-            "leftUp": self.pageUp,
-            "downUp": self.pageDown,
-            "rightUp": self.pageDown,
-            "left": self.left,
-            "right": self.right,
+            "red": (self.ok_pressed, _("Toggle detail and list view")),
+            "green": (self.green_pressed, _("Save info and cover")),
+            "yellow": (self.yellow_pressed, _("Manual search")),
+            "blue": (self.blue_pressed, _("Trailer search")),
+        }, -1)
+        self["WizardActions"] = HelpableActionMap(self, "WizardActions",
+        {
+            "ok": (self.ok_pressed, _("Toggle detail and list view")),
+            "back": (self.cancel, _("Exit")),
+            "left": (self.left, _("Show previous cover")),
+            "right": (self.right, _("Show next cover")),
+            "up": (self.moveUp, _("Select preview item in list")),
+            "down": (self.moveDown, _("Select next item in list")),
         }, -1)
         self["list"] = TMDbList()
         self["tmdblogo"] = Pixmap()
@@ -320,6 +330,18 @@ class TMDbMain(Screen, InfoLoadChoice):
 
     def pageDown(self):
         self["description"].pageDown()
+
+    def moveUp(self):
+        if self.view_mode == self.SHOW_RESULT_LIST:
+            self["list"].moveUp()
+        else:
+            self["description"].pageUp()
+
+    def moveDown(self):
+        if self.view_mode == self.SHOW_RESULT_LIST:
+            self["list"].moveDown()
+        else:
+            self["description"].pageDown()
 
     def askForSearchCallback(self, val):
         if val:
@@ -461,6 +483,9 @@ class TMDbMain(Screen, InfoLoadChoice):
         self.movies[index] = (movie, cur[1])
         self["list"].l.invalidateEntry(index)
         self.updateCover(movie)
+
+    def dummy(self):
+        print "Dummy"
 
     def left(self):
         self.updateImageIndex(tmdb.prevImageIndex)

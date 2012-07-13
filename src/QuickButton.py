@@ -86,10 +86,10 @@ class QuickButton:
         self.updateButtonText()
         self["ColorActions"] = HelpableActionMap(self, "ColorActions",
         {
-            "red": (self.redpressed, _("Assigned function for red key")),
-            "green": (self.greenpressed, _("Assigned function for green key")),
-            "yellow": (self.yellowpressed, _("Assigned function for yellow key")),
-            "blue": (self.bluepressed, _("Assigned function for blue key")),
+            "red": (self.redpressed, _("Assigned:") + " " + getPluginCaption(config.AdvancedMovieSelection.red.value)),
+            "green": (self.greenpressed, _("Assigned:") + " " + getPluginCaption(config.AdvancedMovieSelection.green.value)),
+            "yellow": (self.yellowpressed, _("Assigned:") + " " +  getPluginCaption(config.AdvancedMovieSelection.yellow.value)),
+            "blue": (self.bluepressed, _("Assigned:") + " " +  getPluginCaption(config.AdvancedMovieSelection.blue.value)),
         })
 
     def updateButtonText(self):
