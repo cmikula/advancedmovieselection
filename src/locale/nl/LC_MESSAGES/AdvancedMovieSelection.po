@@ -1991,20 +1991,20 @@ msgid "Bookmark 3 button description:"
 msgstr "Beschrijving Favoriet3-knop:"
 
 #: ../AdvancedMovieSelectionSetup.py:971
-msgid "Here you can give the home button a special name. After saving the changes color key settings will be closed, reopen it then the changes is to selection."
-msgstr "Hier kan u de naam van de HOME-knop wijzigen. Na het bewaren worden de instellingen gesloten, en na het heropnen zijn de wijzigingen beschikbaar."
+msgid "Here you can give the home button a special name."
+msgstr "Hier kan u de naam van de HOME-knop wijzigen."
 
 #: ../AdvancedMovieSelectionSetup.py:975
-msgid "Here you can give the bookmark 1 button a special name. After saving the changes color key settings will be closed, reopen it then the changes is to selection."
-msgstr "Hier kan u de naam van de Favoriet1-knop wijzigen. Na het bewaren worden de instellingen gesloten, en na het heropnen zijn de wijzigingen beschikbaar."
+msgid "Here you can give the bookmark 1 button a special name."
+msgstr "Hier kan u de naam van de Favoriet1-knop wijzigen."
 
 #: ../AdvancedMovieSelectionSetup.py:979
-msgid "Here you can give the bookmark 2 button a special name. After saving the changes color key settings will be closed, reopen it then the changes is to selection."
-msgstr "Hier kan u de naam van de Favoriet2-knop wijzigen. Na het bewaren worden de instellingen gesloten, en na het heropnen zijn de wijzigingen beschikbaar."
+msgid "Here you can give the bookmark 2 button a special name."
+msgstr "Hier kan u de naam van de Favoriet2-knop wijzigen."
 
 #: ../AdvancedMovieSelectionSetup.py:983
-msgid "Here you can give the bookmark 3 button a special name. After saving the changes color key settings will be closed, reopen it then the changes is to selection."
-msgstr "Hier kan u de naam van de Favoriet3-knop wijzigen. Na het bewaren worden de instellingen gesloten, en na het heropnen zijn de wijzigingen beschikbaar."
+msgid "Here you can give the bookmark 3 button a special name."
+msgstr "Hier kan u de naam van de Favoriet3-knop wijzigen."
 
 #: ../DownloadMovies.py:70
 #: ../DownloadMovies.py:176

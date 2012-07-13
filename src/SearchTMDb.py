@@ -208,18 +208,18 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
         self["ColorActions"] = HelpableActionMap(self, "ColorActions",
         {
             "red": (self.ok_pressed, _("Toggle detail and list view")),
-            "green": (self.green_pressed, _("Save info and cover")),
+            "green": (self.green_pressed, _("Save info/cover")),
             "yellow": (self.yellow_pressed, _("Manual search")),
             "blue": (self.blue_pressed, _("Trailer search")),
         }, -1)
         self["WizardActions"] = HelpableActionMap(self, "WizardActions",
         {
             "ok": (self.ok_pressed, _("Toggle detail and list view")),
-            "back": (self.cancel, _("Exit")),
+            "back": (self.cancel, _("Close")),
             "left": (self.left, _("Show previous cover")),
             "right": (self.right, _("Show next cover")),
-            "up": (self.moveUp, _("Select preview item in list")),
-            "down": (self.moveDown, _("Select next item in list")),
+            "up": (self.moveUp, _("Move up")),
+            "down": (self.moveDown, _("Move down")),
         }, -1)
         self["list"] = TMDbList()
         self["tmdblogo"] = Pixmap()

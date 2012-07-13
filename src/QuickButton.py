@@ -68,10 +68,10 @@ def getPluginCaption(pname):
         else:
             for p in plugins.getPlugins(where=[PluginDescriptor.WHERE_MOVIELIST]):
                 if pname == str(p.name):
-                    if config.AdvancedMovieSelection.buttoncaption.value == "1":
-                        return p.description
-                    else:
+                    if config.AdvancedMovieSelection.buttoncaption.value == config.AdvancedMovieSelection.buttoncaption.default:
                         return p.name
+                    else:
+                        return p.description
         return _(pname)
     return ""
 
@@ -83,14 +83,28 @@ class QuickButton:
         self["key_green"] = Button()
         self["key_yellow"] = Button()
         self["key_blue"] = Button()
-        self.updateButtonText()
         self["ColorActions"] = HelpableActionMap(self, "ColorActions",
         {
-            "red": (self.redpressed, _("Assigned:") + " " + getPluginCaption(config.AdvancedMovieSelection.red.value)),
-            "green": (self.greenpressed, _("Assigned:") + " " + getPluginCaption(config.AdvancedMovieSelection.green.value)),
-            "yellow": (self.yellowpressed, _("Assigned:") + " " +  getPluginCaption(config.AdvancedMovieSelection.yellow.value)),
-            "blue": (self.bluepressed, _("Assigned:") + " " +  getPluginCaption(config.AdvancedMovieSelection.blue.value)),
+            "red": (self.redpressed, ""),
+            "green": (self.greenpressed, ""),
+            "yellow": (self.yellowpressed, ""),
+            "blue": (self.bluepressed, ""),
         })
+        self.updateButtonText()
+        self.updateHelpText()
+
+    def updateHelpText(self):
+        for (actionmap, context, actions) in self.helpList:
+            if context == "ColorActions":
+                for index, item in enumerate(actions):
+                    if item[0] == "red":
+                        actions[index] = (item[0], getPluginCaption(config.AdvancedMovieSelection.red.value))
+                    if item[0] == "green":
+                        actions[index] = (item[0], getPluginCaption(config.AdvancedMovieSelection.green.value))
+                    if item[0] == "yellow":
+                        actions[index] = (item[0], getPluginCaption(config.AdvancedMovieSelection.yellow.value))
+                    if item[0] == "blue":
+                        actions[index] = (item[0], getPluginCaption(config.AdvancedMovieSelection.blue.value))
 
     def updateButtonText(self):
         self["key_red"].setText(getPluginCaption(config.AdvancedMovieSelection.red.value))
