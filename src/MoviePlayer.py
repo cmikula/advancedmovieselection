@@ -25,7 +25,7 @@ from __init__ import _
 from Components.config import config
 from Screens.Screen import Screen
 from Components.ActionMap import HelpableActionMap
-from MovieSelection import MovieSelection, Current, getBeginTimeString, getDateString
+from MovieSelection import MovieSelection, getBeginTimeString, getDateString
 from MovieList import eServiceReferenceDvd
 from ServiceProvider import DVDCutListSupport, CutListSupport, ServiceCenter, eServiceReferenceBludisc
 from Screens.MessageBox import MessageBox
