@@ -205,6 +205,7 @@ from Screens.HelpMenu import HelpableScreen
 from enigma import eTimer
 from Components.ActionMap import HelpableActionMap
 from Components.Button import Button
+from Globals import SkinTools
 
 class MoveCopyProgress(Screen, HelpableScreen):
     def __init__(self, session):
@@ -212,6 +213,7 @@ class MoveCopyProgress(Screen, HelpableScreen):
         HelpableScreen.__init__(self)
         self.timer = eTimer()
         self.timer.callback.append(self.update)
+        self.skinName = SkinTools.appendResolution("MoveCopyProgress")
         self["ColorActions"] = HelpableActionMap(self, "ColorActions",
             {
                 "red": (self.abort, _("Abort selected job")),
