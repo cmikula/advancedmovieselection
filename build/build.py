@@ -63,7 +63,7 @@ DEPLOY_PATH = "deploy"
 CURRENT_PATH = os.getcwd()
 
 PLUGIN_NAME = "AdvancedMovieSelection"
-PLUGIN_PATH = "/usr/lib/enigma2/python/Plugins/Extensions"
+PLUGIN_PATH = "/usr/lib/enigma2/python/Plugins/Extensions/"
 
 PLUGIN = os.path.join(PLUGIN_PATH, PLUGIN_NAME)
 
@@ -71,7 +71,7 @@ PLUGIN_VERSION_FILE = os.path.join(PLUGIN, "Version.py")
 
 PACKAGE_PREFIX = "enigma2-plugin-extensions"
 PACKAGE = "%s-%s" % (PACKAGE_PREFIX, PLUGIN_NAME.lower())
-PACKAGE_DESCRIPTION = "Advanced Movie Selection for enigma2" #"Erweiterte Filmauswahl"
+PACKAGE_DESCRIPTION = "Advanced Movie Selection for Enigma2" #"Erweiterte Filmauswahl"
 PACKAGE_ARCHITECTURE = ARCH
 PACKAGE_SECTION = "extra"
 PACKAGE_PRIORITY = "optional"
