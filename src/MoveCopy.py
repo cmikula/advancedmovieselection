@@ -262,11 +262,17 @@ class MoveCopyProgress(Screen, HelpableScreen, SkinResolutionHelper):
             return
         if job and job.isCancelled():
             text = _("Job already cancelled!") + "\r\n"
-            text += _("Please wait until current movie is copied to the end!")
+            if job.getMode():
+                text += _("Please wait until current movie is moved to the end!")
+            else:
+                text += _("Please wait until current movie is copied to the end!")
             self.session.openWithCallback(self.abortCallback, MessageBox, text, MessageBox.TYPE_INFO)
             return
         text = _("Would you really abort current job?") + "\r\n"
-        text += _("Movies began to be copied until they are finished!")
+        if job.getMode():
+            text += _("Movies began to be moved until they are finished!")
+        else:
+            text += _("Movies began to be copied until they are finished!")
         self.session.openWithCallback(self.abortCallback, MessageBox, text, MessageBox.TYPE_YESNO)
     
     def abortCallback(self, result):
