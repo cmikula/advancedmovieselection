@@ -63,6 +63,7 @@ class Installed:
         self.TMDb = self.pluginInstalled("TMDb")
         self.IMDb = self.pluginInstalled("IMDb")
         self.OFDb = self.pluginInstalled("OFDb")
+        self.TheTVDB = self.pluginInstalled("TheTVDB")
         self.AdvancedProgramGuide = self.pluginInstalled("AdvancedProgramGuide")
         self.MerlinEPG = self.pluginInstalled("MerlinEPG")
         self.MerlinEPGCenter = self.pluginInstalled("MerlinEPGCenter")
