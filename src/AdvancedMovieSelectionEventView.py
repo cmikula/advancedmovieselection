@@ -24,7 +24,7 @@ from Screens.Screen import Screen
 from Components.ActionMap import ActionMap
 from Components.Label import Label
 from Components.config import config
-from ServiceProvider import ServiceEvent
+from ServiceProvider import ServiceCenter, ServiceEvent
 from Components.ScrollLabel import ScrollLabel
 from MoviePreview import MoviePreview
 from Globals import SkinTools, pluginPresent
@@ -64,6 +64,18 @@ class EventViewBase:
         self.onShown.append(self.onCreate)
 
     def onCreate(self):
+        self["key_red"].setText(_("TheTVDB search"))
+        self["key_green"].setText(_("TMDb search"))
+        if pluginPresent.IMDb:
+            self["key_yellow"].setText(_("IMDB search"))
+        else:
+            self["yellow_button"].hide()
+            self["key_yellow"].setText("")
+        if pluginPresent.OFDb:
+            self["key_blue"].setText(_("OFDb search"))
+        else:
+            self["blue_button"].hide()
+            self["key_blue"].setText("")
         self.setEvent(self.event)
 
     def prevEvent(self):
@@ -87,48 +99,13 @@ class EventViewBase:
                 self["channel"].setText(_("Unknown service"))
 
     def setEvent(self, event):
-        if pluginPresent.TheTVDB:
-            self["red_button"].show()
-            self["key_red"].setText(_("TheTVDB search"))
-        else:
-            self["red_button"].hide()
-            self["key_red"].setText("")
-        if pluginPresent.TMDb:
-            self["green_button"].show()
-            self["key_green"].setText(_("TMDb search"))
-        else:
-            self["green_button"].hide()
-            self["key_green"].setText("")
-        if pluginPresent.IMDb:
-            self["yellow_button"].show()
-            self["key_yellow"].setText(_("IMDB search"))
-        else:
-            self["yellow_button"].hide()
-            self["key_yellow"].setText("")
-        if pluginPresent.OFDb:
-            self["blue_button"].show()
-            self["key_blue"].setText(_("OFDb search"))
-        else:
-            self["blue_button"].hide()
-            self["key_blue"].setText("")
         self.event = event
         if event is None:
             return
-        ref = self.currentService
         description = event.getExtendedDescription()
         self["epg_description"].setText(description)
-        from enigma import eServiceCenter
-        serviceHandler = eServiceCenter.getInstance()
-        info = serviceHandler.info(ref)
-        name = info and info.getName(ref) or _("this recording")
-        if name.endswith(".ts"):
-            title = name[:-3]
-        elif name.endswith(".mp4") or name.endswith(".mov") or name.endswith(".mkv") or name.endswith(".iso") or name.endswith(".flv") or name.endswith(".avi") or name.endswith(".ogg"):
-            title = name[:-4]
-        elif name.endswith(".divx") or name.endswith(".m2ts") or name.endswith(".mpeg"):
-            title = name[:-5]
-        else:
-            title = info and info.getName(ref) or _("this recording")
+
+        title = self.getEventName()
         self.setTitle(_("Infos for: %s") % title)
         self["Location"].setText(_("Movie location: %s") % (config.movielist.last_videodir.value))
         serviceref = self.currentService
@@ -141,81 +118,34 @@ class EventViewBase:
     def pageDown(self):
         self["epg_description"].pageDown()
 
+    def getEventName(self):
+        ref = self.currentService
+        info = ServiceCenter.getInstance().info(ref)
+        return info and info.getName(ref)
+
     def red_button(self):
-        if pluginPresent.TheTVDB:
-            from Plugins.Extensions.TheTVDB.TheTVDB import TheTVDBMain
-            from enigma import eServiceCenter
-            ref = self.currentService
-            serviceHandler = eServiceCenter.getInstance()
-            info = serviceHandler.info(ref)
-            name = info and info.getName(ref) or _("this recording")
-            if name.endswith(".ts"):
-                title = name[:-3]
-            elif name.endswith(".mp4") or name.endswith(".mov") or name.endswith(".mkv") or name.endswith(".iso") or name.endswith(".flv") or name.endswith(".avi") or name.endswith(".ogg"):
-                title = name[:-4]
-            elif name.endswith(".divx") or name.endswith(".m2ts") or name.endswith(".mpeg"):
-                title = name[:-5]
-            else:
-                title = info and info.getName(ref) or _("this recording")
-            eventName = title
-            self.session.openWithCallback(self.close, TheTVDBMain, eventName) 
+        name = self.getEventName()
+        if name:
+            from SearchTVDb import TheTVDBMain
+            self.session.open(TheTVDBMain, self.currentService)
         
     def green_button(self):
-        if pluginPresent.TMDb:
-            from Plugins.Extensions.TMDb.plugin import TMDbMain
-            from enigma import eServiceCenter
-            ref = self.currentService
-            serviceHandler = eServiceCenter.getInstance()
-            info = serviceHandler.info(ref)
-            name = info and info.getName(ref) or _("this recording")
-            if name.endswith(".ts"):
-                title = name[:-3]
-            elif name.endswith(".mp4") or name.endswith(".mov") or name.endswith(".mkv") or name.endswith(".iso") or name.endswith(".flv") or name.endswith(".avi") or name.endswith(".ogg"):
-                title = name[:-4]
-            elif name.endswith(".divx") or name.endswith(".m2ts") or name.endswith(".mpeg"):
-                title = name[:-5]
-            else:
-                title = info and info.getName(ref) or _("this recording")
-            eventName = title
-            self.session.openWithCallback(self.close, TMDbMain, eventName) 
+        name = self.getEventName()
+        if name:
+            from SearchTMDb import TMDbMain
+            self.session.open(TMDbMain, name, self.currentService) 
         
     def yellow_button(self):
-        if pluginPresent.IMDb:
+        name = self.getEventName()
+        if pluginPresent.IMDb and name:
             from Plugins.Extensions.IMDb.plugin import IMDB
-            from enigma import eServiceCenter
-            ref = self.currentService
-            serviceHandler = eServiceCenter.getInstance()
-            info = serviceHandler.info(ref)
-            name = info and info.getName(ref) or _("this recording")
-            if name.endswith(".ts"):
-                title = name[:-3]
-            elif name.endswith(".mp4") or name.endswith(".mov") or name.endswith(".mkv") or name.endswith(".iso") or name.endswith(".flv") or name.endswith(".avi") or name.endswith(".ogg"):
-                title = name[:-4]
-            elif name.endswith(".divx") or name.endswith(".m2ts") or name.endswith(".mpeg"):
-                title = name[:-5]
-            else:
-                title = info and info.getName(ref) or _("this recording")
-            eventName = title
-            self.session.openWithCallback(self.close, IMDB, eventName)
+            self.session.open(IMDB, name)
         
     def blue_button(self):
-        if pluginPresent.OFDb:
+        name = self.getEventName()
+        if pluginPresent.OFDb and name:
             from Plugins.Extensions.OFDb.plugin import OFDB
-            from enigma import eServiceCenter
-            ref = self.currentService
-            serviceHandler = eServiceCenter.getInstance()
-            info = serviceHandler.info(ref)
-            name = info and info.getName(ref) or _("this recording")
-            if name.endswith(".ts"):
-                title = name[:-3]
-            elif name.endswith(".mp4") or name.endswith(".mov") or name.endswith(".mkv") or name.endswith(".iso") or name.endswith(".flv") or name.endswith(".avi") or name.endswith(".ogg"):
-                title = name[:-4]
-            elif name.endswith(".divx") or name.endswith(".m2ts") or name.endswith(".mpeg"):
-                title = name[:-5]
-            else:
-                title = info and info.getName(ref) or _("this recording")
-            eventName = title
-            self.session.openWithCallback(self.close, OFDB, eventName)
+            self.session.open(OFDB, name)
 
 class EventViewSimple(Screen, EventViewBase, MoviePreview):
     def __init__(self, session, event, ref, callback=None, similarEPGCB=None):
