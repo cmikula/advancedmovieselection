@@ -1052,6 +1052,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self.updateDescription()
 
     def updateHDDData(self):
+        self.updateFolderSortType()
         self.reloadList(self.selectedmovie)
         self["waitingtext"].visible = False
 
@@ -1165,7 +1166,48 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
     def setDescriptionState(self, val):
         self["list"].setDescriptionState(val)
 
+    def readSortType(self):
+        try:
+            meta_file = config.movielist.last_videodir.value + ".meta"
+            if os.path.exists(meta_file):
+                metafile = open(meta_file, "r")
+                folder_name = metafile.readline().rstrip()
+                folder_sort = metafile.readline().rstrip()
+                metafile.close()
+                return int(folder_sort)
+        except Exception, e:
+            print e
+
+    def writeSortType(self, sort_type):
+        try:
+            meta_file = config.movielist.last_videodir.value + ".meta"
+            if os.path.exists(meta_file):
+                metafile = open(meta_file, "r")
+                folder_name = metafile.readline().rstrip()
+                folder_sort = metafile.readline().rstrip()
+                rest = metafile.read()
+                metafile.close()
+            else:
+                folder_name = os.path.split(os.path.dirname(config.movielist.last_videodir.value))[1]
+                rest = ""
+            folder_sort = sort_type
+            print "[AdvancedMovieSelection] Write new sort type:", meta_file, str(sort_type)
+            metafile = open(meta_file, "w")
+            metafile.write("%s\n%s\n%s" % (folder_name, folder_sort, rest))
+            metafile.close()
+        except Exception, e:
+            print e
+
+    def updateFolderSortType(self):
+        sort_type = self.readSortType()
+        if sort_type:
+            print "[AdvancedMovieSelection] Set new sort type:", str(sort_type)
+            self["list"].setSortType(sort_type)
+            config.movielist.moviesort.value = sort_type
+            self.updateSortButtonText()
+
     def setSortType(self, type):
+        self.writeSortType(type)
         self["list"].setSortType(type)
 
     def showFolders(self, val):
@@ -1239,6 +1281,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                 config.movielist.last_videodir.save()
                 self.current_ref = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + res)
                 self["freeDiskSpace"].path = res
+                self.updateFolderSortType()
                 self.reloadList(sel=selection, home=True)
             else:
                 self.session.open(

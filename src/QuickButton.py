@@ -128,6 +128,32 @@ class QuickButton:
         else:
             self.list.disconnectSelChanged(self.__updateGUI)
 
+    def getNextSortType(self):
+        if config.movielist.moviesort.value == MovieList.SORT_ALPHANUMERIC:
+            newType = MovieList.SORT_DESCRIPTION
+        elif config.movielist.moviesort.value == MovieList.SORT_DESCRIPTION:
+            newType = MovieList.SORT_DATE_DESC
+        elif config.movielist.moviesort.value == MovieList.SORT_DATE_DESC:
+            newType = MovieList.SORT_DATE_ASC
+        else:# config.movielist.moviesort.value == MovieList.SORT_DATE_ASC:
+            newType = MovieList.SORT_ALPHANUMERIC
+        return newType
+
+    def findSortButton(self):
+        if config.AdvancedMovieSelection.red.value == "Sort":
+            return self["key_red"]
+        if config.AdvancedMovieSelection.green.value == "Sort":
+            return self["key_green"]
+        if config.AdvancedMovieSelection.yellow.value == "Sort":
+            return self["key_yellow"]
+        if config.AdvancedMovieSelection.blue.value == "Sort":
+            return self["key_blue"]
+
+    def updateSortButtonText(self):
+        key_number = self.findSortButton()
+        if key_number:
+            key_number.setText(getPluginCaption("Sort"))
+
     def redpressed(self):
         self.startPlugin(config.AdvancedMovieSelection.red.value, self["key_red"])
     
@@ -187,18 +213,11 @@ class QuickButton:
                 self.reloadList()
                 key_number.setText(newCaption)
             elif pname == "Sort":
-                if config.movielist.moviesort.value == MovieList.SORT_ALPHANUMERIC:
-                    newType = MovieList.SORT_DESCRIPTION
-                elif config.movielist.moviesort.value == MovieList.SORT_DESCRIPTION:
-                    newType = MovieList.SORT_DATE_DESC
-                elif config.movielist.moviesort.value == MovieList.SORT_DATE_DESC:
-                    newType = MovieList.SORT_DATE_ASC
-                elif config.movielist.moviesort.value == MovieList.SORT_DATE_ASC:
-                    newType = MovieList.SORT_ALPHANUMERIC
+                newType = self.getNextSortType()
                 config.movielist.moviesort.value = newType
                 self.setSortType(newType)
+                self.updateSortButtonText()
                 self.reloadList()
-                key_number.setText(getPluginCaption(pname))
             elif pname == "Filter by description":
                 self.openFilterByDescriptionChoice()
             elif pname == "Show Timer":
