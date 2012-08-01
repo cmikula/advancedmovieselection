@@ -465,6 +465,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.list.append(getConfigListEntry(_("Video preview jump time (in minutes):"), config.AdvancedMovieSelection.video_preview_jump_time, _("Here you can set the jump time for the movie preview (< > buttons or bouquet +/- buttons).")))
         self.list.append(getConfigListEntry(_("Select keyboard:"), config.AdvancedMovieSelection.keyboard, _("You can select yout prefered keyboard (Virtual, Numerical or both).")))
         self.list.append(getConfigListEntry(_("Show recorded movies in epg:"), config.AdvancedMovieSelection.epg_extension, _("If you enable this function, your recorded movies will be marked in epg list.")))
+        self.list.append(getConfigListEntry(_("Reduce file copy throughput:"), config.AdvancedMovieSelection.reduce_copy_throughput, _("To increase the user-friendliness, the copy speed is throttled.")))
         self.list.append(getConfigListEntry(_("Enable Enigma2 debug:"), config.AdvancedMovieSelection.debug, _("If you enable this function, all standard output from enigma will be stored to /tmp folder.")))
         self["config"].setList(self.list)
 
@@ -538,6 +539,9 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         
         from EpgListExtension import epgListExtension
         epgListExtension.enabled(config.AdvancedMovieSelection.epg_extension.value)
+
+        from ServiceUtils import serviceUtil
+        serviceUtil.setReducedFilePerformance(config.AdvancedMovieSelection.reduce_copy_throughput.value)
         
         if self.csel:
             self.csel.updateSettings()
