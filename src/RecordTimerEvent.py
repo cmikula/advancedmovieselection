@@ -56,14 +56,16 @@ class CoverLoader():
     def timerStateChanged(self, timer):
         if not config.AdvancedMovieSelection.cover_auto_download.value:
             return
-        from timer import TimerEntry 
-        if timer.state == TimerEntry.StateEnded:
+        from timer import TimerEntry
+        print "[AdvancedMovieSelection] RecordTimerEvent:", str(timer.state), str(timer.cancelled), timer.Filename
+        if timer.state == TimerEntry.StateEnded and not timer.cancelled:
             from thread import start_new_thread
             start_new_thread(self.downloadMovieInfo, (timer.name, timer.Filename + ".ts"))
 
     def downloadMovieInfo(self, name, filename=None):
         import tmdb
         from EventInformationTable import createEIT
+        print "[AdvancedMovieSelection] RecordTimerEvent, loading info from tmdb:", name
         results = tmdb.search(name)
         if results and len(results) > 0:
             searchResult = results[0]
