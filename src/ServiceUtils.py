@@ -52,7 +52,7 @@ def getDirSize(root):
     return folder_size
 
 class ServiceFileInfo:
-    CP_EXT = ".cpmv"
+    CP_EXT = "~"
     STAT_WAITING = 0
     STAT_STARTED = 1
     STAT_FINISHED = 2
