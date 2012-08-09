@@ -193,13 +193,20 @@ class Job():
                 # do copy/move
                 if do_move:
                     print "move: \"%s\" -> \"%s\"" % (src[0], dst)
-                    shutil.move(src[0], dst)
+                    cmd = "mv \"%s\" \"%s\"" % (src[0], dst)
+                    #shutil.move(src[0], dst)
                 else:
                     print "copy: \"%s\" -> \"%s\"" % (src[0], dst)
                     if os.path.isfile(src[0]):
-                        shutil.copy2(src[0], dst)
+                        cmd = "cp -p \"%s\" \"%s\"" % (src[0], dst)
+                        # shutil.copy2(src[0], dst)
                     else:
-                        shutil.copytree(src[0], dst)
+                        cmd = "cp -p -r \"%s\" \"%s\"" % (src[0], dst)
+                        # shutil.copytree(src[0], dst)
+                print cmd
+                l = os.popen(cmd) 
+                print l.readlines()
+                l.close()
     
                 self.setCurrentFile(None, None)
                 
@@ -238,7 +245,10 @@ class Job():
         copied = self.copied
         try:
             if self.dst_file and os.path.exists(self.dst_file):
-                copied = self.copied + os.path.getsize(self.dst_file)
+                if os.path.isfile(self.dst_file):
+                    copied = self.copied + os.path.getsize(self.dst_file)
+                else:
+                    copied = self.copied + getFolderSize(self.dst_file)
         finally:
             self.lock.release()
         return copied
