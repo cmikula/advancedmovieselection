@@ -28,17 +28,6 @@ that they, too, receive or can get the source code. And you must show them these
 import os, glob, shutil, time, operator
 import threading
 
-savedCopyFileObject = shutil.copyfileobj
-
-def copyfileobj(fsrc, fdst, length=16*1024):
-    """copy data from file-like object fsrc to file-like object fdst"""
-    while 1:
-        buf = fsrc.read(length)
-        if not buf:
-            break
-        fdst.write(buf)
-        time.sleep(0.002)
-
 def getFolderSize(loadPath):
     folder_size = 0
     try:
@@ -366,13 +355,6 @@ class ServiceUtil():
                 for si in job.list:
                     if si.service.getPath() == serviceref.getPath():
                         return True
-
-    def setReducedFilePerformance(self, enabled):
-        print "[AdvancedMovieSelection] Set reduced file copy performance:", str(enabled)
-        if enabled:
-            shutil.copyfileobj = copyfileobj
-        else: 
-            shutil.copyfileobj = savedCopyFileObject 
 
 class eServiceReference():
     def __init__(self, path):

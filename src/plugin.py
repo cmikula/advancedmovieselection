@@ -71,9 +71,6 @@ def autostart(reason, **kwargs):
                 
                 from EpgListExtension import epgListExtension
                 epgListExtension.enabled(config.AdvancedMovieSelection.epg_extension.value)
-                
-                from ServiceUtils import serviceUtil
-                serviceUtil.setReducedFilePerformance(config.AdvancedMovieSelection.reduce_copy_throughput.value)
             except:
                 pass
 
