@@ -71,7 +71,7 @@ class AccessRestriction:
                 rest = metafile.read()
                 metafile.close()
             else:
-                sid = ""
+                sid = "0:0:0:0:0:0:0:0:0:0:"
                 title = os.path.basename(os.path.splitext(file_name)[0])
                 descr = ""
                 time = ""

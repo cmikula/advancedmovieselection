@@ -368,7 +368,7 @@ def checkCreateMetaFile(ref):
             title = os.path.basename(os.path.splitext(ref.getPath())[0])
         else:
             title = ref.getName()
-        sid = ""
+        sid = "0:0:0:0:0:0:0:0:0:0:"
         descr = ""
         time = ""
         tags = ""

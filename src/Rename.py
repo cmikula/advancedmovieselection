@@ -143,7 +143,7 @@ class MovieRetitle(Screen, ConfigListScreen):
                 _title = os.path.basename(os.path.splitext(service.getPath())[0])
             else:
                 _title = service.getName()
-            _sid = ""
+            _sid = "0:0:0:0:0:0:0:0:0:0:"
             _descr = ""
             _time = ""
             _tags = ""
