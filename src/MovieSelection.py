@@ -70,6 +70,10 @@ if pluginPresent.TMDb:
     from Plugins.Extensions.TMDb.plugin import TMDbMain
 if pluginPresent.YTTrailer:
     from Plugins.Extensions.YTTrailer.plugin import YTTrailerList
+if fileExists("/etc/grautec/dm8000/tft_dm8000.ko"):
+    TFT_8000_Present = True
+else:
+    TFT_8000_Present = False
 
 config.movielist = ConfigSubsection()
 config.movielist.moviesort = ConfigInteger(default=MovieList.SORT_ALPHANUMERIC)
@@ -373,7 +377,7 @@ class MovieContextMenu(Screen):
 
     def movecopy(self):
         if not (self.service.flags & eServiceReference.mustDescent):
-            self.session.openWithCallback(self.close, MovieMove, self.csel, self.service)
+            self.session.openWithCallback(self.closeafterfinish, MovieMove, self.csel, self.service)
         else:
             self.session.open(MessageBox, _("Move/Copy not possible here!"), MessageBox.TYPE_INFO)
 
@@ -504,14 +508,7 @@ class MovieContextMenu(Screen):
 
     def execPlugin(self, plugin):
         if not (self.service.flags & eServiceReference.mustDescent):
-            print "Starting plugin:", plugin.description
-            import inspect
-            params = inspect.getargspec(plugin.__call__)
-            print "Params:", params
-            if len(self.csel.list.multiSelection) > 0 and len(params[0]) >= 3:
-                plugin(self.session, self.service, self.csel.list.multiSelection)
-            else:
-                plugin(self.session, self.service)
+            plugin(session=self.session, service=self.service)
 
     def delete(self):
         self.csel.delete()
@@ -646,7 +643,10 @@ class AdvancedMovieSelection_summary(Screen):
         self["ShortDesc"].setText(desc)
 
     def showSeperator(self):
-        self["Seperator"].setText(resolveFilename(SCOPE_CURRENT_SKIN, "images/sep_lcd_oled.png"))
+        if TFT_8000_Present:
+            self["Seperator"].setText(resolveFilename(SCOPE_CURRENT_SKIN, "images/sep_tft.png"))
+        else:
+            self["Seperator"].setText(resolveFilename(SCOPE_CURRENT_SKIN, "images/sep_lcd_oled.png"))
     
     def hideSeperator(self):
         self["Seperator"].setText("")    
@@ -675,8 +675,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         if not config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.video_preview.value and config.AdvancedMovieSelection.video_preview_fullscreen.value and config.movielist.description.value == MovieList.HIDE_DESCRIPTION:
             self.skinName.insert(0, SkinTools.appendResolution("AdvancedMovieSelection_Preview_noDescription_noCover_"))
         self.tags = [ ]
-        if not config.AdvancedMovieSelection.startonfirst.value and not selectedmovie:
-            selectedmovie = Current.selection
         if selectedmovie:
             self.selected_tags = config.movielist.last_selected_tags.value
         else:
@@ -1027,17 +1025,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
     def moveDown(self):
         self.list.moveDown()
 
-    def updateList(self, job):
-        if os.path.normpath(self.current_ref.getPath()) != job.getDestinationPath():
-            return 
-        self["waitingtext"].visible = True
-        self.inited = False
-        self.selectedmovie = self.getCurrent()
-        self.go()
-
-    def getCurrentPath(self):
-        return self.current_ref.getPath()
-
     def go(self):
         if not self.inited:
         # ouch. this should redraw our "Please wait..."-text.
@@ -1052,7 +1039,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self.updateDescription()
 
     def updateHDDData(self):
-        self.updateFolderSortType()
         self.reloadList(self.selectedmovie)
         self["waitingtext"].visible = False
 
@@ -1077,6 +1063,13 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                 self.gotFilename(current.getPath())
             else:
                 self.saveconfig()
+                from MoviePlayer import PlayerInstance
+                if isinstance(current, eServiceReferenceDvd):
+                    from MoviePlayer import movieSelected
+                    movieSelected(self, current)
+                    current = None
+                elif PlayerInstance is not None:
+                    PlayerInstance.playerClosed(current)
                 self.close(current)
 
     def doContext(self, retval=None):
@@ -1166,48 +1159,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
     def setDescriptionState(self, val):
         self["list"].setDescriptionState(val)
 
-    def readSortType(self):
-        try:
-            meta_file = config.movielist.last_videodir.value + ".meta"
-            if os.path.exists(meta_file):
-                metafile = open(meta_file, "r")
-                folder_name = metafile.readline().rstrip()
-                folder_sort = metafile.readline().rstrip()
-                metafile.close()
-                return int(folder_sort)
-        except Exception, e:
-            print e
-
-    def writeSortType(self, sort_type):
-        try:
-            meta_file = config.movielist.last_videodir.value + ".meta"
-            if os.path.exists(meta_file):
-                metafile = open(meta_file, "r")
-                folder_name = metafile.readline().rstrip()
-                folder_sort = metafile.readline().rstrip()
-                rest = metafile.read()
-                metafile.close()
-            else:
-                folder_name = os.path.split(os.path.dirname(config.movielist.last_videodir.value))[1]
-                rest = ""
-            folder_sort = sort_type
-            print "[AdvancedMovieSelection] Write new sort type:", meta_file, str(sort_type)
-            metafile = open(meta_file, "w")
-            metafile.write("%s\n%s\n%s" % (folder_name, folder_sort, rest))
-            metafile.close()
-        except Exception, e:
-            print e
-
-    def updateFolderSortType(self):
-        sort_type = self.readSortType()
-        if sort_type:
-            print "[AdvancedMovieSelection] Set new sort type:", str(sort_type)
-            self["list"].setSortType(sort_type)
-            config.movielist.moviesort.value = sort_type
-            self.updateSortButtonText()
-
     def setSortType(self, type):
-        self.writeSortType(type)
         self["list"].setSortType(type)
 
     def showFolders(self, val):
@@ -1281,7 +1233,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                 config.movielist.last_videodir.save()
                 self.current_ref = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + res)
                 self["freeDiskSpace"].path = res
-                self.updateFolderSortType()
                 self.reloadList(sel=selection, home=True)
             else:
                 self.session.open(
