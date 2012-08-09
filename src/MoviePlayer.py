@@ -30,7 +30,7 @@ from MovieList import eServiceReferenceDvd
 from ServiceProvider import DVDCutListSupport, CutListSupport, ServiceCenter, eServiceReferenceBludisc
 from Screens.MessageBox import MessageBox
 from Screens.InfoBar import MoviePlayer
-from Tools.Directories import resolveFilename, SCOPE_CURRENT_SKIN
+from Tools.Directories import resolveFilename, SCOPE_CURRENT_SKIN, fileExists
 from enigma import ePoint, eTimer, iPlayableService
 from Tools import Notifications
 from Components.Sources.ServiceEvent import ServiceEvent
@@ -43,7 +43,11 @@ from Globals import pluginPresent
 from Version import __version__
 
 playerChoice = None
-
+if fileExists("/etc/grautec/dm8000/tft_dm8000.ko"):
+    TFT_8000_Present = True
+else:
+    TFT_8000_Present = False
+    
 def showMovies(self):
     initPlayerChoice(self.session)
     self.lastservice = self.session.nav.getCurrentlyPlayingServiceReference()
@@ -69,7 +73,10 @@ class MoviePlayerExtended_summary(Screen):
         self["Title"].setText(title)
 
     def showSeperator(self):
-        self["Seperator"].setText(resolveFilename(SCOPE_CURRENT_SKIN, "images/sep_lcd_oled.png"))
+        if TFT_8000_Present:
+            self["Seperator"].setText(resolveFilename(SCOPE_CURRENT_SKIN, "images/sep_tft.png"))
+        else:
+            self["Seperator"].setText(resolveFilename(SCOPE_CURRENT_SKIN, "images/sep_lcd_oled.png"))
     
     def hideSeperator(self):
         self["Seperator"].setText("")   
