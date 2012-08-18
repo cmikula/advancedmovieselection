@@ -649,14 +649,6 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         self.entryguilist2.append(("internal HDD", _("internal HDD")))
         self.entryguilist2.append(("NAS", _("NAS")))
         self.entryguilist2.append(("NAS-Movies", _("NAS-Movies")))
-        if config.AdvancedMovieSelection.homeowntext.value:
-            self.entryguilist2.append(config.AdvancedMovieSelection.homeowntext.value)
-        if config.AdvancedMovieSelection.bookmark1owntext.value:
-            self.entryguilist2.append(config.AdvancedMovieSelection.bookmark1owntext.value)
-        if config.AdvancedMovieSelection.bookmark2owntext.value:
-            self.entryguilist2.append(config.AdvancedMovieSelection.bookmark2owntext.value)
-        if config.AdvancedMovieSelection.bookmark3owntext.value:
-            self.entryguilist2.append(config.AdvancedMovieSelection.bookmark3owntext.value)
         self.entryguilist3 = []
         self.entryguilist3.append(("Display plugin name", _("Display plugin name")))
         self.entryguilist3.append(("Display plugin description", _("Display plugin description")))        
@@ -670,16 +662,25 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         self.bluechoice = ConfigSelection(default=config.AdvancedMovieSelection.blue.value, choices=self.entryguilist)
         self.buttoncaptionchoice = ConfigSelection(default=config.AdvancedMovieSelection.buttoncaption.value, choices=self.entryguilist3)
 
-        default = config.AdvancedMovieSelection.hometext.value in self.entryguilist2 and config.AdvancedMovieSelection.hometext.value or None
+        default = self.checkOwnButtonText(self.entryguilist2, config.AdvancedMovieSelection.hometext.value, config.AdvancedMovieSelection.homeowntext.value)
         self.homebuttontextchoice = ConfigSelection(default=default, choices=self.entryguilist2)
-        default = config.AdvancedMovieSelection.bookmark1text.value in self.entryguilist2 and config.AdvancedMovieSelection.bookmark1text.value or None
+        default = self.checkOwnButtonText(self.entryguilist2, config.AdvancedMovieSelection.bookmark1text.value, config.AdvancedMovieSelection.bookmark1owntext.value)
         self.bookmark1buttontextchoice = ConfigSelection(default=default, choices=self.entryguilist2)
-        default = config.AdvancedMovieSelection.bookmark2text.value in self.entryguilist2 and config.AdvancedMovieSelection.bookmark2text.value or None
+        default = self.checkOwnButtonText(self.entryguilist2, config.AdvancedMovieSelection.bookmark2text.value, config.AdvancedMovieSelection.bookmark2owntext.value)
         self.bookmark2buttontextchoice = ConfigSelection(default=default, choices=self.entryguilist2)
-        default = config.AdvancedMovieSelection.bookmark3text.value in self.entryguilist2 and config.AdvancedMovieSelection.bookmark3text.value or None
+        default = self.checkOwnButtonText(self.entryguilist2, config.AdvancedMovieSelection.bookmark3text.value, config.AdvancedMovieSelection.bookmark3owntext.value)
         self.bookmark3buttontextchoice = ConfigSelection(default=default, choices=self.entryguilist2)
 
         self.initConfigList()
+
+    def checkOwnButtonText(self, l, text, own_text):
+        l1 = [ descr[0] for descr in l ]
+        if own_text and not own_text in l1:
+            l.append((own_text, own_text))
+            l1.append(own_text)
+        if not text in l1:
+            l.append((text, text))
+        return text
 
     def initConfigList(self):
         hometmp = config.movielist.videodirs.value
