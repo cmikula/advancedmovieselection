@@ -271,3 +271,5 @@ versie: 2.8
 * nieuw: stoppen afspelen dvd met exit zonder vraag
 * nieuw: cover van tmdb kan gekozen worden met rechts/links
 * nieuw: verplaatsen en kopiëren van films met voortgangsbalk
+* nieuw: thetvdb, tmdb, ofdb en imdb plugins kunnen rechtstreeks opgeroepen worden vanuit de filminfo
+OPGELET voor de skinners, MoveCopyProgressHD, MoveCopyProgressXD end MoveCopyProgressSD toegevoegd, AdvancedMovieSelectionEventViewHD, AdvancedMovieSelectionEventViewXD en AdvancedMovieSelectionEventViewSD gewijzigd
