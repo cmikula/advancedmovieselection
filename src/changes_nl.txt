@@ -272,4 +272,4 @@ versie: 2.8
 * nieuw: cover van tmdb kan gekozen worden met rechts/links
 * nieuw: verplaatsen en kopiëren van films met voortgangsbalk
 * nieuw: thetvdb, tmdb, ofdb en imdb plugins kunnen rechtstreeks opgeroepen worden vanuit de filminfo
-OPGELET voor de skinners, MoveCopyProgressHD, MoveCopyProgressXD end MoveCopyProgressSD toegevoegd, AdvancedMovieSelectionEventViewHD, AdvancedMovieSelectionEventViewXD en AdvancedMovieSelectionEventViewSD gewijzigd
+OPGELET voor de skinners, MoveCopyProgressHD, MoveCopyProgressXD end MoveCopyProgressSD toegevoegd, AdvancedMovieSelectionEventView(SD, XD, HD) gewijzigd en van AdvancedMovieSelectionButtonSetup(SD, XD, HD) <widget source="important".. werd verwijderd

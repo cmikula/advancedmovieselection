@@ -1117,7 +1117,7 @@
             <widget name="key_green" position="80,378" zPosition="1" size="300,28" font="Regular;24" valign="center" halign="left"/>
             <widget name="key_yellow" position="80,428" zPosition="1" size="400,28" font="Regular;24" valign="center" halign="left"/>
             <widget name="OKIcon" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" position="60,480" zPosition="10" size="35,25" transparent="1" alphatest="on"/>
-            <widget source="important" render="Label" position="470,500" size="750,163" font="Regular;21"/>
+            <!-- <widget source="important" render="Label" position="470,500" size="750,163" font="Regular;21"/> -->
     </screen>
         <screen name="AdvancedMovieSelectionButtonSetupXD" position="center,center" size="1024,576" title=" " flags="wfNoBorder">
             <widget source="Title" render="Label" position="60,60" size="804,30" font="Regular;24" transparent="1"/>
@@ -1130,7 +1130,7 @@
             <ePixmap pixmap="skin_default/buttons/button_green.png" position="60,300" size="15,16" transparent="1" alphatest="on"/>
             <ePixmap pixmap="skin_default/buttons/button_yellow.png" position="60,330" size="15,16" transparent="1" alphatest="on"/>
             <widget name="OKIcon" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" position="60,480" zPosition="10" size="35,25" transparent="1" alphatest="on"/>
-            <widget source="important" render="Label" position="330,450" size="634,100" font="Regular;21"/>
+            <!-- <widget source="important" render="Label" position="330,450" size="634,100" font="Regular;21"/> -->
     </screen>
         <screen name="AdvancedMovieSelectionButtonSetupSD" position="center,center" size="560,400" title=" " >
             <widget name="config" position="5,5" size="550,295" scrollbarMode="showOnDemand" enableWrapAround="1"/>
@@ -1141,7 +1141,7 @@
             <ePixmap name="green" pixmap="skin_default/buttons/green.png" position="140,350" size="140,40" zPosition="4" transparent="1" alphatest="on"/>
             <ePixmap name="#ffcc00" pixmap="skin_default/buttons/yellow.png" position="280,350" size="140,40" zPosition="4" transparent="1" alphatest="on"/>
             <widget name="OKIcon" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" position="520,357" zPosition="10" size="35,25" transparent="1" alphatest="on"/>
-            <widget source="important" render="Label" position="0,310" size="560,95" font="Regular;16"/>
+            <!-- <widget source="important" render="Label" position="0,310" size="560,95" font="Regular;16"/> -->
     </screen>
         <screen name="AdvancedMovieSelectionOwnButtonNameHD" position="center,center" size="1280,720" title=" " flags="wfNoBorder">
             <widget source="Title" render="Label" position="60,60" size="1160,30" font="Regular;26" transparent="1"/>
@@ -1187,13 +1187,6 @@
             <widget source="key_red" render="Label" position="80,328" zPosition="1" size="300,28" font="Regular;24" valign="center" halign="left"/>
             <widget name="green" pixmap="skin_default/buttons/button_green.png" position="60,380" size="15,16" transparent="1" alphatest="on"/>
             <widget source="key_green" render="Label" position="80,378" zPosition="1" size="300,28" font="Regular;24" valign="center" halign="left"/>
-    </screen>
-        <screen name="AdvancedMovieSelectionChangesTXT_HD" position="center,center" title=" " size="1280,720" flags="wfNoBorder">
-            <widget source="Title" render="Label" position="60,60" size="1160,30" font="Regular;26" transparent="1"/>
-            <widget source="session.VideoPicture" render="Pig" position="60,100" size="380,215" zPosition="3" backgroundColor="#ff000000"/>
-            <widget name="changes_txt" position="60,320" size="1160,300" zPosition="1" font="Regular;24" foregroundColor="#ffffff" transparent="1"/>
-            <widget name="red" pixmap="skin_default/buttons/button_red.png" position="60,630" size="15,16" transparent="1" alphatest="on"/>
-            <widget source="key_red" render="Label" position="80,627" zPosition="1" size="300,28" font="Regular;24" valign="top" halign="left"/>
     </screen>
         <screen name="AdvancedMovieSelectionAboutXD" position="center,center" title=" " size="1024,576" flags="wfNoBorder">
             <widget source="Title" render="Label" position="60,60" size="804,30" font="Regular;24" transparent="1"/>

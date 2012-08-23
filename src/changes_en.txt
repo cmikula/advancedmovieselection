@@ -275,4 +275,4 @@ version: 2.8
 * new: cover from tmdb can be selected with left/right
 * new: move and copy of movies with progress view
 * new: thetvdb, tmdb, ofdb and imdb plugins can be called directly from the movie info
-Skinners ATTENTION, MoveCopyProgressHD, MoveCopyProgressXD und MoveCopyProgressSD are new, AdvancedMovieSelectionEventViewHD, AdvancedMovieSelectionEventViewXD und AdvancedMovieSelectionEventViewSD were changed
+Skinners ATTENTION, MoveCopyProgressHD, MoveCopyProgressXD und MoveCopyProgressSD are new, AdvancedMovieSelectionEventView(SD, XD, HD) were changed and from AdvancedMovieSelectionButtonSetup(SD, XD, HD) <widget source="important".. was removed
