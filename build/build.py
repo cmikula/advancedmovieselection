@@ -163,7 +163,7 @@ def genBrandingInfo(package_revision=None):
             version_file.close()
             break
     
-    branding_info['version'] = "%s-%s-r%d" % (branding_info["__version__"], current_date, package_revision)
+    branding_info['version'] = "%s-%s-r%s" % (branding_info["__version__"], current_date, branding_info['svn_revision'])
     branding_info['ipkg_name'] = "%s_%s_%s.ipk" % (PACKAGE, branding_info['version'], PACKAGE_ARCHITECTURE)
 
 def makeTarGz(folder_name, tar_name):
