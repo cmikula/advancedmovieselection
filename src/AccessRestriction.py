@@ -81,7 +81,7 @@ class AccessRestriction:
             tag_list = tags.split()
             new_tags = []
             for t in tag_list:
-                if not t.startswith("VSR") and not t.startswith("FSK"): # TODO: delete FSK checking after the next beta revision
+                if not t.startswith("VSR"):
                     new_tags.append(t)
             
             if not clear_access:
