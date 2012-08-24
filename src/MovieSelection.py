@@ -119,6 +119,18 @@ def getDateString():
         desc = strftime("%d.%m.%Y\n%A", t)
     return desc
 
+def getSortDescription():
+    text = _("Sorted:") + " "
+    if config.movielist.moviesort.value == MovieList.SORT_ALPHANUMERIC:
+        return text + _("Alphabetically")
+    if config.movielist.moviesort.value == MovieList.SORT_DESCRIPTION:
+        return text + _("Description")
+    if config.movielist.moviesort.value == MovieList.SORT_DATE_DESC:
+        return text + _("Descending")
+    if config.movielist.moviesort.value == MovieList.SORT_DATE_ASC:
+        return text + _("Ascending")
+    return text + _("Unknown")
+    
 def getBeginTimeString(info, serviceref):
     if not info or not serviceref:
         return ""
@@ -426,7 +438,6 @@ class MovieContextMenu(Screen):
         self.close(False)
 
     def sortBy(self, newType):
-        config.movielist.moviesort.value = newType
         self.csel.setSortType(newType)
         self.csel.reloadList()
         self.close()
@@ -1209,11 +1220,12 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         sort_type = self.readSortType()
         if sort_type:
             print "[AdvancedMovieSelection] Set new sort type:", str(sort_type)
-            self["list"].setSortType(sort_type)
             config.movielist.moviesort.value = sort_type
+            self["list"].setSortType(sort_type)
             self.updateSortButtonText()
 
     def setSortType(self, type):
+        config.movielist.moviesort.value = type
         self.writeSortType(type)
         self["list"].setSortType(type)
         self.updateSortButtonText()
@@ -1258,6 +1270,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         title = _("Movie location:")
         #if config.usage.setup_level.index >= 2: # expert+
         title += "  " + config.movielist.last_videodir.value
+        title = getSortDescription() + ", " + title
         if self.selected_tags is not None:
             #title += " - " + ','.join(self.selected_tags)
             title += " (" + self["list"].arrangeTags(" ".join(self.selected_tags)) + ")"

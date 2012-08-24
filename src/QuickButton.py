@@ -58,13 +58,13 @@ def getPluginCaption(pname):
                 return _("Hide bookmarks")
         elif pname == "Sort":
             if config.movielist.moviesort.value == MovieList.SORT_ALPHANUMERIC:
-                return _("Sort alphabetically")
-            if config.movielist.moviesort.value == MovieList.SORT_DESCRIPTION:
                 return _("Sort by Description")
-            if config.movielist.moviesort.value == MovieList.SORT_DATE_DESC:
+            if config.movielist.moviesort.value == MovieList.SORT_DESCRIPTION:
                 return _("Sort by Date (9->1)")
-            if config.movielist.moviesort.value == MovieList.SORT_DATE_ASC:
+            if config.movielist.moviesort.value == MovieList.SORT_DATE_DESC:
                 return _("Sort by Date (1->9)")
+            if config.movielist.moviesort.value == MovieList.SORT_DATE_ASC:
+                return _("Sort alphabetically")
         else:
             for p in plugins.getPlugins(where=[PluginDescriptor.WHERE_MOVIELIST]):
                 if pname == str(p.name):
