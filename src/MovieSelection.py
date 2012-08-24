@@ -1216,6 +1216,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
     def setSortType(self, type):
         self.writeSortType(type)
         self["list"].setSortType(type)
+        self.updateSortButtonText()
 
     def showFolders(self, val):
         self["list"].showFolders(val)
@@ -1258,7 +1259,8 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         #if config.usage.setup_level.index >= 2: # expert+
         title += "  " + config.movielist.last_videodir.value
         if self.selected_tags is not None:
-            title += " - " + ','.join(self.selected_tags)
+            #title += " - " + ','.join(self.selected_tags)
+            title += " (" + self["list"].arrangeTags(" ".join(self.selected_tags)) + ")"
         self.setTitle(title)
         if not (sel and self["list"].moveTo(sel)):
             if home:

@@ -976,7 +976,7 @@ class MovieList(GUIComponent):
                 self.list.insert(0, (tt, None, -1, -1))
             
         # finally, store a list of all tags which were found. these can be presented to the user to filter the list
-        self.tags = tags
+        self.tags = sorted(tags)
 
     def isInList(self, a, b):
         for ref in b:

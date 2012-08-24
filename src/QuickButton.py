@@ -58,13 +58,13 @@ def getPluginCaption(pname):
                 return _("Hide bookmarks")
         elif pname == "Sort":
             if config.movielist.moviesort.value == MovieList.SORT_ALPHANUMERIC:
-                return _("Sort by Description")
+                return _("Sort alphabetically")
             if config.movielist.moviesort.value == MovieList.SORT_DESCRIPTION:
-                return _("Sort by Date (1->9)")
+                return _("Sort by Description")
             if config.movielist.moviesort.value == MovieList.SORT_DATE_DESC:
                 return _("Sort by Date (9->1)")
             if config.movielist.moviesort.value == MovieList.SORT_DATE_ASC:
-                return _("Sort alphabetically")
+                return _("Sort by Date (1->9)")
         else:
             for p in plugins.getPlugins(where=[PluginDescriptor.WHERE_MOVIELIST]):
                 if pname == str(p.name):
@@ -216,7 +216,6 @@ class QuickButton:
                 newType = self.getNextSortType()
                 config.movielist.moviesort.value = newType
                 self.setSortType(newType)
-                self.updateSortButtonText()
                 self.reloadList()
             elif pname == "Filter by description":
                 self.openFilterByDescriptionChoice()
@@ -344,7 +343,7 @@ class QuickButton:
             self.reloadList()
 
     def openFilterByDescriptionChoice(self):
-        from ServiceProvider import ServiceCenter
+        from ServiceProvider import ServiceCenter, detectDVDStructure, detectBludiscStructure, eServiceReferenceDvd, eServiceReferenceBludisc
         from enigma import eServiceReference, iServiceInformation
         from MovieSelection import SHOW_ALL_MOVIES
         serviceHandler = ServiceCenter.getInstance()
@@ -355,12 +354,19 @@ class QuickButton:
             if not serviceref.valid():
                 break
             if serviceref.flags & eServiceReference.mustDescent:
-                continue
+                dvd = detectDVDStructure(serviceref.getPath())
+                if dvd is not None:
+                    serviceref = eServiceReferenceDvd(serviceref, True)
+                bludisc = detectBludiscStructure(serviceref.getPath())
+                if bludisc is not None:
+                    serviceref = eServiceReferenceBludisc(serviceref, True)
+                if not dvd and not bludisc:
+                    continue
             info = serviceHandler.info(serviceref)
             if not info:
                 continue
             description = (info.getInfoString(serviceref, iServiceInformation.sDescription),)
-            if description[0] != "" and not description in descr: 
+            if description[0] != "" and not description in descr:
                 descr.append(description)
         descr = sorted(descr)
         descr.insert(0, (_(SHOW_ALL_MOVIES), ))
