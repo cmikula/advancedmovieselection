@@ -195,10 +195,13 @@ class Network():
                 return True
             for network in auto_network:
                 if network[0] in mount_dir:
+                    print "check mount:", network[1] + ":" + mount_dir
                     delay = ping.do_one(network[1], 0.2)
                     if delay:
+                        print "success", delay
                         return True
                     else:
+                        print "failed"
                         return False
             return True
         except:
@@ -209,6 +212,7 @@ class Network():
         global auto_network
         auto_network = []
         try:
+            print "update auto.network"
             if os.path.exists(AUTO_NETORK): 
                 rfile = open(AUTO_NETORK, 'r')
                 for x in rfile.readlines():
@@ -217,6 +221,7 @@ class Network():
                         val[2] = val[2].replace('://', '').replace(':/', '/', 1) # only for cifs mount
                         dest_addr = val[2].split('/')[0]
                         auto_network.append((val[0], dest_addr))
+            print auto_network
         except Exception, e:
             print e
 
