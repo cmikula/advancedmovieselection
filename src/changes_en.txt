@@ -277,3 +277,5 @@ version: 2.8
 * new: thetvdb, tmdb, ofdb and imdb plugins can be called directly from the movie info
 * new: the sort function will be stored for each directory and is shown before the movie location path
 Skinners ATTENTION, MoveCopyProgressHD, MoveCopyProgressXD und MoveCopyProgressSD are new, AdvancedMovieSelectionEventView(SD, XD, HD) were changed and from AdvancedMovieSelectionButtonSetup(SD, XD, HD) <widget source="important".. was removed
+
+version: 2.9
