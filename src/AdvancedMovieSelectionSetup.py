@@ -588,7 +588,6 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         Screen.__init__(self, session)
         self.csel = csel
         self.skinName = SkinTools.appendResolution("AdvancedMovieSelectionButtonSetup")
-        self["important"] = StaticText()#_("IMPORTANT: If changes are made here the Advanced Movie Selection must be completely closed so the changes can be adopted!!"))
         self["key_red"] = Button(_("Cancel"))
         self["key_green"] = Button(_("Save/Close"))
         self["key_yellow"] = Button(_("Own button description"))
