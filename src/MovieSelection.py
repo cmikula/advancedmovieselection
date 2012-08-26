@@ -1269,8 +1269,8 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self["list"].reload(self.current_ref, self.selected_tags)
         title = _("Movie location:")
         #if config.usage.setup_level.index >= 2: # expert+
-        title += "  " + config.movielist.last_videodir.value
-        title = getSortDescription() + ", " + title
+        title += " " + config.movielist.last_videodir.value
+        title = getSortDescription() + " / " + title
         if self.selected_tags is not None:
             #title += " - " + ','.join(self.selected_tags)
             title += " (" + self["list"].arrangeTags(" ".join(self.selected_tags)) + ")"
