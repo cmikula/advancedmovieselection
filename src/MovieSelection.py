@@ -41,7 +41,7 @@ from Tools.BoundFunction import boundFunction
 from Tools.Directories import resolveFilename, fileExists, SCOPE_HDD, SCOPE_CURRENT_SKIN
 from enigma import eServiceReference, eSize, ePoint, eTimer, getDesktop, iServiceInformation
 from Screens.Console import eConsoleAppContainer
-from ServiceProvider import ServiceEvent, ServiceCenter, Network
+from ServiceProvider import ServiceEvent, ServiceCenter, autoNetwork
 from MoveCopy import MovieMove
 from Rename import MovieRetitle
 from SearchTMDb import TMDbMain as TMDbMainsave
@@ -714,8 +714,8 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         if not config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.showinfo.value:
             self["warning"].setText(_("ATTENTION: Ask before delete is disabled!"))
             
-        Network.updateAutoNetwork()
-        if not Network.isMountOnline(config.movielist.last_videodir.value):
+        autoNetwork.updateAutoNetwork()
+        if not autoNetwork.isMountOnline(config.movielist.last_videodir.value):
             config.movielist.last_videodir.value = "/media/"
 
         if not config.AdvancedMovieSelection.startdir.value and not showLastDir:
@@ -1270,7 +1270,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         title = _("Movie location:")
         #if config.usage.setup_level.index >= 2: # expert+
         title += " " + config.movielist.last_videodir.value
-        title = getSortDescription() + " / " + title
+        title = getSortDescription() + " | " + title
         if self.selected_tags is not None:
             #title += " - " + ','.join(self.selected_tags)
             title += " (" + self["list"].arrangeTags(" ".join(self.selected_tags)) + ")"

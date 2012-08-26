@@ -36,7 +36,7 @@ from stat import ST_MTIME as stat_ST_MTIME
 from time import time as time_time
 from math import fabs as math_fabs
 from datetime import datetime
-from ServiceProvider import getCutList, Info, ServiceCenter, MovieConfig, hasLastPosition, PicLoader, getServiceInfoValue, Network
+from ServiceProvider import getCutList, Info, ServiceCenter, MovieConfig, hasLastPosition, PicLoader, getServiceInfoValue, autoNetwork
 from ServiceProvider import detectDVDStructure, eServiceReferenceDvd
 from ServiceProvider import detectBludiscStructure, eServiceReferenceBludisc
 from ServiceUtils import getDirSize, getFolderSize
@@ -949,7 +949,7 @@ class MovieList(GUIComponent):
                             dirName = parts[-3] + "/" + parts[-2]
                         else: 
                             dirName = parts[-2]
-                        if not Network.isMountOnline(dir):
+                        if not autoNetwork.isMountOnline(dir):
                             continue
                         tt = eServiceReferenceVDir(eServiceReference.idFile, eServiceReference.flagDirectory, dir)
                         tt.setName(self.movieConfig.getRenamedName(dirName))

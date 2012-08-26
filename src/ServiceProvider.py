@@ -59,8 +59,6 @@ if not fileExists(__CONF__):
 DMCONFFILE = __CONF__
 
 instance = None
-auto_network = []
-AUTO_NETORK = "/etc/auto.network"
 
 def printStackTrace():
     import sys, traceback
@@ -188,13 +186,19 @@ class MovieConfig:
 
 
 class Network():
-    @staticmethod
-    def isMountOnline(mount_dir):
+    AUTO_NETORK = "/etc/auto.network"
+    AUTO_MASTER = "/etc/auto.master"
+    
+    def __init__(self):
+        self.auto_network = []
+        self.mount_path = "/media/net"
+
+    def isMountOnline(self, mount_dir):
         try:
             if mount_dir == "/":
                 return True
-            for network in auto_network:
-                if network[0] in mount_dir:
+            for network in self.auto_network:
+                if mount_dir.startswith(network[0]):
                     print "check mount:", network[1] + ":" + mount_dir
                     delay = ping.do_one(network[1], 0.2)
                     if delay:
@@ -207,23 +211,29 @@ class Network():
         except:
             return True
     
-    @staticmethod
-    def updateAutoNetwork():
-        global auto_network
-        auto_network = []
+    def updateAutoNetwork(self):
+        self.auto_network = []
         try:
             print "update auto.network"
-            if os.path.exists(AUTO_NETORK): 
-                rfile = open(AUTO_NETORK, 'r')
+            if os.path.exists(self.AUTO_MASTER):
+                rfile = open(self.AUTO_MASTER, 'r')
+                for x in rfile.readlines():
+                    if self.AUTO_NETORK in x:
+                        self.mount_path = x.split(" ")[0]
+                        print "update from auto.master:", self.mount_path
+            if os.path.exists(self.AUTO_NETORK): 
+                rfile = open(self.AUTO_NETORK, 'r')
                 for x in rfile.readlines():
                     val = x.strip().split(' ')
                     if len(val) >= 2 and not '#' in val[0]:
                         val[2] = val[2].replace('://', '').replace(':/', '/', 1) # only for cifs mount
                         dest_addr = val[2].split('/')[0]
-                        auto_network.append((val[0], dest_addr))
-            print auto_network
+                        self.auto_network.append((os.path.join(self.mount_path, val[0]), dest_addr))
+            print self.auto_network
         except Exception, e:
             print e
+
+autoNetwork = Network()
 
 def detectBludiscStructure(loadPath):
     if not os.path.isdir(loadPath):
