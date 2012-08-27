@@ -276,3 +276,4 @@ versie: 2.8
 OPGELET voor de skinners, MoveCopyProgressHD, MoveCopyProgressXD en MoveCopyProgressSD toegevoegd, AdvancedMovieSelectionEventView(SD, XD, HD) gewijzigd en uit AdvancedMovieSelectionButtonSetup(SD, XD, HD) werd <widget source="important".. verwijderd
 
 versie: 2.9
+* nieuw: soort functies kunnen worden gekozen voor quickbutton

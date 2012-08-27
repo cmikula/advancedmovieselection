@@ -56,15 +56,6 @@ def getPluginCaption(pname):
                 return _("Show bookmarks")
             else:
                 return _("Hide bookmarks")
-        elif pname == "Sort":
-            if config.movielist.moviesort.value == MovieList.SORT_ALPHANUMERIC:
-                return _("Sort by Description")
-            if config.movielist.moviesort.value == MovieList.SORT_DESCRIPTION:
-                return _("Sort by Date (9->1)")
-            if config.movielist.moviesort.value == MovieList.SORT_DATE_DESC:
-                return _("Sort by Date (1->9)")
-            if config.movielist.moviesort.value == MovieList.SORT_DATE_ASC:
-                return _("Sort alphabetically")
         else:
             for p in plugins.getPlugins(where=[PluginDescriptor.WHERE_MOVIELIST]):
                 if pname == str(p.name):
@@ -128,15 +119,23 @@ class QuickButton:
         else:
             self.list.disconnectSelChanged(self.__updateGUI)
 
+    def getNextFromList(self, items, current):
+        for index, item in enumerate(items):
+            if str(item) == str(current):
+                index += 1
+                return index >= len(items) and items[0] or items[index]
+        return items[0]
+
     def getNextSortType(self):
-        if config.movielist.moviesort.value == MovieList.SORT_ALPHANUMERIC:
-            newType = MovieList.SORT_DESCRIPTION
-        elif config.movielist.moviesort.value == MovieList.SORT_DESCRIPTION:
-            newType = MovieList.SORT_DATE_DESC
-        elif config.movielist.moviesort.value == MovieList.SORT_DATE_DESC:
-            newType = MovieList.SORT_DATE_ASC
-        else:# config.movielist.moviesort.value == MovieList.SORT_DATE_ASC:
-            newType = MovieList.SORT_ALPHANUMERIC
+        sort = config.AdvancedMovieSelection.sort_functions.value.split()
+        # TODO: remove printout after beta tests
+        if len(sort) < 1:
+            print "default sort list"
+            sort = [MovieList.SORT_ALPHANUMERIC, MovieList.SORT_DESCRIPTION, MovieList.SORT_DATE_DESC, MovieList.SORT_DATE_ASC]
+        print "sorting:", sort
+        print "current:", str(config.movielist.moviesort.value)
+        newType = int(self.getNextFromList(sort, config.movielist.moviesort.value))
+        print "next:", str(newType)
         return newType
 
     def findSortButton(self):
@@ -148,11 +147,23 @@ class QuickButton:
             return self["key_yellow"]
         if config.AdvancedMovieSelection.blue.value == "Sort":
             return self["key_blue"]
+    
+    def getSortButtonCaption(self, mode):
+        if mode == MovieList.SORT_ALPHANUMERIC:
+            return _("Sort alphabetically")
+        if mode == MovieList.SORT_DESCRIPTION:
+            return _("Sort by Description")
+        if mode == MovieList.SORT_DATE_DESC:
+            return _("Sort by Date (9->1)")
+        if mode == MovieList.SORT_DATE_ASC:
+            return _("Sort by Date (1->9)")
+        return _("Unknown")
 
     def updateSortButtonText(self):
         key_number = self.findSortButton()
         if key_number:
-            key_number.setText(getPluginCaption("Sort"))
+            mode = self.getNextSortType()
+            key_number.setText(self.getSortButtonCaption(mode))
 
     def redpressed(self):
         self.startPlugin(config.AdvancedMovieSelection.red.value, self["key_red"])
@@ -214,7 +225,6 @@ class QuickButton:
                 key_number.setText(newCaption)
             elif pname == "Sort":
                 newType = self.getNextSortType()
-                config.movielist.moviesort.value = newType
                 self.setSortType(newType)
                 self.reloadList()
             elif pname == "Filter by description":

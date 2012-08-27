@@ -754,9 +754,7 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
             
     def selectionChanged(self):
         current = self["config"].getCurrent()
-        if current == self.bookmark_3_button_text:
-            self.disableOKIcon()
-        elif current == self.homepath:
+        if current == self.homepath:
             self.enableOKIcon()
         elif current == self.bookmark1:
             self.enableOKIcon()
@@ -764,7 +762,9 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
             self.enableOKIcon()
         elif current == self.bookmark3:
             self.enableOKIcon()
-        elif current == self.redkey:
+        elif current[1].getValue() == "Sort":
+            self.enableOKIcon()
+        else:
             self.disableOKIcon()
 
     def enableOKIcon(self):
@@ -776,7 +776,21 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
     def ok(self):
         currentry = self["config"].getCurrent()
         self.lastvideodirs = config.movielist.videodirs.value
-        if currentry == self.homepath:
+        if currentry[1].getValue() == "Sort":
+            from MovieList import MovieList
+            sorts = [] 
+            sorts.append((str(MovieList.SORT_ALPHANUMERIC), _("Alphabetic sort")))
+            sorts.append((str(MovieList.SORT_DATE_ASC), _("Sort by date (ascending)")))
+            sorts.append((str(MovieList.SORT_DATE_DESC), _("Sort by date (descending)")))
+            sorts.append((str(MovieList.SORT_DESCRIPTION), _("Sort by description")))
+            
+            sels = config.AdvancedMovieSelection.sort_functions.value.split()
+            if len(sels) == 0:
+                for s in sorts:
+                    sels.append(s[0])
+            from SelectionListScreen import SelectionListScreen
+            self.session.openWithCallback(self.sortTypeSelected, SelectionListScreen, _("Select sort functions"), sorts, sels)
+        elif currentry == self.homepath:
             self.entrydirname = self.homepath_dirname
             self.session.openWithCallback(self.dirnameSelected, MovieLocationBox, _("Movie Quick Button Home path"), preferredPath(self.homepath_dirname.value))
         elif currentry == self.bookmark1:
@@ -790,6 +804,11 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
             self.session.openWithCallback(self.dirnameSelected, MovieLocationBox, _("Movie Quick Button Bookmark 3 path"), preferredPath(self.bookmark3_dirname.value))
         else:
             self.keySave()                 
+
+    def sortTypeSelected(self, res):
+        if res is not None:
+            config.AdvancedMovieSelection.sort_functions.value = " ".join(res)
+            config.AdvancedMovieSelection.sort_functions.save()
 
     def dirnameSelected(self, res):
         if res is not None:

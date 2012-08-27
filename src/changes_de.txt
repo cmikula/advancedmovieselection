@@ -280,3 +280,4 @@ version: 2.8
 ACHTUNG an die skinner, MoveCopyProgressHD, MoveCopyProgressXD und MoveCopyProgressSD sind neu, AdvancedMovieSelectionEventView(SD, XD, HD) wurden geändert und aus AdvancedMovieSelectionButtonSetup(SD, XD, HD) wurde <widget source="important".. entfernt
 
 version: 2.9
+* neu: sortierfunktionen können für die quickbutton ausgewählt werden

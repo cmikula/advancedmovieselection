@@ -158,6 +158,7 @@ config.AdvancedMovieSelection.show_backup_restore = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.cover_auto_download = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.version = ConfigText()
 config.AdvancedMovieSelection.backup_path = ConfigText()
+config.AdvancedMovieSelection.sort_functions = ConfigText()
 
 def initializeConfig():
     pass
