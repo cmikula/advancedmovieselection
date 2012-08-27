@@ -120,10 +120,15 @@ class BackupRestore(ConfigListScreen, Screen, SkinResolutionHelper):
         }, -2)
         self.list = [ ]
         self.backup_dirs = config.movielist.videodirs.value[:]
-        print self.backup_dirs
         default = config.usage.default_path.value
         if default not in self.backup_dirs:
             self.backup_dirs.append(default)
+        if config.AdvancedMovieSelection.backup_path.value:
+            default = config.AdvancedMovieSelection.backup_path.value
+            if default not in self.backup_dirs:
+                print "path from config:", default
+                self.backup_dirs.append(default)
+        print "backup dirs:", self.backup_dirs
         self.backup_config_path = ConfigSelection(default=default, choices=self.backup_dirs)
         self.list.append(getConfigListEntry(_("Backup directory path:"), self.backup_config_path))
         ConfigListScreen.__init__(self, self.list, session=self.session)
@@ -135,13 +140,12 @@ class BackupRestore(ConfigListScreen, Screen, SkinResolutionHelper):
     def setWindowTitle(self):
         self.setTitle(_("Backup/Restore Advanced Movie Selection settings"))
     
-    def getCurrent(self):
-        current = self["config"].getCurrent()
-        return current and current[1].value
+    def getBackupPath(self):
+        return self.backup_config_path.getValue()
     
     def backup(self):
         from Config import createBackup
-        path = self.getCurrent()
+        path = self.getBackupPath()
         result = createBackup(path)
         if result:
             self.session.open(MessageBox, _("Settings backup successfully created in %s.") % (result), type=MessageBox.TYPE_INFO)
@@ -151,7 +155,7 @@ class BackupRestore(ConfigListScreen, Screen, SkinResolutionHelper):
     
     def openFilebrowser(self):
         from FileBrowser import FileBrowser
-        path = self.getCurrent()
+        path = self.getBackupPath()
         self.session.openWithCallback(self.restoreCallback, FileBrowser, path)
 
     def restoreCallback(self, answer):
@@ -164,7 +168,7 @@ class BackupRestore(ConfigListScreen, Screen, SkinResolutionHelper):
             
     def okPressed(self):
         from Screens.LocationBox import LocationBox
-        path = self.getCurrent()
+        path = self.getBackupPath()
         from Components.config import ConfigLocations
         locations = ConfigLocations(self.backup_dirs)
         self.session.openWithCallback(self.dirnameSelected, LocationBox, _("Please select backup path here:"), currDir=path, bookmarks=locations)
@@ -172,10 +176,13 @@ class BackupRestore(ConfigListScreen, Screen, SkinResolutionHelper):
     def dirnameSelected(self, answer):
         if not answer:
             return
+        print "backup path:", answer
         if answer not in self.backup_dirs:
             self.backup_dirs.append(answer)
         self.backup_config_path.setChoices(self.backup_dirs, default=answer)
         self.backup_config_path.setValue(answer)
+        config.AdvancedMovieSelection.backup_path.value = answer
+        config.AdvancedMovieSelection.backup_path.save()
 
 class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
     def __init__(self, session, csel=None):
