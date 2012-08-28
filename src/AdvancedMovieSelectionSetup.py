@@ -612,6 +612,14 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         }, -2)
         self.onLayoutFinish.append(self.setCustomTitle)
         self.createConfig()
+
+    def keyLeft(self):
+        ConfigListScreen.keyLeft(self)
+        self.selectionChanged()
+
+    def keyRight(self):
+        ConfigListScreen.keyRight(self)
+        self.selectionChanged()
         
     def setCustomTitle(self):
         self.setTitle(_("Movie Quick Button Setup"))
