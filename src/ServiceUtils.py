@@ -394,10 +394,13 @@ class eServiceReference():
 def realSize(bytes, digits=1, factor=1024):
     size = float(bytes)
     s = "%%.%df" % (digits)
-    f = factor * factor * factor
+    f = factor ** 4
+    if size > f:
+        return s % (size / f) + " TB"
+    f = factor ** 3
     if size > f:
         return s % (size / f) + " GB"
-    f = factor * factor
+    f = factor ** 2
     if size > f:
         return s % (size / f) + " MB"
     f = factor
