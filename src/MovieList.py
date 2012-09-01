@@ -1069,26 +1069,38 @@ class MovieList(GUIComponent):
         self.list.insert(cur_idx, (x[0], x[1], x[2], x[3], idx_num))
         self.l.invalidateEntry(cur_idx)
         return True
+    
+    def findIndex(self, serviceref):
+        for i, x in enumerate(self.list):
+            ref = x[0]
+            if ref.getPath() == serviceref.getPath():
+                return i
 
-    def setMovieStatus(self, serviceref, status):
-        info = self.serviceHandler.info(serviceref)
-        if info is None:
-            return
-        cur_idx = self.l.getCurrentSelectionIndex()
-        cue = info.cueSheet()
-        if cue is not None:
-            cutList = cue.getCutList()
-            for l in cutList:
-                if l[1] == 3:
-                    cutList.remove(l)
-            if status:
-                x = self.list[cur_idx]
-                length = x[1].getLength(x[0])
-                new = (long(length * 90000), 3)
-                cutList.append(new)
-            cue.setCutList(cutList)
-            self.l.invalidateEntry(cur_idx)
-            return cutList
+    def setMovieStatus(self, service_list, status):
+        if not isinstance(service_list, list):
+            service_list = [service_list]
+        if len(self.multiSelection) > 0:
+            service_list = self.multiSelection
+        for serviceref in service_list:
+            info = self.serviceHandler.info(serviceref)
+            if info is None:
+                return
+            cur_idx = self.findIndex(serviceref)
+            cue = info.cueSheet()
+            if cue is not None and cur_idx is not None:
+                cutList = cue.getCutList()
+                for l in cutList:
+                    if l[1] == 3:
+                        cutList.remove(l)
+                if status:
+                    x = self.list[cur_idx]
+                    length = x[1].getLength(x[0])
+                    new = (long(length * 90000), 3)
+                    cutList.append(new)
+                cue.setCutList(cutList)
+                self.l.invalidateEntry(cur_idx)
+                if len(service_list) == 1:
+                    return cutList
 
     def getMovieStatus(self):
         if len(self.list) == 0:
