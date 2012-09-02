@@ -357,13 +357,13 @@ class MovieMove(ChoiceBox):
         if not confirmed or confirmed[1] == "abort":
             return
         action = confirmed[1]
-        serviceUtil.setCallback(showFinished, self.session)
         serviceUtil.setServices(self.service_list, self.destinationpath)
         total, used, free = diskUsage(self.destinationpath)
         job = serviceUtil.prepareJob()
         services = job.prepare()
         required = job.getSizeTotal()
         if required > free:
+            serviceUtil.clear()
             text = []
             text = _("On destination data carrier is not enough space available.")
             if action == "move":
@@ -387,7 +387,11 @@ class MovieMove(ChoiceBox):
             serviceUtil.copy()
         elif action == "move":
             serviceUtil.move()
-        self.session.openWithCallback(self.__doClose, MoveCopyProgress)
+        if config.AdvancedMovieSelection.show_move_copy_progress.value:
+            serviceUtil.setCallback(showFinished, self.session)
+            self.session.openWithCallback(self.__doClose, MoveCopyProgress)
+        else:
+            self.__doClose()
 
     def __doClose(self, dummy=None):
         self.csel.reloadList()
