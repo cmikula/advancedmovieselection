@@ -391,6 +391,7 @@ class MovieMove(ChoiceBox):
             serviceUtil.setCallback(showFinished, self.session)
             self.session.openWithCallback(self.__doClose, MoveCopyProgress)
         else:
+            serviceUtil.setCallback(None)
             self.__doClose()
 
     def __doClose(self, dummy=None):
