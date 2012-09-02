@@ -281,3 +281,8 @@ ACHTUNG an die skinner, MoveCopyProgressHD, MoveCopyProgressXD und MoveCopyProgr
 
 version: 2.9
 * neu: sortierfunktionen können für die quickbutton ausgewählt werden
+* neu: backup pfad wird gespeichert
+* neu: gesehen/ungesehen mit mehrfachauswahl
+* neu: freier speicherplatz wird vor dem kopieren/verschieben geprüft
+* neu: fortschrittsanzeige für kopieren/verschieben kann ausgeschalten werden
+ACHTUNG an die skinner, SelectionListScreen(SD, XD, HD) sind neu dazugekommen

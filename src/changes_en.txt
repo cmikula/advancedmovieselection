@@ -280,3 +280,8 @@ Skinners ATTENTION, MoveCopyProgressHD, MoveCopyProgressXD und MoveCopyProgressS
 
 version: 2.9
 * new: sort functions can be choosen for quickbutton
+* new: backup path will be stored
+* new: seen/unseen with multiple selection
+* new: free space checking for destination before copy/move
+* new: progress of copy/move can be disabled
+Skinners ATTENTION, SelectionListScreen(SD, XD, HD) are new

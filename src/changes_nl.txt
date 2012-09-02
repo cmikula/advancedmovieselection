@@ -277,3 +277,8 @@ OPGELET voor de skinners, MoveCopyProgressHD, MoveCopyProgressXD en MoveCopyProg
 
 versie: 2.9
 * nieuw: soort functies kunnen worden gekozen voor quickbutton
+* nieuw: back-up pad worden opgeslagen
+* nieuw: gezien/onzichtbare met meervoudige selectie
+* nieuw: vrije ruimte te controleren op bestemming voor kopiëren / verplaatsen
+* nieuw: moving geavanceerde display voor copy kan worden uitgeschakeld
+OPGELET voor de skinners, SelectionListScreen(SD, XD, HD) toegevoegd
