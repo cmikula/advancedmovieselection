@@ -28,6 +28,35 @@ that they, too, receive or can get the source code. And you must show them these
 import os, glob, shutil, time, operator
 import threading
 
+def realSize(bytes, digits=1, factor=1024):
+    size = float(bytes)
+    s = "%%.%df" % (digits)
+    f = factor ** 4
+    if size > f:
+        return s % (size / f) + " TB"
+    f = factor ** 3
+    if size > f:
+        return s % (size / f) + " GB"
+    f = factor ** 2
+    if size > f:
+        return s % (size / f) + " MB"
+    f = factor
+    if size > f:
+        return s % (size / f) + " KB"
+    return s % (size) + " Bytes"
+
+def diskUsage(path):
+    """Return disk usage statistics about the given path.
+
+    Returned valus is a named tuple with attributes 'total', 'used' and
+    'free', which are the amount of total, used and free space, in bytes.
+    """
+    st = os.statvfs(path)
+    free = st.f_bavail * st.f_frsize
+    total = st.f_blocks * st.f_frsize
+    used = (st.f_blocks - st.f_bfree) * st.f_frsize
+    return total, used, free
+
 def getFolderSize(loadPath):
     folder_size = 0
     try:
@@ -314,9 +343,8 @@ class ServiceUtil():
     def clear(self):
         self.list = []
 
-    def prepare(self):
-        job = Job(self.list)
-        return job.prepare()
+    def prepareJob(self):
+        return Job(self.list)
 
     def move(self):
         self.start(True)
@@ -390,35 +418,6 @@ class eServiceReference():
     
     def getShortDescription(self):
         return self.short_description
-
-def disk_usage(path):
-    """Return disk usage statistics about the given path.
-
-    Returned valus is a named tuple with attributes 'total', 'used' and
-    'free', which are the amount of total, used and free space, in bytes.
-    """
-    st = os.statvfs(path)
-    free = st.f_bavail * st.f_frsize
-    total = st.f_blocks * st.f_frsize
-    used = (st.f_blocks - st.f_bfree) * st.f_frsize
-    return total, used, free
-
-def realSize(bytes, digits=1, factor=1024):
-    size = float(bytes)
-    s = "%%.%df" % (digits)
-    f = factor ** 4
-    if size > f:
-        return s % (size / f) + " TB"
-    f = factor ** 3
-    if size > f:
-        return s % (size / f) + " GB"
-    f = factor ** 2
-    if size > f:
-        return s % (size / f) + " MB"
-    f = factor
-    if size > f:
-        return s % (size / f) + " KB"
-    return s % (size) + " Bytes"
 
 class JobMonitor():
     def __init__(self, monitor):

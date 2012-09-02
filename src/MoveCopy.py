@@ -24,7 +24,7 @@ from Screens.MessageBox import MessageBox
 from Screens.ChoiceBox import ChoiceBox
 from Screens.LocationBox import MovieLocationBox
 from Components.config import config
-from ServiceUtils import serviceUtil, realSize
+from ServiceUtils import serviceUtil, realSize, diskUsage
 from ServiceProvider import ServiceCenter
 import os, time
 
@@ -359,7 +359,22 @@ class MovieMove(ChoiceBox):
         action = confirmed[1]
         serviceUtil.setCallback(showFinished, self.session)
         serviceUtil.setServices(self.service_list, self.destinationpath)
-        services = serviceUtil.prepare()
+        total, used, free = diskUsage(self.destinationpath)
+        job = serviceUtil.prepareJob()
+        services = job.prepare()
+        required = job.getSizeTotal()
+        if required > free:
+            text = []
+            text = _("On destination data carrier is not enough space available.")
+            if action == "move":
+                text += " " + _("Another %s are required to move the data.") % (realSize(required - free))
+            else:
+                text += " " + _("Another %s are required to copy the data.") % (realSize(required - free))
+            text += "\r\n\r\n" + _("Destination carrier")
+            text += "\r\n" + _("Free space:") + " " + realSize(free)
+            text += "\r\n" + _("Total size:") + " " + realSize(total)
+            self.session.open(MessageBox, text, MessageBox.TYPE_ERROR)
+            return
         if len(services) != 0:
             serviceUtil.clear()
             text = []
