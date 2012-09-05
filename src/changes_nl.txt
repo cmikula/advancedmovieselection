@@ -276,9 +276,9 @@ versie: 2.8
 OPGELET voor de skinners, MoveCopyProgressHD, MoveCopyProgressXD en MoveCopyProgressSD toegevoegd, AdvancedMovieSelectionEventView(SD, XD, HD) gewijzigd en uit AdvancedMovieSelectionButtonSetup(SD, XD, HD) werd <widget source="important".. verwijderd
 
 versie: 2.9
-* nieuw: soort functies kunnen worden gekozen voor quickbutton
+* nieuw: sorteerfuncties kunnen worden gekozen voor quickbutton
 * nieuw: back-up pad worden opgeslagen
-* nieuw: gezien/onzichtbare met meervoudige selectie
-* nieuw: vrije ruimte te controleren op bestemming voor kopiëren / verplaatsen
-* nieuw: moving geavanceerde display voor copy kan worden uitgeschakeld
+* nieuw: gezien/onongezien met meervoudige selectie
+* nieuw: vrije ruimte wordt gecontrolleerd voor kopiëren/verplaatsen
+* nieuw: weergave voortgangmoving kopiëren/verplaatsen kan worden uitgeschakeld
 OPGELET voor de skinners, SelectionListScreen(SD, XD, HD) toegevoegd
