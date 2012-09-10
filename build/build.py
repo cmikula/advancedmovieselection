@@ -409,6 +409,9 @@ def checkingBuildOptions():
         if PACKAGE_ARCHITECTURE != "mips32el": 
             raise Exception("python version with package version is not compatibel!")
     
+    if __debug__:
+        raise Exception("Optimization is currently disabled! Start build file with python -O and try again...\n")
+    
     print " pass!"
 
 def main():
