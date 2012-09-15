@@ -38,7 +38,7 @@ for example: export the tag version 2.6.1 and the ipk should stored to location 
 '''
 
 import compileall
-import os, shutil
+import os, shutil, subprocess
 from tarfile import TarFile
 from arfile import ArFile
 import sys 
@@ -338,11 +338,16 @@ def cleanup():
         os.remove(clean)
 
 def exportSVNRepository():
-    svn_info = "svn info %s" % (SVN_REPOSITORY_EXPORT)
-    list = os.popen(svn_info) 
-    lines = list.readlines()
-    list.close()
-    for line in lines:
+    svn_info = ["svn", "info", SVN_REPOSITORY_EXPORT]
+    proc = subprocess.Popen(svn_info, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    proc.wait()
+    out = proc.stdout.read()
+    err = proc.stderr.read().replace("\r\n", "")
+    proc.stdout.close()
+    proc.stderr.close()
+    if err:
+        raise Exception(err)
+    for line in out.split("\r\n"):
         if line.startswith("Last Changed Rev:") or line.startswith("Letzte geänderte Rev:"):
             print line
             branding_info['svn_revision'] = line.strip().split(' ')[-1]
