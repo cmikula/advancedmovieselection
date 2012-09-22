@@ -74,8 +74,11 @@ if fileExists("/etc/grautec/dm8000/tft_dm8000.ko"):
     TFT_8000_Present = True
 else:
     TFT_8000_Present = False
-    
-config.movielist = ConfigSubsection()
+
+if not config.content.items.has_key("movielist"):
+    print "e2 config.movielist not exists"
+    config.movielist = ConfigSubsection()
+# all config.entries from Screens.MovieSelection
 config.movielist.moviesort = ConfigInteger(default=MovieList.SORT_ALPHANUMERIC)
 config.movielist.listtype = ConfigInteger(default=MovieList.LISTTYPE_ORIGINAL)
 config.movielist.description = ConfigInteger(default=MovieList.HIDE_DESCRIPTION)
@@ -85,6 +88,7 @@ config.movielist.videodirs = ConfigLocations(default=[resolveFilename(SCOPE_HDD)
 config.movielist.first_tags = ConfigText(default="")
 config.movielist.second_tags = ConfigText(default="")
 config.movielist.last_selected_tags = ConfigSet([], default=[])
+# extra config.entries
 config.movielist.showtime = ConfigInteger(default=MovieList.SHOW_TIME)
 config.movielist.showdate = ConfigInteger(default=MovieList.SHOW_DATE)
 config.movielist.showservice = ConfigInteger(default=MovieList.SHOW_SERVICE)
