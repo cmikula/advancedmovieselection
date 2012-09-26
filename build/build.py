@@ -41,10 +41,11 @@ import compileall
 import os, shutil, subprocess
 from tarfile import TarFile
 from arfile import ArFile
-import sys 
+import sys, platform 
 
-py_ver = "python version: %s" % (sys.version) 
-print py_ver
+print "sys.version:\t", sys.version
+print "sys.platform:\t", sys.platform
+print "platform:\t", platform.platform()
 
 py_version = 0 
 # checking python version
