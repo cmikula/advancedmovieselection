@@ -97,19 +97,29 @@ class ServiceFileInfo:
         if os.path.isfile(service.getPath()):
             # all movie files
             filename = service.getPath().rsplit('.', 1)[0] + ".*"
-            l = [ [files, os.path.getsize(files)] for files in glob.glob(filename) ]
+            l = self.listAllFromSource(filename)
             # sort files per size
             self.file_list = sorted(l, key=operator.itemgetter(1), reverse=True)
         else:
             # all services with path structures
             filename = service.getPath() + ".*"
-            l = [ [files, os.path.getsize(files)] for files in glob.glob(filename) ]
+            l = self.listAllFromSource(filename)
             # sort files per size
             self.file_list = sorted(l, key=operator.itemgetter(1), reverse=True)
             self.file_list.insert(0, (service.getPath(), getFolderSize(service.getPath())))
         self.total = 0
         for item in self.file_list:
             self.total += item[1]
+        print "Total:", realSize(self.total, 3)
+        print "Files:", self.file_list
+    
+    def listAllFromSource(self, filename):
+        l = []
+        for sfile in os.listdir(self.source_path):
+            f = os.path.join(self.source_path, sfile)
+            if f.startswith(filename[:-1]):
+                l.append((f, os.path.getsize(f)))
+        return l
     
     def getTotal(self):
         return self.total
