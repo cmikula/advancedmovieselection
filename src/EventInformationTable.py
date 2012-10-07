@@ -325,11 +325,11 @@ class ComponentDescriptor:
         data.append(descr.ISO_639_language_code)
         data.append(descr.text)
 
-def appendShortDescriptionToMeta(service_path, short_descr):
+def appendShortDescriptionToMeta(file_name, short_descr):
     try:
-        _file = service_path + ".ts.meta"
-        if os.path.exists(_file):
-            metafile = open(_file, "r")
+        meta_file = file_name.endswith(".ts") and file_name + ".meta" or file_name + ".ts.meta"  
+        if os.path.exists(meta_file):
+            metafile = open(meta_file, "r")
             sid = metafile.readline()
             title = metafile.readline().rstrip()
             descr = metafile.readline().rstrip()
@@ -338,9 +338,9 @@ def appendShortDescriptionToMeta(service_path, short_descr):
             if descr != "":
                 print "Update metafile skipped"
                 return
-            print "Update metafile: ", _file
+            print "Update metafile: ", meta_file
             descr = short_descr
-            metafile = open(_file, "w")
+            metafile = open(meta_file, "w")
             metafile.write("%s%s\n%s\n%s" % (sid, title, descr, rest))
             metafile.close()
     except Exception, e:
