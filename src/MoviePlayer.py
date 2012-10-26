@@ -126,6 +126,7 @@ class PlayerBase(MoviePreview, SelectionEventInfo):
                 "showEventInfo": (self.openInfoView, _("Show event details")),
                 "showEventInfoPlugin": (self.openServiceList, _("Open servicelist"))
             })
+        self.endless_loop = False
     
     def openServiceList(self):
         pass
@@ -274,7 +275,17 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, PlayerBase):
                 self.close(service)
             else:
                 self.playNewService(service)
-        
+
+    def doEofInternal(self, playing): # Override method in MoviePlayer
+        if not self.endless_loop:
+            return MoviePlayer.doEofInternal(self, playing)
+
+        if not self.execing:
+            return
+        if not playing:
+            return
+        self.leavePlayerConfirmed([True, "restart"])
+    
     def handleLeave(self, how):
         self.playerClosed()
         self.is_closing = True
@@ -285,13 +296,15 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, PlayerBase):
                     (_("No"), "continue")
                 )
             else:
+                loop_msg = self.endless_loop and _("No, but stop endless loop") or _("No, but start endless loop") 
                 list = (
                     (_("Yes"), "quit"),
                     (_("Yes, returning to movie list"), "movielist"),
                     (_("Yes, and delete this movie"), "quitanddelete"),
                     (_("Yes, and after deleting return to movie list"), "returnanddelete"),
                     (_("No"), "continue"),
-                    (_("No, but restart from begin"), "restart")
+                    (_("No, but restart from begin"), "restart"),
+                    (loop_msg, "toggle_loop")
                 )
 
             from Screens.ChoiceBox import ChoiceBox
@@ -351,6 +364,8 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, PlayerBase):
         elif answer == "restart":
             self.doSeek(0)
             self.setSeekState(self.SEEK_STATE_PLAY)
+        elif answer == "toggle_loop":
+            self.endless_loop = not self.endless_loop
 
     def delete(self, service):
         from Trashcan import Trashcan

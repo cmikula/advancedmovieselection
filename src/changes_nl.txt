@@ -281,4 +281,5 @@ versie: 2.9
 * nieuw: gezien/onongezien met meervoudige selectie
 * nieuw: vrije ruimte wordt gecontrolleerd voor kopiëren/verplaatsen
 * nieuw: weergave voortgangmoving kopiëren/verplaatsen kan worden uitgeschakeld
+* nieuw: in het menu aan het einde van de film kan een eindeloze herhaling gestart of gestopt worden
 OPGELET voor de skinners, SelectionListScreen(SD, XD, HD) toegevoegd

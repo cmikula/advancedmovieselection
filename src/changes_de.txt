@@ -285,4 +285,5 @@ version: 2.9
 * neu: gesehen/ungesehen mit mehrfachauswahl
 * neu: freier speicherplatz wird vor dem kopieren/verschieben geprüft
 * neu: fortschrittsanzeige für kopieren/verschieben kann ausgeschalten werden
+* neu: endloswiedergabe kann im menü beim beenden des films gestartet/gestoppt werden 
 ACHTUNG an die skinner, SelectionListScreen(SD, XD, HD) sind neu dazugekommen
