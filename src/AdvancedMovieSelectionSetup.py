@@ -364,12 +364,13 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append(getConfigListEntry(_("Show plugin config in extensions menu from movielist:"), config.AdvancedMovieSelection.showmenu, _("Displays the Settings option in the menu at the movie list.")))
         self.list.append(getConfigListEntry(_("Show color key setup in extensions menu from movielist:"), config.AdvancedMovieSelection.showcolorkey, _("Displays color key setup option in the menu at the movie list.")))        
         self.list.append(getConfigListEntry(_("Show movie plugins in extensions menu from movielist:"), config.AdvancedMovieSelection.pluginmenu_list, _("Displays E2 movie list extensions in the menu at the movie list.")))
-        self.list.append(getConfigListEntry(_("Show path selection for indicate in extensions menu from movielist:"), config.AdvancedMovieSelection.show_location_indexing, _("Here you can select which folders to include in the index creation.")))
+        self.list.append(getConfigListEntry(_("Show path selection for indexing in extensions menu:"), config.AdvancedMovieSelection.show_location_indexing, _("Here you can select which folders to include in the index creation.")))
         self.list.append(getConfigListEntry(_("Show path marker within all movies:"), config.AdvancedMovieSelection.show_videodirslocation, _("If enabled all movies will be shown with path marker and will be sorted below them.")))
         self.list.append(getConfigListEntry(_("Show directory size in movie list:"), config.AdvancedMovieSelection.show_dirsize, _("Displays the size from directories in movie list.")))
         if config.AdvancedMovieSelection.show_dirsize.value:
             self.list.append(getConfigListEntry(_("Show decimal points:"), config.AdvancedMovieSelection.dirsize_digits, _("Here you can choose how many decimal points for the directory size in the movie list will be displayed.")))
-            self.list.append(getConfigListEntry(_("Show full depth of directories:"), config.AdvancedMovieSelection.show_dirsize_full, _("Displays the full size of all sub directories of directory size.")))
+            # TODO: remove
+            # self.list.append(getConfigListEntry(_("Show full depth of directories:"), config.AdvancedMovieSelection.show_dirsize_full, _("Displays the full size of all sub directories of directory size.")))
         self.list.append(getConfigListEntry(_("Load Length of Movies in Movielist:"), config.usage.load_length_of_movies_in_moviellist, _("This option is for many of the functions from the Advanced Movie Selection necessary. If this option is disabled are many functions not available.")))
         if config.usage.load_length_of_movies_in_moviellist.value:
             self.list.append(getConfigListEntry(_("Show list options in extensions menu from movielist:"), config.AdvancedMovieSelection.showextras, _("Displays the various list view options in the menu at the movie list (Progressbar,View folders...).")))
@@ -630,7 +631,7 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
     def createConfig(self):
         self.entryguilist = []
         self.entryguilist.append(("Nothing", _("Nothing")))
-        self.entryguilist.append(("Delete",_("Delete")))
+        self.entryguilist.append(("Delete", _("Delete")))
         self.entryguilist.append(("Move-Copy", _("Move-Copy")))
         self.entryguilist.append(("Rename", _("Rename")))
         self.entryguilist.append(("Wastebasket", _("Wastebasket")))

@@ -139,7 +139,8 @@ config.AdvancedMovieSelection.stop_search_ip = ConfigInteger(default=254, limits
 config.AdvancedMovieSelection.server_port = ConfigInteger(default=20000, limits=(1, 65535))
 config.AdvancedMovieSelection.show_remote_setup = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.show_dirsize = ConfigYesNo(default=False)
-config.AdvancedMovieSelection.show_dirsize_full = ConfigYesNo(default=False)
+# TODO: remove
+# config.AdvancedMovieSelection.show_dirsize_full = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.dirsize_digits = ConfigSelection(default="0", choices=[("0", _("0")), ("1", _("1")), ("2", _("2")), ("3", _("3"))])
 config.AdvancedMovieSelection.showpercentinmovielist = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.filesize_digits = ConfigSelection(default="1", choices=[("0", _("0")), ("1", _("1")), ("2", _("2")), ("3", _("3"))])
