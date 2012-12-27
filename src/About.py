@@ -24,11 +24,11 @@ from Screens.Screen import Screen
 from Components.Sources.StaticText import StaticText
 from Components.Pixmap import Pixmap
 from Components.ActionMap import ActionMap
-from AboutParser import AboutParser
+from Source.AboutParser import AboutParser
 from Components.GUIComponent import GUIComponent
 from enigma import RT_HALIGN_LEFT, gFont, eListbox, eListboxPythonMultiContent
 from Components.ScrollLabel import ScrollLabel
-from Globals import SkinTools
+from Source.Globals import SkinTools
 import Version
 
 class VersionList(GUIComponent):

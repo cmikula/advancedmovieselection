@@ -20,7 +20,7 @@
 #  distributed other than under the conditions noted above.
 #
 from __init__ import _
-import tmdb, urllib, shutil, os
+import urllib, shutil, os
 from enigma import RT_WRAP, RT_VALIGN_CENTER, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, gFont, eListbox, eListboxPythonMultiContent
 from Components.GUIComponent import GUIComponent
 from Screens.Screen import Screen
@@ -37,10 +37,11 @@ from Screens.MessageBox import MessageBox
 from Components.config import config
 from Components.ProgressBar import ProgressBar
 from os import environ
-from ServiceProvider import PicLoader
+from Source.PicLoader import PicLoader
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
 from Screens.ChoiceBox import ChoiceBox
-from Globals import pluginPresent, SkinTools
+from Source.Globals import pluginPresent, SkinTools
+from Source.MovieDB import tmdb
 
 IMAGE_TEMPFILE = "/tmp/TMDb_temp"
 
@@ -216,10 +217,20 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
         {
             "ok": (self.ok_pressed, _("Toggle detail and list view")),
             "back": (self.cancel, _("Close")),
-            "left": (self.left, _("Show previous cover")),
-            "right": (self.right, _("Show next cover")),
+            #"left": (self.left, _("Show previous cover")),
+            #"right": (self.right, _("Show next cover")),
             "up": (self.moveUp, _("Move up")),
             "down": (self.moveDown, _("Move down")),
+        }, -1)
+        self["WizardActions2"] = HelpableActionMap(self, "WizardActions",
+        {
+            "left": (self.left, _("Show previous cover")),
+            "right": (self.right, _("Show next cover")),
+        }, -1)
+        self["ChannelSelectBaseActions"] = HelpableActionMap(self, "ChannelSelectBaseActions",
+        {
+            "nextMarker": (self.right, _("Show next cover")),
+            "prevMarker": (self.left, _("Show previous cover")),
         }, -1)
         self["list"] = TMDbList()
         self["tmdblogo"] = Pixmap()
@@ -262,6 +273,7 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
         self.picload.setPara((self["cover"].instance.size().width(), self["cover"].instance.size().height(), sc[0], sc[1], False, 1, "#00000000"))
 
     def deleteTempDir(self):
+        del self.picload
         try:
             shutil.rmtree(IMAGE_TEMPFILE)
         except Exception, e:
@@ -538,7 +550,7 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
         if self.checkConnection() == False or not self["list"].getCurrent():
             return
         overwrite_eit, overwrite_jpg = answer and answer[1] or (False, False)
-        from EventInformationTable import createEIT
+        from Source.EventInformationTable import createEIT
         current_movie = self["list"].getCurrent()[0]
         title = current_movie["name"].encode('utf-8')
         if self.service is not None:
@@ -581,6 +593,7 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
         self["button_blue"].hide()
 
     def movieDetailView(self):
+        self["WizardActions2"].setEnabled(True)
         current_movie = self["list"].getCurrent()[0]
         title = current_movie["name"].encode('utf-8')
         self.setTitle(_("Details for: %s") % title)
@@ -594,6 +607,7 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
             self["vote"].show()
 
     def movieListView(self):
+        self["WizardActions2"].setEnabled(False)
         self.setTitle(_("Search result for: %s") % self.searchTitle)
         self.hideAll()
         self["seperator"].show()

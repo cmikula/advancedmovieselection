@@ -25,7 +25,7 @@ from Components.ActionMap import ActionMap, NumberActionMap
 from Components.config import config, ConfigText, KEY_0, KEY_TIMEOUT, KEY_NUMBERS
 from Tools.NumericalTextInput import NumericalTextInput
 from enigma import eTimer
-from Globals import SkinResolutionHelper
+from Source.Globals import SkinResolutionHelper
 
 from Screens.NumericalTextInputHelpDialog import NumericalTextInputHelpDialog
 class AdvancedTextInputHelpDialog(NumericalTextInputHelpDialog, SkinResolutionHelper):

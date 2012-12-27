@@ -31,6 +31,7 @@ from Screens.ChoiceBox import ChoiceBox
 from Screens.MessageBox import MessageBox
 from Rename import MovieRetitle
 from Wastebasket import Wastebasket
+from enigma import eServiceReference
 
 def getPluginCaption(pname):
     if pname != "Nothing":
@@ -242,37 +243,39 @@ class QuickButton:
                 elif pname == "Filter by Tags":
                     self.showTagsSelect()
                 elif pname == "Tag Editor":
-                    if not (service.flags):
+                    if not service.flags & eServiceReference.mustDescent:
                         self.movietags()
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
                             self.session.open(MessageBox, _("Set tag here not possible, please select a movie for!"), MessageBox.TYPE_INFO)
                 elif pname == "Trailer search":
-                    if not (service.flags):
+                    if not service.flags & eServiceReference.mustDescent:
                         self.showTrailer()
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
                             self.session.open(MessageBox, _("Trailer search here not possible, please select a movie!"), MessageBox.TYPE_INFO) 
                 elif pname == "Move-Copy":
-                    if not (service.flags):
+                    if not service.flags & eServiceReference.mustDescent:
                         self.session.open(MovieMove, self, service)
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
                             self.session.open(MessageBox, _("Move/Copy from complete directory/symlink not possible, please select a single movie!"), MessageBox.TYPE_INFO)
                 elif pname == "Rename":
-                    if not (service.flags):
+                    if service.type != eServiceReference.idUser:
                         self.session.openWithCallback(self.reloadList, MovieRetitle, service)
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
                             self.session.open(MessageBox, _("Rename here not possible, please select a movie!"), MessageBox.TYPE_INFO)        
                 elif pname == "TheTVDB Info & D/L":
-                    if not (service.flags):
+                    # TODO: search?
+                    if True or not service.flags & eServiceReference.mustDescent:
                         from SearchTVDb import TheTVDBMain
                         self.session.open(TheTVDBMain, service)
                 elif pname == "TMDb Info & D/L":
-                    if not (service.flags):
+                    # TODO: search?
+                    if True or not service.flags & eServiceReference.mustDescent:
                         from SearchTMDb import TMDbMain as TMDbMainsave
-                        from ServiceProvider import ServiceCenter
+                        from Source.ServiceProvider import ServiceCenter
                         searchTitle = ServiceCenter.getInstance().info(service).getName(service)
                         if len(self.list.multiSelection) == 0:
                             self.session.openWithCallback(self.updateCurrentSelection, TMDbMainsave, searchTitle, service)
@@ -286,7 +289,7 @@ class QuickButton:
                         if config.AdvancedMovieSelection.showinfo.value:
                             self.session.open(MessageBox, _("TMDb search here not possible, please select a movie!"), MessageBox.TYPE_INFO)               
                 elif pname == "Toggle seen":
-                    if not (service.flags):
+                    if not service.flags & eServiceReference.mustDescent:
                         perc = self.list.getMovieStatus()
                         if perc > 50:
                             self.setMovieStatus(0)
@@ -295,7 +298,7 @@ class QuickButton:
                             self.setMovieStatus(1)
                             key_number.setText(_("Mark as unseen"))
                 elif pname == "Show up to VSR-X":
-                    from AccessRestriction import VSR
+                    from Source.AccessRestriction import VSR
                     access = "VSR-%d"%(self.list.getAccess()) 
                     for index, item in enumerate(VSR):
                         if item == access:
@@ -308,13 +311,13 @@ class QuickButton:
                     self.reloadList()
                     key_number.setText(_("Show up to") + ' ' + _("VSR") + '-%d' % (self.list.getAccess()))
                 elif pname == "Mark as seen":
-                    if not (service.flags):
+                    if not service.flags & eServiceReference.mustDescent:
                         self.setMovieStatus(status=1)
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
                             self.session.open(MessageBox, _("This may not be marked as seen!"), MessageBox.TYPE_INFO)
                 elif pname == "Mark as unseen":
-                    if not (service.flags):
+                    if not service.flags & eServiceReference.mustDescent:
                         self.setMovieStatus(status=0) 
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
@@ -353,7 +356,7 @@ class QuickButton:
             self.reloadList()
 
     def openFilterByDescriptionChoice(self):
-        from ServiceProvider import ServiceCenter, detectDVDStructure, detectBludiscStructure, eServiceReferenceDvd, eServiceReferenceBludisc
+        from Source.ServiceProvider import ServiceCenter, detectDVDStructure, detectBludiscStructure, eServiceReferenceDvd, eServiceReferenceBludisc
         from enigma import eServiceReference, iServiceInformation
         from MovieSelection import SHOW_ALL_MOVIES
         serviceHandler = ServiceCenter.getInstance()

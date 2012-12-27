@@ -31,17 +31,11 @@ Based on: en_300468v010901p.pdf
 Digital Video Broadcasting (DVB) Specification for Service Information (SI) in DVB systems
 '''
 
-import os
+import os, time, urllib
 from struct import unpack, pack
-import tmdb, tvdb, urllib
-import time
 from calendar import timegm
-
-def printStackTrace():
-    import sys, traceback
-    print '-' * 60
-    traceback.print_exc(file=sys.stdout)
-    print '-' * 60
+from MovieDB import tmdb, tvdb
+from Globals import printStackTrace
 
 def getLanguageCode(db):
     lng = db.getLocale()
@@ -405,7 +399,7 @@ def writeEIT(file_name, eit_file, name, overview, genre, extended_info, released
 def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=False, movie=None):
     try:
         if title:
-            title = title.replace('#', '')
+            title = title.replace("-", " ").replace("#", "%23")
         print "Fetching info for movie: " + str(title)
         # DVD directory
         if not os.path.isdir(file_name):

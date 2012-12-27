@@ -21,7 +21,6 @@
 #
 from __init__ import _
 import urllib, datetime, re, os, shutil
-import tvdb
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
 from enigma import getDesktop, iServiceInformation, eTimer
@@ -37,11 +36,13 @@ from enigma import ePicLoad
 from Components.AVSwitch import AVSwitch
 from Components.ProgressBar import ProgressBar
 from os import environ
-from ServiceProvider import PicLoader, ServiceCenter
-from EventInformationTable import createEITtvdb
+from Source.ServiceProvider import ServiceCenter
+from Source.EventInformationTable import createEITtvdb
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
 from SearchTMDb import InfoLoadChoice
-from Globals import pluginPresent, SkinTools
+from Source.Globals import pluginPresent, SkinTools
+from Source.MovieDB import tvdb
+from Source.PicLoader import PicLoader
 
 temp_dir = "/tmp/TheTVDB_temp/"
 
@@ -268,6 +269,8 @@ class TheTVDBMain(Screen, InfoLoadChoice):
         self["description_episode"].pageDown()
 
     def deleteTempDir(self):
+        del self.picload
+        del self.picload2
         try:
             shutil.rmtree(temp_dir)
         except Exception, e:

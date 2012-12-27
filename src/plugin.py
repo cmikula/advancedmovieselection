@@ -25,21 +25,11 @@ from Screens.InfoBar import InfoBar
 from Components.config import config
 from AdvancedMovieSelectionSetup import AdvancedMovieSelectionSetup
 from TagEditor import TagEditor
-from Config import initializeConfig
+from Source.Config import initializeConfig
 
 initializeConfig()
 
-def updateLocale():
-    # set locale for tmdb search
-    import tmdb, tvdb
-    from AboutParser import AboutParser
-    from Components.Language import language
-    ln = language.lang[language.activeLanguage][1]
-    tmdb.setLocale(ln)
-    tvdb.setLocale(ln)
-    AboutParser.setLocale(ln)
-
-def autostart(reason, **kwargs):
+def sessionstart(reason, **kwargs):
     if reason == 0:
         session = kwargs["session"]
         if not config.AdvancedMovieSelection.ml_disable.value:
@@ -58,21 +48,23 @@ def autostart(reason, **kwargs):
                 else:
                     waste_timer.stopTimer()
                     print "[AdvancedMovieSelection] Auto empty from wastebasket disabled..."
-                from MessageServer import serverInstance
+                from Source.Remote.MessageServer import serverInstance
                 if config.AdvancedMovieSelection.server_enabled.value:
                     serverInstance.setPort(config.AdvancedMovieSelection.server_port.value)
                     serverInstance.start()
                     serverInstance.setSearchRange(config.AdvancedMovieSelection.start_search_ip.value, config.AdvancedMovieSelection.stop_search_ip.value)
                     serverInstance.startScanForClients()
                 
-                from Components.Language import language
-                language.addCallback(updateLocale)
-                updateLocale()
+                from Source.EpgListExtension import epgListExtension
+                epgListExtension.setEnabled(config.AdvancedMovieSelection.epg_extension.value)
                 
-                from EpgListExtension import epgListExtension
-                epgListExtension.enabled(config.AdvancedMovieSelection.epg_extension.value)
+                from Source.MovieScanner import movieScanner
+                movieScanner.setEnabled(True)
             except:
-                pass
+                print '-' * 50
+                import traceback, sys
+                traceback.print_exc(file=sys.stdout)
+                print '-' * 50
 
 def pluginOpen(session, **kwargs):
     from MoviePlayer import initPlayerChoice
@@ -108,7 +100,7 @@ def Plugins(**kwargs):
     
     descriptors = []
     if not config.AdvancedMovieSelection.ml_disable.value:
-        descriptors.append(PluginDescriptor(name=_("Advanced Movie Selection"), where=PluginDescriptor.WHERE_SESSIONSTART, description=_("Alternate Movie Selection"), fnc=autostart, needsRestart=True))
+        descriptors.append(PluginDescriptor(name=_("Advanced Movie Selection"), where=PluginDescriptor.WHERE_SESSIONSTART, description=_("Alternate Movie Selection"), fnc=sessionstart, needsRestart=True))
         descriptors.append(PluginDescriptor(name=_("Advanced Movie Selection"), where=PluginDescriptor.WHERE_EXTENSIONSMENU, description=_("Alternate Movie Selection"), fnc=pluginOpen))
         descriptors.append(PluginDescriptor(name=_("Move Copy Progress"), where=PluginDescriptor.WHERE_EXTENSIONSMENU, description=_("Show progress of move or copy job"), fnc=openProgress))
     descriptors.append(PluginDescriptor(name=_("Setup Advanced Movie Selection"), where=PluginDescriptor.WHERE_PLUGINMENU, description=_("Alternate Movie Selection"), fnc=pluginMenu, needsRestart=True))

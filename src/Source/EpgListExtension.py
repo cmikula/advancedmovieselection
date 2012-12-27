@@ -22,14 +22,15 @@ For example, if you distribute copies of such a program, whether gratis or for a
 must pass on to the recipients the same freedoms that you received. You must make sure 
 that they, too, receive or can get the source code. And you must show them these terms so they know their rights.
 '''
-import os
-from RecordTimerEvent import recordTimerEvent
+
 from Components.EpgList import EPGList
 from Tools.LoadPixmap import LoadPixmap
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
+from MovieScanner import movieScanner
 
 IMAGE_PATH = "Extensions/AdvancedMovieSelection/images/"
-av_pixmap = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "movie.png"))
+av1_pixmap = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "movie.png"))
+av2_pixmap = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "blue_movieicon.png"))
 
 savedPixmapForEntry = EPGList.getPixmapForEntry
 savedBuildSingleEntry = EPGList.buildSingleEntry
@@ -38,8 +39,11 @@ savedBuildSimilarEntry = EPGList.buildSimilarEntry
 
 def getPixmapForEntry(self, service, eventId, beginTime, duration):
     pixmap = savedPixmapForEntry(self, service, eventId, beginTime, duration)
-    if pixmap[0] == None and epgListExtension.isMovieRecorded():
-        return (av_pixmap, 1)
+    icon_index = epgListExtension.isMovieRecorded()
+    if pixmap[0] == None and icon_index > 0:
+        if icon_index == 2:
+            return (av2_pixmap, 1)
+        return (av1_pixmap, 1)
     return pixmap
 
 def buildSingleEntry(self, service, eventId, beginTime, duration, EventName):
@@ -56,90 +60,25 @@ def buildSimilarEntry(self, service, eventId, beginTime, service_name, duration)
 class EPGListExtension():
     def __init__(self):
         self.current_name = ""
-        self.recorded_movies = []
-        self.isWorking = False
     
-    def enabled(self, enabled):
+    def setEnabled(self, enabled):
         print "[AdvancedMovieSelection] Set epg extension:", str(enabled)
         if enabled:
             EPGList.getPixmapForEntry = getPixmapForEntry
             EPGList.buildSingleEntry = buildSingleEntry
             EPGList.buildMultiEntry = buildMultiEntry
             #EPGList.buildSimilarEntry = buildSimilarEntry
-            self.reloadMoviesAsync()
-            recordTimerEvent.appendCallback(self.timerStateChanged)
         else:
             EPGList.getPixmapForEntry = savedPixmapForEntry
             EPGList.buildSingleEntry = savedBuildSingleEntry
             EPGList.buildMultiEntry = savedBuildMultiEntry
             #EPGList.buildSimilarEntry = savedBuildSimilarEntry
-            recordTimerEvent.removeCallback(self.timerStateChanged)
             
     def isMovieRecorded(self):
-        return self.recorded_movies.__contains__(self.current_name)
+        return movieScanner.isMovieRecorded(self.current_name)
     
-    def reloadMoviesAsync(self, search_path="/media/"):
-        if self.isWorking:
-            print "[AdvancedMovieSelection] EPGListExtension reload is working"
-            return
-        from thread import start_new_thread
-        start_new_thread(self.updateMovieList, (search_path,))
-    
-    def updateMovieList(self, search_path):
-        try:
-            self.isWorking = True
-            print "[AdvancedMovieSelection] Start update recorded movies in location", search_path
-            from Trashcan import TRASH_EXCLUDE
-            self.recorded_movies = []
-            for (path, dirs, files) in os.walk(search_path):
-                # Skip excluded directories here
-                sp = path.split("/")
-                if len(sp) > 2:
-                    if sp[2] in TRASH_EXCLUDE:
-                        continue
-                         
-                for filename in files:
-                    if filename.endswith(".ts"):
-                        meta_path = os.path.join(path, filename + ".meta")
-                        if os.path.exists(meta_path):
-                            f = open(meta_path, "r")
-                            f.readline()
-                            name = f.readline().rstrip("\r\n")
-                            f.close()
-                            self.addMovie(name)
-        except Exception, e:
-            print e
-        self.isWorking = False
-        print "[AdvancedMovieSelection] Finished update recorded movies"
-
-    def addMovie(self, name):
-        if not name in self.recorded_movies:
-            self.recorded_movies.append(name)
-            #print "[AdvancedMovieSelection] add to epg list:", name
-
-    def removeMovie(self, name):
-        if name in self.recorded_movies:
-            self.recorded_movies.remove(name)
-            #print "[AdvancedMovieSelection] remove from epg list:", name
-    
-    def removeService(self, filename):
-        if filename.endswith(".ts"):
-            meta_path = filename + ".meta"
-            if os.path.exists(meta_path):
-                f = open(meta_path, "r")
-                f.readline()
-                name = f.readline().rstrip("\r\n")
-                f.close()
-                self.removeMovie(name)
-
     def timerStateChanged(self, timer):
-        try:
-            from timer import TimerEntry 
-            if timer.state == TimerEntry.StateEnded:
-                print "timer finished", timer.name
-                self.addMovie(timer.name)
-        except Exception, e:
-            print e
+        movieScanner.timerStateChanged(timer)
 
 epgListExtension = EPGListExtension()
 

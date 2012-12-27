@@ -286,3 +286,14 @@ version: 2.9
 * new: progress of copy/move can be disabled
 * new: endless replay can be started or stopped in the menu at the end of the movie
 Skinners ATTENTION, SelectionListScreen(SD, XD, HD) are new
+
+version: 3.0
+* new: new direct search with the number buttons of the remote or keyboard
+* new: indexing for selected locations
+* new: fast search in all indexed locations
+* new: fast display of all indexed files
+* new: fast sorting of all indexed files
+* new: file size only displayed for indexed directories
+* new: tmdb and tvdb search for directories
+* new: info for directories
+

@@ -29,7 +29,8 @@ if __name__ == '__main__':
     def printStackTrace():
         pass
 else:
-    from ServiceProvider import eServiceReferenceBludisc, printStackTrace
+    from ServiceProvider import eServiceReferenceBludisc
+    from Globals import printStackTrace
 
 def LB16(data):
     return unpack('<H', data[0:2])[0]

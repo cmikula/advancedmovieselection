@@ -31,7 +31,7 @@ from Components.ActionMap import HelpableActionMap
 from Components.Sources.StaticText import StaticText
 from Components.SelectionList import SelectionList
 from Screens.HelpMenu import HelpableScreen
-from Globals import SkinResolutionHelper
+from Source.Globals import SkinResolutionHelper
 
 class SelectionListScreen(Screen, HelpableScreen, SkinResolutionHelper):
     def __init__(self, session, title, item_descr, selected_items):

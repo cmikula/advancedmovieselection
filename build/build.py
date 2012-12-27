@@ -37,7 +37,7 @@ for example: export the tag version 2.6.1 and the ipk should stored to location 
 
 '''
 
-import compileall
+import compileall, compiler
 import os, shutil, subprocess
 from tarfile import TarFile
 from arfile import ArFile
@@ -88,7 +88,7 @@ PACKAGE_RECOMENDS = None
 
 CONTROL_CONFFILES = ()
 
-LIBRARY_SOURCES = ("ServiceProvider.py", "ServiceUtils.py", "EventInformationTable.py", "tmdb.py", "tvdb.py", "SearchTMDb.py", "SearchTVDb.py", "EpgListExtension.py", "ISOInfo.py")
+LIBRARY_SOURCES = ("Source/ServiceProvider.py", "Source/CueSheetSupport.py", "Source/ServiceUtils.py", "Source/EventInformationTable.py", "Source/MovieDB/tmdb.py", "Source/MovieDB/tvdb.py", "SearchTMDb.py", "SearchTVDb.py", "Source/EpgListExtension.py", "Source/ISOInfo.py")
 
 POSTINST = "#!/bin/sh\n\
 echo \"* plugin installed successfully *\"\n\
@@ -365,7 +365,9 @@ def exportSVNRepository():
         raise Exception("error exporting sources from svn server")
 
 def compilePlugin():
-    compileall.compile_dir(PLUGIN, force=1)
+    #compileall.compile_dir(PLUGIN, force=1)
+    for lib in LIBRARY_SOURCES:
+        compileall.compile_file(os.path.join(PLUGIN, lib), force=1)
 
 def removeLibrarySources():
     for lib in LIBRARY_SOURCES:

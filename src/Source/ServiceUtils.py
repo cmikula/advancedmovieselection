@@ -30,20 +30,22 @@ import threading
 
 def realSize(bytes, digits=1, factor=1024):
     size = float(bytes)
-    s = "%%.%df" % (digits)
-    f = factor ** 4
-    if size > f:
-        return s % (size / f) + " TB"
-    f = factor ** 3
-    if size > f:
-        return s % (size / f) + " GB"
-    f = factor ** 2
-    if size > f:
-        return s % (size / f) + " MB"
-    f = factor
-    if size > f:
-        return s % (size / f) + " KB"
-    return s % (size) + " Bytes"
+    if bytes == 0:
+        digits = 0
+    f = "%%.%df" % (digits)
+    if size < 1000:
+        return f % (size) + " Bytes"
+    size = size / factor
+    if size < 1000:
+        return f % (size) + " KB"
+    size = size / factor
+    if size < 1000:
+        return f % (size) + " MB"
+    size = size / factor
+    if size < 1000:
+        return f % (size) + " GB"
+    size = size / factor
+    return f % (size) + " TB"
 
 def diskUsage(path):
     """Return disk usage statistics about the given path.

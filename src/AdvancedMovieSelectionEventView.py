@@ -24,10 +24,10 @@ from Screens.Screen import Screen
 from Components.ActionMap import ActionMap
 from Components.Label import Label
 from Components.config import config
-from ServiceProvider import ServiceCenter, ServiceEvent
+from Source.ServiceProvider import ServiceCenter, ServiceEvent
 from Components.ScrollLabel import ScrollLabel
 from MoviePreview import MoviePreview
-from Globals import SkinTools, pluginPresent
+from Source.Globals import SkinTools, pluginPresent
 from Components.Sources.StaticText import StaticText
 from Components.Pixmap import Pixmap
 

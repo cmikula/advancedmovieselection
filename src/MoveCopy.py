@@ -24,8 +24,8 @@ from Screens.MessageBox import MessageBox
 from Screens.ChoiceBox import ChoiceBox
 from Screens.LocationBox import MovieLocationBox
 from Components.config import config
-from ServiceUtils import serviceUtil, realSize, diskUsage
-from ServiceProvider import ServiceCenter
+from Source.ServiceUtils import serviceUtil, realSize, diskUsage
+from Source.ServiceProvider import ServiceCenter
 import os, time
 
 def showFinished(job, session):
@@ -205,7 +205,7 @@ from Screens.HelpMenu import HelpableScreen
 from enigma import eTimer
 from Components.ActionMap import HelpableActionMap
 from Components.Button import Button
-from Globals import SkinResolutionHelper
+from Source.Globals import SkinResolutionHelper
 
 class MoveCopyProgress(Screen, HelpableScreen, SkinResolutionHelper):
     def __init__(self, session):

@@ -156,8 +156,6 @@ class Trashcan:
     
     @staticmethod
     def delete(filename):
-        from EpgListExtension import epgListExtension
-        epgListExtension.removeService(filename)
         movie_ext = ["gm", "sc", "ap", "cuts"]
         print "delete: ", filename
         #path = os.path.split(filename)[0]

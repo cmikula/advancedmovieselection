@@ -36,15 +36,22 @@ from stat import ST_MTIME as stat_ST_MTIME
 from time import time as time_time
 from math import fabs as math_fabs
 from datetime import datetime
-from ServiceProvider import getCutList, Info, ServiceCenter, MovieConfig, hasLastPosition, PicLoader, getServiceInfoValue, autoNetwork
-from ServiceProvider import detectDVDStructure, eServiceReferenceDvd
-from ServiceProvider import detectBludiscStructure, eServiceReferenceBludisc
-from ServiceUtils import getDirSize, getFolderSize
-from Trashcan import TRASH_NAME
 from Components.Harddisk import Harddisk
-from EventInformationTable import EventInformationTable, appendShortDescriptionToMeta
-from AccessRestriction import accessRestriction
-from ServiceUtils import serviceUtil
+from Source.Globals import printStackTrace
+from Source.ServiceProvider import Info, ServiceCenter, getServiceInfoValue
+from Source.ServiceProvider import detectDVDStructure, eServiceReferenceDvd
+from Source.ServiceProvider import detectBludiscStructure, eServiceReferenceBludisc
+from Source.ServiceProvider import eServiceReferenceVDir, eServiceReferenceBackDir, eServiceReferenceListAll, eServiceReferenceHotplug, eServiceReferenceMarker
+from Source.ServiceUtils import serviceUtil, realSize, diskUsage
+from Source.CueSheetSupport import hasLastPosition, CueSheet
+from Source.AutoNetwork import autoNetwork 
+from Source.Trashcan import TRASH_NAME
+from Source.EventInformationTable import EventInformationTable, appendShortDescriptionToMeta
+from Source.AccessRestriction import accessRestriction
+from Source.MovieScanner import movieScanner
+from Source.ServiceDescriptor import MovieInfo
+from Source.MovieConfig import MovieConfig
+from Source.PicLoader import PicLoader
 
 IMAGE_PATH = "Extensions/AdvancedMovieSelection/images/"
 
@@ -60,17 +67,9 @@ MEDIAEXTENSIONS = {
         "flv": "movie",
         "m2ts": "movie",
         "mov": "movie",
-        "trash": "movie"
+        "trash": "movie",
+        "mp3": "audio"
     }
-
-class eServiceReferenceVDir(eServiceReference):
-    pass
-
-class eServiceReferenceHotplug(eServiceReference):
-    pass
-
-class eServiceReferenceBackDir(eServiceReference):
-    pass
 
 class MovieList(GUIComponent):
     SORT_ALPHANUMERIC = 1
@@ -283,7 +282,9 @@ class MovieList(GUIComponent):
                 if os.path.normpath(m_path) == "/media/hdd" or label in ("DUMBO", "TIMOTHY"):
                     continue
                 if not self.movieConfig.isHiddenHotplug(label):
-                    service = eServiceReferenceHotplug(eServiceReference.idFile, eServiceReference.flagDirectory, m_path + "/")
+                    if m_path[-1] != "/":
+                        m_path += "/"
+                    service = eServiceReferenceHotplug(m_path)
                     hdd = Harddisk(m_dev.replace("/dev/", "")[:-1])
                     service.setName(label + " - " + hdd.model() + " - " + hdd.capacity())
                     self.automounts.append(service)
@@ -364,421 +365,458 @@ class MovieList(GUIComponent):
             self.l.setFont(1, gFont("Regular", 16))
             self.l.setItemHeight(26)
 
-    def buildMovieListEntry(self, serviceref, info, begin, len, selection_index= -1):
-        width = self.l.getItemSize().width()
-        offset = 0
-        res = [ None ]
-        if self.show_folders:
-            if serviceref.flags & eServiceReference.mustDescent:
-
-                if isinstance(serviceref, eServiceReferenceVDir):
-                    png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "bookmark.png"))
-                elif isinstance(serviceref, eServiceReferenceHotplug):
-                    png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "hotplug.png"))
-                elif isinstance(serviceref, eServiceReferenceBackDir):
-                    png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "back.png"))
-                else:
-                    png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "directory.png"))
-
-                offset = 30
-                if self.list_type == MovieList.LISTTYPE_EXTENDED:
-                    if config.AdvancedMovieSelection.usefoldername.value:
-                        filename = serviceref.getPath()[:-1] + ".jpg"
-                    else:
-                        filename = serviceref.getPath() + "folder.jpg"
-                    if os.path.exists(filename):
-                        offset = 75
-                        png = self.picloader.load(filename)
-                        res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 2, 75, 76, png))
-                    else:
-                        res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 5, 2, 20, 20, png))
-                    res.append(MultiContentEntryText(pos=(offset, 28), size=(width, 25), font=1, flags=RT_HALIGN_LEFT, text=serviceref.getPath()))
-                else:
-                    res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 5, 2, 20, 20, png))
-
-                res.append(MultiContentEntryText(pos=(offset, 3), size=(width - 150, 30), font=0, flags=RT_HALIGN_LEFT, text=serviceref.getName()))
-                if config.AdvancedMovieSelection.show_dirsize.value:
-                    if len < 0: #recalk len when not already done
-                        cur_idx = self.l.getCurrentSelectionIndex()
-                        if config.usage.load_length_of_movies_in_moviellist.value and serviceref.getName() != "..":
-                            if config.AdvancedMovieSelection.show_dirsize_full.value:
-                                len = getFolderSize(serviceref.getPath())
-                            else:
-                                len = getDirSize(serviceref.getPath())
+#    def buildMovieListEntry(self, serviceref, info, begin, len, selection_index= -1):
+    def buildMovieListEntry(self, movie_info, selection_index= -1):
+        try:
+            width = self.l.getItemSize().width()
+            offset = 0
+            res = [ None ]
+            service_name, serviceref, info, begin, len = movie_info.name, movie_info.serviceref, movie_info.info, movie_info.begin, movie_info.length
+            if self.show_folders:
+                if serviceref.flags & eServiceReference.mustDescent:
+                    can_show_folder_image = True
+                    if isinstance(serviceref, eServiceReferenceVDir):
+                        png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "bookmark.png"))
+                    elif isinstance(serviceref, eServiceReferenceListAll):
+                        if movieScanner.isWorking:
+                            png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "database_reload.png"))
                         else:
-                            len = 0 #dont recalc movielist to speedup loading the list
-                        self.list[cur_idx] = (serviceref, info, begin, len) #update entry in list... so next time we don't need to recalc
-                    cap = float(len / (1024 * 1024))
-                    if cap == 0:
-                        dir_size = "N/A"
-                    elif cap <= 999:
-                        dir_size = "%d MB" % (cap)
+                            png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "database.png"))
+                        can_show_folder_image = False
+                    elif isinstance(serviceref, eServiceReferenceHotplug):
+                        png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "hotplug.png"))
+                    elif isinstance(serviceref, eServiceReferenceBackDir):
+                        png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "back.png"))
+                    elif isinstance(serviceref, eServiceReferenceMarker):
+                        png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "location.png"))
                     else:
-                        if config.AdvancedMovieSelection.dirsize_digits.value == "0":
-                            dir_size = "%d GB" % (cap / 1000)
-                        elif config.AdvancedMovieSelection.dirsize_digits.value == "1":
-                            dir_size = "%s GB" % (round(cap / 1000, 1))
-                        elif config.AdvancedMovieSelection.dirsize_digits.value == "2":
-                            dir_size = "%s GB" % (round(cap / 1000, 2))
-                        else:
-                            dir_size = "%s GB" % (round(cap / 1000, 3))
-                    if serviceref.getName() != "..":
-                        res.append(MultiContentEntryText(pos=(width - 115, 3), size=(110, 30), font=0, flags=RT_HALIGN_RIGHT, text=dir_size))
-
-                return res
-            
-            if self.list_type != MovieList.LISTTYPE_EXTENDED:
-                extension = serviceref.toString().split('.')
-                extension = extension[-1].lower()
-                offset = 25
-                if MEDIAEXTENSIONS.has_key(extension):
-                    filename = os.path.realpath(serviceref.getPath())
-                    if config.AdvancedMovieSelection.shownew.value and not hasLastPosition(serviceref):
-                        png = self.MOVIE_NEW_PNG
-                    else:
-                        png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + MEDIAEXTENSIONS[extension] + ".png"))
-                else:
-                    if isinstance(serviceref, eServiceReferenceDvd) or isinstance(serviceref, eServiceReferenceBludisc):
-                        png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "dvd_watching.png"))
-                    else:
-                        png = None
-
-        if info is not None:
-            if len < 0: #recalc len when not already done
-                cur_idx = self.l.getCurrentSelectionIndex()
-                if config.usage.load_length_of_movies_in_moviellist.value:
-                    len = info.getLength(serviceref) #recalc the movie length...
-                    if len == 0:
-                        file_name = serviceref.getPath()
-                        if not os.path.isdir(file_name):
-                            eit_file = os.path.splitext(file_name)[0] + ".eit"
-                        else:
-                            eit_file = file_name + ".eit"
-                        len = EventInformationTable(eit_file, True).getDuration()
-                else:
-                    len = 0 #dont recalc movielist to speedup loading the list
-                self.list[cur_idx] = (serviceref, info, begin, len) #update entry in list... so next time we don't need to recalc
-
-        length = len
-    
-        if len > 0:
-            len = "%d:%02d" % (len / 60, len % 60)
-        else:
-            len = ""
-        
-        if info is not None:
-            service_name = info.getName(serviceref)
-            if not isinstance(info, Info):
-                service = ServiceReference(info.getInfoString(serviceref, iServiceInformation.sServiceref))
-            else:
-                service = info.getServiceReference()
-            description = info.getInfoString(serviceref, iServiceInformation.sDescription)
-            tags = info.getInfoString(serviceref, iServiceInformation.sTags)
-
-        color = None 
-        recording = False
-        if NavigationInstance.instance.getRecordings():
-            for timer in NavigationInstance.instance.RecordTimer.timer_list:
-                if timer.state == TimerEntry.StateRunning:
-                    try:
-                        filename = "%s.ts" % timer.Filename
-                    except:
-                        filename = ""
-                    if filename and os.path.realpath(filename) == os.path.realpath(serviceref.getPath()):
-                        recording = True
-                        break
-        if not recording:
-            filename = os.path.realpath(serviceref.getPath())
-            if os.path.exists("%s.sc" % filename) and not os.path.exists("%s.ap" % filename):
-                # double check, sometimes ap file was not created (e.g. after enigma2 crash)
-                filestats = os.stat(filename)
-                currentTime = time_time()
-                mtime = filestats[stat_ST_MTIME]
-                if math_fabs(mtime - int(currentTime)) <= 10:
-                    recording = True
-        
-        if recording: 
-            if self.show_statuscolor:
-                color = self.recording_color
-            if self.COLOR_MOVIE_ICON:
-                png = self.COLOR_MOVIE_ICON
-
-        if (self.list_type == MovieList.LISTTYPE_EXTENDED) or (self.show_progressbar or self.show_percent) or (self.show_statusicon and self.show_folders) or self.show_statuscolor:
-            last = None
-            if length <= 0: #Set default file length if is not calculateable
-                length = 5400
-            cue = None #info.cueSheet()
-            if cue is None:
-                cut_list = getCutList(serviceref.getPath())
-                for (pts, what) in cut_list:
-                    if what == 1 and length == 5400:
-                        length = pts / 90000
-                    if what == 3:
-                        last = pts
-            elif cue is not None:
-                cut_list = cue.getCutList()
-                for (pts, what) in cut_list:
-                    if what == 1 and length == 5400:
-                        length = pts / 90000
-                    if what == 3:
-                        last = pts
-            perc = 0
-            if last is not None and length > 0:
-                perc = int((float(last) / 90000 / float(length)) * 100);
-                if perc > 100:
-                    perc = 100
-                if perc < 0:
-                    perc = 0
-                if self.show_statuscolor and not recording:
-                    if (perc > 1) and (perc <= config.AdvancedMovieSelection.moviepercentseen.value):
-                        color = self.watching_color
-                    elif (perc > config.AdvancedMovieSelection.moviepercentseen.value):
-                        color = self.finished_color
-                if self.show_statusicon and self.show_folders and not recording:
-                    if perc > 1 and perc <= config.AdvancedMovieSelection.moviepercentseen.value:
-                        png = self.COLOR_PERCENT_1
-                    elif perc > config.AdvancedMovieSelection.moviepercentseen.value:
-                        png = self.COLOR_PERCENT_2
-
-            if self.list_type != MovieList.LISTTYPE_EXTENDED:
-                ''' never enable this - on dvd structures the extension is incorrect and will crash '''
-                #if config.AdvancedMovieSelection.shownew.value and self.show_folders and not self.show_statusicon and perc > 0:
-                #    png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + MEDIAEXTENSIONS[extension] + ".png"))   
+                        png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "directory.png"))
                     
-                if self.show_progressbar:
-                    top = int((self.l.getItemSize().height() - 6) / 2) + 1
-                    res.append(MultiContentEntryProgress(pos=(0 + offset, top), size=(50, 6), percent=perc, borderWidth=1, foreColor=color))
-                    offset = offset + 55
-    
-                if self.show_percent:
-                    perc_txt = "%d" % (perc) + ' % - '
-                    if self.list_type == MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection:
-                        res.append(MultiContentEntryText(pos=(offset, 2), size=(60, 25), font=0, flags=RT_HALIGN_RIGHT, text=perc_txt, color=color))
-                        offset = offset + 65
+                    offset = 25
+                    if can_show_folder_image and self.list_type == MovieList.LISTTYPE_EXTENDED:
+                        if config.AdvancedMovieSelection.usefoldername.value:
+                            filename = serviceref.getPath()[:-1] + ".jpg"
+                        else:
+                            filename = serviceref.getPath() + "folder.jpg"
+                        if os.path.exists(filename):
+                            offset = 75
+                            png = self.picloader.load(filename)
+                            res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 2, 75, 76, png))
+                        else:
+                            res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 2, 20, 20, png))
+                        if not isinstance(serviceref, eServiceReferenceListAll):
+                            res.append(MultiContentEntryText(pos=(offset, 30), size=(width, 25), font=1, flags=RT_HALIGN_LEFT, text=serviceref.getPath()))
                     else:
-                        res.append(MultiContentEntryText(pos=(offset, 2), size=(70, 25), font=0, flags=RT_HALIGN_RIGHT, text=perc_txt, color=color))
-                        offset = offset + 75
-
-        begin_string = ""
-        if recording:
-            if config.AdvancedMovieSelection.dateformat.value == "6":
-                begin_string = (_("REC"))
+                        res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 2, 20, 20, png))
+    
+                    res.append(MultiContentEntryText(pos=(offset, 3), size=(width - 150, 30), font=0, flags=RT_HALIGN_LEFT, text=serviceref.getName()))
+                    if config.AdvancedMovieSelection.show_dirsize.value:
+                        dir_size = -1
+                        if isinstance(serviceref, eServiceReferenceHotplug):
+                            dir_size = diskUsage(serviceref.getPath())[1]
+                        elif isinstance(serviceref, eServiceReferenceListAll):
+                            dir_size = movieScanner.database.getSize()
+                        else:
+                            dir_size = movieScanner.database.getSize(serviceref.getPath())
+                        if dir_size >= 0:
+                            dir_size = realSize(dir_size, int(config.AdvancedMovieSelection.dirsize_digits.value))
+                            res.append(MultiContentEntryText(pos=(width - 115, 4), size=(110, 30), font=1, flags=RT_HALIGN_RIGHT, text=dir_size))
+                    
+                    if os.path.islink(serviceref.getPath()[:-1]) and can_show_folder_image:
+                        link_png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "link.png"))
+                        res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 10, 15, 9, 10, link_png))
+    
+                    return res
+                
+                if self.list_type != MovieList.LISTTYPE_EXTENDED:
+                    extension = serviceref.toString().split('.')
+                    extension = extension[-1].lower()
+                    offset = 25
+                    if MEDIAEXTENSIONS.has_key(extension):
+                        media_ext = MEDIAEXTENSIONS[extension]
+                        if media_ext == "audio":
+                            png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + media_ext + ".png"))
+                        else:
+                            filename = os.path.realpath(serviceref.getPath())
+                            if config.AdvancedMovieSelection.shownew.value and not hasLastPosition(serviceref):
+                                png = self.MOVIE_NEW_PNG
+                            else:
+                                png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + media_ext + ".png"))
+                    else:
+                        if isinstance(serviceref, eServiceReferenceDvd) or isinstance(serviceref, eServiceReferenceBludisc):
+                            png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "dvd_watching.png"))
+                        else:
+                            png = None
+    
+            if info is not None:
+                if len < 0: #recalc len when not already done
+                    cur_idx = self.l.getCurrentSelectionIndex()
+                    if config.usage.load_length_of_movies_in_moviellist.value:
+                        len = info.getLength(serviceref) #recalc the movie length...
+                        if len == 0:
+                            file_name = serviceref.getPath()
+                            if not os.path.isdir(file_name):
+                                eit_file = os.path.splitext(file_name)[0] + ".eit"
+                            else:
+                                eit_file = file_name + ".eit"
+                            len = EventInformationTable(eit_file, True).getDuration()
+                    else:
+                        len = 0 #dont recalc movielist to speedup loading the list
+                    self.list[cur_idx][0].length = len #update entry in list... so next time we don't need to recalc
+    
+            length = len
+        
+            if len > 0:
+                len = "%d:%02d" % (len / 60, len % 60)
             else:
-                if config.AdvancedMovieSelection.dateformat.value == "7":
+                len = ""
+            
+            if info is not None:
+                #service_name = info.getName(serviceref)
+                if not isinstance(info, Info):
+                    service = ServiceReference(info.getInfoString(serviceref, iServiceInformation.sServiceref))
+                else:
+                    service = info.getServiceReference()
+                description = info.getInfoString(serviceref, iServiceInformation.sDescription)
+                tags = info.getInfoString(serviceref, iServiceInformation.sTags)
+    
+            color = None 
+            recording = False
+            if NavigationInstance.instance.getRecordings():
+                for timer in NavigationInstance.instance.RecordTimer.timer_list:
+                    if timer.state == TimerEntry.StateRunning:
+                        try:
+                            filename = "%s.ts" % timer.Filename
+                        except:
+                            filename = ""
+                        if filename and os.path.realpath(filename) == os.path.realpath(serviceref.getPath()):
+                            recording = True
+                            break
+            if not recording:
+                filename = os.path.realpath(serviceref.getPath())
+                if os.path.exists("%s.sc" % filename) and not os.path.exists("%s.ap" % filename):
+                    # double check, sometimes ap file was not created (e.g. after enigma2 crash)
+                    filestats = os.stat(filename)
+                    currentTime = time_time()
+                    mtime = filestats[stat_ST_MTIME]
+                    if math_fabs(mtime - int(currentTime)) <= 10:
+                        recording = True
+            
+            if recording: 
+                if self.show_statuscolor:
+                    color = self.recording_color
+                if self.COLOR_MOVIE_ICON:
+                    png = self.COLOR_MOVIE_ICON
+    
+            if (self.list_type == MovieList.LISTTYPE_EXTENDED) or (self.show_progressbar or self.show_percent) or (self.show_statusicon and self.show_folders) or self.show_statuscolor:
+                last = None
+                if length <= 0: #Set default file length if is not calculateable
+                    length = 5400
+                cue = None #info.cueSheet()
+                if cue is None:
+                    cut_list = CueSheet(serviceref).getCutList()
+                    for (pts, what) in cut_list:
+                        if what == 1 and length == 5400:
+                            length = pts / 90000
+                        if what == 3:
+                            last = pts
+                elif cue is not None:
+                    cut_list = cue.getCutList()
+                    for (pts, what) in cut_list:
+                        if what == 1 and length == 5400:
+                            length = pts / 90000
+                        if what == 3:
+                            last = pts
+                perc = 0
+                if last is not None and length > 0:
+                    perc = int((float(last) / 90000 / float(length)) * 100);
+                    if perc > 100:
+                        perc = 100
+                    if perc < 0:
+                        perc = 0
+                    if self.show_statuscolor and not recording:
+                        if (perc > 1) and (perc <= config.AdvancedMovieSelection.moviepercentseen.value):
+                            color = self.watching_color
+                        elif (perc > config.AdvancedMovieSelection.moviepercentseen.value):
+                            color = self.finished_color
+                    if self.show_statusicon and self.show_folders and not recording:
+                        if perc > 1 and perc <= config.AdvancedMovieSelection.moviepercentseen.value:
+                            png = self.COLOR_PERCENT_1
+                        elif perc > config.AdvancedMovieSelection.moviepercentseen.value:
+                            png = self.COLOR_PERCENT_2
+    
+                if self.list_type != MovieList.LISTTYPE_EXTENDED:
+                    ''' never enable this - on dvd structures the extension is incorrect and will crash '''
+                    #if config.AdvancedMovieSelection.shownew.value and self.show_folders and not self.show_statusicon and perc > 0:
+                    #    png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + MEDIAEXTENSIONS[extension] + ".png"))   
+                        
+                    if self.show_progressbar:
+                        top = int((self.l.getItemSize().height() - 6) / 2) + 1
+                        res.append(MultiContentEntryProgress(pos=(0 + offset, top), size=(50, 6), percent=perc, borderWidth=1, foreColor=color))
+                        offset = offset + 55
+        
+                    if self.show_percent:
+                        perc_txt = "%d" % (perc) + ' % - '
+                        if self.list_type == MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection:
+                            res.append(MultiContentEntryText(pos=(offset, 2), size=(60, 25), font=0, flags=RT_HALIGN_RIGHT, text=perc_txt, color=color))
+                            offset = offset + 65
+                        else:
+                            res.append(MultiContentEntryText(pos=(offset, 2), size=(70, 25), font=0, flags=RT_HALIGN_RIGHT, text=perc_txt, color=color))
+                            offset = offset + 75
+    
+            begin_string = ""
+            if recording:
+                if config.AdvancedMovieSelection.dateformat.value == "6":
                     begin_string = (_("REC"))
                 else:
-                    begin_string = (_("Records"))        
-        else:
-            if config.AdvancedMovieSelection.dateformat.value == "2" and begin > 0:
-                t = FuzzyTime(begin)
-                begin_string = t[0] + ", " + t[1]
+                    if config.AdvancedMovieSelection.dateformat.value == "7":
+                        begin_string = (_("REC"))
+                    else:
+                        begin_string = (_("Records"))        
             else:
-                d = datetime.fromtimestamp(begin)
-                begin_string = d.strftime(self.DATE_TIME_FORMAT)
-
-        if selection_index > -1:
-            txt = "%d - %s" % (selection_index, service_name)
-            if self.show_statuscolor:
-                color = self.mark_color
-        else:
-            txt = service_name
-
-        if self.list_type == MovieList.LISTTYPE_EXTENDED:
-            if os.path.isfile(serviceref.getPath()):
-                filename = os.path.splitext(serviceref.getPath())[0] + ".jpg"
-            else:
-                filename = serviceref.getPath() + ".jpg"
-            filesize = float(info.getInfoObject(serviceref, iServiceInformation.sFileSize) / (1024 * 1024))
-            prec_text = str(perc) + '%'
-            png = None
-            series_path = os.path.join(os.path.dirname(serviceref.getPath()), "series.jpg")
-            if os.path.exists(series_path):
-                png = self.picloader.load(series_path)
-            elif os.path.exists(filename):
-                png = self.picloader.load(filename)
-            elif serviceref.getPath().endswith("ts"):
-                # picon, make sure only ts files goes here
-                picon = getServiceInfoValue(serviceref, iServiceInformation.sServiceref).rstrip(':').replace(':', '_') + ".png"
-                piconpath = os.path.join(config.AdvancedMovieSelection.piconpath.value, picon)
-                if os.path.exists(piconpath):
-                    png = self.picloader.load(piconpath)
-            if not png:
-                png = self.picloader.load(self.NO_COVER_PNG_FILE)
-            res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 2, 75, 76, png))
-            offset = offset + 80
-            new_offset = 0
-            # new icon
-            if config.AdvancedMovieSelection.shownew.value and not hasLastPosition(serviceref):
-                res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, offset, 0, 20, 20, self.MOVIE_NEW_PNG))
-                new_offset = new_offset + 24
-
-            # Line 1: Movie Text, service name
-            res.append(MultiContentEntryText(pos=(new_offset + offset, 0), size=(width - 265, 30), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
-            res.append(MultiContentEntryText(pos=(width - 185, 0), size=(180, 30), font=2, flags=RT_HALIGN_RIGHT, text=service.getServiceName(), color=color))
-            # line 2: description, file size 
-            res.append(MultiContentEntryText(pos=(0 + offset, 28), size=(width, 25), font=1, flags=RT_HALIGN_LEFT, text=description, color=color))
-            if filesize:
-                if filesize <= 999:
-                    filesize = "%d MB" % (filesize)
+                if config.AdvancedMovieSelection.dateformat.value == "2" and begin > 0:
+                    t = FuzzyTime(begin)
+                    begin_string = t[0] + ", " + t[1]
                 else:
-                    filesize = "%s GB" % (round(filesize / 1000, 2))                
-                res.append(MultiContentEntryText(pos=(width - 185, 28), size=(180, 30), font=2, flags=RT_HALIGN_RIGHT, text=filesize, color=color))
-            # Line 3: begin_string, progress bar, percent, tags, movie length
-            res.append(MultiContentEntryText(pos=(0 + offset, 55), size=(100, 20), font=1, flags=RT_HALIGN_LEFT, text=begin_string, color=color))
-            res.append(MultiContentEntryProgress(pos=(130 + offset, 63), size=(50, 6), percent=perc, borderWidth=1, foreColor=color))
-            res.append(MultiContentEntryText(pos=(190 + offset, 55), size=(60, 20), font=1, flags=RT_HALIGN_LEFT, text=prec_text, color=color))
-            if tags:
-                res.append(MultiContentEntryText(pos=(250 + offset, 55), size=(500, 20), font=1, flags=RT_HALIGN_LEFT, text=self.arrangeTags(tags), color=color))
-            res.append(MultiContentEntryText(pos=(width - 105, 55), size=(100, 20), font=1, flags=RT_HALIGN_RIGHT, text=len, color=color))
-
-        elif self.list_type == MovieList.LISTTYPE_ORIGINAL:
-            if self.show_folders:
-                res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 29, 20, 20, png))
-            res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 265, 30), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
-            if tags and self.show_tags == MovieList.SHOW_TAGS:
-                res.append(MultiContentEntryText(pos=(width - 255, 0), size=(250, 30), font=2, flags=RT_HALIGN_RIGHT, text=self.arrangeTags(tags), color=color))
-                if service is not None:
-                    res.append(MultiContentEntryText(pos=(300, 55), size=(200, 25), font=1, flags=RT_HALIGN_LEFT, text=service.getServiceName(), color=color))
-            else:
-                if service is not None:
-                    res.append(MultiContentEntryText(pos=(width - 185, 0), size=(180, 30), font=2, flags=RT_HALIGN_RIGHT, text=service.getServiceName(), color=color))
-                res.append(MultiContentEntryText(pos=(0 + offset, 28), size=(width, 25), font=1, flags=RT_HALIGN_LEFT, text=description, color=color))
-            if self.show_date == MovieList.SHOW_DATE:
-                res.append(MultiContentEntryText(pos=(0 + offset, 55), size=(200, 20), font=1, flags=RT_HALIGN_LEFT, text=begin_string, color=color))
-            if self.show_time == MovieList.SHOW_TIME:
-                res.append(MultiContentEntryText(pos=(width - 205, 55), size=(200, 20), font=1, flags=RT_HALIGN_RIGHT, text=len, color=color))
-
-        elif self.list_type == MovieList.LISTTYPE_COMPACT_DESCRIPTION:
-            if self.show_folders:
-                res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 9, 20, 20, png))
-            res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width, 23), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))                
-            res.append(MultiContentEntryText(pos=(0 + offset, 22), size=(width - 212, 17), font=1, flags=RT_HALIGN_LEFT, text=description, color=color))
-            if self.show_date == MovieList.SHOW_DATE:
-                res.append(MultiContentEntryText(pos=(width - 135, 4), size=(130, 20), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))                
-            if self.show_time == MovieList.SHOW_TIME:
-                dr = service.getServiceName() + " " + len
-                res.append(MultiContentEntryText(pos=(width - 215, 22), size=(210, 17), font=1, flags=RT_HALIGN_RIGHT, text=dr, color=color))
-            else:
-                res.append(MultiContentEntryText(pos=(width - 155, 22), size=(150, 17), font=1, flags=RT_HALIGN_RIGHT, text=service.getServiceName(), color=color))
-
-        elif self.list_type == MovieList.LISTTYPE_COMPACT:
-            if self.show_folders:
-                res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 9, 20, 20, png))            
-            res.append(MultiContentEntryText(pos=(offset, 0), size=(width, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))            
-            if self.show_date == MovieList.SHOW_DATE:
-                res.append(MultiContentEntryText(pos=(offset, 22), size=(200, 17), font=1, flags=RT_HALIGN_LEFT, text=begin_string, color=color))            
-            if self.show_time == MovieList.SHOW_TIME:
-                res.append(MultiContentEntryText(pos=(width - 80, 0), size=(75, 20), font=0, flags=RT_HALIGN_RIGHT, text=len, color=color))            
-            if tags and self.show_tags == MovieList.SHOW_TAGS:
-                res.append(MultiContentEntryText(pos=(width - 205, 22), size=(200, 17), font=1, flags=RT_HALIGN_RIGHT, text=self.arrangeTags(tags), color=color))
-                if service is not None:
-                    res.append(MultiContentEntryText(pos=(250, 22), size=(200, 17), font=1, flags=RT_HALIGN_LEFT, text=service.getServiceName(), color=color))
-            else:
-                if service is not None:
-                    res.append(MultiContentEntryText(pos=(width - 205, 22), size=(200, 17), font=1, flags=RT_HALIGN_RIGHT, text=service.getServiceName(), color=color))        
-
-        elif self.list_type == MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection:
+                    d = datetime.fromtimestamp(begin)
+                    begin_string = d.strftime(self.DATE_TIME_FORMAT)
+    
             if selection_index > -1:
-                displaytext = "%d - " % (selection_index)
+                txt = "%d - %s" % (selection_index, service_name)
+                if self.show_statuscolor:
+                    color = self.mark_color
             else:
-                displaytext = ""
-            if self.show_date == MovieList.SHOW_DATE:
-                if not service_name == description and not description == "":
-                    displaytext = displaytext + begin_string + " - " + service_name + " - " + description
+                txt = service_name
+    
+            if self.list_type == MovieList.LISTTYPE_EXTENDED:
+                if os.path.isfile(serviceref.getPath()):
+                    filename = os.path.splitext(serviceref.getPath())[0] + ".jpg"
                 else:
-                    displaytext = displaytext + begin_string + " - " + service_name
-            else:
-                if not service_name == description and not description == "":
-                    displaytext = displaytext + service_name + " - " + description
+                    filename = serviceref.getPath() + ".jpg"
+                filesize = float(info.getInfoObject(serviceref, iServiceInformation.sFileSize) / (1024 * 1024))
+                prec_text = str(perc) + '%'
+                png = None
+                series_path = os.path.join(os.path.dirname(serviceref.getPath()), "series.jpg")
+                if os.path.exists(series_path):
+                    png = self.picloader.load(series_path)
+                elif os.path.exists(filename):
+                    png = self.picloader.load(filename)
+                elif serviceref.getPath().endswith("ts"):
+                    # picon, make sure only ts files goes here
+                    picon = getServiceInfoValue(serviceref, iServiceInformation.sServiceref).rstrip(':').replace(':', '_') + ".png"
+                    piconpath = os.path.join(config.AdvancedMovieSelection.piconpath.value, picon)
+                    if os.path.exists(piconpath):
+                        png = self.picloader.load(piconpath)
+                if not png:
+                    png = self.picloader.load(self.NO_COVER_PNG_FILE)
+                res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 2, 75, 76, png))
+                offset = offset + 80
+                new_offset = 0
+                # new icon
+                if config.AdvancedMovieSelection.shownew.value and not hasLastPosition(serviceref):
+                    res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, offset, 0, 20, 20, self.MOVIE_NEW_PNG))
+                    new_offset = new_offset + 24
+    
+                # Line 1: Movie Text, service name
+                res.append(MultiContentEntryText(pos=(new_offset + offset, 0), size=(width - 265, 30), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
+                res.append(MultiContentEntryText(pos=(width - 185, 0), size=(180, 30), font=2, flags=RT_HALIGN_RIGHT, text=service.getServiceName(), color=color))
+                # line 2: description, file size 
+                res.append(MultiContentEntryText(pos=(0 + offset, 28), size=(width, 25), font=1, flags=RT_HALIGN_LEFT, text=description, color=color))
+                if filesize:
+                    if filesize <= 999:
+                        filesize = "%d MB" % (filesize)
+                    else:
+                        filesize = "%s GB" % (round(filesize / 1000, 2))                
+                    res.append(MultiContentEntryText(pos=(width - 185, 28), size=(180, 30), font=2, flags=RT_HALIGN_RIGHT, text=filesize, color=color))
+                # Line 3: begin_string, progress bar, percent, tags, movie length
+                res.append(MultiContentEntryText(pos=(0 + offset, 55), size=(100, 20), font=1, flags=RT_HALIGN_LEFT, text=begin_string, color=color))
+                res.append(MultiContentEntryProgress(pos=(130 + offset, 63), size=(50, 6), percent=perc, borderWidth=1, foreColor=color))
+                res.append(MultiContentEntryText(pos=(190 + offset, 55), size=(60, 20), font=1, flags=RT_HALIGN_LEFT, text=prec_text, color=color))
+                if tags:
+                    res.append(MultiContentEntryText(pos=(250 + offset, 55), size=(500, 20), font=1, flags=RT_HALIGN_LEFT, text=self.arrangeTags(tags), color=color))
+                res.append(MultiContentEntryText(pos=(width - 105, 55), size=(100, 20), font=1, flags=RT_HALIGN_RIGHT, text=len, color=color))
+    
+            elif self.list_type == MovieList.LISTTYPE_ORIGINAL:
+                if self.show_folders:
+                    res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 29, 20, 20, png))
+                res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 265, 30), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
+                if tags and self.show_tags == MovieList.SHOW_TAGS:
+                    res.append(MultiContentEntryText(pos=(width - 255, 0), size=(250, 30), font=2, flags=RT_HALIGN_RIGHT, text=self.arrangeTags(tags), color=color))
+                    if service is not None:
+                        res.append(MultiContentEntryText(pos=(300, 55), size=(200, 25), font=1, flags=RT_HALIGN_LEFT, text=service.getServiceName(), color=color))
                 else:
-                    displaytext = displaytext + service_name
-            if len and self.show_time == MovieList.SHOW_TIME:
-                displaytext = displaytext + ' ' + "(" + len + ")"
-            
-            if self.show_folders:
-                res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 3, 20, 20, png))
-            offsetServiceName = 0
-            if self.show_service == MovieList.SHOW_SERVICE:
-                servicename = service.getServiceName()
-                res.append(MultiContentEntryText(pos=(width - 175, 2), size=(170, 20), font=0, flags=RT_HALIGN_RIGHT, text=servicename, color=color))
-                if servicename:
-                    offsetServiceName = 175
-            if tags and self.show_tags == MovieList.SHOW_TAGS and self.show_service == MovieList.HIDE_SERVICE:
-                res.append(MultiContentEntryText(pos=(width - 255, 2), size=(250, 20), font=0, flags=RT_HALIGN_RIGHT, text=self.arrangeTags(tags, False), color=color))
-                offsetServiceName = 255
-            res.append(MultiContentEntryText(pos=(0 + offset, 2), size=(width - (0 + offset + offsetServiceName), 25), font=0, flags=RT_HALIGN_LEFT, text=displaytext, color=color))
-        else:
-            assert(self.list_type == MovieList.LISTTYPE_MINIMAL)
-            if self.show_folders:
-                res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 3, 20, 20, png))
-            
-            if len > 0:
-                len2 = "- " + len
-            else:
-                len2 = ""
-            
-            if self.show_date == MovieList.SHOW_DATE:
+                    if service is not None:
+                        res.append(MultiContentEntryText(pos=(width - 185, 0), size=(180, 30), font=2, flags=RT_HALIGN_RIGHT, text=service.getServiceName(), color=color))
+                    res.append(MultiContentEntryText(pos=(0 + offset, 28), size=(width, 25), font=1, flags=RT_HALIGN_LEFT, text=description, color=color))
+                if self.show_date == MovieList.SHOW_DATE:
+                    res.append(MultiContentEntryText(pos=(0 + offset, 55), size=(200, 20), font=1, flags=RT_HALIGN_LEFT, text=begin_string, color=color))
                 if self.show_time == MovieList.SHOW_TIME:
-                    if config.AdvancedMovieSelection.dateformat.value == "1":
-                        res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 235, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
-                        res.append(MultiContentEntryText(pos=(width - 145, 5), size=(80, 25), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))
-                        res.append(MultiContentEntryText(pos=(width - 65, 5), size=(60, 25), font=1, flags=RT_HALIGN_RIGHT, text=len2, color=color))                                                     
-                    elif config.AdvancedMovieSelection.dateformat.value == "2":
-                        res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 240, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
-                        res.append(MultiContentEntryText(pos=(width - 190, 5), size=(125, 25), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))
-                        res.append(MultiContentEntryText(pos=(width - 65, 5), size=(60, 25), font=1, flags=RT_HALIGN_RIGHT, text=len2, color=color))                                                    
-                    elif config.AdvancedMovieSelection.dateformat.value == "3":
-                        res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 295, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
-                        res.append(MultiContentEntryText(pos=(width - 205, 5), size=(140, 25), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))
-                        res.append(MultiContentEntryText(pos=(width - 65, 5), size=(60, 25), font=1, flags=RT_HALIGN_RIGHT, text=len2, color=color))                           
-                    elif config.AdvancedMovieSelection.dateformat.value == "4":
-                        res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 235, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
-                        res.append(MultiContentEntryText(pos=(width - 145, 5), size=(80, 25), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))
-                        res.append(MultiContentEntryText(pos=(width - 65, 5), size=(60, 25), font=1, flags=RT_HALIGN_RIGHT, text=len2, color=color))                             
-                    elif config.AdvancedMovieSelection.dateformat.value == "5":
-                        res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 295, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
-                        res.append(MultiContentEntryText(pos=(width - 205, 5), size=(140, 25), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))
-                        res.append(MultiContentEntryText(pos=(width - 65, 5), size=(60, 25), font=1, flags=RT_HALIGN_RIGHT, text=len2, color=color))                          
-                    elif config.AdvancedMovieSelection.dateformat.value == "6":
-                        res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 200, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
-                        res.append(MultiContentEntryText(pos=(width - 115, 5), size=(50, 25), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))
-                        res.append(MultiContentEntryText(pos=(width - 65, 5), size=(60, 25), font=1, flags=RT_HALIGN_RIGHT, text=len2, color=color))                            
-                    elif config.AdvancedMovieSelection.dateformat.value == "7":
-                        res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 200, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
-                        res.append(MultiContentEntryText(pos=(width - 115, 5), size=(50, 25), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))
-                        res.append(MultiContentEntryText(pos=(width - 65, 5), size=(60, 25), font=1, flags=RT_HALIGN_RIGHT, text=len2, color=color))             
-           
-                if self.show_time == MovieList.HIDE_TIME:
-                    if config.AdvancedMovieSelection.dateformat.value == "1":
-                        res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 175, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
-                        res.append(MultiContentEntryText(pos=(width - 95, 4), size=(90, 20), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))                            
-                    elif config.AdvancedMovieSelection.dateformat.value == "2":
-                        res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 175, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
-                        res.append(MultiContentEntryText(pos=(width - 95, 4), size=(90, 20), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))                               
-                    elif config.AdvancedMovieSelection.dateformat.value == "3":
-                        res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 230, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
-                        res.append(MultiContentEntryText(pos=(width - 155, 4), size=(150, 20), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))                              
-                    elif config.AdvancedMovieSelection.dateformat.value == "4":
-                        res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 175, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
-                        res.append(MultiContentEntryText(pos=(width - 95, 4), size=(90, 20), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))                               
-                    elif config.AdvancedMovieSelection.dateformat.value == "5":
-                        res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 230, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
-                        res.append(MultiContentEntryText(pos=(width - 155, 4), size=(150, 20), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))              
-                    elif config.AdvancedMovieSelection.dateformat.value == "6":
-                        res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 130, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
-                        res.append(MultiContentEntryText(pos=(width - 55, 4), size=(50, 20), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))                            
-                    elif config.AdvancedMovieSelection.dateformat.value == "7":
-                        res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 130, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
-                        res.append(MultiContentEntryText(pos=(width - 55, 4), size=(50, 20), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))             
- 
-            if self.show_time == MovieList.SHOW_TIME and self.show_date == MovieList.HIDE_DATE:
-                res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 150, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
-                res.append(MultiContentEntryText(pos=(width - 75, 2), size=(70, 20), font=0, flags=RT_HALIGN_RIGHT, text=len, color=color))                                    
+                    res.append(MultiContentEntryText(pos=(width - 205, 55), size=(200, 20), font=1, flags=RT_HALIGN_RIGHT, text=len, color=color))
+    
+            elif self.list_type == MovieList.LISTTYPE_COMPACT_DESCRIPTION:
+                if self.show_folders:
+                    res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 9, 20, 20, png))
+                res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width, 23), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))                
+                res.append(MultiContentEntryText(pos=(0 + offset, 22), size=(width - 212, 17), font=1, flags=RT_HALIGN_LEFT, text=description, color=color))
+                if self.show_date == MovieList.SHOW_DATE:
+                    res.append(MultiContentEntryText(pos=(width - 135, 4), size=(130, 20), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))                
+                if self.show_time == MovieList.SHOW_TIME:
+                    dr = service.getServiceName() + " " + len
+                    res.append(MultiContentEntryText(pos=(width - 215, 22), size=(210, 17), font=1, flags=RT_HALIGN_RIGHT, text=dr, color=color))
+                else:
+                    res.append(MultiContentEntryText(pos=(width - 155, 22), size=(150, 17), font=1, flags=RT_HALIGN_RIGHT, text=service.getServiceName(), color=color))
+    
+            elif self.list_type == MovieList.LISTTYPE_COMPACT:
+                if self.show_folders:
+                    res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 9, 20, 20, png))            
+                res.append(MultiContentEntryText(pos=(offset, 0), size=(width, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))            
+                if self.show_date == MovieList.SHOW_DATE:
+                    res.append(MultiContentEntryText(pos=(offset, 22), size=(200, 17), font=1, flags=RT_HALIGN_LEFT, text=begin_string, color=color))            
+                if self.show_time == MovieList.SHOW_TIME:
+                    res.append(MultiContentEntryText(pos=(width - 80, 0), size=(75, 20), font=0, flags=RT_HALIGN_RIGHT, text=len, color=color))            
+                if tags and self.show_tags == MovieList.SHOW_TAGS:
+                    res.append(MultiContentEntryText(pos=(width - 205, 22), size=(200, 17), font=1, flags=RT_HALIGN_RIGHT, text=self.arrangeTags(tags), color=color))
+                    if service is not None:
+                        res.append(MultiContentEntryText(pos=(250, 22), size=(200, 17), font=1, flags=RT_HALIGN_LEFT, text=service.getServiceName(), color=color))
+                else:
+                    if service is not None:
+                        res.append(MultiContentEntryText(pos=(width - 205, 22), size=(200, 17), font=1, flags=RT_HALIGN_RIGHT, text=service.getServiceName(), color=color))        
+    
+            elif self.list_type == MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection:
+                if selection_index > -1:
+                    displaytext = "%d - " % (selection_index)
+                else:
+                    displaytext = ""
+                if self.show_date == MovieList.SHOW_DATE:
+                    if not service_name == description and not description == "":
+                        displaytext = displaytext + begin_string + " - " + service_name + " - " + description
+                    else:
+                        displaytext = displaytext + begin_string + " - " + service_name
+                else:
+                    if not service_name == description and not description == "":
+                        displaytext = displaytext + service_name + " - " + description
+                    else:
+                        displaytext = displaytext + service_name
+                if len and self.show_time == MovieList.SHOW_TIME:
+                    displaytext = displaytext + ' ' + "(" + len + ")"
+                
+                if self.show_folders:
+                    res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 3, 20, 20, png))
+                offsetServiceName = 0
+                if self.show_service == MovieList.SHOW_SERVICE:
+                    servicename = service.getServiceName()
+                    res.append(MultiContentEntryText(pos=(width - 175, 2), size=(170, 20), font=0, flags=RT_HALIGN_RIGHT, text=servicename, color=color))
+                    if servicename:
+                        offsetServiceName = 175
+                if tags and self.show_tags == MovieList.SHOW_TAGS and self.show_service == MovieList.HIDE_SERVICE:
+                    res.append(MultiContentEntryText(pos=(width - 255, 2), size=(250, 20), font=0, flags=RT_HALIGN_RIGHT, text=self.arrangeTags(tags, False), color=color))
+                    offsetServiceName = 255
+                res.append(MultiContentEntryText(pos=(0 + offset, 2), size=(width - (0 + offset + offsetServiceName), 25), font=0, flags=RT_HALIGN_LEFT, text=displaytext, color=color))
+            else:
+                assert(self.list_type == MovieList.LISTTYPE_MINIMAL)
+                if self.show_folders:
+                    res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 3, 20, 20, png))
+                
+                if len > 0:
+                    len2 = "- " + len
+                else:
+                    len2 = ""
+                
+                if self.show_date == MovieList.SHOW_DATE:
+                    if self.show_time == MovieList.SHOW_TIME:
+                        if config.AdvancedMovieSelection.dateformat.value == "1":
+                            res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 235, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
+                            res.append(MultiContentEntryText(pos=(width - 145, 5), size=(80, 25), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))
+                            res.append(MultiContentEntryText(pos=(width - 65, 5), size=(60, 25), font=1, flags=RT_HALIGN_RIGHT, text=len2, color=color))                                                     
+                        elif config.AdvancedMovieSelection.dateformat.value == "2":
+                            res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 240, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
+                            res.append(MultiContentEntryText(pos=(width - 190, 5), size=(125, 25), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))
+                            res.append(MultiContentEntryText(pos=(width - 65, 5), size=(60, 25), font=1, flags=RT_HALIGN_RIGHT, text=len2, color=color))                                                    
+                        elif config.AdvancedMovieSelection.dateformat.value == "3":
+                            res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 295, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
+                            res.append(MultiContentEntryText(pos=(width - 205, 5), size=(140, 25), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))
+                            res.append(MultiContentEntryText(pos=(width - 65, 5), size=(60, 25), font=1, flags=RT_HALIGN_RIGHT, text=len2, color=color))                           
+                        elif config.AdvancedMovieSelection.dateformat.value == "4":
+                            res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 235, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
+                            res.append(MultiContentEntryText(pos=(width - 145, 5), size=(80, 25), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))
+                            res.append(MultiContentEntryText(pos=(width - 65, 5), size=(60, 25), font=1, flags=RT_HALIGN_RIGHT, text=len2, color=color))                             
+                        elif config.AdvancedMovieSelection.dateformat.value == "5":
+                            res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 295, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
+                            res.append(MultiContentEntryText(pos=(width - 205, 5), size=(140, 25), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))
+                            res.append(MultiContentEntryText(pos=(width - 65, 5), size=(60, 25), font=1, flags=RT_HALIGN_RIGHT, text=len2, color=color))                          
+                        elif config.AdvancedMovieSelection.dateformat.value == "6":
+                            res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 200, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
+                            res.append(MultiContentEntryText(pos=(width - 115, 5), size=(50, 25), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))
+                            res.append(MultiContentEntryText(pos=(width - 65, 5), size=(60, 25), font=1, flags=RT_HALIGN_RIGHT, text=len2, color=color))                            
+                        elif config.AdvancedMovieSelection.dateformat.value == "7":
+                            res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 200, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
+                            res.append(MultiContentEntryText(pos=(width - 115, 5), size=(50, 25), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))
+                            res.append(MultiContentEntryText(pos=(width - 65, 5), size=(60, 25), font=1, flags=RT_HALIGN_RIGHT, text=len2, color=color))             
+               
+                    if self.show_time == MovieList.HIDE_TIME:
+                        if config.AdvancedMovieSelection.dateformat.value == "1":
+                            res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 175, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
+                            res.append(MultiContentEntryText(pos=(width - 95, 4), size=(90, 20), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))                            
+                        elif config.AdvancedMovieSelection.dateformat.value == "2":
+                            res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 175, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
+                            res.append(MultiContentEntryText(pos=(width - 95, 4), size=(90, 20), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))                               
+                        elif config.AdvancedMovieSelection.dateformat.value == "3":
+                            res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 230, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
+                            res.append(MultiContentEntryText(pos=(width - 155, 4), size=(150, 20), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))                              
+                        elif config.AdvancedMovieSelection.dateformat.value == "4":
+                            res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 175, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
+                            res.append(MultiContentEntryText(pos=(width - 95, 4), size=(90, 20), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))                               
+                        elif config.AdvancedMovieSelection.dateformat.value == "5":
+                            res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 230, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
+                            res.append(MultiContentEntryText(pos=(width - 155, 4), size=(150, 20), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))              
+                        elif config.AdvancedMovieSelection.dateformat.value == "6":
+                            res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 130, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
+                            res.append(MultiContentEntryText(pos=(width - 55, 4), size=(50, 20), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))                            
+                        elif config.AdvancedMovieSelection.dateformat.value == "7":
+                            res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 130, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
+                            res.append(MultiContentEntryText(pos=(width - 55, 4), size=(50, 20), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))             
+     
+                if self.show_time == MovieList.SHOW_TIME and self.show_date == MovieList.HIDE_DATE:
+                    res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 150, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
+                    res.append(MultiContentEntryText(pos=(width - 75, 2), size=(70, 20), font=0, flags=RT_HALIGN_RIGHT, text=len, color=color))                                    
+    
+                if self.show_date == MovieList.HIDE_DATE and self.show_time == MovieList.HIDE_TIME:
+                    res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 0, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
+    
+            return res
+        except Exception, e:
+            printStackTrace()
+            return [ None ]
 
-            if self.show_date == MovieList.HIDE_DATE and self.show_time == MovieList.HIDE_TIME:
-                res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 0, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
+    def getNextMarkerPos(self):
+        idx = self.getCurrentIndex() + 1
+        if idx >= len(self.list):
+            idx = 0
+        while idx < len(self.list) - 1:
+            mi = self.list[idx][0]
+            if mi.serviceref.flags & eServiceReference.isMarker:
+                return idx
+            idx += 1
+        return 0
+    
+    def getPrevMarkerPos(self):
+        idx = self.getCurrentIndex() - 1
+        if idx < 0:
+            idx = len(self.list) - 1
+        while idx > 0:
+            mi = self.list[idx][0]
+            if mi.serviceref.flags & eServiceReference.isMarker:
+                return idx
+            idx -= 1
+        return idx
+    
+    def moveToNextMarker(self):
+        idx = self.getNextMarkerPos()
+        self.instance.moveSelectionTo(idx)
 
-        return res
+    def moveToPrevMarker(self):
+        idx = self.getPrevMarkerPos()
+        self.instance.moveSelectionTo(idx)
 
     def moveToIndex(self, index):
         self.instance.moveSelectionTo(index)
@@ -788,15 +826,16 @@ class MovieList(GUIComponent):
 
     def getCurrentInfo(self):
         l = self.l.getCurrentSelection()
-        return l and l[1]
+        return l and l[0].info
 
     def getCurrentEvent(self):
         l = self.l.getCurrentSelection()
-        return l and l[0] and l[1] and l[1].getEvent(l[0])
+        mi = l and l[0]
+        return mi and mi.serviceref and mi.info and mi.info.getEvent(mi.serviceref)
 
     def getCurrent(self):
         l = self.l.getCurrentSelection()
-        return l and l[0]
+        return l and l[0].serviceref
 
     GUI_WIDGET = eListbox
 
@@ -824,33 +863,54 @@ class MovieList(GUIComponent):
         except Exception, e:
             print e
         for l in self.list[:]:
-            if l[0] == service:
+            if l[0].serviceref == service:
                 self.list.remove(l)
         self.l.setList(self.list)
 
     def __len__(self):
         return len(self.list)
 
+    def loadAll(self, root, filter_tags):
+        print "loadAll:", root.getPath()
+        self.list = [ ]
+        self.multiSelection = []
+
+        self.serviceHandler = ServiceCenter.getInstance()
+        sort = self.sort_type
+        if config.AdvancedMovieSelection.show_videodirslocation.value:
+            sort = self.sort_type | movieScanner.database.SORT_WITH_DIRECTORIES
+        self.list = movieScanner.database.getMovieList(sort, filter_tags)
+        self.tags = movieScanner.database.getTags()
+        #self.sortMovieList()
+        tmp = self.root.getPath()
+        if len(tmp) > 1:
+            tt = eServiceReferenceBackDir("..")
+            tt.setName("..")
+            tt.setPath(tmp)
+            mi = MovieInfo(tt.getName(), tt)
+            self.list.insert(0, (mi,))
+
     def load(self, root, filter_tags):
+        self.root = root
+        if isinstance(root, eServiceReferenceListAll):
+            self.loadAll(root, filter_tags)
+            return
+
+        print "load:", root.getPath()
         # this lists our root service, then building a nice list
         self.list = [ ]
         self.multiSelection = []
 
         self.serviceHandler = ServiceCenter.getInstance()
         
-        # TODO: if path of root is set to other path, the gui not show the new path | fix or delete me
-        #if not Network.isMountOnline(root.getPath()):
-        #    root = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + "/media/")
-        self.root = root
         list = self.serviceHandler.list(root)
         if list is None:
             print "listing of movies failed"
-            list = [ ]    
             return
         tags = set()
         
         dirs = []
-
+        
         while 1:
             serviceref = list.getNext()
             if not serviceref.valid():
@@ -871,7 +931,6 @@ class MovieList(GUIComponent):
                     
             if dvd is None:
                 if self.show_folders:
-                    # Dr.Best: folder in movielist
                     if serviceref.flags & eServiceReference.mustDescent:
                         tempDir = serviceref.getPath()
                         parts = tempDir.split("/")
@@ -879,7 +938,9 @@ class MovieList(GUIComponent):
                         if self.movieConfig.isHidden(dirName):
                             continue
                         serviceref.setName(dirName)
-                        dirs.append((serviceref, None, -1, -1))
+                        info = self.serviceHandler.info(serviceref)
+                        mi = MovieInfo(dirName, serviceref, info)
+                        dirs.append((mi,))
                         continue
                 else:
                     if serviceref.flags & eServiceReference.mustDescent:
@@ -887,8 +948,8 @@ class MovieList(GUIComponent):
 
             temp = serviceref.getPath()
             parts = temp.split("/")
-            file = parts[-1]
-            if self.movieConfig.isHidden(file):
+            file_name = parts[-1]
+            if self.movieConfig.isHidden(file_name):
                 continue
             
             if serviceUtil.isServiceMoving(serviceref):
@@ -924,8 +985,10 @@ class MovieList(GUIComponent):
             # otherwise the entry will be dropped.            
             if filter_tags is not None and not this_tags.issuperset(filter_tags):
                 continue
-        
-            self.list.append((serviceref, info, begin, -1))
+
+            service_name = info.getName(serviceref)
+            mi = MovieInfo(service_name, serviceref, info, begin)
+            self.list.append((mi,))
         
         if self.sort_type == MovieList.SORT_ALPHANUMERIC:
             self.list.sort(key=self.buildAlphaNumericSortKey)
@@ -942,67 +1005,88 @@ class MovieList(GUIComponent):
             root_path = root.getPath()
             if config.AdvancedMovieSelection.show_bookmarks.value:
                 vdirs = []
-                for dir in config.movielist.videodirs.value:
-                    if dir != root_path and not self.isInList(dir, dirs):
-                        parts = dir.split("/")
+                for directory in config.movielist.videodirs.value:
+                    if directory != root_path and not self.isInList(directory, dirs):
+                        #directory = os.path.realpath(directory) + os.sep
+                        parts = directory.split("/")
                         if len(parts) > 2:
                             dirName = parts[-3] + "/" + parts[-2]
                         else: 
                             dirName = parts[-2]
-                        if not autoNetwork.isMountOnline(dir):
+                        if not autoNetwork.isMountOnline(directory) or not os.path.exists(directory):
                             continue
-                        tt = eServiceReferenceVDir(eServiceReference.idFile, eServiceReference.flagDirectory, dir)
+                        tt = eServiceReferenceVDir(directory)
                         tt.setName(self.movieConfig.getRenamedName(dirName))
-                        vdirs.append((tt, None, -1, -1))
+                        info = self.serviceHandler.info(tt)
+                        mi = MovieInfo(tt.getName(), tt, info)
+                        vdirs.append((mi,))
                 vdirs.sort(self.sortFolders)
                 for servicedirs in vdirs:
                     self.list.insert(0, servicedirs)
 
             for tt in self.automounts:
                 if tt.getPath() != root_path:
-                    self.list.insert(0, (tt, None, -1, -1))
+                    info = self.serviceHandler.info(tt)
+                    mi = MovieInfo(tt.getName(), tt, info)
+                    self.list.insert(0, (mi,))
 
             dirs.sort(self.sortFolders)
             for servicedirs in dirs:
                 self.list.insert(0, servicedirs)
             tmp = self.root.getPath()
             if len(tmp) > 1:
-                tt = eServiceReferenceBackDir(eServiceReference.idFile, eServiceReference.flagDirectory, "..")
-                tt.setName("..")
                 tmpRoot = os.path.dirname(tmp[:-1])
                 if len(tmpRoot) > 1:
                     tmpRoot = tmpRoot + "/"
-                tt.setPath(tmpRoot)
-                self.list.insert(0, (tt, None, -1, -1))
+                tt = eServiceReferenceBackDir(tmpRoot)
+                tt.setName("..")
+                info = self.serviceHandler.info(tt)
+                mi = MovieInfo(tt.getName(), tt, info)
+                self.list.insert(0, (mi,))
+                
+                count = movieScanner.database.getFullCount()[1]
+                if count > 0:
+                    tt1 = eServiceReferenceListAll(tmp)
+                    tt1.setName(_("Show all movies") + " (%d)" % (count))
+                    info = self.serviceHandler.info(tt1)
+                    mi = MovieInfo(tt1.getName(), tt1, info)
+                    self.list.insert(1, (mi,))
             
         # finally, store a list of all tags which were found. these can be presented to the user to filter the list
         self.tags = sorted(tags)
 
+    def sortMovieList(self):
+        if self.sort_type == MovieList.SORT_ALPHANUMERIC:
+            self.list.sort(key=self.buildAlphaNumericSortKey)
+        elif self.sort_type == MovieList.SORT_DATE_ASC:
+            self.list.sort(self.sortbyDateAsc)
+        elif self.sort_type == MovieList.SORT_DESCRIPTION:
+            self.list.sort(self.sortbyDescription)
+        else:
+            self.list.sort(self.sortbyDateDesc)
+
     def isInList(self, a, b):
         for ref in b:
-            if a == ref[0].getPath():
+            if a == ref[0].serviceref.getPath():
                 return True
         return False
 
     def sortbyDescription(self, a, b):
-        d1 = a[1].getInfoString(a[0], iServiceInformation.sDescription)
-        d2 = b[1].getInfoString(b[0], iServiceInformation.sDescription)
+        d1 = a[0].info.getInfoString(a[0].serviceref, iServiceInformation.sDescription)
+        d2 = b[0].info.getInfoString(b[0].serviceref, iServiceInformation.sDescription)
         return cmp(d1, d2)
 
     def sortbyDateAsc(self, a, b):
-        return cmp(a[2], b[2])
+        return cmp(a[0].begin, a[0].begin)
 
     def sortbyDateDesc(self, a, b):
-        return cmp(b[2], a[2])
+        return cmp(b[0].begin, a[0].begin)
 
     def sortFolders(self, a, b):
-        return cmp(b[0].getName().lower(), a[0].getName().lower())
+        return cmp(b[0].name.lower(), a[0].name.lower())
 
     def buildAlphaNumericSortKey(self, x):
-        ref = x[0]
-        info = self.serviceHandler.info(ref)
-        name = info and info.getName(ref)
-        return (name and name.lower() or "", -x[2])
+        return (x[0].name and x[0].name.lower() or "", -x[0].begin)
 
     def arrangeTags(self, tags, vsr_left=True):
         tag_list = []
@@ -1024,7 +1108,7 @@ class MovieList(GUIComponent):
     def moveTo(self, serviceref):
         count = 0
         for x in self.list:
-            if x[0] == serviceref:
+            if x[0].serviceref == serviceref:
                 self.instance.moveSelectionTo(count)
                 return True
             count += 1
@@ -1050,8 +1134,8 @@ class MovieList(GUIComponent):
         x = self.l.getCurrentSelection()
         if not x:
             return False
-        service = x[0]
-        if service.flags & eServiceReference.mustDescent and not isinstance(service, eServiceReferenceDvd):
+        service = x[0].serviceref
+        if service.flags & eServiceReference.mustDescent:
             return False
         cur_idx = self.l.getCurrentSelectionIndex()
         f = self.find(service, self.multiSelection)
@@ -1059,20 +1143,20 @@ class MovieList(GUIComponent):
             self.multiSelection.remove(service)
             idx_num = -1
             for index, item in enumerate(self.list):
-                if len(item) > 4 and item[4] > x[4]:
-                    self.list[index] = (item[0], item[1], item[2], item[3], item[4] - 1)
+                if len(item) > 1 and item[1] > x[1]:
+                    self.list[index] = (item[0], item[1] - 1)
                     self.l.invalidateEntry(index)
         else:
             self.multiSelection.append(service)
             idx_num = len(self.multiSelection)
         self.list.remove(self.list[cur_idx])
-        self.list.insert(cur_idx, (x[0], x[1], x[2], x[3], idx_num))
+        self.list.insert(cur_idx, (x[0], idx_num))
         self.l.invalidateEntry(cur_idx)
         return True
     
     def findIndex(self, serviceref):
         for i, x in enumerate(self.list):
-            ref = x[0]
+            ref = x[0].serviceref
             if ref.getPath() == serviceref.getPath():
                 return i
 
@@ -1094,11 +1178,14 @@ class MovieList(GUIComponent):
                         cutList.remove(l)
                 if status:
                     x = self.list[cur_idx]
-                    length = x[1].getLength(x[0])
+                    length = x[0].info.getLength(x[0].serviceref)
                     new = (long(length * 90000), 3)
                     cutList.append(new)
-                cue.setCutList(cutList)
+                result = cue.setCutList(cutList)
                 self.l.invalidateEntry(cur_idx)
+                if result is not None:
+                    # return error as string
+                    return str(result)
                 if len(service_list) == 1:
                     return cutList
 
@@ -1106,11 +1193,11 @@ class MovieList(GUIComponent):
         if len(self.list) == 0:
             return 0
         cur_idx = self.l.getCurrentSelectionIndex()
-        x = self.list[cur_idx]
-        if not x[1]:
+        x = self.list[cur_idx][0]
+        if not x.info:
             return 0
-        cue = x[1].cueSheet()
-        length = x[1].getLength(x[0])
+        cue = x.info.cueSheet()
+        length = x.info.getLength(x.serviceref)
         last = 1
         if cue is not None:
             cutList = cue.getCutList()
@@ -1125,7 +1212,7 @@ class MovieList(GUIComponent):
 
     def updateMetaFromEit(self):
         for item in self.list:
-            serviceref = item[0]
+            serviceref = item[0].serviceref
             file_name = serviceref.getPath()
             if os.path.isfile(file_name):
                 eit_file = os.path.splitext(file_name)[0] + ".eit"

@@ -27,7 +27,8 @@ from Screens.Screen import Screen
 from Components.ActionMap import HelpableActionMap
 from MovieSelection import MovieSelection, getBeginTimeString, getDateString
 from MovieList import eServiceReferenceDvd
-from ServiceProvider import DVDCutListSupport, CutListSupport, ServiceCenter, eServiceReferenceBludisc
+from Source.ServiceProvider import ServiceCenter, eServiceReferenceBludisc
+from Source.CueSheetSupport import DVDCutListSupport, CutListSupport
 from Screens.MessageBox import MessageBox
 from Screens.InfoBar import MoviePlayer
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_SKIN, fileExists
@@ -39,7 +40,7 @@ from Components.Sources.StaticText import StaticText
 from MoviePreview import MoviePreview
 from Components.Label import Label
 from Components.ServiceEventTracker import ServiceEventTracker
-from Globals import pluginPresent
+from Source.Globals import pluginPresent
 from Version import __version__
 
 playerChoice = None
@@ -47,7 +48,16 @@ if fileExists("/etc/grautec/dm8000/tft_dm8000.ko"):
     TFT_8000_Present = True
 else:
     TFT_8000_Present = False
-    
+
+def cutlist_changed(self):
+    if playerChoice and playerChoice.isPlaying():
+        self.cutlist = [] # we need to update the property 
+    self.cutlist = self.source.cutlist or [ ]
+
+from Components.Renderer.PositionGauge import PositionGauge
+PositionGauge.cutlist_changed = cutlist_changed
+
+
 def showMovies(self):
     initPlayerChoice(self.session)
     self.lastservice = self.session.nav.getCurrentlyPlayingServiceReference()
@@ -368,7 +378,7 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, PlayerBase):
             self.endless_loop = not self.endless_loop
 
     def delete(self, service):
-        from Trashcan import Trashcan
+        from Source.Trashcan import Trashcan
         if config.AdvancedMovieSelection.use_wastebasket.value:
             Trashcan.trash(service.getPath())
         else:
@@ -430,7 +440,7 @@ if pluginPresent.DVDPlayer:
 if pluginPresent.BludiscPlayer:
     from Plugins.Extensions.BludiscPlayer.plugin import BludiscPlayer as eBludiscPlayer, BludiscMenu as eBludiscMenu
     from enigma import eServiceReference
-    from ServiceProvider import BludiscCutListSupport
+    from Source.CueSheetSupport import BludiscCutListSupport
     class BludiscPlayer(BludiscCutListSupport, eBludiscPlayer):
         def __init__(self, session, service, file_name, is_main_movie):
             s = eServiceReferenceBludisc(service)
@@ -481,7 +491,7 @@ if pluginPresent.BludiscPlayer:
             self.session.openWithCallback(self.moviefinished, BludiscPlayer, newref, self.file_name, main_movie)
         
         def exit(self):
-            from ISOInfo import ISOInfo
+            from Source.ISOInfo import ISOInfo
             ISOInfo().umount()
             self.close()
 
@@ -493,7 +503,7 @@ class PlayerChoice():
 
     def getBestPlayableService(self, service):
         if isinstance(service, eServiceReferenceDvd) and service.isIsoImage():
-            from ISOInfo import ISOInfo
+            from Source.ISOInfo import ISOInfo
             iso = ISOInfo()
             if iso.getFormatISO9660(service) != ISOInfo.DVD:
                 iso_format = iso.getFormat(service)

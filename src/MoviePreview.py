@@ -25,8 +25,8 @@ from enigma import ePicLoad, eTimer
 from Tools.Directories import fileExists
 import os
 from Components.config import config
-from ServiceProvider import eServiceReferenceDvd, getServiceInfoValue, ServiceCenter, eServiceReferenceBludisc
-from ISOInfo import ISOInfo
+from Source.ServiceProvider import eServiceReferenceDvd, getServiceInfoValue, ServiceCenter, eServiceReferenceBludisc
+from Source.ISOInfo import ISOInfo
 from enigma import iServiceInformation, eServiceReference
 from os import environ
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
@@ -68,7 +68,9 @@ class MoviePreview():
         if serviceref:
             path = serviceref.getPath()
             if path.endswith("/"):
-                if config.AdvancedMovieSelection.usefoldername.value:
+                if fileExists(path + ".jpg"):
+                    path += ".jpg"
+                elif config.AdvancedMovieSelection.usefoldername.value:
                     path = path[:-1] + ".jpg"
                 else:
                     path = path + "folder.jpg"
@@ -118,7 +120,7 @@ class DVDOverlay(Screen):
 
 from ServiceReference import ServiceReference
 from Screens.InfoBarGenerics import InfoBarCueSheetSupport
-from ServiceProvider import CueSheet
+from Source.ServiceProvider import CueSheet
 class VideoPreview():
     def __init__(self):
         self.fwd_timer = eTimer()

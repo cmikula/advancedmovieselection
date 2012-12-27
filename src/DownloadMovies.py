@@ -31,15 +31,15 @@ from threading import Thread
 from enigma import eServiceReference, ePicLoad
 from timer import eTimer
 from Components.MenuList import MenuList
-from ServiceProvider import ServiceCenter
-from EventInformationTable import createEIT
-import tmdb, urllib
+from Source.ServiceProvider import ServiceCenter
+from Source.EventInformationTable import createEIT
+from Source.MovieDB import tmdb
 from Components.config import config
 from Screens.VirtualKeyBoard import VirtualKeyBoard
-import os
 from Components.ScrollLabel import ScrollLabel
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS
-from Globals import SkinTools
+from Source.Globals import SkinTools, printStackTrace
+import os, urllib
 
 is_hidden = False
 this_session = None
@@ -145,8 +145,7 @@ class DownloadMovies(Screen):
             self["title"].setText(_("Current Movie: %s") % movie_title)
         else:
             self.setTitle(_("Automatic search and save"))
-            path = config.movielist.last_videodir.value
-            self["title"].setText(_("Automatic search and save to %s finised.") % (path))
+            self["title"].setText(_("Automatic search and save finished."))
             self["key_green"].setText(_("OK"))
             self.progressTimer.stop()
 
@@ -234,24 +233,32 @@ class FetchingMovies(Thread):
         self.start()
 
     def run(self):
-        self.cancel = False
-        global current, total, movie_title
-        total = len(self.items)
-        current = 0
-        for item_list in self.items:
-            if self.cancel:
-                #print "Movie download cancelled"
-                self.finish()
-                return
-            service = item_list[0]
-            if service.flags & eServiceReference.mustDescent:
-                total = total - 1
-                continue
-            current = current + 1 
-            movie_title = ServiceCenter.getInstance().info(service).getName(service).encode("utf-8").split(" - ")[0].strip()
-            createEIT(service.getPath(), movie_title, self.coversize)
-        
-        self.finish()
+        try:
+            self.cancel = False
+            global current, total, movie_title
+            total = len(self.items)
+            current = 0
+            for item_list in self.items:
+                try:
+                    if self.cancel:
+                        #print "Movie download cancelled"
+                        self.finish()
+                        return
+                    service = item_list[0]
+                    if not isinstance(service, eServiceReference):
+                        service = service.serviceref
+                    if service.flags & eServiceReference.mustDescent:
+                        total = total - 1
+                        continue
+                    current = current + 1 
+                    movie_title = ServiceCenter.getInstance().info(service).getName(service).encode("utf-8").split(" - ")[0].strip()
+                    createEIT(service.getPath(), movie_title, self.coversize)
+                except:
+                    printStackTrace()
+        except:
+            printStackTrace()
+        finally:
+            self.finish()
 
         
     def finish(self):
@@ -260,6 +267,5 @@ class FetchingMovies(Thread):
         current = total
         #print "Movie download finished"
         if is_hidden == True:
-            path = config.movielist.last_videodir.value
-            this_session.open(MessageBox, (_("Download and save from movie infos and covers to %s complete.") % (path)), MessageBox.TYPE_INFO, 10, True)
+            this_session.open(MessageBox, (_("Download and save from movie infos and covers complete.")), MessageBox.TYPE_INFO, 10, True)
             this_session = None

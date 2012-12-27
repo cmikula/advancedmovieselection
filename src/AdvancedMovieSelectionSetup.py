@@ -40,7 +40,7 @@ from Components.Sources.List import List
 from Components.ActionMap import ActionMap, NumberActionMap
 from enigma import getDesktop, quitMainloop
 from ClientSetup import ClientSetup
-from Globals import pluginPresent, SkinTools
+from Source.Globals import pluginPresent, SkinTools
 
 class ConfigList(eConfigList.ConfigList):
     def __init__(self, list, session=None):
@@ -104,7 +104,7 @@ class ConfigListScreen(eConfigList.ConfigListScreen):
         if not self.handleInputHelpers in self["config"].onSelectionChanged:
             self["config"].onSelectionChanged.append(self.handleInputHelpers)
 
-from Globals import SkinResolutionHelper
+from Source.Globals import SkinResolutionHelper
 class BackupRestore(ConfigListScreen, Screen, SkinResolutionHelper):
     def __init__(self, session, csel=None):
         Screen.__init__(self, session)
@@ -144,7 +144,7 @@ class BackupRestore(ConfigListScreen, Screen, SkinResolutionHelper):
         return self.backup_config_path.getValue()
     
     def backup(self):
-        from Config import createBackup
+        from Source.Config import createBackup
         path = self.getBackupPath()
         result = createBackup(path)
         if result:
@@ -161,7 +161,7 @@ class BackupRestore(ConfigListScreen, Screen, SkinResolutionHelper):
     def restoreCallback(self, answer):
         print answer
         if answer:
-            from Config import loadBackup
+            from Source.Config import loadBackup
             loadBackup(answer)
             self.session.open(MessageBox, _("Some settings changes require close/reopen the movielist to take effect."), type=MessageBox.TYPE_INFO)
             self.close()
@@ -349,7 +349,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
                 self["MenuIcon"].hide()            
         if config.AdvancedMovieSelection.debug.isChanged():
             config.AdvancedMovieSelection.debug.save()
-            from Debug import Debug
+            from Source.Debug import Debug
             if config.AdvancedMovieSelection.debug.value:
                 Debug.enable("/tmp/enigma2_stdout.log")
             else:
@@ -364,12 +364,14 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append(getConfigListEntry(_("Show plugin config in extensions menu from movielist:"), config.AdvancedMovieSelection.showmenu, _("Displays the Settings option in the menu at the movie list.")))
         self.list.append(getConfigListEntry(_("Show color key setup in extensions menu from movielist:"), config.AdvancedMovieSelection.showcolorkey, _("Displays color key setup option in the menu at the movie list.")))        
         self.list.append(getConfigListEntry(_("Show movie plugins in extensions menu from movielist:"), config.AdvancedMovieSelection.pluginmenu_list, _("Displays E2 movie list extensions in the menu at the movie list.")))
+        self.list.append(getConfigListEntry(_("Show path selection for indicate in extensions menu from movielist:"), config.AdvancedMovieSelection.show_location_indexing, _("Here you can select which folders to include in the index creation.")))
+        self.list.append(getConfigListEntry(_("Show path marker within all movies:"), config.AdvancedMovieSelection.show_videodirslocation, _("If enabled all movies will be shown with path marker and will be sorted below them.")))
+        self.list.append(getConfigListEntry(_("Show directory size in movie list:"), config.AdvancedMovieSelection.show_dirsize, _("Displays the size from directories in movie list.")))
+        if config.AdvancedMovieSelection.show_dirsize.value:
+            self.list.append(getConfigListEntry(_("Show decimal points:"), config.AdvancedMovieSelection.dirsize_digits, _("Here you can choose how many decimal points for the directory size in the movie list will be displayed.")))
+            self.list.append(getConfigListEntry(_("Show full depth of directories:"), config.AdvancedMovieSelection.show_dirsize_full, _("Displays the full size of all sub directories of directory size.")))
         self.list.append(getConfigListEntry(_("Load Length of Movies in Movielist:"), config.usage.load_length_of_movies_in_moviellist, _("This option is for many of the functions from the Advanced Movie Selection necessary. If this option is disabled are many functions not available.")))
         if config.usage.load_length_of_movies_in_moviellist.value:
-            self.list.append(getConfigListEntry(_("Show directory size in movie list:"), config.AdvancedMovieSelection.show_dirsize, _("Displays the size from directories in movie list.")))
-            if config.AdvancedMovieSelection.show_dirsize.value:
-                self.list.append(getConfigListEntry(_("Show decimal points:"), config.AdvancedMovieSelection.dirsize_digits, _("Here you can choose how many decimal points for the directory size in the movie list will be displayed.")))
-                self.list.append(getConfigListEntry(_("Show full depth of directories:"), config.AdvancedMovieSelection.show_dirsize_full, _("Displays the full size of all sub directories of directory size.")))
             self.list.append(getConfigListEntry(_("Show list options in extensions menu from movielist:"), config.AdvancedMovieSelection.showextras, _("Displays the various list view options in the menu at the movie list (Progressbar,View folders...).")))
             self.list.append(getConfigListEntry(_("Show mark movie in extensions menu from movielist:"), config.AdvancedMovieSelection.showmark, _("Displays mark movie as seen/unseen in the menu at the movie list.")))
             self.list.append(getConfigListEntry(_("Mark movie as seen at position (in percent):"), config.AdvancedMovieSelection.moviepercentseen, _("With this option you can assign as when a film is marked as seen.")))
@@ -534,7 +536,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         if config.AdvancedMovieSelection.use_original_movieplayer_summary.isChanged():
             self.needsE2restartFlag = True
         if config.AdvancedMovieSelection.server_enabled.isChanged():
-            from MessageServer import serverInstance
+            from Source.Remote.MessageServer import serverInstance
             if config.AdvancedMovieSelection.server_enabled.value:
                 serverInstance.setPort(config.AdvancedMovieSelection.server_port.value)
                 serverInstance.start()
@@ -544,8 +546,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
                 serverInstance.shutdown()
                 serverInstance.active_clients = []
         
-        from EpgListExtension import epgListExtension
-        epgListExtension.enabled(config.AdvancedMovieSelection.epg_extension.value)
+        from Source.EpgListExtension import epgListExtension
+        epgListExtension.setEnabled(config.AdvancedMovieSelection.epg_extension.value)
         
         if self.csel:
             self.csel.updateSettings()

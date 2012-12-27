@@ -22,6 +22,12 @@
 from enigma import getDesktop
 from Tools.Directories import fileExists, resolveFilename, SCOPE_HDD, SCOPE_CURRENT_SKIN, SCOPE_CURRENT_PLUGIN
 
+def printStackTrace():
+    import sys, traceback
+    print "--- [AdvancedMovieSelection] STACK TRACE ---"
+    traceback.print_exc(file=sys.stdout)
+    print '-' * 50
+
 class SkinResolutionHelper():
     def __init__(self, alternativeSkinName=None):
         if alternativeSkinName:

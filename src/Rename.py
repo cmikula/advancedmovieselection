@@ -27,13 +27,12 @@ from Components.ActionMap import ActionMap
 from Components.ConfigList import ConfigListScreen
 from Components.Sources.StaticText import StaticText
 from enigma import eServiceReference, iServiceInformation, ePoint
-from ServiceProvider import ServiceCenter
+from Source.ServiceProvider import ServiceCenter, eServiceReferenceVDir
 import os
 from Components.Label import Label
 from Components.Pixmap import Pixmap
-from MovieList import eServiceReferenceVDir
-from ServiceProvider import MovieConfig
-from Globals import SkinTools
+from Source.MovieConfig import MovieConfig
+from Source.Globals import SkinTools
 
 class MovieRetitle(Screen, ConfigListScreen):
     def __init__(self, session, service):
@@ -168,8 +167,8 @@ class MovieRetitle(Screen, ConfigListScreen):
 
     def renameDirectory(self, service, new_name):
         try:
-            dir = os.path.dirname(self.service.getPath()[0:-1])
-            os.rename(self.service.getPath(), os.path.join(dir, self.input_file.getText() + "/"))
+            dir_name = os.path.dirname(self.service.getPath()[0:-1])
+            os.rename(self.service.getPath(), os.path.join(dir_name, self.input_file.getText() + "/"))
             self.original_file = self.input_file.getText()
         except Exception, e:
             print e
@@ -186,21 +185,21 @@ class MovieRetitle(Screen, ConfigListScreen):
         except Exception, e:
             print e
 
-    def renameVDir(self, dir, name):
+    def renameVDir(self, dir_name, name):
         try:
-            if not dir + "\t" + self.original_name in self.movieConfig.rename:
-                self.movieConfig.rename.append(dir + "\t" + name)
+            if not dir_name + "\t" + self.original_name in self.movieConfig.rename:
+                self.movieConfig.rename.append(dir_name + "\t" + name)
             elif name == "":
                 for index, item in enumerate(self.movieConfig.rename):
                     i = item.split("\t")
-                    if i[0] == dir:
-                        print dir + "\t" + name
+                    if i[0] == dir_name:
+                        print dir_name + "\t" + name
                         del self.movieConfig.rename[index]
             else:
                 for index, item in enumerate(self.movieConfig.rename):
                     i = item.split("\t")
-                    if i[0] == dir:
-                        self.movieConfig.rename[index] = dir + "\t" + name
+                    if i[0] == dir_name:
+                        self.movieConfig.rename[index] = dir_name + "\t" + name
             self.movieConfig.safe()
         except Exception, e:
             print e

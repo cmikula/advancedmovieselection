@@ -283,3 +283,13 @@ versie: 2.9
 * nieuw: weergave voortgangmoving kopiëren/verplaatsen kan worden uitgeschakeld
 * nieuw: in het menu aan het einde van de film kan een eindeloze herhaling gestart of gestopt worden
 OPGELET voor de skinners, SelectionListScreen(SD, XD, HD) toegevoegd
+
+versie: 3.0
+* nieuw: nieuwe zoekfunctie, direct met de nummerknoppen van de afstandsbediening of het toetsenbord
+* nieuw: indexering voor geselecteerde locaties
+* nieuw: snel zoeken in geïndexeerde locaties
+* nieuw: snel weergeven van alle geïndexeerde bestanden
+* nieuw: snel sorteren van alle geïndexeerde bestanden
+* nieuw: bestandsgrootte wordt enkel voor geïndexeerde bestanden weergegeven
+* nieuw: tmdb and tvdb zoeken voor mappen
+* nieuw: info voor mappen

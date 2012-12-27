@@ -20,10 +20,10 @@
 #  distributed other than under the conditions noted above.
 #
 
-from __init__ import _
+from locale import _
 from Tools.Directories import resolveFilename, SCOPE_HDD
-from Components.config import config, ConfigSubsection, ConfigText, ConfigYesNo, ConfigInteger, ConfigSelection, ConfigClock
-from ServiceProvider import printStackTrace
+from Components.config import config, ConfigSubsection, ConfigText, ConfigYesNo, ConfigInteger, ConfigSelection, ConfigClock, ConfigLocations
+from Globals import printStackTrace
 
 config.AdvancedMovieSelection = ConfigSubsection()
 config.AdvancedMovieSelection.wastelist_buildtype = ConfigSelection(default="listMovies" , choices=[("listMovies", _("Only current location")), ("listAllMovies", _("Current location and all subdirectories")), ("listAllMoviesMedia", _("All directorys below '/media'")) ])
@@ -160,6 +160,9 @@ config.AdvancedMovieSelection.version = ConfigText()
 config.AdvancedMovieSelection.backup_path = ConfigText()
 config.AdvancedMovieSelection.sort_functions = ConfigText()
 config.AdvancedMovieSelection.show_move_copy_progress = ConfigYesNo(default=True)
+config.AdvancedMovieSelection.videodirs = ConfigLocations()
+config.AdvancedMovieSelection.show_location_indexing = ConfigYesNo(default=True)
+config.AdvancedMovieSelection.show_videodirslocation = ConfigYesNo(default=True)
 
 def initializeConfig():
     pass
