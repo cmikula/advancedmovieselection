@@ -288,6 +288,7 @@ version: 2.9
 Skinners ATTENTION, SelectionListScreen(SD, XD, HD) are new
 
 version: 3.0
+* new: long pressed function for color quick buttons
 * new: new direct search with the number buttons of the remote or keyboard
 * new: indexing for selected locations
 * new: fast search in all indexed locations
@@ -296,4 +297,3 @@ version: 3.0
 * new: file size only displayed for indexed directories
 * new: tmdb and tvdb search for directories
 * new: info for directories
-

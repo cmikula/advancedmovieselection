@@ -289,6 +289,7 @@ version: 2.9
 ACHTUNG an die skinner, SelectionListScreen(SD, XD, HD) sind neu dazugekommen
 
 version: 3.0
+* neu: funktionsauswahl für langes drücken der farbtasten
 * neu: neue suche direkt über die nummerntasten der fernbedienung oder tastatur
 * neu: indexerstellung für ausgewählte speicherorte
 * neu: schnelle suche über alle indizierten speicherorte

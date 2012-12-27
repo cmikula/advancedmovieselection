@@ -164,6 +164,50 @@ config.AdvancedMovieSelection.show_move_copy_progress = ConfigYesNo(default=True
 config.AdvancedMovieSelection.videodirs = ConfigLocations()
 config.AdvancedMovieSelection.show_location_indexing = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.show_videodirslocation = ConfigYesNo(default=True)
+config.AdvancedMovieSelection.qButtons = ConfigText()
+
+class QuickButtons():
+    def __init__(self):
+        self.qlist = [('red', ''), ('red_long', ''), ('green', ''), ('green_long', ''), ('yellow', ''), ('yellow_long', ''), ('blue', ''), ('blue_long', '')]
+        self.load()
+
+    def getFunction(self, key):
+        for button, function in self.qlist:
+            if button == key:
+                return function
+    
+    def setFunction(self, button, function):
+        for index, item in enumerate(self.qlist):
+            if item[0] == button:
+                self.qlist[index] = (button, function)
+    
+    def get(self):
+        return self.qlist
+    
+    def load(self):
+        if config.AdvancedMovieSelection.qButtons.value:
+            l = eval(config.AdvancedMovieSelection.qButtons.value)
+            if isinstance(l, list):
+                self.qlist = l
+        else:
+            self.updateOldVersion()
+    
+    def save(self):
+        config.AdvancedMovieSelection.qButtons.value = str(self.qlist)
+        config.AdvancedMovieSelection.qButtons.save()
+        
+    def updateOldVersion(self):
+        try:
+            print "update older config version"
+            self.setFunction('red', config.AdvancedMovieSelection.red.value)
+            self.setFunction('green', config.AdvancedMovieSelection.green.value)
+            self.setFunction('yellow', config.AdvancedMovieSelection.yellow.value)
+            self.setFunction('blue', config.AdvancedMovieSelection.blue.value)
+            print self.qlist
+        except:
+            printStackTrace()
+    
+qButtons = QuickButtons()
 
 def initializeConfig():
     pass

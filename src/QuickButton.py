@@ -32,9 +32,11 @@ from Screens.MessageBox import MessageBox
 from Rename import MovieRetitle
 from Wastebasket import Wastebasket
 from enigma import eServiceReference
+from Source.Config import qButtons
+
 
 def getPluginCaption(pname):
-    if pname != "Nothing":
+    if pname and pname != "Nothing":
         if pname == "Home":
             return _(config.AdvancedMovieSelection.hometext.value)
         elif pname == "Bookmark 1":
@@ -65,7 +67,7 @@ def getPluginCaption(pname):
                     else:
                         return p.description
         return _(pname)
-    return ""
+    return _("Nothing")
 
 toggleSeenButton = None
 
@@ -75,45 +77,48 @@ class QuickButton:
         self["key_green"] = Button()
         self["key_yellow"] = Button()
         self["key_blue"] = Button()
-        self["ColorActions"] = HelpableActionMap(self, "ColorActions",
+        self["ColorActions"] = HelpableActionMap(self, "ColorActionsLong",
         {
             "red": (self.redpressed, ""),
             "green": (self.greenpressed, ""),
             "yellow": (self.yellowpressed, ""),
             "blue": (self.bluepressed, ""),
+            "red_long": (self.redpressedlong, ""),
+            "green_long": (self.greenpressedlong, ""),
+            "yellow_long": (self.yellowpressedlong, ""),
+            "blue_long": (self.bluepressedlong, ""),
         })
         self.updateButtonText()
         self.updateHelpText()
+        self.block_next = False
+ 
+    def isBlocked(self):
+        result = self.block_next
+        # TODO: check enigma2 bug
+        if result == True:
+            print "action -> blocked"
+        self.block_next = False
+        return result
 
     def updateHelpText(self):
         for (actionmap, context, actions) in self.helpList:
-            if context == "ColorActions":
+            if context == "ColorActionsLong":
                 for index, item in enumerate(actions):
-                    if item[0] == "red":
-                        actions[index] = (item[0], getPluginCaption(config.AdvancedMovieSelection.red.value))
-                    if item[0] == "green":
-                        actions[index] = (item[0], getPluginCaption(config.AdvancedMovieSelection.green.value))
-                    if item[0] == "yellow":
-                        actions[index] = (item[0], getPluginCaption(config.AdvancedMovieSelection.yellow.value))
-                    if item[0] == "blue":
-                        actions[index] = (item[0], getPluginCaption(config.AdvancedMovieSelection.blue.value))
+                    func = qButtons.getFunction(item[0])
+                    text = getPluginCaption(func)
+                    actions[index] = (item[0], text)
 
     def updateButtonText(self):
-        self["key_red"].setText(getPluginCaption(config.AdvancedMovieSelection.red.value))
-        self["key_green"].setText(getPluginCaption(config.AdvancedMovieSelection.green.value))
-        self["key_yellow"].setText(getPluginCaption(config.AdvancedMovieSelection.yellow.value))
-        self["key_blue"].setText(getPluginCaption(config.AdvancedMovieSelection.blue.value))
         global toggleSeenButton
-        if config.AdvancedMovieSelection.red.value == "Toggle seen":
-            toggleSeenButton = self["key_red"] 
-        elif config.AdvancedMovieSelection.green.value == "Toggle seen":
-            toggleSeenButton = self["key_green"] 
-        elif config.AdvancedMovieSelection.yellow.value == "Toggle seen":
-            toggleSeenButton = self["key_yellow"] 
-        elif config.AdvancedMovieSelection.blue.value == "Toggle seen":
-            toggleSeenButton = self["key_blue"]
-        else:
-            toggleSeenButton = None
+        toggleSeenButton = None
+        fn = ('red', 'green', 'yellow', 'blue')
+        for key in fn:
+            key_text = 'key_%s' % (key)
+            function = qButtons.getFunction(key)
+            text = getPluginCaption(function)
+            self[key_text].setText(text)
+            if function == "Toggle seen":
+                toggleSeenButton = self[key_text] 
         
         if toggleSeenButton is not None:
             self.list.connectSelChanged(self.__updateGUI)
@@ -140,14 +145,12 @@ class QuickButton:
         return newType
 
     def findSortButton(self):
-        if config.AdvancedMovieSelection.red.value == "Sort":
-            return self["key_red"]
-        if config.AdvancedMovieSelection.green.value == "Sort":
-            return self["key_green"]
-        if config.AdvancedMovieSelection.yellow.value == "Sort":
-            return self["key_yellow"]
-        if config.AdvancedMovieSelection.blue.value == "Sort":
-            return self["key_blue"]
+        fn = ('red', 'green', 'yellow', 'blue')
+        for key in fn:
+            function = qButtons.getFunction(key)
+            if function == "Sort":
+                key_text = 'key_%s' % (key)
+                return self[key_text]
     
     def getSortButtonCaption(self, mode):
         if mode == MovieList.SORT_ALPHANUMERIC:
@@ -165,18 +168,42 @@ class QuickButton:
         if key_number:
             mode = self.getNextSortType()
             key_number.setText(self.getSortButtonCaption(mode))
-
+    
     def redpressed(self):
-        self.startPlugin(config.AdvancedMovieSelection.red.value, self["key_red"])
-    
+        if not self.isBlocked():
+            self.startPlugin(qButtons.getFunction("red"), self["key_red"])
+     
     def greenpressed(self):
-        self.startPlugin(config.AdvancedMovieSelection.green.value, self["key_green"])
-    
+        if not self.isBlocked():
+            self.startPlugin(qButtons.getFunction("green"), self["key_green"])
+     
     def yellowpressed(self):
-        self.startPlugin(config.AdvancedMovieSelection.yellow.value, self["key_yellow"])
-    
+        if not self.isBlocked():
+            self.startPlugin(qButtons.getFunction("yellow"), self["key_yellow"])
+     
     def bluepressed(self):
-        self.startPlugin(config.AdvancedMovieSelection.blue.value, self["key_blue"])
+        if not self.isBlocked():
+            self.startPlugin(qButtons.getFunction("blue"), self["key_blue"])
+ 
+    def redpressedlong(self):
+        print "red long"
+        self.block_next = True
+        self.startPlugin(qButtons.getFunction("red_long"), None)
+
+    def greenpressedlong(self):
+        print "green long"
+        self.block_next = True
+        self.startPlugin(qButtons.getFunction("green_long"), None)
+
+    def yellowpressedlong(self):
+        print "yellow long"
+        self.block_next = True
+        self.startPlugin(qButtons.getFunction("yellow_long"), None)
+
+    def bluepressedlong(self):
+        print "blue long"
+        self.block_next = True
+        self.startPlugin(qButtons.getFunction("blue_long"), None)
 
     def __updateGUI(self):
         if toggleSeenButton:
@@ -185,26 +212,27 @@ class QuickButton:
                 toggleSeenButton.setText(_("Mark as unseen"))
             else:
                 toggleSeenButton.setText(_("Mark as seen"))
+
+    def setButtonText(self, key_number, caption):
+        if key_number:
+            key_number.setText(caption)
     
     def startPlugin(self, pname, key_number):
-        home = config.AdvancedMovieSelection.homepath.value
-        bookmark1 = config.AdvancedMovieSelection.bookmark1path.value
-        bookmark2 = config.AdvancedMovieSelection.bookmark2path.value
-        bookmark3 = config.AdvancedMovieSelection.bookmark3path.value
+        print "qButtonFX:", str(pname)
         errorText = None
-        if pname != "Nothing":
+        if pname and pname != "Nothing":
             # all functions with no service is needed
             if pname == "Wastebasket":
                 if config.AdvancedMovieSelection.use_wastebasket.value:
                     self.session.openWithCallback(self.reloadList, Wastebasket)              
             elif pname == "Home":
-                self.gotFilename(home)
+                self.gotFilename(config.AdvancedMovieSelection.homepath.value)
             elif pname == "Bookmark 1":
-                self.gotFilename(bookmark1)
+                self.gotFilename(config.AdvancedMovieSelection.bookmark1path.value)
             elif pname == "Bookmark 2":
-                self.gotFilename(bookmark2)
+                self.gotFilename(config.AdvancedMovieSelection.bookmark2path.value)
             elif pname == "Bookmark 3":
-                self.gotFilename(bookmark3)
+                self.gotFilename(config.AdvancedMovieSelection.bookmark3path.value)
             elif pname == "Bookmark(s) on/off":
                 if config.AdvancedMovieSelection.show_bookmarks.value:
                     newCaption = _("Show bookmarks")
@@ -213,7 +241,7 @@ class QuickButton:
                 config.AdvancedMovieSelection.show_bookmarks.value = not config.AdvancedMovieSelection.show_bookmarks.value
                 self.saveconfig()
                 self.reloadList()
-                key_number.setText(newCaption)
+                self.setButtonText(key_number, newCaption)
             elif pname == "Show/Hide folders":
                 if config.AdvancedMovieSelection.showfoldersinmovielist.value:
                     newCaption = _("Show folders")
@@ -223,7 +251,7 @@ class QuickButton:
                 self.showFolders(config.AdvancedMovieSelection.showfoldersinmovielist.value)
                 config.AdvancedMovieSelection.showfoldersinmovielist.save()
                 self.reloadList()
-                key_number.setText(newCaption)
+                self.setButtonText(key_number, newCaption)
             elif pname == "Sort":
                 newType = self.getNextSortType()
                 self.setSortType(newType)
@@ -293,23 +321,23 @@ class QuickButton:
                         perc = self.list.getMovieStatus()
                         if perc > 50:
                             self.setMovieStatus(0)
-                            key_number.setText(_("Mark as seen"))
+                            self.setButtonText(key_number, _("Mark as seen"))
                         else:
                             self.setMovieStatus(1)
-                            key_number.setText(_("Mark as unseen"))
+                            self.setButtonText(key_number, _("Mark as unseen"))
                 elif pname == "Show up to VSR-X":
                     from Source.AccessRestriction import VSR
-                    access = "VSR-%d"%(self.list.getAccess()) 
+                    access = "VSR-%d" % (self.list.getAccess()) 
                     for index, item in enumerate(VSR):
                         if item == access:
-                            if len(VSR)-1 == index:
+                            if len(VSR) - 1 == index:
                                 access = VSR[0]
                             else:
                                 access = VSR[index + 1]
                             break
                     self.list.setAccess(int(access[4:]))
                     self.reloadList()
-                    key_number.setText(_("Show up to") + ' ' + _("VSR") + '-%d' % (self.list.getAccess()))
+                    self.setButtonText(key_number, _("Show up to") + ' ' + _("VSR") + '-%d' % (self.list.getAccess()))
                 elif pname == "Mark as seen":
                     if not service.flags & eServiceReference.mustDescent:
                         self.setMovieStatus(status=1)
@@ -382,7 +410,7 @@ class QuickButton:
             if description[0] != "" and not description in descr:
                 descr.append(description)
         descr = sorted(descr)
-        descr.insert(0, (_(SHOW_ALL_MOVIES), ))
+        descr.insert(0, (_(SHOW_ALL_MOVIES),))
         
         current = self.list.filter_description
         selection = 0
