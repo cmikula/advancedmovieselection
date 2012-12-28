@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-27 17:30+0100\n"
-"PO-Revision-Date: 2012-12-27 18:54+0100\n"
+"POT-Creation-Date: 2012-12-28 08:20+0100\n"
+"PO-Revision-Date: 2012-12-28 13:03+0100\n"
 "Last-Translator: bschaar\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
@@ -832,12 +832,12 @@ msgid "Search:"
 msgstr "Zoeken:"
 
 #: ../QuickButton.py:50
-#: ../QuickButton.py:245
+#: ../QuickButton.py:247
 msgid "Show folders"
 msgstr "Mappen weergeven"
 
 #: ../QuickButton.py:52
-#: ../QuickButton.py:247
+#: ../QuickButton.py:249
 msgid "Hide folders"
 msgstr "Mappen verbergen"
 
@@ -847,19 +847,19 @@ msgid "Show up to VSR-%d"
 msgstr "Tot VZR-%d weergeven"
 
 #: ../QuickButton.py:56
-#: ../QuickButton.py:212
-#: ../QuickButton.py:322
+#: ../QuickButton.py:214
+#: ../QuickButton.py:324
 #: ../AdvancedMovieSelectionSetup.py:650
 msgid "Mark as seen"
 msgstr "Film als gezien markeren"
 
 #: ../QuickButton.py:59
-#: ../QuickButton.py:236
+#: ../QuickButton.py:238
 msgid "Show bookmarks"
 msgstr "Bookmarks weergeven"
 
 #: ../QuickButton.py:61
-#: ../QuickButton.py:238
+#: ../QuickButton.py:240
 msgid "Hide bookmarks"
 msgstr "Bookmarks verbergen"
 
@@ -869,111 +869,111 @@ msgstr "Bookmarks verbergen"
 msgid "Nothing"
 msgstr "niets toegewezen"
 
-#: ../QuickButton.py:155
+#: ../QuickButton.py:157
 msgid "Sort alphabetically"
 msgstr "Alfabetisch"
 
-#: ../QuickButton.py:157
+#: ../QuickButton.py:159
 msgid "Sort by Description"
 msgstr "Sorteren volgens beschrijving"
 
-#: ../QuickButton.py:159
+#: ../QuickButton.py:161
 msgid "Sort by Date (9->1)"
 msgstr "Volgens datum (9->1)"
 
-#: ../QuickButton.py:161
+#: ../QuickButton.py:163
 msgid "Sort by Date (1->9)"
 msgstr "Volgens datum (1->9)"
 
-#: ../QuickButton.py:162
+#: ../QuickButton.py:164
 #: ../MovieSelection.py:143
 msgid "Unknown"
 msgstr "Ongekend"
 
-#: ../QuickButton.py:210
-#: ../QuickButton.py:325
+#: ../QuickButton.py:212
+#: ../QuickButton.py:327
 #: ../AdvancedMovieSelectionSetup.py:651
 msgid "Mark as unseen"
 msgstr "Film als ongezien markeren"
 
-#: ../QuickButton.py:276
+#: ../QuickButton.py:278
 msgid "Set tag here not possible, please select a movie for!"
 msgstr "Label toevoegen niet mogelijk, gelieve een film te selecteren!"
 
-#: ../QuickButton.py:282
+#: ../QuickButton.py:284
 msgid "Trailer search here not possible, please select a movie!"
 msgstr "Trailer zoeken niet mogelijk, gelieve een film te selecteren!"
 
-#: ../QuickButton.py:288
+#: ../QuickButton.py:290
 msgid "Move/Copy from complete directory/symlink not possible, please select a single movie!"
 msgstr "Verplaatsen/kopiëren van een volledige map/symlink niet mogelijk, gelieve enkel 1 film te selecteren!"
 
-#: ../QuickButton.py:294
+#: ../QuickButton.py:296
 msgid "Rename here not possible, please select a movie!"
 msgstr "Naam wijzigen niet mogelijk, gelieve een film te selecteren!"
 
-#: ../QuickButton.py:316
+#: ../QuickButton.py:318
 msgid "TMDb search here not possible, please select a movie!"
 msgstr "TMDb niet mogelijk, gelieve een film te selecteren!"
 
-#: ../QuickButton.py:338
+#: ../QuickButton.py:340
 msgid "Show up to"
 msgstr "Weergeven tot"
 
-#: ../QuickButton.py:338
+#: ../QuickButton.py:340
 #: ../MovieSelection.py:1176
 msgid "VSR"
 msgstr "VZR"
 
-#: ../QuickButton.py:344
+#: ../QuickButton.py:346
 msgid "This may not be marked as seen!"
 msgstr "Dit kan niet als gezien gemarkeerd worden!"
 
-#: ../QuickButton.py:350
+#: ../QuickButton.py:352
 msgid "This may not be marked as unseen!"
 msgstr "Dit kan niet als ongezien gemarkeerd worden!"
 
-#: ../QuickButton.py:360
+#: ../QuickButton.py:362
 msgid "Unknown error!"
 msgstr "Ongekende fout!"
 
-#: ../QuickButton.py:362
+#: ../QuickButton.py:364
 msgid "Plugin not found!"
 msgstr "Plugin niet gevonden!"
 
-#: ../QuickButton.py:364
+#: ../QuickButton.py:366
 msgid "No plugin assigned!"
 msgstr "Geen Plugin toegewezen!"
 
-#: ../QuickButton.py:370
+#: ../QuickButton.py:372
 msgid "Clear"
 msgstr "Wissen"
 
-#: ../QuickButton.py:371
+#: ../QuickButton.py:373
 msgid "VSR-0 (General Audience)"
 msgstr "VZR-0 (Voor iedereen geschikt)"
 
-#: ../QuickButton.py:372
+#: ../QuickButton.py:374
 msgid "VSR-6 (Parental Guidance Suggested)"
 msgstr "VZR-6 (Toezicht aangeraden)"
 
-#: ../QuickButton.py:373
+#: ../QuickButton.py:375
 msgid "VSR-12 (Parents Strongly Cautioned)"
 msgstr "VZR-12 (Toezicht aangewezen)"
 
-#: ../QuickButton.py:374
+#: ../QuickButton.py:376
 msgid "VSR-16 (Restricted)"
 msgstr "VZR-16 (Niet onder 16 jaar)"
 
-#: ../QuickButton.py:375
+#: ../QuickButton.py:377
 msgid "VSR-18 (No One 17 And Under Admitted)"
 msgstr "VZR-18 (Niet onder 18 jaar)"
 
-#: ../QuickButton.py:376
+#: ../QuickButton.py:378
 msgid "Please select the VSR here:"
 msgstr "Gelieve de VZR te selecteren:"
 
-#: ../QuickButton.py:420
+#: ../QuickButton.py:422
 msgid "Select movie by description:"
 msgstr "Selecteer film volgens beschrijving:"
 
@@ -1090,12 +1090,12 @@ msgid "Here you can select which folders to include in the index creation."
 msgstr "Hier kunnen de mappen geselecteerd worden die geïndexeerd worden."
 
 #: ../AdvancedMovieSelectionSetup.py:369
-msgid "Show path marker within all movies:"
-msgstr "Mappaden weergeven in alle films:"
+msgid "Show path marker within indexed movies:"
+msgstr "Mappaden weergeven voor geïndexeerde films:"
 
 #: ../AdvancedMovieSelectionSetup.py:369
-msgid "If enabled all movies will be shown with path marker and will be sorted below them."
-msgstr "Indien geactiveerd worden alle films gesorteeerd weergegeven onder een mapweergave."
+msgid "If enabled all indexed movies will be shown with path marker and will be sorted below them."
+msgstr "Indien geactiveerd worden alle geïndexeerde films volgens pad weergegeven en daaronder gesorteerd."
 
 #: ../AdvancedMovieSelectionSetup.py:370
 msgid "Show directory size in movie list:"
@@ -2668,7 +2668,7 @@ msgid "File Browser"
 msgstr "Bestandsbrowser"
 
 #: ../ClientSetup.py:74
-#: ../AdvancedMovieSelectionEventView.py:93
+#: ../AdvancedMovieSelectionEventView.py:94
 msgid "Recording"
 msgstr "Opname loopt ..."
 
@@ -2761,7 +2761,7 @@ msgstr "REC"
 msgid "Records"
 msgstr "Opname loopt"
 
-#: ../MovieList.py:1050
+#: ../MovieList.py:1053
 msgid "Indexed movies"
 msgstr "Geïndexeerde filmen"
 
@@ -3012,32 +3012,32 @@ msgstr "Ongekende fout!"
 msgid "Sorry, no info/cover found for title: %s"
 msgstr "Sorry geen Filminfo/Cover voor %s gevonden."
 
-#: ../AdvancedMovieSelectionEventView.py:67
+#: ../AdvancedMovieSelectionEventView.py:68
 msgid "TheTVDB search"
 msgstr "Zoeken via TVDB"
 
-#: ../AdvancedMovieSelectionEventView.py:68
+#: ../AdvancedMovieSelectionEventView.py:69
 msgid "TMDb search"
 msgstr "Zoeken via TMDb"
 
-#: ../AdvancedMovieSelectionEventView.py:70
+#: ../AdvancedMovieSelectionEventView.py:71
 msgid "IMDB search"
 msgstr "Zoeken via IMDB"
 
-#: ../AdvancedMovieSelectionEventView.py:75
+#: ../AdvancedMovieSelectionEventView.py:76
 msgid "OFDb search"
 msgstr "Zoeken via OFDb"
 
-#: ../AdvancedMovieSelectionEventView.py:99
+#: ../AdvancedMovieSelectionEventView.py:100
 msgid "Unknown service"
 msgstr "Ongekende service"
 
-#: ../AdvancedMovieSelectionEventView.py:109
+#: ../AdvancedMovieSelectionEventView.py:110
 #, python-format
 msgid "Infos for: %s"
 msgstr "Info voor: %s"
 
-#: ../AdvancedMovieSelectionEventView.py:110
+#: ../AdvancedMovieSelectionEventView.py:112
 #, python-format
 msgid "Movie location: %s"
 msgstr "Filmpad: %s"
