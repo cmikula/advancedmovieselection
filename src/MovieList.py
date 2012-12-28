@@ -371,7 +371,7 @@ class MovieList(GUIComponent):
             width = self.l.getItemSize().width()
             offset = 0
             res = [ None ]
-            service_name, serviceref, info, begin, len = movie_info.name, movie_info.serviceref, movie_info.info, movie_info.begin, movie_info.length
+            service_name, serviceref, info, begin, _len = movie_info.name, movie_info.serviceref, movie_info.info, movie_info.begin, movie_info.length
             if self.show_folders:
                 if serviceref.flags & eServiceReference.mustDescent:
                     can_show_folder_image = True
@@ -449,27 +449,27 @@ class MovieList(GUIComponent):
                             png = None
     
             if info is not None:
-                if len < 0: #recalc len when not already done
+                if _len < 0: #recalc _len when not already done
                     cur_idx = self.l.getCurrentSelectionIndex()
                     if config.usage.load_length_of_movies_in_moviellist.value:
-                        len = info.getLength(serviceref) #recalc the movie length...
-                        if len == 0:
+                        _len = info.getLength(serviceref) #recalc the movie length...
+                        if _len == 0:
                             file_name = serviceref.getPath()
                             if not os.path.isdir(file_name):
                                 eit_file = os.path.splitext(file_name)[0] + ".eit"
                             else:
                                 eit_file = file_name + ".eit"
-                            len = EventInformationTable(eit_file, True).getDuration()
+                            _len = EventInformationTable(eit_file, True).getDuration()
                     else:
-                        len = 0 #dont recalc movielist to speedup loading the list
-                    self.list[cur_idx][0].length = len #update entry in list... so next time we don't need to recalc
+                        _len = 0 #dont recalc movielist to speedup loading the list
+                    self.list[cur_idx][0].length = _len #update entry in list... so next time we don't need to recalc
     
-            length = len
+            length = _len
         
-            if len > 0:
-                len = "%d:%02d" % (len / 60, len % 60)
+            if _len > 0:
+                _len = "%d:%02d" % (_len / 60, _len % 60)
             else:
-                len = ""
+                _len = ""
             
             if info is not None:
                 #service_name = info.getName(serviceref)
@@ -634,7 +634,7 @@ class MovieList(GUIComponent):
                 res.append(MultiContentEntryText(pos=(190 + offset, 55), size=(60, 20), font=1, flags=RT_HALIGN_LEFT, text=prec_text, color=color))
                 if tags:
                     res.append(MultiContentEntryText(pos=(250 + offset, 55), size=(500, 20), font=1, flags=RT_HALIGN_LEFT, text=self.arrangeTags(tags), color=color))
-                res.append(MultiContentEntryText(pos=(width - 105, 55), size=(100, 20), font=1, flags=RT_HALIGN_RIGHT, text=len, color=color))
+                res.append(MultiContentEntryText(pos=(width - 105, 55), size=(100, 20), font=1, flags=RT_HALIGN_RIGHT, text=_len, color=color))
     
             elif self.list_type == MovieList.LISTTYPE_ORIGINAL:
                 if self.show_folders:
@@ -651,7 +651,7 @@ class MovieList(GUIComponent):
                 if self.show_date == MovieList.SHOW_DATE:
                     res.append(MultiContentEntryText(pos=(0 + offset, 55), size=(200, 20), font=1, flags=RT_HALIGN_LEFT, text=begin_string, color=color))
                 if self.show_time == MovieList.SHOW_TIME:
-                    res.append(MultiContentEntryText(pos=(width - 205, 55), size=(200, 20), font=1, flags=RT_HALIGN_RIGHT, text=len, color=color))
+                    res.append(MultiContentEntryText(pos=(width - 205, 55), size=(200, 20), font=1, flags=RT_HALIGN_RIGHT, text=_len, color=color))
     
             elif self.list_type == MovieList.LISTTYPE_COMPACT_DESCRIPTION:
                 if self.show_folders:
@@ -661,7 +661,7 @@ class MovieList(GUIComponent):
                 if self.show_date == MovieList.SHOW_DATE:
                     res.append(MultiContentEntryText(pos=(width - 135, 4), size=(130, 20), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))                
                 if self.show_time == MovieList.SHOW_TIME:
-                    dr = service.getServiceName() + " " + len
+                    dr = service.getServiceName() + " " + _len
                     res.append(MultiContentEntryText(pos=(width - 215, 22), size=(210, 17), font=1, flags=RT_HALIGN_RIGHT, text=dr, color=color))
                 else:
                     res.append(MultiContentEntryText(pos=(width - 155, 22), size=(150, 17), font=1, flags=RT_HALIGN_RIGHT, text=service.getServiceName(), color=color))
@@ -673,7 +673,7 @@ class MovieList(GUIComponent):
                 if self.show_date == MovieList.SHOW_DATE:
                     res.append(MultiContentEntryText(pos=(offset, 22), size=(200, 17), font=1, flags=RT_HALIGN_LEFT, text=begin_string, color=color))            
                 if self.show_time == MovieList.SHOW_TIME:
-                    res.append(MultiContentEntryText(pos=(width - 80, 0), size=(75, 20), font=0, flags=RT_HALIGN_RIGHT, text=len, color=color))            
+                    res.append(MultiContentEntryText(pos=(width - 80, 0), size=(75, 20), font=0, flags=RT_HALIGN_RIGHT, text=_len, color=color))            
                 if tags and self.show_tags == MovieList.SHOW_TAGS:
                     res.append(MultiContentEntryText(pos=(width - 205, 22), size=(200, 17), font=1, flags=RT_HALIGN_RIGHT, text=self.arrangeTags(tags), color=color))
                     if service is not None:
@@ -697,8 +697,8 @@ class MovieList(GUIComponent):
                         displaytext = displaytext + service_name + " - " + description
                     else:
                         displaytext = displaytext + service_name
-                if len and self.show_time == MovieList.SHOW_TIME:
-                    displaytext = displaytext + ' ' + "(" + len + ")"
+                if _len and self.show_time == MovieList.SHOW_TIME:
+                    displaytext = displaytext + ' ' + "(" + _len + ")"
                 
                 if self.show_folders:
                     res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 3, 20, 20, png))
@@ -709,16 +709,19 @@ class MovieList(GUIComponent):
                     if servicename:
                         offsetServiceName = 175
                 if tags and self.show_tags == MovieList.SHOW_TAGS and self.show_service == MovieList.HIDE_SERVICE:
-                    res.append(MultiContentEntryText(pos=(width - 255, 2), size=(250, 20), font=0, flags=RT_HALIGN_RIGHT, text=self.arrangeTags(tags, False), color=color))
-                    offsetServiceName = 255
+                    tag_size = 250
+                    if len(tags) < 7:
+                        tag_size = 80
+                    res.append(MultiContentEntryText(pos=(width - tag_size, 2), size=(tag_size, 20), font=0, flags=RT_HALIGN_RIGHT, text=self.arrangeTags(tags, False), color=color))
+                    offsetServiceName = tag_size
                 res.append(MultiContentEntryText(pos=(0 + offset, 2), size=(width - (0 + offset + offsetServiceName), 25), font=0, flags=RT_HALIGN_LEFT, text=displaytext, color=color))
             else:
                 assert(self.list_type == MovieList.LISTTYPE_MINIMAL)
                 if self.show_folders:
                     res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 3, 20, 20, png))
                 
-                if len > 0:
-                    len2 = "- " + len
+                if _len > 0:
+                    len2 = "- " + _len
                 else:
                     len2 = ""
                 
@@ -778,7 +781,7 @@ class MovieList(GUIComponent):
      
                 if self.show_time == MovieList.SHOW_TIME and self.show_date == MovieList.HIDE_DATE:
                     res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 150, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
-                    res.append(MultiContentEntryText(pos=(width - 75, 2), size=(70, 20), font=0, flags=RT_HALIGN_RIGHT, text=len, color=color))                                    
+                    res.append(MultiContentEntryText(pos=(width - 75, 2), size=(70, 20), font=0, flags=RT_HALIGN_RIGHT, text=_len, color=color))                                    
     
                 if self.show_date == MovieList.HIDE_DATE and self.show_time == MovieList.HIDE_TIME:
                     res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 0, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
