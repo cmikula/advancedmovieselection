@@ -266,7 +266,7 @@ class MovieContextMenu(Screen):
                 menu.append((_("Show movie color status in movielist"), boundFunction(self.showStatusColor, True)))
         if config.AdvancedMovieSelection.showcolorkey.value:        
             menu.append((_("Color key settings"), self.setupbutton))     
-        if config.AdvancedMovieSelection.showcoveroptions.value and config.AdvancedMovieSelection.showcoveroptions2.value:
+        if config.AdvancedMovieSelection.showcoveroptions2.value:
             menu.append((_("Download and save movie info/cover for all movies"), boundFunction(self.downloadMovieInfoAll)))
         if config.AdvancedMovieSelection.showcoveroptions.value and not self.service.flags & eServiceReference.mustDescent:
             menu.append((_("Download and save movie info/cover"), self.downloadMovieInfo))              
