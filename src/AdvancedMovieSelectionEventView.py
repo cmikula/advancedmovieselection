@@ -30,6 +30,7 @@ from MoviePreview import MoviePreview
 from Source.Globals import SkinTools, pluginPresent
 from Components.Sources.StaticText import StaticText
 from Components.Pixmap import Pixmap
+import os
 
 class EventViewBase:    
     def __init__(self, event, ref, callback=None, similarEPGCB=None):
@@ -107,7 +108,8 @@ class EventViewBase:
 
         title = self.getEventName()
         self.setTitle(_("Infos for: %s") % title)
-        self["Location"].setText(_("Movie location: %s") % (config.movielist.last_videodir.value))
+        current_path = os.path.dirname(self.currentService.getPath()) + '/'
+        self["Location"].setText(_("Movie location: %s") % (current_path))
         serviceref = self.currentService
         self["Service"].newService(serviceref)
         self.loadPreview(serviceref)
