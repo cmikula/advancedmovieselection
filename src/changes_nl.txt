@@ -285,6 +285,7 @@ versie: 2.9
 OPGELET voor de skinners, SelectionListScreen(SD, XD, HD) toegevoegd
 
 versie: 3.0
+* nieuw: functiekeuz voor lang drukken van de kleurknoppen
 * nieuw: nieuwe zoekfunctie, direct met de nummerknoppen van de afstandsbediening of het toetsenbord
 * nieuw: indexering voor geselecteerde locaties
 * nieuw: snel zoeken in geïndexeerde locaties
