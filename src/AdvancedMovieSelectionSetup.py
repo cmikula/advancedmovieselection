@@ -366,7 +366,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append(getConfigListEntry(_("Show color key setup in extensions menu from movielist:"), config.AdvancedMovieSelection.showcolorkey, _("Displays color key setup option in the menu at the movie list.")))        
         self.list.append(getConfigListEntry(_("Show movie plugins in extensions menu from movielist:"), config.AdvancedMovieSelection.pluginmenu_list, _("Displays E2 movie list extensions in the menu at the movie list.")))
         self.list.append(getConfigListEntry(_("Show path selection for indexing in extensions menu:"), config.AdvancedMovieSelection.show_location_indexing, _("Here you can select which folders to include in the index creation.")))
-        self.list.append(getConfigListEntry(_("Show path marker within all movies:"), config.AdvancedMovieSelection.show_videodirslocation, _("If enabled all movies will be shown with path marker and will be sorted below them.")))
+        self.list.append(getConfigListEntry(_("Show path marker within indexed movies:"), config.AdvancedMovieSelection.show_videodirslocation, _("If enabled all indexed movies will be shown with path marker and will be sorted below them.")))
         self.list.append(getConfigListEntry(_("Show directory size in movie list:"), config.AdvancedMovieSelection.show_dirsize, _("Displays the size from directories in movie list.")))
         if config.AdvancedMovieSelection.show_dirsize.value:
             self.list.append(getConfigListEntry(_("Show decimal points:"), config.AdvancedMovieSelection.dirsize_digits, _("Here you can choose how many decimal points for the directory size in the movie list will be displayed.")))

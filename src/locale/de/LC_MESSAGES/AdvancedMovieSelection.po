@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-27 17:31+0100\n"
-"PO-Revision-Date: 2012-12-27 17:31+0100\n"
+"POT-Creation-Date: 2012-12-28 08:20+0100\n"
+"PO-Revision-Date: 2012-12-28 08:21+0100\n"
 "Last-Translator: cmikula\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "Language: de_AT\n"
@@ -830,12 +830,12 @@ msgid "Search:"
 msgstr "Suche:"
 
 #: ../../../QuickButton.py:50
-#: ../../../QuickButton.py:245
+#: ../../../QuickButton.py:247
 msgid "Show folders"
 msgstr "Ordner einblenden"
 
 #: ../../../QuickButton.py:52
-#: ../../../QuickButton.py:247
+#: ../../../QuickButton.py:249
 msgid "Hide folders"
 msgstr "Ordner ausblenden"
 
@@ -845,19 +845,19 @@ msgid "Show up to VSR-%d"
 msgstr "Zeige bis FSK-%d"
 
 #: ../../../QuickButton.py:56
-#: ../../../QuickButton.py:212
-#: ../../../QuickButton.py:322
+#: ../../../QuickButton.py:214
+#: ../../../QuickButton.py:324
 #: ../../../AdvancedMovieSelectionSetup.py:650
 msgid "Mark as seen"
 msgstr "Gesehen markieren"
 
 #: ../../../QuickButton.py:59
-#: ../../../QuickButton.py:236
+#: ../../../QuickButton.py:238
 msgid "Show bookmarks"
 msgstr "Lesezeichen ein"
 
 #: ../../../QuickButton.py:61
-#: ../../../QuickButton.py:238
+#: ../../../QuickButton.py:240
 msgid "Hide bookmarks"
 msgstr "Lesezeichen aus"
 
@@ -867,111 +867,111 @@ msgstr "Lesezeichen aus"
 msgid "Nothing"
 msgstr "nichts Zugeordnet"
 
-#: ../../../QuickButton.py:155
+#: ../../../QuickButton.py:157
 msgid "Sort alphabetically"
 msgstr "Sort. Alphabetisch"
 
-#: ../../../QuickButton.py:157
+#: ../../../QuickButton.py:159
 msgid "Sort by Description"
 msgstr "Sort. Beschreibung"
 
-#: ../../../QuickButton.py:159
+#: ../../../QuickButton.py:161
 msgid "Sort by Date (9->1)"
 msgstr "Sort. Datum (9->1)"
 
-#: ../../../QuickButton.py:161
+#: ../../../QuickButton.py:163
 msgid "Sort by Date (1->9)"
 msgstr "Sort. Datum (1->9)"
 
-#: ../../../QuickButton.py:162
+#: ../../../QuickButton.py:164
 #: ../../../MovieSelection.py:143
 msgid "Unknown"
 msgstr "Unbekannt"
 
-#: ../../../QuickButton.py:210
-#: ../../../QuickButton.py:325
+#: ../../../QuickButton.py:212
+#: ../../../QuickButton.py:327
 #: ../../../AdvancedMovieSelectionSetup.py:651
 msgid "Mark as unseen"
 msgstr "Ungesehen mark."
 
-#: ../../../QuickButton.py:276
+#: ../../../QuickButton.py:278
 msgid "Set tag here not possible, please select a movie for!"
 msgstr "Hier einen Tag anlegen ist nicht möglich, wählen Sie bitte dafür einen Film aus!"
 
-#: ../../../QuickButton.py:282
+#: ../../../QuickButton.py:284
 msgid "Trailer search here not possible, please select a movie!"
 msgstr "Trailer suche hier nicht möglich, wählen Sie bitte dafür einen Film aus!"
 
-#: ../../../QuickButton.py:288
+#: ../../../QuickButton.py:290
 msgid "Move/Copy from complete directory/symlink not possible, please select a single movie!"
 msgstr "Verschieben/Kopieren von ganzen Verzeichnissen/Symlinks nicht möglich, wählen Sie bitte dafür einen Film aus!"
 
-#: ../../../QuickButton.py:294
+#: ../../../QuickButton.py:296
 msgid "Rename here not possible, please select a movie!"
 msgstr "Umbenennen hier nicht möglich, wählen Sie bitte dafür einen Film aus!"
 
-#: ../../../QuickButton.py:316
+#: ../../../QuickButton.py:318
 msgid "TMDb search here not possible, please select a movie!"
 msgstr "TMDb suche hier nicht möglich, wählen Sie bitte dafür einen Film aus!"
 
-#: ../../../QuickButton.py:338
+#: ../../../QuickButton.py:340
 msgid "Show up to"
 msgstr "Zeige bis"
 
-#: ../../../QuickButton.py:338
+#: ../../../QuickButton.py:340
 #: ../../../MovieSelection.py:1176
 msgid "VSR"
 msgstr "FSK"
 
-#: ../../../QuickButton.py:344
+#: ../../../QuickButton.py:346
 msgid "This may not be marked as seen!"
 msgstr "Das kann nicht als gesehen markiert werden!"
 
-#: ../../../QuickButton.py:350
+#: ../../../QuickButton.py:352
 msgid "This may not be marked as unseen!"
 msgstr "Das kann nicht als ungesehen markiert werden!"
 
-#: ../../../QuickButton.py:360
+#: ../../../QuickButton.py:362
 msgid "Unknown error!"
 msgstr "Unbekannter Fehler!"
 
-#: ../../../QuickButton.py:362
+#: ../../../QuickButton.py:364
 msgid "Plugin not found!"
 msgstr "Erweiterung nicht gefunden!"
 
-#: ../../../QuickButton.py:364
+#: ../../../QuickButton.py:366
 msgid "No plugin assigned!"
 msgstr "Keine Erweiterung zugeordnet!"
 
-#: ../../../QuickButton.py:370
+#: ../../../QuickButton.py:372
 msgid "Clear"
 msgstr "Entfernen"
 
-#: ../../../QuickButton.py:371
+#: ../../../QuickButton.py:373
 msgid "VSR-0 (General Audience)"
 msgstr "FSK-0 (Freigegeben ohne Altersbeschränkung)"
 
-#: ../../../QuickButton.py:372
+#: ../../../QuickButton.py:374
 msgid "VSR-6 (Parental Guidance Suggested)"
 msgstr "FSK-6 (Freigegeben ab sechs Jahren)"
 
-#: ../../../QuickButton.py:373
+#: ../../../QuickButton.py:375
 msgid "VSR-12 (Parents Strongly Cautioned)"
 msgstr "FSK-12 (Freigegeben ab zwölf Jahren)"
 
-#: ../../../QuickButton.py:374
+#: ../../../QuickButton.py:376
 msgid "VSR-16 (Restricted)"
 msgstr "FSK-16 (Freigegeben ab sechzehn Jahren)"
 
-#: ../../../QuickButton.py:375
+#: ../../../QuickButton.py:377
 msgid "VSR-18 (No One 17 And Under Admitted)"
 msgstr "FSK-18 (Keine Jugendfreigabe)"
 
-#: ../../../QuickButton.py:376
+#: ../../../QuickButton.py:378
 msgid "Please select the VSR here:"
 msgstr "Hier bitte die FSK Stufe bestimmen:"
 
-#: ../../../QuickButton.py:420
+#: ../../../QuickButton.py:422
 msgid "Select movie by description:"
 msgstr "Film nach Kurzbeschreibung wählen:"
 
@@ -1088,12 +1088,12 @@ msgid "Here you can select which folders to include in the index creation."
 msgstr "Hier können Sie auswählen welche Verzeichnisse bei der Indexerstellung berücksichtigt werden sollen."
 
 #: ../../../AdvancedMovieSelectionSetup.py:369
-msgid "Show path marker within all movies:"
-msgstr "Filmpfad als Marker in allen Filmen anzeigen:"
+msgid "Show path marker within indexed movies:"
+msgstr "Filmpfad als Marker für indizierte Filme anzeigen:"
 
 #: ../../../AdvancedMovieSelectionSetup.py:369
-msgid "If enabled all movies will be shown with path marker and will be sorted below them."
-msgstr "Wenn diese Funktion eingeschalten ist, werden Marker zum Speicherort angezeigt und die Filme darunter sortiert."
+msgid "If enabled all indexed movies will be shown with path marker and will be sorted below them."
+msgstr "Wenn diese Funktion eingeschalten ist, werden Marker für indizierte Filme zum Speicherort angezeigt und die Filme darunter sortiert."
 
 #: ../../../AdvancedMovieSelectionSetup.py:370
 msgid "Show directory size in movie list:"
@@ -2666,7 +2666,7 @@ msgid "File Browser"
 msgstr "Datei Browser"
 
 #: ../../../ClientSetup.py:74
-#: ../../../AdvancedMovieSelectionEventView.py:93
+#: ../../../AdvancedMovieSelectionEventView.py:94
 msgid "Recording"
 msgstr "Aufnahme "
 
@@ -2759,7 +2759,7 @@ msgstr "Aufn."
 msgid "Records"
 msgstr "Aufnahme"
 
-#: ../../../MovieList.py:1050
+#: ../../../MovieList.py:1053
 msgid "Indexed movies"
 msgstr "Indizierte Filme"
 
@@ -3010,32 +3010,32 @@ msgstr "Unbekannter Fehler!"
 msgid "Sorry, no info/cover found for title: %s"
 msgstr "Leider keine Filminfo/Cover für %s gefunden."
 
-#: ../../../AdvancedMovieSelectionEventView.py:67
+#: ../../../AdvancedMovieSelectionEventView.py:68
 msgid "TheTVDB search"
 msgstr "TheTVDB suche"
 
-#: ../../../AdvancedMovieSelectionEventView.py:68
+#: ../../../AdvancedMovieSelectionEventView.py:69
 msgid "TMDb search"
 msgstr "TMDb suche"
 
-#: ../../../AdvancedMovieSelectionEventView.py:70
+#: ../../../AdvancedMovieSelectionEventView.py:71
 msgid "IMDB search"
 msgstr "IMDB suche"
 
-#: ../../../AdvancedMovieSelectionEventView.py:75
+#: ../../../AdvancedMovieSelectionEventView.py:76
 msgid "OFDb search"
 msgstr "OFDb suche"
 
-#: ../../../AdvancedMovieSelectionEventView.py:99
+#: ../../../AdvancedMovieSelectionEventView.py:100
 msgid "Unknown service"
 msgstr "Unbekannter service"
 
-#: ../../../AdvancedMovieSelectionEventView.py:109
+#: ../../../AdvancedMovieSelectionEventView.py:110
 #, python-format
 msgid "Infos for: %s"
 msgstr "Info für: %s"
 
-#: ../../../AdvancedMovieSelectionEventView.py:110
+#: ../../../AdvancedMovieSelectionEventView.py:112
 #, python-format
 msgid "Movie location: %s"
 msgstr "Speicherort: %s"
