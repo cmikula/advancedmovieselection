@@ -37,8 +37,8 @@ for example: export the tag version 2.6.1 and the ipk should stored to location 
 
 '''
 
-import compileall, compiler
-import os, shutil, subprocess
+import py_compile
+import os, shutil, subprocess, time
 from tarfile import TarFile
 from arfile import ArFile
 import sys, platform 
@@ -179,6 +179,8 @@ def clearPluginPath():
     print "clear plugin path", PLUGIN
     if os.path.exists(PLUGIN):
         shutil.rmtree(PLUGIN)
+        # prevent win 8 io error
+        time.sleep(2)
 
 def createControl(control_path="."):
     data = []
@@ -367,7 +369,9 @@ def exportSVNRepository():
 def compilePlugin():
     #compileall.compile_dir(PLUGIN, force=1)
     for lib in LIBRARY_SOURCES:
-        compileall.compile_file(os.path.join(PLUGIN, lib), force=1)
+        # Not supported in python26
+        # compileall.compile_file(os.path.join(PLUGIN, lib), force=1)
+        py_compile.compile(os.path.join(PLUGIN, lib), None, None, True)
 
 def removeLibrarySources():
     for lib in LIBRARY_SOURCES:
