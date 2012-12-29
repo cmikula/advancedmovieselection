@@ -419,10 +419,11 @@ class MovieList(GUIComponent):
                         dir_size = -1
                         if isinstance(serviceref, eServiceReferenceHotplug):
                             dir_size = diskUsage(serviceref.getPath())[1]
-                        elif isinstance(serviceref, eServiceReferenceListAll):
-                            dir_size = movieScanner.database.getSize()
-                        else:
-                            dir_size = movieScanner.database.getSize(serviceref.getPath())
+                        elif not movieScanner.isWorking: 
+                            if isinstance(serviceref, eServiceReferenceListAll):
+                                dir_size = movieScanner.database.getSize()
+                            else:
+                                dir_size = movieScanner.database.getSize(serviceref.getPath())
                         if dir_size >= 0:
                             dir_size = realSize(dir_size, int(config.AdvancedMovieSelection.dirsize_digits.value))
                             res.append(MultiContentEntryText(pos=(width - 115, 4), size=(110, 30), font=1, flags=RT_HALIGN_RIGHT, text=dir_size))

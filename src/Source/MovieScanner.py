@@ -305,7 +305,7 @@ class MovieScanner():
         if self.isWorking:
             print "canceled, scan in progress"
             return
-        
+
         if self.needFullUpdate():
             print "need update"
             not_in_db = self.database.getMissingLocations(config.AdvancedMovieSelection.videodirs.value)
@@ -313,17 +313,13 @@ class MovieScanner():
             for p in not_in_db:
                 getDirectories(new_list, p)
             self.reloadMoviesAsync(new_list)
-            # for p in new_list:
-            #    self.scanForMovies(p)
-            
-            return
-        
+
         # remove locations from database if path not exists
         for location in self.database.getDirectoryList():
             if not os.path.exists(location):
                 self.updateReloadTime()
                 self.database.removeLocation(location)
-
+            
         # print "*" * 80
 
     def updateServiceInfo(self, serviceref):
