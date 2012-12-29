@@ -1137,6 +1137,8 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             self.session.openWithCallback(self.abort, MessageBox, _("Load Length of Movies in Movielist has been disabled.\nClose and reopen Movielist is required to apply the setting."), MessageBox.TYPE_INFO)
 
     def abort(self, retval=None):
+        if self.clearSearch():
+            return
         self.saveconfig()
         self.close(None)
 

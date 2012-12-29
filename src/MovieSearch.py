@@ -139,6 +139,12 @@ class MovieSearch():
         self.last_result = len(newList)
         self["list"].l.setList(newList)
         self["list"].moveToIndex(0)
+    
+    def clearSearch(self):
+        if self.last_result > 0:
+            self.last_result = 0
+            self["list"].l.setList(self["list"].list)
+            return True
         
     def keyBackspace(self):
         self.popup.keyBackspace()
