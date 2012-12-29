@@ -718,7 +718,7 @@ class MovieList(GUIComponent):
                     tag_size = 250
                     if len(tags) < 7:
                         tag_size = 80
-                    res.append(MultiContentEntryText(pos=(width - tag_size, 2), size=(tag_size, 20), font=0, flags=RT_HALIGN_RIGHT, text=self.arrangeTags(tags, False), color=color))
+                    res.append(MultiContentEntryText(pos=(width - tag_size - 5, 2), size=(tag_size, 20), font=0, flags=RT_HALIGN_RIGHT, text=self.arrangeTags(tags, False), color=color))
                     offsetServiceName = tag_size
                 res.append(MultiContentEntryText(pos=(0 + offset, 2), size=(width - (0 + offset + offsetServiceName), 25), font=0, flags=RT_HALIGN_LEFT, text=displaytext, color=color))
             else:
