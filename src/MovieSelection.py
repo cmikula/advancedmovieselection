@@ -289,7 +289,7 @@ class MovieContextMenu(Screen):
         if config.AdvancedMovieSelection.show_backup_restore.value:
             menu.append((_("Backup/Restore"), boundFunction(self.openBackupRestore)))
         if config.AdvancedMovieSelection.show_location_indexing.value:
-            menu.append((_("Select locations for movie indexing"), self.selectScanLocations))
+            menu.append((_("Select scan locations for movie database"), self.selectScanLocations))
         if config.AdvancedMovieSelection.showmenu.value:
             menu.append((_("Setup"), boundFunction(self.menusetup)))
         self["menu"] = MenuList(menu)
@@ -1279,7 +1279,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         if not movieScanner.isWorking:
             self.setTitle(title)
         else:
-            self.setTitle(title + " " + _("[Indexing in progress]"))
+            self.setTitle(title + " " + _("[Database update in progress]"))
 
     def reloadList(self, sel=None, home=False):
         if not fileExists(config.movielist.last_videodir.value):
@@ -1389,7 +1389,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self.session.openWithCallback(self.reloadList, MovieTagEditor, service, parent=self.session.current_dialog)
 
     def selectScanLocations(self):
-        self.session.openWithCallback(self.rescan, ScanLocationBox, _("Please select the movie path(s) for indicates..."), config.movielist.last_videodir.value)
+        self.session.openWithCallback(self.rescan, ScanLocationBox, _("Please select the movie path(s) for database..."), config.movielist.last_videodir.value)
         
     def rescan(self, retval):
         if retval:

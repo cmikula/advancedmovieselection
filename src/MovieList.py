@@ -1050,7 +1050,7 @@ class MovieList(GUIComponent):
                 count = movieScanner.database.getFullCount()[1]
                 if count > 0:
                     tt1 = eServiceReferenceListAll(tmp)
-                    tt1.setName(_("Indexed movies") + " (%d)" % (count))
+                    tt1.setName(_("Database") + " (%d)" % (count))
                     info = self.serviceHandler.info(tt1)
                     mi = MovieInfo(tt1.getName(), tt1, info)
                     self.list.insert(1, (mi,))

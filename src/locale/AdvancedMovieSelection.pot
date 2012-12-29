@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection(POT)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-12-28 08:20+0100\n"
-"PO-Revision-Date: 2012-12-28 08:20+0100\n"
+"POT-Creation-Date: 2012-12-29 09:37+0100\n"
+"PO-Revision-Date: 2012-12-29 09:38+0100\n"
 "Last-Translator: cmikula\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "Language: de_AT\n"
@@ -68,7 +68,7 @@ msgstr ""
 
 #: ../SearchTVDb.py:258
 #: ../AdvancedMovieSelectionSetup.py:648
-#: ../MovieSelection.py:187
+#: ../MovieSelection.py:185
 msgid "TheTVDB Info & D/L"
 msgstr ""
 
@@ -215,7 +215,7 @@ msgid "No user voted!"
 msgstr ""
 
 #: ../SearchTVDb.py:591
-#: ../MovieSelection.py:357
+#: ../MovieSelection.py:355
 msgid "No internet connection available!"
 msgstr ""
 
@@ -323,7 +323,7 @@ msgid "Exit wastebasket"
 msgstr ""
 
 #: ../Wastebasket.py:219
-#: ../MovieSelection.py:290
+#: ../MovieSelection.py:288
 msgid "Clientbox setup"
 msgstr ""
 
@@ -332,7 +332,7 @@ msgid "Advanced Movie Selection - Wastebasket"
 msgstr ""
 
 #: ../Wastebasket.py:227
-#: ../MovieSelection.py:727
+#: ../MovieSelection.py:725
 msgid "ATTENTION: Ask before delete is disabled!"
 msgstr ""
 
@@ -419,7 +419,7 @@ msgid "Wastebasket is empty!"
 msgstr ""
 
 #: ../Wastebasket.py:309
-#: ../MovieSelection.py:830
+#: ../MovieSelection.py:822
 #, python-format
 msgid "Do you really want to delete %s?"
 msgstr ""
@@ -436,7 +436,7 @@ msgid "Do you really want to delete all movies?"
 msgstr ""
 
 #: ../Wastebasket.py:342
-#: ../MovieSelection.py:898
+#: ../MovieSelection.py:890
 msgid "Delete failed!"
 msgstr ""
 
@@ -459,7 +459,7 @@ msgstr ""
 
 #: ../plugin.py:103
 #: ../plugin.py:104
-#: ../MovieSelection.py:950
+#: ../MovieSelection.py:942
 msgid "Advanced Movie Selection"
 msgstr ""
 
@@ -537,7 +537,7 @@ msgstr ""
 #: ../MoveCopy.py:48
 #: ../MoveCopy.py:100
 #: ../MoveCopy.py:253
-#: ../MovieSelection.py:1118
+#: ../MovieSelection.py:1110
 msgid "Error"
 msgstr ""
 
@@ -873,7 +873,7 @@ msgid "Sort by Date (1->9)"
 msgstr ""
 
 #: ../QuickButton.py:164
-#: ../MovieSelection.py:143
+#: ../MovieSelection.py:141
 msgid "Unknown"
 msgstr ""
 
@@ -908,7 +908,7 @@ msgid "Show up to"
 msgstr ""
 
 #: ../QuickButton.py:340
-#: ../MovieSelection.py:1176
+#: ../MovieSelection.py:1171
 msgid "VSR"
 msgstr ""
 
@@ -991,7 +991,7 @@ msgstr ""
 
 #: ../AdvancedMovieSelectionSetup.py:167
 #: ../AdvancedMovieSelectionSetup.py:562
-#: ../MovieSelection.py:963
+#: ../MovieSelection.py:955
 msgid "Some settings changes require close/reopen the movielist to take effect."
 msgstr ""
 
@@ -1000,7 +1000,7 @@ msgid "Please select backup path here:"
 msgstr ""
 
 #: ../AdvancedMovieSelectionSetup.py:217
-#: ../MovieSelection.py:268
+#: ../MovieSelection.py:266
 msgid "Color key settings"
 msgstr ""
 
@@ -1069,19 +1069,19 @@ msgid "Displays E2 movie list extensions in the menu at the movie list."
 msgstr ""
 
 #: ../AdvancedMovieSelectionSetup.py:368
-msgid "Show path selection for indexing in extensions menu:"
+msgid "Show path selection for database in extensions menu:"
 msgstr ""
 
 #: ../AdvancedMovieSelectionSetup.py:368
-msgid "Here you can select which folders to include in the index creation."
+msgid "Here you can select which folders to include in the database creation."
 msgstr ""
 
 #: ../AdvancedMovieSelectionSetup.py:369
-msgid "Show path marker within indexed movies:"
+msgid "Show path marker within database movies:"
 msgstr ""
 
 #: ../AdvancedMovieSelectionSetup.py:369
-msgid "If enabled all indexed movies will be shown with path marker and will be sorted below them."
+msgid "If enabled all movies in database will be shown with path marker and will be sorted below them."
 msgstr ""
 
 #: ../AdvancedMovieSelectionSetup.py:370
@@ -1798,7 +1798,7 @@ msgid "Movie Quick Button Setup"
 msgstr ""
 
 #: ../AdvancedMovieSelectionSetup.py:635
-#: ../MovieSelection.py:189
+#: ../MovieSelection.py:187
 msgid "Delete"
 msgstr ""
 
@@ -1807,12 +1807,12 @@ msgid "Move-Copy"
 msgstr ""
 
 #: ../AdvancedMovieSelectionSetup.py:637
-#: ../MovieSelection.py:193
+#: ../MovieSelection.py:191
 msgid "Rename"
 msgstr ""
 
 #: ../AdvancedMovieSelectionSetup.py:638
-#: ../MovieSelection.py:177
+#: ../MovieSelection.py:175
 msgid "Wastebasket"
 msgstr ""
 
@@ -1841,7 +1841,7 @@ msgid "Bookmark(s) on/off"
 msgstr ""
 
 #: ../AdvancedMovieSelectionSetup.py:645
-#: ../MovieSelection.py:284
+#: ../MovieSelection.py:282
 msgid "Filter by Tags"
 msgstr ""
 
@@ -1850,7 +1850,7 @@ msgid "Tag Editor"
 msgstr ""
 
 #: ../AdvancedMovieSelectionSetup.py:647
-#: ../MovieSelection.py:185
+#: ../MovieSelection.py:183
 msgid "TMDb Info & D/L"
 msgstr ""
 
@@ -1871,7 +1871,7 @@ msgid "Show up to VSR-X"
 msgstr ""
 
 #: ../AdvancedMovieSelectionSetup.py:655
-#: ../MovieSelection.py:179
+#: ../MovieSelection.py:177
 msgid "Filter by description"
 msgstr ""
 
@@ -1972,22 +1972,22 @@ msgid "Bookmark 3 path"
 msgstr ""
 
 #: ../AdvancedMovieSelectionSetup.py:803
-#: ../MovieSelection.py:203
+#: ../MovieSelection.py:201
 msgid "Alphabetic sort"
 msgstr ""
 
 #: ../AdvancedMovieSelectionSetup.py:804
-#: ../MovieSelection.py:209
+#: ../MovieSelection.py:207
 msgid "Sort by date (ascending)"
 msgstr ""
 
 #: ../AdvancedMovieSelectionSetup.py:805
-#: ../MovieSelection.py:207
+#: ../MovieSelection.py:205
 msgid "Sort by date (descending)"
 msgstr ""
 
 #: ../AdvancedMovieSelectionSetup.py:806
-#: ../MovieSelection.py:205
+#: ../MovieSelection.py:203
 msgid "Sort by description"
 msgstr ""
 
@@ -2142,306 +2142,305 @@ msgstr ""
 msgid "Show all movies"
 msgstr ""
 
-#: ../MovieSelection.py:134
+#: ../MovieSelection.py:132
 msgid "Sorted:"
 msgstr ""
 
-#: ../MovieSelection.py:136
+#: ../MovieSelection.py:134
 msgid "Alphabetically"
 msgstr ""
 
-#: ../MovieSelection.py:138
+#: ../MovieSelection.py:136
 msgid "Description"
 msgstr ""
 
-#: ../MovieSelection.py:140
+#: ../MovieSelection.py:138
 msgid "Descending"
 msgstr ""
 
-#: ../MovieSelection.py:142
+#: ../MovieSelection.py:140
 msgid "Ascending"
 msgstr ""
 
-#: ../MovieSelection.py:181
+#: ../MovieSelection.py:179
 msgid "Set VSR"
 msgstr ""
 
-#: ../MovieSelection.py:183
+#: ../MovieSelection.py:181
 msgid "Unmount"
 msgstr ""
 
-#: ../MovieSelection.py:191
+#: ../MovieSelection.py:189
 msgid "Move/Copy"
 msgstr ""
 
-#: ../MovieSelection.py:195
+#: ../MovieSelection.py:193
 msgid "Movie search"
 msgstr ""
 
-#: ../MovieSelection.py:197
+#: ../MovieSelection.py:195
 msgid "Mark movie as seen"
 msgstr ""
 
-#: ../MovieSelection.py:198
+#: ../MovieSelection.py:196
 msgid "Mark movie as unseen"
 msgstr ""
 
-#: ../MovieSelection.py:212
+#: ../MovieSelection.py:210
 msgid "List style default"
 msgstr ""
 
-#: ../MovieSelection.py:213
+#: ../MovieSelection.py:211
 msgid "List style extended"
 msgstr ""
 
-#: ../MovieSelection.py:214
+#: ../MovieSelection.py:212
 msgid "List style compact"
 msgstr ""
 
-#: ../MovieSelection.py:215
+#: ../MovieSelection.py:213
 msgid "List style compact with description"
 msgstr ""
 
-#: ../MovieSelection.py:216
+#: ../MovieSelection.py:214
 msgid "List style single line"
 msgstr ""
 
-#: ../MovieSelection.py:217
+#: ../MovieSelection.py:215
 msgid "List style Advanced Movie Selection single line"
 msgstr ""
 
-#: ../MovieSelection.py:221
+#: ../MovieSelection.py:219
 msgid "Hide broadcaster"
 msgstr ""
 
-#: ../MovieSelection.py:223
+#: ../MovieSelection.py:221
 msgid "Show broadcaster"
 msgstr ""
 
-#: ../MovieSelection.py:226
+#: ../MovieSelection.py:224
 msgid "Hide tags in movielist"
 msgstr ""
 
-#: ../MovieSelection.py:228
+#: ../MovieSelection.py:226
 msgid "Show tags in movielist"
 msgstr ""
 
-#: ../MovieSelection.py:231
+#: ../MovieSelection.py:229
 msgid "Hide extended description"
 msgstr ""
 
-#: ../MovieSelection.py:233
+#: ../MovieSelection.py:231
 msgid "Show extended description"
 msgstr ""
 
-#: ../MovieSelection.py:235
+#: ../MovieSelection.py:233
 msgid "Hide date entry in movielist"
 msgstr ""
 
-#: ../MovieSelection.py:237
+#: ../MovieSelection.py:235
 msgid "Show date entry in movielist"
 msgstr ""
 
-#: ../MovieSelection.py:239
+#: ../MovieSelection.py:237
 msgid "Hide runtime entry in movielist"
 msgstr ""
 
-#: ../MovieSelection.py:241
+#: ../MovieSelection.py:239
 msgid "Show runtime entry in movielist"
 msgstr ""
 
-#: ../MovieSelection.py:244
+#: ../MovieSelection.py:242
 msgid "Hide folders in movielist"
 msgstr ""
 
-#: ../MovieSelection.py:246
+#: ../MovieSelection.py:244
 msgid "Show folders in movielist"
 msgstr ""
 
-#: ../MovieSelection.py:249
+#: ../MovieSelection.py:247
 msgid "Hide progressbar in movielist"
 msgstr ""
 
-#: ../MovieSelection.py:251
+#: ../MovieSelection.py:249
 msgid "Show progressbar in movielist"
 msgstr ""
 
-#: ../MovieSelection.py:254
+#: ../MovieSelection.py:252
 msgid "Hide percent in movielist"
 msgstr ""
 
-#: ../MovieSelection.py:256
+#: ../MovieSelection.py:254
 msgid "Show percent in movielist"
 msgstr ""
 
-#: ../MovieSelection.py:259
+#: ../MovieSelection.py:257
 msgid "Hide movie status icon in movielist"
 msgstr ""
 
-#: ../MovieSelection.py:261
+#: ../MovieSelection.py:259
 msgid "Show movie status icon in movielist"
 msgstr ""
 
-#: ../MovieSelection.py:264
+#: ../MovieSelection.py:262
 msgid "Hide movie color status in movielist"
 msgstr ""
 
-#: ../MovieSelection.py:266
+#: ../MovieSelection.py:264
 msgid "Show movie color status in movielist"
 msgstr ""
 
-#: ../MovieSelection.py:270
+#: ../MovieSelection.py:268
 msgid "Download and save movie info/cover for all movies"
 msgstr ""
 
-#: ../MovieSelection.py:272
+#: ../MovieSelection.py:270
 msgid "Download and save movie info/cover"
 msgstr ""
 
-#: ../MovieSelection.py:274
+#: ../MovieSelection.py:272
 msgid "Update all genre in meta from eit"
 msgstr ""
 
-#: ../MovieSelection.py:276
+#: ../MovieSelection.py:274
 msgid "Delete cover"
 msgstr ""
 
-#: ../MovieSelection.py:278
+#: ../MovieSelection.py:276
 msgid "Delete movie info"
 msgstr ""
 
-#: ../MovieSelection.py:280
+#: ../MovieSelection.py:278
 msgid "Delete movie info and cover"
 msgstr ""
 
-#: ../MovieSelection.py:282
+#: ../MovieSelection.py:280
 msgid "Movie tags"
 msgstr ""
 
-#: ../MovieSelection.py:286
+#: ../MovieSelection.py:284
 msgid "Setup Moviebar position"
 msgstr ""
 
-#: ../MovieSelection.py:288
+#: ../MovieSelection.py:286
 msgid "Search Trailer on web"
 msgstr ""
 
-#: ../MovieSelection.py:292
+#: ../MovieSelection.py:290
 msgid "Backup/Restore"
 msgstr ""
 
-#: ../MovieSelection.py:294
-msgid "Select locations for movie indexing"
+#: ../MovieSelection.py:292
+msgid "Select scan locations for movie database"
 msgstr ""
 
-#: ../MovieSelection.py:296
+#: ../MovieSelection.py:294
 msgid "Setup"
 msgstr ""
 
-#: ../MovieSelection.py:301
+#: ../MovieSelection.py:299
 msgid "Advanced Movie Selection Menu"
 msgstr ""
 
-#: ../MovieSelection.py:328
+#: ../MovieSelection.py:326
 #, python-format
 msgid "The device '%s' can now removed!"
 msgstr ""
 
-#: ../MovieSelection.py:332
+#: ../MovieSelection.py:330
 msgid "Error occurred during unmounting device!"
 msgstr ""
 
-#: ../MovieSelection.py:404
+#: ../MovieSelection.py:402
 msgid "Move/Copy not possible here!"
 msgstr ""
 
-#: ../MovieSelection.py:416
+#: ../MovieSelection.py:414
 msgid "Enter text to search for"
 msgstr ""
 
-#: ../MovieSelection.py:554
+#: ../MovieSelection.py:552
 #, python-format
 msgid ""
 "Do you really want to delete info/cover from:\n"
 "%s?"
 msgstr ""
 
-#: ../MovieSelection.py:558
-#: ../MovieSelection.py:583
-#: ../MovieSelection.py:611
+#: ../MovieSelection.py:556
+#: ../MovieSelection.py:581
+#: ../MovieSelection.py:609
 msgid "You cannot delete this!"
 msgstr ""
 
-#: ../MovieSelection.py:579
+#: ../MovieSelection.py:577
 #, python-format
 msgid ""
 "Do you really want to delete cover from:\n"
 "%s?"
 msgstr ""
 
-#: ../MovieSelection.py:607
+#: ../MovieSelection.py:605
 #, python-format
 msgid ""
 "Do you really want to delete movie info from:\n"
 "%s?"
 msgstr ""
 
-#: ../MovieSelection.py:722
+#: ../MovieSelection.py:720
 msgid "Please wait... Loading list..."
 msgstr ""
 
-#: ../MovieSelection.py:769
+#: ../MovieSelection.py:765
 msgid "Select the movie path"
 msgstr ""
 
-#: ../MovieSelection.py:770
+#: ../MovieSelection.py:766
 msgid "Multiselection"
 msgstr ""
 
-#: ../MovieSelection.py:774
+#: ../MovieSelection.py:770
 msgid "Advanced movielist menu"
 msgstr ""
 
-#: ../MovieSelection.py:775
+#: ../MovieSelection.py:771
 msgid "Show event details"
 msgstr ""
 
-#: ../MovieSelection.py:779
+#: ../MovieSelection.py:775
 msgid "Exit movielist"
 msgstr ""
 
-#: ../MovieSelection.py:780
+#: ../MovieSelection.py:776
 msgid "Select movie"
 msgstr ""
 
-#: ../MovieSelection.py:784
+#: ../MovieSelection.py:780
 msgid "Video preview jump forward"
 msgstr ""
 
-#: ../MovieSelection.py:785
+#: ../MovieSelection.py:781
 msgid "Video preview jump backward"
 msgstr ""
 
-#: ../MovieSelection.py:790
+#: ../MovieSelection.py:786
 msgid "Jump to next marker"
 msgstr ""
 
-#: ../MovieSelection.py:791
+#: ../MovieSelection.py:787
 msgid "Jump to previous marker"
 msgstr ""
 
-#: ../MovieSelection.py:795
-#: ../MovieSelection.py:799
+#: ../MovieSelection.py:791
 msgid "Start/Stop video preview"
 msgstr ""
 
-#: ../MovieSelection.py:823
-#: ../MovieSelection.py:828
+#: ../MovieSelection.py:815
+#: ../MovieSelection.py:820
 #, python-format
 msgid "%s is currently recording!"
 msgstr ""
 
-#: ../MovieSelection.py:823
+#: ../MovieSelection.py:815
 #, python-format
 msgid ""
 "\n"
@@ -2451,12 +2450,12 @@ msgid ""
 "Do you really want to continue?"
 msgstr ""
 
-#: ../MovieSelection.py:825
+#: ../MovieSelection.py:817
 #, python-format
 msgid "Do you really want to move %s to trashcan?"
 msgstr ""
 
-#: ../MovieSelection.py:828
+#: ../MovieSelection.py:820
 #, python-format
 msgid ""
 "\n"
@@ -2466,70 +2465,70 @@ msgid ""
 "Do you really want to continue?"
 msgstr ""
 
-#: ../MovieSelection.py:832
+#: ../MovieSelection.py:824
 msgid "Recordings are active, the timer(s) will also be deleted!\n"
 msgstr ""
 
-#: ../MovieSelection.py:834
+#: ../MovieSelection.py:826
 msgid "Do you really want to move selected movies to trashcan?"
 msgstr ""
 
-#: ../MovieSelection.py:836
+#: ../MovieSelection.py:828
 msgid "Do you really want to delete selected movies?"
 msgstr ""
 
-#: ../MovieSelection.py:842
+#: ../MovieSelection.py:834
 msgid "This cannot deleted, please select a movie for!"
 msgstr ""
 
-#: ../MovieSelection.py:852
+#: ../MovieSelection.py:844
 msgid "this recording"
 msgstr ""
 
-#: ../MovieSelection.py:1145
+#: ../MovieSelection.py:1137
 msgid ""
 "Load Length of Movies in Movielist has been disabled.\n"
 "Close and reopen Movielist is required to apply the setting."
 msgstr ""
 
-#: ../MovieSelection.py:1196
+#: ../MovieSelection.py:1191
 msgid "Tag 1"
 msgstr ""
 
-#: ../MovieSelection.py:1201
+#: ../MovieSelection.py:1196
 msgid "Tag 2"
 msgstr ""
 
-#: ../MovieSelection.py:1277
+#: ../MovieSelection.py:1272
 msgid "Movie location:"
 msgstr ""
 
-#: ../MovieSelection.py:1287
-msgid "[Indexing in progress]"
+#: ../MovieSelection.py:1282
+msgid "[Database update in progress]"
 msgstr ""
 
-#: ../MovieSelection.py:1311
+#: ../MovieSelection.py:1305
 msgid "Please select the movie path..."
 msgstr ""
 
-#: ../MovieSelection.py:1340
+#: ../MovieSelection.py:1333
 #, python-format
 msgid "Directory %s nonexistent."
 msgstr ""
 
-#: ../MovieSelection.py:1389
+#: ../MovieSelection.py:1382
 msgid "Please select tag to filter..."
 msgstr ""
 
-#: ../MovieSelection.py:1392
+#: ../MovieSelection.py:1385
 msgid "No tags are set on these movies."
 msgstr ""
 
-#: ../MovieSelection.py:1399
-msgid "Please select the movie path(s) for indicates..."
+#: ../MovieSelection.py:1392
+msgid "Please select the movie path(s) for database..."
 msgstr ""
 
-#: ../MovieSelection.py:1421
+#: ../MovieSelection.py:1414
 msgid ""
 "Use direction keys to move the Moviebar.\n"
 "Press OK button for save or the EXIT button to cancel.\n"
@@ -2714,7 +2713,7 @@ msgid "Records"
 msgstr ""
 
 #: ../MovieList.py:1053
-msgid "Indexed movies"
+msgid "Database"
 msgstr ""
 
 #: ../MoviePlayer.py:137
