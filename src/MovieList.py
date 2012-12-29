@@ -293,9 +293,14 @@ class MovieList(GUIComponent):
     
     def unmount(self, service):
         from os import system
-        res = system("umount " + service.getPath()) >> 8
+        cmd = 'umount "%s"' % (service.getPath())
+        print cmd
+        res = system(cmd) >> 8
+        print res
         if res == 0:
             self.automounts.remove(service)
+            if movieScanner.enabled:
+                movieScanner.checkAllAvailable()
         return res
 
     def connectSelChanged(self, fnc):
@@ -449,10 +454,10 @@ class MovieList(GUIComponent):
                             png = None
     
             if info is not None:
-                if _len < 0: #recalc _len when not already done
+                if _len < 0:  # recalc _len when not already done
                     cur_idx = self.l.getCurrentSelectionIndex()
                     if config.usage.load_length_of_movies_in_moviellist.value:
-                        _len = info.getLength(serviceref) #recalc the movie length...
+                        _len = info.getLength(serviceref)  # recalc the movie length...
                         if _len == 0:
                             file_name = serviceref.getPath()
                             if not os.path.isdir(file_name):
@@ -461,8 +466,8 @@ class MovieList(GUIComponent):
                                 eit_file = file_name + ".eit"
                             _len = EventInformationTable(eit_file, True).getDuration()
                     else:
-                        _len = 0 #dont recalc movielist to speedup loading the list
-                    self.list[cur_idx][0].length = _len #update entry in list... so next time we don't need to recalc
+                        _len = 0  # dont recalc movielist to speedup loading the list
+                    self.list[cur_idx][0].length = _len  # update entry in list... so next time we don't need to recalc
     
             length = _len
         
@@ -472,7 +477,7 @@ class MovieList(GUIComponent):
                 _len = ""
             
             if info is not None:
-                #service_name = info.getName(serviceref)
+                # service_name = info.getName(serviceref)
                 if not isinstance(info, Info):
                     service = ServiceReference(info.getInfoString(serviceref, iServiceInformation.sServiceref))
                 else:
@@ -510,9 +515,9 @@ class MovieList(GUIComponent):
     
             if (self.list_type == MovieList.LISTTYPE_EXTENDED) or (self.show_progressbar or self.show_percent) or (self.show_statusicon and self.show_folders) or self.show_statuscolor:
                 last = None
-                if length <= 0: #Set default file length if is not calculateable
+                if length <= 0:  # Set default file length if is not calculateable
                     length = 5400
-                cue = None #info.cueSheet()
+                cue = None  # info.cueSheet()
                 if cue is None:
                     cut_list = CueSheet(serviceref).getCutList()
                     for (pts, what) in cut_list:
@@ -547,7 +552,7 @@ class MovieList(GUIComponent):
     
                 if self.list_type != MovieList.LISTTYPE_EXTENDED:
                     ''' never enable this - on dvd structures the extension is incorrect and will crash '''
-                    #if config.AdvancedMovieSelection.shownew.value and self.show_folders and not self.show_statusicon and perc > 0:
+                    # if config.AdvancedMovieSelection.shownew.value and self.show_folders and not self.show_statusicon and perc > 0:
                     #    png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + MEDIAEXTENSIONS[extension] + ".png"))   
                         
                     if self.show_progressbar:
@@ -884,7 +889,7 @@ class MovieList(GUIComponent):
             sort = self.sort_type | movieScanner.database.SORT_WITH_DIRECTORIES
         self.list = movieScanner.database.getMovieList(sort, filter_tags)
         self.tags = movieScanner.database.getTags()
-        #self.sortMovieList()
+        # self.sortMovieList()
         tmp = self.root.getPath()
         if len(tmp) > 1:
             tt = eServiceReferenceBackDir("..")
@@ -919,7 +924,7 @@ class MovieList(GUIComponent):
             if not serviceref.valid():
                 break
             dvd = None
-            #dvd structure
+            # dvd structure
             if serviceref.flags & eServiceReference.mustDescent:
                 dvd = detectDVDStructure(serviceref.getPath())
                 if dvd is not None:
@@ -1010,7 +1015,7 @@ class MovieList(GUIComponent):
                 vdirs = []
                 for directory in config.movielist.videodirs.value:
                     if directory != root_path and not self.isInList(directory, dirs):
-                        #directory = os.path.realpath(directory) + os.sep
+                        # directory = os.path.realpath(directory) + os.sep
                         parts = directory.split("/")
                         if len(parts) > 2:
                             dirName = parts[-3] + "/" + parts[-2]
