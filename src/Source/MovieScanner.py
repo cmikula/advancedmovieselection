@@ -292,9 +292,10 @@ class MovieScanner():
         print videodirs
         print config.AdvancedMovieSelection.videodirs.value
         if len(videodirs) < len(config.AdvancedMovieSelection.videodirs.value):
-            print "scanning directories changed"
-            print videodirs
-            print config.AdvancedMovieSelection.videodirs.value
+            print "size changed"
+            return True
+        if len(videodirs) == len(config.AdvancedMovieSelection.videodirs.value) and videodirs != config.AdvancedMovieSelection.videodirs.value:
+            print "path changed"
             return True
         return False
 
