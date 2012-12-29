@@ -103,8 +103,6 @@ SHOW_ALL_MOVIES = _("Show all movies")
 
 class Current():
     selection = None
-    sort_type = MovieList.SORT_DATE_DESC
-    show_db = False
 
 def getDateString():
     t = localtime()
@@ -733,12 +731,10 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         if not config.AdvancedMovieSelection.startdir.value and not showLastDir:
             if path.exists(config.movielist.last_videodir.value):
                 config.movielist.last_videodir.value = defaultMoviePath()
-                config.movielist.last_videodir.save()
         if not path.exists(config.movielist.last_videodir.value):
             config.movielist.last_videodir.value = "/media/"
-            config.movielist.last_videodir.save()
 
-        if not Current.show_db:
+        if not config.AdvancedMovieSelection.db_show.value:
             self.current_ref = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + config.movielist.last_videodir.value)
         else:            
             self.current_ref = eServiceReferenceListAll(config.movielist.last_videodir.value)
@@ -802,7 +798,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         MovieSearch.__init__(self)
         self.__dbUpdate = eTimer()
         self.__dbUpdate.callback.append(self.databaseUpdateTimerEvent)
-
+    
     def createSummary(self):
         return AdvancedMovieSelection_summary
         
@@ -1153,7 +1149,10 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         config.movielist.showtime.save()
         config.movielist.showservice.save()
         config.movielist.showtags.save()
+        config.movielist.last_videodir.save()
         config.AdvancedMovieSelection.show_bookmarks.save()
+        config.AdvancedMovieSelection.db_show.save()
+        config.AdvancedMovieSelection.db_sort.save()        
 
     def showTrailer(self):
         if pluginPresent.YTTrailer == True:
@@ -1214,7 +1213,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
 
     def writeSortType(self, sort_type):
         if isinstance(self.current_ref, eServiceReferenceListAll):
-            Current.sort_type = sort_type
+            config.AdvancedMovieSelection.db_sort.value = sort_type
         else:
             movieScanner.database.setSortType(config.movielist.last_videodir.value, sort_type)
             di = DirectoryInfo(config.movielist.last_videodir.value)
@@ -1226,7 +1225,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             movieScanner.checkAllAvailable()
             if movieScanner.isWorking:
                 self.__dbUpdate.start(200, False)
-        sort_type = Current.sort_type
+        sort_type = config.AdvancedMovieSelection.db_sort.value
         if not isinstance(self.current_ref, eServiceReferenceListAll):
             di = DirectoryInfo(config.movielist.last_videodir.value)
             sort_type = di.sort_type
@@ -1286,7 +1285,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         if not fileExists(config.movielist.last_videodir.value):
             path = defaultMoviePath()
             config.movielist.last_videodir.value = path
-            config.movielist.last_videodir.save()
             self.current_ref = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + path)
             self["freeDiskSpace"].path = path
         if sel is None:
@@ -1319,14 +1317,13 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                             selection = eServiceReference("2:47:1:0:0:0:0:0:0:0:" + self["list"].root.getPath())
                 if isinstance(current, eServiceReferenceListAll):
                     self.current_ref = current
-                    Current.show_db = True
+                    config.AdvancedMovieSelection.db_show.value = True
                 else:
-                    Current.show_db = False
+                    config.AdvancedMovieSelection.db_show.value = False
                     if isinstance(self.current_ref, eServiceReferenceListAll):
                         selection = self.current_ref
                     self.current_ref = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + res)
                 config.movielist.last_videodir.value = res
-                config.movielist.last_videodir.save()
                 self["freeDiskSpace"].path = res
                 self.updateFolderSortType()
                 self.reloadList(sel=selection, home=True)

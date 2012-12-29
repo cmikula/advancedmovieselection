@@ -22,7 +22,7 @@
 
 from locale import _
 from Tools.Directories import resolveFilename, SCOPE_HDD
-from Components.config import config, ConfigSubsection, ConfigText, ConfigYesNo, ConfigInteger, ConfigSelection, ConfigClock, ConfigLocations
+from Components.config import config, ConfigSubsection, ConfigText, ConfigYesNo, ConfigInteger, ConfigSelection, ConfigClock, ConfigLocations, ConfigBoolean
 from Globals import printStackTrace
 
 config.AdvancedMovieSelection = ConfigSubsection()
@@ -164,6 +164,8 @@ config.AdvancedMovieSelection.show_move_copy_progress = ConfigYesNo(default=True
 config.AdvancedMovieSelection.videodirs = ConfigLocations()
 config.AdvancedMovieSelection.show_location_indexing = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.show_videodirslocation = ConfigYesNo(default=True)
+config.AdvancedMovieSelection.db_sort = ConfigInteger(default=1)
+config.AdvancedMovieSelection.db_show = ConfigBoolean()
 config.AdvancedMovieSelection.qButtons = ConfigText()
 
 class QuickButtons():
