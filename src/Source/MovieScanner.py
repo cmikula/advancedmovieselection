@@ -136,16 +136,16 @@ class MovieScanner():
         print "[AdvancedMovieSelection] Start scanning movies"
         try:
             self.updateReloadTime()
-            print dir_list
+            # print dir_list
             self.isWorking = True
             if dir_list is None:
                 self.database.clearAll()
                 dir_list = self.updateDirectories()
             
-            #print "-" * 80
-            #for p in dir_list:
+            # print "-" * 80
+            # for p in dir_list:
             #    print p
-            #print "-" * 80
+            # print "-" * 80
             
             for p in dir_list:
                 self.scanForMovies(p)
@@ -154,16 +154,16 @@ class MovieScanner():
             if self.callback is not None:
                 self.callback()
 
-            #from MovieDatabase import dict2xml
-            #xml = dict2xml(self.database)
-            #xml.write("/tmp/movie_list.xml")
+            # from MovieDatabase import dict2xml
+            # xml = dict2xml(self.database)
+            # xml.write("/tmp/movie_list.xml")
         except:
             printStackTrace()
         self.isWorking = False
         print "[AdvancedMovieSelection] Finished scanning movies"
 
     def scanForMovies(self, root):
-        #print "[AdvancedMovieSelection] scan folder:", root
+        # print "[AdvancedMovieSelection] scan folder:", root
 
         scan_service = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + root)
         root_list = self.serviceHandler.list(scan_service)
@@ -178,8 +178,8 @@ class MovieScanner():
             if not serviceref.valid():
                 break
             dvd = None
-            #print serviceref.getPath()
-            #dvd structure
+            # print serviceref.getPath()
+            # dvd structure
             if serviceref.flags & eServiceReference.mustDescent:
                 dvd = detectDVDStructure(serviceref.getPath())
                 if dvd is not None:
@@ -245,7 +245,7 @@ class MovieScanner():
             mi = MovieInfo(service_name, serviceref, info, begin)
             l.append(mi)
 
-        # update disk usage only if movies inside  
+        # we always must add location to database
         dir_size = getDirSize(root)
         self.database.addMovieList(root, l, dir_size)
         self.database.addTags(tags)
@@ -288,6 +288,9 @@ class MovieScanner():
     def needFullUpdate(self):
         videodirs = config.AdvancedMovieSelection.videodirs.value[:]
         config.AdvancedMovieSelection.videodirs.load()
+        print "checking directories"
+        print videodirs
+        print config.AdvancedMovieSelection.videodirs.value
         if len(videodirs) < len(config.AdvancedMovieSelection.videodirs.value):
             print "scanning directories changed"
             print videodirs
@@ -297,7 +300,7 @@ class MovieScanner():
 
     @clockit
     def checkAllAvailable(self):
-        #print "*" * 80
+        # print "*" * 80
         if self.isWorking:
             print "canceled, scan in progress"
             return
@@ -309,7 +312,7 @@ class MovieScanner():
             for p in not_in_db:
                 getDirectories(new_list, p)
             self.reloadMoviesAsync(new_list)
-            #for p in new_list:
+            # for p in new_list:
             #    self.scanForMovies(p)
             
             return
@@ -320,7 +323,7 @@ class MovieScanner():
                 self.updateReloadTime()
                 self.database.removeLocation(location)
 
-        #print "*" * 80
+        # print "*" * 80
 
     def updateServiceInfo(self, serviceref):
         if not serviceref:
