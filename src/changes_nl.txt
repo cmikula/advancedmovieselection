@@ -294,3 +294,4 @@ versie: 3.0
 * nieuw: bestandsgrootte wordt enkel voor bestanden in databank weergegeven
 * nieuw: tmdb and tvdb zoeken voor mappen
 * nieuw: info voor mappen
+OPGELET voor de skinners, PopupInputDialog en PopupInputHelpDialog toegevoegd

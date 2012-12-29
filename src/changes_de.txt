@@ -295,6 +295,7 @@ version: 3.0
 * neu: schnelle suche in der datenbank
 * neu: schnelle anzeige aller filme in der datenbank
 * neu: schnelle sortierung aller filme in der datenbank
-* neu: dateiordnergröße wird nur für verzeichnisse aus die datenbank angezeigt
+* neu: dateiordnergröße wird nur für verzeichnisse aus der datenbank angezeigt
 * neu: tmdb und tvdb suche für verzeichnisse
 * neu: info für verzeichnisse
+ACHTUNG an die skinner, PopupInputDialog und PopupInputHelpDialog sind neu dazugekommen
