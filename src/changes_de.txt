@@ -291,10 +291,10 @@ ACHTUNG an die skinner, SelectionListScreen(SD, XD, HD) sind neu dazugekommen
 version: 3.0
 * neu: funktionsauswahl für langes drücken der farbtasten
 * neu: neue suche direkt über die nummerntasten der fernbedienung oder tastatur
-* neu: indexerstellung für ausgewählte speicherorte
-* neu: schnelle suche über alle indizierten speicherorte
-* neu: schnelle anzeige aller indizierten dateien
-* neu: schnelle sortierung aller indizierten dateien
-* neu: dateiordnergröße wird nur für indizierte verzeichnisse angezeigt
+* neu: datenbankerstellung für ausgewählte speicherorte
+* neu: schnelle suche in der datenbank
+* neu: schnelle anzeige aller filme in der datenbank
+* neu: schnelle sortierung aller filme in der datenbank
+* neu: dateiordnergröße wird nur für verzeichnisse aus die datenbank angezeigt
 * neu: tmdb und tvdb suche für verzeichnisse
 * neu: info für verzeichnisse

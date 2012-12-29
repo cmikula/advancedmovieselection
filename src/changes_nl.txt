@@ -285,12 +285,12 @@ versie: 2.9
 OPGELET voor de skinners, SelectionListScreen(SD, XD, HD) toegevoegd
 
 versie: 3.0
-* nieuw: functiekeuz voor lang drukken van de kleurknoppen
+* nieuw: functiekeuze voor lang drukken van de kleurknoppen
 * nieuw: nieuwe zoekfunctie, direct met de nummerknoppen van de afstandsbediening of het toetsenbord
-* nieuw: indexering voor geselecteerde locaties
-* nieuw: snel zoeken in geïndexeerde locaties
-* nieuw: snel weergeven van alle geïndexeerde bestanden
-* nieuw: snel sorteren van alle geïndexeerde bestanden
-* nieuw: bestandsgrootte wordt enkel voor geïndexeerde bestanden weergegeven
+* nieuw: databank voor geselecteerde locaties
+* nieuw: snel zoeken in databank
+* nieuw: snel weergeven van alle bestanden in databank
+* nieuw: snel sorteren van alle bestanden in databank
+* nieuw: bestandsgrootte wordt enkel voor bestanden in databank weergegeven
 * nieuw: tmdb and tvdb zoeken voor mappen
 * nieuw: info voor mappen
