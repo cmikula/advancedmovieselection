@@ -313,7 +313,7 @@ class MovieDb:
         """Searches for a film by its title.
         Returns SearchResults (a list) containing all matches (Movie instances)
         """
-        title = title.replace("-", " ").replace("#", "%23")
+        title = title.replace("-", " ").replace("#", "%23").replace("/", "%2f")
         title = urllib.quote(title.encode("utf-8"))
         url = config['urls']['movie.search'] % (title)
         etree = XmlHandler(url).getEt()
