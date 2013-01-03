@@ -297,4 +297,5 @@ version: 3.0
 * new: file size only displayed for directories in database
 * new: tmdb and tvdb search for directories
 * new: info for directories
+* change: show bookmarkas without show folders
 Skinners ATTENTION, PopupInputDialog and PopupInputHelpDialog are new

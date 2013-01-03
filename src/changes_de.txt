@@ -298,4 +298,5 @@ version: 3.0
 * neu: dateiordnergröße wird nur für verzeichnisse aus der datenbank angezeigt
 * neu: tmdb und tvdb suche für verzeichnisse
 * neu: info für verzeichnisse
+* geändert: anzeige der bookmarkas ohne ordner
 ACHTUNG an die skinner, PopupInputDialog und PopupInputHelpDialog sind neu dazugekommen

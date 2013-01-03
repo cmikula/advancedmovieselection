@@ -377,82 +377,80 @@ class MovieList(GUIComponent):
             offset = 0
             res = [ None ]
             service_name, serviceref, info, begin, _len = movie_info.name, movie_info.serviceref, movie_info.info, movie_info.begin, movie_info.length
-            if self.show_folders:
-                if serviceref.flags & eServiceReference.mustDescent:
-                    can_show_folder_image = True
-                    if isinstance(serviceref, eServiceReferenceVDir):
-                        png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "bookmark.png"))
-                    elif isinstance(serviceref, eServiceReferenceListAll):
-                        if movieScanner.isWorking:
-                            png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "database_reload.png"))
-                        else:
-                            png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "database.png"))
-                        can_show_folder_image = False
-                    elif isinstance(serviceref, eServiceReferenceHotplug):
-                        png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "hotplug.png"))
-                    elif isinstance(serviceref, eServiceReferenceBackDir):
-                        png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "back.png"))
-                    elif isinstance(serviceref, eServiceReferenceMarker):
-                        png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "location.png"))
+            if serviceref.flags & eServiceReference.mustDescent:
+                can_show_folder_image = True
+                if isinstance(serviceref, eServiceReferenceVDir):
+                    png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "bookmark.png"))
+                elif isinstance(serviceref, eServiceReferenceListAll):
+                    if movieScanner.isWorking:
+                        png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "database_reload.png"))
                     else:
-                        png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "directory.png"))
-                    
-                    offset = 25
-                    if can_show_folder_image and self.list_type == MovieList.LISTTYPE_EXTENDED:
-                        if config.AdvancedMovieSelection.usefoldername.value:
-                            filename = serviceref.getPath()[:-1] + ".jpg"
-                        else:
-                            filename = serviceref.getPath() + "folder.jpg"
-                        if os.path.exists(filename):
-                            offset = 75
-                            png = self.picloader.load(filename)
-                            res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 2, 75, 76, png))
-                        else:
-                            res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 2, 20, 20, png))
-                        if not isinstance(serviceref, eServiceReferenceListAll):
-                            res.append(MultiContentEntryText(pos=(offset, 30), size=(width, 25), font=1, flags=RT_HALIGN_LEFT, text=serviceref.getPath()))
+                        png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "database.png"))
+                    can_show_folder_image = False
+                elif isinstance(serviceref, eServiceReferenceHotplug):
+                    png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "hotplug.png"))
+                elif isinstance(serviceref, eServiceReferenceBackDir):
+                    png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "back.png"))
+                elif isinstance(serviceref, eServiceReferenceMarker):
+                    png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "location.png"))
+                else:
+                    png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "directory.png"))
+                
+                offset = 25
+                if can_show_folder_image and self.list_type == MovieList.LISTTYPE_EXTENDED:
+                    if config.AdvancedMovieSelection.usefoldername.value:
+                        filename = serviceref.getPath()[:-1] + ".jpg"
+                    else:
+                        filename = serviceref.getPath() + "folder.jpg"
+                    if os.path.exists(filename):
+                        offset = 75
+                        png = self.picloader.load(filename)
+                        res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 2, 75, 76, png))
                     else:
                         res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 2, 20, 20, png))
-    
-                    res.append(MultiContentEntryText(pos=(offset, 3), size=(width - 150, 30), font=0, flags=RT_HALIGN_LEFT, text=serviceref.getName()))
-                    if config.AdvancedMovieSelection.show_dirsize.value:
-                        dir_size = -1
-                        if isinstance(serviceref, eServiceReferenceHotplug):
-                            dir_size = diskUsage(serviceref.getPath())[1]
-                        elif not movieScanner.isWorking: 
-                            if isinstance(serviceref, eServiceReferenceListAll):
-                                dir_size = movieScanner.database.getSize()
-                            else:
-                                dir_size = movieScanner.database.getSize(serviceref.getPath())
-                        if dir_size >= 0:
-                            dir_size = realSize(dir_size, int(config.AdvancedMovieSelection.dirsize_digits.value))
-                            res.append(MultiContentEntryText(pos=(width - 115, 4), size=(110, 30), font=1, flags=RT_HALIGN_RIGHT, text=dir_size))
-                    
-                    if os.path.islink(serviceref.getPath()[:-1]) and can_show_folder_image:
-                        link_png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "link.png"))
-                        res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 10, 15, 9, 10, link_png))
-    
-                    return res
+                    if not isinstance(serviceref, eServiceReferenceListAll):
+                        res.append(MultiContentEntryText(pos=(offset, 30), size=(width, 25), font=1, flags=RT_HALIGN_LEFT, text=serviceref.getPath()))
+                else:
+                    res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 2, 20, 20, png))
+
+                res.append(MultiContentEntryText(pos=(offset, 3), size=(width - 150, 30), font=0, flags=RT_HALIGN_LEFT, text=serviceref.getName()))
+                if config.AdvancedMovieSelection.show_dirsize.value:
+                    dir_size = -1
+                    if isinstance(serviceref, eServiceReferenceHotplug):
+                        dir_size = diskUsage(serviceref.getPath())[1]
+                    elif not movieScanner.isWorking: 
+                        if isinstance(serviceref, eServiceReferenceListAll):
+                            dir_size = movieScanner.database.getSize()
+                        else:
+                            dir_size = movieScanner.database.getSize(serviceref.getPath())
+                    if dir_size >= 0:
+                        dir_size = realSize(dir_size, int(config.AdvancedMovieSelection.dirsize_digits.value))
+                        res.append(MultiContentEntryText(pos=(width - 115, 4), size=(110, 30), font=1, flags=RT_HALIGN_RIGHT, text=dir_size))
                 
-                if self.list_type != MovieList.LISTTYPE_EXTENDED:
-                    extension = serviceref.toString().split('.')
-                    extension = extension[-1].lower()
-                    offset = 25
-                    if MEDIAEXTENSIONS.has_key(extension):
-                        media_ext = MEDIAEXTENSIONS[extension]
-                        if media_ext == "audio":
-                            png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + media_ext + ".png"))
-                        else:
-                            filename = os.path.realpath(serviceref.getPath())
-                            if config.AdvancedMovieSelection.shownew.value and not hasLastPosition(serviceref):
-                                png = self.MOVIE_NEW_PNG
-                            else:
-                                png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + media_ext + ".png"))
+                if os.path.islink(serviceref.getPath()[:-1]) and can_show_folder_image:
+                    link_png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "link.png"))
+                    res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 10, 15, 9, 10, link_png))
+
+                return res
+                
+            png = None
+            if self.list_type != MovieList.LISTTYPE_EXTENDED:
+                extension = serviceref.toString().split('.')
+                extension = extension[-1].lower()
+                offset = 25
+                if MEDIAEXTENSIONS.has_key(extension):
+                    media_ext = MEDIAEXTENSIONS[extension]
+                    if media_ext == "audio":
+                        png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + media_ext + ".png"))
                     else:
-                        if isinstance(serviceref, eServiceReferenceDvd) or isinstance(serviceref, eServiceReferenceBludisc):
-                            png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "dvd_watching.png"))
+                        filename = os.path.realpath(serviceref.getPath())
+                        if config.AdvancedMovieSelection.shownew.value and not hasLastPosition(serviceref):
+                            png = self.MOVIE_NEW_PNG
                         else:
-                            png = None
+                            png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + media_ext + ".png"))
+                else:
+                    if isinstance(serviceref, eServiceReferenceDvd) or isinstance(serviceref, eServiceReferenceBludisc):
+                        png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "dvd_watching.png"))
     
             if info is not None:
                 if _len < 0:  # recalc _len when not already done
@@ -545,7 +543,7 @@ class MovieList(GUIComponent):
                             color = self.watching_color
                         elif (perc > config.AdvancedMovieSelection.moviepercentseen.value):
                             color = self.finished_color
-                    if self.show_statusicon and self.show_folders and not recording:
+                    if self.show_statusicon and not recording:
                         if perc > 1 and perc <= config.AdvancedMovieSelection.moviepercentseen.value:
                             png = self.COLOR_PERCENT_1
                         elif perc > config.AdvancedMovieSelection.moviepercentseen.value:
@@ -643,7 +641,7 @@ class MovieList(GUIComponent):
                 res.append(MultiContentEntryText(pos=(width - 105, 55), size=(100, 20), font=1, flags=RT_HALIGN_RIGHT, text=_len, color=color))
     
             elif self.list_type == MovieList.LISTTYPE_ORIGINAL:
-                if self.show_folders:
+                if png is not None: # self.show_folders:
                     res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 29, 20, 20, png))
                 res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 265, 30), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
                 if tags and self.show_tags == MovieList.SHOW_TAGS:
@@ -660,7 +658,7 @@ class MovieList(GUIComponent):
                     res.append(MultiContentEntryText(pos=(width - 205, 55), size=(200, 20), font=1, flags=RT_HALIGN_RIGHT, text=_len, color=color))
     
             elif self.list_type == MovieList.LISTTYPE_COMPACT_DESCRIPTION:
-                if self.show_folders:
+                if png is not None: # self.show_folders:
                     res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 9, 20, 20, png))
                 res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width, 23), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))                
                 res.append(MultiContentEntryText(pos=(0 + offset, 22), size=(width - 212, 17), font=1, flags=RT_HALIGN_LEFT, text=description, color=color))
@@ -673,7 +671,7 @@ class MovieList(GUIComponent):
                     res.append(MultiContentEntryText(pos=(width - 155, 22), size=(150, 17), font=1, flags=RT_HALIGN_RIGHT, text=service.getServiceName(), color=color))
     
             elif self.list_type == MovieList.LISTTYPE_COMPACT:
-                if self.show_folders:
+                if png is not None: # self.show_folders:
                     res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 9, 20, 20, png))            
                 res.append(MultiContentEntryText(pos=(offset, 0), size=(width, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))            
                 if self.show_date == MovieList.SHOW_DATE:
@@ -706,7 +704,7 @@ class MovieList(GUIComponent):
                 if _len and self.show_time == MovieList.SHOW_TIME:
                     displaytext = displaytext + ' ' + "(" + _len + ")"
                 
-                if self.show_folders:
+                if png is not None: # self.show_folders:
                     res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 3, 20, 20, png))
                 offsetServiceName = 0
                 if self.show_service == MovieList.SHOW_SERVICE:
@@ -723,7 +721,7 @@ class MovieList(GUIComponent):
                 res.append(MultiContentEntryText(pos=(0 + offset, 2), size=(width - (0 + offset + offsetServiceName), 25), font=0, flags=RT_HALIGN_LEFT, text=displaytext, color=color))
             else:
                 assert(self.list_type == MovieList.LISTTYPE_MINIMAL)
-                if self.show_folders:
+                if png is not None: # self.show_folders:
                     res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 3, 20, 20, png))
                 
                 if _len > 0:
@@ -1010,28 +1008,31 @@ class MovieList(GUIComponent):
 #            # sort: key is 'begin'
 #            self.list.sort(key=lambda x: -x[2])
 
+        root_path = root.getPath()
+
+        if config.AdvancedMovieSelection.show_bookmarks.value:
+            vdirs = []
+            for directory in config.movielist.videodirs.value:
+                if directory != root_path and not self.isInList(directory, dirs):
+                    # directory = os.path.realpath(directory) + os.sep
+                    parts = directory.split("/")
+                    if len(parts) > 2:
+                        dirName = parts[-3] + "/" + parts[-2]
+                    else: 
+                        dirName = parts[-2]
+                    if not autoNetwork.isMountOnline(directory) or not os.path.exists(directory):
+                        continue
+                    tt = eServiceReferenceVDir(directory)
+                    tt.setName(self.movieConfig.getRenamedName(dirName))
+                    info = self.serviceHandler.info(tt)
+                    mi = MovieInfo(tt.getName(), tt, info)
+                    vdirs.append((mi,))
+            vdirs.sort(self.sortFolders)
+            for servicedirs in vdirs:
+                self.list.insert(0, servicedirs)
+        
         if self.show_folders:
             root_path = root.getPath()
-            if config.AdvancedMovieSelection.show_bookmarks.value:
-                vdirs = []
-                for directory in config.movielist.videodirs.value:
-                    if directory != root_path and not self.isInList(directory, dirs):
-                        # directory = os.path.realpath(directory) + os.sep
-                        parts = directory.split("/")
-                        if len(parts) > 2:
-                            dirName = parts[-3] + "/" + parts[-2]
-                        else: 
-                            dirName = parts[-2]
-                        if not autoNetwork.isMountOnline(directory) or not os.path.exists(directory):
-                            continue
-                        tt = eServiceReferenceVDir(directory)
-                        tt.setName(self.movieConfig.getRenamedName(dirName))
-                        info = self.serviceHandler.info(tt)
-                        mi = MovieInfo(tt.getName(), tt, info)
-                        vdirs.append((mi,))
-                vdirs.sort(self.sortFolders)
-                for servicedirs in vdirs:
-                    self.list.insert(0, servicedirs)
 
             for tt in self.automounts:
                 if tt.getPath() != root_path:
