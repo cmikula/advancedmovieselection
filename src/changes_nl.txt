@@ -294,5 +294,5 @@ versie: 3.0
 * nieuw: bestandsgrootte wordt enkel voor bestanden in databank weergegeven
 * nieuw: tmdb and tvdb zoeken voor mappen
 * nieuw: info voor mappen
-* aanpassing: zie bookmarkas zonder directories
+* aanpassing: bookmarks weergeven zonder mappen weergeven
 OPGELET voor de skinners, PopupInputDialog en PopupInputHelpDialog toegevoegd
