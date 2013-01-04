@@ -39,33 +39,38 @@ def getPluginCaption(pname):
     if pname and pname != "Nothing":
         if pname == "Home":
             return _(config.AdvancedMovieSelection.hometext.value)
-        elif pname == "Bookmark 1":
+        if pname == "Bookmark 1":
             return _(config.AdvancedMovieSelection.bookmark1text.value)
-        elif pname == "Bookmark 2":
+        if pname == "Bookmark 2":
             return _(config.AdvancedMovieSelection.bookmark2text.value)
-        elif pname == "Bookmark 3":
+        if pname == "Bookmark 3":
             return _(config.AdvancedMovieSelection.bookmark3text.value)
-        elif pname == "Show/Hide folders":
-            if not config.AdvancedMovieSelection.showfoldersinmovielist.value:
-                return _("Show folders")
-            else:
-                return _("Hide folders")
         if pname == "Show up to VSR-X":
             return (_("Show up to VSR-%d") % accessRestriction.getAccess())
         if pname == "Toggle seen":
             return _("Mark as seen")
-        elif pname == "Bookmark(s) on/off":
+        if pname == "Show/Hide folders":
+            if not config.AdvancedMovieSelection.showfoldersinmovielist.value:
+                return _("Show folders")
+            else:
+                return _("Hide folders")
+        if pname == "Bookmark(s) on/off":
             if not config.AdvancedMovieSelection.show_bookmarks.value:
                 return _("Show bookmarks")
             else:
                 return _("Hide bookmarks")
-        else:
-            for p in plugins.getPlugins(where=[PluginDescriptor.WHERE_MOVIELIST]):
-                if pname == str(p.name):
-                    if config.AdvancedMovieSelection.buttoncaption.value == config.AdvancedMovieSelection.buttoncaption.default:
-                        return p.name
-                    else:
-                        return p.description
+        if pname == "DB marker on/off":
+            if not config.AdvancedMovieSelection.show_videodirslocation.value:
+                return _("Show marker")
+            else:
+                return _("Hide marker")
+
+        for p in plugins.getPlugins(where=[PluginDescriptor.WHERE_MOVIELIST]):
+            if pname == str(p.name):
+                if config.AdvancedMovieSelection.buttoncaption.value == config.AdvancedMovieSelection.buttoncaption.default:
+                    return p.name
+                else:
+                    return p.description
         return _(pname)
     return _("Nothing")
 
@@ -234,20 +239,20 @@ class QuickButton:
             elif pname == "Bookmark 3":
                 self.gotFilename(config.AdvancedMovieSelection.bookmark3path.value)
             elif pname == "Bookmark(s) on/off":
-                if config.AdvancedMovieSelection.show_bookmarks.value:
-                    newCaption = _("Show bookmarks")
-                else:
-                    newCaption = _("Hide bookmarks")
                 config.AdvancedMovieSelection.show_bookmarks.value = not config.AdvancedMovieSelection.show_bookmarks.value
                 self.saveconfig()
                 self.reloadList()
+                newCaption = getPluginCaption(pname)
+                self.setButtonText(key_number, newCaption)
+            elif pname == "DB marker on/off":
+                config.AdvancedMovieSelection.show_videodirslocation.value = not config.AdvancedMovieSelection.show_videodirslocation.value
+                self.saveconfig()
+                self.reloadList()
+                newCaption = getPluginCaption(pname)
                 self.setButtonText(key_number, newCaption)
             elif pname == "Show/Hide folders":
-                if config.AdvancedMovieSelection.showfoldersinmovielist.value:
-                    newCaption = _("Show folders")
-                else:
-                    newCaption = _("Hide folders")
                 config.AdvancedMovieSelection.showfoldersinmovielist.value = not config.AdvancedMovieSelection.showfoldersinmovielist.value
+                newCaption = getPluginCaption(pname)
                 self.showFolders(config.AdvancedMovieSelection.showfoldersinmovielist.value)
                 config.AdvancedMovieSelection.showfoldersinmovielist.save()
                 self.reloadList()
