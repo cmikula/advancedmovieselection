@@ -22,6 +22,7 @@ For example, if you distribute copies of such a program, whether gratis or for a
 must pass on to the recipients the same freedoms that you received. You must make sure 
 that they, too, receive or can get the source code. And you must show them these terms so they know their rights.
 '''
+from Globals import printStackTrace
 
 class RecordTimerEvent():
     def __init__(self):
@@ -40,10 +41,13 @@ class RecordTimerEvent():
 
     def timerStateChanged(self, timer):
         try:
+            if not hasattr(timer, 'Filename'):
+                print "[AdvancedMovieSelection] cancel timer state changed, no Filename in timer event"
+                return
             for callback in self.on_state_changed:
                 callback(timer)
-        except Exception, e:
-            print e
+        except:
+            printStackTrace()
 
 recordTimerEvent = RecordTimerEvent()
 
