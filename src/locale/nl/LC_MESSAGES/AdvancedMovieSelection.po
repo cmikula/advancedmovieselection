@@ -2,10 +2,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-04 10:02+0100\n"
-"PO-Revision-Date: 2013-01-04 10:56+0100\n"
-"Last-Translator: bschaar\n"
+"POT-Creation-Date: 2013-01-04 13:10+0100\n"
+"PO-Revision-Date: 2013-01-04 14:15+0100\n"
+"Last-Translator: cmikula\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -63,12 +64,12 @@ msgid "Info/Cover save"
 msgstr "Info/Cover bewaren"
 
 #: ../SearchTVDb.py:166
-#: ../AdvancedMovieSelectionSetup.py:658
+#: ../AdvancedMovieSelectionSetup.py:659
 msgid "Trailer search"
 msgstr "Zoeken Trailer"
 
 #: ../SearchTVDb.py:258
-#: ../AdvancedMovieSelectionSetup.py:650
+#: ../AdvancedMovieSelectionSetup.py:651
 #: ../MovieSelection.py:185
 msgid "TheTVDB Info & D/L"
 msgstr "Zoeken & D/L via TheTVDB"
@@ -838,8 +839,8 @@ msgstr "Tot VZR-%d weergeven"
 
 #: ../QuickButton.py:51
 #: ../QuickButton.py:219
-#: ../QuickButton.py:329
-#: ../AdvancedMovieSelectionSetup.py:652
+#: ../QuickButton.py:331
+#: ../AdvancedMovieSelectionSetup.py:653
 msgid "Mark as seen"
 msgstr "Film als gezien markeren"
 
@@ -869,7 +870,7 @@ msgstr "Marker verbergen"
 
 #: ../QuickButton.py:75
 #: ../AdvancedMovieSelectionSetup.py:634
-#: ../AdvancedMovieSelectionSetup.py:660
+#: ../AdvancedMovieSelectionSetup.py:661
 msgid "Nothing"
 msgstr "niets toegewezen"
 
@@ -895,89 +896,89 @@ msgid "Unknown"
 msgstr "Ongekend"
 
 #: ../QuickButton.py:217
-#: ../QuickButton.py:332
-#: ../AdvancedMovieSelectionSetup.py:653
+#: ../QuickButton.py:334
+#: ../AdvancedMovieSelectionSetup.py:654
 msgid "Mark as unseen"
 msgstr "Film als ongezien markeren"
 
-#: ../QuickButton.py:283
+#: ../QuickButton.py:285
 msgid "Set tag here not possible, please select a movie for!"
 msgstr "Label toevoegen niet mogelijk, gelieve een film te selecteren!"
 
-#: ../QuickButton.py:289
+#: ../QuickButton.py:291
 msgid "Trailer search here not possible, please select a movie!"
 msgstr "Trailer zoeken niet mogelijk, gelieve een film te selecteren!"
 
-#: ../QuickButton.py:295
+#: ../QuickButton.py:297
 msgid "Move/Copy from complete directory/symlink not possible, please select a single movie!"
 msgstr "Verplaatsen/kopiëren van een volledige map/symlink niet mogelijk, gelieve enkel 1 film te selecteren!"
 
-#: ../QuickButton.py:301
+#: ../QuickButton.py:303
 msgid "Rename here not possible, please select a movie!"
 msgstr "Naam wijzigen niet mogelijk, gelieve een film te selecteren!"
 
-#: ../QuickButton.py:323
+#: ../QuickButton.py:325
 msgid "TMDb search here not possible, please select a movie!"
 msgstr "TMDb niet mogelijk, gelieve een film te selecteren!"
 
-#: ../QuickButton.py:345
+#: ../QuickButton.py:347
 msgid "Show up to"
 msgstr "Weergeven tot"
 
-#: ../QuickButton.py:345
+#: ../QuickButton.py:347
 #: ../MovieSelection.py:1173
 msgid "VSR"
 msgstr "VZR"
 
-#: ../QuickButton.py:351
+#: ../QuickButton.py:353
 msgid "This may not be marked as seen!"
 msgstr "Dit kan niet als gezien gemarkeerd worden!"
 
-#: ../QuickButton.py:357
+#: ../QuickButton.py:359
 msgid "This may not be marked as unseen!"
 msgstr "Dit kan niet als ongezien gemarkeerd worden!"
 
-#: ../QuickButton.py:367
+#: ../QuickButton.py:369
 msgid "Unknown error!"
 msgstr "Ongekende fout!"
 
-#: ../QuickButton.py:369
+#: ../QuickButton.py:371
 msgid "Plugin not found!"
 msgstr "Plugin niet gevonden!"
 
-#: ../QuickButton.py:371
+#: ../QuickButton.py:373
 msgid "No plugin assigned!"
 msgstr "Geen Plugin toegewezen!"
 
-#: ../QuickButton.py:377
+#: ../QuickButton.py:379
 msgid "Clear"
 msgstr "Wissen"
 
-#: ../QuickButton.py:378
+#: ../QuickButton.py:380
 msgid "VSR-0 (General Audience)"
 msgstr "VZR-0 (Voor iedereen geschikt)"
 
-#: ../QuickButton.py:379
+#: ../QuickButton.py:381
 msgid "VSR-6 (Parental Guidance Suggested)"
 msgstr "VZR-6 (Toezicht aangeraden)"
 
-#: ../QuickButton.py:380
+#: ../QuickButton.py:382
 msgid "VSR-12 (Parents Strongly Cautioned)"
 msgstr "VZR-12 (Toezicht aangewezen)"
 
-#: ../QuickButton.py:381
+#: ../QuickButton.py:383
 msgid "VSR-16 (Restricted)"
 msgstr "VZR-16 (Niet onder 16 jaar)"
 
-#: ../QuickButton.py:382
+#: ../QuickButton.py:384
 msgid "VSR-18 (No One 17 And Under Admitted)"
 msgstr "VZR-18 (Niet onder 18 jaar)"
 
-#: ../QuickButton.py:383
+#: ../QuickButton.py:385
 msgid "Please select the VSR here:"
 msgstr "Gelieve de VZR te selecteren:"
 
-#: ../QuickButton.py:427
+#: ../QuickButton.py:429
 msgid "Select movie by description:"
 msgstr "Selecteer film volgens beschrijving:"
 
@@ -1771,7 +1772,7 @@ msgid "YTTrailer plugin NOT installed. Search for trailers on the Web is NOT pos
 msgstr "YTTrailer Plugin is NIET geïnstalleerd. Zoeken naar trailers op het web is NIET mogelijk."
 
 #: ../AdvancedMovieSelectionSetup.py:517
-#: ../AdvancedMovieSelectionSetup.py:1047
+#: ../AdvancedMovieSelectionSetup.py:1048
 msgid "Really close without saving settings?"
 msgstr "Sluiten zonder de instellingen te bewaren?"
 
@@ -1805,7 +1806,7 @@ msgid "Aborted by user!!"
 msgstr "Annulatie door gebruiker!!"
 
 #: ../AdvancedMovieSelectionSetup.py:604
-#: ../AdvancedMovieSelectionSetup.py:930
+#: ../AdvancedMovieSelectionSetup.py:931
 #: ../TagEditor.py:45
 #: ../SelectionListScreen.py:42
 #: ../SelectionListScreen.py:60
@@ -1856,237 +1857,241 @@ msgid "Database marker on/off"
 msgstr "Databank marker aan/uit"
 
 #: ../AdvancedMovieSelectionSetup.py:643
+msgid "Update database"
+msgstr "DB actualiseren"
+
+#: ../AdvancedMovieSelectionSetup.py:644
 msgid "Home"
 msgstr "Home"
 
-#: ../AdvancedMovieSelectionSetup.py:644
+#: ../AdvancedMovieSelectionSetup.py:645
 msgid "Bookmark 1"
 msgstr "Favoriet 1"
 
-#: ../AdvancedMovieSelectionSetup.py:645
+#: ../AdvancedMovieSelectionSetup.py:646
 msgid "Bookmark 2"
 msgstr "Favoriet 2"
 
-#: ../AdvancedMovieSelectionSetup.py:646
+#: ../AdvancedMovieSelectionSetup.py:647
 msgid "Bookmark 3"
 msgstr "Favoriet 3"
 
-#: ../AdvancedMovieSelectionSetup.py:647
+#: ../AdvancedMovieSelectionSetup.py:648
 #: ../MovieSelection.py:282
 msgid "Filter by Tags"
 msgstr "Filteren volgens label"
 
-#: ../AdvancedMovieSelectionSetup.py:648
+#: ../AdvancedMovieSelectionSetup.py:649
 msgid "Tag Editor"
 msgstr "Labeleditor"
 
-#: ../AdvancedMovieSelectionSetup.py:649
+#: ../AdvancedMovieSelectionSetup.py:650
 #: ../MovieSelection.py:183
 msgid "TMDb Info & D/L"
 msgstr "Zoeken & D/L via TMDb"
 
-#: ../AdvancedMovieSelectionSetup.py:651
+#: ../AdvancedMovieSelectionSetup.py:652
 msgid "Toggle seen"
 msgstr "Gezien/Ongezien"
 
-#: ../AdvancedMovieSelectionSetup.py:654
+#: ../AdvancedMovieSelectionSetup.py:655
 msgid "Show Timer"
 msgstr "Timerlijst"
 
-#: ../AdvancedMovieSelectionSetup.py:655
+#: ../AdvancedMovieSelectionSetup.py:656
 msgid "Show up to VSR-X"
 msgstr "Tot VZR-X weergeven"
 
-#: ../AdvancedMovieSelectionSetup.py:656
+#: ../AdvancedMovieSelectionSetup.py:657
 #: ../MovieSelection.py:177
 msgid "Filter by description"
 msgstr "Filter volgens beschrijving"
 
-#: ../AdvancedMovieSelectionSetup.py:661
+#: ../AdvancedMovieSelectionSetup.py:662
 msgid "DM-600PVR"
 msgstr "DM-600PVR"
 
-#: ../AdvancedMovieSelectionSetup.py:662
+#: ../AdvancedMovieSelectionSetup.py:663
 msgid "DM-7000"
 msgstr "DM-7000"
 
-#: ../AdvancedMovieSelectionSetup.py:663
+#: ../AdvancedMovieSelectionSetup.py:664
 msgid "DM-7025"
 msgstr "DM-7025"
 
-#: ../AdvancedMovieSelectionSetup.py:664
+#: ../AdvancedMovieSelectionSetup.py:665
 msgid "DM-8000HD"
 msgstr "DM-8000HD"
 
-#: ../AdvancedMovieSelectionSetup.py:665
+#: ../AdvancedMovieSelectionSetup.py:666
 msgid "DM-500HD"
 msgstr "DM-500HD"
 
-#: ../AdvancedMovieSelectionSetup.py:666
+#: ../AdvancedMovieSelectionSetup.py:667
 msgid "DM-800HD"
 msgstr "DM-800HD"
 
-#: ../AdvancedMovieSelectionSetup.py:667
+#: ../AdvancedMovieSelectionSetup.py:668
 msgid "DM-800HDse"
 msgstr "DM-800HDse"
 
-#: ../AdvancedMovieSelectionSetup.py:668
+#: ../AdvancedMovieSelectionSetup.py:669
 msgid "DM-7020HD"
 msgstr "DM-7020HD"
 
-#: ../AdvancedMovieSelectionSetup.py:669
+#: ../AdvancedMovieSelectionSetup.py:670
 msgid "internal HDD"
 msgstr "interne HDD"
 
-#: ../AdvancedMovieSelectionSetup.py:670
+#: ../AdvancedMovieSelectionSetup.py:671
 msgid "NAS"
 msgstr "NAS"
 
-#: ../AdvancedMovieSelectionSetup.py:671
+#: ../AdvancedMovieSelectionSetup.py:672
 msgid "NAS-Movies"
 msgstr "NAS-Films"
 
-#: ../AdvancedMovieSelectionSetup.py:673
+#: ../AdvancedMovieSelectionSetup.py:674
 msgid "Display plugin name"
 msgstr "Plugin-naam"
 
-#: ../AdvancedMovieSelectionSetup.py:674
+#: ../AdvancedMovieSelectionSetup.py:675
 msgid "Display plugin description"
 msgstr "Plugin-beschrijving"
 
-#: ../AdvancedMovieSelectionSetup.py:749
+#: ../AdvancedMovieSelectionSetup.py:750
 msgid "(long)"
 msgstr "(lang)"
 
-#: ../AdvancedMovieSelectionSetup.py:752
+#: ../AdvancedMovieSelectionSetup.py:753
 msgid "Quickbutton:"
 msgstr "Quick-knop:"
 
-#: ../AdvancedMovieSelectionSetup.py:755
+#: ../AdvancedMovieSelectionSetup.py:756
 msgid "Button caption"
 msgstr "Knopbenaming:"
 
-#: ../AdvancedMovieSelectionSetup.py:757
+#: ../AdvancedMovieSelectionSetup.py:758
 msgid "Home button text"
 msgstr "Naam HOME-knop:"
 
-#: ../AdvancedMovieSelectionSetup.py:759
+#: ../AdvancedMovieSelectionSetup.py:760
 msgid "Bookmark 1 button text"
 msgstr "Naam Favoriet1-knop"
 
-#: ../AdvancedMovieSelectionSetup.py:761
+#: ../AdvancedMovieSelectionSetup.py:762
 msgid "Bookmark 2 button text"
 msgstr "Naam Favoriet2-knop"
 
-#: ../AdvancedMovieSelectionSetup.py:763
+#: ../AdvancedMovieSelectionSetup.py:764
 msgid "Bookmark 3 button text"
 msgstr "Naam Favoriet3-knop"
 
-#: ../AdvancedMovieSelectionSetup.py:765
+#: ../AdvancedMovieSelectionSetup.py:766
 msgid "Home path"
 msgstr "HOME-pad"
 
-#: ../AdvancedMovieSelectionSetup.py:767
+#: ../AdvancedMovieSelectionSetup.py:768
 msgid "Bookmark 1 path"
 msgstr "Favoriet1-pad:"
 
-#: ../AdvancedMovieSelectionSetup.py:769
+#: ../AdvancedMovieSelectionSetup.py:770
 msgid "Bookmark 2 path"
 msgstr "Favoriet2-pad:"
 
-#: ../AdvancedMovieSelectionSetup.py:771
+#: ../AdvancedMovieSelectionSetup.py:772
 msgid "Bookmark 3 path"
 msgstr "Favoriet3-pad:"
 
-#: ../AdvancedMovieSelectionSetup.py:804
+#: ../AdvancedMovieSelectionSetup.py:805
 #: ../MovieSelection.py:201
 msgid "Alphabetic sort"
 msgstr "Alfabetisch sorteren"
 
-#: ../AdvancedMovieSelectionSetup.py:805
+#: ../AdvancedMovieSelectionSetup.py:806
 #: ../MovieSelection.py:207
 msgid "Sort by date (ascending)"
 msgstr "Sorteren volgens datum (oplopend)"
 
-#: ../AdvancedMovieSelectionSetup.py:806
+#: ../AdvancedMovieSelectionSetup.py:807
 #: ../MovieSelection.py:205
 msgid "Sort by date (descending)"
 msgstr "Sorteren volgens datum (aflopend)"
 
-#: ../AdvancedMovieSelectionSetup.py:807
+#: ../AdvancedMovieSelectionSetup.py:808
 #: ../MovieSelection.py:203
 msgid "Sort by description"
 msgstr "Sorteren volgens beschrijving"
 
-#: ../AdvancedMovieSelectionSetup.py:814
+#: ../AdvancedMovieSelectionSetup.py:815
 msgid "Select sort functions"
 msgstr "Selecteer sorteerfuncties"
 
-#: ../AdvancedMovieSelectionSetup.py:817
+#: ../AdvancedMovieSelectionSetup.py:818
 msgid "Movie Quick Button Home path"
 msgstr "Keuze van het HOME-pad"
 
-#: ../AdvancedMovieSelectionSetup.py:820
+#: ../AdvancedMovieSelectionSetup.py:821
 msgid "Movie Quick Button Bookmark 1 path"
 msgstr "Keuze van het Favoriet1-pad:"
 
-#: ../AdvancedMovieSelectionSetup.py:823
+#: ../AdvancedMovieSelectionSetup.py:824
 msgid "Movie Quick Button Bookmark 2 path"
 msgstr "Keuze van het Favoriet2-pad:"
 
-#: ../AdvancedMovieSelectionSetup.py:826
+#: ../AdvancedMovieSelectionSetup.py:827
 msgid "Movie Quick Button Bookmark 3 path"
 msgstr "Keuze van het Favoriet3-pad:"
 
-#: ../AdvancedMovieSelectionSetup.py:939
+#: ../AdvancedMovieSelectionSetup.py:940
 msgid "Movie Quick Button Name Setup"
 msgstr "Benaming kleurknoppen"
 
-#: ../AdvancedMovieSelectionSetup.py:951
+#: ../AdvancedMovieSelectionSetup.py:952
 msgid "Enter Home button descrition:"
 msgstr "Benaming HOME-knop:"
 
-#: ../AdvancedMovieSelectionSetup.py:953
+#: ../AdvancedMovieSelectionSetup.py:954
 msgid "Enter Bookmark 1 button descrition:"
 msgstr "Benaming Favoriet1-knop:"
 
-#: ../AdvancedMovieSelectionSetup.py:955
+#: ../AdvancedMovieSelectionSetup.py:956
 msgid "Enter Bookmark 2 button descrition:"
 msgstr "Benaming Favoriet2-knop:"
 
-#: ../AdvancedMovieSelectionSetup.py:957
+#: ../AdvancedMovieSelectionSetup.py:958
 msgid "Enter Bookmark 3 button descrition:"
 msgstr "Benaming Favoriet3-knop:"
 
-#: ../AdvancedMovieSelectionSetup.py:981
+#: ../AdvancedMovieSelectionSetup.py:982
 msgid "Home button description:"
 msgstr "Beschrijving HOME-knop:"
 
-#: ../AdvancedMovieSelectionSetup.py:982
+#: ../AdvancedMovieSelectionSetup.py:983
 msgid "Bookmark 1 button description:"
 msgstr "Beschrijving Favoriet1-knop:"
 
-#: ../AdvancedMovieSelectionSetup.py:983
+#: ../AdvancedMovieSelectionSetup.py:984
 msgid "Bookmark 2 button description:"
 msgstr "Beschrijving Favoriet3-knop:"
 
-#: ../AdvancedMovieSelectionSetup.py:984
+#: ../AdvancedMovieSelectionSetup.py:985
 msgid "Bookmark 3 button description:"
 msgstr "Beschrijving Favoriet3-knop:"
 
-#: ../AdvancedMovieSelectionSetup.py:997
+#: ../AdvancedMovieSelectionSetup.py:998
 msgid "Here you can give the home button a special name."
 msgstr "Hier kan de naam van de HOME-knop ingesteld worden."
 
-#: ../AdvancedMovieSelectionSetup.py:1001
+#: ../AdvancedMovieSelectionSetup.py:1002
 msgid "Here you can give the bookmark 1 button a special name."
 msgstr "Hier kan de naam van de 1. bookmark-knop ingesteld worden."
 
-#: ../AdvancedMovieSelectionSetup.py:1005
+#: ../AdvancedMovieSelectionSetup.py:1006
 msgid "Here you can give the bookmark 2 button a special name."
 msgstr "Hier kan de naam van de 2. bookmark-knop ingesteld worden."
 
-#: ../AdvancedMovieSelectionSetup.py:1009
+#: ../AdvancedMovieSelectionSetup.py:1010
 msgid "Here you can give the bookmark 3 button a special name."
 msgstr "Hier kan de naam van de 3. bookmark-knop ingesteld worden."
 
