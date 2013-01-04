@@ -22,6 +22,7 @@
 import os
 from ServiceProvider import ServiceCenter, eServiceReferenceMarker
 from ServiceDescriptor import MovieInfo
+from ServiceUtils import getDirSize
 from enigma import iServiceInformation
 from AccessRestriction import accessRestriction
 from Globals import printStackTrace
@@ -112,6 +113,8 @@ class MovieDatabase(dict, SortProvider):
         
     def addMovie(self, location, movie):
         self["db"][location]["movies"].append(movie)
+        size = movie.info.getInfoObject(movie.serviceref, iServiceInformation.sFileSize)
+        self["db"][location]["dir_size"] += size
 
     def removeLocation(self, location):
         print "database remove", location
@@ -130,6 +133,8 @@ class MovieDatabase(dict, SortProvider):
                 for index, movie_info in enumerate(item["movies"]):
                     if movie_info.serviceref.getPath() == file_name:
                         print "remove", str(index), item["movies"][index]
+                        size = movie_info.info.getInfoObject(movie_info.serviceref, iServiceInformation.sFileSize)
+                        self["db"][key]["dir_size"] -= size
                         del item["movies"][index]
                         break
 
