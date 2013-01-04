@@ -122,14 +122,16 @@ class MovieDatabase(dict, SortProvider):
             file_service_list = [file_service_list]
         for service in file_service_list:
             file_name = isinstance(file_service_list, str) and service or service.getPath()
-            print "try remove from list:", file_name
+            file_name = os.path.realpath(file_name)
+            print "try remove from database:", file_name
             for key, item in self["db"].iteritems():
                 if not file_name.startswith(key):
                     continue
                 for index, movie_info in enumerate(item["movies"]):
                     if movie_info.serviceref.getPath() == file_name:
+                        print "remove", str(index), item["movies"][index]
                         del item["movies"][index]
-                        print "success"
+                        break
 
     def getMovieList(self, sort_type, filter_tags=None):
         l = []

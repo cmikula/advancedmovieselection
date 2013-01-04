@@ -895,7 +895,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
 
         # remove from scanner
         movieScanner.removeMovie(self.to_delete)
-
+        self.list.updateDatabaseEntry()
         if config.AdvancedMovieSelection.use_wastebasket.value:
             self.deleteTrashConfirmed(confirmed)
             return

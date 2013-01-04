@@ -1031,9 +1031,8 @@ class MovieList(GUIComponent):
             for servicedirs in vdirs:
                 self.list.insert(0, servicedirs)
         
+        db_index = 0
         if self.show_folders:
-            root_path = root.getPath()
-
             for tt in self.automounts:
                 if tt.getPath() != root_path:
                     info = self.serviceHandler.info(tt)
@@ -1043,9 +1042,8 @@ class MovieList(GUIComponent):
             dirs.sort(self.sortFolders)
             for servicedirs in dirs:
                 self.list.insert(0, servicedirs)
-            tmp = self.root.getPath()
-            if len(tmp) > 1:
-                tmpRoot = os.path.dirname(tmp[:-1])
+            if len(root_path) > 1:
+                tmpRoot = os.path.dirname(root_path[:-1])
                 if len(tmpRoot) > 1:
                     tmpRoot = tmpRoot + "/"
                 tt = eServiceReferenceBackDir(tmpRoot)
@@ -1053,15 +1051,17 @@ class MovieList(GUIComponent):
                 info = self.serviceHandler.info(tt)
                 mi = MovieInfo(tt.getName(), tt, info)
                 self.list.insert(0, (mi,))
+                db_index += 1
+
+        count = movieScanner.database.getFullCount()[1]
+        if count > 0:
+            tt1 = eServiceReferenceListAll(root_path)
+            tt1.setName(_("Database") + " (%d)" % (count))
+            info = self.serviceHandler.info(tt1)
+            mi = MovieInfo(tt1.getName(), tt1, info)
+            self.list.insert(db_index, (mi,))
+        
                 
-                count = movieScanner.database.getFullCount()[1]
-                if count > 0:
-                    tt1 = eServiceReferenceListAll(tmp)
-                    tt1.setName(_("Database") + " (%d)" % (count))
-                    info = self.serviceHandler.info(tt1)
-                    mi = MovieInfo(tt1.getName(), tt1, info)
-                    self.list.insert(1, (mi,))
-            
         # finally, store a list of all tags which were found. these can be presented to the user to filter the list
         self.tags = sorted(tags)
 
@@ -1133,6 +1133,19 @@ class MovieList(GUIComponent):
     def updateCurrentSelection(self, dummy=None):
         cur_idx = self.instance.getCurrentIndex()
         self.l.invalidateEntry(cur_idx)
+
+    def updateDatabaseEntry(self):
+        cur_idx = 0
+        count = movieScanner.database.getFullCount()[1]
+        for item in self.list:
+            mi = item[0]
+            if isinstance(mi.serviceref, eServiceReferenceListAll):
+                mi.serviceref.setName(_("Database") + " (%d)" % (count))
+                self.l.invalidateEntry(cur_idx)
+                return
+            cur_idx += 1
+            if cur_idx > 2:
+                return
 
     def find(self, f, seq):
         for item in seq:
