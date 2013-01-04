@@ -266,6 +266,8 @@ class QuickButton:
             elif pname == "Show Timer":
                 from Screens.TimerEdit import TimerEditList
                 self.session.open(TimerEditList)
+            elif pname == "Update database":
+                self.rescan(True)
             else:   
                 # all functions that require a service 
                 service = self.getCurrent()

@@ -640,6 +640,7 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         self.entryguilist.append(("Show/Hide folders", _("Show/Hide folders")))
         self.entryguilist.append(("Bookmark(s) on/off", _("Bookmark(s) on/off")))
         self.entryguilist.append(("DB marker on/off", _("Database marker on/off")))
+        self.entryguilist.append(("Update database", _("Update database")))
         self.entryguilist.append(("Home", _("Home")))
         self.entryguilist.append(("Bookmark 1", _("Bookmark 1")))
         self.entryguilist.append(("Bookmark 2", _("Bookmark 2")))
