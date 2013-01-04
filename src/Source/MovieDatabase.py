@@ -152,7 +152,7 @@ class MovieDatabase(dict, SortProvider):
                     continue
                 l1.append((i,))
             
-            if sort_type & SortProvider.SORT_WITH_DIRECTORIES and len(l1) > 2 and filter_tags is None:
+            if sort_type & SortProvider.SORT_WITH_DIRECTORIES and len(l1) > 1 and filter_tags is None:
                 self.sortMovieList(l1, sort_type)
                 name = location
                 serviceref = eServiceReferenceMarker(location)
