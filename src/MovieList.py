@@ -877,8 +877,8 @@ class MovieList(GUIComponent):
     def __len__(self):
         return len(self.list)
 
-    def loadAll(self, root, filter_tags):
-        print "loadAll:", root.getPath()
+    def loadDatabase(self, root, filter_tags):
+        print "loadDatabase:", root.getPath()
         self.list = [ ]
         self.multiSelection = []
 
@@ -886,7 +886,10 @@ class MovieList(GUIComponent):
         sort = self.sort_type
         if config.AdvancedMovieSelection.show_videodirslocation.value:
             sort = self.sort_type | movieScanner.database.SORT_WITH_DIRECTORIES
-        self.list = movieScanner.database.getMovieList(sort, filter_tags)
+        if config.AdvancedMovieSelection.db_mark.value:
+            self.list = movieScanner.database.getMovieListPerMountDir(sort, filter_tags)
+        else:
+            self.list = movieScanner.database.getMovieList(sort, filter_tags)
         self.tags = movieScanner.database.getTags()
         # self.sortMovieList()
         tmp = self.root.getPath()
@@ -900,7 +903,7 @@ class MovieList(GUIComponent):
     def load(self, root, filter_tags):
         self.root = root
         if isinstance(root, eServiceReferenceListAll):
-            self.loadAll(root, filter_tags)
+            self.loadDatabase(root, filter_tags)
             return
 
         print "load:", root.getPath()

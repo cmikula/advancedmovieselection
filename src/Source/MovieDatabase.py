@@ -22,10 +22,10 @@
 import os
 from ServiceProvider import ServiceCenter, eServiceReferenceMarker
 from ServiceDescriptor import MovieInfo
-from ServiceUtils import getDirSize
 from enigma import iServiceInformation
 from AccessRestriction import accessRestriction
 from Globals import printStackTrace
+from Components.config import config
 
 class SortProvider():
     SORT_ALPHANUMERIC = 1
@@ -137,8 +137,60 @@ class MovieDatabase(dict, SortProvider):
                         self["db"][key]["dir_size"] -= size
                         del item["movies"][index]
                         break
+    
+    # TODO: test only
+    def slicedict(self, d, s):
+        return {k:v for k,v in d.iteritems() if k.startswith(s)}
+    
+    def insertMarker(self, l1, root):
+        if len(root) > 40:
+            parts = root.split("/")
+            if len(parts) > 2:
+                name = "/.../" + parts[-3] + "/" + parts[-2]
+            else: 
+                name = parts[-2]
+        else:
+            name = root
+        serviceref = eServiceReferenceMarker(root)
+        serviceref.setName("[ " + name + " ]")
+        info = ServiceCenter.getInstance().info(serviceref)
+        mi = MovieInfo(name, serviceref, info)
+        l1.insert(0, (mi,))
+        
+    def getMovieListPerMountDir(self, sort_type, filter_tags=None):
+        print "getMovieListPerMountDir", str(sort_type) 
+        l = []
+        dirs = self.getDirectoryList(True)
+        movie_count = 0
+        for root in config.AdvancedMovieSelection.videodirs.value:
+            root = os.path.realpath(root) + os.sep
+            l1 = []
+            for location in dirs:
+                if not location.startswith(root):
+                    continue
+                item = self["db"][location]
+                for i in item["movies"]:
+                    this_tags = i.getTags()
+                    if not accessRestriction.isAccessible(this_tags):
+                        continue
+                    if filter_tags is not None and not set(this_tags).issuperset(filter_tags):
+                        continue
+                    l1.append((i,))
+                    movie_count += 1
+                
+            if sort_type & SortProvider.SORT_WITH_DIRECTORIES and len(l1) >= config.AdvancedMovieSelection.db_show_mark_cnt.value and filter_tags is None:
+                self.sortMovieList(l1, sort_type)
+                self.insertMarker(l1, root)
+
+            l.extend(l1)
+
+        if not sort_type & SortProvider.SORT_WITH_DIRECTORIES:
+            self.sortMovieList(l, sort_type)
+        print "collected movies", str(movie_count)
+        return l
 
     def getMovieList(self, sort_type, filter_tags=None):
+        print "getMovieList", str(sort_type)
         l = []
         dirs = self.getDirectoryList(True)
         for location in dirs:
@@ -152,14 +204,10 @@ class MovieDatabase(dict, SortProvider):
                     continue
                 l1.append((i,))
             
-            if sort_type & SortProvider.SORT_WITH_DIRECTORIES and len(l1) > 1 and filter_tags is None:
+            if sort_type & SortProvider.SORT_WITH_DIRECTORIES and len(l1) >= config.AdvancedMovieSelection.db_show_mark_cnt.value and filter_tags is None:
                 self.sortMovieList(l1, sort_type)
-                name = location
-                serviceref = eServiceReferenceMarker(location)
-                serviceref.setName("[ " + name + " ]")
-                info = ServiceCenter.getInstance().info(serviceref)
-                mi = MovieInfo(name, serviceref, info)
-                l1.insert(0, (mi,))
+                self.insertMarker(l1, location)
+
             l.extend(l1)
         if not sort_type & SortProvider.SORT_WITH_DIRECTORIES:
             self.sortMovieList(l, sort_type)
