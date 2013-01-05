@@ -19,7 +19,7 @@
 #  modify it (if you keep the license), but it may not be commercially 
 #  distributed other than under the conditions noted above.
 #
-from __init__ import _
+from __init__ import _, localeInit
 from Plugins.Plugin import PluginDescriptor
 from Screens.InfoBar import InfoBar
 from Components.config import config
@@ -27,6 +27,7 @@ from AdvancedMovieSelectionSetup import AdvancedMovieSelectionSetup
 from TagEditor import TagEditor
 from Source.Config import initializeConfig
 
+localeInit()
 initializeConfig()
 
 def sessionstart(reason, **kwargs):

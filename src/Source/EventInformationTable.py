@@ -35,7 +35,12 @@ import os, time, urllib
 from struct import unpack, pack
 from calendar import timegm
 from MovieDB import tmdb, tvdb
-from Globals import printStackTrace
+
+def printStackTrace():
+    import sys, traceback
+    print "--- [AdvancedMovieSelection] STACK TRACE ---"
+    traceback.print_exc(file=sys.stdout)
+    print '-' * 50
 
 def getLanguageCode(db):
     lng = db.getLocale()

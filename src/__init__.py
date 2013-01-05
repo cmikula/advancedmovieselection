@@ -1,1 +1,1 @@
-from Source.locale import _
+from Source import _, localeInit

@@ -20,7 +20,7 @@
 #  distributed other than under the conditions noted above.
 #
 
-from locale import _
+from __init__ import _
 from Tools.Directories import resolveFilename, SCOPE_HDD
 from Components.config import config, ConfigSubsection, ConfigText, ConfigYesNo, ConfigInteger, ConfigSelection, ConfigClock, ConfigLocations, ConfigBoolean
 from Globals import printStackTrace
