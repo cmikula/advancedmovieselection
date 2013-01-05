@@ -27,14 +27,13 @@ from AdvancedMovieSelectionSetup import AdvancedMovieSelectionSetup
 from TagEditor import TagEditor
 from Source.Config import initializeConfig
 
-localeInit()
-initializeConfig()
-
 def sessionstart(reason, **kwargs):
     if reason == 0:
         session = kwargs["session"]
         if not config.AdvancedMovieSelection.ml_disable.value:
             try:
+                localeInit()
+                initializeConfig()
                 from MoviePlayer import showMovies
                 value = config.AdvancedMovieSelection.movie_launch.value
                 if value == "showMovies": InfoBar.showMovies = showMovies
