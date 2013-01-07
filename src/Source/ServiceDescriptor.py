@@ -20,7 +20,7 @@
 #
 
 import os
-from __init__ import _
+from LocaleInit import _
 from ServiceUtils import diskUsage, getDirSize, realSize
 from Globals import printStackTrace
 from enigma import eServiceReference, iServiceInformation

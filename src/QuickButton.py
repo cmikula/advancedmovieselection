@@ -97,14 +97,6 @@ class QuickButton:
         self.updateHelpText()
         self.block_next = False
  
-    def isBlocked(self):
-        result = self.block_next
-        # TODO: check enigma2 bug
-        if result == True:
-            print "action -> blocked"
-        self.block_next = False
-        return result
-
     def updateHelpText(self):
         for (actionmap, context, actions) in self.helpList:
             if context == "ColorActionsLong":
@@ -175,20 +167,16 @@ class QuickButton:
             key_number.setText(self.getSortButtonCaption(mode))
     
     def redpressed(self):
-        if not self.isBlocked():
-            self.startPlugin(qButtons.getFunction("red"), self["key_red"])
+        self.startPlugin(qButtons.getFunction("red"), self["key_red"])
      
     def greenpressed(self):
-        if not self.isBlocked():
-            self.startPlugin(qButtons.getFunction("green"), self["key_green"])
+        self.startPlugin(qButtons.getFunction("green"), self["key_green"])
      
     def yellowpressed(self):
-        if not self.isBlocked():
-            self.startPlugin(qButtons.getFunction("yellow"), self["key_yellow"])
+        self.startPlugin(qButtons.getFunction("yellow"), self["key_yellow"])
      
     def bluepressed(self):
-        if not self.isBlocked():
-            self.startPlugin(qButtons.getFunction("blue"), self["key_blue"])
+        self.startPlugin(qButtons.getFunction("blue"), self["key_blue"])
  
     def redpressedlong(self):
         print "red long"

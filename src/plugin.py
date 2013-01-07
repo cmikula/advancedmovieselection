@@ -19,7 +19,7 @@
 #  modify it (if you keep the license), but it may not be commercially 
 #  distributed other than under the conditions noted above.
 #
-from __init__ import _, localeInit
+from __init__ import _
 from Plugins.Plugin import PluginDescriptor
 from Screens.InfoBar import InfoBar
 from Components.config import config
@@ -27,13 +27,13 @@ from AdvancedMovieSelectionSetup import AdvancedMovieSelectionSetup
 from TagEditor import TagEditor
 from Source.Config import initializeConfig
 
+initializeConfig()
+
 def sessionstart(reason, **kwargs):
     if reason == 0:
         session = kwargs["session"]
         if not config.AdvancedMovieSelection.ml_disable.value:
             try:
-                localeInit()
-                initializeConfig()
                 from MoviePlayer import showMovies
                 value = config.AdvancedMovieSelection.movie_launch.value
                 if value == "showMovies": InfoBar.showMovies = showMovies

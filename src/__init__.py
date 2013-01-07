@@ -1,1 +1,1 @@
-from Source import _, localeInit
+from Source.LocaleInit import _
