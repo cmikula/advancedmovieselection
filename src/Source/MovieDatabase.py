@@ -140,7 +140,7 @@ class MovieDatabase(dict, SortProvider):
     
     # TODO: test only
     def slicedict(self, d, s):
-        return {k:v for k,v in d.iteritems() if k.startswith(s)}
+        return {k:v for k, v in d.iteritems() if k.startswith(s)}
     
     def insertMarker(self, l1, root):
         if len(root) > 40:
@@ -190,6 +190,8 @@ class MovieDatabase(dict, SortProvider):
         return l
 
     def getMovieList(self, sort_type, filter_tags=None):
+        if config.AdvancedMovieSelection.db_mark.value and sort_type & SortProvider.SORT_WITH_DIRECTORIES:
+            return self.getMovieListPerMountDir(sort_type, filter_tags)
         print "getMovieList", str(sort_type)
         l = []
         dirs = self.getDirectoryList(True)
@@ -211,6 +213,7 @@ class MovieDatabase(dict, SortProvider):
             l.extend(l1)
         if not sort_type & SortProvider.SORT_WITH_DIRECTORIES:
             self.sortMovieList(l, sort_type)
+        print "collected movies", str(len(l))
         return l
     
     def getDirectoryList(self, sort=False):

@@ -133,7 +133,8 @@ class MovieSearch():
         for movie_tuple in self["list"].list:
             mi = movie_tuple[0]
             if search.lower() in mi.name.lower():
-                newList.append(movie_tuple)
+                if not movie_tuple in newList:
+                    newList.append(movie_tuple)
         #if len(newList) == 0:
         #    return
         self.last_result = len(newList)
