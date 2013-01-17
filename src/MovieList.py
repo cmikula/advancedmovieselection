@@ -135,6 +135,8 @@ class MovieList(GUIComponent):
         self.onSelectionChanged = [ ]
         self.updateVideoDirs()
         self.updateHotplugDevices()
+        if movieScanner.enabled:
+            movieScanner.checkAllAvailable()
 
     def destroy(self):
         self.picloader.destroy()
