@@ -734,7 +734,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         if not path.exists(config.movielist.last_videodir.value):
             config.movielist.last_videodir.value = "/media/"
 
-        if not config.AdvancedMovieSelection.db_show.value:
+        if not config.AdvancedMovieSelection.db_show.value or not config.AdvancedMovieSelection.startdir.value:
             self.current_ref = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + config.movielist.last_videodir.value)
         else:            
             self.current_ref = eServiceReferenceListAll(config.movielist.last_videodir.value)
