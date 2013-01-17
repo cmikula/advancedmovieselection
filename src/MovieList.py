@@ -133,6 +133,7 @@ class MovieList(GUIComponent):
         self.redrawList()
         self.l.setBuildFunc(self.buildMovieListEntry)
         self.onSelectionChanged = [ ]
+        self.updateVideoDirs()
         self.updateHotplugDevices()
 
     def destroy(self):
@@ -290,6 +291,13 @@ class MovieList(GUIComponent):
                     self.automounts.append(service)
         except Exception, e:
             print e
+    
+    def updateVideoDirs(self):
+        self.video_dirs = []
+        for directory in config.movielist.videodirs.value:
+            if not autoNetwork.isMountOnline(directory) or not os.path.exists(directory):
+                continue
+            self.video_dirs.append(directory)
     
     def unmount(self, service):
         from os import system
@@ -1012,7 +1020,7 @@ class MovieList(GUIComponent):
 
         if config.AdvancedMovieSelection.show_bookmarks.value:
             vdirs = []
-            for directory in config.movielist.videodirs.value:
+            for directory in self.video_dirs:
                 if directory != root_path and not self.isInList(directory, dirs):
                     # directory = os.path.realpath(directory) + os.sep
                     parts = directory.split("/")
@@ -1020,8 +1028,9 @@ class MovieList(GUIComponent):
                         dirName = parts[-3] + "/" + parts[-2]
                     else: 
                         dirName = parts[-2]
-                    if not autoNetwork.isMountOnline(directory) or not os.path.exists(directory):
-                        continue
+                    # TODO: check videodirs disabled on build movielist (performance issue)
+                    #if not autoNetwork.isMountOnline(directory) or not os.path.exists(directory):
+                    #    continue
                     tt = eServiceReferenceVDir(directory)
                     tt.setName(self.movieConfig.getRenamedName(dirName))
                     info = self.serviceHandler.info(tt)

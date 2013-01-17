@@ -40,7 +40,7 @@ class Network():
                 return True
             for network in self.auto_network:
                 if mount_dir.startswith(network[0]):
-                    print "check mount:", network[1] + ":" + mount_dir
+                    print "check mount1:", network[1] + ":" + mount_dir
                     delay = ping.do_one(network[1], 0.2)
                     if delay:
                         print "success", delay
@@ -49,7 +49,8 @@ class Network():
                         print "failed"
                         return False
             return True
-        except:
+        except Exception, e:
+            print e
             return True
     
     def updateAutoNetwork(self):
