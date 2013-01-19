@@ -158,7 +158,7 @@ from Screens.LocationBox import LocationBox
 def ScanLocationBox(session, text, dir, minFree = None):
     inhibitDirs = ["/bin", "/boot", "/dev", "/etc", "/lib", "/proc", "/sbin", "/sys", "/usr", "/var"]
     config.AdvancedMovieSelection.videodirs.load()
-    return LocationBox(session, text = text, currDir = dir, bookmarks = config.AdvancedMovieSelection.videodirs, autoAdd = True, editDir = True, inhibitDirs = inhibitDirs, minFree = minFree)
+    return LocationBox(session, text = text, currDir = dir, bookmarks = config.AdvancedMovieSelection.videodirs, autoAdd = False, editDir = False, inhibitDirs = inhibitDirs, minFree = minFree)
 
 class MovieContextMenu(Screen):
     def __init__(self, session, csel, service):
