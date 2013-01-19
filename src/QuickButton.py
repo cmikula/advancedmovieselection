@@ -212,6 +212,9 @@ class QuickButton:
     
     def startPlugin(self, pname, key_number):
         print "qButtonFX:", str(pname)
+        # notify action map
+        self["ColorActions"].execEnd()
+        self["ColorActions"].execBegin()
         errorText = None
         if pname and pname != "Nothing":
             # all functions with no service is needed
