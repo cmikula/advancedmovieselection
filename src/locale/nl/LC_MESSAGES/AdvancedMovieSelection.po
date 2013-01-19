@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-01-07 19:46+0100\n"
-"PO-Revision-Date: 2013-01-07 19:48+0100\n"
+"PO-Revision-Date: 2013-01-19 07:53+0100\n"
 "Last-Translator: cmikula\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "Language: \n"
@@ -1107,7 +1107,6 @@ msgid "Use database path selection as marker within database movies:"
 msgstr "Mappaden als locaties van de films uit de databank weergeven:"
 
 #: ../AdvancedMovieSelectionSetup.py:370
-#, fuzzy
 msgid "If enabled only the database path selections will be used as marker otherwise each sub directory will be shown as path marker in database view."
 msgstr "Indien geactiveerd worden alleen de paden voor de databank als locatie weergegeven, anders worden alle mappen weergegeven."
 

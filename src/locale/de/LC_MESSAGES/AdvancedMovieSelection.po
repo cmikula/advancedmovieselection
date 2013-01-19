@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-07 19:46+0100\n"
-"PO-Revision-Date: 2013-01-07 19:46+0100\n"
+"POT-Creation-Date: 2013-01-19 07:52+0100\n"
+"PO-Revision-Date: 2013-01-19 07:53+0100\n"
 "Last-Translator: cmikula\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "Language: de_AT\n"
@@ -1104,7 +1104,6 @@ msgid "Use database path selection as marker within database movies:"
 msgstr "Nur gewählte Verzeichnisse als Marker in der Datenbank anzeigen:"
 
 #: ../../../AdvancedMovieSelectionSetup.py:370
-#, fuzzy
 msgid "If enabled only the database path selections will be used as marker otherwise each sub directory will be shown as path marker in database view."
 msgstr "Wenn eingeschalten, werden nur die ausgewählten Verzeichnisse für die Verzeichnis Marker angezeigt andernfalls werden auch Unterverzeichnisse als Marker angezeigt."
 
@@ -2778,17 +2777,17 @@ msgstr "Suche nach Dreamboxen, bitte warten ..."
 msgid "Manual search finished"
 msgstr "Manuelle suche beendet"
 
-#: ../../../MovieList.py:574
-#: ../../../MovieList.py:577
+#: ../../../MovieList.py:584
+#: ../../../MovieList.py:587
 msgid "REC"
 msgstr "Aufn."
 
-#: ../../../MovieList.py:579
+#: ../../../MovieList.py:589
 msgid "Records"
 msgstr "Aufnahme"
 
-#: ../../../MovieList.py:1062
-#: ../../../MovieList.py:1146
+#: ../../../MovieList.py:1070
+#: ../../../MovieList.py:1154
 msgid "Database"
 msgstr "Datenbank"
 
