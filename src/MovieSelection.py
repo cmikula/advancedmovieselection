@@ -646,7 +646,7 @@ class SelectionEventInfo:
         evt = self["list"].getCurrentEvent()
         serviceref = self.getCurrent()
         if serviceref is not None and isinstance(self["list"].root, eServiceReferenceListAll):
-            self.updateTitle(os.path.dirname(serviceref.getPath()) + '/')
+            self.updateTitle(os.path.dirname(serviceref.getPath()))
         if config.movielist.description.value == MovieList.SHOW_DESCRIPTION:
             if evt:
                 self["Service"].newService(serviceref)
@@ -1271,6 +1271,8 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self["list"].showTags(value)
 
     def updateTitle(self, current_path):
+        if current_path and current_path[-1] != '/':
+            current_path += '/' 
         title = _("Movie location:")
         #if config.usage.setup_level.index >= 2: # expert+
         title += " " + current_path
@@ -1309,7 +1311,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         )
 
     def gotFilename(self, res):
-        if res is not None and res is not config.movielist.last_videodir.value:
+        if res is not None:# and res is not config.movielist.last_videodir.value:
             if fileExists(res):           
                 selection = None
                 current = self.getCurrent()

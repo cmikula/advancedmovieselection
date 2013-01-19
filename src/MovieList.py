@@ -900,12 +900,11 @@ class MovieList(GUIComponent):
         self.tags = movieScanner.database.getTags()
         # self.sortMovieList()
         tmp = self.root.getPath()
-        if len(tmp) > 1:
-            tt = eServiceReferenceBackDir("..")
-            tt.setName("..")
-            tt.setPath(tmp)
-            mi = MovieInfo(tt.getName(), tt)
-            self.list.insert(0, (mi,))
+        tt = eServiceReferenceBackDir("..")
+        tt.setName("..")
+        tt.setPath(tmp)
+        mi = MovieInfo(tt.getName(), tt)
+        self.list.insert(0, (mi,))
 
     def load(self, root, filter_tags):
         self.root = root
