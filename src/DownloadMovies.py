@@ -33,13 +33,12 @@ from timer import eTimer
 from Components.MenuList import MenuList
 from Source.ServiceProvider import ServiceCenter
 from Source.EventInformationTable import createEIT
-from Source.MovieDB import tmdb
-from Components.config import config
+from Source.MovieDB import tmdb, downloadCover
 from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Components.ScrollLabel import ScrollLabel
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS
 from Source.Globals import SkinTools, printStackTrace
-import os, urllib
+import os
 
 is_hidden = False
 this_session = None
@@ -200,7 +199,7 @@ class DownloadMovies(Screen):
                 self["description"].setText("%s - %s\n\n%s" % (str(movie['name']), str(movie['released']), str(movie['overview'])))
                 jpg_file = "/tmp/preview.jpg"
                 cover_url = movie['images'][0]['cover']
-                urllib.urlretrieve (cover_url, jpg_file)
+                downloadCover(cover_url, jpg_file)
                 sc = AVSwitch().getFramebufferScale()
                 self.picload.setPara((self["poster"].instance.size().width(), self["poster"].instance.size().height(), sc[0], sc[1], False, 1, "#00000000"))
                 self.picload.startDecode(jpg_file)

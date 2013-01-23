@@ -34,7 +34,7 @@ Digital Video Broadcasting (DVB) Specification for Service Information (SI) in D
 import os, time, urllib
 from struct import unpack, pack
 from calendar import timegm
-from MovieDB import tmdb, tvdb
+from MovieDB import tmdb, tvdb, downloadCover
 
 def printStackTrace():
     import sys, traceback
@@ -457,7 +457,7 @@ def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=Fa
             if os.path.exists(jpg_file) and overwrite_jpg == False:
                 print "File '%s' already exists, jpg download skipped!" % (jpg_file)
             else:
-                urllib.urlretrieve (cover_url, jpg_file)
+                downloadCover(cover_url, jpg_file)
 
         if os.path.exists(eit_file) and overwrite_eit == False:
             print "File '%s' already exists, eit creation skipped!" % (eit_file)
@@ -580,7 +580,7 @@ def createEITtvdb(file_name, title, cover_type='poster', overwrite_jpg=False, ov
             if os.path.exists(jpg_file) and overwrite_jpg == False:
                 print "File '%s' already exists, jpg download skipped!" % (jpg_file)
             else:
-                urllib.urlretrieve (cover_url, jpg_file)
+                downloadCover(cover_url, jpg_file)
 
         if os.path.exists(eit_file) and overwrite_eit == False:
             print "File '%s' already exists, eit creation skipped!" % (eit_file)

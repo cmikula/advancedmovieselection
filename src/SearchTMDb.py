@@ -41,7 +41,7 @@ from Source.PicLoader import PicLoader
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
 from Screens.ChoiceBox import ChoiceBox
 from Source.Globals import pluginPresent, SkinTools
-from Source.MovieDB import tmdb
+from Source.MovieDB import tmdb, downloadCover
 
 IMAGE_TEMPFILE = "/tmp/TMDb_temp"
 
@@ -148,9 +148,10 @@ class TMDbList(GUIComponent, object):
         else:
             parts = cover_url.split("/")
             filename = os_path.join(IMAGE_TEMPFILE , movie_id + parts[-1])
-            if not os.path.exists(filename):
-                urllib.urlretrieve(cover_url, filename)
-            png = self.picloader.load(filename)        
+            if downloadCover(cover_url, filename):
+                png = self.picloader.load(filename)
+            else:
+                png = self.picloader.load(nocover)
         res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 1, 92, 138, png))
         res.append((eListboxPythonMultiContent.TYPE_TEXT, 100, 5, width - 100 , 20, 0, RT_HALIGN_LEFT | RT_VALIGN_CENTER, "%s" % name.encode('utf-8', 'ignore')))
         res.append((eListboxPythonMultiContent.TYPE_TEXT, width - 140, 5, 130 , 20, 1, RT_HALIGN_RIGHT | RT_VALIGN_CENTER, "%s" % released_text))
@@ -472,9 +473,7 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
         else:    
             parts = cover_url.split("/")
             filename = os_path.join(IMAGE_TEMPFILE , movie['id'] + parts[-1])
-            if not os.path.exists(filename):
-                urllib.urlretrieve(cover_url, filename)
-            if os_path.exists(filename):
+            if downloadCover(cover_url, filename):
                 self.picload.startDecode(filename)
             else:
                 self.picload.startDecode(nocover)

@@ -41,7 +41,7 @@ from Source.EventInformationTable import createEITtvdb
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
 from SearchTMDb import InfoLoadChoice
 from Source.Globals import pluginPresent, SkinTools
-from Source.MovieDB import tvdb
+from Source.MovieDB import tvdb, downloadCover
 from Source.PicLoader import PicLoader
 
 temp_dir = "/tmp/TheTVDB_temp/"
@@ -62,8 +62,7 @@ def getImage(serie):
     if thumb:
         thumb = thumb.encode('utf-8', 'ignore')
         filename = TheTVDBMain.htmlToFile(thumb)
-        if filename and not os.path.exists(filename):
-            urllib.urlretrieve(thumb, filename)
+        downloadCover(thumb, filename)
 
     if filename and os.path.exists(filename):
         return filename
@@ -510,8 +509,7 @@ class TheTVDBMain(Screen, InfoLoadChoice):
     def downloadBanner(self, image):
         if image:
             filename = self.htmlToFile(image)
-            if filename and not os.path.exists(filename):
-                urllib.urlretrieve(image, filename)
+            downloadCover(image, filename)
             return filename
 
     def setBanner(self, filename):
@@ -529,8 +527,7 @@ class TheTVDBMain(Screen, InfoLoadChoice):
         thumb = serie['poster']
         if thumb:
             filename = self.htmlToFile(thumb)
-            if filename and not os.path.exists(filename):
-                urllib.urlretrieve(thumb, filename)
+            downloadCover(thumb, filename)
             return filename
     
     def setPoster(self, filename):
