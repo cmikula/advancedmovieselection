@@ -133,6 +133,9 @@ class MovieList(GUIComponent):
         self.redrawList()
         self.l.setBuildFunc(self.buildMovieListEntry)
         self.onSelectionChanged = [ ]
+        #self.onFirstStart()
+        
+    def onFirstStart(self):
         self.updateVideoDirs()
         self.updateHotplugDevices()
         if movieScanner.enabled:

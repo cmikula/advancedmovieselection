@@ -66,6 +66,7 @@ from Source.ServiceProvider import eServiceReferenceHotplug, eServiceReferenceBa
 from Source.AutoNetwork import autoNetwork 
 from Source.MovieScanner import movieScanner
 from Source.ServiceDescriptor import DirectoryInfo
+from Source.StopWatch import StopWatch, clockit
 
 if pluginPresent.IMDb:
     from Plugins.Extensions.IMDb.plugin import IMDB
@@ -681,6 +682,8 @@ class AdvancedMovieSelection_summary(Screen):
 
 class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, QuickButton, VideoPreview, MovieSearch):
     def __init__(self, session, selectedmovie=None, showLastDir=False):
+        print "enter movieselection"
+        self.stopwatch = StopWatch()
         Screen.__init__(self, session)
         HelpableScreen.__init__(self)
         MoviePreview.__init__(self, session)
@@ -703,6 +706,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         if not config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.video_preview.value and config.AdvancedMovieSelection.video_preview_fullscreen.value and config.movielist.description.value == MovieList.HIDE_DESCRIPTION:
             self.skinName.insert(0, SkinTools.appendResolution("AdvancedMovieSelection_Preview_noDescription_noCover_"))
         self.tags = [ ]
+        self.showLastDir = showLastDir
         if not config.AdvancedMovieSelection.startonfirst.value and not selectedmovie:
             selectedmovie = Current.selection
         if selectedmovie:
@@ -724,21 +728,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         if not config.AdvancedMovieSelection.askdelete.value and config.AdvancedMovieSelection.showinfo.value:
             self["warning"].setText(_("ATTENTION: Ask before delete is disabled!"))
             
-        autoNetwork.updateAutoNetwork()
-        if not autoNetwork.isMountOnline(config.movielist.last_videodir.value):
-            config.movielist.last_videodir.value = "/media/"
-
-        if not config.AdvancedMovieSelection.startdir.value and not showLastDir:
-            if path.exists(config.movielist.last_videodir.value):
-                config.movielist.last_videodir.value = defaultMoviePath()
-        if not path.exists(config.movielist.last_videodir.value):
-            config.movielist.last_videodir.value = "/media/"
-
-        if not config.AdvancedMovieSelection.db_show.value or not config.AdvancedMovieSelection.startdir.value:
-            self.current_ref = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + config.movielist.last_videodir.value)
-        else:            
-            self.current_ref = eServiceReferenceListAll(config.movielist.last_videodir.value)
-
         self["list"] = MovieList(None,
             config.movielist.listtype.value,
             config.movielist.moviesort.value,
@@ -792,12 +781,13 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             })
         
         QuickButton.__init__(self)
-        self.onShown.append(self.go)
+        self.onShow.append(self.go)
         self.onLayoutFinish.append(self.saveListsize)
         self.inited = False
         MovieSearch.__init__(self)
         self.__dbUpdate = eTimer()
         self.__dbUpdate.callback.append(self.databaseUpdateTimerEvent)
+        print "end constructor", str(self.stopwatch.elapsed)
     
     def createSummary(self):
         return AdvancedMovieSelection_summary
@@ -1077,8 +1067,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
 
     def go(self):
         if not self.inited:
-        # ouch. this should redraw our "Please wait..."-text.
-        # this is of course not the right way to do this.
+            print "on first show", str(self.stopwatch.elapsed)
             self.delayTimer.start(10, True)
             self.inited = True
 
@@ -1086,14 +1075,33 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         listsize = self["list"].instance.size()
         self.listWidth = listsize.width()
         self.listHeight = listsize.height()
+
+    def updateHDDData(self):
+        print "*" * 80
+        print "updateHDDData", str(self.stopwatch.elapsed)
+        autoNetwork.updateAutoNetwork()
+        if not autoNetwork.isMountOnline(config.movielist.last_videodir.value):
+            config.movielist.last_videodir.value = "/media/"
+
+        if not config.AdvancedMovieSelection.startdir.value and not self.showLastDir:
+            if path.exists(config.movielist.last_videodir.value):
+                config.movielist.last_videodir.value = defaultMoviePath()
+        if not path.exists(config.movielist.last_videodir.value):
+            config.movielist.last_videodir.value = "/media/"
+
+        if not config.AdvancedMovieSelection.db_show.value or not config.AdvancedMovieSelection.startdir.value:
+            self.current_ref = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + config.movielist.last_videodir.value)
+        else:            
+            self.current_ref = eServiceReferenceListAll(config.movielist.last_videodir.value)
+        self["list"].onFirstStart()
+        self.updateFolderSortType()
+        self.reloadList(self.selectedmovie)
         self.updateDescription()
         if movieScanner.isWorking:
             self.__dbUpdate.start(200, False)
-
-    def updateHDDData(self):
-        self.updateFolderSortType()
-        self.reloadList(self.selectedmovie)
+        self.stopwatch.stop()
         self["waitingtext"].visible = False
+        print "movielist started in", str(self.stopwatch.elapsed)
 
     def moveTo(self):
         self["list"].moveTo(self.selectedmovie)
@@ -1285,6 +1293,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         else:
             self.setTitle(title + " " + _("[Database update in progress]"))
 
+    @clockit
     def reloadList(self, sel=None, home=False):
         if not fileExists(config.movielist.last_videodir.value):
             path = defaultMoviePath()
