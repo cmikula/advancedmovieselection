@@ -117,11 +117,6 @@ class QuickButton:
             if function == "Toggle seen":
                 toggleSeenButton = self[key_text] 
         
-        if toggleSeenButton is not None:
-            self.list.connectSelChanged(self.__updateGUI)
-        else:
-            self.list.disconnectSelChanged(self.__updateGUI)
-
     def getNextFromList(self, items, current):
         for index, item in enumerate(items):
             if str(item) == str(current):
@@ -198,7 +193,7 @@ class QuickButton:
         self.block_next = True
         self.startPlugin(qButtons.getFunction("blue_long"), None)
 
-    def __updateGUI(self):
+    def updateGUI(self):
         if toggleSeenButton:
             perc = self.list.getMovieStatus()
             if perc > 50:

@@ -640,26 +640,27 @@ class SelectionEventInfo:
         self.onShown.append(self.__selectionChanged)
 
     def __selectionChanged(self):
-        if self.execing and config.movielist.description.value == MovieList.SHOW_DESCRIPTION or config.AdvancedMovieSelection.showpreview.value or config.AdvancedMovieSelection.video_preview.value:
-            self.timer.start(100, True)
+        self.timer.start(300, True)
 
     def updateEventInfo(self):
-        evt = self["list"].getCurrentEvent()
-        serviceref = self.getCurrent()
-        if serviceref is not None and isinstance(self["list"].root, eServiceReferenceListAll):
-            self.updateTitle(os.path.dirname(serviceref.getPath()))
-        if config.movielist.description.value == MovieList.SHOW_DESCRIPTION:
-            if evt:
-                self["Service"].newService(serviceref)
-            else:
-                self["Service"].newService(None)
-            self.updateName(serviceref, evt)
-        if config.AdvancedMovieSelection.showpreview.value:
-            self.loadPreview(serviceref)
-        if config.AdvancedMovieSelection.video_preview_autostart.value:
-            self.preparePlayMovie(serviceref, evt)
-        if not config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.video_preview.value:
-            self.loadPreview(serviceref)        
+        self.updateGUI()
+        if self.execing and config.movielist.description.value == MovieList.SHOW_DESCRIPTION or config.AdvancedMovieSelection.showpreview.value or config.AdvancedMovieSelection.video_preview.value:
+            evt = self["list"].getCurrentEvent()
+            serviceref = self.getCurrent()
+            if serviceref is not None and isinstance(self["list"].root, eServiceReferenceListAll):
+                self.updateTitle(os.path.dirname(serviceref.getPath()))
+            if config.movielist.description.value == MovieList.SHOW_DESCRIPTION:
+                if evt:
+                    self["Service"].newService(serviceref)
+                else:
+                    self["Service"].newService(None)
+                self.updateName(serviceref, evt)
+            if config.AdvancedMovieSelection.showpreview.value:
+                self.loadPreview(serviceref)
+            if config.AdvancedMovieSelection.video_preview_autostart.value:
+                self.preparePlayMovie(serviceref, evt)
+            if not config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.video_preview.value:
+                self.loadPreview(serviceref)        
         
 class AdvancedMovieSelection_summary(Screen):
     def __init__(self, session, parent):
@@ -1077,7 +1078,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self.listHeight = listsize.height()
 
     def updateHDDData(self):
-        print "*" * 80
         print "updateHDDData", str(self.stopwatch.elapsed)
         autoNetwork.updateAutoNetwork()
         if not autoNetwork.isMountOnline(config.movielist.last_videodir.value):
