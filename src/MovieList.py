@@ -1015,7 +1015,7 @@ class MovieList(GUIComponent):
                 db_index += 1
 
         count = movieScanner.database.getFullCount()[1]
-        if count > 0:
+        if count > 0 and config.AdvancedMovieSelection.show_database.value:
             tt1 = eServiceReferenceListAll(root_path)
             tt1.setName(_("Database") + " (%d)" % (count))
             info = self.serviceHandler.info(tt1)

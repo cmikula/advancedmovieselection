@@ -164,6 +164,7 @@ config.AdvancedMovieSelection.show_move_copy_progress = ConfigYesNo(default=True
 config.AdvancedMovieSelection.videodirs = ConfigLocations()
 config.AdvancedMovieSelection.show_location_indexing = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.show_videodirslocation = ConfigYesNo(default=True)
+config.AdvancedMovieSelection.show_database = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.db_sort = ConfigInteger(default=1)
 config.AdvancedMovieSelection.db_show = ConfigBoolean()
 config.AdvancedMovieSelection.db_mark = ConfigYesNo(default=True)

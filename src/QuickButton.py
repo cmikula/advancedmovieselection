@@ -59,6 +59,11 @@ def getPluginCaption(pname):
                 return _("Show bookmarks")
             else:
                 return _("Hide bookmarks")
+        if pname == "Show/Hide database":
+            if not config.AdvancedMovieSelection.show_database.value:
+                return _("Show database")
+            else:
+                return _("Hide database")
         if pname == "DB marker on/off":
             if not config.AdvancedMovieSelection.show_videodirslocation.value:
                 return _("Show marker")
@@ -226,6 +231,12 @@ class QuickButton:
                 self.gotFilename(config.AdvancedMovieSelection.bookmark3path.value)
             elif pname == "Bookmark(s) on/off":
                 config.AdvancedMovieSelection.show_bookmarks.value = not config.AdvancedMovieSelection.show_bookmarks.value
+                self.saveconfig()
+                self.reloadList()
+                newCaption = getPluginCaption(pname)
+                self.setButtonText(key_number, newCaption)
+            elif pname == "Show/Hide database":
+                config.AdvancedMovieSelection.show_database.value = not config.AdvancedMovieSelection.show_database.value
                 self.saveconfig()
                 self.reloadList()
                 newCaption = getPluginCaption(pname)

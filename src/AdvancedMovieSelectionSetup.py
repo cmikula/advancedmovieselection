@@ -366,6 +366,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append(getConfigListEntry(_("Show hotplug devices:"), config.AdvancedMovieSelection.hotplug, _("Enable this option to use USB-Devices.")))
         self.list.append(getConfigListEntry(_("Show plugin config in extensions menu from movielist:"), config.AdvancedMovieSelection.showmenu, _("Displays the Settings option in the menu at the movie list.")))
         self.list.append(getConfigListEntry(_("Show path selection for database in extensions menu:"), config.AdvancedMovieSelection.show_location_indexing, _("Here you can select which folders to include in the database creation.")))
+        self.list.append(getConfigListEntry(_("Show database symbol in movielist:"), config.AdvancedMovieSelection.show_database, _("If enabled the database symbol is shown in movielist if movies are in the database.")))
         self.list.append(getConfigListEntry(_("Show path marker within database movies:"), config.AdvancedMovieSelection.show_videodirslocation, _("If enabled all movies in database will be shown with path marker and will be sorted below them.")))
         self.list.append(getConfigListEntry(_("Use database path selection as marker within database movies:"), config.AdvancedMovieSelection.db_mark, _("If enabled only the database path selections will be used as marker otherwise each sub directory will be shown as path marker in database view.")))
         self.list.append(getConfigListEntry(_("Minimum movie count to show path marker in database view:"), config.AdvancedMovieSelection.db_show_mark_cnt, _("The minimum selected number of movies must be in one directory to show the path marker in database view.")))
@@ -639,6 +640,7 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         self.entryguilist.append(("Rename", _("Rename")))
         self.entryguilist.append(("Wastebasket", _("Wastebasket")))
         self.entryguilist.append(("Sort", _("Sort")))
+        self.entryguilist.append(("Show/Hide database", _("Show/Hide database")))
         self.entryguilist.append(("Show/Hide folders", _("Show/Hide folders")))
         self.entryguilist.append(("Bookmark(s) on/off", _("Bookmark(s) on/off")))
         self.entryguilist.append(("DB marker on/off", _("Database marker on/off")))
@@ -875,27 +877,12 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         config.AdvancedMovieSelection.bookmark1path.value = self.bookmark1_dirname.value
         config.AdvancedMovieSelection.bookmark2path.value = self.bookmark2_dirname.value
         config.AdvancedMovieSelection.bookmark3path.value = self.bookmark3_dirname.value
-        #config.AdvancedMovieSelection.red.value = self.redchoice.getValue()
-        #config.AdvancedMovieSelection.green.value = self.greenchoice.getValue()
-        #config.AdvancedMovieSelection.yellow.value = self.yellowchoice.getValue()
-        #config.AdvancedMovieSelection.blue.value = self.bluechoice.getValue()
+
         config.AdvancedMovieSelection.hometext.value = self.homebuttontextchoice.getValue()
         config.AdvancedMovieSelection.bookmark1text.value = self.bookmark1buttontextchoice.getValue()
         config.AdvancedMovieSelection.bookmark2text.value = self.bookmark2buttontextchoice.getValue()
         config.AdvancedMovieSelection.bookmark3text.value = self.bookmark3buttontextchoice.getValue()
-        config.AdvancedMovieSelection.buttoncaption.save()
-        config.AdvancedMovieSelection.homepath.save()
-        config.AdvancedMovieSelection.bookmark1path.save()
-        config.AdvancedMovieSelection.bookmark2path.save()
-        config.AdvancedMovieSelection.bookmark3path.save()
-        #config.AdvancedMovieSelection.red.save()
-        #config.AdvancedMovieSelection.green.save()
-        #config.AdvancedMovieSelection.yellow.save()
-        #config.AdvancedMovieSelection.blue.save()
-        config.AdvancedMovieSelection.hometext.save()
-        config.AdvancedMovieSelection.bookmark1text.save()
-        config.AdvancedMovieSelection.bookmark2text.save()
-        config.AdvancedMovieSelection.bookmark3text.save()
+
         config.AdvancedMovieSelection.save()
         configfile.save()
         if self.csel:
