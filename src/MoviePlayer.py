@@ -137,6 +137,16 @@ class PlayerBase(MoviePreview, SelectionEventInfo):
                 "showEventInfoPlugin": (self.openServiceList, _("Open servicelist"))
             })
         self.endless_loop = False
+        self.__event_tracker = ServiceEventTracker(screen=self, eventmap=
+            {
+                iPlayableService.evEnd: self.__evServiceEnd
+            })
+    
+    def __evServiceEnd(self):
+        if not self.is_closing:
+            print "Close on timer switch!!!"
+            self.do_closing = True
+            self.close()
     
     def openServiceList(self):
         pass

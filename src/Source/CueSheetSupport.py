@@ -146,6 +146,7 @@ class CutListSupportBase:
         self.jump_first_mark = None
         self.jump_first_play_last = None
         self.currently_playing = False
+        self.do_closing = False
 
     def playNewService(self, service):
         if self.currentService == service:
@@ -197,6 +198,9 @@ class CutListSupportBase:
 
     def downloadCuesheet(self):
         try:
+            if self.do_closing:
+                self.ENABLE_RESUME_SUPPORT = False
+                return
             self.currently_playing = True
             cue = self.getCuesheet()
             if cue is None:
