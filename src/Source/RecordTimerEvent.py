@@ -41,6 +41,11 @@ class RecordTimerEvent():
 
     def timerStateChanged(self, timer):
         try:
+            print "[AdvancedMovieSelection] timer state changed event"
+            print str(timer.justplay), str(timer.cancelled), str(timer.state) 
+            if timer.justplay:
+                print "[AdvancedMovieSelection] cancel justplay event"
+                return
             if not hasattr(timer, 'Filename'):
                 print "[AdvancedMovieSelection] cancel timer state changed, no Filename in timer event"
                 return

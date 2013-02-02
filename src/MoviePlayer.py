@@ -143,9 +143,8 @@ class PlayerBase(MoviePreview, SelectionEventInfo):
             })
     
     def __evServiceEnd(self):
-        if not self.is_closing:
+        if not self.is_closing and not self.new_service_started:
             print "Close on timer switch!!!"
-            self.do_closing = True
             self.close()
     
     def openServiceList(self):
