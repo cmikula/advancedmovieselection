@@ -823,7 +823,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         if self.service.flags & eServiceReference.mustDescent:
             if config.AdvancedMovieSelection.showinfo.value:
                 self.session.open(MessageBox, _("This cannot deleted, please select a movie for!"), MessageBox.TYPE_INFO)
-                return
+            return
 
         if len(self.list.multiSelection) > 0:
             self.to_delete = self.list.multiSelection[:]
