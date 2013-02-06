@@ -821,8 +821,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
     def delete(self):
         self.service = self.getCurrent()
         if self.service.flags & eServiceReference.mustDescent:
-            if config.AdvancedMovieSelection.showinfo.value:
-                self.session.open(MessageBox, _("This cannot deleted, please select a movie for!"), MessageBox.TYPE_INFO)
+            self.session.open(MessageBox, _("This cannot deleted, please select a movie for!"), MessageBox.TYPE_INFO)
             return
 
         if len(self.list.multiSelection) > 0:
