@@ -454,10 +454,7 @@ def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=Fa
         if not cover_url:
             print "No Cover found for", str(title), "\n"
         else:    
-            if os.path.exists(jpg_file) and overwrite_jpg == False:
-                print "File '%s' already exists, jpg download skipped!" % (jpg_file)
-            else:
-                downloadCover(cover_url, jpg_file)
+            downloadCover(cover_url, jpg_file, overwrite_jpg)
 
         if os.path.exists(eit_file) and overwrite_eit == False:
             print "File '%s' already exists, eit creation skipped!" % (eit_file)
@@ -577,10 +574,7 @@ def createEITtvdb(file_name, title, cover_type='poster', overwrite_jpg=False, ov
         if not cover_url:
             print "No Cover found for", str(title), "\n"
         else:    
-            if os.path.exists(jpg_file) and overwrite_jpg == False:
-                print "File '%s' already exists, jpg download skipped!" % (jpg_file)
-            else:
-                downloadCover(cover_url, jpg_file)
+            downloadCover(cover_url, jpg_file, overwrite_jpg)
 
         if os.path.exists(eit_file) and overwrite_eit == False:
             print "File '%s' already exists, eit creation skipped!" % (eit_file)
