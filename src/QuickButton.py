@@ -45,6 +45,14 @@ def getPluginCaption(pname):
             return _(config.AdvancedMovieSelection.bookmark2text.value)
         if pname == "Bookmark 3":
             return _(config.AdvancedMovieSelection.bookmark3text.value)
+        if pname == "Bookmark 4":
+            return _(config.AdvancedMovieSelection.bookmark4text.value)
+        if pname == "Bookmark 5":
+            return _(config.AdvancedMovieSelection.bookmark5text.value)
+        if pname == "Bookmark 6":
+            return _(config.AdvancedMovieSelection.bookmark6text.value)
+        if pname == "Bookmark 7":
+            return _(config.AdvancedMovieSelection.bookmark7text.value)
         if pname == "Show up to VSR-X":
             return (_("Show up to VSR-%d") % accessRestriction.getAccess())
         if pname == "Toggle seen":
@@ -229,6 +237,14 @@ class QuickButton:
                 self.gotFilename(config.AdvancedMovieSelection.bookmark2path.value)
             elif pname == "Bookmark 3":
                 self.gotFilename(config.AdvancedMovieSelection.bookmark3path.value)
+            elif pname == "Bookmark 4":
+                self.gotFilename(config.AdvancedMovieSelection.bookmark4path.value)
+            elif pname == "Bookmark 5":
+                self.gotFilename(config.AdvancedMovieSelection.bookmark5path.value)
+            elif pname == "Bookmark 6":
+                self.gotFilename(config.AdvancedMovieSelection.bookmark6path.value)
+            elif pname == "Bookmark 7":
+                self.gotFilename(config.AdvancedMovieSelection.bookmark7path.value)                
             elif pname == "Bookmark(s) on/off":
                 config.AdvancedMovieSelection.show_bookmarks.value = not config.AdvancedMovieSelection.show_bookmarks.value
                 self.saveconfig()

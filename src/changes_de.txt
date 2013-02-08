@@ -290,6 +290,7 @@ ACHTUNG an die skinner, SelectionListScreen(SD, XD, HD) sind neu dazugekommen
 
 version: 3.0
 * neu: funktionsauswahl für langes drücken der farbtasten
+* neu: nun können 8 verschiedene lesezeichen den farbtasten zugeordnet werden
 * neu: neue suche direkt über die nummerntasten der fernbedienung oder tastatur
 * neu: datenbankerstellung für ausgewählte speicherorte
 * neu: schnelle suche in der datenbank
@@ -299,4 +300,5 @@ version: 3.0
 * neu: tmdb und tvdb suche für verzeichnisse
 * neu: info für verzeichnisse
 * geändert: anzeige der bookmarks ohne ordner
+* fix: löschen fehler behoben
 ACHTUNG an die skinner, PopupInputDialog und PopupInputHelpDialog sind neu dazugekommen
