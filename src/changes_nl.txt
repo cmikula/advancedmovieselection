@@ -286,6 +286,7 @@ OPGELET voor de skinners, SelectionListScreen(SD, XD, HD) toegevoegd
 
 versie: 3.0
 * nieuw: functiekeuze voor lang drukken van de kleurknoppen
+* nieuw: nu kunnen er 8 verschillende bookmarks aan de kleurknoppen toegekend worden
 * nieuw: nieuwe zoekfunctie, direct met de nummerknoppen van de afstandsbediening of het toetsenbord
 * nieuw: databank voor geselecteerde locaties
 * nieuw: snel zoeken in databank
@@ -294,5 +295,6 @@ versie: 3.0
 * nieuw: bestandsgrootte wordt enkel voor bestanden in databank weergegeven
 * nieuw: tmdb and tvdb zoeken voor mappen
 * nieuw: info voor mappen
+* fix: fout bij het verwijderen opgelost
 * aanpassing: bookmarks weergeven zonder mappen weergeven
 OPGELET voor de skinners, PopupInputDialog en PopupInputHelpDialog toegevoegd

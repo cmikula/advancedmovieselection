@@ -289,6 +289,7 @@ Skinners ATTENTION, SelectionListScreen(SD, XD, HD) are new
 
 version: 3.0
 * new: function selection for long presses of the color buttons
+* new: now it's possible to assign 8 different bookmarks to the colored buttons
 * new: new direct search with the number buttons of the remote or keyboard
 * new: database for selected locations
 * new: fast search in database
@@ -298,4 +299,5 @@ version: 3.0
 * new: tmdb and tvdb search for directories
 * new: info for directories
 * change: show bookmarks without show folders
+* fix: solved error with delete
 Skinners ATTENTION, PopupInputDialog and PopupInputHelpDialog are new
