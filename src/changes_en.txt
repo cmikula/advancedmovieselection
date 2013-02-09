@@ -301,3 +301,6 @@ version: 3.0
 * change: show bookmarks without show folders
 * fix: solved error with delete
 Skinners ATTENTION, PopupInputDialog and PopupInputHelpDialog are new
+
+version: 3.0.1
+* fix: crash on oe1.6

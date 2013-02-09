@@ -302,3 +302,6 @@ version: 3.0
 * geändert: anzeige der bookmarks ohne ordner
 * fix: löschen fehler behoben
 ACHTUNG an die skinner, PopupInputDialog und PopupInputHelpDialog sind neu dazugekommen
+
+version: 3.0.1
+* fix: crash on oe1.6
