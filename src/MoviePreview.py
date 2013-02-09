@@ -66,8 +66,7 @@ class MoviePreview():
     def loadPreview(self, serviceref):
         self.hideDialog()
         if serviceref is None:
-            self.working = True
-            self.picload.startDecode(nocover)
+            self["CoverPreview"].instance.setPixmap(None)
             return
 
         path = serviceref.getPath()
