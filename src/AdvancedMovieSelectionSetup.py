@@ -522,9 +522,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.close()
 
     def keySave(self):
-        from Wastebasket import waste_timer
-        if waste_timer:
-            waste_timer.configChange()
+        from Wastebasket import configChange
+        configChange()
         if not config.AdvancedMovieSelection.use_wastebasket.value:
             config.AdvancedMovieSelection.server_enabled.setValue(False)
         if config.AdvancedMovieSelection.ml_disable.isChanged():

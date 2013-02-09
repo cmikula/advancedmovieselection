@@ -405,12 +405,14 @@ class WastebasketTimer():
         config.AdvancedMovieSelection.empty_wastebasket_time.addNotifier(self.startTimer, initial_call=False)
     
     def stopTimer(self):
+        print "[AdvancedMovieSelection] WastebasketTimer.stopTimer"
         self.wastebasketTimer.stop()
     
     def startTimer(self, dummy=None):
         if self.wastebasketTimer.isActive():
             self.wastebasketTimer.stop()
         value = int(config.AdvancedMovieSelection.auto_empty_wastebasket.value)
+        print "[AdvancedMovieSelection] WastebasketTimer.startTimer", str(value)
         if value != -1:
             nowSec = int(time())           
             now = localtime(nowSec)
@@ -436,8 +438,6 @@ class WastebasketTimer():
                 self.recTimer.stop()
 
     def configChange(self):
-        if self.wastebasketTimer.isActive():
-            self.wastebasketTimer.stop()
         print "[AdvancedMovieSelection] Setup values have changed"
         self.startTimer()
         
@@ -491,3 +491,17 @@ class WastebasketTimer():
                 self.configChange()
 
 waste_timer = None
+
+def createWasteTimer(session):
+    global waste_timer
+    waste_timer = WastebasketTimer(session)
+    value = int(config.AdvancedMovieSelection.auto_empty_wastebasket.value)
+    if value != -1:
+        print "[AdvancedMovieSelection] Auto empty from wastebasket enabled..."
+    else:
+        waste_timer.stopTimer()
+        print "[AdvancedMovieSelection] Auto empty from wastebasket disabled..."
+
+def configChange():
+    if waste_timer:
+        waste_timer.configChange()

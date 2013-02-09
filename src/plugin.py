@@ -40,14 +40,8 @@ def sessionstart(reason, **kwargs):
                 elif value == "showTv": InfoBar.showTv = showMovies
                 elif value == "showRadio": InfoBar.showRadio = showMovies
                 elif value == "timeshiftStart": InfoBar.startTimeshift = showMovies
-                from Wastebasket import waste_timer, WastebasketTimer
-                waste_timer = WastebasketTimer(session)
-                value = int(config.AdvancedMovieSelection.auto_empty_wastebasket.value)
-                if value != -1:
-                    print "[AdvancedMovieSelection] Auto empty from wastebasket enabled..."
-                else:
-                    waste_timer.stopTimer()
-                    print "[AdvancedMovieSelection] Auto empty from wastebasket disabled..."
+                from Wastebasket import createWasteTimer
+                createWasteTimer(session)
                 from Source.Remote.MessageServer import serverInstance
                 if config.AdvancedMovieSelection.server_enabled.value:
                     serverInstance.setPort(config.AdvancedMovieSelection.server_port.value)

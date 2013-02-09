@@ -301,3 +301,6 @@ OPGELET voor de skinners, PopupInputDialog en PopupInputHelpDialog toegevoegd
 
 version: 3.0.1
 * fix: crash on oe1.6
+
+version: 3.0.2
+* fix: waste enable/disable
