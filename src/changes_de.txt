@@ -308,3 +308,4 @@ version: 3.0.1
 
 version: 3.0.2
 * fix: papierkorb ein/ausschalten
+* fix: cover anzeige beim löschen des letzten films

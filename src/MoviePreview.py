@@ -65,40 +65,44 @@ class MoviePreview():
 
     def loadPreview(self, serviceref):
         self.hideDialog()
-        if serviceref:
-            path = serviceref.getPath()
-            if path.endswith("/"):
-                if fileExists(path + ".jpg"):
-                    path += ".jpg"
-                elif config.AdvancedMovieSelection.usefoldername.value:
-                    path = path[:-1] + ".jpg"
-                else:
-                    path = path + "folder.jpg"
-            elif os.path.isfile(path):
-                path = os.path.splitext(path)[0] + ".jpg"
-            else:
-                path = path + ".jpg"
-        
+        if serviceref is None:
             self.working = True
-            self["CoverPreview"].setPosition(self.cpX, self.cpY)
-            if fileExists(path):
-                self.picload.startDecode(path)
-                return
-            series_path = os.path.join(os.path.dirname(path), "series.jpg")
-            if os.path.exists(series_path):
-                self.picload.startDecode(series_path)
-                return
-            if serviceref.getPath().endswith(".ts") and config.AdvancedMovieSelection.show_picon.value:
-                picon = getServiceInfoValue(serviceref, iServiceInformation.sServiceref).rstrip(':').replace(':', '_') + ".png"
-                piconpath = os.path.join(config.AdvancedMovieSelection.piconpath.value, picon)
-                if os.path.exists(piconpath):
-                    if config.AdvancedMovieSelection.piconsize.value:
-                        self["CoverPreview"].instance.setPixmapFromFile(piconpath)
-                        self["CoverPreview"].setPosition(self.piconX, self.piconY)
-                    else:
-                        self.picload.startDecode(piconpath)
-                    return
             self.picload.startDecode(nocover)
+            return
+
+        path = serviceref.getPath()
+        if path.endswith("/"):
+            if fileExists(path + ".jpg"):
+                path += ".jpg"
+            elif config.AdvancedMovieSelection.usefoldername.value:
+                path = path[:-1] + ".jpg"
+            else:
+                path = path + "folder.jpg"
+        elif os.path.isfile(path):
+            path = os.path.splitext(path)[0] + ".jpg"
+        else:
+            path = path + ".jpg"
+    
+        self.working = True
+        self["CoverPreview"].setPosition(self.cpX, self.cpY)
+        if fileExists(path):
+            self.picload.startDecode(path)
+            return
+        series_path = os.path.join(os.path.dirname(path), "series.jpg")
+        if os.path.exists(series_path):
+            self.picload.startDecode(series_path)
+            return
+        if serviceref.getPath().endswith(".ts") and config.AdvancedMovieSelection.show_picon.value:
+            picon = getServiceInfoValue(serviceref, iServiceInformation.sServiceref).rstrip(':').replace(':', '_') + ".png"
+            piconpath = os.path.join(config.AdvancedMovieSelection.piconpath.value, picon)
+            if os.path.exists(piconpath):
+                if config.AdvancedMovieSelection.piconsize.value:
+                    self["CoverPreview"].instance.setPixmapFromFile(piconpath)
+                    self["CoverPreview"].setPosition(self.piconX, self.piconY)
+                else:
+                    self.picload.startDecode(piconpath)
+                return
+        self.picload.startDecode(nocover)
                 
     def showPreviewCallback(self, picInfo=None):
         if picInfo:
