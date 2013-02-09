@@ -138,10 +138,6 @@ class MovieDatabase(dict, SortProvider):
                         del item["movies"][index]
                         break
     
-    # TODO: test only
-    def slicedict(self, d, s):
-        return {k:v for k, v in d.iteritems() if k.startswith(s)}
-    
     def insertMarker(self, l1, root):
         if len(root) > 40:
             parts = root.split("/")
