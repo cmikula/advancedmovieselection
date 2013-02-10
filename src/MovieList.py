@@ -1048,7 +1048,7 @@ class MovieList(GUIComponent):
         return cmp(d1, d2)
 
     def sortbyDateAsc(self, a, b):
-        return cmp(a[0].begin, a[0].begin)
+        return cmp(a[0].begin, b[0].begin)
 
     def sortbyDateDesc(self, a, b):
         return cmp(b[0].begin, a[0].begin)
