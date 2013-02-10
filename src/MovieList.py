@@ -447,7 +447,7 @@ class MovieList(GUIComponent):
                 return res
                 
             png = None
-            if self.list_type != MovieList.LISTTYPE_EXTENDED:
+            if self.list_type != MovieList.LISTTYPE_EXTENDED and self.show_statusicon:
                 extension = serviceref.toString().split('.')
                 extension = extension[-1].lower()
                 offset = 25
