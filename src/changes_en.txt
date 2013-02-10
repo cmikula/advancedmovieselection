@@ -308,3 +308,5 @@ version: 3.0.1
 version: 3.0.2
 * fix: waste enable/disable
 * fix: hide cover on deleting last movie 
+* fix: show/hide movie symbol 
+* fix: sorting ascending 
