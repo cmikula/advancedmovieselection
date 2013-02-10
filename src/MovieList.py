@@ -935,7 +935,7 @@ class MovieList(GUIComponent):
 
             if self.filter_description:
                 descr = info.getInfoString(serviceref, iServiceInformation.sDescription)
-                if descr != self.filter_description:
+                if not self.filter_description.lower() in str(descr).lower():
                     continue 
             
             # convert space-seperated list of tags into a set
