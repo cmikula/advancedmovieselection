@@ -306,3 +306,4 @@ ACHTUNG an die skinner, PopupInputDialog und PopupInputHelpDialog sind neu dazug
 version: 3.0.1
 * fix: crash on oe1.6
 * fix: ein/aus schalten der filmsymbole
+* fix: liste/datenbank aufsteigend sortieren 
