@@ -404,31 +404,48 @@ class QuickButton:
             self.reloadList()
 
     def openFilterByDescriptionChoice(self):
-        from Source.ServiceProvider import ServiceCenter, detectDVDStructure, detectBludiscStructure, eServiceReferenceDvd, eServiceReferenceBludisc
-        from enigma import eServiceReference, iServiceInformation
+        from Source.ServiceProvider import ServiceCenter, detectDVDStructure, detectBludiscStructure, eServiceReferenceDvd, eServiceReferenceBludisc, eServiceReferenceListAll
+        from Source.MovieScanner import movieScanner
+        from enigma import iServiceInformation
         from MovieSelection import SHOW_ALL_MOVIES
         serviceHandler = ServiceCenter.getInstance()
         descr = []
-        l = serviceHandler.list(self.list.root)
-        while 1:
-            serviceref = l.getNext()
-            if not serviceref.valid():
-                break
-            if serviceref.flags & eServiceReference.mustDescent:
-                dvd = detectDVDStructure(serviceref.getPath())
-                if dvd is not None:
-                    serviceref = eServiceReferenceDvd(serviceref, True)
-                bludisc = detectBludiscStructure(serviceref.getPath())
-                if bludisc is not None:
-                    serviceref = eServiceReferenceBludisc(serviceref, True)
-                if not dvd and not bludisc:
+        if isinstance(self.list.root, eServiceReferenceListAll):
+            l = movieScanner.database.getMovieList(self.list.sort_type)
+            for movie_tuple in l:
+                movie_info = movie_tuple[0]
+                info = movie_info.info
+                if not info:
                     continue
-            info = serviceHandler.info(serviceref)
-            if not info:
-                continue
-            description = (info.getInfoString(serviceref, iServiceInformation.sDescription),)
-            if description[0] != "" and not description in descr:
-                descr.append(description)
+                serviceref = movie_info.serviceref
+                description = (info.getInfoString(serviceref, iServiceInformation.sDescription),)
+                if description[0] != "" and not description in descr:
+                    descr.append(description)
+        else:
+            l = serviceHandler.list(self.list.root)
+            if not l:
+                print "list movies for filter failed"
+                return
+            while 1:
+                serviceref = l.getNext()
+                if not serviceref.valid():
+                    break
+                if serviceref.flags & eServiceReference.mustDescent:
+                    dvd = detectDVDStructure(serviceref.getPath())
+                    if dvd is not None:
+                        serviceref = eServiceReferenceDvd(serviceref, True)
+                    bludisc = detectBludiscStructure(serviceref.getPath())
+                    if bludisc is not None:
+                        serviceref = eServiceReferenceBludisc(serviceref, True)
+                    if not dvd and not bludisc:
+                        continue
+                info = serviceHandler.info(serviceref)
+                if not info:
+                    continue
+                description = (info.getInfoString(serviceref, iServiceInformation.sDescription),)
+                if description[0] != "" and not description in descr:
+                    descr.append(description)
+        
         descr = sorted(descr)
         descr.insert(0, (_(SHOW_ALL_MOVIES),))
         
@@ -438,7 +455,7 @@ class QuickButton:
             if item[0] == current:
                 selection = index
                 break
-        
+        print "open filter choice", str(selection), str(descr)
         self.session.openWithCallback(self.filterByDescription, ChoiceBox, title=_("Select movie by description:"), list=descr, selection=selection)
 
     def filterByDescription(self, answer):
@@ -447,6 +464,8 @@ class QuickButton:
             return
         if answer[0] == _(SHOW_ALL_MOVIES):
             self.list.filter_description = None
+            print "clear filter choice"
         else:
-            self.list.filter_description = answer[0] 
+            self.list.filter_description = answer[0]
+            print "set filter choice", str(answer[0])
         self.reloadList()

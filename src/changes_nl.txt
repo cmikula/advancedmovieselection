@@ -303,8 +303,10 @@ version: 3.0.1
 * fix: crash on oe1.6
 
 version: 3.0.2
-* fix: waste enable/disable
-* fix: hide cover on deleting last movie 
-* fix: show/hide movie symbol 
-* fix: sorting ascending
-* changed: filter shortdescription with containing text instead of full match
+* fix: prullemand activeren/deactiveren
+* fix: cover verbergen bij verwijderen laatste film
+* fix: filmsymbool weergeven/verbergen
+* fix: oplopende sortering
+* fix: filter description in database
+* aanpassing: filter voor korte beschrijving ook met gedeeltelijke inhoud
+* changed: info view expanded if acive: age rating, filter short description

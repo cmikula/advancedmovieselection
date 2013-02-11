@@ -847,7 +847,7 @@ class MovieList(GUIComponent):
         sort = self.sort_type
         if config.AdvancedMovieSelection.show_videodirslocation.value:
             sort = self.sort_type | movieScanner.database.SORT_WITH_DIRECTORIES
-        self.list = movieScanner.database.getMovieList(sort, filter_tags)
+        self.list = movieScanner.database.getMovieList(sort, filter_tags, self.filter_description)
         self.tags = movieScanner.database.getTags()
         # self.sortMovieList()
         tmp = self.root.getPath()

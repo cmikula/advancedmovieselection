@@ -153,8 +153,8 @@ class MovieDatabase(dict, SortProvider):
         mi = MovieInfo(name, serviceref, info)
         l1.insert(0, (mi,))
         
-    def getMovieListPerMountDir(self, sort_type, filter_tags=None):
-        print "getMovieListPerMountDir", str(sort_type) 
+    def getMovieListPerMountDir(self, sort_type, filter_tags=None, filter_description=None):
+        print "getMovieListPerMountDir", str(sort_type), str(filter_tags), str(filter_description)
         l = []
         dirs = self.getDirectoryList(True)
         movie_count = 0
@@ -171,6 +171,10 @@ class MovieDatabase(dict, SortProvider):
                         continue
                     if filter_tags is not None and not set(this_tags).issuperset(filter_tags):
                         continue
+                    if filter_description:
+                        descr = i.info.getInfoString(i.serviceref, iServiceInformation.sDescription)
+                        if not filter_description.lower() in str(descr).lower():
+                            continue 
                     l1.append((i,))
                     movie_count += 1
                 
@@ -185,10 +189,10 @@ class MovieDatabase(dict, SortProvider):
         print "collected movies", str(movie_count)
         return l
 
-    def getMovieList(self, sort_type, filter_tags=None):
+    def getMovieList(self, sort_type, filter_tags=None, filter_description=None):
         if config.AdvancedMovieSelection.db_mark.value and sort_type & SortProvider.SORT_WITH_DIRECTORIES:
-            return self.getMovieListPerMountDir(sort_type, filter_tags)
-        print "getMovieList", str(sort_type)
+            return self.getMovieListPerMountDir(sort_type, filter_tags, filter_description)
+        print "getMovieList", str(sort_type), str(filter_tags), str(filter_description)
         l = []
         dirs = self.getDirectoryList(True)
         for location in dirs:
@@ -200,6 +204,10 @@ class MovieDatabase(dict, SortProvider):
                     continue
                 if filter_tags is not None and not set(this_tags).issuperset(filter_tags):
                     continue
+                if filter_description:
+                    descr = i.info.getInfoString(i.serviceref, iServiceInformation.sDescription)
+                    if not filter_description.lower() in str(descr).lower():
+                        continue 
                 l1.append((i,))
             
             if sort_type & SortProvider.SORT_WITH_DIRECTORIES and len(l1) >= config.AdvancedMovieSelection.db_show_mark_cnt.value and filter_tags is None:

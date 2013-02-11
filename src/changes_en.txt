@@ -310,4 +310,6 @@ version: 3.0.2
 * fix: hide cover on deleting last movie 
 * fix: show/hide movie symbol 
 * fix: sorting ascending
+* fix: filter description in database
 * changed: filter shortdescription with containing text instead of full match
+* changed: info view expanded if acive: age rating, filter short description

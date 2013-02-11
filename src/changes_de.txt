@@ -311,4 +311,6 @@ version: 3.0.2
 * fix: cover anzeige beim löschen des letzten films
 * fix: ein/aus schalten der filmsymbole
 * fix: liste/datenbank aufsteigend sortieren
+* fix: filtern nach beschreibung in der datenbank
 * geändert: filter der kurzbeschreibung nach enthaltenen text und nicht übereinstimmung
+* geändert: info anzeige ergänzt wenn aktiv um: altersfreigabe, filter kurzbescreibung

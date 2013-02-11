@@ -1280,13 +1280,26 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
     def updateTitle(self, current_path):
         if current_path and current_path[-1] != '/':
             current_path += '/' 
-        title = _("Movie location:")
         #if config.usage.setup_level.index >= 2: # expert+
-        title += " " + current_path
-        title = getSortDescription() + " | " + title
+        title = getSortDescription()
+        if self.list.getAccess() < 18:
+            title += " [%s-%d]"%(_("VSR"), self.list.getAccess())
+        title += " | "
+        if not isinstance(self.current_ref, eServiceReferenceListAll):
+            title += _("Movie location:") + " "
+        else:
+            title += _("Database") + ": "
+        title += current_path
+        
+        extra_info = []
         if self.selected_tags is not None:
+            extra_info.append(self["list"].arrangeTags(" ".join(self.selected_tags)))
+        if self.list.filter_description is not None:
+            extra_info.append(self.list.filter_description)
+        
+        if len(extra_info) > 0:
             #title += " - " + ','.join(self.selected_tags)
-            title += " (" + self["list"].arrangeTags(" ".join(self.selected_tags)) + ")"
+            title += " (" + ", ".join(extra_info) + ")"
         if not movieScanner.isWorking:
             self.setTitle(title)
         else:
