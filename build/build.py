@@ -50,12 +50,12 @@ print "platform:\t", platform.platform()
 py_version = 0 
 # checking python version
 if (sys.version_info < (2, 6, 8) and sys.version_info > (2, 6, 6)):
-    #sys.stderr.write("You need python 2.6.6 to 2.6.8 to build package compiled for dream multimedia devices\n") 
+    # sys.stderr.write("You need python 2.6.6 to 2.6.8 to build package compiled for dream multimedia devices\n") 
     ARCH = "mipsel"
     py_version = 2.6
 
 if (sys.version_info < (2, 7, 4) and sys.version_info > (2, 7, 0)):
-    #sys.stderr.write("You need python 2.7 to build package compiled for opendreambox-2.0.0\n") 
+    # sys.stderr.write("You need python 2.7 to build package compiled for opendreambox-2.0.0\n") 
     ARCH = "mips32el"
     py_version = 2.7
 
@@ -69,16 +69,17 @@ PLUGIN_PATH = "/usr/lib/enigma2/python/Plugins/Extensions/"
 PLUGIN = os.path.join(PLUGIN_PATH, PLUGIN_NAME)
 
 PLUGIN_VERSION_FILE = os.path.join(PLUGIN, "Version.py") 
+PLUGIN_HASH_FILE = os.path.join(PLUGIN, "md5hash") 
 
 PACKAGE_PREFIX = "enigma2-plugin-extensions"
 PACKAGE = "%s-%s" % (PACKAGE_PREFIX, PLUGIN_NAME.lower())
-PACKAGE_DESCRIPTION = "Advanced Movie Selection for Enigma2" #"Erweiterte Filmauswahl"
+PACKAGE_DESCRIPTION = "Advanced Movie Selection for Enigma2"  # "Erweiterte Filmauswahl"
 PACKAGE_ARCHITECTURE = ARCH
 PACKAGE_SECTION = "extra"
 PACKAGE_PRIORITY = "optional"
 PACKAGE_MAINTAINER = "JackDaniel, cmikula"
 PACKAGE_HOMEPAGE = "http://www.i-have-a-dreambox.com"
-PACKAGE_DEPENDS = "kernel-module-isofs, kernel-module-udf, enigma2(>3.2cvs20111016)" # TODO: check working enigma version
+PACKAGE_DEPENDS = "kernel-module-isofs, kernel-module-udf, enigma2(>3.2cvs20111016)"  # TODO: check working enigma version
 PACKAGE_SOURCE = "QNAP from JackDaniel"
 
 SVN_REPOSITORY_EXPORT = "svn://multimedia.ath.cx:4000/AdvancedMovieSelection/trunk/src"
@@ -223,8 +224,8 @@ def createPostInst(control_path="."):
 
 def createPreRM(control_path="."):
     file_name = os.path.join(control_path, "prerm")
-    #f = open(file_name, 'wb')
-    #f.close()
+    # f = open(file_name, 'wb')
+    # f.close()
 
 def createPostRM(control_path="."):
     file_name = os.path.join(control_path, "postrm")
@@ -235,7 +236,7 @@ def createPostRM(control_path="."):
 def createDebianBinary():
     file_name = "debian-binary"
     f = open(file_name, 'wb')
-    f.write("2.0\n") # 
+    f.write("2.0\n")  # 
     f.close()
 
 def tar_filter(tarinfo):
@@ -279,14 +280,14 @@ def createPluginStructure():
         tar.add(PLUGIN)
         tar.close()
 
-    #tar_name = os.path.join(BUILD_PATH, "control.tar.gz")
-    #os.chdir(os.path.join(BUILD_PATH, "CONTROL"))
-    #os.system("chmod 755 *")
-    #makeTarGz(".", tar_name)
-    #os.chdir(BUILD_PATH)
+    # tar_name = os.path.join(BUILD_PATH, "control.tar.gz")
+    # os.chdir(os.path.join(BUILD_PATH, "CONTROL"))
+    # os.system("chmod 755 *")
+    # makeTarGz(".", tar_name)
+    # os.chdir(BUILD_PATH)
 
-    #tar_name = os.path.join(BUILD_PATH, "data.tar.gz")
-    #makeTarGz(PLUGIN, tar_name)
+    # tar_name = os.path.join(BUILD_PATH, "data.tar.gz")
+    # makeTarGz(PLUGIN, tar_name)
     
     if native_tar:
         os.system("chmod 755 CONTROL/*")
@@ -324,10 +325,11 @@ def moveToDeploy():
     src = os.path.join(BUILD_PATH, branding_info['ipkg_name'])
     dst = os.path.join(DEPLOY_PATH, branding_info['ipkg_name'])
     shutil.move(src, dst)
+    return dst
 
 def cleanup():
-    #clean = os.path.join(BUILD_PATH, "CONTROL")
-    #if os.path.exists(clean):
+    # clean = os.path.join(BUILD_PATH, "CONTROL")
+    # if os.path.exists(clean):
     #    shutil.rmtree(clean)
 
     clean = os.path.join(BUILD_PATH, "control.tar.gz")
@@ -367,7 +369,7 @@ def exportSVNRepository():
         raise Exception("error exporting sources from svn server")
 
 def compilePlugin():
-    #compileall.compile_dir(PLUGIN, force=1)
+    # compileall.compile_dir(PLUGIN, force=1)
     for lib in LIBRARY_SOURCES:
         # Not supported in python26
         # compileall.compile_file(os.path.join(PLUGIN, lib), force=1)
@@ -386,7 +388,7 @@ def applyUserSettings():
     from optparse import OptionParser
     parser = OptionParser()
     parser.add_option("-d", "--deploy", dest="deploypath", help="path to deploy")
-    parser.add_option("-s", "--svn", dest="repository", help="repository location") #, default="trunk")
+    parser.add_option("-s", "--svn", dest="repository", help="repository location")  # , default="trunk")
     parser.add_option("-b", "--build", dest="build_path", help="build location")
     parser.add_option("-a", "--arch", dest="architecture", help="pakage architecture")
     
@@ -428,6 +430,39 @@ def checkingBuildOptions():
     
     print " pass!"
 
+def listSourceFiles():
+    l = []
+    for (path, dirs, files) in os.walk(PLUGIN):
+        for filename in files:
+            if filename.endswith('.py'):
+                f = os.path.join(path, filename)
+                l.append(f)
+    return l
+
+def md5sum(filename):
+    import hashlib
+    md5 = hashlib.md5()
+    with open(filename, 'rb') as f: 
+        for chunk in iter(lambda: f.read(128 * md5.block_size), b''): 
+            md5.update(chunk)
+    return md5.hexdigest()
+
+def createMD5Hashes():
+    hash_file = open(PLUGIN_HASH_FILE, 'wb')
+    sources = listSourceFiles()
+    for filename in sources:
+        hash_file.write(md5sum(filename) + '  ' + filename + '\r\n')
+    for lib in LIBRARY_SOURCES:
+        filename = os.path.join(PLUGIN, lib + 'o')
+        hash_file.write(md5sum(filename) + '  ' + filename + '\r\n')
+    hash_file.close()
+
+def hashFromFile(filename):
+    print "create hash for:", filename
+    hash_file = open(filename + '.md5', 'wb')
+    hash_file.write(md5sum(filename))
+    hash_file.close()
+
 def main():
     applyUserSettings()
     print "--- start building enigma2.%s package ---" % (PACKAGE_ARCHITECTURE)
@@ -437,11 +472,13 @@ def main():
     compilePlugin()
     removeLibrarySources()
     genBrandingInfo()
+    createMD5Hashes()
     print "build package:", PLUGIN_NAME, branding_info['version']
     
     createPluginStructure()
     createIPKG()
-    moveToDeploy()
+    ipkg = moveToDeploy()
+    hashFromFile(ipkg)
     cleanup()
     print "build success:", branding_info['ipkg_name']
     print "stored in:", DEPLOY_PATH
