@@ -178,9 +178,11 @@ class MovieDatabase(dict, SortProvider):
                     l1.append((i,))
                     movie_count += 1
                 
-            if sort_type & SortProvider.SORT_WITH_DIRECTORIES and len(l1) >= config.AdvancedMovieSelection.db_show_mark_cnt.value and filter_tags is None:
+            if sort_type & SortProvider.SORT_WITH_DIRECTORIES:
+                print "sorting", str(len(l1)), root
                 self.sortMovieList(l1, sort_type)
-                self.insertMarker(l1, root)
+                if len(l1) >= config.AdvancedMovieSelection.db_show_mark_cnt.value:
+                    self.insertMarker(l1, root)
 
             l.extend(l1)
 
@@ -210,9 +212,11 @@ class MovieDatabase(dict, SortProvider):
                         continue 
                 l1.append((i,))
             
-            if sort_type & SortProvider.SORT_WITH_DIRECTORIES and len(l1) >= config.AdvancedMovieSelection.db_show_mark_cnt.value and filter_tags is None:
+            if sort_type & SortProvider.SORT_WITH_DIRECTORIES:
+                print "sorting", str(len(l1)), location
                 self.sortMovieList(l1, sort_type)
-                self.insertMarker(l1, location)
+                if len(l1) >= config.AdvancedMovieSelection.db_show_mark_cnt.value:
+                    self.insertMarker(l1, location)
 
             l.extend(l1)
         if not sort_type & SortProvider.SORT_WITH_DIRECTORIES:
