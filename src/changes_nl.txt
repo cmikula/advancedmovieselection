@@ -308,5 +308,6 @@ version: 3.0.2
 * fix: filmsymbool weergeven/verbergen
 * fix: oplopende sortering
 * fix: filter description in database
+* fix: sorting database if tags selected
 * aanpassing: filter voor korte beschrijving ook met gedeeltelijke inhoud
 * changed: info view expanded if acive: age rating, filter short description

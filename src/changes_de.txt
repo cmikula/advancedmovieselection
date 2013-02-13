@@ -312,5 +312,6 @@ version: 3.0.2
 * fix: ein/aus schalten der filmsymbole
 * fix: liste/datenbank aufsteigend sortieren
 * fix: filtern nach beschreibung in der datenbank
+* fix: sortieren in der datenbank wenn tags gewählt sind
 * geändert: filter der kurzbeschreibung nach enthaltenen text und nicht übereinstimmung
 * geändert: info anzeige ergänzt wenn aktiv um: altersfreigabe, filter kurzbescreibung
