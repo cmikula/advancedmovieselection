@@ -311,3 +311,6 @@ version: 3.0.2
 * fix: sorting database if tags selected
 * aanpassing: filter voor korte beschrijving ook met gedeeltelijke inhoud
 * changed: info view expanded if acive: age rating, filter short description
+
+version: 3.0.3
+* fix: settings for movie status symbol if folders are disabled

@@ -243,26 +243,26 @@ class MovieContextMenu(Screen):
                 menu.append((_("Hide folders in movielist"), boundFunction(self.showFolders, False)))
             else:
                 menu.append((_("Show folders in movielist"), boundFunction(self.showFolders, True)))
-        if config.AdvancedMovieSelection.showextras.value and config.usage.load_length_of_movies_in_moviellist.value and not config.AdvancedMovieSelection.showpercentinmovielist.value:
-            if config.AdvancedMovieSelection.showprogessbarinmovielist.value:
-                menu.append((_("Hide progressbar in movielist"), boundFunction(self.showProgressbar, False)))
-            else:
-                menu.append((_("Show progressbar in movielist"), boundFunction(self.showProgressbar, True)))
-        if config.AdvancedMovieSelection.showextras.value and config.usage.load_length_of_movies_in_moviellist.value and not config.AdvancedMovieSelection.showprogessbarinmovielist.value:
-            if config.AdvancedMovieSelection.showpercentinmovielist.value:
-                menu.append((_("Hide percent in movielist"), boundFunction(self.showPercent, False)))
-            else:
-                menu.append((_("Show percent in movielist"), boundFunction(self.showPercent, True)))
-        if config.AdvancedMovieSelection.showextras.value and config.AdvancedMovieSelection.showfoldersinmovielist.value and config.usage.load_length_of_movies_in_moviellist.value:
-            if config.AdvancedMovieSelection.showiconstatusinmovielist.value:
-                menu.append((_("Hide movie status icon in movielist"), boundFunction(self.showStatusIcon, False)))
-            else:
-                menu.append((_("Show movie status icon in movielist"), boundFunction(self.showStatusIcon, True)))
-        if config.AdvancedMovieSelection.showextras.value and config.usage.load_length_of_movies_in_moviellist.value:
-            if config.AdvancedMovieSelection.showcolorstatusinmovielist.value:
-                menu.append((_("Hide movie color status in movielist"), boundFunction(self.showStatusColor, False)))
-            else:
-                menu.append((_("Show movie color status in movielist"), boundFunction(self.showStatusColor, True)))
+            
+            if config.usage.load_length_of_movies_in_moviellist.value:
+                if not config.AdvancedMovieSelection.showpercentinmovielist.value:
+                    if config.AdvancedMovieSelection.showprogessbarinmovielist.value:
+                        menu.append((_("Hide progressbar in movielist"), boundFunction(self.showProgressbar, False)))
+                    else:
+                        menu.append((_("Show progressbar in movielist"), boundFunction(self.showProgressbar, True)))
+                if not config.AdvancedMovieSelection.showprogessbarinmovielist.value:
+                    if config.AdvancedMovieSelection.showpercentinmovielist.value:
+                        menu.append((_("Hide percent in movielist"), boundFunction(self.showPercent, False)))
+                    else:
+                        menu.append((_("Show percent in movielist"), boundFunction(self.showPercent, True)))
+                if config.AdvancedMovieSelection.showiconstatusinmovielist.value:
+                    menu.append((_("Hide movie status icon in movielist"), boundFunction(self.showStatusIcon, False)))
+                else:
+                    menu.append((_("Show movie status icon in movielist"), boundFunction(self.showStatusIcon, True)))
+                if config.AdvancedMovieSelection.showcolorstatusinmovielist.value:
+                    menu.append((_("Hide movie color status in movielist"), boundFunction(self.showStatusColor, False)))
+                else:
+                    menu.append((_("Show movie color status in movielist"), boundFunction(self.showStatusColor, True)))
         if config.AdvancedMovieSelection.showcolorkey.value:        
             menu.append((_("Color key settings"), self.setupbutton))     
         if config.AdvancedMovieSelection.showcoveroptions2.value:
