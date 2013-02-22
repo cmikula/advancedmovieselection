@@ -859,11 +859,15 @@ class MovieList(GUIComponent):
 
     def load(self, root, filter_tags):
         self.root = root
-        if isinstance(root, eServiceReferenceListAll):
+        if config.AdvancedMovieSelection.db_show.value:
             self.loadDatabase(root, filter_tags)
             return
-
+        
         print "load:", root.getPath()
+        if root.type != eServiceReference.idFile:
+            print "current type", root.type, "set to", eServiceReference.idFile
+            root.type = eServiceReference.idFile
+
         # this lists our root service, then building a nice list
         self.list = [ ]
         self.multiSelection = []

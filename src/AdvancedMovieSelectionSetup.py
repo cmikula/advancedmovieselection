@@ -639,6 +639,7 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         self.entryguilist.append(("Rename", _("Rename")))
         self.entryguilist.append(("Wastebasket", _("Wastebasket")))
         self.entryguilist.append(("Sort", _("Sort")))
+        self.entryguilist.append(("Database/Movielist", _("Switch database/movielist")))
         self.entryguilist.append(("Show/Hide database", _("Show/Hide database")))
         self.entryguilist.append(("Show/Hide folders", _("Show/Hide folders")))
         self.entryguilist.append(("Bookmark(s) on/off", _("Bookmark(s) on/off")))

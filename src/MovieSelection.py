@@ -1351,6 +1351,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                 config.movielist.last_videodir.value = res
                 self["freeDiskSpace"].path = res
                 self.updateFolderSortType()
+                self.updateDBButtonText()
                 self.reloadList(sel=selection, home=True)
             else:
                 self.session.open(

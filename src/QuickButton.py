@@ -77,6 +77,11 @@ def getPluginCaption(pname):
                 return _("Show marker")
             else:
                 return _("Hide marker")
+        if pname == "Database/Movielist":
+            if config.AdvancedMovieSelection.db_show.value:
+                return _("To movielist")
+            else:
+                return _("To database")
 
         for p in plugins.getPlugins(where=[PluginDescriptor.WHERE_MOVIELIST]):
             if pname == str(p.name):
@@ -149,11 +154,11 @@ class QuickButton:
         print "next:", str(newType)
         return newType
 
-    def findSortButton(self):
+    def findButton(self, function):
         fn = ('red', 'green', 'yellow', 'blue')
         for key in fn:
-            function = qButtons.getFunction(key)
-            if function == "Sort":
+            func = qButtons.getFunction(key)
+            if func == function:
                 key_text = 'key_%s' % (key)
                 return self[key_text]
     
@@ -169,10 +174,15 @@ class QuickButton:
         return _("Unknown")
 
     def updateSortButtonText(self):
-        key_number = self.findSortButton()
+        key_number = self.findButton("Sort")
         if key_number:
             mode = self.getNextSortType()
             key_number.setText(self.getSortButtonCaption(mode))
+    
+    def updateDBButtonText(self):
+        key_number = self.findButton("Database/Movielist")
+        if key_number:
+            key_number.setText(getPluginCaption("Database/Movielist"))
     
     def redpressed(self):
         self.startPlugin(qButtons.getFunction("red"), self["key_red"])
@@ -247,6 +257,12 @@ class QuickButton:
                 self.gotFilename(config.AdvancedMovieSelection.bookmark7path.value)                
             elif pname == "Bookmark(s) on/off":
                 config.AdvancedMovieSelection.show_bookmarks.value = not config.AdvancedMovieSelection.show_bookmarks.value
+                self.saveconfig()
+                self.reloadList()
+                newCaption = getPluginCaption(pname)
+                self.setButtonText(key_number, newCaption)
+            elif pname == "Database/Movielist":
+                config.AdvancedMovieSelection.db_show.value = not config.AdvancedMovieSelection.db_show.value
                 self.saveconfig()
                 self.reloadList()
                 newCaption = getPluginCaption(pname)
