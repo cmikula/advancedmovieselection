@@ -299,19 +299,19 @@ versie: 3.0
 * aanpassing: bookmarks weergeven zonder mappen weergeven
 OPGELET voor de skinners, PopupInputDialog en PopupInputHelpDialog toegevoegd
 
-version: 3.0.1
-* fix: crash on oe1.6
+versie: 3.0.1
+* fix: crash op oe1.6
 
-version: 3.0.2
+versie: 3.0.2
 * fix: prullemand activeren/deactiveren
 * fix: cover verbergen bij verwijderen laatste film
 * fix: filmsymbool weergeven/verbergen
 * fix: oplopende sortering
-* fix: filter description in database
-* fix: sorting database if tags selected
+* fix: filter op beschrijving in database
+* fix: sorteren database als tags geselecteerd
 * aanpassing: filter voor korte beschrijving ook met gedeeltelijke inhoud
-* changed: info view expanded if acive: age rating, filter short description
+* aanpassing: info weergave uitgebreid met leeftijdsgrens, filter korte beschrijving (indien actief)
 
-version: 3.0.3
-* fix: settings for movie status symbol if folders are disabled
-* new: switch dtatbase/movielist with quickbutton
+versie: 3.0.3
+* fix: instelling voor statussymbool film indien folders niet actief
+* nieuw: wissel database/filmlijst met quickbutton

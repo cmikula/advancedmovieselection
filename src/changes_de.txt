@@ -314,7 +314,7 @@ version: 3.0.2
 * fix: filtern nach beschreibung in der datenbank
 * fix: sortieren in der datenbank wenn tags gewählt sind
 * geändert: filter der kurzbeschreibung nach enthaltenen text und nicht übereinstimmung
-* geändert: info anzeige ergänzt wenn aktiv um: altersfreigabe, filter kurzbescreibung
+* geändert: info anzeige ergänzt wenn aktiv um: altersfreigabe, filter kurzbeschreibung
 
 version: 3.0.3
 * fix: anzeige der filmstatus icons wenn ordner ansicht abgeschalten ist

@@ -313,8 +313,8 @@ version: 3.0.2
 * fix: filter description in database
 * fix: sorting database if tags selected
 * changed: filter shortdescription with containing text instead of full match
-* changed: info view expanded if acive: age rating, filter short description
+* changed: info view expanded if active: age rating, filter short description
 
 version: 3.0.3
 * fix: settings for movie status symbol if folders are disabled
-* new: switch dtatbase/movielist with quickbutton
+* new: switch database/movielist with quickbutton
