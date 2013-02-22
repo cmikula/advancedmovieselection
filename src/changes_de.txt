@@ -318,3 +318,4 @@ version: 3.0.2
 
 version: 3.0.3
 * fix: anzeige der filmstatus icons wenn ordner ansicht abgeschalten ist
+* neu: wechsel datenbank/filmliste über quickbutton

@@ -314,3 +314,4 @@ version: 3.0.2
 
 version: 3.0.3
 * fix: settings for movie status symbol if folders are disabled
+* new: switch dtatbase/movielist with quickbutton
