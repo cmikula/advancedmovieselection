@@ -199,7 +199,7 @@ class DownloadMovies(Screen):
                 self["description"].setText("%s - %s\n\n%s" % (str(movie['name']), str(movie['released']), str(movie['overview'])))
                 jpg_file = "/tmp/preview.jpg"
                 cover_url = movie['images'][0]['cover']
-                downloadCover(cover_url, jpg_file)
+                downloadCover(cover_url, jpg_file, True)
                 sc = AVSwitch().getFramebufferScale()
                 self.picload.setPara((self["poster"].instance.size().width(), self["poster"].instance.size().height(), sc[0], sc[1], False, 1, "#00000000"))
                 self.picload.startDecode(jpg_file)
