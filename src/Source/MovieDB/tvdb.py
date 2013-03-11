@@ -39,7 +39,7 @@ def setLocale(lng):
     config['apikey'] = "7E9EC2ECC1B1EB3A" # apikey from JD
     config['urls'] = {}
     config['urls']['movie.search'] = "http://www.thetvdb.com/api/GetSeries.php?seriesname=%%s" % (config)
-    config['urls']['movie.getInfo'] = "http://www.thetvdb.com/api/%(apikey)s/series/%%s/all/%(locale)s" % (config)
+    config['urls']['movie.getInfo'] = "http://www.thetvdb.com/api/%(apikey)s/series/%%s/all/%(locale)s.xml" % (config)
     config['urls']['movie.getImage'] = "http://www.thetvdb.com/banners/_cache/%%s" % (config)
 
 def getLocale():
