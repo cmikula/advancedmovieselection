@@ -392,7 +392,7 @@ class Wastebasket(Screen, HelpableScreen):
         self.close()
 
 import Screens.Standby
-from time import mktime
+from time import mktime, strftime
 from datetime import timedelta
 class WastebasketTimer():
     def __init__(self, session):
@@ -412,26 +412,49 @@ class WastebasketTimer():
         if self.wastebasketTimer.isActive():
             self.wastebasketTimer.stop()
         value = int(config.AdvancedMovieSelection.auto_empty_wastebasket.value)
+        cfgNext = config.AdvancedMovieSelection.next_auto_empty_wastebasket.value
         print "[AdvancedMovieSelection] WastebasketTimer.startTimer", str(value)
+        print "[AMSDebug] Read next autoclean timestamp: ", str(cfgNext)
         if value != -1:
-            nowSec = int(time())           
-            now = localtime(nowSec)
-            w_h = config.AdvancedMovieSelection.empty_wastebasket_time.value[0]
-            w_m = config.AdvancedMovieSelection.empty_wastebasket_time.value[1]
-            dt = datetime(now.tm_year, now.tm_mon, now.tm_mday, w_h, w_m)
-            if value == 1:
-                nextUpdateSeconds = int(mktime(dt.timetuple()))
-                if nowSec > nextUpdateSeconds:
+            nowSec = int(time())
+            nextUpdateSeconds = 0
+            if cfgNext != None:
+                # Saved timestamp found
+                # No slack necessary here - we will not reach this code path
+                # from autoDeleteAllMovies() as configChange() made sure to get
+                # rid of next_auto_empty_wastebasket, so it cannot get into
+                # some self-retriggering loop:
+                if int(cfgNext) > nowSec:
+                    nextUpdateSeconds = int(cfgNext)
+                    print "[AMSDebug] Try to reuse timestamp: ", nextUpdateSeconds
+
+            if nextUpdateSeconds == 0:
+                # No usable saved timestamp, so we have to recompute
+                now = localtime(nowSec)
+                w_h = config.AdvancedMovieSelection.empty_wastebasket_time.value[0]
+                w_m = config.AdvancedMovieSelection.empty_wastebasket_time.value[1]
+                dt = datetime(now.tm_year, now.tm_mon, now.tm_mday, w_h, w_m)
+                if value == 1:
+                    nextUpdateSeconds = int(mktime(dt.timetuple()))
+                    if nowSec > nextUpdateSeconds:
+                        dt += timedelta(value)
+                        nextUpdateSeconds = int(mktime(dt.timetuple()))
+                else:
                     dt += timedelta(value)
                     nextUpdateSeconds = int(mktime(dt.timetuple()))
-            else:
-                dt += timedelta(value)
-                nextUpdateSeconds = int(mktime(dt.timetuple()))
-            config.AdvancedMovieSelection.next_auto_empty_wastebasket.value = nextUpdateSeconds
-            config.AdvancedMovieSelection.next_auto_empty_wastebasket.save()
+
+                # Save it so it survives e2 restart(s)
+                config.AdvancedMovieSelection.next_auto_empty_wastebasket.value = nextUpdateSeconds
+                config.AdvancedMovieSelection.next_auto_empty_wastebasket.save()
+
+            # We now have a timestamp either way - start timer
             self.wastebasketTimer.startLongTimer(nextUpdateSeconds - nowSec)
-            print "[AdvancedMovieSelection] Next wastebasket auto empty at", dt.strftime("%c")
+            print "[AdvancedMovieSelection] Next wastebasket auto empty at", strftime("%c", localtime(nextUpdateSeconds))
+
         else:
+            print "[AdvancedMovieSelection] Get rid of lingering next autoclean timestamp"
+            config.AdvancedMovieSelection.next_auto_empty_wastebasket.value = 0
+            config.AdvancedMovieSelection.next_auto_empty_wastebasket.save()
             if self.wastebasketTimer.isActive():
                 self.wastebasketTimer.stop()
             if self.recTimer.isActive():
@@ -439,6 +462,7 @@ class WastebasketTimer():
 
     def configChange(self):
         print "[AdvancedMovieSelection] Setup values have changed"
+        config.AdvancedMovieSelection.next_auto_empty_wastebasket.value = 0
         self.startTimer()
         
     def autoDeleteAllMovies(self):
