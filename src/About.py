@@ -97,7 +97,7 @@ class AdvancedMovieSelectionAbout(Screen):
         info = "%s %s.r%s, %s\n  %s %s" % (v, Version.__version__, Version.__revision__, Version.__date__, b, Version.__branch__)
         self["version"] = StaticText(info)
         self["author"] = StaticText(_("Developer:\n  JackDaniel, cmikula"))
-        self["translation"] = StaticText(_("Thanks for translation to:\n") + '  nl=Bschaar')
+        self["translation"] = StaticText(_("Thanks for translation to:\n") + '  nl=Bschaar', 'it=mikark')
         self["license"] = StaticText(_("This plugin may only executed on hardware which is licensed by Dream Multimedia GmbH."))
         self["thanks"] = StaticText(_("Thanks to all other for help and so many very good code."))
         self["key_red"] = StaticText(_("Close"))
