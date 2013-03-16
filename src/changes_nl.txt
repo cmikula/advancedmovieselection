@@ -315,3 +315,7 @@ versie: 3.0.2
 versie: 3.0.3
 * fix: instelling voor statussymbool film indien folders niet actief
 * nieuw: wissel database/filmlijst met quickbutton
+
+versie: 3.0.4
+* fix: TVDB Info&D/L
+* nieuw: italien locale (thx @ mikark)

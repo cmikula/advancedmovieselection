@@ -602,6 +602,7 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         Screen.__init__(self, session)
         self.csel = csel
         self.skinName = SkinTools.appendResolution("AdvancedMovieSelectionButtonSetup")
+        self["important"] = StaticText() # TODO: deprecated - backward patch for oe1.6 compatibility 
         self["key_red"] = Button(_("Cancel"))
         self["key_green"] = Button(_("Save/Close"))
         self["key_yellow"] = Button(_("Own button description"))
