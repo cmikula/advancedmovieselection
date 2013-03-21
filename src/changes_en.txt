@@ -321,4 +321,4 @@ version: 3.0.3
 
 version: 3.0.4
 * fix: TVDB Info&D/L
-* new: italien locale (thx @ mikark)
+* new: italian locale (thx @ mikark)
