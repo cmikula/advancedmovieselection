@@ -113,7 +113,6 @@ class QuickButton:
         })
         self.updateButtonText()
         self.updateHelpText()
-        self.block_next = False
  
     def updateHelpText(self):
         for (actionmap, context, actions) in self.helpList:
@@ -198,22 +197,18 @@ class QuickButton:
  
     def redpressedlong(self):
         print "red long"
-        self.block_next = True
         self.startPlugin(qButtons.getFunction("red_long"), None)
 
     def greenpressedlong(self):
         print "green long"
-        self.block_next = True
         self.startPlugin(qButtons.getFunction("green_long"), None)
 
     def yellowpressedlong(self):
         print "yellow long"
-        self.block_next = True
         self.startPlugin(qButtons.getFunction("yellow_long"), None)
 
     def bluepressedlong(self):
         print "blue long"
-        self.block_next = True
         self.startPlugin(qButtons.getFunction("blue_long"), None)
 
     def updateGUI(self):
