@@ -138,9 +138,8 @@ class MovieList(GUIComponent):
     def onFirstStart(self):
         self.updateVideoDirs()
         self.updateHotplugDevices()
-        # TODO: check videodirs disabled on build movielist (performance issue)
-        #if movieScanner.enabled:
-        #    movieScanner.checkAllAvailable()
+        if movieScanner.enabled:
+            movieScanner.checkAllAvailable()
 
     def destroy(self):
         self.picloader.destroy()

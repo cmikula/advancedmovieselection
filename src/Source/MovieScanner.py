@@ -306,7 +306,8 @@ class MovieScanner():
             print "canceled, scan in progress"
             return
 
-        if self.needFullUpdate():
+        # TODO: disabled performance issue
+        if False and self.needFullUpdate():
             print "need update"
             not_in_db = self.database.getMissingLocations(config.AdvancedMovieSelection.videodirs.value)
             new_list = []
