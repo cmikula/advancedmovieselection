@@ -138,8 +138,6 @@ class MovieList(GUIComponent):
     def onFirstStart(self):
         self.updateVideoDirs()
         self.updateHotplugDevices()
-        if movieScanner.enabled:
-            movieScanner.checkAllAvailable()
 
     def destroy(self):
         self.picloader.destroy()

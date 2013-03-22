@@ -1230,10 +1230,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             di.write()
 
     def updateFolderSortType(self):
-        if False and movieScanner.enabled: # TODO: disabled rescan on change directory (performance issue)
-            movieScanner.checkAllAvailable()
-            if movieScanner.isWorking:
-                self.__dbUpdate.start(200, False)
         sort_type = config.AdvancedMovieSelection.db_sort.value
         if not isinstance(self.current_ref, eServiceReferenceListAll):
             di = DirectoryInfo(config.movielist.last_videodir.value)

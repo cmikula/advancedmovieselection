@@ -88,9 +88,11 @@ class MovieScanner():
         print "[AdvancedMovieSelection] Set MovieScanner:", str(enabled)
         if enabled:
             recordTimerEvent.appendCallback(self.timerStateChanged)
+            self.addHotplugNotifier()
             self.reloadMoviesAsync()
         else:
             recordTimerEvent.removeCallback(self.timerStateChanged)
+            self.removeHotplugNotifier()
     
     def updateReloadTime(self):
         self.last_update = datetime.now()
@@ -306,8 +308,7 @@ class MovieScanner():
             print "canceled, scan in progress"
             return
 
-        # TODO: disabled performance issue
-        if False and self.needFullUpdate():
+        if self.needFullUpdate():
             print "need update"
             not_in_db = self.database.getMissingLocations(config.AdvancedMovieSelection.videodirs.value)
             new_list = []
@@ -334,7 +335,22 @@ class MovieScanner():
             movie_info.info = self.serviceHandler.info(serviceref)
             movie_info.name = movie_info.info.getName(serviceref)
             print movie_info
+
+    def addHotplugNotifier(self):
+        from Plugins.SystemPlugins.Hotplug.plugin import hotplugNotifier
+        if not self.hotplugNotifier in hotplugNotifier:
+            print "add hotplugNotifier" 
+            hotplugNotifier.append(self.hotplugNotifier)
         
+    def removeHotplugNotifier(self):
+        from Plugins.SystemPlugins.Hotplug.plugin import hotplugNotifier
+        if self.hotplugNotifier in hotplugNotifier:
+            print "remove hotplugNotifier" 
+            hotplugNotifier.remove(self.hotplugNotifier)
+        
+    def hotplugNotifier(self, dev, media_state):
+        print "[hotplugNotifier]", dev, media_state
+        self.checkAllAvailable()
         
 movieScanner = MovieScanner()
 
