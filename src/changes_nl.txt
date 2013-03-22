@@ -318,4 +318,5 @@ versie: 3.0.3
 
 versie: 3.0.4
 * fix: TVDB Info&D/L
+* fix: performance issue on open movielist
 * nieuw: italiaanse locale (thx @ mikark)
