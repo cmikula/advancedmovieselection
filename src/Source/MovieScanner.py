@@ -347,10 +347,11 @@ class MovieScanner():
         if self.hotplugNotifier in hotplugNotifier:
             print "remove hotplugNotifier" 
             hotplugNotifier.remove(self.hotplugNotifier)
-        
+    
     def hotplugNotifier(self, dev, media_state):
         print "[hotplugNotifier]", dev, media_state
-        self.checkAllAvailable()
+        if len(dev) > 0 and dev[-1].isdigit():
+            self.checkAllAvailable()
         
 movieScanner = MovieScanner()
 
