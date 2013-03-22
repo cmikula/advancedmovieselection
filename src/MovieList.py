@@ -138,8 +138,9 @@ class MovieList(GUIComponent):
     def onFirstStart(self):
         self.updateVideoDirs()
         self.updateHotplugDevices()
-        if movieScanner.enabled:
-            movieScanner.checkAllAvailable()
+        # TODO: check videodirs disabled on build movielist (performance issue)
+        #if movieScanner.enabled:
+        #    movieScanner.checkAllAvailable()
 
     def destroy(self):
         self.picloader.destroy()
@@ -300,7 +301,7 @@ class MovieList(GUIComponent):
     def updateVideoDirs(self):
         self.video_dirs = []
         for directory in config.movielist.videodirs.value:
-            if not autoNetwork.isMountOnline(directory) or not os.path.exists(directory):
+            if not autoNetwork.isMountOnline(directory): # or not os.path.exists(directory):
                 continue
             self.video_dirs.append(directory)
     
