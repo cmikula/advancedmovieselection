@@ -73,6 +73,7 @@ def getDirectories(l, root, hidden=False):
 
 
 class MovieScanner():
+    NTFS_3G_DRIVER_DELAY = 3
     def __init__(self):
         self.database = MovieDatabase()
         self.isWorking = False
@@ -110,12 +111,12 @@ class MovieScanner():
             return 2
         return 0
     
-    def reloadMoviesAsync(self, dir_list=None):
+    def reloadMoviesAsync(self, dir_list=None, delay=0):
         if self.isWorking:
             print "[AdvancedMovieSelection] MovieScanner action canceled! reload in progress"
             return
         from thread import start_new_thread
-        start_new_thread(self.updateMovieList, (dir_list,))
+        start_new_thread(self.updateMovieList, (dir_list, delay))
         self.isWorking = True
 
     def getFullUsed(self):
@@ -134,12 +135,16 @@ class MovieScanner():
         return new_list
     
     @clockit
-    def updateMovieList(self, dir_list=None):
+    def updateMovieList(self, dir_list=None, delay=0):
         print "[AdvancedMovieSelection] Start scanning movies"
         try:
-            self.updateReloadTime()
             # print dir_list
             self.isWorking = True
+            if delay > 0:
+                print "waiting", str(delay)
+                import time
+                time.sleep(delay)
+            self.updateReloadTime()
             if dir_list is None:
                 self.database.clearAll()
                 dir_list = self.updateDirectories()
@@ -162,7 +167,8 @@ class MovieScanner():
         except:
             printStackTrace()
         self.isWorking = False
-        print "[AdvancedMovieSelection] Finished scanning movies"
+        directories, movies = self.database.getFullCount()
+        print "[AdvancedMovieSelection] Finished scanning movies", str(directories), str(movies)
 
     def scanForMovies(self, root):
         # print "[AdvancedMovieSelection] scan folder:", root
@@ -351,6 +357,11 @@ class MovieScanner():
     def hotplugNotifier(self, dev, media_state):
         print "[hotplugNotifier]", dev, media_state
         if len(dev) > 0 and dev[-1].isdigit():
+            if media_state == "add":
+                print "[waiting ntfs-3g]", str(self.NTFS_3G_DRIVER_DELAY)
+                # still waiting for ntfs-3g mount
+                import time
+                time.sleep(self.NTFS_3G_DRIVER_DELAY)
             self.checkAllAvailable()
         
 movieScanner = MovieScanner()
