@@ -237,7 +237,8 @@ class DirectoryEvent(DirectoryInfo):
         text = [text]
 
         #mount_path = self.getmount()
-        if os.path.exists(self.dir_path):
+        # TODO temporary disabled, performance issue on mass storage devices
+        if False and os.path.exists(self.dir_path):
             total, used, free = diskUsage(self.dir_path)
             #text.append(_("Media:") + ' ' + str(mount_path))
             text.append(_("Total:") + ' ' + realSize(total, 3))
