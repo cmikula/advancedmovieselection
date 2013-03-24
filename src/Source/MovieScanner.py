@@ -80,7 +80,7 @@ class MovieScanner():
         self.movieConfig = MovieConfig()
         self.callback = None
         self.serviceHandler = ServiceCenter.getInstance()
-        self.full_used_detect = 0
+        #self.full_used_detect = 0
         self.enabled = False
         self.last_update = None
     
@@ -157,7 +157,7 @@ class MovieScanner():
             for p in dir_list:
                 self.scanForMovies(p)
             
-            self.full_used_detect = self.getFullUsed()
+            # self.full_used_detect = self.getFullUsed()
             if self.callback is not None:
                 self.callback()
 
