@@ -73,7 +73,7 @@ def getDirectories(l, root, hidden=False):
 
 
 class MovieScanner():
-    NTFS_3G_DRIVER_DELAY = 3
+    NTFS_3G_DRIVER_DELAY = 2
     def __init__(self):
         self.database = MovieDatabase()
         self.isWorking = False
@@ -356,7 +356,7 @@ class MovieScanner():
     
     def hotplugNotifier(self, dev, media_state):
         print "[hotplugNotifier]", dev, media_state
-        if len(dev) > 0 and dev[-1].isdigit():
+        if len(dev) > 2 and dev[0:2] in ("sd") and dev[-1].isdigit():
             if media_state == "add":
                 print "[waiting ntfs-3g]", str(self.NTFS_3G_DRIVER_DELAY)
                 # still waiting for ntfs-3g mount
