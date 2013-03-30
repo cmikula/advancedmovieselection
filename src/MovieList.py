@@ -36,7 +36,6 @@ from stat import ST_MTIME as stat_ST_MTIME
 from time import time as time_time
 from math import fabs as math_fabs
 from datetime import datetime
-from Components.Harddisk import Harddisk
 from Source.Globals import printStackTrace
 from Source.ServiceProvider import Info, ServiceCenter, getServiceInfoValue
 from Source.ServiceProvider import detectDVDStructure, eServiceReferenceDvd
@@ -271,29 +270,7 @@ class MovieList(GUIComponent):
         self.automounts = []
         if config.AdvancedMovieSelection.hotplug.value == False:
             return
-        try:
-            import commands
-            lines = commands.getoutput('mount | grep /dev/sd').split('\n')
-            for mount in lines:
-                if len(mount) < 2:
-                    continue
-                m = mount.split(' type')[0].split(' on ')
-                m_dev, m_path = m[0], m[1]
-                label = os.path.split(m_path)[-1]
-                blkid = commands.getoutput('blkid ' + m_dev).split("\"")
-                if len(blkid) > 2 and blkid[1]:
-                    label = blkid[1]
-                if os.path.normpath(m_path) == "/media/hdd" or label in ("DUMBO", "TIMOTHY"):
-                    continue
-                if not self.movieConfig.isHiddenHotplug(label):
-                    if m_path[-1] != "/":
-                        m_path += "/"
-                    service = eServiceReferenceHotplug(m_path)
-                    hdd = Harddisk(m_dev.replace("/dev/", "")[:-1])
-                    service.setName(label + " - " + hdd.model() + " - " + hdd.capacity())
-                    self.automounts.append(service)
-        except Exception, e:
-            print e
+        self.automounts = movieScanner.getHotplugServices()
     
     def updateVideoDirs(self):
         self.video_dirs = []
@@ -856,6 +833,7 @@ class MovieList(GUIComponent):
         self.list.insert(0, (mi,))
 
     def load(self, root, filter_tags):
+        self.updateHotplugDevices()
         self.root = root
         if config.AdvancedMovieSelection.db_show.value:
             self.loadDatabase(root, filter_tags)
