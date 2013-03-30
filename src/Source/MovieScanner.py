@@ -368,7 +368,7 @@ class MovieScanner():
 
     def __hotplugChanged(self, delay=200):
         print "[start hotplugNotifier]", str(delay) + "ms"
-        self.hotplug_timer.start(self.NTFS_3G_DRIVER_DELAY, True)
+        self.hotplug_timer.start(delay, True)
 
     def updateHotplugDevices(self):
         self.automounts = []
