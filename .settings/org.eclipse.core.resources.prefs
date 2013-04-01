@@ -30,6 +30,7 @@ encoding//src/Source/CueSheetSupport.py=utf-8
 encoding//src/Source/EpgListExtension.py=utf-8
 encoding//src/Source/EventInformationTable.py=utf-8
 encoding//src/Source/Globals.py=utf-8
+encoding//src/Source/Hotplug.py=utf-8
 encoding//src/Source/ISOInfo.py=utf-8
 encoding//src/Source/MovieConfig.py=utf-8
 encoding//src/Source/MovieDB/tmdb.py=utf-8

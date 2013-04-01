@@ -21,7 +21,7 @@
 
 import os
 from datetime import datetime
-from ServiceProvider import ServiceCenter, eServiceReferenceDvd, eServiceReferenceBludisc, eServiceReferenceHotplug
+from ServiceProvider import ServiceCenter, eServiceReferenceDvd, eServiceReferenceBludisc
 from ServiceProvider import detectDVDStructure, detectBludiscStructure
 from ServiceDescriptor import MovieInfo
 from ServiceUtils import serviceUtil, diskUsage, getDirSize
@@ -29,12 +29,13 @@ from AutoNetwork import autoNetwork
 from MovieConfig import MovieConfig
 from Globals import printStackTrace
 from Trashcan import TRASH_NAME
-from enigma import eServiceReference, iServiceInformation, eTimer
+from enigma import eServiceReference, iServiceInformation
 from ISOInfo import ISOInfo
 from Components.config import config
 from StopWatch import clockit
 from RecordTimerEvent import recordTimerEvent
 from MovieDatabase import MovieDatabase
+from Hotplug import hotplug
 
 SCAN_EXCLUDE = (ISOInfo.MOUNT_PATH, "DUMBO", "TIMOTHY", "/media/swap", "/media/ram", "/media/ba")
 AUDIO_EXCLUDE = ("mp3", "ogg", "wav", "m4a")
@@ -73,7 +74,6 @@ def getDirectories(l, root, hidden=False):
 
 
 class MovieScanner():
-    NTFS_3G_DRIVER_DELAY = 10000
     def __init__(self):
         self.database = MovieDatabase()
         self.isWorking = False
@@ -83,9 +83,6 @@ class MovieScanner():
         #self.full_used_detect = 0
         self.enabled = False
         self.last_update = None
-        self.hotplug_timer = eTimer()
-        self.hotplug_timer.callback.append(self.updateHotplugDevices)
-        self.automounts = []
     
     def setEnabled(self, enabled):
         self.enabled = enabled
@@ -94,7 +91,7 @@ class MovieScanner():
             recordTimerEvent.appendCallback(self.timerStateChanged)
             self.addHotplugNotifier()
             self.reloadMoviesAsync()
-            self.__hotplugChanged()
+            self.hotplugChanged()
         else:
             recordTimerEvent.removeCallback(self.timerStateChanged)
             self.removeHotplugNotifier()
@@ -347,63 +344,14 @@ class MovieScanner():
             print movie_info
 
     def addHotplugNotifier(self):
-        from Plugins.SystemPlugins.Hotplug.plugin import hotplugNotifier
-        if not self.hotplugNotifier in hotplugNotifier:
+        if not self.checkAllAvailable in hotplug.notifier:
             print "add hotplugNotifier" 
-            hotplugNotifier.append(self.hotplugNotifier)
+            hotplug.notifier.append(self.checkAllAvailable)
         
     def removeHotplugNotifier(self):
-        from Plugins.SystemPlugins.Hotplug.plugin import hotplugNotifier
-        if self.hotplugNotifier in hotplugNotifier:
+        if self.checkAllAvailable in hotplug.notifier:
             print "remove hotplugNotifier" 
-            hotplugNotifier.remove(self.hotplugNotifier)
+            hotplug.notifier.remove(self.checkAllAvailable)
     
-    def hotplugNotifier(self, dev, media_state):
-        print "[hotplugNotifier]", dev, media_state
-        if len(dev) > 2 and dev[0:2] in ("sd") and dev[-1].isdigit():
-            if media_state == "add":
-                self.__hotplugChanged(self.NTFS_3G_DRIVER_DELAY)
-            else:
-                self.__hotplugChanged(200)
 
-    def __hotplugChanged(self, delay=200):
-        print "[start hotplugNotifier]", str(delay) + "ms"
-        self.hotplug_timer.start(delay, True)
-
-    def updateHotplugDevices(self):
-        self.automounts = []
-        print "[update hutplug]"
-        try:
-            from Components.Harddisk import Harddisk
-            import commands
-            lines = commands.getoutput('mount | grep /dev/sd').split('\n')
-            print lines
-            for mount in lines:
-                if len(mount) < 2:
-                    continue
-                m = mount.split(' type')[0].split(' on ')
-                m_dev, m_path = m[0], m[1]
-                label = os.path.split(m_path)[-1]
-                blkid = commands.getoutput('blkid ' + m_dev).split("\"")
-                if len(blkid) > 2 and blkid[1]:
-                    label = blkid[1]
-                if os.path.normpath(m_path) == "/media/hdd" or label in ("DUMBO", "TIMOTHY"):
-                    continue
-                if not self.movieConfig.isHiddenHotplug(label):
-                    if m_path[-1] != "/":
-                        m_path += "/"
-                    service = eServiceReferenceHotplug(m_path)
-                    hdd = Harddisk(m_dev.replace("/dev/", "")[:-1])
-                    service.setName(label + " - " + hdd.model() + " - " + hdd.capacity())
-                    self.automounts.append(service)
-
-            self.checkAllAvailable()
-        except:
-            printStackTrace()
-    
-    def getHotplugServices(self):
-        return self.automounts
-
-        
 movieScanner = MovieScanner()
-

@@ -53,6 +53,14 @@ class Network():
             print e
             return True
     
+    def getOnlineMount(self, dirs):
+        online = []
+        for directory in dirs:
+            if not autoNetwork.isMountOnline(directory): # or not os.path.exists(directory):
+                continue
+            online.append(directory)
+        return online
+    
     def updateAutoNetwork(self):
         self.auto_network = []
         try:

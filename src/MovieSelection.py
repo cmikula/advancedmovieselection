@@ -682,6 +682,7 @@ class AdvancedMovieSelection_summary(Screen):
         self["Seperator"].setText("")    
 
 class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, QuickButton, VideoPreview, MovieSearch):
+    DB_UPDATE_INTERVAL = 250
     def __init__(self, session, selectedmovie=None, showLastDir=False):
         print "enter movieselection"
         self.stopwatch = StopWatch()
@@ -1097,7 +1098,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self.reloadList(self.selectedmovie)
         self.updateDescription()
         if movieScanner.isWorking:
-            self.__dbUpdate.start(200, False)
+            self.__dbUpdate.start(self.DB_UPDATE_INTERVAL, False)
         self.stopwatch.stop()
         self["waitingtext"].visible = False
         print "movielist started in", str(self.stopwatch.elapsed)
@@ -1415,7 +1416,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         
     def rescan(self, retval):
         if retval:
-            self.__dbUpdate.start(200, False)
+            self.__dbUpdate.start(self.DB_UPDATE_INTERVAL, False)
             movieScanner.reloadMoviesAsync()
 
     def databaseUpdateTimerEvent(self):
@@ -1427,6 +1428,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                 self.__dbUpdate.stop()
         else:
             self.updateTitle("")
+            self.list.updateDatabaseEntry()
             
         
 class MoviebarPositionSetupText(Screen):

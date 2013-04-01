@@ -48,6 +48,7 @@ from Source.Trashcan import TRASH_NAME
 from Source.EventInformationTable import EventInformationTable, appendShortDescriptionToMeta
 from Source.AccessRestriction import accessRestriction
 from Source.MovieScanner import movieScanner
+from Source.Hotplug import hotplug
 from Source.ServiceDescriptor import MovieInfo
 from Source.MovieConfig import MovieConfig
 from Source.PicLoader import PicLoader
@@ -135,7 +136,7 @@ class MovieList(GUIComponent):
         #self.onFirstStart()
         
     def onFirstStart(self):
-        self.updateVideoDirs()
+        self.updateBookmarkDirectories()
         self.updateHotplugDevices()
 
     def destroy(self):
@@ -267,17 +268,16 @@ class MovieList(GUIComponent):
             self.NO_COVER_PNG_FILE = resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/nocover_en.png")
 
     def updateHotplugDevices(self):
-        self.automounts = []
+        self.hotplugServices = []
         if config.AdvancedMovieSelection.hotplug.value == False:
             return
-        self.automounts = movieScanner.getHotplugServices()
+        self.hotplugServices = hotplug.getHotplugServices()
     
-    def updateVideoDirs(self):
+    def updateBookmarkDirectories(self):
         self.video_dirs = []
-        for directory in config.movielist.videodirs.value:
-            if not autoNetwork.isMountOnline(directory): # or not os.path.exists(directory):
-                continue
-            self.video_dirs.append(directory)
+        if config.AdvancedMovieSelection.show_bookmarks.value == False:
+            return
+        self.video_dirs = autoNetwork.getOnlineMount(config.movielist.videodirs.value)
     
     def unmount(self, service):
         from os import system
@@ -286,7 +286,7 @@ class MovieList(GUIComponent):
         res = system(cmd) >> 8
         print res
         if res == 0:
-            self.automounts.remove(service)
+            self.hotplugServices.remove(service)
             if movieScanner.enabled:
                 movieScanner.checkAllAvailable()
         return res
@@ -974,7 +974,7 @@ class MovieList(GUIComponent):
         
         db_index = 0
         if self.show_folders:
-            for tt in self.automounts:
+            for tt in self.hotplugServices:
                 if tt.getPath() != root_path:
                     info = self.serviceHandler.info(tt)
                     mi = MovieInfo(tt.getName(), tt, info)
@@ -994,8 +994,8 @@ class MovieList(GUIComponent):
                 self.list.insert(0, (mi,))
                 db_index += 1
 
-        count = movieScanner.database.getFullCount()[1]
-        if count > 0 and config.AdvancedMovieSelection.show_database.value:
+        if len(config.AdvancedMovieSelection.videodirs.value) > 0 and config.AdvancedMovieSelection.show_database.value:
+            count = movieScanner.database.getFullCount()[1]
             tt1 = eServiceReferenceListAll(root_path)
             tt1.setName(_("Database") + " (%d)" % (count))
             info = self.serviceHandler.info(tt1)
