@@ -268,15 +268,9 @@ class MovieList(GUIComponent):
             self.NO_COVER_PNG_FILE = resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/nocover_en.png")
 
     def updateHotplugDevices(self):
-        self.hotplugServices = []
-        if config.AdvancedMovieSelection.hotplug.value == False:
-            return
         self.hotplugServices = hotplug.getHotplugServices()
     
     def updateBookmarkDirectories(self):
-        self.video_dirs = []
-        if config.AdvancedMovieSelection.show_bookmarks.value == False:
-            return
         self.video_dirs = autoNetwork.getOnlineMount(config.movielist.videodirs.value)
     
     def unmount(self, service):
@@ -974,11 +968,12 @@ class MovieList(GUIComponent):
         
         db_index = 0
         if self.show_folders:
-            for tt in self.hotplugServices:
-                if tt.getPath() != root_path:
-                    info = self.serviceHandler.info(tt)
-                    mi = MovieInfo(tt.getName(), tt, info)
-                    self.list.insert(0, (mi,))
+            if config.AdvancedMovieSelection.hotplug.value:
+                for tt in self.hotplugServices:
+                    if tt.getPath() != root_path:
+                        info = self.serviceHandler.info(tt)
+                        mi = MovieInfo(tt.getName(), tt, info)
+                        self.list.insert(0, (mi,))
 
             dirs.sort(self.sortFolders)
             for servicedirs in dirs:
