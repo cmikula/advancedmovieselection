@@ -290,7 +290,7 @@ class MovieContextMenu(Screen):
         if config.AdvancedMovieSelection.show_backup_restore.value:
             menu.append((_("Backup/Restore"), boundFunction(self.openBackupRestore)))
         if config.AdvancedMovieSelection.show_location_indexing.value:
-            menu.append((_("Select scan locations for movie database"), self.selectScanLocations))
+            menu.append((_("Select scan locations for movie library"), self.selectScanLocations))
         if config.AdvancedMovieSelection.showmenu.value:
             menu.append((_("Setup"), boundFunction(self.menusetup)))
         self["menu"] = MenuList(menu)
@@ -682,7 +682,7 @@ class AdvancedMovieSelection_summary(Screen):
         self["Seperator"].setText("")    
 
 class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, QuickButton, VideoPreview, MovieSearch):
-    DB_UPDATE_INTERVAL = 250
+    LIB_UPDATE_INTERVAL = 250
     def __init__(self, session, selectedmovie=None, showLastDir=False):
         print "enter movieselection"
         self.stopwatch = StopWatch()
@@ -788,7 +788,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self.inited = False
         MovieSearch.__init__(self)
         self.__dbUpdate = eTimer()
-        self.__dbUpdate.callback.append(self.databaseUpdateTimerEvent)
+        self.__dbUpdate.callback.append(self.libraryUpdateTimerEvent)
         print "end constructor", str(self.stopwatch.elapsed)
     
     def createSummary(self):
@@ -886,7 +886,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
 
         # remove from scanner
         movieScanner.removeMovie(self.to_delete)
-        self.list.updateDatabaseEntry()
+        self.list.updateMovieLibraryEntry()
         if config.AdvancedMovieSelection.use_wastebasket.value:
             self.deleteTrashConfirmed(confirmed)
             return
@@ -1089,7 +1089,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         if not path.exists(config.movielist.last_videodir.value):
             config.movielist.last_videodir.value = "/media/"
 
-        if not config.AdvancedMovieSelection.db_show.value or not config.AdvancedMovieSelection.startdir.value:
+        if not config.AdvancedMovieSelection.movielibrary_show.value or not config.AdvancedMovieSelection.startdir.value:
             self.current_ref = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + config.movielist.last_videodir.value)
         else:            
             self.current_ref = eServiceReferenceListAll(config.movielist.last_videodir.value)
@@ -1098,7 +1098,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self.reloadList(self.selectedmovie)
         self.updateDescription()
         if movieScanner.isWorking:
-            self.__dbUpdate.start(self.DB_UPDATE_INTERVAL, False)
+            self.__dbUpdate.start(self.LIB_UPDATE_INTERVAL, False)
         self.stopwatch.stop()
         self["waitingtext"].visible = False
         print "movielist started in", str(self.stopwatch.elapsed)
@@ -1161,8 +1161,8 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         config.movielist.showtags.save()
         config.movielist.last_videodir.save()
         config.AdvancedMovieSelection.show_bookmarks.save()
-        config.AdvancedMovieSelection.db_show.save()
-        config.AdvancedMovieSelection.db_sort.save()        
+        config.AdvancedMovieSelection.movielibrary_show.save()
+        config.AdvancedMovieSelection.movielibrary_sort.save()        
 
     def showTrailer(self):
         if pluginPresent.YTTrailer == True:
@@ -1223,15 +1223,15 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
 
     def writeSortType(self, sort_type):
         if isinstance(self.current_ref, eServiceReferenceListAll):
-            config.AdvancedMovieSelection.db_sort.value = sort_type
+            config.AdvancedMovieSelection.movielibrary_sort.value = sort_type
         else:
-            movieScanner.database.setSortType(config.movielist.last_videodir.value, sort_type)
+            movieScanner.movielibrary.setSortType(config.movielist.last_videodir.value, sort_type)
             di = DirectoryInfo(config.movielist.last_videodir.value)
             di.sort_type = sort_type
             di.write()
 
     def updateFolderSortType(self):
-        sort_type = config.AdvancedMovieSelection.db_sort.value
+        sort_type = config.AdvancedMovieSelection.movielibrary_sort.value
         if not isinstance(self.current_ref, eServiceReferenceListAll):
             di = DirectoryInfo(config.movielist.last_videodir.value)
             sort_type = di.sort_type
@@ -1285,7 +1285,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         if not isinstance(self.current_ref, eServiceReferenceListAll):
             title += _("Movie location:") + " "
         else:
-            title += _("Database") + ": "
+            title += _("Movie library") + ": "
         title += current_path
         
         extra_info = []
@@ -1300,7 +1300,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         if not movieScanner.isWorking:
             self.setTitle(title)
         else:
-            self.setTitle(title + " " + _("[Database update in progress]"))
+            self.setTitle(title + " " + _("[Library update in progress]"))
 
     @clockit
     def reloadList(self, sel=None, home=False):
@@ -1339,9 +1339,9 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                             selection = eServiceReference("2:47:1:0:0:0:0:0:0:0:" + self["list"].root.getPath())
                 if isinstance(current, eServiceReferenceListAll):
                     self.current_ref = current
-                    config.AdvancedMovieSelection.db_show.value = True
+                    config.AdvancedMovieSelection.movielibrary_show.value = True
                 else:
-                    config.AdvancedMovieSelection.db_show.value = False
+                    config.AdvancedMovieSelection.movielibrary_show.value = False
                     if isinstance(self.current_ref, eServiceReferenceListAll):
                         selection = self.current_ref
                     self.current_ref = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + res)
@@ -1412,15 +1412,15 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self.session.openWithCallback(self.reloadList, MovieTagEditor, service, parent=self.session.current_dialog)
 
     def selectScanLocations(self):
-        self.session.openWithCallback(self.rescan, ScanLocationBox, _("Please select the movie path(s) for database..."), config.movielist.last_videodir.value)
+        self.session.openWithCallback(self.rescan, ScanLocationBox, _("Please select the search path(s) for movies..."), config.movielist.last_videodir.value)
         
     def rescan(self, retval):
         if retval:
-            self.__dbUpdate.start(self.DB_UPDATE_INTERVAL, False)
+            self.__dbUpdate.start(self.LIB_UPDATE_INTERVAL, False)
             movieScanner.reloadMoviesAsync()
 
-    def databaseUpdateTimerEvent(self):
-        print "databaseUpdateTimerEvent"
+    def libraryUpdateTimerEvent(self):
+        print "libraryUpdateTimerEvent"
         if not movieScanner.isWorking:
             print "update movie list"
             self.reloadList()
@@ -1428,7 +1428,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                 self.__dbUpdate.stop()
         else:
             self.updateTitle("")
-            self.list.updateDatabaseEntry()
+            self.list.updateMovieLibraryEntry()
             
         
 class MoviebarPositionSetupText(Screen):

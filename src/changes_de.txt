@@ -320,7 +320,8 @@ version: 3.0.3
 * fix: anzeige der filmstatus icons wenn ordner ansicht abgeschalten ist
 * neu: wechsel datenbank/filmliste über quickbutton
 
-version: 3.0.4
+version: 3.1
 * fix: TVDB Info&D/L
 * fix: geschwindigkeit beim öffnen der filmliste
 * neu: italienische übersetzung (thx @ mikark)
+* geändert: bibliothek

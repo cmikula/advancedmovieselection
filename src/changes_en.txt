@@ -319,7 +319,8 @@ version: 3.0.3
 * fix: settings for movie status symbol if folders are disabled
 * new: switch database/movielist with quickbutton
 
-version: 3.0.4
+version: 3.1
 * fix: TVDB Info&D/L
 * fix: performance issue on open movielist
 * new: italian locale (thx @ mikark)
+* changed: movielibrary

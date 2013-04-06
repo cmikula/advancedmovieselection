@@ -67,14 +67,14 @@ class SortProvider():
         return cmp(b.lower(), a.lower())
 
 
-class MovieDatabase(dict, SortProvider):
+class MovieLibrary(dict, SortProvider):
     def __init__(self):
         dict.__init__(self)
         self.tags = []
         self['db'] = {}
     
     def clearAll(self):
-        print "database clear all"
+        print "movielibrary clear all"
         self.tags = []
         self['db'].clear()
 
@@ -97,7 +97,7 @@ class MovieDatabase(dict, SortProvider):
         return self["db"][location]
     
     def addMovieList(self, location, movie_list, dir_size):
-        print "database add:", location
+        print "movielibrary add:", location
         item = self.getCreate(location)
         item["movies"].extend(movie_list)
         item["dir_size"] = dir_size
@@ -117,7 +117,7 @@ class MovieDatabase(dict, SortProvider):
         self["db"][location]["dir_size"] += size
 
     def removeLocation(self, location):
-        print "database remove", location
+        print "movielibrary remove", location
         return self["db"].pop(location, None)
 
     def removeMovie(self, file_service_list):
@@ -126,7 +126,7 @@ class MovieDatabase(dict, SortProvider):
         for service in file_service_list:
             file_name = isinstance(file_service_list, str) and service or service.getPath()
             file_name = os.path.realpath(file_name)
-            print "try remove from database:", file_name
+            print "try remove from movielibrary:", file_name
             for key, item in self["db"].iteritems():
                 if not file_name.startswith(key):
                     continue
@@ -181,7 +181,7 @@ class MovieDatabase(dict, SortProvider):
             if sort_type & SortProvider.SORT_WITH_DIRECTORIES:
                 print "sorting", str(len(l1)), root
                 self.sortMovieList(l1, sort_type)
-                if len(l1) >= config.AdvancedMovieSelection.db_show_mark_cnt.value:
+                if len(l1) >= config.AdvancedMovieSelection.movielibrary_show_mark_cnt.value:
                     self.insertMarker(l1, root)
 
             l.extend(l1)
@@ -192,7 +192,7 @@ class MovieDatabase(dict, SortProvider):
         return l
 
     def getMovieList(self, sort_type, filter_tags=None, filter_description=None):
-        if config.AdvancedMovieSelection.db_mark.value and sort_type & SortProvider.SORT_WITH_DIRECTORIES:
+        if config.AdvancedMovieSelection.movielibrary_mark.value and sort_type & SortProvider.SORT_WITH_DIRECTORIES:
             return self.getMovieListPerMountDir(sort_type, filter_tags, filter_description)
         print "getMovieList", str(sort_type), str(filter_tags), str(filter_description)
         l = []
@@ -215,7 +215,7 @@ class MovieDatabase(dict, SortProvider):
             if sort_type & SortProvider.SORT_WITH_DIRECTORIES:
                 print "sorting", str(len(l1)), location
                 self.sortMovieList(l1, sort_type)
-                if len(l1) >= config.AdvancedMovieSelection.db_show_mark_cnt.value:
+                if len(l1) >= config.AdvancedMovieSelection.movielibrary_show_mark_cnt.value:
                     self.insertMarker(l1, location)
 
             l.extend(l1)
