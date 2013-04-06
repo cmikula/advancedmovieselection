@@ -632,6 +632,13 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
     def setCustomTitle(self):
         self.setTitle(_("Movie Quick Button Setup"))
 
+    def checkEntry(self, entry, l):
+        for x in l:
+            if isinstance(x, str) and x == entry:
+                return True
+            elif x[0] == entry:
+                return True
+
     def createConfig(self):
         self.entryguilist = []
         self.entryguilist.append(("Nothing", _("Nothing")))
@@ -689,7 +696,8 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         self.qbutton_choicelist = []
         for button, function in qButtons.get():
             print button, function
-            if function == "":
+            if function == "" or not self.checkEntry(function, self.entryguilist):
+                print "[no config entry]", button, function 
                 function = "Nothing"
             csel = (button, ConfigSelection(default=function, choices=self.entryguilist))
             self.qbutton_choicelist.append(csel)
