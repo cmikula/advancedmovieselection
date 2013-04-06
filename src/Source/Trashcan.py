@@ -189,11 +189,22 @@ class Trashcan:
 
         if os.path.exists(filename):
             if os.path.isfile(filename):
-                print filename
-                os.remove(filename)
+                from ServiceProvider import ServiceCenter, eServiceReference
+                service = eServiceReference(eServiceReference.idDVB, 0, filename)
+                print "[erase file]", filename
+                serviceHandler = ServiceCenter.getInstance()
+                offline = serviceHandler.offlineOperations(service)
+                result = False
+                if offline is not None:
+                    # really delete!
+                    if not offline.deleteFromDisk(0):
+                        result = True
+                
+                if result == False:
+                    print "Error"
             else:
+                print "[erase dir]", filename
                 shutil.rmtree(filename)
-                print filename
 
     @staticmethod
     def deleteAsynch(trash):
