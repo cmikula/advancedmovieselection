@@ -34,7 +34,7 @@ from ISOInfo import ISOInfo
 from Components.config import config
 from StopWatch import clockit
 from RecordTimerEvent import recordTimerEvent
-from MovieLibrary import MovieLibrary
+from MovieDatabase import MovieDatabase
 from Hotplug import hotplug
 
 SCAN_EXCLUDE = (ISOInfo.MOUNT_PATH, "DUMBO", "TIMOTHY", "/media/swap", "/media/ram", "/media/ba")
@@ -75,7 +75,7 @@ def getDirectories(l, root, hidden=False):
 
 class MovieScanner():
     def __init__(self):
-        self.movielibrary = MovieLibrary()
+        self.database = MovieDatabase()
         self.isWorking = False
         self.movieConfig = MovieConfig()
         self.callback = None
@@ -91,6 +91,7 @@ class MovieScanner():
             recordTimerEvent.appendCallback(self.timerStateChanged)
             self.addHotplugNotifier()
             self.reloadMoviesAsync()
+            self.hotplugChanged()
         else:
             recordTimerEvent.removeCallback(self.timerStateChanged)
             self.removeHotplugNotifier()
@@ -103,7 +104,7 @@ class MovieScanner():
             return self.last_update.strftime("%d.%m.%Y %H:%M")
     
     def isMovieRecorded(self, name):
-        entries = self.movielibrary.findMovies(name)
+        entries = self.database.findMovies(name)
         for mi in entries:
             if mi.serviceref.getPath().endswith(".ts"):
                 return 1
@@ -146,7 +147,7 @@ class MovieScanner():
                 time.sleep(delay)
             self.updateReloadTime()
             if dir_list is None:
-                self.movielibrary.clearAll()
+                self.database.clearAll()
                 dir_list = self.updateDirectories()
             
             # print "-" * 80
@@ -161,13 +162,13 @@ class MovieScanner():
             if self.callback is not None:
                 self.callback()
 
-            # from MovieLibrary import dict2xml
-            # xml = dict2xml(self.movielibrary)
+            # from MovieDatabase import dict2xml
+            # xml = dict2xml(self.database)
             # xml.write("/tmp/movie_list.xml")
         except:
             printStackTrace()
         self.isWorking = False
-        directories, movies = self.movielibrary.getFullCount()
+        directories, movies = self.database.getFullCount()
         print "[AdvancedMovieSelection] Finished scanning movies", str(directories), str(movies)
 
     def scanForMovies(self, root):
@@ -253,10 +254,10 @@ class MovieScanner():
             mi = MovieInfo(service_name, serviceref, info, begin)
             l.append(mi)
 
-        # we always must add location to movielibrary
+        # we always must add location to database
         dir_size = getDirSize(root)
-        self.movielibrary.addMovieList(root, l, dir_size)
-        self.movielibrary.addTags(tags)
+        self.database.addMovieList(root, l, dir_size)
+        self.database.addTags(tags)
     
     def findMovies___(self, name):
         l = []
@@ -271,7 +272,7 @@ class MovieScanner():
                 return mi[0]
 
     def removeMovie(self, file_service_list):
-        self.movielibrary.removeMovie(file_service_list)
+        self.database.removeMovie(file_service_list)
         self.updateReloadTime()
 
     def timerStateChanged(self, timer):
@@ -287,7 +288,7 @@ class MovieScanner():
                 mi.info = self.serviceHandler.info(serviceref)
                 mi.begin = mi.info.getInfo(serviceref, iServiceInformation.sTimeCreate)
                 movie_path = os.path.dirname(mi.serviceref.getPath()) + os.sep
-                self.movielibrary.addMovie(movie_path, mi)
+                self.database.addMovie(movie_path, mi)
                 self.updateReloadTime()
                 print "add:", mi
         except:
@@ -316,17 +317,17 @@ class MovieScanner():
 
         if self.needFullUpdate():
             print "need update"
-            not_in_db = self.movielibrary.getMissingLocations(config.AdvancedMovieSelection.videodirs.value)
+            not_in_db = self.database.getMissingLocations(config.AdvancedMovieSelection.videodirs.value)
             new_list = []
             for p in not_in_db:
                 getDirectories(new_list, p)
             self.reloadMoviesAsync(new_list)
 
-        # remove locations from movielibrary if path not exists
-        for location in self.movielibrary.getDirectoryList():
+        # remove locations from database if path not exists
+        for location in self.database.getDirectoryList():
             if not os.path.exists(location):
                 self.updateReloadTime()
-                self.movielibrary.removeLocation(location)
+                self.database.removeLocation(location)
             
         # print "*" * 80
 
@@ -336,7 +337,7 @@ class MovieScanner():
         if serviceref.flags & eServiceReference.mustDescent:
             return
         print "update service info", serviceref.toString()
-        movie_info = self.movielibrary.findMoviePath(serviceref)
+        movie_info = self.database.findMoviePath(serviceref)
         if movie_info is not None:
             movie_info.info = self.serviceHandler.info(serviceref)
             movie_info.name = movie_info.info.getName(serviceref)
@@ -346,7 +347,6 @@ class MovieScanner():
         if not self.checkAllAvailable in hotplug.notifier:
             print "add hotplugNotifier" 
             hotplug.notifier.append(self.checkAllAvailable)
-            hotplug.hotplugChanged()
         
     def removeHotplugNotifier(self):
         if self.checkAllAvailable in hotplug.notifier:

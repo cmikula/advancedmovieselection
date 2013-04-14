@@ -67,21 +67,21 @@ def getPluginCaption(pname):
                 return _("Show bookmarks")
             else:
                 return _("Hide bookmarks")
-        if pname == "Show/Hide library":
-            if not config.AdvancedMovieSelection.show_movielibrary.value:
-                return _("Show library")
+        if pname == "Show/Hide database":
+            if not config.AdvancedMovieSelection.show_database.value:
+                return _("Show database")
             else:
-                return _("Hide library")
-        if pname == "LIB marker on/off":
+                return _("Hide database")
+        if pname == "DB marker on/off":
             if not config.AdvancedMovieSelection.show_videodirslocation.value:
                 return _("Show marker")
             else:
                 return _("Hide marker")
-        if pname == "Library/Movielist":
-            if config.AdvancedMovieSelection.movielibrary_show.value:
+        if pname == "Database/Movielist":
+            if config.AdvancedMovieSelection.db_show.value:
                 return _("To movielist")
             else:
-                return _("To library")
+                return _("To database")
 
         for p in plugins.getPlugins(where=[PluginDescriptor.WHERE_MOVIELIST]):
             if pname == str(p.name):
@@ -179,9 +179,9 @@ class QuickButton:
             key_number.setText(self.getSortButtonCaption(mode))
     
     def updateDBButtonText(self):
-        key_number = self.findButton("Library/Movielist")
+        key_number = self.findButton("Database/Movielist")
         if key_number:
-            key_number.setText(getPluginCaption("Library/Movielist"))
+            key_number.setText(getPluginCaption("Database/Movielist"))
     
     def redpressed(self):
         self.startPlugin(qButtons.getFunction("red"), self["key_red"])
@@ -256,19 +256,19 @@ class QuickButton:
                 self.reloadList()
                 newCaption = getPluginCaption(pname)
                 self.setButtonText(key_number, newCaption)
-            elif pname == "Library/Movielist":
-                config.AdvancedMovieSelection.movielibrary_show.value = not config.AdvancedMovieSelection.movielibrary_show.value
+            elif pname == "Database/Movielist":
+                config.AdvancedMovieSelection.db_show.value = not config.AdvancedMovieSelection.db_show.value
                 self.saveconfig()
                 self.reloadList()
                 newCaption = getPluginCaption(pname)
                 self.setButtonText(key_number, newCaption)
-            elif pname == "Show/Hide library":
-                config.AdvancedMovieSelection.show_movielibrary.value = not config.AdvancedMovieSelection.show_movielibrary.value
+            elif pname == "Show/Hide database":
+                config.AdvancedMovieSelection.show_database.value = not config.AdvancedMovieSelection.show_database.value
                 self.saveconfig()
                 self.reloadList()
                 newCaption = getPluginCaption(pname)
                 self.setButtonText(key_number, newCaption)
-            elif pname == "LIB marker on/off":
+            elif pname == "DB marker on/off":
                 config.AdvancedMovieSelection.show_videodirslocation.value = not config.AdvancedMovieSelection.show_videodirslocation.value
                 self.saveconfig()
                 self.reloadList()
@@ -290,7 +290,7 @@ class QuickButton:
             elif pname == "Show Timer":
                 from Screens.TimerEdit import TimerEditList
                 self.session.open(TimerEditList)
-            elif pname == "Update library":
+            elif pname == "Update database":
                 self.rescan(True)
             else:   
                 # all functions that require a service 
@@ -422,7 +422,7 @@ class QuickButton:
         serviceHandler = ServiceCenter.getInstance()
         descr = []
         if isinstance(self.list.root, eServiceReferenceListAll):
-            l = movieScanner.movielibrary.getMovieList(self.list.sort_type)
+            l = movieScanner.database.getMovieList(self.list.sort_type)
             for movie_tuple in l:
                 movie_info = movie_tuple[0]
                 info = movie_info.info

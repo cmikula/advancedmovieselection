@@ -176,11 +176,11 @@ config.AdvancedMovieSelection.show_move_copy_progress = ConfigYesNo(default=True
 config.AdvancedMovieSelection.videodirs = ConfigLocations()
 config.AdvancedMovieSelection.show_location_indexing = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.show_videodirslocation = ConfigYesNo(default=True)
-config.AdvancedMovieSelection.show_movielibrary = ConfigYesNo(default=True)
-config.AdvancedMovieSelection.movielibrary_sort = ConfigInteger(default=1)
-config.AdvancedMovieSelection.movielibrary_show = ConfigBoolean()
-config.AdvancedMovieSelection.movielibrary_mark = ConfigYesNo(default=True)
-config.AdvancedMovieSelection.movielibrary_show_mark_cnt = ConfigInteger(default=2, limits=(1, 10))
+config.AdvancedMovieSelection.show_database = ConfigYesNo(default=True)
+config.AdvancedMovieSelection.db_sort = ConfigInteger(default=1)
+config.AdvancedMovieSelection.db_show = ConfigBoolean()
+config.AdvancedMovieSelection.db_mark = ConfigYesNo(default=True)
+config.AdvancedMovieSelection.db_show_mark_cnt = ConfigInteger(default=2, limits=(1, 10))
 config.AdvancedMovieSelection.qButtons = ConfigText()
 
 class QuickButtons():

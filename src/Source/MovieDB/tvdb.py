@@ -45,7 +45,7 @@ def setLocale(lng):
 def getLocale():
     return config['locale']
 
-# setLocale("de")
+setLocale("de")
 
 import urllib, urllib2, xml.etree.cElementTree as ElementTree
 

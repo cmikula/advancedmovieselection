@@ -323,6 +323,3 @@ version: 3.0.4
 * fix: TVDB Info&D/L
 * fix: performance issue on open movielist
 * new: italian locale (thx @ mikark)
-
-version: 3.1
-* changed: movielibrary

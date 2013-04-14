@@ -324,6 +324,3 @@ version: 3.0.4
 * fix: TVDB Info&D/L
 * fix: geschwindigkeit beim öffnen der filmliste
 * neu: italienische übersetzung (thx @ mikark)
-
-version: 3.1
-* geändert: bibliothek

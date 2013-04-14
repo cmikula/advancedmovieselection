@@ -185,13 +185,13 @@ class DirectoryInfo():
 class DirectoryEvent(DirectoryInfo):
     def __init__(self, serviceref):
         DirectoryInfo.__init__(self, serviceref.getPath())
-        self.is_movielibrary = False
+        self.is_database = False
         from ServiceProvider import eServiceReferenceListAll
         if isinstance(serviceref, eServiceReferenceListAll):
-            self.is_movielibrary = True
+            self.is_database = True
         elif serviceref is not None:
             from MovieScanner import movieScanner
-            dbinfo = movieScanner.movielibrary.getInfo(serviceref.getPath())
+            dbinfo = movieScanner.database.getInfo(serviceref.getPath())
             if dbinfo is not None:
                 self.mov_count = dbinfo[0]
                 self.dir_count = dbinfo[1]
@@ -205,8 +205,8 @@ class DirectoryEvent(DirectoryInfo):
 
     def getDBDescription(self):
         from MovieScanner import movieScanner
-        self.dir_size = movieScanner.movielibrary.getSize()
-        self.dir_count, self.mov_count = movieScanner.movielibrary.getFullCount()
+        self.dir_size = movieScanner.database.getSize()
+        self.dir_count, self.mov_count = movieScanner.database.getFullCount()
         text1 = []
         
         if self.dir_size > -1:
@@ -251,7 +251,7 @@ class DirectoryEvent(DirectoryInfo):
         return "\n".join(text)
 
     def getExtendedDescription(self):
-        if not self.is_movielibrary:
+        if not self.is_database:
             return self.getDirDescription()
         else:
             return self.getDBDescription()
