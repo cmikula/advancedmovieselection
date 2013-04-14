@@ -91,7 +91,6 @@ class MovieScanner():
             recordTimerEvent.appendCallback(self.timerStateChanged)
             self.addHotplugNotifier()
             self.reloadMoviesAsync()
-            self.hotplugChanged()
         else:
             recordTimerEvent.removeCallback(self.timerStateChanged)
             self.removeHotplugNotifier()
@@ -347,6 +346,7 @@ class MovieScanner():
         if not self.checkAllAvailable in hotplug.notifier:
             print "add hotplugNotifier" 
             hotplug.notifier.append(self.checkAllAvailable)
+            hotplug.hotplugChanged()
         
     def removeHotplugNotifier(self):
         if self.checkAllAvailable in hotplug.notifier:
