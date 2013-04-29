@@ -414,7 +414,7 @@ class WastebasketTimer():
         value = int(config.AdvancedMovieSelection.auto_empty_wastebasket.value)
         cfgNext = config.AdvancedMovieSelection.next_auto_empty_wastebasket.value
         print "[AdvancedMovieSelection] WastebasketTimer.startTimer", str(value)
-        print "[AMSDebug] Read next autoclean timestamp: ", str(cfgNext)
+        print "[AdvancedMovieSelection] Read next autoclean timestamp: ", str(cfgNext)
         if value != -1:
             nowSec = int(time())
             nextUpdateSeconds = 0
@@ -509,7 +509,9 @@ class WastebasketTimer():
                     trash = Trashcan.listAllMovies("/media")
                 
                 print "[AdvancedMovieSelection] Start automated deleting all movies in trash list"
-                Trashcan.deleteAsynch(trash)
+                min_age = config.AdvancedMovieSelection.empty_wastebasket_min_age.value * 86400
+                print "[AdvancedMovieSelection] wastebasket retention min_age", min_age
+                Trashcan.deleteAsynch(trash, min_age)
                 config.AdvancedMovieSelection.last_auto_empty_wastebasket.value = int(time())
                 config.AdvancedMovieSelection.last_auto_empty_wastebasket.save()
                 self.configChange()
