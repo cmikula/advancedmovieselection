@@ -326,3 +326,4 @@ version: 3.0.4
 
 version: 3.1
 * changed: movielibrary
+* new: retention time for movies in wastebasket

@@ -323,3 +323,4 @@ versie: 3.0.4
 
 versie: 3.1
 * aanpassing: Bibliotheek i.p.v. Database
+* new: retention time for movies in wastebasket
