@@ -287,9 +287,12 @@ class MovieLibrary(dict, SortProvider):
     def getFullCount(self):
         directories = 0
         movies = 0
-        for km in self["db"].iteritems():
-            directories += 1
-            movies += len(km[1]["movies"])
+        try:
+            for km in self["db"].iteritems():
+                directories += 1
+                movies += len(km[1]["movies"])
+        except:
+            pass
         return directories, movies
 
     def getSize(self, dir_path=None):

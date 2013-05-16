@@ -332,13 +332,14 @@ class Job():
 
     def getMode(self):
         return self.do_move
+    
+    def __repr__(self):
+        return "<MoveCopyJob: %d/%d>"%(self.file_index, self.count)
 
 class ServiceUtil():
     def __init__(self):
         self.list = []
         self.proc = []
-        self.session = None
-        self.callback = None
         
     def setServices(self, service_list, dst):
         self.list = []
@@ -370,14 +371,8 @@ class ServiceUtil():
         job.StartAsync(do_move)
         self.list = []
 
-    def setCallback(self, callback, session=None):
-        self.callback = callback
-        self.session = session
-    
     def jobFinished(self, job):
         print "Job finished:"
-        if self.callback:
-            self.callback(job, self.session)
 
     def cleanup(self):
         self.proc = filter(lambda job: not job.isFinished(), self.proc) 
