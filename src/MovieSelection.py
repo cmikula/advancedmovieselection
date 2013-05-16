@@ -102,9 +102,6 @@ config.movielist.showtags = ConfigInteger(default=MovieList.HIDE_TAGS)
 
 SHOW_ALL_MOVIES = _("Show all movies")
 
-class Current():
-    selection = None
-
 def getDateString():
     t = localtime()
     if t.tm_wday == 0:
@@ -710,7 +707,8 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self.tags = [ ]
         self.showLastDir = showLastDir
         if not config.AdvancedMovieSelection.startonfirst.value and not selectedmovie:
-            selectedmovie = Current.selection
+            if config.AdvancedMovieSelection.last_selected_service.value != "":
+                selectedmovie = eServiceReference(config.AdvancedMovieSelection.last_selected_service.value)
         if selectedmovie:
             self.selected_tags = config.movielist.last_selected_tags.value
         else:
@@ -1107,8 +1105,8 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self["list"].moveTo(self.selectedmovie)
 
     def getCurrent(self):
-        Current.selection = self["list"].getCurrent()
-        return Current.selection
+        service = self["list"].getCurrent()
+        return service
 
     def setMovieStatus(self, status):
         current = self.getCurrent()
@@ -1162,7 +1160,13 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         config.movielist.last_videodir.save()
         config.AdvancedMovieSelection.show_bookmarks.save()
         config.AdvancedMovieSelection.movielibrary_show.save()
-        config.AdvancedMovieSelection.movielibrary_sort.save()        
+        config.AdvancedMovieSelection.movielibrary_sort.save()
+        service = self.getCurrent()
+        if service is not None:
+            config.AdvancedMovieSelection.last_selected_service.value = service.toString()
+        else:
+            config.AdvancedMovieSelection.last_selected_service.value = ""
+        config.AdvancedMovieSelection.last_selected_service.save()        
 
     def showTrailer(self):
         if pluginPresent.YTTrailer == True:
