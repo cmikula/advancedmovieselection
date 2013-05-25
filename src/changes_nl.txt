@@ -323,7 +323,7 @@ versie: 3.0.4
 
 versie: 3.1
 * aanpassing: Bibliotheek i.p.v. Database
-* new: the last selected movie will shown after standby/reboot
-* new: retention time for movies in wastebasket
-* new: option to show disk usage in description
-* fix: crash after copy
+* nieuw: de laatst gekozen film wordt weergegeven na standby/reboot
+* nieuw: bewaartijd voor filmen in de prullemand
+* nieuw: optie om gebruikte ruimte op medium weer te geven in de beschrijving
+* fix: crash na kopiëren
