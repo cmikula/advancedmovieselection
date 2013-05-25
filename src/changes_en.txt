@@ -328,4 +328,5 @@ version: 3.1
 * changed: movielibrary
 * new: the last selected movie will shown after standby/reboot
 * new: retention time for movies in wastebasket
+* new: option to show disk usage in description
 * fix: crash after copy

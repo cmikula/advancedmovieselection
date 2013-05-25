@@ -24,6 +24,7 @@ from LocaleInit import _
 from ServiceUtils import diskUsage, getDirSize, realSize
 from Globals import printStackTrace
 from enigma import eServiceReference, iServiceInformation
+from Config import config
 
 class MovieInfo():
     idDVB = eServiceReference.idDVB
@@ -238,7 +239,7 @@ class DirectoryEvent(DirectoryInfo):
 
         #mount_path = self.getmount()
         # TODO temporary disabled, performance issue on mass storage devices
-        if False and os.path.exists(self.dir_path):
+        if config.AdvancedMovieSelection.show_diskusage.value and os.path.exists(self.dir_path):
             total, used, free = diskUsage(self.dir_path)
             #text.append(_("Media:") + ' ' + str(mount_path))
             text.append(_("Total:") + ' ' + realSize(total, 3))

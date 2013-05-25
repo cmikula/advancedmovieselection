@@ -329,4 +329,5 @@ version: 3.1
 * geändert: bibliothek
 * neu: der letzt gewählte film wird nach einem standby/neustart angezeigt
 * neu: einstellbare aufbewahrungszeit für den papierkorb
+* neu: option zum anzeigen der datenträgerverwendung in der beschreibung 
 * fix: crash nach beenden des kopiervorganges
