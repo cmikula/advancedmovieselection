@@ -1293,7 +1293,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         title += current_path
         
         extra_info = []
-        if self.selected_tags is not None:
+        if self.selected_tags:
             extra_info.append(self["list"].arrangeTags(" ".join(self.selected_tags)))
         if self.list.filter_description is not None:
             extra_info.append(self.list.filter_description)
