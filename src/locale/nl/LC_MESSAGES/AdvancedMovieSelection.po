@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-05-25 15:16+0100\n"
-"PO-Revision-Date: 2013-05-25 16:38+0100\n"
+"PO-Revision-Date: 2013-06-03 21:36+0100\n"
 "Last-Translator: \n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "MIME-Version: 1.0\n"
@@ -359,7 +359,7 @@ msgstr "om"
 #: ../Wastebasket.py:249
 #: ../Wastebasket.py:253
 msgid "Clock"
-msgstr "Klok"
+msgstr "uur"
 
 #: ../Wastebasket.py:238
 #, python-format
