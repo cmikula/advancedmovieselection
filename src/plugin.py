@@ -80,14 +80,32 @@ def Setup(menuid, **kwargs):
     return []
 
 def tmdbInfo(session, eventName="", **kwargs):
-    s = session.nav.getCurrentService()
-    info = s.info()
-    event = info.getEvent(0)
-    if event:
-        eventName = event.getEventName()
-    if eventName:
-        from SearchTMDb import TMDbMain
-        session.open(TMDbMain, eventName) 
+    try:
+        s = session.nav.getCurrentService()
+        info = s.info()
+        event = info.getEvent(0)
+        if event:
+            eventName = event.getEventName()
+        if eventName:
+            from SearchTMDb import TMDbMain
+            session.open(TMDbMain, eventName)
+    except Exception, e:
+        print e
+        
+def tvdbInfo(session, eventName="", **kwargs):
+    try:
+        s = session.nav.getCurrentService()
+        info = s.info()
+        event = info.getEvent(0)
+        shortdescr = ""
+        if event:
+            eventName = event.getEventName()
+            shortdescr = event.getShortDescription()
+        if eventName:
+            from SearchTVDb import TheTVDBMain
+            session.open(TheTVDBMain, None, eventName, shortdescr) 
+    except Exception, e:
+        print e
 
 def Plugins(**kwargs):
     try:
@@ -111,4 +129,5 @@ def Plugins(**kwargs):
     descriptors.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, description=_("Alternate Movie Selection"), fnc=Setup, needsRestart=True))
     
     descriptors.append(PluginDescriptor(name=_("TMDb Info"), where=PluginDescriptor.WHERE_EVENTINFO, description=_("TMDb Info"), fnc=tmdbInfo))
+    descriptors.append(PluginDescriptor(name=_("TVDb Info"), where=PluginDescriptor.WHERE_EVENTINFO, description=_("TVDb Info"), fnc=tvdbInfo))
     return descriptors

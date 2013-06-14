@@ -329,6 +329,6 @@ version: 3.1
 * new: the last selected movie will be shown after standby/reboot
 * new: retention time for movies in wastebasket
 * new: option to show disk usage in description
-* new: show TMDb info on event info menu
+* new: show TMDb/TVDb info on event info menu
 * fix: crash after copy
 Skinners ATTENTION, AdvancedMovieSelection_summary and MoviePlayerExtended_summary have changed

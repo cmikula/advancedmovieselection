@@ -225,6 +225,7 @@ def searchEpisode(episodes, episode_name):
                 return episode
 
 def main():
+    setLocale("de")
     results = search("Law & Order")
     #results = search("The Mentalist")
     for searchResult in results:

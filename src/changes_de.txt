@@ -330,6 +330,6 @@ version: 3.1
 * neu: der letzt gewählte film wird nach einem standby/neustart angezeigt
 * neu: einstellbare aufbewahrungszeit für den papierkorb
 * neu: option zum anzeigen der datenträgerverwendung in der beschreibung 
-* neu: zeige TMDb für die laufende sendung
+* neu: zeige TMDb/TVDb  für die laufende sendung
 * fix: crash nach beenden des kopiervorganges
 ACHTUNG an die skinner, AdvancedMovieSelection_summary und MoviePlayerExtended_summary haben sich geändert

@@ -172,7 +172,7 @@ class TheTVDBMain(Screen, InfoLoadChoice):
     SHOW_EPISODE_DETAIL = 5
     SHOW_SEARCH = 6
     
-    def __init__(self, session, service, args=None):
+    def __init__(self, session, service, eventName=None, shortDescription=None):
         Screen.__init__(self, session)
         InfoLoadChoice.__init__(self, self.callback_green_pressed)
         self.skinName = SkinTools.appendResolution("TheTVDBMain")
@@ -197,9 +197,13 @@ class TheTVDBMain(Screen, InfoLoadChoice):
 
         self.service = service
         self.ratingstars = -1
-        info = ServiceCenter.getInstance().info(service)
-        self.searchTitle = info.getName(service)
-        self.description = info.getInfoString(service, iServiceInformation.sDescription)
+        self.searchTitle = eventName
+        self.description = shortDescription
+        if service is not None:
+            info = ServiceCenter.getInstance().info(service)
+            self.searchTitle = info.getName(service)
+            self.description = info.getInfoString(service, iServiceInformation.sDescription)
+        print "[tvdb]", str(self.searchTitle), "-", str(self.description) 
         if self.description == self.searchTitle:
             self.description = ""
 
@@ -650,7 +654,7 @@ class TheTVDBMain(Screen, InfoLoadChoice):
         elif self.view_mode == self.SHOW_SERIE_LIST:
             self.serieListView()
             self["key_red"].setText(self.SHOW_DETAIL_TEXT)
-            self["key_green"].setText(self.INFO_SAVE_TEXT)
+            self["key_green"].setText(self.INFO_SAVE_TEXT if self.service is not None else "")
             self["key_yellow"].setText(self.MANUAL_SEARCH_TEXT)
             self["key_blue"].setText(self.SHOW_ALL_EPISODES_TEXT)
             self["button_red"].show()
@@ -665,7 +669,7 @@ class TheTVDBMain(Screen, InfoLoadChoice):
             else:
                 self["key_red"].setText("")
                 self["button_red"].hide()                
-            self["key_green"].setText(self.INFO_SAVE_TEXT)
+            self["key_green"].setText(self.INFO_SAVE_TEXT if self.service is not None else "")
             self["key_yellow"].setText(self.MANUAL_SEARCH_TEXT)
             self["key_blue"].setText(self.SHOW_ALL_EPISODES_TEXT)
             self["button_green"].show()
@@ -674,7 +678,7 @@ class TheTVDBMain(Screen, InfoLoadChoice):
         elif self.view_mode == self.SHOW_EPISODE_LIST:
             self.episodeListView()
             self["key_red"].setText(self.SHOW_ALL_SERIES_TEXT)
-            self["key_green"].setText(self.INFO_SAVE_TEXT)
+            self["key_green"].setText(self.INFO_SAVE_TEXT if self.service is not None else "")
             self["key_yellow"].setText(self.MANUAL_SEARCH_TEXT)
             self["key_blue"].setText(self.SHOW_EPISODE_TEXT)
             self["button_red"].show()
@@ -684,7 +688,7 @@ class TheTVDBMain(Screen, InfoLoadChoice):
         elif self.view_mode == self.SHOW_EPISODE_DETAIL:
             self.episodeDetailView()
             self["key_red"].setText(self.SHOW_ALL_SERIES_TEXT)
-            self["key_green"].setText(self.INFO_SAVE_TEXT)
+            self["key_green"].setText(self.INFO_SAVE_TEXT if self.service is not None else "")
             self["key_yellow"].setText(self.MANUAL_SEARCH_TEXT)
             self["key_blue"].setText(self.SHOW_ALL_EPISODES_TEXT)
             self["button_red"].show()
@@ -733,6 +737,8 @@ class TheTVDBMain(Screen, InfoLoadChoice):
         self.searchManual()
 
     def green_pressed(self):
+        if self.service is None:
+            return
         self.setTitle(_("Save Info/Cover for ' %s ', please wait ...") % self.searchTitle)  
         self.checkExistEnce(self.service.getPath())
 
