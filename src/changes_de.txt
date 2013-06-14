@@ -331,3 +331,4 @@ version: 3.1
 * neu: einstellbare aufbewahrungszeit für den papierkorb
 * neu: option zum anzeigen der datenträgerverwendung in der beschreibung 
 * fix: crash nach beenden des kopiervorganges
+ACHTUNG an die skinner, AdvancedMovieSelection_summary und MoviePlayerExtended_summary haben sich geändert

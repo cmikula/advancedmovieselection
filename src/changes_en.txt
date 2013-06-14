@@ -330,3 +330,4 @@ version: 3.1
 * new: retention time for movies in wastebasket
 * new: option to show disk usage in description
 * fix: crash after copy
+Skinners ATTENTION, AdvancedMovieSelection_summary and MoviePlayerExtended_summary have changed

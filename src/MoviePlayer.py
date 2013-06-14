@@ -39,6 +39,7 @@ from Components.Sources.ServiceEvent import ServiceEvent
 from Components.Sources.StaticText import StaticText
 from MoviePreview import MoviePreview
 from Components.Label import Label
+from Components.Pixmap import Pixmap
 from Components.ServiceEventTracker import ServiceEventTracker
 from Source.Globals import pluginPresent
 from Version import __version__
@@ -74,7 +75,8 @@ class MoviePlayerExtended_summary(Screen):
         Screen.__init__(self, session, parent)
         self["Title"] = Label("")
         self["ShortDesc"] = Label("")
-        self["Seperator"] = StaticText("")
+        self["Seperator1"] = Pixmap() #StaticText("")
+        self["Seperator2"] = Pixmap() #StaticText("")
 
     def updateShortDescription(self, desc):
         self["ShortDesc"].setText(desc)
@@ -83,13 +85,12 @@ class MoviePlayerExtended_summary(Screen):
         self["Title"].setText(title)
 
     def showSeperator(self):
-        if TFT_8000_Present:
-            self["Seperator"].setText(resolveFilename(SCOPE_CURRENT_SKIN, "images/sep_tft.png"))
-        else:
-            self["Seperator"].setText(resolveFilename(SCOPE_CURRENT_SKIN, "images/sep_lcd_oled.png"))
+        self["Seperator1"].show()
+        self["Seperator2"].show()
     
     def hideSeperator(self):
-        self["Seperator"].setText("")   
+        self["Seperator1"].hide()   
+        self["Seperator2"].hide()   
     
 class SelectionEventInfo:
     def __init__(self):

@@ -664,19 +664,19 @@ class AdvancedMovieSelection_summary(Screen):
         self.skinName = ["AdvancedMovieSelection_summary"]
         Screen.__init__(self, session, parent)
         self["ShortDesc"] = Label("")
-        self["Seperator"] = StaticText("")
+        self["Seperator1"] = Pixmap()#StaticText("")
+        self["Seperator2"] = Pixmap()#StaticText("")
        
     def updateShortDescription(self, desc):
         self["ShortDesc"].setText(desc)
 
     def showSeperator(self):
-        if TFT_8000_Present:
-            self["Seperator"].setText(resolveFilename(SCOPE_CURRENT_SKIN, "images/sep_tft.png"))
-        else:
-            self["Seperator"].setText(resolveFilename(SCOPE_CURRENT_SKIN, "images/sep_lcd_oled.png"))
+        self["Seperator1"].show()
+        self["Seperator2"].show()
     
     def hideSeperator(self):
-        self["Seperator"].setText("")    
+        self["Seperator1"].hide()   
+        self["Seperator2"].hide()   
 
 class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, QuickButton, VideoPreview, MovieSearch):
     LIB_UPDATE_INTERVAL = 250
