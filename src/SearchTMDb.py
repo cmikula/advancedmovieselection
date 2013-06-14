@@ -198,7 +198,7 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
     SHOW_RESULT_LIST = 2
     SHOW_MOVIE_DETAIL = 3
         
-    def __init__(self, session, searchTitle, service):
+    def __init__(self, session, searchTitle, service=None):
         Screen.__init__(self, session)
         HelpableScreen.__init__(self)
         InfoLoadChoice.__init__(self, self.callback_green_pressed)
@@ -458,7 +458,7 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
     def paintCoverPixmapCB(self, picInfo=None):
         ptr = self.picload.getData()
         if ptr != None:
-            self["cover"].instance.setPixmap(ptr.__deref__())
+            self["cover"].instance.setPixmap(ptr)
             self["cover"].show()
 
     def updateCover(self, movie):
@@ -541,6 +541,8 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
             self.updateView(self.SHOW_RESULT_LIST)
 
     def green_pressed(self):
+        if self.service is None:
+            return
         self.setTitle(_("Save Info/Cover for ' %s ', please wait ...") % self.searchTitle)  
         self.checkExistEnce(self.service.getPath())
         #self.green_button_timer.start(100, True) 
@@ -637,7 +639,7 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
         elif self.view_mode == self.SHOW_RESULT_LIST:
             self.movieListView()
             self["key_red"].setText(self.SHOW_DETAIL_TEXT)
-            self["key_green"].setText(self.INFO_SAVE_TEXT)
+            self["key_green"].setText(self.INFO_SAVE_TEXT if self.service is not None else "")
             self["key_yellow"].setText(self.MANUAL_SEARCH_TEXT)
             if pluginPresent.YTTrailer:
                 self["key_blue"].setText(self.TRAILER_SEARCH_TEXT)
@@ -646,12 +648,13 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
                 self["key_blue"].setText("")
                 self["button_blue"].hide()
             self["button_red"].show()
-            self["button_green"].show()
+            if self.service is not None:
+                self["button_green"].show()
             self["button_yellow"].show()
         elif self.view_mode == self.SHOW_MOVIE_DETAIL:
             self.movieDetailView()
             self["key_red"].setText(self.SHOW_SEARCH_RESULT_TEXT)
-            self["key_green"].setText(self.INFO_SAVE_TEXT)
+            self["key_green"].setText(self.INFO_SAVE_TEXT if self.service is not None else "")
             self["key_yellow"].setText(self.MANUAL_SEARCH_TEXT)
             if pluginPresent.YTTrailer:
                 self["key_blue"].setText(self.TRAILER_SEARCH_TEXT)
@@ -660,6 +663,7 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
                 self["key_blue"].setText("")
                 self["button_blue"].hide()
             self["button_red"].show()
-            self["button_green"].show()
+            if self.service is not None:
+                self["button_green"].show()
             self["button_yellow"].show()
             

@@ -520,7 +520,7 @@ class TheTVDBMain(Screen, InfoLoadChoice):
     def paintBannerPixmapCB(self, picInfo=None):
         ptr = self.picload2.getData()
         if ptr != None:
-            self["banner"].instance.setPixmap(ptr.__deref__())
+            self["banner"].instance.setPixmap(ptr)
             self["banner"].show()
 
     def downloadCover(self, serie):
@@ -538,7 +538,7 @@ class TheTVDBMain(Screen, InfoLoadChoice):
     def paintPosterPixmapCB(self, picInfo=None):
         ptr = self.picload.getData()
         if ptr != None:
-            self["cover"].instance.setPixmap(ptr.__deref__())
+            self["cover"].instance.setPixmap(ptr)
             self["cover"].show()
             
     @staticmethod
