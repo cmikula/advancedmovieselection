@@ -326,6 +326,5 @@ versie: 3.1
 * nieuw: de laatst gekozen film wordt weergegeven na standby/reboot
 * nieuw: bewaartijd voor filmen in de prullemand
 * nieuw: optie om gebruikte ruimte op medium weer te geven in de beschrijving
-* nieuw: tonen TMDb info over event info menu
 * fix: crash na kopiëren
 OPGELET voor de skinners, AdvancedMovieSelection_summary en MoviePlayerExtended_summary zijn gewijzigd
