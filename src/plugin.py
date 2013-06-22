@@ -128,6 +128,6 @@ def Plugins(**kwargs):
     descriptors.append(PluginDescriptor(name=_("Setup Advanced Movie Selection"), where=PluginDescriptor.WHERE_PLUGINMENU, description=_("Alternate Movie Selection"), fnc=pluginMenu, needsRestart=True))
     descriptors.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, description=_("Alternate Movie Selection"), fnc=Setup, needsRestart=True))
     
-    descriptors.append(PluginDescriptor(name=_("TMDb Info"), where=PluginDescriptor.WHERE_EVENTINFO, description=_("TMDb Info"), fnc=tmdbInfo))
-    descriptors.append(PluginDescriptor(name=_("TVDb Info"), where=PluginDescriptor.WHERE_EVENTINFO, description=_("TVDb Info"), fnc=tvdbInfo))
+    # descriptors.append(PluginDescriptor(name=_("TMDb Info"), where=PluginDescriptor.WHERE_EVENTINFO, description=_("TMDb Info"), fnc=tmdbInfo))
+    # descriptors.append(PluginDescriptor(name=_("TVDb Info"), where=PluginDescriptor.WHERE_EVENTINFO, description=_("TVDb Info"), fnc=tvdbInfo))
     return descriptors
