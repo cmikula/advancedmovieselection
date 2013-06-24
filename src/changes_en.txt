@@ -331,3 +331,6 @@ version: 3.1
 * new: option to show disk usage in description
 * fix: crash after copy
 Skinners ATTENTION, AdvancedMovieSelection_summary and MoviePlayerExtended_summary have changed
+
+version: 3.1.1
+* fix: hide seperators

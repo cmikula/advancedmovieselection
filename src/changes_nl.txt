@@ -328,3 +328,6 @@ versie: 3.1
 * nieuw: optie om gebruikte ruimte op medium weer te geven in de beschrijving
 * fix: crash na kopiëren
 OPGELET voor de skinners, AdvancedMovieSelection_summary en MoviePlayerExtended_summary zijn gewijzigd
+
+versie: 3.1.1
+* fix: hide seperators

@@ -666,6 +666,7 @@ class AdvancedMovieSelection_summary(Screen):
         self["ShortDesc"] = Label("")
         self["Seperator1"] = Pixmap()#StaticText("")
         self["Seperator2"] = Pixmap()#StaticText("")
+        self.hideSeperator()
        
     def updateShortDescription(self, desc):
         self["ShortDesc"].setText(desc)
