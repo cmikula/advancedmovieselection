@@ -55,7 +55,7 @@ class MoviePreview():
     
     def layoutFinish(self):
         sc = AVSwitch().getFramebufferScale()
-        self.picload.setPara((self["CoverPreview"].instance.size().width(), self["CoverPreview"].instance.size().height(), sc[0], sc[1], False, 1, "#00000000"))
+        self.picload.setPara((self["CoverPreview"].instance.size().width(), self["CoverPreview"].instance.size().height(), sc[0], sc[1], False, 1, "#ff000000"))
         self.cpX = self["CoverPreview"].instance.position().x()
         self.cpY = self["CoverPreview"].instance.position().y()
         self.cpW = self["CoverPreview"].instance.size().width()

@@ -253,8 +253,8 @@ class TheTVDBMain(Screen, InfoLoadChoice):
     def layoutFinished(self):
         self["thetvdb_logo"].instance.setPixmapFromFile(resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/thetvdb_logo.png"))
         sc = AVSwitch().getFramebufferScale()
-        self.picload.setPara((self["cover"].instance.size().width(), self["cover"].instance.size().height(), sc[0], sc[1], False, 1, "#00000000"))
-        self.picload2.setPara((self["banner"].instance.size().width(), self["banner"].instance.size().height(), sc[0], sc[1], False, 1, "#00000000"))
+        self.picload.setPara((self["cover"].instance.size().width(), self["cover"].instance.size().height(), sc[0], sc[1], False, 1, "#ff000000"))
+        self.picload2.setPara((self["banner"].instance.size().width(), self["banner"].instance.size().height(), sc[0], sc[1], False, 1, "#ff000000"))
 
     def startSearch(self):
         self.updateView(self.SHOW_SEARCH)

@@ -271,7 +271,7 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
     def layoutFinished(self):
         self["tmdblogo"].instance.setPixmapFromFile(resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/tmdb.png"))
         sc = AVSwitch().getFramebufferScale()
-        self.picload.setPara((self["cover"].instance.size().width(), self["cover"].instance.size().height(), sc[0], sc[1], False, 1, "#00000000"))
+        self.picload.setPara((self["cover"].instance.size().width(), self["cover"].instance.size().height(), sc[0], sc[1], False, 1, "#ff000000"))
 
     def deleteTempDir(self):
         del self.picload
