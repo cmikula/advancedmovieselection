@@ -25,6 +25,12 @@ from Tools.Directories import resolveFilename, SCOPE_HDD
 from Components.config import config, ConfigSubsection, ConfigText, ConfigYesNo, ConfigInteger, ConfigSelection, ConfigClock, ConfigLocations, ConfigBoolean
 from Globals import printStackTrace
 
+# configurations from enigma2 /Components/UsageConfig.py !!!don't edit default values from source!!!
+config.usage.load_length_of_movies_in_moviellist = ConfigYesNo(default=True)
+config.usage.on_movie_start = ConfigSelection(default="ask", choices=[("ask", _("Ask user")), ("resume", _("Resume from last position")), ("beginning", _("Start from the beginning"))])
+config.usage.on_movie_stop = ConfigSelection(default="ask", choices=[("ask", _("Ask user")), ("movielist", _("Return to movie list")), ("quit", _("Return to previous service"))])
+config.usage.on_movie_eof = ConfigSelection(default="ask", choices=[("ask", _("Ask user")), ("movielist", _("Return to movie list")), ("quit", _("Return to previous service")), ("pause", _("Pause movie at end")), ("standby", _("Standby")), ("shutdown", _("Shutdown"))])
+
 config.AdvancedMovieSelection = ConfigSubsection()
 config.AdvancedMovieSelection.last_selected_service = ConfigText(default = "")
 config.AdvancedMovieSelection.wastelist_buildtype = ConfigSelection(default="listMovies" , choices=[("listMovies", _("Only current location")), ("listAllMovies", _("Current location and all subdirectories")), ("listAllMoviesMedia", _("All directorys below '/media'")) ])
@@ -106,7 +112,6 @@ config.AdvancedMovieSelection.showcolorkey = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.showliststyle = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.showextras = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.showsort = ConfigYesNo(default=True)
-config.usage.load_length_of_movies_in_moviellist = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.showmark = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.startdir = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.showdelete = ConfigYesNo(default=True)
@@ -123,9 +128,6 @@ config.AdvancedMovieSelection.showtmdb = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.show_info_cover_del = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.show_info_del = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.show_cover_del = ConfigYesNo(default=True)
-config.usage.on_movie_start = ConfigSelection(default="ask", choices=[("ask", _("Ask user")), ("resume", _("Resume from last position")), ("beginning", _("Start from the beginning"))])
-config.usage.on_movie_stop = ConfigSelection(default="movielist", choices=[("ask", _("Ask user")), ("movielist", _("Return to movie list")), ("quit", _("Return to previous service"))])
-config.usage.on_movie_eof = ConfigSelection(default="quit", choices=[("ask", _("Ask user")), ("movielist", _("Return to movie list")), ("quit", _("Return to previous service")), ("pause", _("Pause movie at end")), ("standby", _("Standby")), ("shutdown", _("Shutdown"))])
 config.AdvancedMovieSelection.movieplayer_infobar_position_offset_x = ConfigInteger(default=0)
 config.AdvancedMovieSelection.movieplayer_infobar_position_offset_y = ConfigInteger(default=0)
 config.AdvancedMovieSelection.show_infobar_position = ConfigYesNo(default=True)
