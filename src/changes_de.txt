@@ -334,4 +334,6 @@ version: 3.1
 ACHTUNG an die skinner, AdvancedMovieSelection_summary und MoviePlayerExtended_summary haben sich geändert
 
 version: 3.1.1
-* fix: ausblenden der seperator
+* fix: ausblenden der separator
+* fix: transparenz für bilder
+* fix: speichern der movie player aktionen
