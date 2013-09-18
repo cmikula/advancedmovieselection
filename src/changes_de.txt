@@ -337,3 +337,6 @@ version: 3.1.1
 * fix: ausblenden der separator
 * fix: transparenz für bilder
 * fix: speichern der movie player aktionen
+
+version: 3.2
+* geändert: tmdb api v3

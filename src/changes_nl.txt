@@ -322,15 +322,18 @@ versie: 3.0.4
 * nieuw: italiaanse vertaling (thx @ mikark)
 
 versie: 3.1
-* aanpassing: Bibliotheek i.p.v. Database
+* aanpassing: bibliotheek i.p.v. database
 * nieuw: de laatst gekozen film wordt weergegeven na standby/reboot
 * nieuw: bewaartijd voor filmen in de prullemand
 * nieuw: optie om gebruikte ruimte op medium weer te geven in de beschrijving
 * fix: crash na kopiëren
 OPGELET voor de skinners, AdvancedMovieSelection_summary en MoviePlayerExtended_summary zijn gewijzigd
 
-versi: 3.1.1
- *fix: verberg scheidingslijn
- *fix: transparantie picload
- *fix: instellingen filmspeler opslaan
+versie: 3.1.1
+* fix: verberg scheidingslijn
+* fix: transparantie picload
+* fix: instellingen filmspeler opslaan
+
+versie: 3.2
+* aanpassing: tmdb api v3
  

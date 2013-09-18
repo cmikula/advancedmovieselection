@@ -347,11 +347,10 @@ def appendShortDescriptionToMeta(file_name, short_descr):
 
 def setTmdbCertificationtion(movie, file_name):
     try:
-        if movie.has_key('certification'):
-            cert = tmdb.decodeCertification(movie['certification'])
-            if cert:
-                from AccessRestriction import accessRestriction
-                accessRestriction.setToService(file_name, cert)
+        cert = tmdb.decodeCertification(movie.releases)
+        if cert:
+            from AccessRestriction import accessRestriction
+            accessRestriction.setToService(file_name, cert)
     except Exception, e:
         print e
 
@@ -415,27 +414,29 @@ def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=Fa
         jpg_file = f_name + ".jpg"
         
         if movie == None:
-            results = tmdb.search(title)
+            tmdb3 = tmdb.init_tmdb3()
+            results = tmdb3.searchMovie(title)
             if len(results) == 0:
                 print "No info found for: " + str(title)
                 return False
             searchResult = None
             # locate fully agreement in list
             for result in results:
-                if result['name'] == title:
+                if result.title == title:
                     searchResult = result
                     break
             # if not identify one result select first item
             if not searchResult:
                 searchResult = results[0]
-            movie = tmdb.getMovieInfo(searchResult['id'])
+            movie = searchResult
 
-        name = movie['name']
-        overview = movie['overview']
-        runtime = movie['runtime']
-        genre = ""
-        if len(movie['categories']):
-            genre = " ".join(movie['categories']['genre'])
+        name = movie.title
+        overview = movie.overview
+        runtime = movie.runtime
+        genre = []
+        for x in movie.genres:
+            genre.append(x.name)
+        genre = " ".join(genre)
 
         # update certificate and meta genre
         appendShortDescriptionToMeta(file_name, genre)
@@ -447,10 +448,10 @@ def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=Fa
 
         if name:
             print "Movie title: " + name.encode("utf-8", "ignore")
-        images = movie['images']
+        poster = movie.poster
         cover_url = None
-        if len(images) > 0:
-            cover_url = movie['images'][0][coverSize]
+        if poster is not None:
+            cover_url = poster.geturl()
         if not cover_url:
             print "No Cover found for", str(title), "\n"
         else:    
@@ -468,38 +469,21 @@ def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=Fa
         if not overview or len(overview) == 0:
             print "tmdb search results no valid movie overview"
             return False
-        directors = []
-        actors = []
+
+        directors = [x.name for x in movie.crew if x.job == 'Director']
+        actors = [x.name for x in movie.cast]
         # print out extended movie informations
         try:
             #original_name = movie['original_name']
             #print "Original name:"
             #print " " * 4, str(original_name)
             
-            released = movie['released']
+            released = movie.releasedate
             print "Released:"
             print " " * 4, str(released)
     
-            cast = movie['cast']
-            if cast:
-                if cast.has_key('author'):
-                    print "Authors:"
-                    for prodr in cast['author']:
-                        print " " * 4, prodr['name']
-                if cast.has_key('director'):
-                    print "Directors:"
-                    for prodr in cast['director']:
-                        directors.append(prodr['name'])
-                        print " " * 4, prodr['name']
-                if cast.has_key('producer'):
-                    print "Producers:"
-                    for prodr in cast['producer']:
-                        print " " * 4, prodr['name']
-                if cast.has_key('actor'):
-                    print "Actors:"
-                    for prodr in cast['actor']:
-                        actors.append(prodr['name'])
-                        print " " * 4, prodr['name']
+            for cast in movie.cast:
+                print cast.name
         except Exception, e:
             print e
 
@@ -507,18 +491,22 @@ def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=Fa
         if released:
             try:
                 try:
-                    print movie['countries'].keys()
-                    country = ", ".join(movie['countries'].keys()) + " "
-                    country = country.replace("US", "USA")
+                    print movie.countries
+                    # countries = [c.name for c in movie.countries]
+                    countries = [c.code for c in movie.countries]
+                    country = ", ".join(countries) + " "
+                    country = country.replace("US", "USA").replace("DE", "GER")
                 except:
                     country = ""
-                year = released[0:4]
+                year = str(released.year)
                 ex_info.append(country + year) 
             except Exception, e:
                 print e
         else:
             try:
-                country = movie['countries'].items()[0][0]
+                countries = [c.code for c in movie.countries]
+                country = ", ".join(countries) + " "
+                country = country.replace("US", "USA").replace("DE", "GER")
                 ex_info.append(country) 
             except:
                 pass
@@ -540,7 +528,7 @@ def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=Fa
         print "Extended info:"
         print " " * 4, extended_info
         
-        language_code = getLanguageCode(tmdb)
+        language_code = 'DEU'# getLanguageCode(tmdb)
         return writeEIT(file_name, eit_file, name, overview, genre, extended_info, released, runtime, language_code)
     except:
         printStackTrace()
@@ -918,9 +906,9 @@ if __name__ == '__main__':
 
     testMultiEit()
     createEIT("./tmp/Fight Club.ts", "Fight Club", "cover", overwrite_eit=True)
-    tmdb.setLocale("ru")
+    #tmdb3.set_locale("ru", "ru", "en")
     createEIT("./tmp/Blitz_ru.ts", "Черная Молния", "cover", overwrite_eit=True)
-    tmdb.setLocale("de")
+    #tmdb3.set_locale("de", "de", "en")
     printEIT("./tmp/Blitz_ru.eit")
     printEIT("./tmp/russia.eit")
     printEIT("./tmp/Shutter Island ru Original.eit")

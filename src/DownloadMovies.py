@@ -92,6 +92,8 @@ class DownloadMovies(Screen):
         self.refreshTimer = eTimer()
         self.refreshTimer.callback.append(self.refresh)
 
+        self.tmdb3 = tmdb.init_tmdb3()
+
         if self.service is not None:
             global movie_title
             movie_title = ServiceCenter.getInstance().info(self.service).getName(self.service).encode("utf-8").split(" - ")[0].strip()
@@ -159,7 +161,7 @@ class DownloadMovies(Screen):
         self["info"].setText(_("Filename: %s") % os.path.basename(self.service.getPath()))
         self.setTitle(_("Search result(s) for %s") % (movie_title))
         try:
-            results = tmdb.search(movie_title)
+            results = self.tmdb3.searchMovie(movie_title)
         except:
             results = []
         if len(results) == 0:
@@ -169,15 +171,14 @@ class DownloadMovies(Screen):
             return False
 
         self.l = []
-        for searchResult in results:
+        for movie in results:
             try:
                 self["key_green"].setText(_("Save infos/cover"))
-                movie = tmdb.getMovieInfo(searchResult['id'])
-                released = movie['released'][:4]
+                released = str(movie.releasedate.year)
                 if released:
-                    self.l.append((movie['name'].encode("utf-8") + " - " + released, movie))
+                    self.l.append((movie.title.encode("utf-8") + " - " + released, movie))
                 else:
-                    self.l.append((movie['name'].encode("utf-8"), movie))
+                    self.l.append((movie.title.encode("utf-8"), movie))
             except:
                 pass
 
@@ -195,10 +196,12 @@ class DownloadMovies(Screen):
         current = self["list"].l.getCurrentSelection()
         if current:
             try:
+                print "*" * 80
+                print current[1]
                 movie = current[1]
-                self["description"].setText("%s - %s\n\n%s" % (str(movie['name']), str(movie['released']), str(movie['overview'])))
+                self["description"].setText("%s - %s\n\n%s" % (str(movie.title.encode('utf-8', 'ignore')), str(movie.releasedate), movie.overview.encode('utf-8', 'ignore')))
                 jpg_file = "/tmp/preview.jpg"
-                cover_url = movie['images'][0]['cover']
+                cover_url = movie.poster.geturl()
                 downloadCover(cover_url, jpg_file, True)
                 sc = AVSwitch().getFramebufferScale()
                 self.picload.setPara((self["poster"].instance.size().width(), self["poster"].instance.size().height(), sc[0], sc[1], False, 1, "#ff000000"))
