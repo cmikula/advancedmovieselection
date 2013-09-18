@@ -81,9 +81,9 @@ def init_tmdb3():
     return tmdb3
 
 def main():
-    setLocale("en")
+    setLocale("de")
     tmdb3 = init_tmdb3()
-    res = tmdb3.searchMovie('Das Versteck')
+    res = tmdb3.searchMovie('Für immer Liebe')
     # res = tmdb3.searchMovie('Fight Club')
     # res = tmdb3.searchMovie('22 Bullets')
     print res

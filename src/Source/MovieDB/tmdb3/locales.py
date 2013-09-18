@@ -101,7 +101,7 @@ class Locale( LocaleBase ):
     def encode(self, dat):
         """Encode using system default encoding for network/file output."""
         try:
-            return dat.encode(self.encoding)
+            return dat.encode(self.encoding).encode('utf-8') # changes for enigma2
         except AttributeError:
             # not a string type, pass along
             return dat
