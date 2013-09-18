@@ -136,7 +136,7 @@ class TMDbList(GUIComponent, object):
             if isinstance(movie.releasedate, datetime.datetime):
                 released = movie.releasedate.year
             
-            images = movie.posters
+            image = movie.poster
             
             if overview:
                 overview = overview.encode('utf-8', 'ignore')
@@ -147,8 +147,8 @@ class TMDbList(GUIComponent, object):
             else:
                 released_text = ""
             cover_url = None
-            if len(images) > 0:
-                cover_url = images[0].geturl()
+            if image is not None:
+                cover_url = image.geturl()
             if not cover_url:
                 png = self.picloader.load(nocover)
             else:
@@ -461,10 +461,10 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
     def updateCover(self, movie):
         if self.view_mode != self.SHOW_MOVIE_DETAIL:
             return
-        images = movie.posters
+        image = movie.poster
         cover_url = None
-        if len(images) > 0:
-            cover_url = images[0].geturl()
+        if image is not None:
+            cover_url = image.geturl()
         if not cover_url:
             self.picload.startDecode(nocover)
         else:    

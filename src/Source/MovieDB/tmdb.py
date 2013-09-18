@@ -41,7 +41,9 @@ def getLocale():
 # setLocale("de")
 
 def decodeCertification(releases):
-    cert = releases['US'].certification
+    cert = None
+    if releases.has_key('US'):
+        cert = releases['US'].certification
     certification = {"G":"VSR-0", "PG":"VSR-6", "PG13":"VSR-12", "PG-13":"VSR-12", "R":"VSR-16", "NC-13":"VSR-18", "NC17":"VSR-18"}
     if certification.has_key(cert):
         return certification[cert]
@@ -81,7 +83,8 @@ def init_tmdb3():
 def main():
     setLocale("en")
     tmdb3 = init_tmdb3()
-    res = tmdb3.searchMovie('Fight Club')
+    res = tmdb3.searchMovie('Das Versteck')
+    # res = tmdb3.searchMovie('Fight Club')
     # res = tmdb3.searchMovie('22 Bullets')
     print res
     movie = res[0]
