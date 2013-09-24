@@ -429,6 +429,7 @@ def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=Fa
             if not searchResult:
                 searchResult = results[0]
             movie = searchResult
+            tmdb.__collect_poster_urls(movie)
 
         name = movie.title
         overview = movie.overview
@@ -448,11 +449,9 @@ def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=Fa
 
         if name:
             print "Movie title: " + name.encode("utf-8", "ignore")
-        poster = movie.poster
-        cover_url = None
-        if poster is not None:
-            cover_url = poster.geturl()
-        if not cover_url:
+
+        cover_url = movie.poster_url
+        if cover_url is None:
             print "No Cover found for", str(title), "\n"
         else:    
             downloadCover(cover_url, jpg_file, overwrite_jpg)

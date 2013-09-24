@@ -136,7 +136,7 @@ class TMDbList(GUIComponent, object):
             if isinstance(movie.releasedate, datetime.datetime):
                 released = movie.releasedate.year
             
-            image = movie.poster
+            cover_url = movie.poster_url
             
             if overview:
                 overview = overview.encode('utf-8', 'ignore')
@@ -146,9 +146,7 @@ class TMDbList(GUIComponent, object):
                 released_text = released
             else:
                 released_text = ""
-            cover_url = None
-            if image is not None:
-                cover_url = image.geturl()
+
             if not cover_url:
                 png = self.picloader.load(nocover)
             else:
@@ -461,11 +459,9 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
     def updateCover(self, movie):
         if self.view_mode != self.SHOW_MOVIE_DETAIL:
             return
-        image = movie.poster
-        cover_url = None
-        if image is not None:
-            cover_url = image.geturl()
-        if not cover_url:
+
+        cover_url = movie.poster_url
+        if cover_url is None:
             self.picload.startDecode(nocover)
         else:    
             parts = cover_url.split("/")
@@ -481,14 +477,9 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
         index = self["list"].getCurrentIndex()
         cur = self["list"].getCurrent()
         movie = cur[0]
-        if len(movie['images']) == 0:
+        if len(movie.poster_urls) == 0:
             return
         method(movie)
-        cnt = 0
-        while not movie['images'][0].has_key(config.AdvancedMovieSelection.coversize.value) and cnt < len(movie['images']):
-            method(movie)
-            cnt += 1
-        self.movies[index] = (movie, cur[1])
         self["list"].l.invalidateEntry(index)
         self.updateCover(movie)
 
@@ -496,12 +487,10 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
         print "Dummy"
 
     def left(self):
-        pass
-        # self.updateImageIndex(tmdb.prevImageIndex)
+        self.updateImageIndex(tmdb.prevImageIndex)
     
     def right(self):
-        pass
-        # self.updateImageIndex(tmdb.nextImageIndex)
+        self.updateImageIndex(tmdb.nextImageIndex)
 
     def checkConnection(self):
         try:

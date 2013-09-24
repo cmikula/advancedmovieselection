@@ -49,17 +49,43 @@ def decodeCertification(releases):
         return certification[cert]
 
 def nextImageIndex(movie):
-    if len(movie['images']) > 1:
-        item = movie['images'].pop(0)
-        movie['images'].append(item)
+    if len(movie.poster_urls) > 1:
+        item = movie.poster_urls.pop(0)
+        movie.poster_urls.append(item)
+    movie.poster_url = movie.poster_urls[0]
 
 def prevImageIndex(movie):
-    if len(movie['images']) > 1:
-        item = movie['images'].pop(-1)
-        movie['images'].insert(0, item)
+    if len(movie.poster_urls) > 1:
+        item = movie.poster_urls.pop(-1)
+        movie.poster_urls.insert(0, item)
+    movie.poster_url = movie.poster_urls[0]
+
+def __collect_poster_urls(movie):
+    l = []
+    if movie.poster is not None:
+        l.append(movie.poster.geturl())
+    for p in movie.posters:
+        url = p.geturl()
+        if not url in l:
+            l.append(url)
+    movie.poster_urls = l
+    # print "title: %s, poster: %d" % (movie.title, len(movie.poster_urls))
+    if len(movie.poster_urls) > 0:
+        movie.poster_url = movie.poster_urls[0]
+    else:
+        movie.poster_url = None
+
+def __searchMovie(title):
+    res = original_search(title)
+    for movie in res:
+        __collect_poster_urls(movie)
+    return res
+
+import tmdb3
+original_search = tmdb3.searchMovie
+tmdb3.searchMovie = __searchMovie
 
 def init_tmdb3():
-    import tmdb3
     tmdb3.set_key(config['apikey'])
     tmdb3.set_cache('null')
     lng = config['locale']
@@ -83,7 +109,8 @@ def init_tmdb3():
 def main():
     setLocale("de")
     tmdb3 = init_tmdb3()
-    res = tmdb3.searchMovie('Für immer Liebe')
+    res = tmdb3.searchMovie('James Bond 007 - Skyfall')
+    # res = tmdb3.searchMovie('Für immer Liebe')
     # res = tmdb3.searchMovie('Fight Club')
     # res = tmdb3.searchMovie('22 Bullets')
     print res
@@ -91,6 +118,10 @@ def main():
     print movie.title
     print movie.releasedate.year
     print movie.overview
+    
+    for p in movie.poster_urls:
+        print p
+    
     for p in movie.posters:
         print p
     for p in movie.backdrops:

@@ -38,6 +38,7 @@ encoding//src/Source/MovieDB/tmdb3/cache.py=utf-8
 encoding//src/Source/MovieDB/tmdb3/cache_engine.py=utf-8
 encoding//src/Source/MovieDB/tmdb3/cache_null.py=utf-8
 encoding//src/Source/MovieDB/tmdb3/locales.py=utf-8
+encoding//src/Source/MovieDB/tmdb3/pager.py=utf-8
 encoding//src/Source/MovieDB/tmdb3/request.py=utf-8
 encoding//src/Source/MovieDB/tmdb3/tmdb_api.py=utf-8
 encoding//src/Source/MovieDB/tmdb3/tmdb_auth.py=utf-8
