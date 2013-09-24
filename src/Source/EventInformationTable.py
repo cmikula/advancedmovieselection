@@ -400,7 +400,7 @@ def writeEIT(file_name, eit_file, name, overview, genre, extended_info, released
         printStackTrace()
         return False
 
-def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=False, movie=None):
+def createEIT(file_name, title, overwrite_jpg=False, overwrite_eit=False, movie=None):
     try:
         if title:
             title = title.replace("-", " ").replace("#", "%23")
@@ -429,7 +429,6 @@ def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=Fa
             if not searchResult:
                 searchResult = results[0]
             movie = searchResult
-            tmdb.__collect_poster_urls(movie)
 
         name = movie.title
         overview = movie.overview
@@ -528,7 +527,7 @@ def createEIT(file_name, title, coverSize, overwrite_jpg=False, overwrite_eit=Fa
         print " " * 4, extended_info
         
         language_code = 'DEU'# getLanguageCode(tmdb)
-        return writeEIT(file_name, eit_file, name, overview, genre, extended_info, released, runtime, language_code)
+        return writeEIT(file_name, eit_file, name, overview, genre, extended_info, str(released), runtime, language_code)
     except:
         printStackTrace()
         return False

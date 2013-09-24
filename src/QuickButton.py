@@ -343,7 +343,7 @@ class QuickButton:
                             items = []
                             for item in self.list.multiSelection:
                                 items.append([item, 0])
-                            self.session.openWithCallback(self.updateCurrentSelection, DownloadMovies, items, config.AdvancedMovieSelection.coversize.value)
+                            self.session.openWithCallback(self.updateCurrentSelection, DownloadMovies, items)
                     else:
                         if config.AdvancedMovieSelection.showinfo.value:
                             self.session.open(MessageBox, _("TMDb search here not possible, please select a movie!"), MessageBox.TYPE_INFO)               

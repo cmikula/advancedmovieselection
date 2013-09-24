@@ -543,7 +543,7 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
         current_movie = self["list"].getCurrent()[0]
         title = current_movie.title.encode('utf-8')
         if self.service is not None:
-            createEIT(self.service.getPath(), title, config.AdvancedMovieSelection.coversize.value, movie=current_movie, overwrite_jpg=overwrite_jpg, overwrite_eit=overwrite_eit)
+            createEIT(self.service.getPath(), title, movie=current_movie, overwrite_jpg=overwrite_jpg, overwrite_eit=overwrite_eit)
             self.close(False)
         else:
             self.session.openWithCallback(self.close, MessageBox, _("Sorry, no info/cover found for title: %s") % (title), MessageBox.TYPE_ERROR)

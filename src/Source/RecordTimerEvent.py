@@ -73,14 +73,9 @@ class CoverLoader():
 
     def downloadMovieInfo(self, name, filename=None):
         try:
-            from MovieDB import tmdb
             from EventInformationTable import createEIT
             print "[AdvancedMovieSelection] RecordTimerEvent, loading info from tmdb:", name
-            tmdb3 = tmdb.init_tmdb3()
-            results = tmdb3.searchMovie(name)
-            if results and len(results) > 0:
-                movie = results[0]
-                createEIT(filename, name, config.AdvancedMovieSelection.coversize.value, movie)
+            createEIT(filename, name)
         except:
             printStackTrace()
 

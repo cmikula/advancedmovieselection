@@ -357,7 +357,7 @@ class MovieContextMenu(Screen):
         if self.checkConnection() == False:
             return
         if len(self.csel.list.multiSelection) == 0:
-            self.session.openWithCallback(self.closeafterfinish, DownloadMovies, self.csel.list.list, config.AdvancedMovieSelection.coversize.value, self.service)
+            self.session.openWithCallback(self.closeafterfinish, DownloadMovies, self.csel.list.list, self.service)
         else:
             self.downloadSelectedMovieInfo()
 
@@ -370,7 +370,7 @@ class MovieContextMenu(Screen):
         if self.checkConnection() == False:
             return
         if len(self.csel.list.multiSelection) == 0:
-            self.session.openWithCallback(self.closeafterfinish, DownloadMovies, self.csel.list.list, config.AdvancedMovieSelection.coversize.value)
+            self.session.openWithCallback(self.closeafterfinish, DownloadMovies, self.csel.list.list)
         else:
             self.downloadSelectedMovieInfo()
 
@@ -378,7 +378,7 @@ class MovieContextMenu(Screen):
         items = []
         for item in self.csel.list.multiSelection:
             items.append([item, 0])
-        self.session.openWithCallback(self.closeafterfinish, DownloadMovies, items, config.AdvancedMovieSelection.coversize.value)
+        self.session.openWithCallback(self.closeafterfinish, DownloadMovies, items)
 
     def retitel(self, session, service):
         self.session.openWithCallback(self.closeafterfinish, MovieRetitle, service)

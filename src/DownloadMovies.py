@@ -49,12 +49,11 @@ movie_title = ""
 tmdb_logodir = resolveFilename(SCOPE_PLUGINS) + "Extensions/AdvancedMovieSelection/images"
 
 class DownloadMovies(Screen):
-    def __init__(self, session, items, coverSize, service=None):
+    def __init__(self, session, items, service=None):
         Screen.__init__(self, session)
         self.skinName = SkinTools.appendResolution("AdvancedMovieSelectionDownload")
         self.onShow.append(self.selectionChanged)
         self.service = service
-        self.coversize = coverSize
         self["logo"] = Pixmap()  
         self["info"] = Label()
         self["title"] = Label()
@@ -102,7 +101,7 @@ class DownloadMovies(Screen):
         
         global fetchingMovies, this_session, is_hidden
         if fetchingMovies is None:
-            fetchingMovies = FetchingMovies(items, coverSize)
+            fetchingMovies = FetchingMovies(items)
         else:
             fetchingMovies.cancel = False
         self.progressTimer = eTimer()
@@ -188,7 +187,7 @@ class DownloadMovies(Screen):
         global movie_title
         current = self["list"].l.getCurrentSelection()
         if self.service is not None and current:
-            createEIT(self.service.getPath(), movie_title, self.coversize, movie=current[1])
+            createEIT(self.service.getPath(), movie_title, movie=current[1])
         self.__hide()        
     
     def selectionChanged(self):
@@ -229,9 +228,8 @@ class DownloadMovies(Screen):
             self.refreshTimer.start(100, True)
 
 class FetchingMovies(Thread):
-    def __init__(self, items, coverSize):
+    def __init__(self, items):
         Thread.__init__(self)
-        self.coversize = coverSize
         self.items = items
         self.start()
 
@@ -255,7 +253,7 @@ class FetchingMovies(Thread):
                         continue
                     current = current + 1 
                     movie_title = ServiceCenter.getInstance().info(service).getName(service).encode("utf-8").split(" - ")[0].strip()
-                    createEIT(service.getPath(), movie_title, self.coversize)
+                    createEIT(service.getPath(), movie_title)
                 except:
                     printStackTrace()
         except:
