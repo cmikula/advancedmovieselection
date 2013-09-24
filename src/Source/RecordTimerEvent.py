@@ -72,13 +72,17 @@ class CoverLoader():
             start_new_thread(self.downloadMovieInfo, (timer.name, timer.Filename + ".ts"))
 
     def downloadMovieInfo(self, name, filename=None):
-        from MovieDB import tmdb
-        from EventInformationTable import createEIT
-        print "[AdvancedMovieSelection] RecordTimerEvent, loading info from tmdb:", name
-        results = tmdb.search(name)
-        if results and len(results) > 0:
-            searchResult = results[0]
-            movie = tmdb.getMovieInfo(searchResult['id'])
-            createEIT(filename, name, config.AdvancedMovieSelection.coversize.value, movie)
+        try:
+            from MovieDB import tmdb
+            from EventInformationTable import createEIT
+            print "[AdvancedMovieSelection] RecordTimerEvent, loading info from tmdb:", name
+            tmdb3 = tmdb.init_tmdb3()
+            results = tmdb3.searchMovie(name)
+            if results and len(results) > 0:
+                movie = results[0]
+                createEIT(filename, name, config.AdvancedMovieSelection.coversize.value, movie)
+        except:
+            printStackTrace()
+
 
 coverLoader = CoverLoader()
