@@ -339,4 +339,6 @@ version: 3.1.1
 
 version: 3.2
 * changed: tmdb api v3
- 
+
+version: 3.2.1
+* new: selectable cover size for tmdb download

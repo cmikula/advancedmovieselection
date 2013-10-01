@@ -123,6 +123,16 @@ config.AdvancedMovieSelection.showcoveroptions = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.showpreview = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.showrename = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.description = ConfigYesNo(default=True)
+poster_sizes = (u'w92', u'w154', u'w185', u'w342', u'w500', u'original')
+from MovieDB.tmdb import poster_sizes, setPosterSize
+poster_choices = [
+                  (poster_sizes[0], _("Thumb (92x138)")),
+                  (poster_sizes[2], _("Cover (185x278)")),
+                  (poster_sizes[4], _("Mid (500x750)")),
+                  (poster_sizes[5], _("Original (1400x2100)"))
+                  ]
+config.AdvancedMovieSelection.tmdb_poster_size = ConfigSelection(default=poster_sizes[2], choices=poster_choices)
+config.AdvancedMovieSelection.tmdb_poster_size.addNotifier(setPosterSize)
 config.AdvancedMovieSelection.showtmdb = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.show_info_cover_del = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.show_info_del = ConfigYesNo(default=True)

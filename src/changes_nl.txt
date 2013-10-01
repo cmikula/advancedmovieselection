@@ -336,4 +336,6 @@ versie: 3.1.1
 
 versie: 3.2
 * aanpassing: tmdb api v3
- 
+
+versie: 3.2.1
+* nieuw: instelbare grootte voor tmdb cover

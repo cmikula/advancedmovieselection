@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection(POT)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-25 15:16+0100\n"
-"PO-Revision-Date: 2013-05-25 15:16+0100\n"
+"POT-Creation-Date: 2013-10-01 18:46+0100\n"
+"PO-Revision-Date: 2013-10-01 18:46+0100\n"
 "Last-Translator: cmikula\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "Language: de_AT\n"
@@ -53,7 +53,7 @@ msgid "Show search result"
 msgstr ""
 
 #: ../SearchTVDb.py:163
-#: ../DownloadMovies.py:67
+#: ../DownloadMovies.py:66
 msgid "Manual search"
 msgstr ""
 
@@ -66,196 +66,196 @@ msgstr ""
 msgid "Trailer search"
 msgstr ""
 
-#: ../SearchTVDb.py:257
+#: ../SearchTVDb.py:261
 #: ../AdvancedMovieSelectionSetup.py:669
 #: ../MovieSelection.py:183
 msgid "TheTVDB Info & D/L"
 msgstr ""
 
-#: ../SearchTVDb.py:258
+#: ../SearchTVDb.py:262
 #, python-format
 msgid "Searching for ' %s ' on TheTVDB.com, please wait ..."
 msgstr ""
 
-#: ../SearchTVDb.py:309
+#: ../SearchTVDb.py:313
 msgid "Sorry, no data found at TheTVDB.com!"
 msgstr ""
 
-#: ../SearchTVDb.py:322
-#: ../SearchTVDb.py:324
-#: ../SearchTVDb.py:366
-#: ../SearchTVDb.py:368
+#: ../SearchTVDb.py:326
+#: ../SearchTVDb.py:328
+#: ../SearchTVDb.py:370
+#: ../SearchTVDb.py:372
 #, python-format
 msgid "Total %s"
 msgstr ""
 
-#: ../SearchTVDb.py:322
+#: ../SearchTVDb.py:326
 msgid "show found"
 msgstr ""
 
-#: ../SearchTVDb.py:324
+#: ../SearchTVDb.py:328
 msgid "shows found"
 msgstr ""
 
-#: ../SearchTVDb.py:329
+#: ../SearchTVDb.py:333
 #, python-format
 msgid "Episodes for: %s"
 msgstr ""
 
-#: ../SearchTVDb.py:354
-#: ../SearchTVDb.py:385
+#: ../SearchTVDb.py:358
+#: ../SearchTVDb.py:389
 msgid "Sorry, no description for this episode at TheTVDB.com available!"
 msgstr ""
 
-#: ../SearchTVDb.py:366
+#: ../SearchTVDb.py:370
 msgid "episode found"
 msgstr ""
 
-#: ../SearchTVDb.py:368
+#: ../SearchTVDb.py:372
 msgid "episodes found"
 msgstr ""
 
-#: ../SearchTVDb.py:377
+#: ../SearchTVDb.py:381
 #, python-format
 msgid "Episode details for: %s"
 msgstr ""
 
-#: ../SearchTVDb.py:379
+#: ../SearchTVDb.py:383
 msgid "Sorry, no episode titel available!"
 msgstr ""
 
-#: ../SearchTVDb.py:391
+#: ../SearchTVDb.py:395
 #, python-format
 msgid "Regie: %s"
 msgstr ""
 
-#: ../SearchTVDb.py:396
+#: ../SearchTVDb.py:400
 #, python-format
 msgid "Writer: %s\n"
 msgstr ""
 
-#: ../SearchTVDb.py:404
+#: ../SearchTVDb.py:408
 #, python-format
 msgid "Guest Stars: %s\n"
 msgstr ""
 
-#: ../SearchTVDb.py:408
-#: ../SearchTVDb.py:449
+#: ../SearchTVDb.py:412
+#: ../SearchTVDb.py:453
 #, python-format
 msgid "First Aired: %s"
 msgstr ""
 
-#: ../SearchTVDb.py:426
+#: ../SearchTVDb.py:430
 msgid "Enter new movie name for search:"
 msgstr ""
 
-#: ../SearchTVDb.py:441
+#: ../SearchTVDb.py:445
 #, python-format
 msgid "Sorry, no description for ' %s ' at TheTVDB.com found!"
 msgstr ""
 
-#: ../SearchTVDb.py:453
+#: ../SearchTVDb.py:457
 #, python-format
 msgid "Air Day: %s"
 msgstr ""
 
-#: ../SearchTVDb.py:459
+#: ../SearchTVDb.py:463
 #, python-format
 msgid "Air Time: %s"
 msgstr ""
 
-#: ../SearchTVDb.py:463
+#: ../SearchTVDb.py:467
 #, python-format
 msgid "Runtime: %s minutes\n"
 msgstr ""
 
-#: ../SearchTVDb.py:467
+#: ../SearchTVDb.py:471
 #, python-format
 msgid "Broadcast TV network: %s"
 msgstr ""
 
-#: ../SearchTVDb.py:473
+#: ../SearchTVDb.py:477
 #, python-format
 msgid "Genre: %s\n"
 msgstr ""
 
-#: ../SearchTVDb.py:477
+#: ../SearchTVDb.py:481
 #, python-format
 msgid "Certification: %s"
 msgstr ""
 
-#: ../SearchTVDb.py:486
+#: ../SearchTVDb.py:490
 #, python-format
 msgid "Rating: %s\n"
 msgstr ""
 
-#: ../SearchTVDb.py:490
+#: ../SearchTVDb.py:494
 #, python-format
 msgid "Actors: %s\n"
 msgstr ""
 
-#: ../SearchTVDb.py:495
+#: ../SearchTVDb.py:499
 #, python-format
 msgid ""
 "\n"
 "Last modified at TheTVDB.com: %s"
 msgstr ""
 
-#: ../SearchTVDb.py:502
+#: ../SearchTVDb.py:506
 #, python-format
 msgid "Voted: %s"
 msgstr ""
 
-#: ../SearchTVDb.py:502
+#: ../SearchTVDb.py:506
 msgid "times"
 msgstr ""
 
-#: ../SearchTVDb.py:504
+#: ../SearchTVDb.py:508
 msgid "No user voted!"
 msgstr ""
 
-#: ../SearchTVDb.py:588
+#: ../SearchTVDb.py:592
 #: ../MovieSelection.py:353
 msgid "No internet connection available!"
 msgstr ""
 
-#: ../SearchTVDb.py:613
-#: ../SearchTVDb.py:717
+#: ../SearchTVDb.py:617
+#: ../SearchTVDb.py:721
 #, python-format
 msgid "Details for: %s"
 msgstr ""
 
-#: ../SearchTVDb.py:628
+#: ../SearchTVDb.py:632
 #, python-format
 msgid "Search result for: %s"
 msgstr ""
 
-#: ../SearchTVDb.py:736
+#: ../SearchTVDb.py:742
 #, python-format
 msgid "Save Info/Cover for ' %s ', please wait ..."
 msgstr ""
 
-#: ../SearchTVDb.py:758
+#: ../SearchTVDb.py:764
 #, python-format
 msgid "Getting show details for ' %s ', please wait ..."
 msgstr ""
 
-#: ../SearchTVDb.py:760
+#: ../SearchTVDb.py:766
 #, python-format
 msgid "Search trailer for ' %s ', please wait ..."
 msgstr ""
 
-#: ../SearchTVDb.py:762
+#: ../SearchTVDb.py:768
 #, python-format
 msgid "Getting search result for ' %s ', please wit ..."
 msgstr ""
 
-#: ../SearchTVDb.py:772
+#: ../SearchTVDb.py:778
 #, python-format
 msgid "Getting episodes list for ' %s ', please wait ..."
 msgstr ""
 
-#: ../SearchTVDb.py:776
+#: ../SearchTVDb.py:782
 #, python-format
 msgid "Getting episodes details for ' %s ', please wait ..."
 msgstr ""
@@ -332,7 +332,7 @@ msgid "Advanced Movie Selection - Wastebasket"
 msgstr ""
 
 #: ../Wastebasket.py:227
-#: ../MovieSelection.py:729
+#: ../MovieSelection.py:730
 msgid "ATTENTION: Ask before delete is disabled!"
 msgstr ""
 
@@ -419,7 +419,7 @@ msgid "Wastebasket is empty!"
 msgstr ""
 
 #: ../Wastebasket.py:309
-#: ../MovieSelection.py:812
+#: ../MovieSelection.py:813
 #, python-format
 msgid "Do you really want to delete %s?"
 msgstr ""
@@ -436,7 +436,7 @@ msgid "Do you really want to delete all movies?"
 msgstr ""
 
 #: ../Wastebasket.py:342
-#: ../MovieSelection.py:879
+#: ../MovieSelection.py:880
 msgid "Delete failed!"
 msgstr ""
 
@@ -453,28 +453,28 @@ msgid "Restore failed!"
 msgstr ""
 
 #: ../plugin.py:79
-#: ../plugin.py:100
+#: ../plugin.py:128
 msgid "Setup Advanced Movie Selection"
 msgstr ""
 
-#: ../plugin.py:97
-#: ../plugin.py:98
-#: ../MovieSelection.py:931
+#: ../plugin.py:125
+#: ../plugin.py:126
+#: ../MovieSelection.py:932
 msgid "Advanced Movie Selection"
 msgstr ""
 
-#: ../plugin.py:97
-#: ../plugin.py:98
-#: ../plugin.py:100
-#: ../plugin.py:101
+#: ../plugin.py:125
+#: ../plugin.py:126
+#: ../plugin.py:128
+#: ../plugin.py:129
 msgid "Alternate Movie Selection"
 msgstr ""
 
-#: ../plugin.py:99
+#: ../plugin.py:127
 msgid "Move Copy Progress"
 msgstr ""
 
-#: ../plugin.py:99
+#: ../plugin.py:127
 msgid "Show progress of move or copy job"
 msgstr ""
 
@@ -486,7 +486,7 @@ msgstr ""
 #: ../Rename.py:68
 #: ../MoveCopy.py:249
 #: ../AdvancedMovieSelectionSetup.py:608
-#: ../DownloadMovies.py:64
+#: ../DownloadMovies.py:63
 #: ../TagEditor.py:44
 #: ../SelectionListScreen.py:41
 #: ../SelectionListScreen.py:55
@@ -537,7 +537,7 @@ msgstr ""
 #: ../MoveCopy.py:49
 #: ../MoveCopy.py:125
 #: ../MoveCopy.py:280
-#: ../MovieSelection.py:1116
+#: ../MovieSelection.py:1117
 msgid "Error"
 msgstr ""
 
@@ -928,8 +928,8 @@ msgid "Show up to"
 msgstr ""
 
 #: ../QuickButton.py:371
-#: ../MovieSelection.py:1185
-#: ../MovieSelection.py:1287
+#: ../MovieSelection.py:1186
+#: ../MovieSelection.py:1288
 msgid "VSR"
 msgstr ""
 
@@ -1012,7 +1012,7 @@ msgstr ""
 
 #: ../AdvancedMovieSelectionSetup.py:167
 #: ../AdvancedMovieSelectionSetup.py:566
-#: ../MovieSelection.py:944
+#: ../MovieSelection.py:945
 msgid "Some settings changes require close/reopen the movielist to take effect."
 msgstr ""
 
@@ -2252,78 +2252,78 @@ msgstr ""
 msgid "Here you can give the bookmark 7 button a special name."
 msgstr ""
 
-#: ../DownloadMovies.py:69
-#: ../DownloadMovies.py:174
+#: ../DownloadMovies.py:68
+#: ../DownloadMovies.py:175
 msgid "Save infos/cover"
 msgstr ""
 
-#: ../DownloadMovies.py:71
+#: ../DownloadMovies.py:70
 msgid "Background"
 msgstr ""
 
-#: ../DownloadMovies.py:113
-#: ../DownloadMovies.py:222
+#: ../DownloadMovies.py:114
+#: ../DownloadMovies.py:225
 #, python-format
 msgid "Search for %s, please wait..."
 msgstr ""
 
-#: ../DownloadMovies.py:140
+#: ../DownloadMovies.py:141
 msgid "Automatic search and save, please wait..."
 msgstr ""
 
-#: ../DownloadMovies.py:142
+#: ../DownloadMovies.py:143
 #, python-format
 msgid "Processing: %s"
 msgstr ""
 
-#: ../DownloadMovies.py:142
+#: ../DownloadMovies.py:143
 #, python-format
 msgid "/ %s"
 msgstr ""
 
-#: ../DownloadMovies.py:144
+#: ../DownloadMovies.py:145
 #, python-format
 msgid "Current Movie: %s"
 msgstr ""
 
-#: ../DownloadMovies.py:146
+#: ../DownloadMovies.py:147
 msgid "Automatic search and save"
 msgstr ""
 
-#: ../DownloadMovies.py:147
+#: ../DownloadMovies.py:148
 msgid "Automatic search and save finished."
 msgstr ""
 
-#: ../DownloadMovies.py:148
-#: ../DownloadMovies.py:167
+#: ../DownloadMovies.py:149
+#: ../DownloadMovies.py:168
 msgid "OK"
-msgstr ""
-
-#: ../DownloadMovies.py:158
-#, python-format
-msgid "Searchtitle: %s"
 msgstr ""
 
 #: ../DownloadMovies.py:159
 #, python-format
-msgid "Filename: %s"
+msgid "Searchtitle: %s"
 msgstr ""
 
 #: ../DownloadMovies.py:160
 #, python-format
+msgid "Filename: %s"
+msgstr ""
+
+#: ../DownloadMovies.py:161
+#, python-format
 msgid "Search result(s) for %s"
 msgstr ""
 
-#: ../DownloadMovies.py:166
+#: ../DownloadMovies.py:167
 #, python-format
 msgid "Nothing found for: %s"
 msgstr ""
 
-#: ../DownloadMovies.py:217
+#: ../DownloadMovies.py:220
 msgid "Enter new moviename to search for"
 msgstr ""
 
-#: ../DownloadMovies.py:269
+#: ../DownloadMovies.py:271
 msgid "Download and save from movie infos and covers complete."
 msgstr ""
 
@@ -2575,61 +2575,61 @@ msgid ""
 "%s?"
 msgstr ""
 
-#: ../MovieSelection.py:724
+#: ../MovieSelection.py:725
 msgid "Please wait... Loading list..."
 msgstr ""
 
-#: ../MovieSelection.py:754
+#: ../MovieSelection.py:755
 msgid "Select the movie path"
 msgstr ""
 
-#: ../MovieSelection.py:755
+#: ../MovieSelection.py:756
 msgid "Multiselection"
 msgstr ""
 
-#: ../MovieSelection.py:759
+#: ../MovieSelection.py:760
 msgid "Advanced movielist menu"
 msgstr ""
 
-#: ../MovieSelection.py:760
+#: ../MovieSelection.py:761
 msgid "Show event details"
 msgstr ""
 
-#: ../MovieSelection.py:764
+#: ../MovieSelection.py:765
 msgid "Exit movielist"
 msgstr ""
 
-#: ../MovieSelection.py:765
+#: ../MovieSelection.py:766
 msgid "Select movie"
 msgstr ""
 
-#: ../MovieSelection.py:769
+#: ../MovieSelection.py:770
 msgid "Video preview jump forward"
 msgstr ""
 
-#: ../MovieSelection.py:770
+#: ../MovieSelection.py:771
 msgid "Video preview jump backward"
 msgstr ""
 
-#: ../MovieSelection.py:775
+#: ../MovieSelection.py:776
 msgid "Jump to next marker"
 msgstr ""
 
-#: ../MovieSelection.py:776
+#: ../MovieSelection.py:777
 msgid "Jump to previous marker"
 msgstr ""
 
-#: ../MovieSelection.py:780
+#: ../MovieSelection.py:781
 msgid "Start/Stop video preview"
 msgstr ""
 
-#: ../MovieSelection.py:805
-#: ../MovieSelection.py:810
+#: ../MovieSelection.py:806
+#: ../MovieSelection.py:811
 #, python-format
 msgid "%s is currently recording!"
 msgstr ""
 
-#: ../MovieSelection.py:805
+#: ../MovieSelection.py:806
 #, python-format
 msgid ""
 "\n"
@@ -2639,12 +2639,12 @@ msgid ""
 "Do you really want to continue?"
 msgstr ""
 
-#: ../MovieSelection.py:807
+#: ../MovieSelection.py:808
 #, python-format
 msgid "Do you really want to move %s to trashcan?"
 msgstr ""
 
-#: ../MovieSelection.py:810
+#: ../MovieSelection.py:811
 #, python-format
 msgid ""
 "\n"
@@ -2654,74 +2654,74 @@ msgid ""
 "Do you really want to continue?"
 msgstr ""
 
-#: ../MovieSelection.py:814
+#: ../MovieSelection.py:815
 msgid "Recordings are active, the timer(s) will also be deleted!\n"
 msgstr ""
 
-#: ../MovieSelection.py:816
+#: ../MovieSelection.py:817
 msgid "Do you really want to move selected movies to trashcan?"
 msgstr ""
 
-#: ../MovieSelection.py:818
+#: ../MovieSelection.py:819
 msgid "Do you really want to delete selected movies?"
 msgstr ""
 
-#: ../MovieSelection.py:823
+#: ../MovieSelection.py:824
 msgid "This cannot deleted, please select a movie for!"
 msgstr ""
 
-#: ../MovieSelection.py:833
+#: ../MovieSelection.py:834
 msgid "this recording"
 msgstr ""
 
-#: ../MovieSelection.py:1143
+#: ../MovieSelection.py:1144
 msgid ""
 "Load Length of Movies in Movielist has been disabled.\n"
 "Close and reopen Movielist is required to apply the setting."
 msgstr ""
 
-#: ../MovieSelection.py:1205
+#: ../MovieSelection.py:1206
 msgid "Tag 1"
 msgstr ""
 
-#: ../MovieSelection.py:1210
+#: ../MovieSelection.py:1211
 msgid "Tag 2"
 msgstr ""
 
-#: ../MovieSelection.py:1290
+#: ../MovieSelection.py:1291
 msgid "Movie location:"
 msgstr ""
 
-#: ../MovieSelection.py:1292
+#: ../MovieSelection.py:1293
 msgid "Movie library"
 msgstr ""
 
-#: ../MovieSelection.py:1307
+#: ../MovieSelection.py:1308
 msgid "[Library update in progress]"
 msgstr ""
 
-#: ../MovieSelection.py:1331
+#: ../MovieSelection.py:1332
 msgid "Please select the movie path..."
 msgstr ""
 
-#: ../MovieSelection.py:1360
+#: ../MovieSelection.py:1361
 #, python-format
 msgid "Directory %s nonexistent."
 msgstr ""
 
-#: ../MovieSelection.py:1409
+#: ../MovieSelection.py:1410
 msgid "Please select tag to filter..."
 msgstr ""
 
-#: ../MovieSelection.py:1412
+#: ../MovieSelection.py:1413
 msgid "No tags are set on these movies."
 msgstr ""
 
-#: ../MovieSelection.py:1419
+#: ../MovieSelection.py:1420
 msgid "Please select the search path(s) for movies..."
 msgstr ""
 
-#: ../MovieSelection.py:1442
+#: ../MovieSelection.py:1443
 msgid ""
 "Use direction keys to move the Moviebar.\n"
 "Press OK button for save or the EXIT button to cancel.\n"
@@ -2904,83 +2904,83 @@ msgstr ""
 msgid "Records"
 msgstr ""
 
-#: ../MoviePlayer.py:137
+#: ../MoviePlayer.py:139
 msgid "Open servicelist"
 msgstr ""
 
-#: ../MoviePlayer.py:171
-#: ../MoviePlayer.py:176
+#: ../MoviePlayer.py:173
+#: ../MoviePlayer.py:178
 msgid "Leave movie player"
 msgstr ""
 
-#: ../MoviePlayer.py:281
+#: ../MoviePlayer.py:283
 msgid ""
 "Not possible!\n"
 "MerlinEPG and CoolTVGuide or/and MerlinEPGCenter present or neither installed from this three plugins."
 msgstr ""
 
-#: ../MoviePlayer.py:315
-#: ../MoviePlayer.py:321
-#: ../MoviePlayer.py:467
+#: ../MoviePlayer.py:317
+#: ../MoviePlayer.py:323
+#: ../MoviePlayer.py:469
 msgid "Yes"
 msgstr ""
 
-#: ../MoviePlayer.py:316
-#: ../MoviePlayer.py:325
-#: ../MoviePlayer.py:468
+#: ../MoviePlayer.py:318
+#: ../MoviePlayer.py:327
+#: ../MoviePlayer.py:470
 msgid "No"
 msgstr ""
 
-#: ../MoviePlayer.py:319
+#: ../MoviePlayer.py:321
 msgid "No, but stop endless loop"
 msgstr ""
 
-#: ../MoviePlayer.py:319
+#: ../MoviePlayer.py:321
 msgid "No, but start endless loop"
 msgstr ""
 
-#: ../MoviePlayer.py:322
+#: ../MoviePlayer.py:324
 msgid "Yes, returning to movie list"
 msgstr ""
 
-#: ../MoviePlayer.py:323
+#: ../MoviePlayer.py:325
 msgid "Yes, and delete this movie"
 msgstr ""
 
-#: ../MoviePlayer.py:324
+#: ../MoviePlayer.py:326
 msgid "Yes, and after deleting return to movie list"
 msgstr ""
 
-#: ../MoviePlayer.py:326
+#: ../MoviePlayer.py:328
 msgid "No, but restart from begin"
 msgstr ""
 
-#: ../MoviePlayer.py:331
-#: ../MoviePlayer.py:471
+#: ../MoviePlayer.py:333
+#: ../MoviePlayer.py:473
 msgid "Stop playing this movie?"
 msgstr ""
 
-#: ../MoviePlayer.py:372
+#: ../MoviePlayer.py:374
 msgid "End of the movie is reached, the box now go to standby. Do that now?"
 msgstr ""
 
-#: ../MoviePlayer.py:375
+#: ../MoviePlayer.py:377
 msgid "End of the movie is reached, the box now go to shut down. Shutdown now?"
 msgstr ""
 
-#: ../MoviePlayer.py:521
+#: ../MoviePlayer.py:523
 msgid "Error loading ISO image!"
 msgstr ""
 
-#: ../MoviePlayer.py:524
+#: ../MoviePlayer.py:526
 msgid "Selected ISO image is not playable!"
 msgstr ""
 
-#: ../MoviePlayer.py:537
+#: ../MoviePlayer.py:539
 msgid "No DVD-PlayerChoice found!"
 msgstr ""
 
-#: ../MoviePlayer.py:542
+#: ../MoviePlayer.py:544
 msgid "No BludiscPlayer found!"
 msgstr ""
 
@@ -3008,137 +3008,125 @@ msgstr ""
 msgid "Manual jump to:"
 msgstr ""
 
-#: ../SearchTMDb.py:93
+#: ../SearchTMDb.py:94
 msgid "Only those, which are not available!"
 msgstr ""
 
-#: ../SearchTMDb.py:95
+#: ../SearchTMDb.py:96
 msgid "Overwrite both (description & cover)"
 msgstr ""
 
-#: ../SearchTMDb.py:97
+#: ../SearchTMDb.py:98
 msgid "Overwrite movie description"
 msgstr ""
 
-#: ../SearchTMDb.py:99
+#: ../SearchTMDb.py:100
 msgid "Overwrite movie cover"
 msgstr ""
 
-#: ../SearchTMDb.py:102
+#: ../SearchTMDb.py:103
 msgid "Data already exists! Should anything be updated?"
 msgstr ""
 
-#: ../SearchTMDb.py:190
+#: ../SearchTMDb.py:198
 msgid "Show movie detail"
 msgstr ""
 
-#: ../SearchTMDb.py:212
-#: ../SearchTMDb.py:219
+#: ../SearchTMDb.py:220
+#: ../SearchTMDb.py:227
 msgid "Toggle detail and list view"
 msgstr ""
 
-#: ../SearchTMDb.py:213
+#: ../SearchTMDb.py:221
 msgid "Save info/cover"
 msgstr ""
 
-#: ../SearchTMDb.py:223
+#: ../SearchTMDb.py:231
 msgid "Move up"
 msgstr ""
 
-#: ../SearchTMDb.py:224
+#: ../SearchTMDb.py:232
 msgid "Move down"
 msgstr ""
 
-#: ../SearchTMDb.py:228
-#: ../SearchTMDb.py:234
+#: ../SearchTMDb.py:236
+#: ../SearchTMDb.py:242
 msgid "Show previous cover"
 msgstr ""
 
-#: ../SearchTMDb.py:229
-#: ../SearchTMDb.py:233
+#: ../SearchTMDb.py:237
+#: ../SearchTMDb.py:241
 msgid "Show next cover"
 msgstr ""
 
-#: ../SearchTMDb.py:287
+#: ../SearchTMDb.py:298
 #, python-format
 msgid "Searching for ' %s ' on TMDb, please wait ..."
 msgstr ""
 
-#: ../SearchTMDb.py:314
+#: ../SearchTMDb.py:327
 #, python-format
 msgid "No data found for ' %s ' at themoviedb.org!"
 msgstr ""
 
-#: ../SearchTMDb.py:315
+#: ../SearchTMDb.py:328
 #, python-format
 msgid ""
 "No data found for ' %s ' at themoviedb.org!\n"
 "Do you want to edit the search name?"
 msgstr ""
 
-#: ../SearchTMDb.py:324
-#: ../SearchTMDb.py:454
+#: ../SearchTMDb.py:339
+#: ../SearchTMDb.py:449
 #, python-format
 msgid ""
 "Error!\n"
 "%s"
 msgstr ""
 
-#: ../SearchTMDb.py:331
+#: ../SearchTMDb.py:346
 msgid "movie found"
 msgstr ""
 
-#: ../SearchTMDb.py:338
+#: ../SearchTMDb.py:353
 msgid "movies found"
 msgstr ""
 
-#: ../SearchTMDb.py:384
+#: ../SearchTMDb.py:398
 #, python-format
 msgid "No description for ' %s ' at themoviedb.org found!"
 msgstr ""
 
-#: ../SearchTMDb.py:387
+#: ../SearchTMDb.py:401
 #, python-format
 msgid "Appeared: %s"
 msgstr ""
 
-#: ../SearchTMDb.py:389
+#: ../SearchTMDb.py:403
 #, python-format
 msgid "Runtime: %s minutes"
 msgstr ""
 
-#: ../SearchTMDb.py:414
+#: ../SearchTMDb.py:421
 #, python-format
 msgid "Studio: %s"
 msgstr ""
 
-#: ../SearchTMDb.py:420
-#, python-format
-msgid "Production Countries: %s\n"
-msgstr ""
-
-#: ../SearchTMDb.py:426
+#: ../SearchTMDb.py:425
 #, python-format
 msgid "Director: %s"
 msgstr ""
 
-#: ../SearchTMDb.py:432
+#: ../SearchTMDb.py:429
 #, python-format
 msgid "Production: %s\n"
 msgstr ""
 
-#: ../SearchTMDb.py:440
-#, python-format
-msgid ""
-"\n"
-"Last modified at themoviedb.org: %s"
-msgstr ""
-
-#: ../SearchTMDb.py:444
+#: ../SearchTMDb.py:443
 msgid "Unknown error!!"
 msgstr ""
 
-#: ../SearchTMDb.py:559
+#: ../SearchTMDb.py:549
 #, python-format
 msgid "Sorry, no info/cover found for title: %s"
 msgstr ""
@@ -3174,272 +3162,272 @@ msgid "Movie location: %s"
 msgstr ""
 
 #: ../Source/Config.py:30
-msgid "Only current location"
-msgstr ""
-
-#: ../Source/Config.py:30
-msgid "Current location and all subdirectories"
-msgstr ""
-
-#: ../Source/Config.py:30
-msgid "All directorys below '/media'"
-msgstr ""
-
-#: ../Source/Config.py:46
-msgid "German (without Year)"
-msgstr ""
-
-#: ../Source/Config.py:46
-msgid "German (with Year)"
-msgstr ""
-
-#: ../Source/Config.py:46
-msgid "German (with Starttime)"
-msgstr ""
-
-#: ../Source/Config.py:46
-msgid "Enigma 2 default"
-msgstr ""
-
-#: ../Source/Config.py:46
-msgid "English (without Year)"
-msgstr ""
-
-#: ../Source/Config.py:46
-msgid "English (with Year)"
-msgstr ""
-
-#: ../Source/Config.py:46
-msgid "English (with Starttime)"
-msgstr ""
-
-#: ../Source/Config.py:47
-#: ../Source/Config.py:48
-#: ../Source/Config.py:49
-#: ../Source/Config.py:50
-msgid "Yellow"
-msgstr ""
-
-#: ../Source/Config.py:47
-#: ../Source/Config.py:48
-#: ../Source/Config.py:49
-#: ../Source/Config.py:50
-msgid "Blue"
-msgstr ""
-
-#: ../Source/Config.py:47
-#: ../Source/Config.py:48
-#: ../Source/Config.py:49
-#: ../Source/Config.py:50
-msgid "Red"
-msgstr ""
-
-#: ../Source/Config.py:47
-#: ../Source/Config.py:48
-#: ../Source/Config.py:49
-#: ../Source/Config.py:50
-msgid "Black"
-msgstr ""
-
-#: ../Source/Config.py:47
-#: ../Source/Config.py:48
-#: ../Source/Config.py:49
-#: ../Source/Config.py:50
-msgid "Green"
-msgstr ""
-
-#: ../Source/Config.py:50
-msgid "Grey"
-msgstr ""
-
-#: ../Source/Config.py:50
-msgid "Orange"
-msgstr ""
-
-#: ../Source/Config.py:81
-msgid "Homebutton"
-msgstr ""
-
-#: ../Source/Config.py:82
-msgid "Own text 1"
-msgstr ""
-
-#: ../Source/Config.py:83
-msgid "Own text 2"
-msgstr ""
-
-#: ../Source/Config.py:84
-msgid "Own text 3"
-msgstr ""
-
-#: ../Source/Config.py:85
-msgid "Own text 4"
-msgstr ""
-
-#: ../Source/Config.py:86
-msgid "Own text 5"
-msgstr ""
-
-#: ../Source/Config.py:87
-msgid "Own text 6"
-msgstr ""
-
-#: ../Source/Config.py:88
-msgid "Own text 7"
-msgstr ""
-
-#: ../Source/Config.py:89
-msgid "No override"
-msgstr ""
-
-#: ../Source/Config.py:90
-msgid "Video-button"
-msgstr ""
-
-#: ../Source/Config.py:91
-msgid "TV-button"
-msgstr ""
-
-#: ../Source/Config.py:92
-msgid "Radio-button"
-msgstr ""
-
-#: ../Source/Config.py:93
-msgid "Timeshift-button"
-msgstr ""
-
-#: ../Source/Config.py:98
-#: ../Source/Config.py:99
-#: ../Source/Config.py:100
-#: ../Source/Config.py:101
-#: ../Source/Config.py:102
-#: ../Source/Config.py:103
-#: ../Source/Config.py:104
-msgid "Advanced Movie Selection info"
-msgstr ""
-
-#: ../Source/Config.py:98
-#: ../Source/Config.py:101
-#: ../Source/Config.py:102
-#: ../Source/Config.py:103
-msgid "TMDb info"
-msgstr ""
-
-#: ../Source/Config.py:98
-#: ../Source/Config.py:99
-#: ../Source/Config.py:102
-#: ../Source/Config.py:104
-msgid "IMDb info"
-msgstr ""
-
-#: ../Source/Config.py:98
-#: ../Source/Config.py:100
-#: ../Source/Config.py:103
-#: ../Source/Config.py:104
-msgid "OFDb info"
-msgstr ""
-
-#: ../Source/Config.py:120
-msgid "Original (1000x1500)"
-msgstr ""
-
-#: ../Source/Config.py:120
-msgid "Mid (500x750)"
-msgstr ""
-
-#: ../Source/Config.py:120
-msgid "Cover (185x278)"
-msgstr ""
-
-#: ../Source/Config.py:120
-msgid "Thumb (92x138)"
-msgstr ""
-
-#: ../Source/Config.py:126
-#: ../Source/Config.py:127
-#: ../Source/Config.py:128
+#: ../Source/Config.py:31
+#: ../Source/Config.py:32
 msgid "Ask user"
 msgstr ""
 
-#: ../Source/Config.py:126
+#: ../Source/Config.py:30
 msgid "Resume from last position"
 msgstr ""
 
-#: ../Source/Config.py:126
+#: ../Source/Config.py:30
 msgid "Start from the beginning"
 msgstr ""
 
-#: ../Source/Config.py:127
-#: ../Source/Config.py:128
+#: ../Source/Config.py:31
+#: ../Source/Config.py:32
 msgid "Return to movie list"
 msgstr ""
 
-#: ../Source/Config.py:127
-#: ../Source/Config.py:128
+#: ../Source/Config.py:31
+#: ../Source/Config.py:32
 msgid "Return to previous service"
 msgstr ""
 
-#: ../Source/Config.py:128
+#: ../Source/Config.py:32
 msgid "Pause movie at end"
 msgstr ""
 
-#: ../Source/Config.py:128
+#: ../Source/Config.py:32
 msgid "Shutdown"
 msgstr ""
 
-#: ../Source/Config.py:141
+#: ../Source/Config.py:36
+msgid "Only current location"
+msgstr ""
+
+#: ../Source/Config.py:36
+msgid "Current location and all subdirectories"
+msgstr ""
+
+#: ../Source/Config.py:36
+msgid "All directorys below '/media'"
+msgstr ""
+
+#: ../Source/Config.py:52
+msgid "German (without Year)"
+msgstr ""
+
+#: ../Source/Config.py:52
+msgid "German (with Year)"
+msgstr ""
+
+#: ../Source/Config.py:52
+msgid "German (with Starttime)"
+msgstr ""
+
+#: ../Source/Config.py:52
+msgid "Enigma 2 default"
+msgstr ""
+
+#: ../Source/Config.py:52
+msgid "English (without Year)"
+msgstr ""
+
+#: ../Source/Config.py:52
+msgid "English (with Year)"
+msgstr ""
+
+#: ../Source/Config.py:52
+msgid "English (with Starttime)"
+msgstr ""
+
+#: ../Source/Config.py:53
+#: ../Source/Config.py:54
+#: ../Source/Config.py:55
+#: ../Source/Config.py:56
+msgid "Yellow"
+msgstr ""
+
+#: ../Source/Config.py:53
+#: ../Source/Config.py:54
+#: ../Source/Config.py:55
+#: ../Source/Config.py:56
+msgid "Blue"
+msgstr ""
+
+#: ../Source/Config.py:53
+#: ../Source/Config.py:54
+#: ../Source/Config.py:55
+#: ../Source/Config.py:56
+msgid "Red"
+msgstr ""
+
+#: ../Source/Config.py:53
+#: ../Source/Config.py:54
+#: ../Source/Config.py:55
+#: ../Source/Config.py:56
+msgid "Black"
+msgstr ""
+
+#: ../Source/Config.py:53
+#: ../Source/Config.py:54
+#: ../Source/Config.py:55
+#: ../Source/Config.py:56
+msgid "Green"
+msgstr ""
+
+#: ../Source/Config.py:56
+msgid "Grey"
+msgstr ""
+
+#: ../Source/Config.py:56
+msgid "Orange"
+msgstr ""
+
+#: ../Source/Config.py:87
+msgid "Homebutton"
+msgstr ""
+
+#: ../Source/Config.py:88
+msgid "Own text 1"
+msgstr ""
+
+#: ../Source/Config.py:89
+msgid "Own text 2"
+msgstr ""
+
+#: ../Source/Config.py:90
+msgid "Own text 3"
+msgstr ""
+
+#: ../Source/Config.py:91
+msgid "Own text 4"
+msgstr ""
+
+#: ../Source/Config.py:92
+msgid "Own text 5"
+msgstr ""
+
+#: ../Source/Config.py:93
+msgid "Own text 6"
+msgstr ""
+
+#: ../Source/Config.py:94
+msgid "Own text 7"
+msgstr ""
+
+#: ../Source/Config.py:95
+msgid "No override"
+msgstr ""
+
+#: ../Source/Config.py:96
+msgid "Video-button"
+msgstr ""
+
+#: ../Source/Config.py:97
+msgid "TV-button"
+msgstr ""
+
+#: ../Source/Config.py:98
+msgid "Radio-button"
+msgstr ""
+
+#: ../Source/Config.py:99
+msgid "Timeshift-button"
+msgstr ""
+
+#: ../Source/Config.py:104
+#: ../Source/Config.py:105
+#: ../Source/Config.py:106
+#: ../Source/Config.py:107
+#: ../Source/Config.py:108
+#: ../Source/Config.py:109
+#: ../Source/Config.py:110
+msgid "Advanced Movie Selection info"
+msgstr ""
+
+#: ../Source/Config.py:104
+#: ../Source/Config.py:107
+#: ../Source/Config.py:108
+#: ../Source/Config.py:109
+msgid "TMDb info"
+msgstr ""
+
+#: ../Source/Config.py:104
+#: ../Source/Config.py:105
+#: ../Source/Config.py:108
+#: ../Source/Config.py:110
+msgid "IMDb info"
+msgstr ""
+
+#: ../Source/Config.py:104
+#: ../Source/Config.py:106
+#: ../Source/Config.py:109
+#: ../Source/Config.py:110
+msgid "OFDb info"
+msgstr ""
+
+#: ../Source/Config.py:129
+msgid "Thumb (92x138)"
+msgstr ""
+
+#: ../Source/Config.py:130
+msgid "Cover (185x278)"
+msgstr ""
+
+#: ../Source/Config.py:131
+msgid "Mid (500x750)"
+msgstr ""
+
+#: ../Source/Config.py:132
+msgid "Original (1400x2100)"
+msgstr ""
+
+#: ../Source/Config.py:152
 msgid "Disabled"
 msgstr ""
 
-#: ../Source/Config.py:141
+#: ../Source/Config.py:152
 msgid "Daily"
 msgstr ""
 
-#: ../Source/Config.py:141
+#: ../Source/Config.py:152
 msgid "Every second day"
 msgstr ""
 
-#: ../Source/Config.py:141
+#: ../Source/Config.py:152
 msgid "Weekly"
 msgstr ""
 
-#: ../Source/Config.py:141
+#: ../Source/Config.py:152
 msgid "Every two weeks"
 msgstr ""
 
-#: ../Source/Config.py:141
+#: ../Source/Config.py:152
 msgid "Monthly"
 msgstr ""
 
-#: ../Source/Config.py:159
-#: ../Source/Config.py:161
+#: ../Source/Config.py:170
+#: ../Source/Config.py:172
 msgid "0"
 msgstr ""
 
-#: ../Source/Config.py:159
-#: ../Source/Config.py:161
+#: ../Source/Config.py:170
+#: ../Source/Config.py:172
 msgid "1"
 msgstr ""
 
-#: ../Source/Config.py:159
-#: ../Source/Config.py:161
+#: ../Source/Config.py:170
+#: ../Source/Config.py:172
 msgid "2"
 msgstr ""
 
-#: ../Source/Config.py:159
-#: ../Source/Config.py:161
+#: ../Source/Config.py:170
+#: ../Source/Config.py:172
 msgid "3"
 msgstr ""
 
-#: ../Source/Config.py:171
+#: ../Source/Config.py:182
 msgid "Virtual and Numerical"
 msgstr ""
 
-#: ../Source/Config.py:171
+#: ../Source/Config.py:182
 msgid "Virtual"
 msgstr ""
 
-#: ../Source/Config.py:171
+#: ../Source/Config.py:182
 msgid "Numerical"
 msgstr ""
 

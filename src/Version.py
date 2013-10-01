@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-__version__ = "3.2"
+__version__ = "3.2.1"
 __date__ = "?"
 __branch__ = "?"
 __revision__ = "?"

@@ -28,12 +28,21 @@ that they, too, receive or can get the source code. And you must show them these
 
 config = None
 
+poster_sizes = ('w92', 'w154', 'w185', 'w342', 'w500', 'original')
+
+def setPosterSize(size):
+    value = size.value
+    if value in poster_sizes:
+        print "[AdvancedMovieSelection] Set tmdb poster size to", value
+        config['poster_size'] = value
+
 def setLocale(lng):
     global config
     print "[AdvancedMovieSelection] Set tmdb locale to", lng
     config = {}
     config['locale'] = lng
     config['apikey'] = "1f834eb425728133b9a2c1c0c82980eb" # apikey from JD
+    config['poster_size'] = 'w185'
 
 def getLocale():
     return config['locale']
@@ -60,12 +69,25 @@ def prevImageIndex(movie):
         movie.poster_urls.insert(0, item)
     movie.poster_url = movie.poster_urls[0]
 
+def poster_url(poster):
+    sizes = poster.sizes()
+    size = config['poster_size']
+    if size in sizes:
+        return poster.geturl(size)
+    p_index = poster_sizes.index(size)
+    p_range = range(p_index, len(poster_sizes) - 1)
+    for x in p_range:
+        size = poster_sizes[x]
+        if size in sizes:
+            return poster.geturl(size)
+    poster.geturl()
+
 def __collect_poster_urls(movie):
     l = []
     if movie.poster is not None:
-        l.append(movie.poster.geturl())
+        l.append(poster_url(movie.poster))
     for p in movie.posters:
-        url = p.geturl()
+        url = poster_url(p)
         if not url in l:
             l.append(url)
     movie.poster_urls = l
