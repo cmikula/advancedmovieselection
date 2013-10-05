@@ -343,3 +343,4 @@ version: 3.2
 
 version: 3.2.1
 * neu: einstellen der cover größe in tmdb 
+* neu: quickbutton: nur neue filme anzeigen/alle filme anzeigen 

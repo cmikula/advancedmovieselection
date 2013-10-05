@@ -195,6 +195,7 @@ config.AdvancedMovieSelection.movielibrary_sort = ConfigInteger(default=1)
 config.AdvancedMovieSelection.movielibrary_show = ConfigBoolean()
 config.AdvancedMovieSelection.movielibrary_mark = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.movielibrary_show_mark_cnt = ConfigInteger(default=2, limits=(1, 10))
+config.AdvancedMovieSelection.hide_seen_movies = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.qButtons = ConfigText()
 
 class QuickButtons():

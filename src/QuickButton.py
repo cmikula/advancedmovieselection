@@ -62,6 +62,11 @@ def getPluginCaption(pname):
                 return _("Show folders")
             else:
                 return _("Hide folders")
+        if pname == "Show/Hide seen":
+            if config.AdvancedMovieSelection.hide_seen_movies.value:
+                return _("Show seen movies")
+            else:
+                return _("Hide seen movies")
         if pname == "Bookmark(s) on/off":
             if not config.AdvancedMovieSelection.show_bookmarks.value:
                 return _("Show bookmarks")
@@ -279,6 +284,12 @@ class QuickButton:
                 newCaption = getPluginCaption(pname)
                 self.showFolders(config.AdvancedMovieSelection.showfoldersinmovielist.value)
                 config.AdvancedMovieSelection.showfoldersinmovielist.save()
+                self.reloadList()
+                self.setButtonText(key_number, newCaption)
+            elif pname == "Show/Hide seen":
+                config.AdvancedMovieSelection.hide_seen_movies.value = not config.AdvancedMovieSelection.hide_seen_movies.value
+                newCaption = getPluginCaption(pname)
+                config.AdvancedMovieSelection.hide_seen_movies.save()
                 self.reloadList()
                 self.setButtonText(key_number, newCaption)
             elif pname == "Sort":

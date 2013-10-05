@@ -342,3 +342,4 @@ version: 3.2
 
 version: 3.2.1
 * new: selectable cover size for tmdb download
+* new: quickbutton: show only new movies/show all movies 

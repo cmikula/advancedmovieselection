@@ -652,6 +652,7 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         self.entryguilist.append(("Library/Movielist", _("Switch library/movielist")))
         self.entryguilist.append(("Show/Hide library", _("Show/Hide library")))
         self.entryguilist.append(("Show/Hide folders", _("Show/Hide folders")))
+        self.entryguilist.append(("Show/Hide seen", _("Show/Hide seen movies")))
         self.entryguilist.append(("Bookmark(s) on/off", _("Bookmark(s) on/off")))
         self.entryguilist.append(("LIB marker on/off", _("Library marker on/off")))
         self.entryguilist.append(("Update library", _("Update library")))

@@ -26,6 +26,7 @@ from enigma import iServiceInformation
 from AccessRestriction import accessRestriction
 from Globals import printStackTrace
 from Components.config import config
+from CueSheetSupport import hasLastPosition
 
 class SortProvider():
     SORT_ALPHANUMERIC = 1
@@ -166,6 +167,8 @@ class MovieLibrary(dict, SortProvider):
                     continue
                 item = self["db"][location]
                 for i in item["movies"]:
+                    if config.AdvancedMovieSelection.hide_seen_movies.value and hasLastPosition(i.serviceref):
+                        continue
                     this_tags = i.getTags()
                     if not accessRestriction.isAccessible(this_tags):
                         continue
@@ -201,6 +204,8 @@ class MovieLibrary(dict, SortProvider):
             item = self["db"][location]
             l1 = []
             for i in item["movies"]:
+                if config.AdvancedMovieSelection.hide_seen_movies.value and hasLastPosition(i.serviceref):
+                    continue
                 this_tags = i.getTags()
                 if not accessRestriction.isAccessible(this_tags):
                     continue

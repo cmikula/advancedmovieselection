@@ -856,6 +856,19 @@ class MovieList(GUIComponent):
             serviceref = list.getNext()
             if not serviceref.valid():
                 break
+            
+            if config.AdvancedMovieSelection.hide_seen_movies.value and hasLastPosition(serviceref):
+                continue
+
+            temp = serviceref.getPath()
+            parts = temp.split("/")
+            file_name = parts[-1]
+            if self.movieConfig.isHidden(file_name):
+                continue
+            
+            if serviceUtil.isServiceMoving(serviceref):
+                continue
+
             dvd = None
             # dvd structure
             if serviceref.flags & eServiceReference.mustDescent:
@@ -887,21 +900,12 @@ class MovieList(GUIComponent):
                     if serviceref.flags & eServiceReference.mustDescent:
                         continue
 
-            temp = serviceref.getPath()
-            parts = temp.split("/")
-            file_name = parts[-1]
-            if self.movieConfig.isHidden(file_name):
-                continue
-            
-            if serviceUtil.isServiceMoving(serviceref):
-                continue
-            
             extension = serviceref.getPath().split(".")[-1].lower()
             if extension == "iso" or extension == "img":
                 serviceref = eServiceReferenceDvd(serviceref)
 
             info = self.serviceHandler.info(serviceref)
-
+            
             if dvd is not None:
                 begin = long(os.stat(dvd).st_mtime)
             else:
