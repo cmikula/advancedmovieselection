@@ -339,4 +339,4 @@ versie: 3.2
 
 versie: 3.2.1
 * nieuw: instelbare grootte voor tmdb cover
-* nieuw: quickbutton: show only new movies/show all movies 
+* nieuw: quickbutton: nieuwe/alle films weergeven 
