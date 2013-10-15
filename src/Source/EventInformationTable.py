@@ -526,7 +526,7 @@ def createEIT(file_name, title, overwrite_jpg=False, overwrite_eit=False, movie=
         print "Extended info:"
         print " " * 4, extended_info
         
-        language_code = 'DEU'# getLanguageCode(tmdb)
+        language_code = getLanguageCode(tmdb)
         return writeEIT(file_name, eit_file, name, overview, genre, extended_info, str(released), runtime, language_code)
     except:
         printStackTrace()
@@ -903,10 +903,11 @@ if __name__ == '__main__':
         os.makedirs(path) 
 
     testMultiEit()
+    tmdb.setLocale('de')
     createEIT("./tmp/Fight Club.ts", "Fight Club", "cover", overwrite_eit=True)
-    #tmdb3.set_locale("ru", "ru", "en")
+    tmdb.setLocale('ru')
     createEIT("./tmp/Blitz_ru.ts", "Черная Молния", "cover", overwrite_eit=True)
-    #tmdb3.set_locale("de", "de", "en")
+    tmdb.setLocale('de')
     printEIT("./tmp/Blitz_ru.eit")
     printEIT("./tmp/russia.eit")
     printEIT("./tmp/Shutter Island ru Original.eit")

@@ -91,6 +91,8 @@ class Locale( LocaleBase ):
         self.language = Language.getstored(language)
         self.country = Country.getstored(country)
         self.encoding = encoding if encoding else 'latin-1'
+        if self.country == 'RU':
+            self.encoding = 'iso8859_5'
 
     def __str__(self):
         return u"{0}_{1}".format(self.language, self.country)
