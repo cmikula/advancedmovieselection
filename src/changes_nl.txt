@@ -338,5 +338,6 @@ versie: 3.2
 * aanpassing: tmdb api v3
 
 versie: 3.2.1
+* fix: weergeven en bewaren van beschrijvingen (eit) in cyrillisch
 * nieuw: instelbare grootte voor tmdb cover
 * nieuw: quickbutton: nieuwe/alle films weergeven 

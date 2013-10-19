@@ -341,5 +341,6 @@ version: 3.2
 * changed: tmdb api v3
 
 version: 3.2.1
+* fix: display and save descriptions (eit) in cyrillic
 * new: selectable cover size for tmdb download
 * new: quickbutton: show only new movies/show all movies 

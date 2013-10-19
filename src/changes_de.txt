@@ -342,5 +342,6 @@ version: 3.2
 * geändert: tmdb api v3
 
 version: 3.2.1
+* fix: anzeigen und speichern von beschreibungen (eit) in kyrillisch
 * neu: einstellen der cover größe in tmdb 
 * neu: quickbutton: nur neue filme anzeigen/alle filme anzeigen 
