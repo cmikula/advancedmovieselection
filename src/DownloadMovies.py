@@ -40,13 +40,7 @@ from Tools.Directories import resolveFilename, SCOPE_PLUGINS, SCOPE_CURRENT_PLUG
 from Source.Globals import SkinTools, printStackTrace
 import os
 
-is_hidden = False
-this_session = None
 fetchingMovies = None
-current = 0
-total = 0
-movie_title = ""
-tmdb_logodir = resolveFilename(SCOPE_PLUGINS) + "Extensions/AdvancedMovieSelection/images"
 
 class DownloadMovies(Screen):
     def __init__(self, session, items, service=None):
@@ -64,7 +58,7 @@ class DownloadMovies(Screen):
         self["key_green"] = Button("")
         self["key_yellow"] = Button("")
         self["key_yellow"] = Label(_("Manual search"))
-        if self.service is not None:
+        if service is not None:
             self["key_green"] = Label(_("Save infos/cover"))
         else:
             self["key_green"] = Label(_("Background"))
@@ -88,31 +82,32 @@ class DownloadMovies(Screen):
         
         self.picload = ePicLoad()
         self.picload.PictureData.get().append(self.paintPosterPixmap)
-        self.refreshTimer = eTimer()
-        self.refreshTimer.callback.append(self.refresh)
 
         self.tmdb3 = tmdb.init_tmdb3()
-
-        if self.service is not None:
-            global movie_title
-            movie_title = ServiceCenter.getInstance().info(self.service).getName(self.service).encode("utf-8").split(" - ")[0].strip()
-            self.refreshTimer.start(1, True)
-            return
         
-        global fetchingMovies, this_session, is_hidden
-        if fetchingMovies is None:
-            fetchingMovies = FetchingMovies(items)
+        self.movie_title = ""
+        if self.service is not None:
+            self.movie_title = ServiceCenter.getInstance().info(self.service).getName(self.service).encode("utf-8").split(" - ")[0].strip()
+            self.progressTimer = eTimer()
+            self.progressTimer.callback.append(self.refresh)
+            self.progressTimer.start(50, True)
+            return
+
+        if service is not None:
+            items = [(service,)]
+        global fetchingMovies
+        if fetchingMovies is None or (fetchingMovies is not None and fetchingMovies.finished):
+            fetchingMovies = FetchingMovies(session, items)
         else:
             fetchingMovies.cancel = False
         self.progressTimer = eTimer()
         self.progressTimer.callback.append(self.updateProgress)
         self.progressTimer.start(250, False)
-        this_session = session
-        is_hidden = False
+        fetchingMovies.is_hidden = False
 
     def setWindowTitle(self):
-        self.setTitle(_("Search for %s, please wait...") % (movie_title))
-        self["logo"].instance.setPixmapFromFile("%s/tmdb_logo.png" % tmdb_logodir)  
+        self.setTitle(_("Search for %s, please wait...") % (self.movie_title))
+        self["logo"].instance.setPixmapFromFile(resolveFilename(SCOPE_PLUGINS, "Extensions/AdvancedMovieSelection/images/tmdb_logo.png"))
 
     def scrollLabelPageUp(self):
         self["description"].pageUp()
@@ -133,13 +128,19 @@ class DownloadMovies(Screen):
         self.close()
 
     def __hide(self):
-        global is_hidden
-        is_hidden = True
+        if fetchingMovies is not None:
+            fetchingMovies.is_hidden = True
         self.close()
         
     def updateProgress(self):
         self.setTitle(_("Automatic search and save, please wait..."))
-        global current, movie_title, total, fetchingMovies
+        current = 0
+        total = 0
+        movie_title = ""
+        if fetchingMovies is not None:
+            current = fetchingMovies.current
+            total = fetchingMovies.total
+            movie_title = fetchingMovies.movie_title
         self["info"].setText(_("Processing: %s") % current + ' ' + (_("/ %s") % total))
         if fetchingMovies is not None:
             self["title"].setText(_("Current Movie: %s") % movie_title)
@@ -150,12 +151,10 @@ class DownloadMovies(Screen):
             self.progressTimer.stop()
 
     def refresh(self):
-        global movie_title
-        self.refreshMovieTitle(movie_title)
+        self.refreshMovieTitle(self.movie_title)  
 
     def refreshMovieTitle(self, title):
-        global movie_title
-        movie_title = title
+        self.movie_title = movie_title = title
         self["title"].setText(_("Searchtitle: %s") % movie_title)
         self["info"].setText(_("Filename: %s") % os.path.basename(self.service.getPath()))
         self.setTitle(_("Search result(s) for %s") % (movie_title))
@@ -184,10 +183,9 @@ class DownloadMovies(Screen):
         self["list"].setList(self.l)
 
     def titleSelected(self):
-        global movie_title
         current = self["list"].l.getCurrentSelection()
         if self.service is not None and current:
-            createEIT(self.service.getPath(), movie_title, movie=current[1])
+            createEIT(self.service.getPath(), self.movie_title, movie=current[1])
         self.__hide()        
     
     def selectionChanged(self):
@@ -216,57 +214,58 @@ class DownloadMovies(Screen):
         self["description"].pageDown()
         
     def editTitle(self):
-        global movie_title
-        self.session.openWithCallback(self.newTitle, VirtualKeyBoard, title=_("Enter new moviename to search for"), text=movie_title)
-        #self.session.openWithCallback(self.newTitle, InputBox, title=_("Enter the new Movie title!"), text=movie_title+" "*80, maxSize=55, type=Input.TEXT)
+        self.session.openWithCallback(self.newTitle, VirtualKeyBoard, title=_("Enter new moviename to search for"), text=self.movie_title)
         
     def newTitle(self, newTitle):
         if newTitle is not None:
             self.setTitle(_("Search for %s, please wait...") % (newTitle))
-            global movie_title
-            movie_title = newTitle.strip()
-            self.refreshTimer.start(100, True)
+            self.refreshMovieTitle(newTitle.strip())
 
 class FetchingMovies(Thread):
-    def __init__(self, items):
+    def __init__(self, session, items):
         Thread.__init__(self)
+        self.session = session
+        self.is_hidden = False
+        self.movie_title = ""
+        self.current = 0
+        self.total = 0
+        self.timer = eTimer()
+        self.timer.callback.append(self.checkFinished)
         self.items = items
         self.start()
+        self.finished = False
+        self.timer.start(2000, False)
 
     def run(self):
         try:
             self.cancel = False
-            global current, total, movie_title
-            total = len(self.items)
-            current = 0
+            self.total = len(self.items)
+            self.current = 0
             for item_list in self.items:
                 try:
                     if self.cancel:
                         #print "Movie download cancelled"
-                        self.finish()
                         return
                     service = item_list[0]
                     if not isinstance(service, eServiceReference):
                         service = service.serviceref
                     if service.flags & eServiceReference.mustDescent:
-                        total = total - 1
+                        self.total -= 1
                         continue
-                    current = current + 1 
-                    movie_title = ServiceCenter.getInstance().info(service).getName(service).encode("utf-8").split(" - ")[0].strip()
-                    createEIT(service.getPath(), movie_title)
+                    self.current += 1 
+                    self.movie_title = ServiceCenter.getInstance().info(service).getName(service).encode("utf-8").split(" - ")[0].strip()
+                    createEIT(service.getPath(), self.movie_title)
                 except:
                     printStackTrace()
         except:
             printStackTrace()
         finally:
-            self.finish()
-
-        
-    def finish(self):
-        global fetchingMovies, this_session, is_hidden
-        fetchingMovies = None
-        current = total
+            self.current = self.total
+            self.finished = True
+    
+    def checkFinished(self):
         #print "Movie download finished"
-        if is_hidden == True:
-            this_session.open(MessageBox, (_("Download and save from movie infos and covers complete.")), MessageBox.TYPE_INFO, 10, True)
-            this_session = None
+        if self.finished:
+            if self.is_hidden == True:
+                self.session.open(MessageBox, (_("Download and save from movie infos and covers complete.")), MessageBox.TYPE_INFO, 10, True)
+            self.timer.stop()
