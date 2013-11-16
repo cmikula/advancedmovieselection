@@ -345,3 +345,8 @@ version: 3.2.1
 * fix: anzeigen und speichern von beschreibungen (eit) in kyrillisch
 * neu: einstellen der cover größe in tmdb 
 * neu: quickbutton: nur neue filme anzeigen/alle filme anzeigen 
+
+version: 3.2.2
+* fix: crash nach tmdb suche im hintergrund
+* fix: am letzten speicherort starten in bibliothek
+* fix: tmdb suche index fehler

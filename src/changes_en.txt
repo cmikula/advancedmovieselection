@@ -344,3 +344,8 @@ version: 3.2.1
 * fix: display and save descriptions (eit) in cyrillic
 * new: selectable cover size for tmdb download
 * new: quickbutton: show only new movies/show all movies 
+
+version: 3.2.2
+* fix: crash on finished hidden tmdb search
+* fix: start on last directory in movie library
+* fix: tmdb search index error

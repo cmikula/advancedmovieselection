@@ -1083,6 +1083,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             config.movielist.last_videodir.value = "/media/"
 
         if not config.AdvancedMovieSelection.startdir.value and not self.showLastDir:
+            config.AdvancedMovieSelection.movielibrary_show.value = False
             if path.exists(config.movielist.last_videodir.value):
                 config.movielist.last_videodir.value = defaultMoviePath()
         if not path.exists(config.movielist.last_videodir.value):
