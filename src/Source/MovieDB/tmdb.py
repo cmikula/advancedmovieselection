@@ -131,7 +131,8 @@ def init_tmdb3():
 def main():
     setLocale("de")
     tmdb3 = init_tmdb3()
-    res = tmdb3.searchMovie('James Bond 007 - Skyfall')
+    res = tmdb3.searchMovie('Blitz')
+    # res = tmdb3.searchMovie('James Bond 007 - Skyfall')
     # res = tmdb3.searchMovie('Für immer Liebe')
     # res = tmdb3.searchMovie('Fight Club')
     # res = tmdb3.searchMovie('22 Bullets')

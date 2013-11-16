@@ -103,7 +103,8 @@ class PagedRequest( PagedList ):
     def _getpage(self, page):
         req = self._request.new(page=page)
         res = req.readJSON()
-        self._len = res['total_results']
+        # self._len = res['total_results'] cmikula
+        self._len = len(res['results'])
         for item in res['results']:
             if item is None:
                 yield None
