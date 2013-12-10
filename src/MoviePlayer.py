@@ -379,10 +379,9 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, PlayerBase):
         elif answer in ("movielist", "returnanddeleteconfirmed"):
             ref = self.session.nav.getCurrentlyPlayingServiceReference()
             self.returning = True
-            self.session.nav.stopService()
-            self.session.nav.playService(self.lastservice) # Fix busy tuner after stby with playing service
             playerChoice.playing = False
             self.session.openWithCallback(playerChoice.playService, MovieSelection, ref, True)
+            self.session.nav.playService(self.lastservice)
         elif answer == "restart":
             self.doSeek(0)
             self.setSeekState(self.SEEK_STATE_PLAY)

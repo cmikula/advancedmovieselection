@@ -349,3 +349,4 @@ version: 3.2.2
 * fix: crash on finished hidden tmdb search
 * fix: start on last directory in movie library
 * fix: tmdb search index error
+* fix: crash on zap error

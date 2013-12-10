@@ -350,3 +350,4 @@ version: 3.2.2
 * fix: crash nach tmdb suche im hintergrund
 * fix: am letzten speicherort starten in bibliothek
 * fix: tmdb suche index fehler
+* fix: crash wenn kein freier tuner vorhanden ist

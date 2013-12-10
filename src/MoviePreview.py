@@ -136,7 +136,7 @@ class VideoPreview():
         self.service = None
         self.currentlyPlayingService = None
         self.cut_list = None
-        self.lastService = self.session.nav.getCurrentlyPlayingServiceReference()
+        self.lastService = None
         self.updateVideoPreviewSettings()
         self.onClose.append(self.__playLastService)
         self.dvdScreen = self.session.instantiateDialog(DVDOverlay)
@@ -208,8 +208,8 @@ class VideoPreview():
             cpsr = self.session.nav.getCurrentlyPlayingServiceReference()
             if cpsr and cpsr == self.service:
                 return 
-            #if not self.lastService:
-            #    self.lastService = self.session.nav.getCurrentlyPlayingServiceReference()
+            if self.lastService is None:
+                self.lastService = self.session.nav.getCurrentlyPlayingServiceReference()
             self.stopCurrentlyPlayingService()
             if isinstance(self.service, eServiceReferenceDvd):
                 if self.service.isIsoImage():
