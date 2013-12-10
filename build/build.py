@@ -82,7 +82,7 @@ PACKAGE_HOMEPAGE = "http://www.i-have-a-dreambox.com"
 PACKAGE_DEPENDS = "kernel-module-isofs, kernel-module-udf, enigma2(>3.2cvs20111016), python-json"  # TODO: check working enigma version
 PACKAGE_SOURCE = "QNAP from JackDaniel"
 
-SVN_REPOSITORY_EXPORT = "svn://multimedia.ath.cx:4000/AdvancedMovieSelection/trunk/src"
+SVN_REPOSITORY_EXPORT = "svn://jackdaniel.dyndns.tv:4000/AdvancedMovieSelection/trunk/src"
 
 # recommended packages
 PACKAGE_RECOMENDS = None
