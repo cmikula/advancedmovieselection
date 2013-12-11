@@ -343,7 +343,7 @@ versie: 3.2.1
 * nieuw: quickbutton: nieuwe/alle films weergeven 
 
 versie: 3.2.2
-* fix: crash on finished hidden tmdb search 
-* fix: start on last directory in movie library
-* fix: tmdb search index error
-* fix: crash on zap error
+* fix: crash bij beëindigen verborgen tmdb zoekopdracht 
+* fix: start in laatste map bibliotheek
+* fix: tmdb zoeken index fout
+* fix: crash bij zap fout
