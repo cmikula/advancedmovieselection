@@ -268,3 +268,7 @@ class DirectoryEvent(DirectoryInfo):
     
     def getBeginTime(self):
         return 0
+    
+    def getComponentData(self):
+        return ""
+    

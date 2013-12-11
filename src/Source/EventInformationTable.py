@@ -739,6 +739,10 @@ class EventInformationTable:
     
     def getBeginTime(self):
         return self.begin_time
+    
+    def getComponentData(self):
+        return ""
+
 
 # Debug only 
 def detectDVDStructure(loadPath):

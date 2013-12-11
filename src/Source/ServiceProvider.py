@@ -365,4 +365,7 @@ class Event:
     
     def getBeginTime(self):
         return self.info.getInfo(self.serviceref, iServiceInformation.sTimeCreate)
+    
+    def getComponentData(self):
+        return ""
 
