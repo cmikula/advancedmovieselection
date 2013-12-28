@@ -694,8 +694,8 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         MoviePreview.__init__(self, session)
         VideoPreview.__init__(self)
         self.skinName = ["AdvancedMovieSelection"]
-        if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.minitv.value:
-            self.skinName.insert(0, "AdvancedMovieSelection") # TODO: may delete this
+        #if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.minitv.value:
+        #    self.skinName.insert(0, "AdvancedMovieSelection") # TODO: may delete this
         if not config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.minitv.value:
             self.skinName.insert(0, "AdvancedMovieSelection1")
         if config.AdvancedMovieSelection.showpreview.value and not config.AdvancedMovieSelection.minitv.value:
@@ -713,7 +713,8 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             
         if config.AdvancedMovieSelection.show_backdrops.value:
             SkinTools.insertBackdrop(self.skinName)
-        
+        print "Screens:", self.skinName
+
         self.tags = [ ]
         self.showLastDir = showLastDir
         if not config.AdvancedMovieSelection.startonfirst.value and not selectedmovie:

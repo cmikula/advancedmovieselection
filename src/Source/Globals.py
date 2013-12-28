@@ -56,7 +56,7 @@ class SkinTools():
     def insertBackdrop(skinName):
         bdl = []
         for sn in skinName:
-            bdl.append(sn + "_Backdrop")
+            bdl.insert(0, sn + "_Backdrop")
         for sn in bdl:
             skinName.insert(0, sn)
 
