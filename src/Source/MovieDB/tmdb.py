@@ -29,12 +29,19 @@ that they, too, receive or can get the source code. And you must show them these
 config = None
 
 poster_sizes = ('w92', 'w154', 'w185', 'w342', 'w500', 'original')
+backdrop_sizes = ('w300', 'w780', 'w1280', 'original')
 
 def setPosterSize(size):
     value = size.value
     if value in poster_sizes:
         print "[AdvancedMovieSelection] Set tmdb poster size to", value
         config['poster_size'] = value
+
+def setBackdropSize(size):
+    value = size.value
+    if value in backdrop_sizes:
+        print "[AdvancedMovieSelection] Set tmdb backdrop size to", value
+        config['backdrop_size'] = value
 
 def setLocale(lng):
     global config
@@ -43,11 +50,10 @@ def setLocale(lng):
     config['locale'] = lng
     config['apikey'] = "1f834eb425728133b9a2c1c0c82980eb" # apikey from JD
     config['poster_size'] = 'w185'
+    config['backdrop_size'] = 'w1280'
 
 def getLocale():
     return config['locale']
-
-# setLocale("de")
 
 def decodeCertification(releases):
     cert = None
@@ -58,20 +64,39 @@ def decodeCertification(releases):
         return certification[cert]
 
 def nextImageIndex(movie):
+    if len(movie.poster_urls) == 0:
+        return
     if len(movie.poster_urls) > 1:
         item = movie.poster_urls.pop(0)
         movie.poster_urls.append(item)
     movie.poster_url = movie.poster_urls[0]
 
 def prevImageIndex(movie):
+    if len(movie.poster_urls) == 0:
+        return
     if len(movie.poster_urls) > 1:
         item = movie.poster_urls.pop(-1)
         movie.poster_urls.insert(0, item)
     movie.poster_url = movie.poster_urls[0]
 
-def poster_url(poster):
+def nextBackdrop(movie):
+    if len(movie.backdrop_urls) == 0:
+        return
+    if len(movie.backdrop_urls) > 1:
+        item = movie.backdrop_urls.pop(0)
+        movie.backdrop_urls.append(item)
+    movie.backdrop_url = movie.backdrop_urls[0]
+
+def prevBackdrop(movie):
+    if len(movie.backdrop_urls) == 0:
+        return
+    if len(movie.backdrop_urls) > 1:
+        item = movie.backdrop_urls.pop(-1)
+        movie.backdrop_urls.insert(0, item)
+    movie.backdrop_url = movie.backdrop_urls[0]
+
+def poster_url(poster, size):
     sizes = poster.sizes()
-    size = config['poster_size']
     if size in sizes:
         return poster.geturl(size)
     p_index = poster_sizes.index(size)
@@ -85,9 +110,9 @@ def poster_url(poster):
 def __collect_poster_urls(movie):
     l = []
     if movie.poster is not None:
-        l.append(poster_url(movie.poster))
+        l.append(poster_url(movie.poster, config['poster_size']))
     for p in movie.posters:
-        url = poster_url(p)
+        url = poster_url(p, config['poster_size'])
         if not url in l:
             l.append(url)
     movie.poster_urls = l
@@ -97,10 +122,26 @@ def __collect_poster_urls(movie):
     else:
         movie.poster_url = None
 
+def __collect_backdrop_urls(movie):
+    l = []
+    if movie.backdrop is not None:
+        l.append(poster_url(movie.backdrop, config['backdrop_size']))
+    for p in movie.backdrops:
+        url = poster_url(p, config['backdrop_size'])
+        if not url in l:
+            l.append(url)
+    movie.backdrop_urls = l
+    # print "title: %s, poster: %d" % (movie.title, len(movie.poster_urls))
+    if len(movie.backdrop_urls) > 0:
+        movie.backdrop_url = movie.backdrop_urls[0]
+    else:
+        movie.backdrop_url = None
+
 def __searchMovie(title):
     res = original_search(title)
     for movie in res:
         __collect_poster_urls(movie)
+        __collect_backdrop_urls(movie)
     return res
 
 import tmdb3
@@ -136,6 +177,13 @@ def main():
     # res = tmdb3.searchMovie('Für immer Liebe')
     # res = tmdb3.searchMovie('Fight Club')
     # res = tmdb3.searchMovie('22 Bullets')
+    from tmdb3 import Movie
+    print Movie(11).poster
+    print Movie(11).posters
+    print Movie(11).backdrop
+    print Movie(11).backdrops
+    
+
     print res
     movie = res[0]
     print movie.title

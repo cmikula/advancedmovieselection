@@ -40,7 +40,7 @@ from Source.ServiceProvider import ServiceCenter
 from Source.EventInformationTable import createEITtvdb
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
 from SearchTMDb import InfoLoadChoice
-from Source.Globals import pluginPresent, SkinTools
+from Source.Globals import pluginPresent
 from Source.MovieDB import tvdb, downloadCover
 from Source.PicLoader import PicLoader
 
@@ -175,7 +175,7 @@ class TheTVDBMain(Screen, InfoLoadChoice):
     def __init__(self, session, service, eventName=None, shortDescription=None):
         Screen.__init__(self, session)
         InfoLoadChoice.__init__(self, self.callback_green_pressed)
-        self.skinName = SkinTools.appendResolution("TheTVDBMain")
+        self.skinName = "TheTVDBMain"
 
         if not pathExists(temp_dir):
             os.mkdir(temp_dir, 0777)
@@ -740,7 +740,7 @@ class TheTVDBMain(Screen, InfoLoadChoice):
         if self.service is None:
             return
         self.setTitle(_("Save Info/Cover for ' %s ', please wait ...") % self.searchTitle)  
-        self.checkExistEnce(self.service.getPath())
+        self.checkExistence(self.service.getPath())
 
     def callback_green_pressed(self, answer=None):
         cur = self["list"].getCurrent()

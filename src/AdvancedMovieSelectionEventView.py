@@ -152,6 +152,8 @@ class EventViewBase:
 class EventViewSimple(Screen, EventViewBase, MoviePreview):
     def __init__(self, session, event, ref, callback=None, similarEPGCB=None):
         Screen.__init__(self, session)
-        self.skinName = SkinTools.appendResolution("AdvancedMovieSelectionEventView")
+        self.skinName = ["AdvancedMovieSelectionEventView"]
+        if config.AdvancedMovieSelection.show_backdrops.value:
+            SkinTools.insertBackdrop(self.skinName)
         EventViewBase.__init__(self, event, ref, callback, similarEPGCB)
         MoviePreview.__init__(self, session)

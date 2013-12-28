@@ -3,7 +3,11 @@ from Tools.Directories import resolveFilename, SCOPE_PLUGINS, SCOPE_LANGUAGE
 from os import environ
 import gettext
 from skin import loadSkin
-loadSkin(resolveFilename(SCOPE_PLUGINS) + "Extensions/AdvancedMovieSelection/skin/skin.xml")
+from Globals import SkinTools
+
+skin_path = resolveFilename(SCOPE_PLUGINS) + "Extensions/AdvancedMovieSelection/skin/" + SkinTools.getSkinName()
+print "[AdvancedMovieSelection] load skin: %s" % skin_path
+loadSkin(skin_path)
 
 def localeInit():
     lang = language.getLanguage()

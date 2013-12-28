@@ -25,22 +25,19 @@ from Components.ActionMap import ActionMap, NumberActionMap
 from Components.config import config, ConfigText, KEY_0, KEY_TIMEOUT, KEY_NUMBERS
 from Tools.NumericalTextInput import NumericalTextInput
 from enigma import eTimer
-from Source.Globals import SkinResolutionHelper
 
 from Screens.NumericalTextInputHelpDialog import NumericalTextInputHelpDialog
-class AdvancedTextInputHelpDialog(NumericalTextInputHelpDialog, SkinResolutionHelper):
+class AdvancedTextInputHelpDialog(NumericalTextInputHelpDialog):
     def __init__(self, session, textinput):
         NumericalTextInputHelpDialog.__init__(self, session, textinput)
-        SkinResolutionHelper.__init__(self)
 
-class AdvancedKeyBoard(VirtualKeyBoard, NumericalTextInput, SkinResolutionHelper):
+class AdvancedKeyBoard(VirtualKeyBoard, NumericalTextInput):
     KEYBOARD = 0x01
     NUM_KEYB = 0x02
     BOTH = KEYBOARD|NUM_KEYB
     def __init__(self, session, title="", text=""):
         VirtualKeyBoard.__init__(self, session, title, text)
         NumericalTextInput.__init__(self, nextFunc=self.nextFunc)
-        SkinResolutionHelper.__init__(self)
         self.configText = None
         if config.AdvancedMovieSelection.keyboard.value == "virtual":
             use = self.KEYBOARD

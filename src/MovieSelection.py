@@ -269,11 +269,11 @@ class MovieContextMenu(Screen):
         if config.AdvancedMovieSelection.show_update_genre.value:
             menu.append((_("Update all genre in meta from eit"), boundFunction(self.updateMetaFromEit)))
         if config.AdvancedMovieSelection.show_cover_del.value:
-            menu.append((_("Delete cover"), boundFunction(self.deleteCover)))
+            menu.append((_("Delete movie images"), boundFunction(self.deleteCover)))
         if config.AdvancedMovieSelection.show_info_del.value:
             menu.append((_("Delete movie info"), boundFunction(self.deleteInfos)))
         if config.AdvancedMovieSelection.show_info_cover_del.value:
-            menu.append((_("Delete movie info and cover"), boundFunction(self.deleteInfoCover)))   
+            menu.append((_("Delete movie info and images"), boundFunction(self.deleteInfoCover)))   
         if config.AdvancedMovieSelection.showmovietagsinmenu.value and not service.flags & eServiceReference.mustDescent:
             menu.append((_("Movie tags"), boundFunction(self.movietags)))
         if config.AdvancedMovieSelection.showfiltertags.value:
@@ -562,6 +562,7 @@ class MovieContextMenu(Screen):
                 path = os.path.splitext(path)[0]
             eConsoleAppContainer().execute("rm -f \"%s\"" % (path + ".eit"))
             eConsoleAppContainer().execute("rm -f \"%s\"" % (path + ".jpg"))
+            eConsoleAppContainer().execute("rm -f \"%s\"" % (path + ".backdrop.jpg"))
             self.csel.updateDescription()
             self.csel["freeDiskSpace"].update()
             self.close()
@@ -584,11 +585,15 @@ class MovieContextMenu(Screen):
         try:
             path = self.service.getPath()
             if os.path.isfile(path):
-                path = os.path.splitext(path)[0] + ".jpg"
-            elif isinstance(self.service, eServiceReferenceDvd):
-                path = path + ".jpg"
+                path_backdrop = os.path.splitext(path)[0] + ".backdrop.jpg"
+                path_cover = os.path.splitext(path)[0] + ".jpg"
+            elif self.service.flags == eServiceReference.isDirectory:
+                path_backdrop = os.path.splitext(path)[0] + ".backdrop.jpg"
+                path_cover = path + ".jpg"
             
-            cmd = "rm -f \"%s\"" % (path)
+            cmd = "rm -f \"%s\"" % (path_cover)
+            eConsoleAppContainer().execute(cmd)
+            cmd = "rm -f \"%s\"" % (path_backdrop)
             eConsoleAppContainer().execute(cmd)
             self.csel.updateDescription()
             self.csel["freeDiskSpace"].update()
@@ -690,21 +695,25 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         VideoPreview.__init__(self)
         self.skinName = ["AdvancedMovieSelection"]
         if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.minitv.value:
-            self.skinName.insert(0, SkinTools.appendResolution("AdvancedMovieSelection"))
+            self.skinName.insert(0, "AdvancedMovieSelection") # TODO: may delete this
         if not config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.minitv.value:
-            self.skinName.insert(0, SkinTools.appendResolution("AdvancedMovieSelection1"))
+            self.skinName.insert(0, "AdvancedMovieSelection1")
         if config.AdvancedMovieSelection.showpreview.value and not config.AdvancedMovieSelection.minitv.value:
-            self.skinName.insert(0, SkinTools.appendResolution("AdvancedMovieSelection_noMiniTV_"))
+            self.skinName.insert(0, "AdvancedMovieSelection_noMiniTV")
         if not config.AdvancedMovieSelection.showpreview.value and not config.AdvancedMovieSelection.minitv.value:
-            self.skinName.insert(0, SkinTools.appendResolution("AdvancedMovieSelection1_noMiniTV_"))
+            self.skinName.insert(0, "AdvancedMovieSelection1_noMiniTV")
         if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.video_preview.value and config.AdvancedMovieSelection.video_preview_fullscreen.value and config.movielist.description.value == MovieList.SHOW_DESCRIPTION:
-            self.skinName.insert(0, SkinTools.appendResolution("AdvancedMovieSelection_Preview_"))
+            self.skinName.insert(0, "AdvancedMovieSelection_Preview")
         if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.video_preview.value and config.AdvancedMovieSelection.video_preview_fullscreen.value and config.movielist.description.value == MovieList.HIDE_DESCRIPTION:
-            self.skinName.insert(0, SkinTools.appendResolution("AdvancedMovieSelection_Preview_noDescription_"))
+            self.skinName.insert(0, "AdvancedMovieSelection_Preview_noDescription")
         if not config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.video_preview.value and config.AdvancedMovieSelection.video_preview_fullscreen.value and config.movielist.description.value == MovieList.SHOW_DESCRIPTION:
-            self.skinName.insert(0, SkinTools.appendResolution("AdvancedMovieSelection_Preview_noCover_"))
+            self.skinName.insert(0, "AdvancedMovieSelection_Preview_noCover")
         if not config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.video_preview.value and config.AdvancedMovieSelection.video_preview_fullscreen.value and config.movielist.description.value == MovieList.HIDE_DESCRIPTION:
-            self.skinName.insert(0, SkinTools.appendResolution("AdvancedMovieSelection_Preview_noDescription_noCover_"))
+            self.skinName.insert(0, "AdvancedMovieSelection_Preview_noDescription_noCover")
+            
+        if config.AdvancedMovieSelection.show_backdrops.value:
+            SkinTools.insertBackdrop(self.skinName)
+        
         self.tags = [ ]
         self.showLastDir = showLastDir
         if not config.AdvancedMovieSelection.startonfirst.value and not selectedmovie:
@@ -1440,7 +1449,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
 class MoviebarPositionSetupText(Screen):
     def __init__(self, session):
         Screen.__init__(self, session)
-        self.skinName = SkinTools.appendResolution("AdvancedMovieSelectionMoviebarPositionSetup")
+        self.skinName = "AdvancedMovieSelectionMoviebarPositionSetup"
         self["howtotext"] = StaticText(_("Use direction keys to move the Moviebar.\nPress OK button for save or the EXIT button to cancel.\nUse the red button for reset to the original position."))
 
 class MoviebarPositionSetup(Screen):

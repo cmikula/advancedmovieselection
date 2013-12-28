@@ -28,7 +28,6 @@ from Source.AboutParser import AboutParser
 from Components.GUIComponent import GUIComponent
 from enigma import RT_HALIGN_LEFT, gFont, eListbox, eListboxPythonMultiContent
 from Components.ScrollLabel import ScrollLabel
-from Source.Globals import SkinTools
 import Version
 
 class VersionList(GUIComponent):
@@ -84,7 +83,6 @@ class VersionList(GUIComponent):
 class AdvancedMovieSelectionAbout(Screen):
     def __init__(self, session):
         Screen.__init__(self, session)
-        self.skinName = SkinTools.appendResolution("AdvancedMovieSelectionAbout")
         self["aboutActions"] = ActionMap(["ShortcutActions", "WizardActions", "InfobarEPGActions"],
         {
             "red": self.close,
@@ -115,14 +113,12 @@ class AdvancedMovieSelectionAbout(Screen):
 class AboutDetails(Screen):
     def __init__(self, session):
         Screen.__init__(self, session)
-        self.skinName = SkinTools.appendResolution("AdvancedMovieSelectionAboutDetails_")
+        self.skinName = "AdvancedMovieSelectionAboutDetails"
         self["aboutActions"] = ActionMap(["ShortcutActions", "WizardActions", "InfobarEPGActions", "EPGSelectActions"],
         {
             "red": self.close,
             "back": self.close,
             "nextBouquet": self.pageUp,
-            "nextBouquet": self.pageUp,
-            "prevBouquet": self.pageDown,
             "prevBouquet": self.pageDown,
         }, -1)
         self["key_red"] = StaticText()

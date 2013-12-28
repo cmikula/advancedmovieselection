@@ -34,7 +34,6 @@ from enigma import eListboxPythonMultiContent, eListbox, gFont, RT_HALIGN_LEFT, 
 from Source.Remote.MessageServer import serverInstance, getIpAddress
 from Source.Remote.Client import getClients
 from time import localtime, strftime
-from Source.Globals import SkinTools
 
 staticIP = None
 
@@ -152,7 +151,7 @@ class ClientSetupList(GUIComponent):
 class ClientSetup(ConfigListScreen, Screen):
     def __init__(self, session):
         Screen.__init__(self, session)
-        self.skinName = SkinTools.appendResolution("AdvancedMovieSelection_ClientSetup_")
+        self.skinName = "AdvancedMovieSelection_ClientSetup"
         self.staticIP = getIpAddress('eth0')
         self.session = session
         self["key_red"] = Button(_("Close"))

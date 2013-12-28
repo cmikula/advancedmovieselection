@@ -35,12 +35,11 @@ from Screens.Console import eConsoleAppContainer
 from Screens.TimerEntry import TimerEntry
 from Source.ServiceProvider import ServiceCenter
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN, SCOPE_CONFIG
-from Source.Globals import SkinTools
 
 class TagEditor(Screen):
     def __init__(self, session, tags, txt=None, parent=None):
         Screen.__init__(self, session, parent=parent)
-        self.skinName = SkinTools.appendResolution("AdvancedMovieSelectionTagEditor")
+        self.skinName = "AdvancedMovieSelectionTagEditor"
         self["key_red"] = StaticText(_("Cancel"))
         self["key_green"] = StaticText(_("Save/Close"))
         self["key_yellow"] = StaticText(_("Create new Tag"))

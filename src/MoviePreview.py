@@ -37,11 +37,14 @@ class MoviePreview():
     def __init__(self, session):
         self.onHide.append(self.hideDialog)
         self["CoverPreview"] = Pixmap()
+        self["backdrop"] = Pixmap()
         self.old_service = None
         self.working = False
         self.picParam = None
         self.picload = ePicLoad()
         self.picload.PictureData.get().append(self.showPreviewCallback)
+        self.backdrop = ePicLoad()
+        self.backdrop.PictureData.get().append(self.showBackdropCallback)
         self.onLayoutFinish.append(self.layoutFinish)
         self.onClose.append(self.__onClose)
         global nocover
@@ -52,6 +55,7 @@ class MoviePreview():
 
     def __onClose(self):
         del self.picload
+        del self.backdrop
     
     def layoutFinish(self):
         sc = AVSwitch().getFramebufferScale()
@@ -62,16 +66,19 @@ class MoviePreview():
         self.cpH = self["CoverPreview"].instance.size().height()
         self.piconX = self.cpX + int(self.cpW / 2) - int(100 / 2)
         self.piconY = self.cpY + int(self.cpH / 2) - int(60 / 2)
+        self.backdrop.setPara((self["backdrop"].instance.size().width(), self["backdrop"].instance.size().height(), sc[0], sc[1], False, 1, "#ff000000"))
 
     def loadPreview(self, serviceref):
         self.hideDialog()
         if serviceref is None:
             empty = gPixmapPtr()
             self["CoverPreview"].instance.setPixmap(empty)
+            self["backdrop"].hide()
             return
-
+        backdrop_file = None
         path = serviceref.getPath()
-        if path.endswith("/"):
+        if serviceref.flags & eServiceReference.mustDescent:
+            # directory
             if fileExists(path + ".jpg"):
                 path += ".jpg"
             elif config.AdvancedMovieSelection.usefoldername.value:
@@ -79,23 +86,36 @@ class MoviePreview():
             else:
                 path = path + "folder.jpg"
         elif os.path.isfile(path):
-            path = os.path.splitext(path)[0] + ".jpg"
+            # file service
+            path_s = os.path.splitext(path)[0]
+            backdrop_file = path_s + ".backdrop.jpg"
+            path = path_s + ".jpg"
         else:
+            # structure service
+            backdrop_file = path + ".backdrop.jpg"
             path = path + ".jpg"
-    
+        
+        # load backdrop
+        if config.AdvancedMovieSelection.show_backdrops.value and backdrop_file is not None and fileExists(backdrop_file):
+            self.backdrop_load = True
+            self.backdrop.startDecode(backdrop_file)
+        else:
+            self["backdrop"].hide()
+        
+        # load cover or provider icon
         self.working = True
         self["CoverPreview"].setPosition(self.cpX, self.cpY)
         if fileExists(path):
             self.picload.startDecode(path)
             return
         series_path = os.path.join(os.path.dirname(path), "series.jpg")
-        if os.path.exists(series_path):
+        if fileExists(series_path):
             self.picload.startDecode(series_path)
             return
         if serviceref.getPath().endswith(".ts") and config.AdvancedMovieSelection.show_picon.value:
             picon = getServiceInfoValue(serviceref, iServiceInformation.sServiceref).rstrip(':').replace(':', '_') + ".png"
             piconpath = os.path.join(config.AdvancedMovieSelection.piconpath.value, picon)
-            if os.path.exists(piconpath):
+            if fileExists(piconpath):
                 if config.AdvancedMovieSelection.piconsize.value:
                     self["CoverPreview"].instance.setPixmapFromFile(piconpath)
                     self["CoverPreview"].setPosition(self.piconX, self.piconY)
@@ -111,8 +131,17 @@ class MoviePreview():
                 self["CoverPreview"].instance.setPixmap(ptr)
         self.working = False
 
+    def showBackdropCallback(self, picInfo=None):
+        if picInfo:
+            ptr = self.backdrop.getData()
+            if ptr != None and self.backdrop_load:
+                self["backdrop"].instance.setPixmap(ptr)
+                self["backdrop"].show()
+        self.backdrop_load = False
+
     def hideDialog(self):
         self.working = False
+        self.backdrop_load = False
 
 from Screens.Screen import Screen
 from enigma import getDesktop

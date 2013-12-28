@@ -20,7 +20,7 @@
 #  distributed other than under the conditions noted above.
 #
 from __init__ import _
-import urllib, shutil, os
+import shutil
 from enigma import RT_WRAP, RT_VALIGN_CENTER, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, gFont, eListbox, eListboxPythonMultiContent
 from Components.GUIComponent import GUIComponent
 from Screens.Screen import Screen
@@ -29,7 +29,8 @@ from Components.ActionMap import HelpableActionMap
 from Components.Sources.StaticText import StaticText
 from Components.Pixmap import Pixmap
 from os import path as os_path, mkdir as os_mkdir
-from enigma import ePicLoad, eTimer
+from enigma import ePicLoad
+from timer import eTimer
 from Components.Label import Label
 from Components.ScrollLabel import ScrollLabel
 from Components.AVSwitch import AVSwitch
@@ -54,7 +55,9 @@ else:
 class InfoChecker:
     INFO = 0x01
     COVER = 0x02
-    BOTH = INFO | COVER
+    BACKDROP = 0x04
+    IMAGES = COVER | BACKDROP
+    ALL = INFO | COVER | BACKDROP
     def __init__(self):
         pass
     
@@ -65,6 +68,8 @@ class InfoChecker:
             present |= InfoChecker.INFO
         if InfoChecker.checkExtension(file_name, ".jpg"):
             present |= InfoChecker.COVER
+        if InfoChecker.checkExtension(file_name, ".backdrop.jpg"):
+            present |= InfoChecker.BACKDROP
         return present
 
     @classmethod
@@ -84,23 +89,25 @@ class InfoLoadChoice():
         self.__timer = eTimer()
         self.__timer.callback.append(self.__timerCallback)
     
-    def checkExistEnce(self, file_name):
-        list = []
+    def checkExistence(self, file_name):
+        l = []
         present = InfoChecker.check(file_name)
-        default = (False, False)
+        default = (False, False, False)
         if False: # TODO: implement settings for disable choice here 
             self.startTimer(default)
             return
-        list.append((_("Only those, which are not available!"), default))
-        if present & InfoChecker.BOTH == InfoChecker.BOTH:
-            list.append((_("Overwrite both (description & cover)"), (True, True)))
+        l.append((_("Only those, which are not available!"), default))
+        if present & InfoChecker.ALL == InfoChecker.ALL:
+            l.append((_("Overwrite all (description & cover & backdrop)"), (True, True, True)))
         if present & InfoChecker.INFO:
-            list.append((_("Overwrite movie description"), (True, False)))
+            l.append((_("Overwrite movie description"), (True, False, False)))
         if present & InfoChecker.COVER:
-            list.append((_("Overwrite movie cover"), (False, True)))
+            l.append((_("Overwrite movie cover"), (False, True, False)))
+        if present & InfoChecker.BACKDROP:
+            l.append((_("Overwrite movie backdrop"), (False, False, True)))
             
-        if present & InfoChecker.BOTH != 0:
-            self.session.openWithCallback(self.startTimer, ChoiceBox, title=_("Data already exists! Should anything be updated?"), list=list)
+        if present & InfoChecker.ALL != 0:
+            self.session.openWithCallback(self.startTimer, ChoiceBox, title=_("Data already exists! Should anything be updated?"), list=l)
         else:
             self.__callback(("Default", default))
 
@@ -177,9 +184,9 @@ class TMDbList(GUIComponent, object):
     def getCurrentIndex(self):
         return self.instance.getCurrentIndex()
 
-    def setList(self, list):
-        self.list = list
-        self.l.setList(list)
+    def setList(self, l):
+        self.list = l
+        self.l.setList(l)
     
     def getCurrent(self):
         return self.l.getCurrentSelection()
@@ -210,7 +217,10 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
         Screen.__init__(self, session)
         HelpableScreen.__init__(self)
         InfoLoadChoice.__init__(self, self.callback_green_pressed)
-        self.skinName = SkinTools.appendResolution("TMDbMain")
+        self.skinName = ["TMDbMain"]
+        if config.AdvancedMovieSelection.show_backdrops.value:
+            SkinTools.insertBackdrop(self.skinName)
+
         self.service = service
         self.movies = []
         if not os_path.exists(IMAGE_TEMPFILE):
@@ -226,16 +236,16 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
         {
             "ok": (self.ok_pressed, _("Toggle detail and list view")),
             "back": (self.cancel, _("Close")),
-            #"left": (self.left, _("Show previous cover")),
-            #"right": (self.right, _("Show next cover")),
+            "left": (self.left, _("Show previous cover")),
+            "right": (self.right, _("Show next cover")),
             "up": (self.moveUp, _("Move up")),
             "down": (self.moveDown, _("Move down")),
         }, -1)
-        self["WizardActions2"] = HelpableActionMap(self, "WizardActions",
+        self["EPGSelectActions"] = HelpableActionMap(self, "EPGSelectActions",
         {
-            "left": (self.left, _("Show previous cover")),
-            "right": (self.right, _("Show next cover")),
-        }, -1)
+            "nextBouquet": (self.nextBackdrop, _("Show next backdrop")),
+            "prevBouquet": (self.prevBackdrop, _("Show previous backdrop")),
+        })
         self["ChannelSelectBaseActions"] = HelpableActionMap(self, "ChannelSelectBaseActions",
         {
             "nextMarker": (self.right, _("Show next cover")),
@@ -244,8 +254,11 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
         self["list"] = TMDbList()
         self["tmdblogo"] = Pixmap()
         self["cover"] = Pixmap()
+        self["backdrop"] = Pixmap()
         self.picload = ePicLoad()
         self.picload.PictureData.get().append(self.paintCoverPixmapCB)
+        self.backdrop_picload = ePicLoad()
+        self.backdrop_picload.PictureData.get().append(self.paintBackdropPixmapCB)
         self["description"] = ScrollLabel()
         self["extended"] = Label()
         self["status"] = Label()
@@ -283,9 +296,11 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
         self["tmdblogo"].instance.setPixmapFromFile(resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/tmdb.png"))
         sc = AVSwitch().getFramebufferScale()
         self.picload.setPara((self["cover"].instance.size().width(), self["cover"].instance.size().height(), sc[0], sc[1], False, 1, "#ff000000"))
+        self.backdrop_picload.setPara((self["backdrop"].instance.size().width(), self["backdrop"].instance.size().height(), sc[0], sc[1], False, 1, "#10000000"))
 
     def deleteTempDir(self):
         del self.picload
+        del self.backdrop_picload
         try:
             shutil.rmtree(IMAGE_TEMPFILE)
         except Exception, e:
@@ -456,20 +471,31 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
             self["cover"].instance.setPixmap(ptr)
             self["cover"].show()
 
+    def paintBackdropPixmapCB(self, picInfo=None):
+        ptr = self.backdrop_picload.getData()
+        if ptr != None:
+            self["backdrop"].instance.setPixmap(ptr)
+            self["backdrop"].show()
+    
+    def imageTMPFileName(self, url, id):
+        if url is None:
+            return None
+        parts = url.split("/")
+        return os_path.join(IMAGE_TEMPFILE, str(id) + str(parts[-1]))
+    
     def updateCover(self, movie):
         if self.view_mode != self.SHOW_MOVIE_DETAIL:
             return
-
-        cover_url = movie.poster_url
-        if cover_url is None:
+        filename = self.imageTMPFileName(movie.poster_url, movie.id)
+        if downloadCover(movie.poster_url, filename):
+            self.picload.startDecode(filename)
+        else:
             self.picload.startDecode(nocover)
-        else:    
-            parts = cover_url.split("/")
-            filename = os_path.join(IMAGE_TEMPFILE, str(movie.id) + str(parts[-1]))
-            if downloadCover(cover_url, filename):
-                self.picload.startDecode(filename)
-            else:
-                self.picload.startDecode(nocover)
+        filename = self.imageTMPFileName(movie.backdrop_url, movie.id)
+        if downloadCover(movie.backdrop_url, filename):
+            self.backdrop_picload.startDecode(filename)
+        else:
+            self.backdrop_picload.startDecode(nocover)
 
     def updateImageIndex(self, method):
         if len(self.movies) == 0:
@@ -491,6 +517,12 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
     
     def right(self):
         self.updateImageIndex(tmdb.nextImageIndex)
+
+    def prevBackdrop(self):
+        self.updateImageIndex(tmdb.prevBackdrop)
+    
+    def nextBackdrop(self):
+        self.updateImageIndex(tmdb.nextBackdrop)
 
     def checkConnection(self):
         try:
@@ -532,18 +564,18 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
         if self.service is None:
             return
         self.setTitle(_("Save Info/Cover for ' %s ', please wait ...") % self.searchTitle)  
-        self.checkExistEnce(self.service.getPath())
+        self.checkExistence(self.service.getPath())
         #self.green_button_timer.start(100, True) 
 
     def callback_green_pressed(self, answer=None):
         if self.checkConnection() == False or not self["list"].getCurrent():
             return
-        overwrite_eit, overwrite_jpg = answer and answer[1] or (False, False)
+        overwrite_eit, overwrite_cover, overwrite_backdrop = answer and answer[1] or (False, False, False)
         from Source.EventInformationTable import createEIT
         current_movie = self["list"].getCurrent()[0]
         title = current_movie.title.encode('utf-8')
         if self.service is not None:
-            createEIT(self.service.getPath(), title, movie=current_movie, overwrite_jpg=overwrite_jpg, overwrite_eit=overwrite_eit)
+            createEIT(self.service.getPath(), title, movie=current_movie, overwrite_eit=overwrite_eit, overwrite_cover=overwrite_cover, overwrite_backdrop=overwrite_backdrop)
             self.close(False)
         else:
             self.session.openWithCallback(self.close, MessageBox, _("Sorry, no info/cover found for title: %s") % (title), MessageBox.TYPE_ERROR)
@@ -568,6 +600,7 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
         self["list"].hide()
         self["tmdblogo"].hide()
         self["cover"].hide()
+        self["backdrop"].hide()
         self["description"].hide()
         self["extended"].hide()
         self["status"].hide()
@@ -582,7 +615,6 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
         self["button_blue"].hide()
 
     def movieDetailView(self):
-        self["WizardActions2"].setEnabled(True)
         current_movie = self["list"].getCurrent()[0]
         title = current_movie.title.encode('utf-8')
         self.setTitle(_("Details for: %s") % title)
@@ -596,7 +628,6 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
             self["vote"].show()
 
     def movieListView(self):
-        self["WizardActions2"].setEnabled(False)
         self.setTitle(_("Search result for: %s") % self.searchTitle)
         self.hideAll()
         self["seperator"].show()

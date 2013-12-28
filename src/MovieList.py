@@ -355,6 +355,7 @@ class MovieList(GUIComponent):
 #    def buildMovieListEntry(self, serviceref, info, begin, len, selection_index= -1):
     def buildMovieListEntry(self, movie_info, selection_index= -1):
         try:
+            TYPE_PIXMAP = eListboxPythonMultiContent.TYPE_PIXMAP_ALPHABLEND
             width = self.l.getItemSize().width()
             offset = 0
             res = [ None ]
@@ -387,13 +388,13 @@ class MovieList(GUIComponent):
                     if os.path.exists(filename):
                         offset = 75
                         png = self.picloader.load(filename)
-                        res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 2, 75, 76, png))
+                        res.append((TYPE_PIXMAP, 0, 2, 75, 76, png))
                     else:
-                        res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 2, 20, 20, png))
+                        res.append((TYPE_PIXMAP, 0, 2, 20, 20, png))
                     if not isinstance(serviceref, eServiceReferenceListAll):
                         res.append(MultiContentEntryText(pos=(offset, 30), size=(width, 25), font=1, flags=RT_HALIGN_LEFT, text=serviceref.getPath()))
                 else:
-                    res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 2, 20, 20, png))
+                    res.append((TYPE_PIXMAP, 0, 2, 20, 20, png))
 
                 res.append(MultiContentEntryText(pos=(offset, 3), size=(width - 150, 30), font=0, flags=RT_HALIGN_LEFT, text=serviceref.getName()))
                 if config.AdvancedMovieSelection.show_dirsize.value:
@@ -411,7 +412,7 @@ class MovieList(GUIComponent):
                 
                 if os.path.islink(serviceref.getPath()[:-1]) and can_show_folder_image:
                     link_png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "link.png"))
-                    res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 10, 15, 9, 10, link_png))
+                    res.append((TYPE_PIXMAP, 10, 15, 9, 10, link_png))
 
                 return res
                 
@@ -592,12 +593,12 @@ class MovieList(GUIComponent):
                         png = self.picloader.load(piconpath)
                 if not png:
                     png = self.picloader.load(self.NO_COVER_PNG_FILE)
-                res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 2, 75, 76, png))
+                res.append((TYPE_PIXMAP, 0, 2, 75, 76, png))
                 offset = offset + 80
                 new_offset = 0
                 # new icon
                 if config.AdvancedMovieSelection.shownew.value and not hasLastPosition(serviceref):
-                    res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, offset, 0, 20, 20, self.MOVIE_NEW_PNG))
+                    res.append((TYPE_PIXMAP, offset, 0, 20, 20, self.MOVIE_NEW_PNG))
                     new_offset = new_offset + 24
     
                 # Line 1: Movie Text, service name
@@ -621,7 +622,7 @@ class MovieList(GUIComponent):
     
             elif self.list_type == MovieList.LISTTYPE_ORIGINAL:
                 if png is not None: # self.show_folders:
-                    res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 29, 20, 20, png))
+                    res.append((TYPE_PIXMAP, 0, 29, 20, 20, png))
                 res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - 265, 30), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
                 if tags and self.show_tags == MovieList.SHOW_TAGS:
                     res.append(MultiContentEntryText(pos=(width - 255, 0), size=(250, 30), font=2, flags=RT_HALIGN_RIGHT, text=self.arrangeTags(tags), color=color))
@@ -638,7 +639,7 @@ class MovieList(GUIComponent):
     
             elif self.list_type == MovieList.LISTTYPE_COMPACT_DESCRIPTION:
                 if png is not None: # self.show_folders:
-                    res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 9, 20, 20, png))
+                    res.append((TYPE_PIXMAP, 0, 9, 20, 20, png))
                 res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width, 23), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))                
                 res.append(MultiContentEntryText(pos=(0 + offset, 22), size=(width - 212, 17), font=1, flags=RT_HALIGN_LEFT, text=description, color=color))
                 if self.show_date == MovieList.SHOW_DATE:
@@ -651,7 +652,7 @@ class MovieList(GUIComponent):
     
             elif self.list_type == MovieList.LISTTYPE_COMPACT:
                 if png is not None: # self.show_folders:
-                    res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 9, 20, 20, png))            
+                    res.append((TYPE_PIXMAP, 0, 9, 20, 20, png))            
                 res.append(MultiContentEntryText(pos=(offset, 0), size=(width, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))            
                 if self.show_date == MovieList.SHOW_DATE:
                     res.append(MultiContentEntryText(pos=(offset, 22), size=(200, 17), font=1, flags=RT_HALIGN_LEFT, text=begin_string, color=color))            
@@ -684,7 +685,7 @@ class MovieList(GUIComponent):
                     displaytext = displaytext + ' ' + "(" + _len + ")"
                 
                 if png is not None: # self.show_folders:
-                    res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 3, 20, 20, png))
+                    res.append((TYPE_PIXMAP, 0, 3, 20, 20, png))
                 offsetServiceName = 0
                 if self.show_service == MovieList.SHOW_SERVICE:
                     servicename = service.getServiceName()
@@ -701,7 +702,7 @@ class MovieList(GUIComponent):
             else:
                 assert(self.list_type == MovieList.LISTTYPE_MINIMAL)
                 if png is not None: # self.show_folders:
-                    res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 3, 20, 20, png))
+                    res.append((TYPE_PIXMAP, 0, 3, 20, 20, png))
 
                 w = 0
                 if self.show_date == MovieList.SHOW_DATE:

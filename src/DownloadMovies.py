@@ -37,7 +37,7 @@ from Source.MovieDB import tmdb, downloadCover
 from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Components.ScrollLabel import ScrollLabel
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS, SCOPE_CURRENT_PLUGIN
-from Source.Globals import SkinTools, printStackTrace
+from Source.Globals import printStackTrace
 import os
 
 fetchingMovies = None
@@ -45,7 +45,7 @@ fetchingMovies = None
 class DownloadMovies(Screen):
     def __init__(self, session, items, service=None):
         Screen.__init__(self, session)
-        self.skinName = SkinTools.appendResolution("AdvancedMovieSelectionDownload")
+        self.skinName = "AdvancedMovieSelectionDownload"
         self.onShow.append(self.selectionChanged)
         self.service = service
         self["logo"] = Pixmap()  

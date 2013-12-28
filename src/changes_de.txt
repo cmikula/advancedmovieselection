@@ -351,3 +351,8 @@ version: 3.2.2
 * fix: am letzten speicherort starten in bibliothek
 * fix: tmdb suche index fehler
 * fix: crash wenn kein freier tuner vorhanden ist
+
+version: 3.3
+* neu: backdrop anzeige
+ACHTUNG an die skinner, bei allen screens die HD und _HD erweiterung entfernen, gleiches gilt für SD oder XD
+neue screens: AdvancedMovieSelection_Backdrop, AdvancedMovieSelectionEventView_Backdrop, TMDbMain_Backdrop

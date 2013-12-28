@@ -350,3 +350,8 @@ version: 3.2.2
 * fix: start on last directory in movie library
 * fix: tmdb search index error
 * fix: crash on zap error
+
+version: 3.3
+* new: backdrop view
+Skinners ATTENTION, remove all HD und _HD extensions, same for SD or XD
+new screens: AdvancedMovieSelection_Backdrop, AdvancedMovieSelectionEventView_Backdrop, TMDbMain_Backdrop

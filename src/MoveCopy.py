@@ -232,13 +232,11 @@ from Screens.HelpMenu import HelpableScreen
 from enigma import eTimer
 from Components.ActionMap import HelpableActionMap
 from Components.Button import Button
-from Source.Globals import SkinResolutionHelper
 
-class MoveCopyProgress(Screen, HelpableScreen, SkinResolutionHelper):
+class MoveCopyProgress(Screen, HelpableScreen):
     def __init__(self, session):
         Screen.__init__(self, session)
         HelpableScreen.__init__(self)
-        SkinResolutionHelper.__init__(self)
         self.timer = eTimer()
         self.timer.callback.append(self.update)
         self["ColorActions"] = HelpableActionMap(self, "ColorActions",

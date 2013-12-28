@@ -51,7 +51,6 @@ from Source.Remote.MessageServer import getIpAddress
 from Source.Remote.Client import getClients
 from ClientSetup import ClientSetup
 from Components.Pixmap import Pixmap
-from Source.Globals import SkinTools
 
 class TrashMovieList(GUIComponent):
     def __init__(self, root):
@@ -184,7 +183,7 @@ class Wastebasket(Screen, HelpableScreen):
     def __init__(self, session):
         Screen.__init__(self, session)
         HelpableScreen.__init__(self)
-        self.skinName = SkinTools.appendResolution("AdvancedMovieSelectionTrash")
+        self.skinName = "AdvancedMovieSelectionTrash"
         self.delayTimer = eTimer()
         self.delayTimer.callback.append(self.updateHDDData)
         self.current_ref = eServiceReferenceTrash(config.movielist.last_videodir.value)  

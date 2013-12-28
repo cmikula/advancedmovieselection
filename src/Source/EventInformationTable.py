@@ -400,7 +400,7 @@ def writeEIT(file_name, eit_file, name, overview, genre, extended_info, released
         printStackTrace()
         return False
 
-def createEIT(file_name, title, overwrite_jpg=False, overwrite_eit=False, movie=None):
+def createEIT(file_name, title, movie=None, overwrite_eit=False, overwrite_cover=False, overwrite_backdrop=False):
     try:
         if title:
             title = title.replace("-", " ").replace("#", "%23")
@@ -412,6 +412,7 @@ def createEIT(file_name, title, overwrite_jpg=False, overwrite_eit=False, movie=
             f_name = file_name
         eit_file = f_name + ".eit"
         jpg_file = f_name + ".jpg"
+        backdrop_file = f_name + ".backdrop.jpg"
         
         if movie == None:
             tmdb3 = tmdb.init_tmdb3()
@@ -442,18 +443,11 @@ def createEIT(file_name, title, overwrite_jpg=False, overwrite_eit=False, movie=
         appendShortDescriptionToMeta(file_name, genre)
         setTmdbCertificationtion(movie, file_name)
         
-        if (os.path.exists(jpg_file) and overwrite_jpg == False) and (os.path.exists(eit_file) and overwrite_eit == False):
-            print "Info's already exists, download skipped!"
-            return True
-
         if name:
             print "Movie title: " + name.encode("utf-8", "ignore")
 
-        cover_url = movie.poster_url
-        if cover_url is None:
-            print "No Cover found for", str(title), "\n"
-        else:    
-            downloadCover(cover_url, jpg_file, overwrite_jpg)
+        downloadCover(movie.poster_url, jpg_file, overwrite_cover)
+        downloadCover(movie.backdrop_url, backdrop_file, overwrite_backdrop)
 
         if os.path.exists(eit_file) and overwrite_eit == False:
             print "File '%s' already exists, eit creation skipped!" % (eit_file)

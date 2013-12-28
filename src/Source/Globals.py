@@ -28,30 +28,21 @@ def printStackTrace():
     traceback.print_exc(file=sys.stdout)
     print '-' * 50
 
-class SkinResolutionHelper():
-    def __init__(self, alternativeSkinName=None):
-        if alternativeSkinName:
-            self.skinName = alternativeSkinName
-        else:
-            self.skinName = SkinTools.appendResolution(self.__class__.__name__)
-
 class SkinTools():
     DESKTOP_WIDTH_SD = 720
     DESKTOP_WIDTH_XD = 1024
     DESKTOP_WIDTH_HD = 1280
     def __init__(self):
         pass
-    
+
     @staticmethod
-    def appendResolution(skinName):
+    def getSkinName():
         dw = SkinTools.getDesktopWidth()
         if dw == SkinTools.DESKTOP_WIDTH_XD:
-            return skinName + "XD"
+            return "1024.xml"
         elif dw == SkinTools.DESKTOP_WIDTH_HD:
-            return skinName + "HD"
-        elif dw == SkinTools.DESKTOP_WIDTH_SD:
-            return skinName + "SD"
-        return skinName
+            return "1280.xml"
+        return "720.xml"
     
     @staticmethod
     def getDesktopWidth():
@@ -60,6 +51,15 @@ class SkinTools():
         except:
             desktopWidth = SkinTools.DESKTOP_WIDTH_SD
         return desktopWidth
+    
+    @staticmethod
+    def insertBackdrop(skinName):
+        bdl = []
+        for sn in skinName:
+            bdl.append(sn + "_Backdrop")
+        for sn in bdl:
+            skinName.insert(0, sn)
+
 
 class Installed:
     def __init__(self):

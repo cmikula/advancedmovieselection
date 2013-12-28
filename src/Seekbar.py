@@ -31,12 +31,11 @@ from Screens.InfoBar import MoviePlayer
 from Screens.Screen import Screen
 from Tools.KeyBindings import addKeyBinding
 import keymapparser
-from Source.Globals import SkinTools
 
 class Seekbar(ConfigListScreen, Screen):
     def __init__(self, session, instance, fwd):
         Screen.__init__(self, session)
-        self.skinName = SkinTools.appendResolution("AdvancedMovieSelectionSeekbar")
+        self.skinName = "AdvancedMovieSelectionSeekbar"
         self.session = session
         self.infobarInstance = instance
         self.fwd = fwd

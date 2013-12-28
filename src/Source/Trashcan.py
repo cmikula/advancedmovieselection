@@ -176,10 +176,12 @@ class Trashcan:
             file_extension = os.path.splitext(original_name)[-1]
             eit = os.path.splitext(original_name)[0] + ".eit"
             jpg = os.path.splitext(original_name)[0] + ".jpg"
+            backdrop = os.path.splitext(original_name)[0] + ".backdrop.jpg"
         else:
             file_extension = ""
             eit = original_name + ".eit"
             jpg = original_name + ".jpg"
+            backdrop = original_name + ".backdrop.jpg"
 
         if file_extension == ".ts":
             movie_ext.append("meta")
@@ -194,6 +196,9 @@ class Trashcan:
         if os.path.exists(jpg):
             print jpg
             os.remove(jpg)
+        if os.path.exists(backdrop):
+            print jpg
+            os.remove(backdrop)
 
         if os.path.exists(eit):
             print eit

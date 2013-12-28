@@ -40,7 +40,7 @@ from Components.Sources.List import List
 from Components.ActionMap import ActionMap, NumberActionMap
 from enigma import getDesktop, quitMainloop
 from ClientSetup import ClientSetup
-from Source.Globals import pluginPresent, SkinTools
+from Source.Globals import pluginPresent
 from Source.Config import qButtons
 
 class ConfigList(eConfigList.ConfigList):
@@ -105,11 +105,9 @@ class ConfigListScreen(eConfigList.ConfigListScreen):
         if not self.handleInputHelpers in self["config"].onSelectionChanged:
             self["config"].onSelectionChanged.append(self.handleInputHelpers)
 
-from Source.Globals import SkinResolutionHelper
-class BackupRestore(ConfigListScreen, Screen, SkinResolutionHelper):
+class BackupRestore(ConfigListScreen, Screen):
     def __init__(self, session, csel=None):
         Screen.__init__(self, session)
-        SkinResolutionHelper.__init__(self)
         self.csel = csel
         self["setupActions"] = ActionMap(["OkCancelActions", "ColorActions"],
         {
@@ -189,7 +187,6 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
     def __init__(self, session, csel=None):
         Screen.__init__(self, session)
         self.csel = csel
-        self.skinName = SkinTools.appendResolution("AdvancedMovieSelectionSetup")
         self.bouquet_length = 13
         self.needsRestartFlag = False
         self.needsE2restartFlag = False
@@ -390,13 +387,15 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append(getConfigListEntry(_("Show move/copy progress on begin/end:"), config.AdvancedMovieSelection.show_move_copy_progress, _("Show the movie move/copy progress on begin and show notification on end of move/copy action.")))
         self.list.append(getConfigListEntry(_("Show movie search in extensions menu from movielist:"), config.AdvancedMovieSelection.showsearch, _("Displays the movie search function in the menu at the movie list.")))
         self.list.append(getConfigListEntry(_("Show covers in movielist:"), config.AdvancedMovieSelection.showpreview, _("Displays the cover in the movie list."))) 
+        self.list.append(getConfigListEntry(_("Show backdrops in movielist:"), config.AdvancedMovieSelection.show_backdrops, _("Displays the backdrop in movie list and event view.")))
         if config.AdvancedMovieSelection.showpreview.value:
-            self.list.append(getConfigListEntry(_("Set coversize:"), config.AdvancedMovieSelection.tmdb_poster_size, _("Here you can determine the coverfile size for the download/save.")))
+            self.list.append(getConfigListEntry(_("Set cover size:"), config.AdvancedMovieSelection.tmdb_poster_size, _("Here you can determine the coverfile size for the download/save.")))
+            self.list.append(getConfigListEntry(_("Set backdrop size:"), config.AdvancedMovieSelection.tmdb_backdrop_size, _("Here you can determine the backdrop size for the download/save.")))
             self.list.append(getConfigListEntry(_("Download cover from TMDB after timer is finished:"), config.AdvancedMovieSelection.cover_auto_download, _("If this function is enabled the cover is automatically downloaded from TMDB after timer is finished.")))
-            self.list.append(getConfigListEntry(_("Show D/L and store info/cover in movielist extensions menu:"), config.AdvancedMovieSelection.showcoveroptions, _("Displays movie info/cover options in the menu at the movie list.")))
-            self.list.append(getConfigListEntry(_("Show D/L and store ALL info/cover in movielist extensions menu:"), config.AdvancedMovieSelection.showcoveroptions2, _("Displays download and save movie info/cover for all movies options in the menu at the movie list.")))
-            self.list.append(getConfigListEntry(_("Show delete info and cover in extensions menu from movielist:"), config.AdvancedMovieSelection.show_info_cover_del, _("Displays delete movie info and cover function in the menu at the movie list.")))
-            self.list.append(getConfigListEntry(_("Show delete cover in extensions menu from movielist:"), config.AdvancedMovieSelection.show_cover_del, _("Displays delete cover function in the menu at the movie list.")))
+            self.list.append(getConfigListEntry(_("Show D/L and store info/images in movielist extensions menu:"), config.AdvancedMovieSelection.showcoveroptions, _("Displays movie info/images options in the menu at the movie list.")))
+            self.list.append(getConfigListEntry(_("Show D/L and store ALL info/images in movielist extensions menu:"), config.AdvancedMovieSelection.showcoveroptions2, _("Displays download and save movie info/images for all movies options in the menu at the movie list.")))
+            self.list.append(getConfigListEntry(_("Show delete info and images in extensions menu from movielist:"), config.AdvancedMovieSelection.show_info_cover_del, _("Displays delete movie info and images function in the menu at the movie list.")))
+            self.list.append(getConfigListEntry(_("Show delete images in extensions menu from movielist:"), config.AdvancedMovieSelection.show_cover_del, _("Displays delete images function in the menu at the movie list.")))
             self.list.append(getConfigListEntry(_("Show delete movie info in extensions menu from movielist:"), config.AdvancedMovieSelection.show_info_del, _("Displays delete movie info function in the menu at the movie list.")))
             self.list.append(getConfigListEntry(_("Show Provider Logo:"), config.AdvancedMovieSelection.show_picon, _("Displays the Provider Logo when no Cover available.")))
             self.list.append(getConfigListEntry(_("Show update genre in extensions menu from movielist:"), config.AdvancedMovieSelection.show_update_genre, _("Displays Update all genre in meta from eit options in the menu at the movie list.")))     
@@ -603,7 +602,6 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
     def __init__(self, session, csel=None):
         Screen.__init__(self, session)
         self.csel = csel
-        self.skinName = SkinTools.appendResolution("AdvancedMovieSelectionButtonSetup")
         self["important"] = StaticText() # TODO: deprecated - backward patch for oe1.6 compatibility 
         self["key_red"] = Button(_("Cancel"))
         self["key_green"] = Button(_("Save/Close"))
@@ -1022,7 +1020,6 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
 class AdvancedMovieSelectionOwnButtonName(Screen, ConfigListScreen):        
     def __init__(self, session):
         Screen.__init__(self, session)
-        self.skinName = SkinTools.appendResolution("AdvancedMovieSelectionOwnButtonName")
         self.homebutton = None
         self.bookmark1button = None
         self.bookmark2button = None

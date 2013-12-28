@@ -31,13 +31,11 @@ from Components.ActionMap import HelpableActionMap
 from Components.Sources.StaticText import StaticText
 from Components.SelectionList import SelectionList
 from Screens.HelpMenu import HelpableScreen
-from Source.Globals import SkinResolutionHelper
 
-class SelectionListScreen(Screen, HelpableScreen, SkinResolutionHelper):
+class SelectionListScreen(Screen, HelpableScreen):
     def __init__(self, session, title, item_descr, selected_items):
         Screen.__init__(self, session)
         HelpableScreen.__init__(self)
-        SkinResolutionHelper.__init__(self)
         self["key_red"] = StaticText(_("Cancel"))
         self["key_green"] = StaticText(_("Save/Close"))
         self["list"] = SelectionList([])

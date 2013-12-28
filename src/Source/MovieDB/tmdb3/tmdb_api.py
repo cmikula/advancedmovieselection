@@ -547,6 +547,11 @@ class Movie( Element ):
         if not self._locale.fallthrough:
             kwargs['language'] = self._locale.language
         return Request('movie/{0}/images'.format(self.id), **kwargs)
+    def _populate_images1(self):
+        kwargs = {}
+        #if not self._locale.fallthrough: # TODO: horrible 
+        #    kwargs['language'] = self._locale.language
+        return Request('movie/{0}/images'.format(self.id), **kwargs)
     def _populate_keywords(self):
         return Request('movie/{0}/keywords'.format(self.id))
     def _populate_releases(self):
@@ -563,7 +568,7 @@ class Movie( Element ):
                                     poller=_populate_cast, sort='order')
     crew             = Datalist('crew', handler=Crew, poller=_populate_cast)
     backdrops        = Datalist('backdrops', handler=Backdrop, \
-                                    poller=_populate_images, sort=True)
+                                    poller=_populate_images1, sort=True)
     posters          = Datalist('posters', handler=Poster, \
                                     poller=_populate_images, sort=True)
     keywords         = Datalist('keywords', handler=Keyword, \

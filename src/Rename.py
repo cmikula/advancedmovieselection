@@ -32,12 +32,12 @@ import os
 from Components.Label import Label
 from Components.Pixmap import Pixmap
 from Source.MovieConfig import MovieConfig
-from Source.Globals import SkinTools, printStackTrace
+from Source.Globals import printStackTrace
 
 class MovieRetitle(Screen, ConfigListScreen):
     def __init__(self, session, service):
         Screen.__init__(self, session)
-        self.skinName = SkinTools.appendResolution("AdvancedMovieSelection_Rename_")
+        self.skinName = "AdvancedMovieSelection_Rename"
         self.service = service
         self.movieConfig = MovieConfig()
         self.is_vdir = isinstance(service, eServiceReferenceVDir)

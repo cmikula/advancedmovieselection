@@ -133,6 +133,15 @@ poster_choices = [
                   ]
 config.AdvancedMovieSelection.tmdb_poster_size = ConfigSelection(default=poster_sizes[2], choices=poster_choices)
 config.AdvancedMovieSelection.tmdb_poster_size.addNotifier(setPosterSize)
+from MovieDB.tmdb import backdrop_sizes, setBackdropSize
+backdrop_choices = [
+                  (backdrop_sizes[0], _("300x169")),
+                  (backdrop_sizes[1], _("780x439")),
+                  (backdrop_sizes[2], _("1280x720")),
+                  (backdrop_sizes[3], _("Original (1920x1080)"))
+                  ]
+config.AdvancedMovieSelection.tmdb_backdrop_size = ConfigSelection(default=backdrop_sizes[2], choices=backdrop_choices)
+config.AdvancedMovieSelection.tmdb_backdrop_size.addNotifier(setBackdropSize)
 config.AdvancedMovieSelection.showtmdb = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.show_info_cover_del = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.show_info_del = ConfigYesNo(default=True)
@@ -196,6 +205,7 @@ config.AdvancedMovieSelection.movielibrary_show = ConfigBoolean()
 config.AdvancedMovieSelection.movielibrary_mark = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.movielibrary_show_mark_cnt = ConfigInteger(default=2, limits=(1, 10))
 config.AdvancedMovieSelection.hide_seen_movies = ConfigYesNo(default=False)
+config.AdvancedMovieSelection.show_backdrops = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.qButtons = ConfigText()
 
 class QuickButtons():
