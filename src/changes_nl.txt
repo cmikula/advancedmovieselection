@@ -348,7 +348,7 @@ versie: 3.2.2
 * fix: tmdb zoeken index fout
 * fix: crash bij zap fout
 
-version: 3.3
+versie: 3.3
 * nieuw: backdrop view
 OPGELET voor de skinners, verwijder alle HD en _HD extensies, idem voor SD of XD
 nieuwe screens: AdvancedMovieSelection_Backdrop, AdvancedMovieSelectionEventView_Backdrop, TMDbMain_Backdrop
