@@ -157,11 +157,11 @@ from Source.ServiceProvider import CueSheet
 class VideoPreview():
     def __init__(self):
         self.fwd_timer = eTimer()
-        self.fwd_timer.timeout.get().append(self.fwd)
+        self.fwd_timer.callback.append(self.fwd)
         self.dvd_preview_timer = eTimer()
-        self.dvd_preview_timer.timeout.get().append(self.playLastDVD)
+        self.dvd_preview_timer.callback.append(self.playLastDVD)
         self.video_preview_timer = eTimer()
-        self.video_preview_timer.timeout.get().append(self.playMovie)
+        self.video_preview_timer.callback.append(self.playMovie)
         self.service = None
         self.currentlyPlayingService = None
         self.cut_list = None
