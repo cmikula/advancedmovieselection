@@ -786,9 +786,9 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                 "nextMarker": (self.nextMarker, _("Jump to next marker")),
                 "prevMarker": (self.prevMarker, _("Jump to previous marker")),
             })
-        self["MediaPlayerActions"] = HelpableActionMap(self, "MediaPlayerActions",
+        self["InfobarTimeshiftActions"] = HelpableActionMap(self, "InfobarTimeshiftActions",
             {
-                "stop": (self.stopButton, _("Start/Stop video preview")),
+                "timeshiftStop": (self.stopButton, _("Start/Stop video preview")),
             })
         
         QuickButton.__init__(self)
