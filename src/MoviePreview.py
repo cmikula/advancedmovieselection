@@ -75,7 +75,6 @@ class MoviePreview():
             self["CoverPreview"].instance.setPixmap(empty)
             self["backdrop"].hide()
             return
-        backdrop_file = None
         path = serviceref.getPath()
         if serviceref.flags & eServiceReference.mustDescent:
             # directory
@@ -88,19 +87,10 @@ class MoviePreview():
         elif os.path.isfile(path):
             # file service
             path_s = os.path.splitext(path)[0]
-            backdrop_file = path_s + ".backdrop.jpg"
             path = path_s + ".jpg"
         else:
             # structure service
-            backdrop_file = path + ".backdrop.jpg"
             path = path + ".jpg"
-        
-        # load backdrop
-        if config.AdvancedMovieSelection.show_backdrops.value and backdrop_file is not None and fileExists(backdrop_file):
-            self.backdrop_load = True
-            self.backdrop.startDecode(backdrop_file)
-        else:
-            self["backdrop"].hide()
         
         # load cover or provider icon
         self.working = True
@@ -123,7 +113,29 @@ class MoviePreview():
                     self.picload.startDecode(piconpath)
                 return
         self.picload.startDecode(nocover)
-                
+    
+    def loadBackdrop(self, serviceref):
+        self.backdrop_load = False
+        if serviceref is None or serviceref.flags & eServiceReference.mustDescent or not config.AdvancedMovieSelection.show_backdrop.value:
+            self["backdrop"].hide()
+            return
+        backdrop_file = None
+        path = serviceref.getPath()
+        if os.path.isfile(path):
+            # file service
+            path_s = os.path.splitext(path)[0]
+            backdrop_file = path_s + ".backdrop.jpg"
+        else:
+            # structure service
+            backdrop_file = path + ".backdrop.jpg"
+        
+        # load backdrop
+        if backdrop_file is not None and fileExists(backdrop_file):
+            self.backdrop_load = True
+            self.backdrop.startDecode(backdrop_file)
+        else:
+            self["backdrop"].hide()
+
     def showPreviewCallback(self, picInfo=None):
         if picInfo:
             ptr = self.picload.getData()
@@ -141,7 +153,6 @@ class MoviePreview():
 
     def hideDialog(self):
         self.working = False
-        self.backdrop_load = False
 
 from Screens.Screen import Screen
 from enigma import getDesktop

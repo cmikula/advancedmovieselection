@@ -287,6 +287,9 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         if config.usage.load_length_of_movies_in_moviellist.isChanged():
             config.usage.load_length_of_movies_in_moviellist.save()
             needRefresh = True
+        if config.AdvancedMovieSelection.show_backdrop.isChanged():
+            config.AdvancedMovieSelection.show_backdrop.save()
+            needRefresh = True
         if config.AdvancedMovieSelection.showpreview.isChanged():
             config.AdvancedMovieSelection.showpreview.save()
             self.needsReopenFlag = True
@@ -386,11 +389,12 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append(getConfigListEntry(_("Show move/copy option in extensions menu from movielist:"), config.AdvancedMovieSelection.showmove, _("Displays the movie move/copy function in the menu at the movie list.")))
         self.list.append(getConfigListEntry(_("Show move/copy progress on begin/end:"), config.AdvancedMovieSelection.show_move_copy_progress, _("Show the movie move/copy progress on begin and show notification on end of move/copy action.")))
         self.list.append(getConfigListEntry(_("Show movie search in extensions menu from movielist:"), config.AdvancedMovieSelection.showsearch, _("Displays the movie search function in the menu at the movie list.")))
+        self.list.append(getConfigListEntry(_("Show backdrops in movielist:"), config.AdvancedMovieSelection.show_backdrop, _("Displays the backdrop in movie list and event view.")))
+        if config.AdvancedMovieSelection.show_backdrop.value:
+            self.list.append(getConfigListEntry(_("Set backdrop size:"), config.AdvancedMovieSelection.tmdb_backdrop_size, _("Here you can determine the backdrop size for the download/save.")))
         self.list.append(getConfigListEntry(_("Show covers in movielist:"), config.AdvancedMovieSelection.showpreview, _("Displays the cover in the movie list."))) 
-        self.list.append(getConfigListEntry(_("Show backdrops in movielist:"), config.AdvancedMovieSelection.show_backdrops, _("Displays the backdrop in movie list and event view.")))
         if config.AdvancedMovieSelection.showpreview.value:
             self.list.append(getConfigListEntry(_("Set cover size:"), config.AdvancedMovieSelection.tmdb_poster_size, _("Here you can determine the coverfile size for the download/save.")))
-            self.list.append(getConfigListEntry(_("Set backdrop size:"), config.AdvancedMovieSelection.tmdb_backdrop_size, _("Here you can determine the backdrop size for the download/save.")))
             self.list.append(getConfigListEntry(_("Download cover from TMDB after timer is finished:"), config.AdvancedMovieSelection.cover_auto_download, _("If this function is enabled the cover is automatically downloaded from TMDB after timer is finished.")))
             self.list.append(getConfigListEntry(_("Show D/L and store info/images in movielist extensions menu:"), config.AdvancedMovieSelection.showcoveroptions, _("Displays movie info/images options in the menu at the movie list.")))
             self.list.append(getConfigListEntry(_("Show D/L and store ALL info/images in movielist extensions menu:"), config.AdvancedMovieSelection.showcoveroptions2, _("Displays download and save movie info/images for all movies options in the menu at the movie list.")))

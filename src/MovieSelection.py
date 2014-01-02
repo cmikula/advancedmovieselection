@@ -646,9 +646,10 @@ class SelectionEventInfo:
 
     def updateEventInfo(self):
         self.updateGUI()
+        serviceref = self.getCurrent()
+        self.loadBackdrop(serviceref)
         if self.execing and config.movielist.description.value == MovieList.SHOW_DESCRIPTION or config.AdvancedMovieSelection.showpreview.value or config.AdvancedMovieSelection.video_preview.value:
             evt = self["list"].getCurrentEvent()
-            serviceref = self.getCurrent()
             if serviceref is not None and isinstance(self["list"].root, eServiceReferenceListAll):
                 self.updateTitle(os.path.dirname(serviceref.getPath()))
             if config.movielist.description.value == MovieList.SHOW_DESCRIPTION:
@@ -662,7 +663,7 @@ class SelectionEventInfo:
             if config.AdvancedMovieSelection.video_preview_autostart.value:
                 self.preparePlayMovie(serviceref, evt)
             if not config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.video_preview.value:
-                self.loadPreview(serviceref)        
+                self.loadPreview(serviceref)
         
 class AdvancedMovieSelection_summary(Screen):
     def __init__(self, session, parent):
@@ -711,7 +712,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         if not config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.video_preview.value and config.AdvancedMovieSelection.video_preview_fullscreen.value and config.movielist.description.value == MovieList.HIDE_DESCRIPTION:
             self.skinName.insert(0, "AdvancedMovieSelection_Preview_noDescription_noCover")
             
-        if config.AdvancedMovieSelection.show_backdrops.value:
+        if config.AdvancedMovieSelection.show_backdrop.value:
             SkinTools.insertBackdrop(self.skinName)
         print "Screens:", self.skinName
 

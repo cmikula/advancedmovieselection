@@ -218,7 +218,7 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
         HelpableScreen.__init__(self)
         InfoLoadChoice.__init__(self, self.callback_green_pressed)
         self.skinName = ["TMDbMain"]
-        if config.AdvancedMovieSelection.show_backdrops.value:
+        if config.AdvancedMovieSelection.show_backdrop.value:
             SkinTools.insertBackdrop(self.skinName)
 
         self.service = service

@@ -108,6 +108,7 @@ class SelectionEventInfo:
     def updateEventInfo(self):
         serviceref = self.session.nav.getCurrentlyPlayingServiceReference()
         if serviceref:
+            self.loadBackdrop(serviceref)
             self.loadPreview(serviceref)
             info = ServiceCenter.getInstance().info(serviceref)
             event = info.getEvent(serviceref)

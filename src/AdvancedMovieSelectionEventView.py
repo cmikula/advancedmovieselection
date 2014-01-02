@@ -30,6 +30,7 @@ from MoviePreview import MoviePreview
 from Source.Globals import SkinTools, pluginPresent
 from Components.Sources.StaticText import StaticText
 from Components.Pixmap import Pixmap
+from timer import eTimer
 import os
 
 class EventViewBase:    
@@ -62,6 +63,8 @@ class EventViewBase:
                 "pageUp": self.pageUp,
                 "pageDown": self.pageDown
             })
+        self.__timer = eTimer()
+        self.__timer.callback.append(self.__timerCallback)
         self.onShown.append(self.onCreate)
 
     def onCreate(self):
@@ -112,7 +115,11 @@ class EventViewBase:
         self["Location"].setText(_("Movie location: %s") % (current_path))
         serviceref = self.currentService
         self["Service"].newService(serviceref)
-        self.loadPreview(serviceref)
+        self.__timer.start(100, True)
+    
+    def __timerCallback(self):
+        self.loadBackdrop(self.currentService)
+        self.loadPreview(self.currentService)
 
     def pageUp(self):
         self["epg_description"].pageUp()
@@ -153,7 +160,7 @@ class EventViewSimple(Screen, EventViewBase, MoviePreview):
     def __init__(self, session, event, ref, callback=None, similarEPGCB=None):
         Screen.__init__(self, session)
         self.skinName = ["AdvancedMovieSelectionEventView"]
-        if config.AdvancedMovieSelection.show_backdrops.value:
+        if config.AdvancedMovieSelection.show_backdrop.value:
             SkinTools.insertBackdrop(self.skinName)
         EventViewBase.__init__(self, event, ref, callback, similarEPGCB)
         MoviePreview.__init__(self, session)
