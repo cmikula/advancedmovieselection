@@ -355,11 +355,12 @@ class MovieList(GUIComponent):
 #    def buildMovieListEntry(self, serviceref, info, begin, len, selection_index= -1):
     def buildMovieListEntry(self, movie_info, selection_index= -1):
         try:
+            #print "update"
             TYPE_PIXMAP = eListboxPythonMultiContent.TYPE_PIXMAP_ALPHABLEND
             width = self.l.getItemSize().width()
             offset = 0
             res = [ None ]
-            service_name, serviceref, info, begin, _len = movie_info.name, movie_info.serviceref, movie_info.info, movie_info.begin, movie_info.length
+            service_name, serviceref, info, begin, length, perc = movie_info.name, movie_info.serviceref, movie_info.info, movie_info.begin, movie_info.length, movie_info.percent
             if serviceref.flags & eServiceReference.mustDescent:
                 can_show_folder_image = True
                 if isinstance(serviceref, eServiceReferenceVDir):
@@ -436,29 +437,7 @@ class MovieList(GUIComponent):
                         png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "dvd_watching.png"))
     
             if info is not None:
-                if _len < 0:  # recalc _len when not already done
-                    cur_idx = self.l.getCurrentSelectionIndex()
-                    if config.usage.load_length_of_movies_in_moviellist.value:
-                        _len = info.getLength(serviceref)  # recalc the movie length...
-                        if _len == 0:
-                            file_name = serviceref.getPath()
-                            if not os.path.isdir(file_name):
-                                eit_file = os.path.splitext(file_name)[0] + ".eit"
-                            else:
-                                eit_file = file_name + ".eit"
-                            _len = EventInformationTable(eit_file, True).getDuration()
-                    else:
-                        _len = 0  # dont recalc movielist to speedup loading the list
-                    self.list[cur_idx][0].length = _len  # update entry in list... so next time we don't need to recalc
-    
-            length = _len
-        
-            if _len > 0:
-                _len = "%d:%02d" % (_len / 60, _len % 60)
-            else:
-                _len = ""
-            
-            if info is not None:
+                # get service, tags and description
                 # service_name = info.getName(serviceref)
                 if not isinstance(info, Info):
                     service = ServiceReference(info.getInfoString(serviceref, iServiceInformation.sServiceref))
@@ -466,7 +445,51 @@ class MovieList(GUIComponent):
                     service = info.getServiceReference()
                 description = info.getInfoString(serviceref, iServiceInformation.sDescription)
                 tags = info.getInfoString(serviceref, iServiceInformation.sTags)
+                
+                # update length
+                if length < 0:  # recalc _len when not already done
+                    if config.usage.load_length_of_movies_in_moviellist.value:
+                        length = info.getLength(serviceref)  # recalc the movie length...
+                        if length == 0:
+                            file_name = serviceref.getPath()
+                            if not os.path.isdir(file_name):
+                                eit_file = os.path.splitext(file_name)[0] + ".eit"
+                            else:
+                                eit_file = file_name + ".eit"
+                            length = EventInformationTable(eit_file, True).getDuration()
+                    else:
+                        length = 0  # dont recalc movielist to speedup loading the list
+                    movie_info.length = length  # update entry in list... so next time we don't need to recalc
     
+                # calculate percent
+                # if perc == -1:
+                if True:
+                    perc = 0
+                    last = None
+                    if length <= 0:  # Set default file length if is not calculateable
+                        length = 0
+                    cue = info.cueSheet()
+                    if cue is not None:
+                        cut_list = cue.getCutList()
+                        for (pts, what) in cut_list:
+                            if what == 1 and length == 0:
+                                length = pts / 90000
+                            if what == 3:
+                                last = pts
+    
+                    if last is not None and length > 0:
+                        perc = int((float(last) / 90000 / float(length)) * 100);
+                        if perc > 100:
+                            perc = 100
+                        if perc < 0:
+                            perc = 0
+                    movie_info.percent = perc # update percent
+
+            if length > 0:
+                length_text = "%d:%02d" % (length / 60, length % 60)
+            else:
+                length_text = ""
+            
             color = None 
             recording = False
             if NavigationInstance.instance.getRecordings():
@@ -494,62 +517,36 @@ class MovieList(GUIComponent):
                     color = self.recording_color
                 if self.COLOR_MOVIE_ICON:
                     png = self.COLOR_MOVIE_ICON
+            
+            if self.show_statuscolor and not recording:
+                if (perc > 1) and (perc <= config.AdvancedMovieSelection.moviepercentseen.value):
+                    color = self.watching_color
+                elif (perc > config.AdvancedMovieSelection.moviepercentseen.value):
+                    color = self.finished_color
+            if self.show_statusicon and not recording:
+                if perc > 1 and perc <= config.AdvancedMovieSelection.moviepercentseen.value:
+                    png = self.COLOR_PERCENT_1
+                elif perc > config.AdvancedMovieSelection.moviepercentseen.value:
+                    png = self.COLOR_PERCENT_2
+
+            if self.list_type != MovieList.LISTTYPE_EXTENDED:
+                # TODO:  never enable this - on dvd structures the extension is incorrect and will crash
+                # if config.AdvancedMovieSelection.shownew.value and self.show_folders and not self.show_statusicon and perc > 0:
+                #    png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + MEDIAEXTENSIONS[extension] + ".png"))   
+                    
+                if self.show_progressbar:
+                    top = int((self.l.getItemSize().height() - 6) / 2) + 1
+                    res.append(MultiContentEntryProgress(pos=(0 + offset, top), size=(50, 6), percent=perc, borderWidth=1, foreColor=color))
+                    offset = offset + 55
     
-            if (self.list_type == MovieList.LISTTYPE_EXTENDED) or (self.show_progressbar or self.show_percent) or (self.show_statusicon and self.show_folders) or self.show_statuscolor:
-                last = None
-                if length <= 0:  # Set default file length if is not calculateable
-                    length = 0
-                cue = None  # info.cueSheet()
-                if cue is None:
-                    cut_list = CueSheet(serviceref).getCutList()
-                    for (pts, what) in cut_list:
-                        if what == 1 and length == 0:
-                            length = pts / 90000
-                        if what == 3:
-                            last = pts
-                elif cue is not None:
-                    cut_list = cue.getCutList()
-                    for (pts, what) in cut_list:
-                        if what == 1 and length == 0:
-                            length = pts / 90000
-                        if what == 3:
-                            last = pts
-                perc = 0
-                if last is not None and length > 0:
-                    perc = int((float(last) / 90000 / float(length)) * 100);
-                    if perc > 100:
-                        perc = 100
-                    if perc < 0:
-                        perc = 0
-                    if self.show_statuscolor and not recording:
-                        if (perc > 1) and (perc <= config.AdvancedMovieSelection.moviepercentseen.value):
-                            color = self.watching_color
-                        elif (perc > config.AdvancedMovieSelection.moviepercentseen.value):
-                            color = self.finished_color
-                    if self.show_statusicon and not recording:
-                        if perc > 1 and perc <= config.AdvancedMovieSelection.moviepercentseen.value:
-                            png = self.COLOR_PERCENT_1
-                        elif perc > config.AdvancedMovieSelection.moviepercentseen.value:
-                            png = self.COLOR_PERCENT_2
-    
-                if self.list_type != MovieList.LISTTYPE_EXTENDED:
-                    ''' never enable this - on dvd structures the extension is incorrect and will crash '''
-                    # if config.AdvancedMovieSelection.shownew.value and self.show_folders and not self.show_statusicon and perc > 0:
-                    #    png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + MEDIAEXTENSIONS[extension] + ".png"))   
-                        
-                    if self.show_progressbar:
-                        top = int((self.l.getItemSize().height() - 6) / 2) + 1
-                        res.append(MultiContentEntryProgress(pos=(0 + offset, top), size=(50, 6), percent=perc, borderWidth=1, foreColor=color))
-                        offset = offset + 55
-        
-                    if self.show_percent:
-                        perc_txt = "%d" % (perc) + ' % - '
-                        if self.list_type == MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection:
-                            res.append(MultiContentEntryText(pos=(offset, 2), size=(60, 25), font=0, flags=RT_HALIGN_RIGHT, text=perc_txt, color=color))
-                            offset = offset + 65
-                        else:
-                            res.append(MultiContentEntryText(pos=(offset, 2), size=(70, 25), font=0, flags=RT_HALIGN_RIGHT, text=perc_txt, color=color))
-                            offset = offset + 75
+                if self.show_percent:
+                    perc_txt = "%d" % (perc) + ' % - '
+                    if self.list_type == MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection:
+                        res.append(MultiContentEntryText(pos=(offset, 2), size=(60, 25), font=0, flags=RT_HALIGN_RIGHT, text=perc_txt, color=color))
+                        offset = offset + 65
+                    else:
+                        res.append(MultiContentEntryText(pos=(offset, 2), size=(70, 25), font=0, flags=RT_HALIGN_RIGHT, text=perc_txt, color=color))
+                        offset = offset + 75
     
             begin_string = ""
             if recording:
@@ -618,7 +615,7 @@ class MovieList(GUIComponent):
                 res.append(MultiContentEntryText(pos=(190 + offset, 55), size=(60, 20), font=1, flags=RT_HALIGN_LEFT, text=prec_text, color=color))
                 if tags:
                     res.append(MultiContentEntryText(pos=(250 + offset, 55), size=(500, 20), font=1, flags=RT_HALIGN_LEFT, text=self.arrangeTags(tags), color=color))
-                res.append(MultiContentEntryText(pos=(width - 105, 55), size=(100, 20), font=1, flags=RT_HALIGN_RIGHT, text=_len, color=color))
+                res.append(MultiContentEntryText(pos=(width - 105, 55), size=(100, 20), font=1, flags=RT_HALIGN_RIGHT, text=length_text, color=color))
     
             elif self.list_type == MovieList.LISTTYPE_ORIGINAL:
                 if png is not None: # self.show_folders:
@@ -635,7 +632,7 @@ class MovieList(GUIComponent):
                 if self.show_date == MovieList.SHOW_DATE:
                     res.append(MultiContentEntryText(pos=(0 + offset, 55), size=(200, 20), font=1, flags=RT_HALIGN_LEFT, text=begin_string, color=color))
                 if self.show_time == MovieList.SHOW_TIME:
-                    res.append(MultiContentEntryText(pos=(width - 205, 55), size=(200, 20), font=1, flags=RT_HALIGN_RIGHT, text=_len, color=color))
+                    res.append(MultiContentEntryText(pos=(width - 205, 55), size=(200, 20), font=1, flags=RT_HALIGN_RIGHT, text=length_text, color=color))
     
             elif self.list_type == MovieList.LISTTYPE_COMPACT_DESCRIPTION:
                 if png is not None: # self.show_folders:
@@ -645,7 +642,7 @@ class MovieList(GUIComponent):
                 if self.show_date == MovieList.SHOW_DATE:
                     res.append(MultiContentEntryText(pos=(width - 135, 4), size=(130, 20), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))                
                 if self.show_time == MovieList.SHOW_TIME:
-                    dr = service.getServiceName() + " " + _len
+                    dr = service.getServiceName() + " " + length_text
                     res.append(MultiContentEntryText(pos=(width - 215, 22), size=(210, 17), font=1, flags=RT_HALIGN_RIGHT, text=dr, color=color))
                 else:
                     res.append(MultiContentEntryText(pos=(width - 155, 22), size=(150, 17), font=1, flags=RT_HALIGN_RIGHT, text=service.getServiceName(), color=color))
@@ -657,7 +654,7 @@ class MovieList(GUIComponent):
                 if self.show_date == MovieList.SHOW_DATE:
                     res.append(MultiContentEntryText(pos=(offset, 22), size=(200, 17), font=1, flags=RT_HALIGN_LEFT, text=begin_string, color=color))            
                 if self.show_time == MovieList.SHOW_TIME:
-                    res.append(MultiContentEntryText(pos=(width - 80, 0), size=(75, 20), font=0, flags=RT_HALIGN_RIGHT, text=_len, color=color))            
+                    res.append(MultiContentEntryText(pos=(width - 80, 0), size=(75, 20), font=0, flags=RT_HALIGN_RIGHT, text=length_text, color=color))            
                 if tags and self.show_tags == MovieList.SHOW_TAGS:
                     res.append(MultiContentEntryText(pos=(width - 205, 22), size=(200, 17), font=1, flags=RT_HALIGN_RIGHT, text=self.arrangeTags(tags), color=color))
                     if service is not None:
@@ -681,8 +678,8 @@ class MovieList(GUIComponent):
                         displaytext = displaytext + service_name + " - " + description
                     else:
                         displaytext = displaytext + service_name
-                if _len and self.show_time == MovieList.SHOW_TIME:
-                    displaytext = displaytext + ' ' + "(" + _len + ")"
+                if self.show_time == MovieList.SHOW_TIME:
+                    displaytext = displaytext + ' ' + "(" + length_text + ")"
                 
                 if png is not None: # self.show_folders:
                     res.append((TYPE_PIXMAP, 0, 3, 20, 20, png))
@@ -706,7 +703,7 @@ class MovieList(GUIComponent):
 
                 w = 0
                 if self.show_date == MovieList.SHOW_DATE:
-                    display_info = length > 0 and str(_len) + ", " + begin_string or begin_string 
+                    display_info = length > 0 and length_text + ", " + begin_string or begin_string 
                     if self.show_time == MovieList.SHOW_TIME:
                         w = 200
                         res.append(MultiContentEntryText(pos=(width - w, 5), size=(w - 5, 25), font=1, flags=RT_HALIGN_RIGHT, text=display_info, color=color))
@@ -717,7 +714,7 @@ class MovieList(GUIComponent):
                 elif self.show_date == MovieList.HIDE_DATE:
                     if self.show_time == MovieList.SHOW_TIME:
                         w = 75
-                        res.append(MultiContentEntryText(pos=(width - 75, 2), size=(70, 20), font=1, flags=RT_HALIGN_RIGHT, text=_len, color=color))                                    
+                        res.append(MultiContentEntryText(pos=(width - 75, 2), size=(70, 20), font=1, flags=RT_HALIGN_RIGHT, text=length_text, color=color))                                    
         
                 res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width - w - offset, 25), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
     

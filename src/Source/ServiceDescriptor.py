@@ -37,6 +37,7 @@ class MovieInfo():
         self.begin = begin
         self.length = length
         self.serviceref = serviceref
+        self.percent = -1
         if serviceref:
             self.flags = serviceref.flags
             self.type = serviceref.type
@@ -52,16 +53,20 @@ class MovieInfo():
         return self.name + "\t" + self.path
     
     def createService(self):
-        if self.serviceref == None:
-            self.serviceref = self.s_type(self.type, self.flags, self.path)
-            if self.flags & eServiceReference.mustDescent:
-                self.serviceref.setName(self.name)
-        return self.serviceref
+        #print "x" * 80
+        #print self.path
+        if self.s_type == eServiceReference:
+            serviceref = self.s_type(self.type, self.flags, self.path)
+        else:
+            serviceref = self.s_type(self.path)
+        if self.flags & eServiceReference.mustDescent:
+            serviceref.setName(self.name)
+        return serviceref
 
-    #serviceref = property(getService)
+    #serviceref = property(createService)
 
     def getPath(self):
-        return self.serviceref.getPath()
+        return self.path
     
     def getTags(self):
         if self.info is None:
