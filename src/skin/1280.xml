@@ -409,8 +409,8 @@
 	</screen>
 	<screen name="AdvancedMovieSelection" position="center,center" size="1280,720" title=" " flags="wfNoBorder">
 		<!--widget source="global.MovieDir" render="Label" position="60,40" size="1050,29" zPosition="3" font="Regular;26" transparent="1"/ -->
-		<widget name="freeDiskSpace" position="60,40" size="1050,29" zPosition="3" font="Regular;26" transparent="1"/>
-		<widget source="Title" render="Label" position="60,72" size="840,26" zPosition="3" font="Regular;20" foregroundColor="#ffcc00" transparent="1" />
+		<widget name="freeDiskSpace" position="60,40" size="1050,29" font="Regular;26" transparent="1"/>
+		<widget source="Title" render="Label" position="60,72" size="840,26" font="Regular;20" foregroundColor="#ffcc00" transparent="1" />
 		<widget source="global.CurrentTime" render="Label" position="1140,40" size="80,26" font="Regular;26" halign="right" transparent="1">
 			<convert type="ClockToText">Default</convert>
 		</widget>
@@ -519,8 +519,8 @@
 	</screen>
 	<screen name="AdvancedMovieSelection1" position="center,center" size="1280,720" title=" " flags="wfNoBorder">
 		<!--widget source="global.MovieDir" render="Label" position="60,40" size="1050,29" zPosition="3" font="Regular;26" transparent="1"/ -->
-		<widget name="freeDiskSpace" position="60,40" size="1050,29" zPosition="3" font="Regular;26" transparent="1"/>
-		<widget source="Title" render="Label" position="60,72" size="840,26" zPosition="3" font="Regular;20" foregroundColor="#ffcc00" transparent="1" />
+		<widget name="freeDiskSpace" position="60,40" size="1050,29" font="Regular;26" transparent="1"/>
+		<widget source="Title" render="Label" position="60,72" size="840,26" font="Regular;20" foregroundColor="#ffcc00" transparent="1" />
 		<widget source="global.CurrentTime" render="Label" position="1140,40" size="80,26" font="Regular;26" halign="right" transparent="1">
 			<convert type="ClockToText">Default</convert>
 		</widget>
@@ -731,9 +731,9 @@
 	</screen>
 	<screen name="AdvancedMovieSelection_noMiniTV" position="center,center" size="1280,720" title=" " flags="wfNoBorder">
 		<!--widget source="global.MovieDir" render="Label" position="60,40" size="1050,29" zPosition="3" font="Regular;26" transparent="1"/ -->
-		<widget name="warning" position="400,40" size="875,28" zPosition="3" font="Regular;26" halign="center" foregroundColor="#ffcc00" transparent="1" />
-		<widget name="freeDiskSpace" position="60,40" size="1050,29" zPosition="3" font="Regular;26" transparent="1"/>
-		<widget source="Title" render="Label" position="60,72" size="840,26" zPosition="3" font="Regular;20" foregroundColor="#ffcc00" transparent="1"/>
+		<widget name="warning" position="400,40" size="875,28" font="Regular;26" halign="center" foregroundColor="#ffcc00" transparent="1" />
+		<widget name="freeDiskSpace" position="60,40" size="1050,29" font="Regular;26" transparent="1"/>
+		<widget source="Title" render="Label" position="60,72" size="840,26" font="Regular;20" foregroundColor="#ffcc00" transparent="1"/>
 		<widget source="global.CurrentTime" render="Label" position="1140,40" size="80,26" font="Regular;26" halign="right" transparent="1">
 			<convert type="ClockToText">Default</convert>
 		</widget>
@@ -837,9 +837,9 @@
 	</screen>
 	<screen name="AdvancedMovieSelection1_noMiniTV" position="center,center" size="1280,720" title=" " flags="wfNoBorder">
 		<!--widget source="global.MovieDir" render="Label" position="60,40" size="1050,29" zPosition="3" font="Regular;26" transparent="1"/ -->
-		<widget name="warning" position="400,40" size="875,28" zPosition="3" font="Regular;26" halign="center" foregroundColor="#ffcc00" transparent="1" />
-		<widget name="freeDiskSpace" position="60,40" size="1050,29" zPosition="3" font="Regular;26" transparent="1"/>
-		<widget source="Title" render="Label" position="60,72" size="840,26" zPosition="3" font="Regular;20" foregroundColor="#ffcc00" transparent="1" />
+		<widget name="warning" position="400,40" size="875,28" font="Regular;26" halign="center" foregroundColor="#ffcc00" transparent="1" />
+		<widget name="freeDiskSpace" position="60,40" size="1050,29" font="Regular;26" transparent="1"/>
+		<widget source="Title" render="Label" position="60,72" size="840,26" font="Regular;20" foregroundColor="#ffcc00" transparent="1" />
 		<widget source="global.CurrentTime" render="Label" position="1140,40" size="80,26" font="Regular;26" halign="right" transparent="1">
 			<convert type="ClockToText">Default</convert>
 		</widget>
