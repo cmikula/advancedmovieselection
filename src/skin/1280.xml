@@ -450,10 +450,10 @@
 		<ePixmap pixmap="skin_default/buttons/button_green.png" position="60,350" size="21,21" alphatest="blend" />
 		<ePixmap pixmap="skin_default/buttons/button_yellow.png" position="60,390" size="21,21" alphatest="blend" />
 		<ePixmap pixmap="skin_default/buttons/button_blue.png" position="60,430" size="21,21" alphatest="blend" />
-		<widget name="key_red" position="90,308" size="300,26" font="Regular;24" halign="left" valign="top" transparent="1" />
-		<widget name="key_green" position="90,348" size="300,26" font="Regular;24" halign="left" valign="top" transparent="1" />
-		<widget name="key_yellow" position="90,388" size="300,26" font="Regular;24" halign="left" valign="top" transparent="1" />
-		<widget name="key_blue" position="90,428" size="300,26" font="Regular;24" halign="left" valign="top" transparent="1" />
+		<widget name="key_red" position="90,305" size="300,28" font="Regular;24" halign="left" valign="top" transparent="1" />
+		<widget name="key_green" position="90,345" size="300,28" font="Regular;24" halign="left" valign="top" transparent="1" />
+		<widget name="key_yellow" position="90,385" size="300,28" font="Regular;24" halign="left" valign="top" transparent="1" />
+		<widget name="key_blue" position="90,425" size="300,28" font="Regular;24" halign="left" valign="top" transparent="1" />
 		<ePixmap position="60,270" size="35,25" zPosition="10" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" transparent="1" alphatest="blend" />
 		<ePixmap position="135,270" size="35,25" zPosition="10" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" transparent="1" alphatest="blend" />
 		<ePixmap position="215,270" size="35,25" zPosition="10" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" transparent="1" alphatest="blend" />
@@ -504,10 +504,10 @@
 		<ePixmap pixmap="skin_default/buttons/button_green.png" position="60,350" size="21,21" alphatest="blend" />
 		<ePixmap pixmap="skin_default/buttons/button_yellow.png" position="60,390" size="21,21" alphatest="blend" />
 		<ePixmap pixmap="skin_default/buttons/button_blue.png" position="60,430" size="21,21" alphatest="blend" />
-		<widget name="key_red" position="90,308" size="300,26" font="Regular;24" halign="left" valign="top" backgroundColor="#000000" foregroundColor="#ffffff" transparent="1" />
-		<widget name="key_green" position="90,348" size="300,26" font="Regular;24" halign="left" valign="top" backgroundColor="#000000" foregroundColor="#ffffff" transparent="1" />
-		<widget name="key_yellow" position="90,388" size="300,26" font="Regular;24" halign="left" valign="top" backgroundColor="#000000" foregroundColor="#ffffff" transparent="1" />
-		<widget name="key_blue" position="90,428" size="300,26" font="Regular;24" halign="left" valign="top" backgroundColor="#000000" foregroundColor="#ffffff" transparent="1" />
+		<widget name="key_red" position="90,305" size="300,28" font="Regular;24" halign="left" valign="top" backgroundColor="#000000" foregroundColor="#ffffff" transparent="1" />
+		<widget name="key_green" position="90,345" size="300,28" font="Regular;24" halign="left" valign="top" backgroundColor="#000000" foregroundColor="#ffffff" transparent="1" />
+		<widget name="key_yellow" position="90,385" size="300,28" font="Regular;24" halign="left" valign="top" backgroundColor="#000000" foregroundColor="#ffffff" transparent="1" />
+		<widget name="key_blue" position="90,425" size="300,28" font="Regular;24" halign="left" valign="top" backgroundColor="#000000" foregroundColor="#ffffff" transparent="1" />
 		<ePixmap position="60,270" size="35,25" zPosition="10" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" transparent="1" alphatest="blend" />
 		<ePixmap position="135,270" size="35,25" zPosition="10" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" transparent="1" alphatest="blend" />
 		<ePixmap position="215,270" size="35,25" zPosition="10" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" transparent="1" alphatest="blend" />
@@ -515,7 +515,7 @@
 		<widget name="DescriptionBorder" position="0,0" size="0,0" />
 		<widget name="CoverPreview" position="60,479" size="120,180" zPosition="3" alphatest="blend" />
 		<ePixmap position="0,0" size="1280,720" zPosition="-1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/background.png" alphatest="blend" />
-		<widget name="backdrop" zPosition="-2" position="0,0" size="1280,720" alphatest="on" />
+		<widget name="backdrop" zPosition="-2" position="0,0" size="1280,720" alphatest="blend" transparent="1" />
 	</screen>
 	<screen name="AdvancedMovieSelection1" position="center,center" size="1280,720" title=" " flags="wfNoBorder">
 		<!--widget source="global.MovieDir" render="Label" position="60,40" size="1050,29" zPosition="3" font="Regular;26" transparent="1"/ -->
@@ -558,10 +558,10 @@
 		<ePixmap pixmap="skin_default/buttons/button_green.png" position="290,643" size="21,21" alphatest="blend" />
 		<ePixmap pixmap="skin_default/buttons/button_yellow.png" position="580,643" size="21,21" alphatest="blend" />
 		<ePixmap pixmap="skin_default/buttons/button_blue.png" position="870,643" size="21,21" alphatest="blend" />
-		<widget name="key_red" position="90,641" size="300,26" font="Regular;24" halign="left" valign="top" transparent="1" />
-		<widget name="key_green" position="320,641" size="300,26" font="Regular;24" halign="left" valign="top" transparent="1" />
-		<widget name="key_yellow" position="610,641" size="300,26" font="Regular;24" halign="left" valign="top" transparent="1" />
-		<widget name="key_blue" position="900,641" size="300,26" font="Regular;24" halign="left" valign="top" transparent="1" />
+		<widget name="key_red" position="90,638" size="300,28" font="Regular;24" halign="left" valign="top" transparent="1" />
+		<widget name="key_green" position="320,638" size="300,28" font="Regular;24" halign="left" valign="top" transparent="1" />
+		<widget name="key_yellow" position="610,638" size="300,28" font="Regular;24" halign="left" valign="top" transparent="1" />
+		<widget name="key_blue" position="900,638" size="300,28" font="Regular;24" halign="left" valign="top" transparent="1" />
 		<ePixmap position="1065,641" size="35,25" zPosition="10" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" transparent="1" alphatest="blend" />
 		<ePixmap position="1105,641" size="35,25" zPosition="10" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" transparent="1" alphatest="blend" />
 		<ePixmap position="1145,641" size="35,25" zPosition="10" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" transparent="1" alphatest="blend" />
@@ -875,10 +875,10 @@
 		<ePixmap pixmap="skin_default/buttons/button_green.png" position="290,643" size="21,21" alphatest="blend" />
 		<ePixmap pixmap="skin_default/buttons/button_yellow.png" position="580,643" size="21,21" alphatest="blend" />
 		<ePixmap pixmap="skin_default/buttons/button_blue.png" position="870,643" size="21,21" alphatest="blend" />
-		<widget name="key_red" position="90,641" size="300,26" font="Regular;24" halign="left" valign="top" transparent="1" />
-		<widget name="key_green" position="320,641" size="300,26" font="Regular;24" halign="left" valign="top" transparent="1" />
-		<widget name="key_yellow" position="610,641" size="300,26" font="Regular;24" halign="left" valign="top" transparent="1" />
-		<widget name="key_blue" position="900,641" size="300,26" font="Regular;24" halign="left" valign="top" transparent="1" />
+		<widget name="key_red" position="90,638" size="300,28" font="Regular;24" halign="left" valign="top" transparent="1" />
+		<widget name="key_green" position="320,638" size="300,28" font="Regular;24" halign="left" valign="top" transparent="1" />
+		<widget name="key_yellow" position="610,638" size="300,28" font="Regular;24" halign="left" valign="top" transparent="1" />
+		<widget name="key_blue" position="900,638" size="300,28" font="Regular;24" halign="left" valign="top" transparent="1" />
 		<ePixmap position="1065,641" size="35,25" zPosition="10" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" transparent="1" alphatest="blend" />
 		<ePixmap position="1105,641" size="35,25" zPosition="10" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" transparent="1" alphatest="blend" />
 		<ePixmap position="1145,641" size="35,25" zPosition="10" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" transparent="1" alphatest="blend" />
