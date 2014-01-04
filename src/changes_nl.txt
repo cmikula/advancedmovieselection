@@ -350,5 +350,6 @@ versie: 3.2.2
 
 versie: 3.3
 * nieuw: backdrop view
+* nieuw: show available plugins menu with long menu button
 OPGELET voor de skinners, verwijder alle HD en _HD extensies, idem voor SD of XD
 nieuwe screens: AdvancedMovieSelection_Backdrop, AdvancedMovieSelectionEventView_Backdrop, TMDbMain_Backdrop

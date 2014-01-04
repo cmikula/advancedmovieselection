@@ -159,7 +159,9 @@ def ScanLocationBox(session, text, dir, minFree = None):
     return LocationBox(session, text = text, currDir = dir, bookmarks = config.AdvancedMovieSelection.videodirs, autoAdd = False, editDir = False, inhibitDirs = inhibitDirs, minFree = minFree)
 
 class MovieContextMenu(Screen):
-    def __init__(self, session, csel, service):
+    MODE_NORMAL = 0
+    MODE_PLUGIN = 1
+    def __init__(self, session, csel, service, mode=MODE_NORMAL):
         Screen.__init__(self, session)
         self.csel = csel
         self.service = service
@@ -169,6 +171,15 @@ class MovieContextMenu(Screen):
                 "cancel": self.cancelClick
             })
         menu = []
+        self["menu"] = MenuList(menu)
+
+        if mode == self.MODE_PLUGIN and not self.service.flags & eServiceReference.mustDescent:
+            menu.extend([(p.description, boundFunction(self.execPlugin, p)) for p in plugins.getPlugins(PluginDescriptor.WHERE_MOVIELIST)])
+            self.onShown.append(self.setWindowTitlePlugin)
+            return
+        
+        self.onShown.append(self.setWindowTitle)
+
         if config.AdvancedMovieSelection.use_wastebasket.value and config.AdvancedMovieSelection.show_wastebasket.value:
             menu.append((_("Wastebasket"), self.waste))
         if config.AdvancedMovieSelection.show_filter_by_description.value:
@@ -290,11 +301,12 @@ class MovieContextMenu(Screen):
             menu.append((_("Select scan locations for movie library"), self.selectScanLocations))
         if config.AdvancedMovieSelection.showmenu.value:
             menu.append((_("Setup"), boundFunction(self.menusetup)))
-        self["menu"] = MenuList(menu)
-        self.onShown.append(self.setWindowTitle)
 
     def setWindowTitle(self):
         self.setTitle(_("Advanced Movie Selection Menu"))
+
+    def setWindowTitlePlugin(self):
+        self.setTitle(_("Available plugins"))
 
     def openBackupRestore(self):
         from AdvancedMovieSelectionSetup import BackupRestore
@@ -766,9 +778,10 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                 "showMovies": (self.doPathSelect, _("Select the movie path")),
                 "showRadio": (self.radioButton, _("Multiselection")),
             })
-        self["MovieSelectionActions"] = HelpableActionMap(self, "MovieSelectionActions",
+        self["AMSMenuActions"] = HelpableActionMap(self, "AMSMenuActions",
             {
-                "contextMenu": (self.doContext, _("Advanced movielist menu")),
+                "menu": (self.doContext, _("Advanced movielist menu")),
+                "menu_long": (self.doContextPlugin, _("Available plugins menu")),
                 "showEventInfo": (self.showEventInformation, _("Show event details")),
             })
         self["OkCancelActions"] = HelpableActionMap(self, "OkCancelActions",
@@ -781,7 +794,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                 "nextBouquet": (self.nextBouquet, _("Video preview jump forward")),
                 "prevBouquet": (self.prevBouquet, _("Video preview jump backward")),
             })
-        
         self["ChannelSelectBaseActions"] = HelpableActionMap(self, "ChannelSelectBaseActions",
             {
                 "nextMarker": (self.nextMarker, _("Jump to next marker")),
@@ -1139,6 +1151,11 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             else:
                 self.saveconfig()
                 self.close(current)
+
+    def doContextPlugin(self):
+        current = self.getCurrent()
+        if current is not None:
+            self.session.open(MovieContextMenu, self, current, MovieContextMenu.MODE_PLUGIN)
 
     def doContext(self, retval=None):
         current = self.getCurrent()
