@@ -27,7 +27,7 @@ from Components.MenuList import MenuList
 from Components.Sources.StaticText import StaticText
 from Screens.HelpMenu import HelpableScreen
 from MovieList import MovieList
-from Components.DiskInfo import DiskInfo
+from Source.DiskInfo import DiskInfo
 from Components.Pixmap import Pixmap
 from Components.Label import Label
 from Components.config import config, ConfigSubsection, ConfigText, ConfigInteger, ConfigLocations, ConfigSet
