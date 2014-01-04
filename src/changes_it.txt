@@ -1,0 +1,361 @@
+versione: 0.1
+* prima beta :)
+
+versione: 0.2
+* corretto: crash impostazione tasti colore
+* novità: mostra la cover
+
+versione: 0.3
+* novità: ricerca info film su tmdb
+* novità: scarica info/cover del film su tmdb
+
+versione: 0.4
+* modifiche del layout
+
+versione: 0.5
+* novità: schermata info del film (tasto info)
+* novità: le info/cover del film  possono anche essere mostrate per i film non *.ts durante la visione
+* novità: display lcd/oled
+* novità: ricerca manuale in scarica info/cover del film
+* cambiato: molte cose nella skin ;)
+
+versione: 0.6
+* corretto: crash nel menu di ricerca tmdb
+* novità: più servizie possono essere mostrati nei display lcd/oled
+* novità: opzioni info/cover del film nel menu elenco film
+
+versione: 0.7
+* novità: cancellazione anche dei files *.cutsr e *.gm se disponibili
+* corretto: mostra la descrizione del film quando una cartella è selezionata
+* corretto: ricerca su tmdb con utf8
+* novità: merlinepg può essere avviata durante la visione con la pressione prolungata del tasto info
+* novità: il comportamento durante inizio/stop/fine del film può essere configurato nelle impostazioni
+
+versione: 0.8
+* corretto: finalmente cancellazione dei files *.cutsr e *.gm - si spera :)
+* novità: impostare la posizione della Moviebar
+
+versione: 0.9
+* novità: plugin tradotto al 100%
+* novità: la cooltvguide può essere avviate durante la riproduzione con la pressione prolungata del tasto info
+* cambiato: display lcd/oled, le info del film con la cover ed info lunghe funzionano anche quando la visualizzazione della cover è disabilitata nell'elenco film
+* corretto: crash durante la rinominazione
+
+versione: 1.0
+* cambiato: impostazioni del plugin spostate da menu -> impostazioni -> sistema a menu -> impostazioni
+* cambiato: alcune stringhe a causa delle skins
+* novità: richiesta di riavvio del box o della sola Enigma2 quando si disabilita il plugin
+* cambiato: altezza elenco pe le skins
+* novità: si può modificare il colore per lo stato dei film nell'elenco
+* novità: si può abilitare/disabilitare la data nell'elenco film
+* novità: si può abilitare/disabilitare la lunghezza nell'elenco film
+* novità: si può cambiare il formato della data nell'elenco film
+* novità: traduzione olandese (grazie @ Bschaar)
+* cambiato: blu sel.png invece del grigio per la skin standar (grazie @ Joachim_Ernst)
+* corretto: ordinare l'assegnazione dei pulsanti
+Skinners ATTENZIONE: le schermate AdvancedMovieSelectionButtonSetupSD, AdvancedMovieSelectionButtonSetupXD, AdvancedMovieSelectionButtonSetupHD sono cambiate
+
+versione: 1.1
+* novità: on/off del nome del canale nella lista singola linea avanzata
+* novità: icona nell'elenco film per le nuove registrazioni (disponibile solo con installata gp3)
+* novità: l'icona nell'elenco film per le nuove registrazioni può essere impostata su on/off (disponibile solo con installata gp3)
+* cambiato: traduzione olandese
+* novità: cover visualizzata per le cartelle (il relativo jpg deve essere disponibile nella cartella)
+
+versione: 1.2
+* novità: la mini tv può essere impostata on/off
+* corretto: testi sovrapposti con caratteri "strani" :)
+* corretto: memorizzazione impostazioni per in nome del canale
+* corretto: visualizzazione della cover con la struttura del file del dvd
+* corretto: creazione errata di meta files con la struttura del file del dvd
+* corretto: creazione del file eit quando sono presenti i caratteri <= 2
+* corretto: cancellazione completa del dvd, cover ed info del film con la struttura del file del dvd
+Skinners ATTENZIONE: aggiunte nuove schermate
+
+versione: 1.3
+* novità: nome della cartella invece di cartella.jpg per la visualizzazione delle covers con le cartelle (può essere impostato on/off nelle impostazioni)
+* corretto: crash quando si riproduce con il browser dei files gp3 se il film è stato prima riprodotto con AMS
+* corretto: marcatori aggiunti  con 0 non visualizzati
+* corretto: anno troncato con la data standars nell'elenco film
+
+versione: 1.4
+* corretto: visualizzazione compatta nell'elenco film quando sono disponibili i tags
+* novità: editore tag nei plugins (può essere impostato on/off nelle impostazioni)
+* novità: i tags possono essere assegnati ai timers ed agli autotimers
+* novità: visualizzare tags può essere impostato on/off nell'elenco film (funzione disponibile nell'elenco standard/compatto ed avanzato se sono disattivati i nomi dei canali) 
+* novità: avviare automaticamente il film dal primo marcatore (può essere impostato su on/off nelle impostazioni)
+* novità: un filtro secondo i tags può essere assegnato ad un tasto colorato e/o visualizzati nel menu dell'elenco film
+
+versione: 1.5
+* novità: se è installato il plugin yttrailer, può essere avviato dal menu dell'elenco film (può essere impostato su on/off nelle impostazioni), pò anche essere assegnato ad un tasto colorato
+* novità: la funzione spostare/copiare può essere assegnata ad un tasto colorato 
+* cambiato: traduzione olandese (grazie @ Bschaar)
+
+versione: 1.6
+* novità: descrizione del film scorrevole durante ricerca/download covers/info (tasti sinistra/destra)
+* novità: descrizione del film scorrevole in info
+* novità: il tasto exit può essere impostato per fermare la riproduzione
+* novità: l'opzione scaricare info/cover per tutti i film può essere cambiata in on/of nelle impostazioni
+* novità: durante la ricerca info/cover l'elenco film è ricaricato dopo l'uscita/salvataggio
+* cambiato: rinominazione per altri tipi di files
+* cambiato: rinominazione non più visualizzata come plugin dei film
+* cambiato: traduzione olandese (grazie @ Bschaar)
+* corretto: salvare info/cover del film con la ricerca tmdb
+* corretto: testi di aiuto
+* corretto: alcune cose interne :)
+Skinners ATTENZIONE: le schermate AdvancedMovieSelectionEventViewSD, AdvancedMovieSelectionEventViewXD, AdvancedMovieSelectionEventViewHD sono cambiate
+
+versione: 1.7
+* novità: i segnalibri possono essere visualizzati nell'elenco film
+* novità: la funzione mostrare/nascondere segnalibri può essere assegnata ad un tasto colorato
+* novità: ricerca e salva cover/film info su tmdb per singolo film può essere avviata ada un tasto colorato
+* novità: l'icona per le nuove registrazioni nell'elenco film può essere impostato dal menu, oppure se attivato può essere resettato automaticamente quando si imposta il film come non visto (attivo solo con installata gp3)
+* novità: la funzione impostare il film come visto/non visto può essere assegnata ad un tasto colorato, anche il reset dell'icona può essere impostato
+* novità: i messaggi info possono essere abilitati/disabilitati
+* novità: funzioni di salto alternative
+* cambiato: la funzione impostare il film come visto/non visto è visualizzata solo con il film selezionato
+* cambiato: traduzione olandese (grazie @ Bschaar)
+* cambiato: la cover viene memorizzata anche quando non è disponibile nessuna descrizione
+* corretto: crash nello scaricare cover/info quando il servizio internet non è disponibile
+
+version: 1.8
+* novità: due nuove opzioni quando termina il film (deep standby e standby del box)
+* novità: cestino
+* novità: info nell'elenco film e cestino quando è attivata la conferma prima di cancellare
+* novità: eliminare il film quando non è possibile completare la registrazione
+* novità: avviare il film dall'inizio quando fermato "x" minuti prima della fine
+* novità: mostrare il logo del canale per le registrazioni del box quando non è disponibile la cover
+* corretto: memorizzare segnalibri on/off quando cambiati con i tasti colorati
+* corretto: eliminare i segnalibri nella funzione di cancellazione nell'elenco film
+* corretto: migliorata la ricerca di info/cover del film con '-' nel titolo del film
+Skinners ATTENZIONE: tutte le schermate per l'elenco film hanno voci supplementari(4 ex./resolution), AdvancedMovieSelectionTrashHD, AdvancedMovieSelectionTrashXD e AdvancedMovieSelectionTrashSD sono nuove
+
+version: 1.9
+* novità: i dispositivi usb possono essere visualizzati nell'elenco film
+* novità: visualizzare il logo del canale on/off
+* novità: zoommare il logo del canale o lasciare la dimensione originale
+* novità: è possibile selezionare il percorso per i loghi dei canali
+* novità: icona indietro invece della cartella
+* novità: nascondere files/cartelle (con gp3 su gemini_DateiBrowser.conf e con immagini cvs suAdvancedMovieSelection.conf in /etc/enigma2)
+* cambiato: funzione visualizzazione logo del canale (ora senza il proprio render)
+Skinners ATTENZIONE: AdvancedMovieSelectionCoverHD, AdvancedMovieSelectionCoverCD ,AdvancedMovieSelectionCoverSD sono stati rimossi (quindi cambiamenti in AdvancedMovieSelectionHD, AdvancedMovieSelectionXD o AdvancedMovieSelectionSD)
+
+versione: 2.0
+* novità: selezione multipla (con il tasto radio)
+* novità: è possibile impostare il colore per la selezione multipla
+* novità: descrizione del fim e cover/logo del canale visualizzati nella Moviebar (se la schermata MoviePlayerExtended è disponibile nella skin)
+* novità: cancellare la registrazione attiva, incluso il timer (con o senza conferma)
+* novità: la funzione cestino può essere assegnata ai tasti colorati e cambiata in on/off nel menu
+* novità: i loghi dei canali sono visualizzati centrati anche con le dimensioni originali
+* novità: se la descrizione breve è disponibile è visualizzata nell'elenco film e sul display lcd/oled durante la riproduzione
+* novità: mostrare quando è riprodotto un film dalla skin attiva o dal plugin
+* cambiato: funzione per avviare dall'ultima cartella attiva (solo quando si apre l'elenco film, non più quando si ferma la riproduzione)
+* cambiato: traduzione olandese
+* cambiato: mostrare cover nelle info del film (se la cover non è disponible ed il film è una registrazione del box sarà usato il logo del canale)
+Skinners ATTENZIONE: AdvancedMovieSelectionInfoCoverHD, AdvancedMovieSelectionInfoCoverXD, AdvancedMovieSelectionInfoCoverSD rimosse (quindi cambiamenti in AdvancedMovieSelectionEventViewHD, AdvancedMovieSelectionEventViewXD o AdvancedMovieSelectionEventViewSD)
+ 
+versione: 2.1
+* corretto: il display lcd/oled mostra quando il titolo del film e la descrizione breve sono uguali
+* corretto: crash quando il tag nel menu timer viene cambiato
+* corretto: crash quando manca la lunghezza del film
+* novità: cestino svuotato automaticamente
+* novità: quando disponibile, il genere è mostrato nell'elenco film (solo per i files non *.ts)
+
+versione: 2.2
+* corretto: errori segnalati nella v. 2.1
+* corretto: eliminare con selezione multipla quando sono selezionate le registrazioni attive
+* cambiato: spazi difettosi (planks)
+* cambiato: traduzione olandese
+* novità: cartelle e film possono essere rinominate
+* novità: richiesta di cancellazione del film e ritorno all'elenco film
+* novità: pigiando a lungo il tasto info merlinepgcenter può essere avviato durante la riproduzione
+* novità: con la descrizione breve mancante il display oled/lcd può mostrare la data della registrazione, l'ora della registrazione oppure la data attuale
+Skinners ATTENZIONE: le schermate AdvancedMovieSelection_summary e MoviePlayerExtended_summary possono usare <widget source="Seperator" (la linea di separazione è mostrata automaticamente)
+AdvancedMovieSelection_Rename_HD, AdvancedMovieSelection_Rename_XD e AdvancedMovieSelection_Rename_SD sono nuovi
+
+versione: 2.2.1
+* corretto: bug eliminare senza cestino
+
+versione: 2.3
+* novità: manutenzione a distanza (svuotare cestino dai box remoti), possibile solo con il cestino attivato
+* novità: mostra la lunghezza del film per i files non *.ts dal file eit se disponibile
+* novità: visualizzazione delle dimensioni delle cartelle/segnalibri nell'elenco film (con o senza sottocartelle e parametri configurabili nelle impostazioni)
+* novità: rinominare segnalibri
+* cambiato: nuove registrazione visualizzate anche senza gp3
+* cambiato: la richiesta di conferma per la cancellazione visualizzata solo quando sono abilitati i messaggi info
+* cambiato: la descrizione breve è mostrata se non corrisponde al titolo del film (nell'elenco singola linea)
+* corretto: svegliare l'hdd dallo standby 
+Skinners ATTENZIONE: AdvancedMovieSelection_ClientSetup_HD, AdvancedMovieSelection_ClientSetup_XD e AdvancedMovieSelection_ClientSetup_SD sono nuovi, inoltre in AdvancedMovieSelectionSetupHD,XD e SD è stato aggiunto <widget name="MenuIcon"
+
+versione: 2.4
+* novità: percentuale o barra di avanzamento (progressbar) nell'elenco film
+* novità: dimensione del file in mb/gb, con gb fino a 3 decimali selezionabile nel cestino
+file size in mb/gb, with gb up to 3 decimals selectable in trashcan
+* novità: visualizzazione dello stato del cestino (numero di files e dimensione totale dei files nel cestino)
+* novità: manutenzione a distanza selezionabile sul pulsante del menu nel cestino
+* novità: aggiunta visualizzazione elenco standard (avanzato)
+* novità: valutazione con stelle per la ricerca tmdb & d/l 
+* novità: il server di manutenzione remota può essere commutato on/off
+* novità: mostrare cartelle (on/off) può essere assegnato ai tasti colorati
+* novità: segnare il film come visto/non visto (in modalità commutazione) può essere assegnato ai tasti colorati
+* novità: ordinamento come da descrizione
+* novità: se non viene trovata nessuna corrispondenza con ricerca tmdb & d/l ed un "&" è presente nella stringa di ricerca, la parte prima della "&" viene cercata ancora automaticamente
+* novità: accesso all'elenco timers tramite i tasti colorati
+* corretto: nuova icona di registrazione se l'icona di stato è disattivata ed il film è segnato come visto
+* corretto: non mostrare cover/logo canale se è disattivata la descrizione del film
+* corretto: selezione plugins tramite tasti colorati dopo aver cambiato la lingua predefinita (bisogna riassegnare le funzioni)
+* corretto: crash con caratteri speciali nella ricerca su tmdb nelle info avanzate
+* corretto: ricerca e download su tmdb se l'inglese è la lingua predefinita
+* corretto: ricerca tmdb & d/l per files con estensioni *.ts
+* cambiato: info avanzata per ricerca tmdb & d/l ampliata
+* cambiato: testo del segnalibro se il segnalibro on/off è assegnato al tasto colorato
+* cambiato: nessuna immagina cover (in Tedesco ed in Inglese)
+Skinners ATTENZIONE: le schermate AdvancedMovieSelectionTrashHD, AdvancedMovieSelectionTrashXD, AdvancedMovieSelectionTrashSD, TMDbMainHD, TMDbMainXD e TMDbMainSD sono cambiate
+
+versione: 2.4.1
+* corretto: crash con dvd nell'elenco film (grazie @ b_lisa per la segnalazione)
+* corretto: crash con la commutazione sul tasto radio (grazie @ Nightrider per la segnalazione)
+
+versione: 2.5
+* novità: cercare e salvare info/cover da thetvdb.com (@thetvdb.com grazie per le api)
+search ans save info/cover from thetvdb.com (@thetvdb.com thx for the api key)
+* novità: mostra cover per serie (il relativo jpg deve essere nella cartella/percorso)
+* cambiato: diverse funzioni interne per tmdb info & d/l
+* corretto: funzioni avvia e riprendi del DVD-Player
+* corretto: tagli rimanenti dopo l'eliminazione
+* corretto: rinominare film ts senza meta file
+* corretto: crash con il plugin enigma2-plugin-systemplugins-eventnavigator
+Skinners ATTENZIONE: TMDbMainHD, TMDbMainXD,TMDbMainSD sono cambiati, le schermate TheTVDBMainHD, TheTVDBMainXD,and TheTVDBMainSD sono nuove
+
+versione: 2.5.1
+* novità: nella visione delle info del film il film precedente/seguente può essere selezionato con i tasti sinistra/destra
+* corretto: serie non sempre trovate su tvdb
+* corretto: files restanti dopo la cancellazione senza cestino
+* corretto: assegnazione di tags per i film non .ts
+* corretto: crash con mostra il cestino
+* corretto: crash nel rinominare film senza meta file
+
+versione: 2.6
+* novità: anteprima del film selezionato nell'elenco film
+* novità: controllare se segnalibri/supporti sono online
+* novità: mostra cambiamenti per le versioni
+* novità: cambiamenti in Tedesco, Inglese e Olandese
+* corretto: riproduzione dvd da files .img
+* corretto: riprendere per dvd
+* corretto: crash con le impostazioni delle cartelle se non comprese nella skin
+crash with directory settings if not skinned
+* corretto: cancellazione info e cover di film per files non .ts
+Skinners ATTENZIONE: AdvancedMovieSelectionAboutDetails_HD, AdvancedMovieSelectionAboutDetails_XD e AdvancedMovieSelectionAboutDetails_SD sono nuovi
+
+versione: 2.6.1
+* corretto: crash durante lo svuotamento del cestino
+* corretto: cancellazione dvd
+
+versione: 2.6.2
+* corretto: DVDPlayer crash (opendreambox-2.0.0)
+
+versione: 2.6.3
+* corretto: i film non sono sempre mostrati
+
+versione: 2.7
+* corretto: mostra e salva descrizioni (eit) in Cirillico
+* novità: riproduzione di dischi blu-ray (iso e strutture)
+* novità: anteprima del film a schermo intero
+* novità: autoregolazione volontaria con sincronizzazione da tmdb
+* novità: i film registrati sono segnalati nell'EPG (configurabile nelle impostazioni)
+* novità: i film possono essere filtrati in base alla descrizione
+* novità: possibilità di scegliere se sovrascrivere le info da tmdb o tvdb
+* novità: backup e ripristino delle impostazioni di AMS
+* novità: download automatico della cover da tmdb al termine della registrazione programmata
+Skinners ATTENZIONE: AdvancedMovieSelection_Preview_HD, AdvancedMovieSelection_Preview_noDescription_HD, AdvancedMovieSelection_Preview_noCover_HD, AdvancedMovieSelection_Preview_noDescription_noCover_HD,
+AdvancedMovieSelection_Preview_XD, AdvancedMovieSelection_Preview_noDescription_XD, AdvancedMovieSelection_Preview_noCover_XD, AdvancedMovieSelection_Preview_noDescription_noCover_XD (SD non ha senso)
+AdvancedKeyBoardHD, AdvancedKeyBoardXD, AdvancedKeyBoardSD, AdvancedTextInputHelpDialogHD, AdvancedTextInputHelpDialogXD e AdvancedTextInputHelpDialogSD sono nuovi
+
+versione: 2.8
+* novità: cambiamenti mostrati automaticamente dopo l'aggiornamento di AMS
+* novità: DVDPlayerExtended con CoverPreview e InfoView
+* novità: uscita da dvd player con il tasto exit senza richiesta di coferma
+* novità: la cover da tmdb può essere selezionata con i tasti sinistra/destra
+* novità: spostamento e copia del film con visione dell'avanzamento
+* novità: i plugins thetvdb, tmdb, ofdb e imdb possono essere aperti direttamente dalle info del film
+* novità: la funzione di ordinamento è memorizzata per ogni cartella e viene mostrata prima del percorso della posizione del film
+Skinners ATTENZIONE: MoveCopyProgressHD, MoveCopyProgressXD e MoveCopyProgressSD sono nuovi, AdvancedMovieSelectionEventView(SD, XD, HD) è cambiato e AdvancedMovieSelectionButtonSetup(SD, XD, HD) <widget source="important".. è stato rimosso
+
+versione: 2.9
+* novità: le funzioni di ordinamento possono essere scelte per quickbutton
+* novità: il percorso di backup verrà memorizzato
+* novità: visti/non visti con selezione multipla
+* novità: controllo dello spazio libero della destinazione prima di copiare/spostare
+* novità: l'avanzamento di copiare/spostare può essere disabilitato
+* novità: la riproduzione continua può essere avviata o interrotta nel menu alla fine del film
+Skinners ATTENZIONE: SelectionListScreen(SD, XD, HD) sono nuovi
+
+versione: 3.0
+* novità: seleziona funzione per la pressione prolungata dei tasti colorati
+* novità: ora si possono assegnare 8 segnalibri diversi i tasti colorati
+* novità: nuova ricerca diretta con i tasti numerici del telecomando o della tastiera
+* novità: database per posizioni selezionate
+* novità: ricerca rapida nel database
+* novità: visualizzazione rapida di tutti i files del database
+* novità: ordinamento rapido di tutti i files del database
+* novità: dimensione del file mostrata solo per le cartelle nel database
+* novità: ricerca tmdb e tvdb per le cartelle
+* novità: info per le cartelle
+* change: mostrare segnalibri senza mostrare le cartelle
+* corretto: risolto errore con cancellare
+Skinners ATTENZIONE: PopupInputDialog e PopupInputHelpDialog sono nuovi
+
+versione: 3.0.1
+* corretto: crash su oe1.6
+
+versione: 3.0.2
+* corretto: abilita/disabilita cestino
+* corretto: nascondere la cover su cancellazione ultimo film
+* corretto: mostrare/nascondere simbolo del film 
+* corretto: ordinamento ascendente
+* corretto: descrizione del filtro nel database
+* corretto: ordinamento database se i tags sono selezionati
+* cambiato: filtrare breve descrizione con contenente testo invece di piena corrispondenza
+* cambiato: info visualizzazione espansa se attivo: fascia d'età, filtro descrizione breve
+
+versione: 3.0.3
+* corretto: disabilitate le impostazioni per il simbolo di stato del film per le cartelle
+* novità: scambio database/lista dei film con quickbutton
+
+versione: 3.0.4
+* corretto: TVDB Info&D/L
+* corretto: problema di prestazioni all’apertura della lista dei film
+* novità: traduzione in italiano (grazie @ mikark)
+
+versione: 3.1
+* cambiato: libreria dei film
+* novità: l’ultimo film selezionato sarà mostrato dopo lo standby/riavvio
+* novità: tempo di conservazione dei film nel cestino
+* novità: opzione per mostrare l’uso del disco nella descrizione
+* corretto: crash dopo copia
+Skinners ATTENZIONE: AdvancedMovieSelection_summary e MoviePlayerExtended_summary sono cambiati
+
+versione: 3.1.1
+* corretto: nascondere i separatori
+* corretto: transparenza per le immagini
+* corretto: opzioni archivio movie player
+
+versione: 3.2
+* cambiato: tmdb api v3
+
+versione: 3.2.1
+* corretto: mostra e salva descrizioni( eit) in cirillico
+* novità: dimensioni della cover importabile per il download da tmdb
+* novità: quickbutton: mostra solo nuovi film/mostra tutti i film
+
+versione: 3.2.2
+* corretto: crash su ricerca nascosta su tmdb finita
+* corretto: inizia dall’ultima cartella nella libreria dei film
+* corretto: errore di indice di ricerca tmdb
+* corretto: crash su errore di zapping 
+
+versione: 3.3
+* novità: visualizzazione dello sfondo
+* novità: mostra il menu plugins disponibili con la pressione prolungata del tasto menu
+Skinners ATTENZIONE: rimuovere tutte le estensioni HD e _HD, stessa cosa per SD o XD
+Nuove schermate: AdvancedMovieSelection_Backdrop, AdvancedMovieSelectionEventView_Backdrop, TMDbMain_Backdrop

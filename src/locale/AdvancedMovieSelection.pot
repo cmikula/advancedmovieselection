@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection(POT)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-04 10:07+0100\n"
-"PO-Revision-Date: 2014-01-04 10:07+0100\n"
+"POT-Creation-Date: 2014-01-04 19:42+0100\n"
+"PO-Revision-Date: 2014-01-04 19:42+0100\n"
 "Last-Translator: cmikula\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "Language: de_AT\n"
@@ -419,7 +419,7 @@ msgid "Wastebasket is empty!"
 msgstr ""
 
 #: ../Wastebasket.py:308
-#: ../MovieSelection.py:837
+#: ../MovieSelection.py:836
 #, python-format
 msgid "Do you really want to delete %s?"
 msgstr ""
@@ -436,7 +436,7 @@ msgid "Do you really want to delete all movies?"
 msgstr ""
 
 #: ../Wastebasket.py:341
-#: ../MovieSelection.py:904
+#: ../MovieSelection.py:903
 msgid "Delete failed!"
 msgstr ""
 
@@ -459,7 +459,7 @@ msgstr ""
 
 #: ../plugin.py:125
 #: ../plugin.py:126
-#: ../MovieSelection.py:956
+#: ../MovieSelection.py:955
 msgid "Advanced Movie Selection"
 msgstr ""
 
@@ -537,7 +537,7 @@ msgstr ""
 #: ../MoveCopy.py:49
 #: ../MoveCopy.py:125
 #: ../MoveCopy.py:278
-#: ../MovieSelection.py:1142
+#: ../MovieSelection.py:1141
 msgid "Error"
 msgstr ""
 
@@ -936,8 +936,8 @@ msgid "Show up to"
 msgstr ""
 
 #: ../QuickButton.py:382
-#: ../MovieSelection.py:1216
-#: ../MovieSelection.py:1318
+#: ../MovieSelection.py:1215
+#: ../MovieSelection.py:1317
 msgid "VSR"
 msgstr ""
 
@@ -1020,7 +1020,7 @@ msgstr ""
 
 #: ../AdvancedMovieSelectionSetup.py:165
 #: ../AdvancedMovieSelectionSetup.py:569
-#: ../MovieSelection.py:969
+#: ../MovieSelection.py:968
 msgid "Some settings changes require close/reopen the movielist to take effect."
 msgstr ""
 
@@ -2647,25 +2647,25 @@ msgstr ""
 msgid "Video preview jump backward"
 msgstr ""
 
-#: ../MovieSelection.py:800
+#: ../MovieSelection.py:799
 msgid "Jump to next marker"
 msgstr ""
 
-#: ../MovieSelection.py:801
+#: ../MovieSelection.py:800
 msgid "Jump to previous marker"
 msgstr ""
 
-#: ../MovieSelection.py:805
+#: ../MovieSelection.py:804
 msgid "Start/Stop video preview"
 msgstr ""
 
-#: ../MovieSelection.py:830
-#: ../MovieSelection.py:835
+#: ../MovieSelection.py:829
+#: ../MovieSelection.py:834
 #, python-format
 msgid "%s is currently recording!"
 msgstr ""
 
-#: ../MovieSelection.py:830
+#: ../MovieSelection.py:829
 #, python-format
 msgid ""
 "\n"
@@ -2675,12 +2675,12 @@ msgid ""
 "Do you really want to continue?"
 msgstr ""
 
-#: ../MovieSelection.py:832
+#: ../MovieSelection.py:831
 #, python-format
 msgid "Do you really want to move %s to trashcan?"
 msgstr ""
 
-#: ../MovieSelection.py:835
+#: ../MovieSelection.py:834
 #, python-format
 msgid ""
 "\n"
@@ -2690,74 +2690,74 @@ msgid ""
 "Do you really want to continue?"
 msgstr ""
 
-#: ../MovieSelection.py:839
+#: ../MovieSelection.py:838
 msgid "Recordings are active, the timer(s) will also be deleted!\n"
 msgstr ""
 
-#: ../MovieSelection.py:841
+#: ../MovieSelection.py:840
 msgid "Do you really want to move selected movies to trashcan?"
 msgstr ""
 
-#: ../MovieSelection.py:843
+#: ../MovieSelection.py:842
 msgid "Do you really want to delete selected movies?"
 msgstr ""
 
-#: ../MovieSelection.py:848
+#: ../MovieSelection.py:847
 msgid "This cannot deleted, please select a movie for!"
 msgstr ""
 
-#: ../MovieSelection.py:858
+#: ../MovieSelection.py:857
 msgid "this recording"
 msgstr ""
 
-#: ../MovieSelection.py:1174
+#: ../MovieSelection.py:1173
 msgid ""
 "Load Length of Movies in Movielist has been disabled.\n"
 "Close and reopen Movielist is required to apply the setting."
 msgstr ""
 
-#: ../MovieSelection.py:1236
+#: ../MovieSelection.py:1235
 msgid "Tag 1"
 msgstr ""
 
-#: ../MovieSelection.py:1241
+#: ../MovieSelection.py:1240
 msgid "Tag 2"
 msgstr ""
 
-#: ../MovieSelection.py:1321
+#: ../MovieSelection.py:1320
 msgid "Movie location:"
 msgstr ""
 
-#: ../MovieSelection.py:1323
+#: ../MovieSelection.py:1322
 msgid "Movie library"
 msgstr ""
 
-#: ../MovieSelection.py:1338
+#: ../MovieSelection.py:1337
 msgid "[Library update in progress]"
 msgstr ""
 
-#: ../MovieSelection.py:1362
+#: ../MovieSelection.py:1361
 msgid "Please select the movie path..."
 msgstr ""
 
-#: ../MovieSelection.py:1391
+#: ../MovieSelection.py:1390
 #, python-format
 msgid "Directory %s nonexistent."
 msgstr ""
 
-#: ../MovieSelection.py:1440
+#: ../MovieSelection.py:1439
 msgid "Please select tag to filter..."
 msgstr ""
 
-#: ../MovieSelection.py:1443
+#: ../MovieSelection.py:1442
 msgid "No tags are set on these movies."
 msgstr ""
 
-#: ../MovieSelection.py:1450
+#: ../MovieSelection.py:1449
 msgid "Please select the search path(s) for movies..."
 msgstr ""
 
-#: ../MovieSelection.py:1473
+#: ../MovieSelection.py:1472
 msgid ""
 "Use direction keys to move the Moviebar.\n"
 "Press OK button for save or the EXIT button to cancel.\n"
@@ -3207,6 +3207,18 @@ msgstr ""
 #: ../AdvancedMovieSelectionEventView.py:115
 #, python-format
 msgid "Movie location: %s"
+msgstr ""
+
+#: ../Source/DiskInfo.py:23
+msgid "free diskspace"
+msgstr ""
+
+#: ../Source/DiskInfo.py:25
+msgid "used diskspace"
+msgstr ""
+
+#: ../Source/DiskInfo.py:27
+msgid "total diskspace"
 msgstr ""
 
 #: ../Source/Config.py:30
