@@ -310,7 +310,7 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
     def startSearch(self):
         self.updateView(self.SHOW_SEARCH)
         self.setTitle(_("TMDb Info & D/L"))
-        self["status"].setText(_("Searching for ' %s ' on TMDb, please wait ...") % self.searchTitle)
+        self["status"].setText(_("Searching for '%s' on TMDb, please wait...") % self.searchTitle)
         self["status"].show()
         self.timer.start(100, True)
 
@@ -339,8 +339,8 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
             print "[SerchTMDB]", title, str(len(results))
             if len(results) == 0:
                 self.updateView(self.SHOW_SEARCH_NO_RESULT)
-                self["status"].setText(_("No data found for ' %s ' at themoviedb.org!") % self.searchTitle)
-                self.session.openWithCallback(self.askForSearchCallback, MessageBox, _("No data found for ' %s ' at themoviedb.org!\nDo you want to edit the search name?") % self.searchTitle)
+                self["status"].setText(_("No data found for '%s' at themoviedb.org!") % self.searchTitle)
+                self.session.openWithCallback(self.askForSearchCallback, MessageBox, _("No data found for '%s' at themoviedb.org!\nDo you want to edit the search name?") % self.searchTitle)
                 return             
             self.movies = []
             for movie in results:
@@ -358,14 +358,14 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
     def showMovieList(self):
         count = self["list"].getLength()
         if count == 1:
-            txt = (_("Total %s") % count + ' ' + _("movie found"))
+            txt = _("Total %d movie found") % count
             cur = self["list"].getCurrent()
             if cur is not None:
                 self.getMovieInfo(cur[0])
                 self.updateView(self.SHOW_MOVIE_DETAIL)
         else:
             self.updateView(self.SHOW_RESULT_LIST)
-            txt = (_("Total %s") % count + ' ' + _("movies found"))
+            txt = _("Total %d movies found") % count
         self["result_txt"].setText(txt) 
         
     def pageUp(self):
@@ -410,7 +410,7 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
                     description_text = description.encode('utf-8', 'ignore')
                     self["description"].setText(description_text)
                 else:
-                    self["description"].setText(_("No description for ' %s ' at themoviedb.org found!") % name)
+                    self["description"].setText(_("No description for '%s' at themoviedb.org found!") % name)
                 
                 if released:
                     extended += (_("Appeared: %s") % released) + ' / '
@@ -566,7 +566,7 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
     def green_pressed(self):
         if self.service is None:
             return
-        self.setTitle(_("Save Info/Cover for ' %s ', please wait ...") % self.searchTitle)  
+        self.setTitle(_("Save Info/Cover for '%s', please wait...") % self.searchTitle)  
         self.checkExistence(self.service.getPath())
         #self.green_button_timer.start(100, True) 
 
@@ -592,7 +592,7 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
         current_movie = self["list"].getCurrent()[0]
         title = current_movie.title.encode('utf-8')
         if text == self.TRAILER_SEARCH_TEXT:
-            self.setTitle(_("Search trailer for ' %s ', please wait ...") % title)
+            self.setTitle(_("Search trailer for '%s', please wait...") % title)
         self.blue_button_timer.start(100, True)
 
     def callback_blue_pressed(self):

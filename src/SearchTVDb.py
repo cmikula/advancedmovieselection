@@ -259,7 +259,7 @@ class TheTVDBMain(Screen, InfoLoadChoice):
     def startSearch(self):
         self.updateView(self.SHOW_SEARCH)
         self.setTitle(_("TheTVDB Info & D/L"))
-        self["status"].setText(_("Searching for ' %s ' on TheTVDB.com, please wait ...") % self.searchTitle)
+        self["status"].setText(_("Searching for '%s' on TheTVDB.com, please wait...") % self.searchTitle)
         self["status"].show()
         self.timer.start(100, True)
     
@@ -442,7 +442,7 @@ class TheTVDBMain(Screen, InfoLoadChoice):
             if overview:
                 overview = overview.encode('utf-8', 'ignore')
             else:
-                overview = _("Sorry, no description for ' %s ' at TheTVDB.com found!") % self.name
+                overview = _("Sorry, no description for '%s' at TheTVDB.com found!") % self.name
             
             cover_file = self.downloadCover(serie)
             self.setPoster(cover_file)
@@ -739,7 +739,7 @@ class TheTVDBMain(Screen, InfoLoadChoice):
     def green_pressed(self):
         if self.service is None:
             return
-        self.setTitle(_("Save Info/Cover for ' %s ', please wait ...") % self.searchTitle)  
+        self.setTitle(_("Save Info/Cover for '%s', please wait...") % self.searchTitle)  
         self.checkExistence(self.service.getPath())
 
     def callback_green_pressed(self, answer=None):
@@ -761,11 +761,11 @@ class TheTVDBMain(Screen, InfoLoadChoice):
     def red_pressed(self):
         text = self["key_red"].getText()
         if text == self.SHOW_DETAIL_TEXT:
-            self.setTitle(_("Getting show details for ' %s ', please wait ...") % self.getInfoText())   
+            self.setTitle(_("Getting show details for '%s', please wait...") % self.getInfoText())   
         elif text == self.TRAILER_SEARCH_TEXT:
-            self.setTitle(_("Search trailer for ' %s ', please wait ...") % self.getInfoText())
+            self.setTitle(_("Search trailer for '%s', please wait...") % self.getInfoText())
         elif text == self.SHOW_ALL_SERIES_TEXT:
-            self.setTitle(_("Getting search result for ' %s ', please wit ...") % (self.getInfoText()))
+            self.setTitle(_("Getting search result for '%s', please wait...") % (self.getInfoText()))
         self.red_button_timer.start(100, True)   
             
     def callback_red_pressed(self):
@@ -775,11 +775,11 @@ class TheTVDBMain(Screen, InfoLoadChoice):
     def blue_pressed(self):
         text = self["key_blue"].getText()
         if text == self.SHOW_ALL_EPISODES_TEXT:
-            self.setTitle(_("Getting episodes list for ' %s ', please wait ...") % self.getInfoText())
+            self.setTitle(_("Getting episodes list for '%s', please wait...") % self.getInfoText())
         elif text == self.SHOW_EPISODE_TEXT:
             cur_episode = self["episodes_list"].getCurrent()
             name = cur_episode[1]
-            self.setTitle(_("Getting episodes details for ' %s ', please wait ...") % name)
+            self.setTitle(_("Getting episodes details for '%s', please wait...") % name)
         self.blue_button_timer.start(100, True)
 
     def callback_blue_pressed(self):

@@ -141,7 +141,7 @@ class DownloadMovies(Screen):
             current = fetchingMovies.current
             total = fetchingMovies.total
             movie_title = fetchingMovies.movie_title
-        self["info"].setText(_("Processing: %s") % current + ' ' + (_("/ %s") % total))
+        self["info"].setText(_("Processing:") + " %d/%d" % (current, total))
         if fetchingMovies is not None:
             self["title"].setText(_("Current Movie: %s") % movie_title)
         else:

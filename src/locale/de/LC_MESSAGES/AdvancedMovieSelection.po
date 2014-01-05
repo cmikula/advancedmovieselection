@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-05 12:36+0100\n"
-"PO-Revision-Date: 2014-01-05 12:37+0100\n"
+"POT-Creation-Date: 2014-01-05 17:05+0100\n"
+"PO-Revision-Date: 2014-01-05 17:05+0100\n"
 "Last-Translator: cmikula\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "Language: de_AT\n"
@@ -14,7 +14,7 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-Bookmarks: -1,-1,-1,-1,-1,-1,-1,120,-1,-1\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.6.3\n"
 "X-Poedit-SearchPath-0: ../../..\n"
 
 #: ../../../SearchTVDb.py:124
@@ -75,8 +75,8 @@ msgstr "TheTVDB Info & D/L"
 
 #: ../../../SearchTVDb.py:262
 #, python-format
-msgid "Searching for ' %s ' on TheTVDB.com, please wait ..."
-msgstr "Suche nach ' %s ' auf TheTVDB.com, bitte warten ..."
+msgid "Searching for '%s' on TheTVDB.com, please wait..."
+msgstr "Suche nach '%s' auf TheTVDB.com, bitte warten..."
 
 #: ../../../SearchTVDb.py:313
 msgid "Sorry, no data found at TheTVDB.com!"
@@ -152,8 +152,8 @@ msgstr "Bitte Filmnamen für die Suche eingeben:"
 
 #: ../../../SearchTVDb.py:445
 #, python-format
-msgid "Sorry, no description for ' %s ' at TheTVDB.com found!"
-msgstr "Leider keine Filmbeschreibung für ' %s ' auf themoviedb.org gefunden!"
+msgid "Sorry, no description for '%s' at TheTVDB.com found!"
+msgstr "Leider keine Filmbeschreibung für '%s' auf themoviedb.org gefunden!"
 
 #: ../../../SearchTVDb.py:457
 #, python-format
@@ -235,33 +235,33 @@ msgstr "Suchergebnis für: %s"
 
 #: ../../../SearchTVDb.py:742
 #, python-format
-msgid "Save Info/Cover for ' %s ', please wait ..."
-msgstr "Info/Cover für ' %s ' speichern, bitte warten ..."
+msgid "Save Info/Cover for '%s', please wait..."
+msgstr "Info/Cover für '%s' speichern, bitte warten..."
 
 #: ../../../SearchTVDb.py:764
 #, python-format
-msgid "Getting show details for ' %s ', please wait ..."
-msgstr "Lade Seriendetails für ' %s ', bitte warten ..."
+msgid "Getting show details for '%s', please wait..."
+msgstr "Lade Seriendetails für '%s', bitte warten..."
 
 #: ../../../SearchTVDb.py:766
 #, python-format
-msgid "Search trailer for ' %s ', please wait ..."
-msgstr "Suche Vorschau für ' %s ', bitte warten ..."
+msgid "Search trailer for '%s', please wait..."
+msgstr "Suche Vorschau für '%s', bitte warten..."
 
 #: ../../../SearchTVDb.py:768
 #, python-format
-msgid "Getting search result for ' %s ', please wit ..."
-msgstr "Lade Suchergebnis für ' %s ', bitte warten ..."
+msgid "Getting search result for '%s', please wait..."
+msgstr "Lade Suchergebnis für '%s', bitte warten..."
 
 #: ../../../SearchTVDb.py:778
 #, python-format
-msgid "Getting episodes list for ' %s ', please wait ..."
-msgstr "Lade Folgenübersicht für ' %s ', bitte warten ..."
+msgid "Getting episodes list for '%s', please wait..."
+msgstr "Lade Folgenübersicht für '%s', bitte warten..."
 
 #: ../../../SearchTVDb.py:782
 #, python-format
-msgid "Getting episodes details for ' %s ', please wait ..."
-msgstr "Lade Folgendetails für ' %s ', bitte warten ..."
+msgid "Getting episodes details for '%s', please wait..."
+msgstr "Lade Folgendetails für '%s', bitte warten..."
 
 #: ../../../RecordPaths.py:34
 msgid "Record Paths Settings"
@@ -319,7 +319,7 @@ msgstr "Papierkorb leeren"
 
 #: ../../../Wastebasket.py:201
 msgid "Please wait... Loading trash list..."
-msgstr "Lade Papierkorb, bitte warten ..."
+msgstr "Lade Papierkorb, bitte warten..."
 
 #: ../../../Wastebasket.py:214
 msgid "Exit wastebasket"
@@ -794,16 +794,12 @@ msgid "Branch:"
 msgstr "Branch:"
 
 #: ../../../About.py:97
-msgid ""
-"Developer:\n"
-"  JackDaniel, cmikula"
-msgstr ""
-"Entwickler:\n"
-" JackDaniel, cmikula"
+msgid "Developers:"
+msgstr "Entwickler:"
 
 #: ../../../About.py:98
-msgid "Thanks for translation to:\n"
-msgstr "Danke für die Übersetzung an:\n"
+msgid "Thanks for translation to:"
+msgstr "Danke für die Übersetzung an:"
 
 #: ../../../About.py:99
 msgid "This plugin may only executed on hardware which is licensed by Dream Multimedia GmbH."
@@ -2310,21 +2306,15 @@ msgstr "Hintergrund"
 #: ../../../DownloadMovies.py:221
 #, python-format
 msgid "Search for %s, please wait..."
-msgstr "Suche nach %s, bitte warten ..."
+msgstr "Suche nach %s, bitte warten..."
 
 #: ../../../DownloadMovies.py:136
 msgid "Automatic search and save, please wait..."
-msgstr "Automatisches suchen und speichern, bitte warten ..."
+msgstr "Automatisches suchen und speichern, bitte warten..."
 
 #: ../../../DownloadMovies.py:144
-#, python-format
-msgid "Processing: %s"
-msgstr "Fortschritt: %s"
-
-#: ../../../DownloadMovies.py:144
-#, python-format
-msgid "/ %s"
-msgstr "/ %s"
+msgid "Processing:"
+msgstr "Fortschritt:"
 
 #: ../../../DownloadMovies.py:146
 #, python-format
@@ -2632,7 +2622,7 @@ msgstr ""
 
 #: ../../../MovieSelection.py:748
 msgid "Please wait... Loading list..."
-msgstr "Lade Filmliste, bitte warten ..."
+msgstr "Lade Filmliste, bitte warten..."
 
 #: ../../../MovieSelection.py:778
 msgid "Select the movie path"
@@ -2971,8 +2961,8 @@ msgid "Stop search IP:"
 msgstr "Stoppe suche bei IP:"
 
 #: ../../../ClientSetup.py:241
-msgid "Searching for clients, please wait ..."
-msgstr "Suche nach Dreamboxen, bitte warten ..."
+msgid "Searching for clients, please wait..."
+msgstr "Suche nach Dreamboxen, bitte warten..."
 
 #: ../../../ClientSetup.py:247
 msgid "Manual search finished"
@@ -3157,21 +3147,21 @@ msgstr "Voriges Hintergrundbild"
 
 #: ../../../SearchTMDb.py:313
 #, python-format
-msgid "Searching for ' %s ' on TMDb, please wait ..."
-msgstr "Suche nach ' %s ' auf TMDb, bitte warten ..."
+msgid "Searching for '%s' on TMDb, please wait..."
+msgstr "Suche nach '%s' auf TMDb, bitte warten..."
 
 #: ../../../SearchTMDb.py:342
 #, python-format
-msgid "No data found for ' %s ' at themoviedb.org!"
-msgstr "Keine Daten für ' %s ' auf themoviedb.org gefunden!"
+msgid "No data found for '%s' at themoviedb.org!"
+msgstr "Keine Daten für '%s' auf themoviedb.org gefunden!"
 
 #: ../../../SearchTMDb.py:343
 #, python-format
 msgid ""
-"No data found for ' %s ' at themoviedb.org!\n"
+"No data found for '%s' at themoviedb.org!\n"
 "Do you want to edit the search name?"
 msgstr ""
-"Keine Daten für ' %s ' auf themoviedb.org gefunden!\n"
+"Keine Daten für '%s' auf themoviedb.org gefunden!\n"
 "Wollen Sie die Filmnamen bearbeiten und manuell suchen?"
 
 #: ../../../SearchTMDb.py:354
@@ -3185,17 +3175,19 @@ msgstr ""
 "%s"
 
 #: ../../../SearchTMDb.py:361
-msgid "movie found"
-msgstr "Film gefunden"
+#, python-format
+msgid "Total %d movie found"
+msgstr "Insgesamt %d Film gefunden"
 
 #: ../../../SearchTMDb.py:368
-msgid "movies found"
-msgstr "Filme gefunden"
+#, python-format
+msgid "Total %d movies found"
+msgstr "Insgesamt %d Filme gefunden"
 
 #: ../../../SearchTMDb.py:413
 #, python-format
-msgid "No description for ' %s ' at themoviedb.org found!"
-msgstr "Keine Filmbeschreibung für ' %s ' auf themoviedb.org gefunden!"
+msgid "No description for '%s' at themoviedb.org found!"
+msgstr "Keine Filmbeschreibung für '%s' auf themoviedb.org gefunden!"
 
 #: ../../../SearchTMDb.py:416
 #, python-format
@@ -3535,26 +3527,6 @@ msgstr "Alle zwei Wochen"
 msgid "Monthly"
 msgstr "Monatlich"
 
-#: ../../../Source/Config.py:179
-#: ../../../Source/Config.py:181
-msgid "0"
-msgstr "0"
-
-#: ../../../Source/Config.py:179
-#: ../../../Source/Config.py:181
-msgid "1"
-msgstr "1"
-
-#: ../../../Source/Config.py:179
-#: ../../../Source/Config.py:181
-msgid "2"
-msgstr "2"
-
-#: ../../../Source/Config.py:179
-#: ../../../Source/Config.py:181
-msgid "3"
-msgstr "3"
-
 #: ../../../Source/Config.py:191
 msgid "Virtual and Numerical"
 msgstr "Virtuelle und Numerische"
@@ -3597,5 +3569,3 @@ msgstr "Frei:"
 msgid "Symlink:"
 msgstr "Symlink:"
 
-#~ msgid "Delete cover"
-#~ msgstr "Cover löschen"

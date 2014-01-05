@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-05 12:45+0100\n"
-"PO-Revision-Date: 2014-01-05 12:46+0100\n"
+"POT-Creation-Date: 2014-01-05 17:04+0100\n"
+"PO-Revision-Date: 2014-01-05 17:05+0100\n"
 "Last-Translator: cmikula\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "Language: nl_AT\n"
@@ -14,7 +14,7 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Poedit-Bookmarks: -1,-1,-1,-1,-1,-1,-1,120,-1,-1\n"
-"X-Generator: Poedit 1.5.5\n"
+"X-Generator: Poedit 1.6.3\n"
 "X-Poedit-SearchPath-0: ../../..\n"
 
 #: ../../../SearchTVDb.py:124
@@ -75,8 +75,8 @@ msgstr "Zoeken & D/L via TheTVDB"
 
 #: ../../../SearchTVDb.py:262
 #, python-format
-msgid "Searching for ' %s ' on TheTVDB.com, please wait ..."
-msgstr "Zoeken naar %s op TheTVDB.com, eventjes geduld ..."
+msgid "Searching for '%s' on TheTVDB.com, please wait..."
+msgstr "Zoeken naar '%s' op TheTVDB.com, eventjes geduld..."
 
 #: ../../../SearchTVDb.py:313
 msgid "Sorry, no data found at TheTVDB.com!"
@@ -152,8 +152,8 @@ msgstr "Geleive de filmnaam in te geven voor het zoeken:"
 
 #: ../../../SearchTVDb.py:445
 #, python-format
-msgid "Sorry, no description for ' %s ' at TheTVDB.com found!"
-msgstr "Geen gegevens voor ' %s ' gevonden via TheTVDB.com!"
+msgid "Sorry, no description for '%s' at TheTVDB.com found!"
+msgstr "Geen gegevens voor '%s' gevonden via TheTVDB.com!"
 
 #: ../../../SearchTVDb.py:457
 #, python-format
@@ -235,33 +235,33 @@ msgstr "Resultaten voor: %s"
 
 #: ../../../SearchTVDb.py:742
 #, python-format
-msgid "Save Info/Cover for ' %s ', please wait ..."
-msgstr "Info/Cover voor ' %s ' bewaren, eventjes geduld ..."
+msgid "Save Info/Cover for '%s', please wait..."
+msgstr "Info/Cover voor '%s' bewaren, eventjes geduld..."
 
 #: ../../../SearchTVDb.py:764
 #, python-format
-msgid "Getting show details for ' %s ', please wait ..."
-msgstr "Zoeken details naar voor ' %s ', eventjes geduld ..."
+msgid "Getting show details for '%s', please wait..."
+msgstr "Zoeken details naar voor '%s', eventjes geduld..."
 
 #: ../../../SearchTVDb.py:766
 #, python-format
-msgid "Search trailer for ' %s ', please wait ..."
-msgstr "Zoeken naar trailer voor ' %s , eventjes geduld ..."
+msgid "Search trailer for '%s', please wait..."
+msgstr "Zoeken naar trailer voor '%s' , eventjes geduld..."
 
 #: ../../../SearchTVDb.py:768
 #, python-format
-msgid "Getting search result for ' %s ', please wit ..."
-msgstr "Zoeken naar ' %s , eventjes geduld ..."
+msgid "Getting search result for '%s', please wait..."
+msgstr "Zoeken naar '%s', eventjes geduld ..."
 
 #: ../../../SearchTVDb.py:778
 #, python-format
-msgid "Getting episodes list for ' %s ', please wait ..."
-msgstr "Zoeken naar episode-lijst van ' %s ', eventjes geduld ..."
+msgid "Getting episodes list for '%s', please wait..."
+msgstr "Zoeken naar episode-lijst van '%s', eventjes geduld..."
 
 #: ../../../SearchTVDb.py:782
 #, python-format
-msgid "Getting episodes details for ' %s ', please wait ..."
-msgstr "Zoeken naar episode-details van %s, eventjes geduld ..."
+msgid "Getting episodes details for '%s', please wait..."
+msgstr "Zoeken naar episode-details van '%s', eventjes geduld..."
 
 #: ../../../RecordPaths.py:34
 msgid "Record Paths Settings"
@@ -319,7 +319,7 @@ msgstr "Ledigen"
 
 #: ../../../Wastebasket.py:201
 msgid "Please wait... Loading trash list..."
-msgstr "Prullemand laden,eventjes geduld ..."
+msgstr "Prullemand laden,eventjes geduld..."
 
 #: ../../../Wastebasket.py:214
 msgid "Exit wastebasket"
@@ -794,18 +794,12 @@ msgid "Branch:"
 msgstr "Branch:"
 
 #: ../../../About.py:97
-msgid ""
-"Developer:\n"
-"  JackDaniel, cmikula"
-msgstr ""
-"Ontwikkelaarr:\n"
-" JackDaniel, cmikula"
+msgid "Developers:"
+msgstr "Ontwikkelaars:"
 
 #: ../../../About.py:98
-msgid "Thanks for translation to:\n"
-msgstr ""
-"Vertaling:\n"
-"Bschaar\n"
+msgid "Thanks for translation to:"
+msgstr "Vertaling:"
 
 #: ../../../About.py:99
 msgid "This plugin may only executed on hardware which is licensed by Dream Multimedia GmbH."
@@ -2312,21 +2306,15 @@ msgstr "Achtergrond"
 #: ../../../DownloadMovies.py:221
 #, python-format
 msgid "Search for %s, please wait..."
-msgstr "Zoeken naar %s, eventjes geduld ..."
+msgstr "Zoeken naar %s, eventjes geduld..."
 
 #: ../../../DownloadMovies.py:136
 msgid "Automatic search and save, please wait..."
-msgstr "Automatisch zoeken en bewaren, eventjes geduld ..."
+msgstr "Automatisch zoeken en bewaren, eventjes geduld..."
 
 #: ../../../DownloadMovies.py:144
-#, python-format
-msgid "Processing: %s"
-msgstr "Verwerken: %s"
-
-#: ../../../DownloadMovies.py:144
-#, python-format
-msgid "/ %s"
-msgstr "/ %s"
+msgid "Processing:"
+msgstr "Verwerken:"
 
 #: ../../../DownloadMovies.py:146
 #, python-format
@@ -2634,7 +2622,7 @@ msgstr ""
 
 #: ../../../MovieSelection.py:748
 msgid "Please wait... Loading list..."
-msgstr "Filmlijst laden,eventjes geduld ..."
+msgstr "Filmlijst laden,eventjes geduld..."
 
 #: ../../../MovieSelection.py:778
 msgid "Select the movie path"
@@ -2898,7 +2886,7 @@ msgstr "Bestandsbrowser"
 #: ../../../ClientSetup.py:73
 #: ../../../AdvancedMovieSelectionEventView.py:97
 msgid "Recording"
-msgstr "Opname loopt ..."
+msgstr "Opname loopt..."
 
 #: ../../../ClientSetup.py:75
 msgid "Standby"
@@ -2973,8 +2961,8 @@ msgid "Stop search IP:"
 msgstr "Stop zoeken IP:"
 
 #: ../../../ClientSetup.py:241
-msgid "Searching for clients, please wait ..."
-msgstr "Zoeken naar clients, eventjes geduld ..."
+msgid "Searching for clients, please wait..."
+msgstr "Zoeken naar clients, eventjes geduld..."
 
 #: ../../../ClientSetup.py:247
 msgid "Manual search finished"
@@ -3159,21 +3147,21 @@ msgstr "Vorige backdrop"
 
 #: ../../../SearchTMDb.py:313
 #, python-format
-msgid "Searching for ' %s ' on TMDb, please wait ..."
-msgstr "Zoeken naar %s op TMDb, eventjes geduld ..."
+msgid "Searching for '%s' on TMDb, please wait..."
+msgstr "Zoeken naar '%s' op TMDb, eventjes geduld..."
 
 #: ../../../SearchTMDb.py:342
 #, python-format
-msgid "No data found for ' %s ' at themoviedb.org!"
-msgstr "Geen gegevens gevonden voor ' %s ' via themoviedb.org!"
+msgid "No data found for '%s' at themoviedb.org!"
+msgstr "Geen gegevens gevonden voor '%s' via themoviedb.org!"
 
 #: ../../../SearchTMDb.py:343
 #, python-format
 msgid ""
-"No data found for ' %s ' at themoviedb.org!\n"
+"No data found for '%s' at themoviedb.org!\n"
 "Do you want to edit the search name?"
 msgstr ""
-"Geen gegevens gevonden voor ' %s ' via themoviedb.org!\n"
+"Geen gegevens gevonden voor '%s' via themoviedb.org!\n"
 "Wilt u de zoeknaam editeren en manueel zoeken?"
 
 #: ../../../SearchTMDb.py:354
@@ -3187,17 +3175,19 @@ msgstr ""
 "%s"
 
 #: ../../../SearchTMDb.py:361
-msgid "movie found"
-msgstr "gevonden film"
+#, python-format
+msgid "Total %d movie found"
+msgstr "Totaal %d gevonden film"
 
 #: ../../../SearchTMDb.py:368
-msgid "movies found"
-msgstr "gevonden films"
+#, python-format
+msgid "Total %d movies found"
+msgstr "Totaal %d gevonden films"
 
 #: ../../../SearchTMDb.py:413
 #, python-format
-msgid "No description for ' %s ' at themoviedb.org found!"
-msgstr "Geen gegevens voor ' %s ' gevonden via themoviedb.org!"
+msgid "No description for '%s' at themoviedb.org found!"
+msgstr "Geen gegevens voor '%s' gevonden via themoviedb.org!"
 
 #: ../../../SearchTMDb.py:416
 #, python-format
@@ -3537,26 +3527,6 @@ msgstr "Elke twee weken"
 msgid "Monthly"
 msgstr "Maandelijks"
 
-#: ../../../Source/Config.py:179
-#: ../../../Source/Config.py:181
-msgid "0"
-msgstr "0"
-
-#: ../../../Source/Config.py:179
-#: ../../../Source/Config.py:181
-msgid "1"
-msgstr "1"
-
-#: ../../../Source/Config.py:179
-#: ../../../Source/Config.py:181
-msgid "2"
-msgstr "2"
-
-#: ../../../Source/Config.py:179
-#: ../../../Source/Config.py:181
-msgid "3"
-msgstr "3"
-
 #: ../../../Source/Config.py:191
 msgid "Virtual and Numerical"
 msgstr "Virtueel en numerisch"
@@ -3599,584 +3569,3 @@ msgstr "Vrij:"
 msgid "Symlink:"
 msgstr "Symlink:"
 
-#~ msgid "Delete cover"
-#~ msgstr "Cover verwijderen"
-
-#~ msgid "Production Countries: %s\n"
-#~ msgstr "Landen productie: %s\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Last modified at themoviedb.org: %s"
-#~ msgstr ""
-#~ "\n"
-#~ "Laatste wijziging bij themoviedb.org: %s"
-
-#~ msgid "Show database"
-#~ msgstr "Databank weergeven"
-
-#~ msgid "Hide database"
-#~ msgstr "Databank verbergen"
-
-#~ msgid "To database"
-#~ msgstr "Databank"
-
-#~ msgid "Show/Hide database"
-#~ msgstr "Weergeven/Verbergen databank"
-
-#~ msgid "Database"
-#~ msgstr "Databank"
-
-#~ msgid "Indexed movies"
-#~ msgstr "Geïndexeerde filmen"
-
-#~ msgid "Show full depth of directories:"
-#~ msgstr "Grootte onderliggende mappen weergeven:"
-
-#~ msgid "Displays the full size of all sub directories of directory size."
-#~ msgstr ""
-#~ "Met deze optie wordt de grootte van alle onderliggende mappen weergegeven."
-
-#~ msgid "Assigned to red key"
-#~ msgstr "Toewijzen ROOD:"
-
-#~ msgid "Assigned to green key"
-#~ msgstr "Toewijzen GROEN:"
-
-#~ msgid "Assigned to yellow key"
-#~ msgstr "Toewijzen GEEL:"
-
-#~ msgid "Assigned to blue key"
-#~ msgstr "Toewijzen BLAUW:"
-
-#~ msgid "Reduce file copy throughput:"
-#~ msgstr "Copieerbelasting beperken:"
-
-#~ msgid "To increase the user-friendliness, the copy speed is throttled."
-#~ msgstr ""
-#~ "Om het gebruiksgemak te verbeteren kan de copieerbelasting beperkt worden."
-
-#~ msgid "Assigned function for red key"
-#~ msgstr "Toewijzen ROOD:"
-
-#~ msgid "Assigned function for green key"
-#~ msgstr "Toewijzen GROEN:"
-
-#~ msgid "Assigned function for yellow key"
-#~ msgstr "Toewijzen GEEL:"
-
-#~ msgid "Assigned function for blue key"
-#~ msgstr "Toewijzen BLAUW:"
-
-#~ msgid ""
-#~ "IMPORTANT: If changes are made here the Advanced Movie Selection must be "
-#~ "completely closed so the changes can be adopted!!"
-#~ msgstr ""
-#~ "BELANGRIJK: indien hier wijzigingen doorgevoerd worden moet de "
-#~ "Geavanceerde FilmSelectie volledig gesloten worden !!"
-
-#~ msgid ""
-#~ "Here you can give the home button a special name. After saving the "
-#~ "changes color key settings will be closed, reopen it then the changes is "
-#~ "to selection."
-#~ msgstr ""
-#~ "Hier kan u de naam van de HOME-knop wijzigen. Na het bewaren worden de "
-#~ "instellingen gesloten, en na het heropnen zijn de wijzigingen beschikbaar."
-
-#~ msgid ""
-#~ "Here you can give the bookmark 1 button a special name. After saving the "
-#~ "changes color key settings will be closed, reopen it then the changes is "
-#~ "to selection."
-#~ msgstr ""
-#~ "Hier kan u de naam van de Favoriet1-knop wijzigen. Na het bewaren worden "
-#~ "de instellingen gesloten, en na het heropnen zijn de wijzigingen "
-#~ "beschikbaar."
-
-#~ msgid ""
-#~ "Here you can give the bookmark 2 button a special name. After saving the "
-#~ "changes color key settings will be closed, reopen it then the changes is "
-#~ "to selection."
-#~ msgstr ""
-#~ "Hier kan u de naam van de Favoriet2-knop wijzigen. Na het bewaren worden "
-#~ "de instellingen gesloten, en na het heropnen zijn de wijzigingen "
-#~ "beschikbaar."
-
-#~ msgid ""
-#~ "Here you can give the bookmark 3 button a special name. After saving the "
-#~ "changes color key settings will be closed, reopen it then the changes is "
-#~ "to selection."
-#~ msgstr ""
-#~ "Hier kan u de naam van de Favoriet3-knop wijzigen. Na het bewaren worden "
-#~ "de instellingen gesloten, en na het heropnen zijn de wijzigingen "
-#~ "beschikbaar."
-
-#~ msgid "copied"
-#~ msgstr "gekopieerd"
-
-#~ msgid "canceled"
-#~ msgstr "gannuleerd"
-
-#~ msgid "Duration"
-#~ msgstr "Speelduur"
-
-#~ msgid "Average"
-#~ msgstr "Gemiddeld"
-
-#~ msgid "Total files"
-#~ msgstr "Totaal bestanden"
-
-#~ msgid ""
-#~ "Move/Copy aborted due to:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Verplaatsen/Kopiëren werd afgebroken!\n"
-#~ "%s"
-
-#~ msgid "Remove ' %s '"
-#~ msgstr "Verwijder ' %s '"
-
-#~ msgid "There are currently no files are moved or copied."
-#~ msgstr "Momenteel worden geen bestanden verplaatst of gekopieerd."
-
-#~ msgid ""
-#~ "The following file is being moved or copied currently:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Volgend bestand wordt momenteel verplaatst/gekopieerd:\n"
-#~ "%s"
-
-#~ msgid "The following %s"
-#~ msgstr "Volgend %s "
-
-#~ msgid ""
-#~ "files are being moved or copied currently:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "bestanden worden momenteel verplaatst/gekopieerd:\n"
-#~ "%s"
-
-#~ msgid "Directory selection has been canceled"
-#~ msgstr "De mapselectie werd geannuleerd."
-
-#~ msgid "Move (in the background)"
-#~ msgstr "Verplaatsen (in achtergrond)"
-
-#~ msgid "Move (in the foreground)"
-#~ msgstr "Verplaatsen (in voorgrond)"
-
-#~ msgid "Copy (in the background)"
-#~ msgstr "Kopiëren (in achtergrond)"
-
-#~ msgid "Copy (in the foreground)"
-#~ msgstr "Kopiëren (in voorgrond)"
-
-#~ msgid "File already exists"
-#~ msgstr "Bestand bestaat reeds"
-
-#~ msgid "The move was successful."
-#~ msgstr "Het verplaatsen is gelukt."
-
-#~ msgid ""
-#~ "Moving in the background.\n"
-#~ "\n"
-#~ "The movie list appears updated after full completion."
-#~ msgstr ""
-#~ "Het verplaatsen wordt in achtergrond uitgevoerd.\n"
-#~ "\n"
-#~ "De Filmselectie kan pas na het voltooien geactualiseerd worden."
-
-#~ msgid "The copying was successful."
-#~ msgstr "Het kopiëren is gelukt."
-
-#~ msgid ""
-#~ "Copying in the background.\n"
-#~ "\n"
-#~ "The movie list appears updated after full completion."
-#~ msgstr ""
-#~ "Het kopiëren wordt in achtergrond uitgevoerd.\n"
-#~ "\n"
-#~ "De Filmselectie kan pas na het voltooien geactualiseerd worden."
-
-#~ msgid "Getting search result for ' %s ', please wait ..."
-#~ msgstr "Zoeken naar ' %s , eventjes geduld ..."
-
-#~ msgid ""
-#~ "Improperly launched plugin.\n"
-#~ "Aborting!"
-#~ msgstr ""
-#~ "Slecht gestart plugin.\n"
-#~ "Annuleren!"
-
-#~ msgid "Parse changes text, please wait ..."
-#~ msgstr "Inlezen tekstbestand, eventjes geduld ..."
-
-#~ msgid ""
-#~ "Please select the default storage device you want to use for recordings. "
-#~ "This device gets mounted to /media/hdd."
-#~ msgstr ""
-#~ "Selecteer het standaardmedium voor opnames. Dit medium wordt op /media/"
-#~ "hdd gemount."
-
-#~ msgid "Deleting in progress! Please wait..."
-#~ msgstr "Verwijderen in uitvoering! Even geduld..."
-
-#~ msgid ""
-#~ "The directory %s is not writable.\n"
-#~ "Make sure you select a writable directory instead."
-#~ msgstr ""
-#~ "De map %s is niet beschrijfbaar.\n"
-#~ "Kies een beschrijfbare map."
-
-#~ msgid "<Default movie location>"
-#~ msgstr "< Standaard Filmmap >"
-
-#~ msgid "<Current movielist location>"
-#~ msgstr "< Actuele Filmmap >"
-
-#~ msgid "<Last timer location>"
-#~ msgstr "< laatste timerlocatie >"
-
-#~ msgid "Default movie location:"
-#~ msgstr "Standaard Filmmap:"
-
-#~ msgid "Timer record location:"
-#~ msgstr "Timerlocatie:"
-
-#~ msgid "Instant record location:"
-#~ msgstr "Instantopname-map:"
-
-#~ msgid "Timeshift location:"
-#~ msgstr "Timeshift-map:"
-
-#~ msgid "Default movie location"
-#~ msgstr "Standaard Filmmap:"
-
-#~ msgid "Initial location in new timers"
-#~ msgstr "Initiële map voor nieuwe timers"
-
-#~ msgid "Location for instant recordings"
-#~ msgstr "Map voor instantopname"
-
-#~ msgid "Trash size: %d GB"
-#~ msgstr "Prullemand: %d GB"
-
-#~ msgid "Trash size: %s GB"
-#~ msgstr "Prullemand: %s GB"
-
-#~ msgid "TMDb Info for: %s"
-#~ msgstr "TMDb Info voor: %s"
-
-#~ msgid "Search results:"
-#~ msgstr "Resultaten:"
-
-#~ msgid "Extended Info"
-#~ msgstr "Uitgebreide Info"
-
-#~ msgid "Show search results"
-#~ msgstr "Resultaten weergeven"
-
-#~ msgid "TMDb details for: %s"
-#~ msgstr "TMDb details voor: %s"
-
-#~ msgid "Getting movie information for '%s' from TMDb..."
-#~ msgstr "Filminfos voor ' %s ' wordt via TMDb opgezocht ..."
-
-#~ msgid "TheTVDB.com Info & D/L"
-#~ msgstr "Zoeken & D/L via TheTVDB.com"
-
-#~ msgid "TheTVDB.com Info for: %s"
-#~ msgstr "TheTVDB.com Info voor: %s"
-
-#~ msgid "Display show details"
-#~ msgstr "Details weergeven"
-
-#~ msgid "Display episodes list"
-#~ msgstr "Lijst afleveringen weergeven"
-
-#~ msgid "Display episodes details"
-#~ msgstr "Details afleveringen weergeven"
-
-#~ msgid "Searching for '%s' from TMDb..."
-#~ msgstr "Zoeken naar ' %s ' via TMDb ..."
-
-#~ msgid "TMDb movie info for: %s"
-#~ msgstr "TMDb filminfo voor: %s"
-
-#~ msgid "Show mark movie with new recordings icon in menu from movielist:"
-#~ msgstr "Markeeropties nieuwe opname in menu weergeven:"
-
-#~ msgid ""
-#~ "Displays mark movie with new recordings icon function in the menu at the "
-#~ "movie list. Only Dreambox recordings ar possible to mark with this icon."
-#~ msgstr ""
-#~ "Film met icoon voor nieuwe opname markeren weergeven in het extentiemenu "
-#~ "van de filmselectie. Enkel Dreambox-opnames kunnen met dit icoon "
-#~ "gemarkeerd worden."
-
-#~ msgid "Show new recordings icon by mark movie as unseen:"
-#~ msgstr "Nieuwe opnames markeren met icoon voor ongeziene opname:"
-
-#~ msgid ""
-#~ "If this option is activated automatically display the icon for new "
-#~ "recordings when the mark movie as unseen function is used. Only original "
-#~ "Dreambox recordings become this icon."
-#~ msgstr ""
-#~ "Indien geactiveerd wordt het icoon voor nieuwe opname weergeven nadat een "
-#~ "film als ongezien gemarkeerd wordt. Enkel Dreambox-opnames kunnen met dit "
-#~ "icoon gemarkeerd worden."
-
-#~ msgid "Mark movie with new recordings icon"
-#~ msgstr "Film met icoon voor nieuwe opname markeren"
-
-#~ msgid "Show new movie icon here not possible, please select a movie!"
-#~ msgstr ""
-#~ "Icoon voor nieuwe film niet mogelijk, gelieve een film te selecteren!"
-
-#~ msgid ""
-#~ "Any timer is running!\n"
-#~ "Do you really want to abort recording?\n"
-#~ msgstr ""
-#~ "Timers in uitvoering!\n"
-#~ "Wilt u de opnames beëindigen?\n"
-
-#~ msgid "Title"
-#~ msgstr "Titel"
-
-#~ msgid "Name and Description Input"
-#~ msgstr "Filmnaam wijzigen"
-
-#~ msgid "The directory ' %s 'could not be created!"
-#~ msgstr "De map ' %s ' kon niet gecreëerd worden!"
-
-#~ msgid "Choose target folder"
-#~ msgstr "Kies doelmap"
-
-#~ msgid ""
-#~ "Target file %s.ts already exist.\n"
-#~ "Do you want to replace it?"
-#~ msgstr ""
-#~ "Doelbestand %s.ts bestaat reeds.\n"
-#~ "Wilt u het vervangen?"
-
-#~ msgid "The target directory is not found. The file is not renamed."
-#~ msgstr "De doelmap werd niet gevonden. Het bestand werd niet hernoemd."
-
-#~ msgid "The movie is moved in the background from %s"
-#~ msgstr "De film wordt in achtergrond verplaatst van %s"
-
-#~ msgid "to %s."
-#~ msgstr "naar %s."
-
-#~ msgid "to %s in the background"
-#~ msgstr "naar %s in de achtergrond"
-
-#~ msgid "Failed to move the movie %s"
-#~ msgstr "Kon film %s niet verplaatsen"
-
-#~ msgid "Successfully moved the movie %s"
-#~ msgstr "Film %s succesvol verplaatst"
-
-#~ msgid "Really close without saving settings ?"
-#~ msgstr "Sluiten zonder te bewaren?"
-
-#~ msgid "Ask for Timer edit:"
-#~ msgstr "Vragen verwijderen Timer:"
-
-#~ msgid ""
-#~ "Enables the timer delete query when trying to delete an active recording."
-#~ msgstr ""
-#~ "Activeert de vraag om een timer te editeren als een actieve opname "
-#~ "verwijderd wordt."
-
-#~ msgid "Automatic delete:"
-#~ msgstr "Automatisch verwijderen:"
-
-#~ msgid "Enables the automatic delete function after timer deactivation."
-#~ msgstr ""
-#~ "Vraagt automatisch om de opname te verwijderen nadat de timer verwijderd "
-#~ "werd."
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Do you want to delete the timer for stop the recording?"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Wilt u de timer verwijderen om de opname te stoppen?"
-
-#~ msgid "Please select the move/copy destination"
-#~ msgstr "Kies de bestemming voor het verplaatsen/kopiëren a.u.b."
-
-#~ msgid "All"
-#~ msgstr "Alles"
-
-#~ msgid "menu"
-#~ msgstr "menu"
-
-#~ msgid "show all"
-#~ msgstr "alles weergeven"
-
-#~ msgid "show second selected tag"
-#~ msgstr "tweede geselecteerd label weergeven"
-
-#~ msgid "show tag menu"
-#~ msgstr "label-menu weergeven"
-
-#~ msgid "Where to ' %s ' are moved/copied ?"
-#~ msgstr "Naar waar moet ' %s ' verplaatst/gekopieerd worden?"
-
-#~ msgid "no"
-#~ msgstr "Nee"
-
-#~ msgid "How to ' %s ' from %s to %s be moved/copied ?"
-#~ msgstr "Hoe moet ' %s ' van %s naar %s verplaatst/gekopieerd worden ?"
-
-#~ msgid "Tags"
-#~ msgstr "Labels"
-
-#~ msgid ""
-#~ "Error!\n"
-#~ "Error Text: %s %e"
-#~ msgstr ""
-#~ "Fout!\n"
-#~ "Foutmelding: %s %e"
-
-#~ msgid "Sorry, no info/cover found for movie: %s"
-#~ msgstr "Sorry, geen Filminfo/Cover gevonden voor %s."
-
-#, fuzzy
-#~ msgid "default"
-#~ msgstr "Standaard paden"
-
-#~ msgid "English"
-#~ msgstr "Englisch"
-
-#~ msgid "Standard EPG info"
-#~ msgstr "Standard EPG Info"
-
-#~ msgid "Download movie infos and covers"
-#~ msgstr "Filminfos/Cover herunterladen"
-
-#~ msgid "Movie information download finished"
-#~ msgstr "Herunterladen der Informationen beendet"
-
-#~ msgid "Multi search"
-#~ msgstr "Automatische Suche"
-
-#~ msgid "Ask for Eventinfo:"
-#~ msgstr "Fragen wie Filminfos angezeigt werden soll:"
-
-#~ msgid "Standard info overview:"
-#~ msgstr "Standard Filminfo-Anzeige:"
-
-#~ msgid "Select Info type..."
-#~ msgstr "Info Erweiterung auswählen"
-
-#~ msgid "Show delete info only in extensions menu from movielist:"
-#~ msgstr "Nur Filminfo löschen im Menü der Filmliste anzeigen:"
-
-#~ msgid "Show movielist preview in extensions menu from movielist:"
-#~ msgstr "Filmvorschau/Cover im Menü der Filmliste anzeigen:"
-
-#~ msgid "Movielist Preview/Cover"
-#~ msgstr "Filmvorschau/Cover"
-
-#~ msgid "Deactivate Movielist Preview"
-#~ msgstr "Filmvorschau/Coveranzeige deaktivieren"
-
-#~ msgid "Activate Movielist Preview"
-#~ msgstr "Filmvorschau/Coveranzeige aktivieren"
-
-#~ msgid "Movielist Preview"
-#~ msgstr "Filmvorschau"
-
-#~ msgid "Movielist Preview Manual Creator"
-#~ msgstr "Filmvorschau manuell erstellen"
-
-#~ msgid "Preview created."
-#~ msgstr "Filmvorschau erstellt."
-
-#~ msgid "Movielist Preview auto creator"
-#~ msgstr "Filmvorschau automatisch erstellen"
-
-#~ msgid ""
-#~ "Creating preview %s for:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Erstelle Vorschau %s für:\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "There are all previews available.\n"
-#~ "Nothing to do for me."
-#~ msgstr ""
-#~ "Es sind alle Filmvorschauen vorhanden.\n"
-#~ "Nichts mehr zu tun für mich."
-
-#~ msgid "Autocreate of previews aborted due user!"
-#~ msgstr ""
-#~ "Das automatische erstellen der Filmvorschauen wurde durch den Benutzer "
-#~ "abgebrochen !"
-
-#~ msgid "Movielist Preview Menu"
-#~ msgstr "Filmvorschau Menü"
-
-#~ msgid "Autocreate of missing previews"
-#~ msgstr "Filmvorschau automatisch erstellen"
-
-#~ msgid "%s - creating preview for movie %s"
-#~ msgstr ""
-#~ "%s - Erstelle Vorschau von:\n"
-#~ "%s"
-
-#~ msgid "Everything done ;)"
-#~ msgstr "Alles erledigt ;)"
-
-#~ msgid ""
-#~ "Here you can give the home button a special name. After saving the "
-#~ "changes the plugin must be restarted, then the changes is to selection."
-#~ msgstr ""
-#~ "Hier können Sie die Tastenbezeichnung für das Heimverzeichnis ändern. "
-#~ "Nach dem speichern muss die Filmliste neu gestartet werden, danach stehen "
-#~ "die Änderungen zur Auswahl."
-
-#~ msgid ""
-#~ "Here you can give the bookmark 1 button a special name. After saving the "
-#~ "changes the plugin must be restarted, then the changes is to selection."
-#~ msgstr ""
-#~ "Hier können Sie die Tastenbezeichnung für das Lesezeichen 1 ändern. Nach "
-#~ "dem speichern muss die Filmliste neu gestartet werden, danach stehen die "
-#~ "Änderungen zur Auswahl."
-
-#~ msgid ""
-#~ "Here you can give the bookmark 2 button a special name. After saving the "
-#~ "changes the plugin must be restarted, then the changes is to selection."
-#~ msgstr ""
-#~ "Hier können Sie die Tastenbezeichnung für das Lesezeichen 2 ändern. Nach "
-#~ "dem speichern muss die Filmliste neu gestartet werden, danach stehen die "
-#~ "Änderungen zur Auswahl."
-
-#~ msgid ""
-#~ "Here you can give the bookmark 3 button a special name. After saving the "
-#~ "changes the plugin must be restarted, then the changes is to selection."
-#~ msgstr ""
-#~ "Hier können Sie die Tastenbezeichnung für das Lesezeichen 3 ändern. Nach "
-#~ "dem speichern muss die Filmliste neu gestartet werden, danach stehen die "
-#~ "Änderungen zur Auswahl."
-
-#~ msgid "Move (immediately)"
-#~ msgstr "Verschieben (sofort)"
-
-#~ msgid "Copy (immediately)"
-#~ msgstr "Kopieren (sofort)"
-
-#~ msgid "Default move/copy location"
-#~ msgstr "Standard Verzeichnis für Verschieben/Kopieren:"
-
-#~ msgid "Create in ' %s '"
-#~ msgstr "Erstellen in ' %s '"
-
-#, fuzzy
-#~ msgid "Movie location"
-#~ msgstr "Speicherort:"
