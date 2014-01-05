@@ -63,9 +63,16 @@ def decodeCertification(releases):
     if certification.has_key(cert):
         return certification[cert]
 
+def __nextIndex(idx, l):
+    return idx + 1 if idx < len(l) else 1
+
+def __prevIndex(idx, l):
+    return idx - 1 if idx > 1 else len(l)
+
 def nextImageIndex(movie):
     if len(movie.poster_urls) == 0:
         return
+    movie.poster_index = __nextIndex(movie.poster_index, movie.poster_urls)
     if len(movie.poster_urls) > 1:
         item = movie.poster_urls.pop(0)
         movie.poster_urls.append(item)
@@ -74,6 +81,7 @@ def nextImageIndex(movie):
 def prevImageIndex(movie):
     if len(movie.poster_urls) == 0:
         return
+    movie.poster_index = __prevIndex(movie.poster_index, movie.poster_urls)
     if len(movie.poster_urls) > 1:
         item = movie.poster_urls.pop(-1)
         movie.poster_urls.insert(0, item)
@@ -82,6 +90,7 @@ def prevImageIndex(movie):
 def nextBackdrop(movie):
     if len(movie.backdrop_urls) == 0:
         return
+    movie.backdrop_index = __nextIndex(movie.backdrop_index, movie.backdrop_urls)
     if len(movie.backdrop_urls) > 1:
         item = movie.backdrop_urls.pop(0)
         movie.backdrop_urls.append(item)
@@ -90,6 +99,7 @@ def nextBackdrop(movie):
 def prevBackdrop(movie):
     if len(movie.backdrop_urls) == 0:
         return
+    movie.backdrop_index = __prevIndex(movie.backdrop_index, movie.backdrop_urls)
     if len(movie.backdrop_urls) > 1:
         item = movie.backdrop_urls.pop(-1)
         movie.backdrop_urls.insert(0, item)
@@ -117,10 +127,12 @@ def __collect_poster_urls(movie):
             l.append(url)
     movie.poster_urls = l
     # print "title: %s, poster: %d" % (movie.title, len(movie.poster_urls))
+    movie.poster_index = 1
     if len(movie.poster_urls) > 0:
         movie.poster_url = movie.poster_urls[0]
     else:
         movie.poster_url = None
+        movie.poster_index = 0
 
 def __collect_backdrop_urls(movie):
     l = []
@@ -132,10 +144,12 @@ def __collect_backdrop_urls(movie):
             l.append(url)
     movie.backdrop_urls = l
     # print "title: %s, poster: %d" % (movie.title, len(movie.poster_urls))
+    movie.backdrop_index = 1
     if len(movie.backdrop_urls) > 0:
         movie.backdrop_url = movie.backdrop_urls[0]
     else:
         movie.backdrop_url = None
+        movie.backdrop_index = 0
 
 def __searchMovie(title):
     res = original_search(title)

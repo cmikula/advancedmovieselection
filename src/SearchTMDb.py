@@ -140,9 +140,9 @@ class TMDbList(GUIComponent, object):
             name = movie.title
             overview = movie.overview
             released = None
-            if isinstance(movie.releasedate, datetime.datetime):
+            if isinstance(movie.releasedate, datetime.date):
                 released = movie.releasedate.year
-            
+
             cover_url = movie.poster_url
             
             if overview:
@@ -165,7 +165,7 @@ class TMDbList(GUIComponent, object):
                 else:
                     png = self.picloader.load(nocover)
             res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 1, 92, 138, png))
-            res.append((eListboxPythonMultiContent.TYPE_TEXT, 100, 5, width - 100 , 20, 0, RT_HALIGN_LEFT | RT_VALIGN_CENTER, "%s" % name.encode('utf-8', 'ignore')))
+            res.append((eListboxPythonMultiContent.TYPE_TEXT, 100, 5, width - 100 , 23, 0, RT_HALIGN_LEFT | RT_VALIGN_CENTER, "%s" % name.encode('utf-8', 'ignore')))
             res.append((eListboxPythonMultiContent.TYPE_TEXT, width - 140, 5, 130 , 20, 1, RT_HALIGN_RIGHT | RT_VALIGN_CENTER, "%s" % released_text))
             res.append((eListboxPythonMultiContent.TYPE_TEXT, 100, 30, width - 100, 100, 1, RT_WRAP, "%s" % overview))
         except:
@@ -345,7 +345,7 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
             self.movies = []
             for movie in results:
                 if movie is not None:
-                    self.movies.append((movie, ),)
+                    self.movies.append((movie,),)
             self["list"].setList(self.movies)
             self.showMovieList()
         except Exception, e:
@@ -400,7 +400,7 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
     def getMovieInfo(self, movie):
         try:
             if movie:
-                extended = ""
+                extended = self.getImageIndexText(movie) + '\n'
                 name = movie.title.encode('utf-8', 'ignore')
                 description = movie.overview
                 released = movie.releasedate.year
@@ -413,7 +413,7 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
                     self["description"].setText(_("No description for ' %s ' at themoviedb.org found!") % name)
                 
                 if released:
-                    extended = (_("Appeared: %s") % released) + ' / '
+                    extended += (_("Appeared: %s") % released) + ' / '
                 if runtime:
                     extended += (_("Runtime: %s minutes") % runtime) + ' / '
 
@@ -496,7 +496,10 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
             self.backdrop_picload.startDecode(filename)
         else:
             self.backdrop_picload.startDecode(nocover)
-
+    
+    def getImageIndexText(self, movie):
+        return "%s %d/%d, %s %d/%d" % (_("Cover:"), movie.poster_index, len(movie.poster_urls), _("Backdrop:"), movie.backdrop_index, len(movie.backdrop_urls))
+    
     def updateImageIndex(self, method):
         if len(self.movies) == 0:
             return
@@ -507,7 +510,7 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
             return
         method(movie)
         self["list"].l.invalidateEntry(index)
-        self.updateCover(movie)
+        self.getMovieInfo(movie)
 
     def dummy(self):
         print "Dummy"
