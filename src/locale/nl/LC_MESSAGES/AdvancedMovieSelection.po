@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-04 18:53+0100\n"
-"PO-Revision-Date: 2014-01-04 18:54+0100\n"
+"POT-Creation-Date: 2014-01-05 12:45+0100\n"
+"PO-Revision-Date: 2014-01-05 12:46+0100\n"
 "Last-Translator: cmikula\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "Language: nl_AT\n"
@@ -3228,7 +3228,15 @@ msgstr "Productie: %s\n"
 msgid "Unknown error!!"
 msgstr "Ongekende fout!"
 
-#: ../../../SearchTMDb.py:581
+#: ../../../SearchTMDb.py:501
+msgid "Cover:"
+msgstr "Cover:"
+
+#: ../../../SearchTMDb.py:501
+msgid "Backdrop:"
+msgstr "Backdrop:"
+
+#: ../../../SearchTMDb.py:584
 #, python-format
 msgid "Sorry, no info/cover found for title: %s"
 msgstr "Sorry geen Filminfo/Cover voor %s gevonden."
@@ -3265,7 +3273,7 @@ msgstr "Filmpad: %s"
 
 #: ../../../Source/DiskInfo.py:23
 msgid "free diskspace"
-msgstr "beschikbare capaciteit"
+msgstr "vrije capaciteit"
 
 #: ../../../Source/DiskInfo.py:25
 msgid "used diskspace"
@@ -4110,9 +4118,6 @@ msgstr "Symlink:"
 #~ msgstr ""
 #~ "Das automatische erstellen der Filmvorschauen wurde durch den Benutzer "
 #~ "abgebrochen !"
-
-#~ msgid "Save Cover"
-#~ msgstr "Cover speichern"
 
 #~ msgid "Movielist Preview Menu"
 #~ msgstr "Filmvorschau Menü"

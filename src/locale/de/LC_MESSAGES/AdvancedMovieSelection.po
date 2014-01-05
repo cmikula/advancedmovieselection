@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-04 12:56+0100\n"
-"PO-Revision-Date: 2014-01-04 12:57+0100\n"
+"POT-Creation-Date: 2014-01-05 12:36+0100\n"
+"PO-Revision-Date: 2014-01-05 12:37+0100\n"
 "Last-Translator: cmikula\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "Language: de_AT\n"
@@ -3226,7 +3226,15 @@ msgstr "Produktion: %s\n"
 msgid "Unknown error!!"
 msgstr "Unbekannter Fehler!"
 
-#: ../../../SearchTMDb.py:581
+#: ../../../SearchTMDb.py:501
+msgid "Cover:"
+msgstr "Cover:"
+
+#: ../../../SearchTMDb.py:501
+msgid "Backdrop:"
+msgstr "Hintergrund:"
+
+#: ../../../SearchTMDb.py:584
 #, python-format
 msgid "Sorry, no info/cover found for title: %s"
 msgstr "Leider keine Filminfo/Cover für %s gefunden."
