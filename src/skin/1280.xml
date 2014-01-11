@@ -21,7 +21,7 @@
 	<screen name="SelectionListScreen" position="center,center" size="1280,720" flags="wfNoBorder">
 		<!-- HelpableScreen: Add help button -->
 		<widget source="Title" render="Label" position="60,72" size="900,30" zPosition="3" font="Regular;26" backgroundColor="#605F5E" transparent="1" />
-		<widget source="session.VideoPicture" render="Pig" position="65,115" size="256,144" zPosition="3" backgroundColor="#ff000000" />
+		<widget source="session.VideoPicture" render="Pig" position="60,110" size="256,144" zPosition="3" backgroundColor="#ff000000" />
 		<ePixmap pixmap="skin_default/buttons/button_red.png" position="60,330" size="21,21" alphatest="blend" />
 		<ePixmap pixmap="skin_default/buttons/button_green.png" position="60,380" size="21,21" alphatest="blend" />
 		<widget source="key_red" render="Label" position="90,328" size="300,28" font="Regular;24" halign="left" valign="top" transparent="1" />
@@ -352,7 +352,7 @@
 		<widget source="global.CurrentTime" render="Label" position="910,72" size="310,26" font="Regular;20" halign="right" transparent="1">
 			<convert type="ClockToText">Date</convert>
 		</widget>
-		<widget source="session.VideoPicture" render="Pig" position="65,115" size="256,144" zPosition="3" backgroundColor="#ff000000" />
+		<widget source="session.VideoPicture" render="Pig" position="60,110" size="256,144" zPosition="3" backgroundColor="#ff000000" />
 		<widget name="Path" position="450,110" size="770,28" font="Regular;24" halign="center" transparent="1" />
 		<widget name="config" position="450,170" size="770,450" zPosition="3" scrollbarMode="showOnDemand" enableWrapAround="1" transparent="1" />
 		<ePixmap pixmap="skin_default/buttons/button_red.png" position="60,330" size="30,30" alphatest="blend" zPosition="2" />
@@ -417,7 +417,7 @@
 		<widget source="global.CurrentTime" render="Label" position="910,72" size="310,26" font="Regular;20" halign="right" transparent="1">
 			<convert type="ClockToText">Date</convert>
 		</widget>
-		<widget source="session.VideoPicture" render="Pig" position="65,115" size="256,144" zPosition="3" backgroundColor="#ff000000" />
+		<widget source="session.VideoPicture" render="Pig" position="60,110" size="256,144" zPosition="3" backgroundColor="#ff000000" />
 		<widget source="Service" render="Label" position="205,470" size="1015,24" font="Regular;20" halign="left" transparent="1">
 			<convert type="MovieInfo">RecordServiceName</convert>
 		</widget>
@@ -471,7 +471,7 @@
 		<widget source="global.CurrentTime" render="Label" position="910,72" size="310,26" font="Regular;20" halign="right" backgroundColor="#000000" foregroundColor="#ffffff" transparent="1">
 			<convert type="ClockToText">Date</convert>
 		</widget>
-		<widget source="session.VideoPicture" render="Pig" position="65,115" size="256,144" zPosition="3" backgroundColor="#ff000000" />
+		<widget source="session.VideoPicture" render="Pig" position="60,110" size="256,144" zPosition="3" backgroundColor="#ff000000" />
 		<widget source="Service" render="Label" position="205,470" zPosition="1" size="1015,24" font="Regular;20" backgroundColor="#000000" foregroundColor="#ffffff" halign="left" transparent="1">
 			<convert type="MovieInfo">RecordServiceName</convert>
 		</widget>
@@ -527,7 +527,7 @@
 		<widget source="global.CurrentTime" render="Label" position="910,72" size="310,26" font="Regular;20" halign="right" transparent="1">
 			<convert type="ClockToText">Date</convert>
 		</widget>
-		<widget source="session.VideoPicture" render="Pig" position="65,115" size="256,144" zPosition="3" backgroundColor="#ff000000" />
+		<widget source="session.VideoPicture" render="Pig" position="60,110" size="256,144" zPosition="3" backgroundColor="#ff000000" />
 		<widget source="Service" render="Label" position="60,270" size="265,24" font="Regular;20" transparent="1">
 			<convert type="MovieInfo">RecordServiceName</convert>
 		</widget>
@@ -575,7 +575,7 @@
 		<widget source="global.CurrentTime" render="Label" position="910,72" size="310,26" font="Regular;20" halign="right" transparent="1">
 			<convert type="ClockToText">Date</convert>
 		</widget>
-		<widget source="session.VideoPicture" render="Pig" position="65,115" size="256,144" zPosition="3" backgroundColor="#ff000000" />
+		<widget source="session.VideoPicture" render="Pig" position="60,110" size="256,144" zPosition="3" backgroundColor="#ff000000" />
 		<widget source="Title" render="Label" position="60,60" size="1160,30" font="Regular;26" transparent="1" />
 		<widget name="info" position="450,115" size="770,30" valign="top" halign="left" zPosition="2" font="Regular;22" />
 		<widget name="title" position="450,145" size="770,50" valign="top" halign="left" zPosition="2" font="Regular;22" />
@@ -893,7 +893,7 @@
 		<widget source="global.CurrentTime" render="Label" position="60,72" size="1160,26" font="Regular;20" halign="right" transparent="1">
 			<convert type="ClockToText">Date</convert>
 		</widget>
-		<widget source="session.VideoPicture" render="Pig" position="65,115" size="256,144" zPosition="3" backgroundColor="#ff000000" />
+		<widget source="session.VideoPicture" render="Pig" position="60,110" size="256,144" zPosition="3" backgroundColor="#ff000000" />
 		<ePixmap pixmap="skin_default/buttons/button_red.png" position="60,330" size="21,21" alphatest="blend" />
 		<ePixmap pixmap="skin_default/buttons/button_green.png" position="60,380" size="21,21" alphatest="blend" />
 		<ePixmap pixmap="skin_default/buttons/button_yellow.png" position="60,430" size="21,21" alphatest="blend" />
@@ -935,7 +935,7 @@
 		<widget source="global.CurrentTime" render="Label" position="910,72" size="310,26" font="Regular;20" halign="right" transparent="1">
 			<convert type="ClockToText">Date</convert>
 		</widget>
-		<widget source="session.VideoPicture" render="Pig" position="65,115" size="256,144" zPosition="3" backgroundColor="#ff000000" />
+		<widget source="session.VideoPicture" render="Pig" position="60,110" size="256,144" zPosition="3" backgroundColor="#ff000000" />
 		<widget name="waitingtext" position="450,130" size="770,375" zPosition="3" font="Regular;26" halign="center" valign="center" transparent="1" />
 		<widget name="freeDiskSpace" position="0,0" size="0,0" zPosition="3" font="Regular;24" halign="center" transparent="1" />
 		<widget name="wastetxt" position="345,110" size="875,29" zPosition="3" font="Regular;24" halign="center" transparent="1" />
