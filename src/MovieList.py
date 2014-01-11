@@ -892,7 +892,7 @@ class MovieList(GUIComponent):
             if self.movieConfig.isHidden(file_name):
                 continue
 
-            if config.AdvancedMovieSelection.hide_seen_movies.value and hasLastPosition(serviceref):
+            if config.AdvancedMovieSelection.hide_seen_movies.value and hasLastPosition(serviceref) and config.AdvancedMovieSelection.last_selected_service.value != serviceref.toString():
                 continue
             
             if serviceUtil.isServiceMoving(serviceref):
