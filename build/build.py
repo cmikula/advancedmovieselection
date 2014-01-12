@@ -89,7 +89,7 @@ PACKAGE_RECOMENDS = None
 
 CONTROL_CONFFILES = ()
 
-LIBRARY_SOURCES = ("Source/ServiceProvider.py", "Source/CueSheetSupport.py", "Source/ServiceUtils.py", "Source/EventInformationTable.py", "Source/MovieDB/tmdb.py", "Source/MovieDB/tvdb.py", "SearchTMDb.py", "SearchTVDb.py", "Source/EpgListExtension.py", "Source/ISOInfo.py")
+LIBRARY_SOURCES = ("Source/ServiceProvider.py", "Source/CueSheetSupport.py", "Source/ServiceUtils.py", "Source/EventInformationTable.py", "Source/MovieDB/tmdb.py", "Source/MovieDB/tvdb.py", "Source/EpgListExtension.py", "Source/ISOInfo.py")
 
 POSTINST = "#!/bin/sh\n\
 echo \"* plugin installed successfully *\"\n\
