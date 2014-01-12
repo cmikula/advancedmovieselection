@@ -526,7 +526,7 @@ def createEIT(file_name, title, movie=None, overwrite_eit=False, overwrite_cover
         printStackTrace()
         return False
         
-def createEITtvdb(file_name, title, cover_type='poster', overwrite_jpg=False, overwrite_eit=False, serie=None, episode=None):
+def createEITtvdb(file_name, title, serie=None, episode=None, overwrite_eit=False, overwrite_cover=False, overwrite_backdrop=False, cover_type='poster', backdrop_type='fanart'):
     try:
         # DVD directory
         if not os.path.isdir(file_name):
@@ -535,11 +535,8 @@ def createEITtvdb(file_name, title, cover_type='poster', overwrite_jpg=False, ov
             f_name = file_name
         eit_file = f_name + ".eit"
         jpg_file = f_name + ".jpg"
+        backdrop_file = f_name + ".backdrop.jpg"
         
-        if (os.path.exists(jpg_file) and overwrite_jpg == False) and (os.path.exists(eit_file) and overwrite_eit == False):
-            print "Info's already exists, download skipped!"
-            return True
-
         if serie == None and title:
             print "Fetching info for movie: " + str(title)
             results = tvdb.search(title)
@@ -551,10 +548,9 @@ def createEITtvdb(file_name, title, cover_type='poster', overwrite_jpg=False, ov
             serie = movie['Serie'][0]
         
         cover_url = serie[cover_type]
-        if not cover_url:
-            print "No Cover found for", str(title), "\n"
-        else:    
-            downloadCover(cover_url, jpg_file, overwrite_jpg)
+        backdrop_url = serie[backdrop_type]
+        downloadCover(cover_url, jpg_file, overwrite_cover)
+        downloadCover(backdrop_url, backdrop_file, overwrite_backdrop)
 
         if os.path.exists(eit_file) and overwrite_eit == False:
             print "File '%s' already exists, eit creation skipped!" % (eit_file)

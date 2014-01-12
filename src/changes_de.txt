@@ -357,3 +357,6 @@ version: 3.3
 * neu: verfügbare plugins mit lange menütaste anzeigen
 ACHTUNG an die skinner, bei allen screens die HD und _HD erweiterung entfernen, gleiches gilt für SD oder XD
 neue screens: AdvancedMovieSelection_Backdrop, AdvancedMovieSelectionEventView_Backdrop, TMDbMain_Backdrop
+
+version: 3.3.1
+* fix: tvdb crash

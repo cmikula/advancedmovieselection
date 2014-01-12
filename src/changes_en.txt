@@ -356,3 +356,6 @@ version: 3.3
 * new: show available plugins menu with long menu button
 Skinners ATTENTION, remove all HD und _HD extensions, same for SD or XD
 new screens: AdvancedMovieSelection_Backdrop, AdvancedMovieSelectionEventView_Backdrop, TMDbMain_Backdrop
+
+version: 3.3.1
+* fix: tvdb crash

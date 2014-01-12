@@ -746,7 +746,7 @@ class TheTVDBMain(Screen, InfoLoadChoice):
         cur = self["list"].getCurrent()
         if not self.checkConnection() or not cur:
             return
-        overwrite_eit, overwrite_jpg = answer and answer[1] or (False, False)
+        overwrite_eit, overwrite_cover, overwrite_backdrop = answer and answer[1] or (False, False, False)
         current_movie = cur[0]['Serie'][0]
         title = current_movie['SeriesName'].encode('utf-8', 'ignore')
         episode = None
@@ -755,7 +755,8 @@ class TheTVDBMain(Screen, InfoLoadChoice):
         if cur_epi and (self.view_mode == self.SHOW_EPISODE_LIST or self.view_mode == self.SHOW_EPISODE_DETAIL):
             episode = cur_epi[0]
         if self.service is not None:
-            createEITtvdb(self.service.getPath(), title, serie=current_movie, episode=episode, overwrite_jpg=overwrite_jpg, overwrite_eit=overwrite_eit)
+            # using image type as 'banner' 'poster' 'fanart'
+            createEITtvdb(self.service.getPath(), title, serie=current_movie, episode=episode, overwrite_eit=overwrite_eit, overwrite_cover=overwrite_cover, overwrite_backdrop=overwrite_backdrop, cover_type='poster', backdrop_type='fanart')
             self.close(False)
 
     def red_pressed(self):
