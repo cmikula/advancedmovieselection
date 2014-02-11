@@ -436,6 +436,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append(getConfigListEntry(_("Behavior when a movie reaches the end:"), config.usage.on_movie_eof, _("With this option you can assign what should happen when the end of the films was achieved.")))
         self.list.append(getConfigListEntry(_("Show Moviebar position setup in extensions menu from movielist:"), config.AdvancedMovieSelection.show_infobar_position, _("Displays the moviebar position setup function in the menu at the movie list.")))
         if config.AdvancedMovieSelection.showcolorstatusinmovielist.value:
+            self.list.append(getConfigListEntry(_("Color for movies:"), config.AdvancedMovieSelection.color5, _("With this option you can assign what color should displayed for the movies in movie list.")))
             self.list.append(getConfigListEntry(_("Color for not ready seen movies:"), config.AdvancedMovieSelection.color1, _("With this option you can assign what color should displayed for not ready seen movies in movie list.")))
             self.list.append(getConfigListEntry(_("Color for ready seen movies:"), config.AdvancedMovieSelection.color2, _("With this option you can assign what color should displayed for ready seen movies in movie list.")))
             self.list.append(getConfigListEntry(_("Color for recording movies:"), config.AdvancedMovieSelection.color3, _("With this option you can assign what color should displayed for recording movies in movie list.")))

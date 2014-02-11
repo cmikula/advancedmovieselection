@@ -148,98 +148,53 @@ class MovieList(GUIComponent):
         self.updateSettings()
         
     def updateSettings(self):
-        if config.AdvancedMovieSelection.color1.value == "yellow":
-            newcolor1 = 0xffcc00
-        elif config.AdvancedMovieSelection.color1.value == "blue":
-            newcolor1 = 0x8585ff
-        elif config.AdvancedMovieSelection.color1.value == "red":
-            newcolor1 = 0xff4A3C
-        elif config.AdvancedMovieSelection.color1.value == "black":
-            newcolor1 = 0x000000
-        elif config.AdvancedMovieSelection.color1.value == "green":
-            newcolor1 = 0x38FF48           
-        
-        if config.AdvancedMovieSelection.color2.value == "yellow":
-            newcolor2 = 0xffcc00
-        elif config.AdvancedMovieSelection.color2.value == "blue":
-            newcolor2 = 0x8585ff
-        elif config.AdvancedMovieSelection.color2.value == "red":
-            newcolor2 = 0xff4A3C
-        elif config.AdvancedMovieSelection.color2.value == "black":
-            newcolor2 = 0x000000
-        elif config.AdvancedMovieSelection.color2.value == "green":
-            newcolor2 = 0x38FF48                  
-        
-        if config.AdvancedMovieSelection.color3.value == "yellow":
-            newcolor3 = 0xffcc00
-        elif config.AdvancedMovieSelection.color3.value == "blue":
-            newcolor3 = 0x8585ff
-        elif config.AdvancedMovieSelection.color3.value == "red":
-            newcolor3 = 0xff4A3C
-        elif config.AdvancedMovieSelection.color3.value == "black":
-            newcolor3 = 0x000000
-        elif config.AdvancedMovieSelection.color3.value == "green":
-            newcolor3 = 0x38FF48    
-        
-        if config.AdvancedMovieSelection.color4.value == "yellow":
-            newcolor4 = 0xffcc00
-        elif config.AdvancedMovieSelection.color4.value == "blue":
-            newcolor4 = 0x8585ff
-        elif config.AdvancedMovieSelection.color4.value == "red":
-            newcolor4 = 0xff4A3C
-        elif config.AdvancedMovieSelection.color4.value == "black":
-            newcolor4 = 0x000000
-        elif config.AdvancedMovieSelection.color4.value == "green":
-            newcolor4 = 0x38FF48  
-        elif config.AdvancedMovieSelection.color4.value == "grey":
-            newcolor4 = 0x7F7F7F
-        elif config.AdvancedMovieSelection.color4.value == "orange":
-            newcolor4 = 0xffa500 
-
-        self.mark_color = newcolor4
         try: self.watching_color = parseColor("movieWatching").argb()    
-        except: self.watching_color = newcolor1
+        except: self.watching_color = parseColor(config.AdvancedMovieSelection.color1.value).argb()
         try: self.finished_color = parseColor("movieFinished").argb()    
-        except: self.finished_color = newcolor2
+        except: self.finished_color = parseColor(config.AdvancedMovieSelection.color2.value).argb()
         try: self.recording_color = parseColor("movieRecording").argb()    
-        except: self.recording_color = newcolor3
+        except: self.recording_color = parseColor(config.AdvancedMovieSelection.color3.value).argb()
+        try: self.mark_color = parseColor("movieMarcColor").argb()    
+        except: self.mark_color = parseColor(config.AdvancedMovieSelection.color4.value).argb()
+        try: self.movie_color = parseColor("movieColor").argb()    
+        except: self.movie_color = parseColor(config.AdvancedMovieSelection.color5.value).argb()
+        from Source.Config import color_choice
+        if self.movie_color == color_choice[4][0]:
+            self.movie_color = None
 
+        self.COLOR_MOVIE_ICON = None
         if self.show_statusicon and self.show_folders:
-            if config.AdvancedMovieSelection.color3.value == "yellow":
+            if config.AdvancedMovieSelection.color3.value == color_choice[0][0]:
                 self.COLOR_MOVIE_ICON = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "yellow_movieicon.png"))
-            elif config.AdvancedMovieSelection.color3.value == "blue":
+            elif config.AdvancedMovieSelection.color3.value == color_choice[7][0]:
                 self.COLOR_MOVIE_ICON = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "blue_movieicon.png"))
-            elif config.AdvancedMovieSelection.color3.value == "red":
+            elif config.AdvancedMovieSelection.color3.value == color_choice[2][0]:
                 self.COLOR_MOVIE_ICON = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "red_movieicon.png"))
-            elif config.AdvancedMovieSelection.color3.value == "black":
+            elif config.AdvancedMovieSelection.color3.value == color_choice[5][0]:
                 self.COLOR_MOVIE_ICON = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "black_movieicon.png"))
-            elif config.AdvancedMovieSelection.color3.value == "green":
+            elif config.AdvancedMovieSelection.color3.value == color_choice[1][0]:
                 self.COLOR_MOVIE_ICON = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "green_movieicon.png"))
-            else:
-                self.COLOR_MOVIE_ICON = None
-        else:
-            self.COLOR_MOVIE_ICON = None
             
-        if config.AdvancedMovieSelection.color1.value == "yellow":
+        if config.AdvancedMovieSelection.color1.value == color_choice[0][0]:
             self.COLOR_PERCENT_1 = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "yellow_movieicon.png"))
-        elif config.AdvancedMovieSelection.color1.value == "blue":
+        elif config.AdvancedMovieSelection.color1.value == color_choice[7][0]:
             self.COLOR_PERCENT_1 = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "blue_movieicon.png"))
-        elif config.AdvancedMovieSelection.color1.value == "red":
+        elif config.AdvancedMovieSelection.color1.value == color_choice[2][0]:
             self.COLOR_PERCENT_1 = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "red_movieicon.png"))
-        elif config.AdvancedMovieSelection.color1.value == "black":
+        elif config.AdvancedMovieSelection.color1.value == color_choice[5][0]:
             self.COLOR_PERCENT_1 = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "black_movieicon.png"))
-        elif config.AdvancedMovieSelection.color1.value == "green":
+        elif config.AdvancedMovieSelection.color1.value == color_choice[1][0]:
             self.COLOR_PERCENT_1 = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "green_movieicon.png"))
         
-        if config.AdvancedMovieSelection.color2.value == "yellow":
+        if config.AdvancedMovieSelection.color2.value == color_choice[0][0]:
             self.COLOR_PERCENT_2 = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "yellow_movieicon.png"))
-        elif config.AdvancedMovieSelection.color2.value == "blue":
+        elif config.AdvancedMovieSelection.color2.value == color_choice[7][0]:
             self.COLOR_PERCENT_2 = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "blue_movieicon.png"))
-        elif config.AdvancedMovieSelection.color2.value == "red":
+        elif config.AdvancedMovieSelection.color2.value == color_choice[2][0]:
             self.COLOR_PERCENT_2 = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "red_movieicon.png"))
-        elif config.AdvancedMovieSelection.color2.value == "black":
+        elif config.AdvancedMovieSelection.color2.value == color_choice[5][0]:
             self.COLOR_PERCENT_2 = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "black_movieicon.png"))
-        elif config.AdvancedMovieSelection.color2.value == "green":
+        elif config.AdvancedMovieSelection.color2.value == color_choice[1][0]:
             self.COLOR_PERCENT_2 = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "green_movieicon.png"))
 
         if config.AdvancedMovieSelection.dateformat.value == "1":
@@ -356,6 +311,7 @@ class MovieList(GUIComponent):
     def buildMovieListEntry(self, movie_info, selection_index= -1):
         try:
             #print "update"
+            color = self.movie_color
             TYPE_PIXMAP = eListboxPythonMultiContent.TYPE_PIXMAP_ALPHABLEND
             width = self.l.getItemSize().width()
             offset = 0
@@ -393,11 +349,11 @@ class MovieList(GUIComponent):
                     else:
                         res.append((TYPE_PIXMAP, 0, 2, 20, 20, png))
                     if not isinstance(serviceref, eServiceReferenceListAll):
-                        res.append(MultiContentEntryText(pos=(offset, 30), size=(width, 25), font=1, flags=RT_HALIGN_LEFT, text=serviceref.getPath()))
+                        res.append(MultiContentEntryText(pos=(offset, 30), size=(width, 25), font=1, flags=RT_HALIGN_LEFT, text=serviceref.getPath(), color=color))
                 else:
                     res.append((TYPE_PIXMAP, 0, 2, 20, 20, png))
 
-                res.append(MultiContentEntryText(pos=(offset, 3), size=(width - 150, 30), font=0, flags=RT_HALIGN_LEFT, text=serviceref.getName()))
+                res.append(MultiContentEntryText(pos=(offset, 3), size=(width - 150, 30), font=0, flags=RT_HALIGN_LEFT, text=serviceref.getName(), color=color))
                 if config.AdvancedMovieSelection.show_dirsize.value:
                     dir_size = -1
                     if isinstance(serviceref, eServiceReferenceHotplug):
@@ -409,7 +365,7 @@ class MovieList(GUIComponent):
                             dir_size = movieScanner.movielibrary.getSize(serviceref.getPath())
                     if dir_size >= 0:
                         dir_size = realSize(dir_size, int(config.AdvancedMovieSelection.dirsize_digits.value))
-                        res.append(MultiContentEntryText(pos=(width - 115, 4), size=(110, 30), font=1, flags=RT_HALIGN_RIGHT, text=dir_size))
+                        res.append(MultiContentEntryText(pos=(width - 115, 4), size=(110, 30), font=1, flags=RT_HALIGN_RIGHT, text=dir_size, color=color))
                 
                 if os.path.islink(serviceref.getPath()[:-1]) and can_show_folder_image:
                     link_png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "link.png"))
@@ -490,7 +446,6 @@ class MovieList(GUIComponent):
             else:
                 length_text = ""
             
-            color = None 
             recording = False
             if NavigationInstance.instance.getRecordings():
                 for timer in NavigationInstance.instance.RecordTimer.timer_list:

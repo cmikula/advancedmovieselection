@@ -32,7 +32,7 @@ config.usage.on_movie_stop = ConfigSelection(default="ask", choices=[("ask", _("
 config.usage.on_movie_eof = ConfigSelection(default="ask", choices=[("ask", _("Ask user")), ("movielist", _("Return to movie list")), ("quit", _("Return to previous service")), ("pause", _("Pause movie at end")), ("standby", _("Standby")), ("shutdown", _("Shutdown"))])
 
 config.AdvancedMovieSelection = ConfigSubsection()
-config.AdvancedMovieSelection.last_selected_service = ConfigText(default = "")
+config.AdvancedMovieSelection.last_selected_service = ConfigText(default="")
 config.AdvancedMovieSelection.wastelist_buildtype = ConfigSelection(default="listMovies" , choices=[("listMovies", _("Only current location")), ("listAllMovies", _("Current location and all subdirectories")), ("listAllMoviesMedia", _("All directorys below '/media'")) ])
 config.AdvancedMovieSelection.use_wastebasket = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.overwrite_left_right = ConfigYesNo(default=True)
@@ -50,10 +50,39 @@ config.AdvancedMovieSelection.usefoldername = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.minitv = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.shownew = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.dateformat = ConfigSelection(default="6" , choices=[("6" , _("German (without Year)")), ("1" , _("German (with Year)")), ("3" , _("German (with Starttime)")), ("2" , _("Enigma 2 default")), ("7" , _("English (without Year)")), ("4" , _("English (with Year)")), ("5" , _("English (with Starttime)"))])
-config.AdvancedMovieSelection.color1 = ConfigSelection(default="yellow" , choices=[("yellow" , _("Yellow")), ("blue" , _("Blue")), ("red" , _("Red")), ("black" , _("Black")), ("green" , _("Green"))])
-config.AdvancedMovieSelection.color2 = ConfigSelection(default="green" , choices=[("green" , _("Green")), ("blue" , _("Blue")), ("red" , _("Red")), ("black" , _("Black")), ("yellow" , _("Yellow"))])
-config.AdvancedMovieSelection.color3 = ConfigSelection(default="red" , choices=[("red" , _("Red")), ("blue" , _("Blue")), ("green" , _("Green")), ("black" , _("Black")), ("yellow" , _("Yellow"))])
-config.AdvancedMovieSelection.color4 = ConfigSelection(default="grey" , choices=[("grey" , _("Grey")), ("red" , _("Red")), ("blue" , _("Blue")), ("green" , _("Green")), ("black" , _("Black")), ("yellow" , _("Yellow")), ("orange" , _("Orange")), ])
+
+color_choice = [
+                ("#00ffcc00", _("Yellow")),
+                ("#0038FF48", _("Green")),
+                ("#00ff4A3C", _("Red")),
+                ("#007F7F7F", _("Grey")),
+                ("#00FFFFFF", _("White")),
+                ("#00000000", _("Black")),
+                ("#00ffa500", _("Orange")),
+                ("#008585ff", _("Blue")),
+                ]
+def checkColor(color, l):
+    for x, n in l:
+        if color == x:
+            return False
+    return True
+
+from skin import colorNames
+skin_colors = []
+for col in colorNames:
+    rgb = colorNames[col]
+    skin_colors.append((str.format("#%02X%02X%02X%02X" % (rgb.a, rgb.r, rgb.g, rgb.b)), col))
+skin_colors = sorted(skin_colors, key=lambda x: (x[1], x[1]))
+for col in skin_colors:
+    if checkColor(col[0], color_choice): 
+        color_choice.append(col)
+
+config.AdvancedMovieSelection.color1 = ConfigSelection(default=color_choice[0][0] , choices=color_choice)
+config.AdvancedMovieSelection.color2 = ConfigSelection(default=color_choice[1][0] , choices=color_choice)
+config.AdvancedMovieSelection.color3 = ConfigSelection(default=color_choice[2][0] , choices=color_choice)
+config.AdvancedMovieSelection.color4 = ConfigSelection(default=color_choice[3][0] , choices=color_choice)
+config.AdvancedMovieSelection.color5 = ConfigSelection(default=color_choice[4][0] , choices=color_choice)
+
 config.AdvancedMovieSelection.moviepercentseen = ConfigInteger(default=80, limits=(50, 100))
 config.AdvancedMovieSelection.showfoldersinmovielist = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.showprogessbarinmovielist = ConfigYesNo(default=False)
@@ -92,12 +121,14 @@ config.AdvancedMovieSelection.bookmark4owntext = ConfigText(default=_("Own text 
 config.AdvancedMovieSelection.bookmark5owntext = ConfigText(default=_("Own text 5"), visible_width=50, fixed_size=False)
 config.AdvancedMovieSelection.bookmark6owntext = ConfigText(default=_("Own text 6"), visible_width=50, fixed_size=False)
 config.AdvancedMovieSelection.bookmark7owntext = ConfigText(default=_("Own text 7"), visible_width=50, fixed_size=False)
-launch_choices = [    ("None", _("No override")),
-                            ("showMovies", _("Video-button")),
-                            ("showTv", _("TV-button")),
-                            ("showRadio", _("Radio-button")),
-                            ("timeshiftStart", _("Timeshift-button"))]
-config.AdvancedMovieSelection.movie_launch = ConfigSelection(default="showMovies", choices=launch_choices)
+launch_choice = [
+                ("None", _("No override")),
+                ("showMovies", _("Video-button")),
+                ("showTv", _("TV-button")),
+                ("showRadio", _("Radio-button")),
+                ("timeshiftStart", _("Timeshift-button"))
+                ]
+config.AdvancedMovieSelection.movie_launch = ConfigSelection(default="showMovies", choices=launch_choice)
 config.AdvancedMovieSelection.askdelete = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.moviepercentseen = ConfigInteger(default=85, limits=(50, 100))
 config.AdvancedMovieSelection.AskEventinfo = ConfigYesNo(default=True)
