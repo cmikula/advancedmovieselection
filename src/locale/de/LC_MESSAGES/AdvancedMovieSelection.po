@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-05 17:05+0100\n"
-"PO-Revision-Date: 2014-01-05 17:05+0100\n"
+"POT-Creation-Date: 2014-02-14 15:53+0100\n"
+"PO-Revision-Date: 2014-02-14 15:55+0100\n"
 "Last-Translator: cmikula\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "Language: de_AT\n"
@@ -63,12 +63,12 @@ msgid "Info/Cover save"
 msgstr "Info/Cover speichern"
 
 #: ../../../SearchTVDb.py:165
-#: ../../../AdvancedMovieSelectionSetup.py:680
+#: ../../../AdvancedMovieSelectionSetup.py:681
 msgid "Trailer search"
 msgstr "Trailer suchen"
 
 #: ../../../SearchTVDb.py:261
-#: ../../../AdvancedMovieSelectionSetup.py:672
+#: ../../../AdvancedMovieSelectionSetup.py:673
 #: ../../../MovieSelection.py:194
 msgid "TheTVDB Info & D/L"
 msgstr "TheTVDB Info & D/L"
@@ -238,27 +238,27 @@ msgstr "Suchergebnis für: %s"
 msgid "Save Info/Cover for '%s', please wait..."
 msgstr "Info/Cover für '%s' speichern, bitte warten..."
 
-#: ../../../SearchTVDb.py:764
+#: ../../../SearchTVDb.py:765
 #, python-format
 msgid "Getting show details for '%s', please wait..."
 msgstr "Lade Seriendetails für '%s', bitte warten..."
 
-#: ../../../SearchTVDb.py:766
+#: ../../../SearchTVDb.py:767
 #, python-format
 msgid "Search trailer for '%s', please wait..."
 msgstr "Suche Vorschau für '%s', bitte warten..."
 
-#: ../../../SearchTVDb.py:768
+#: ../../../SearchTVDb.py:769
 #, python-format
 msgid "Getting search result for '%s', please wait..."
 msgstr "Lade Suchergebnis für '%s', bitte warten..."
 
-#: ../../../SearchTVDb.py:778
+#: ../../../SearchTVDb.py:779
 #, python-format
 msgid "Getting episodes list for '%s', please wait..."
 msgstr "Lade Folgenübersicht für '%s', bitte warten..."
 
-#: ../../../SearchTVDb.py:782
+#: ../../../SearchTVDb.py:783
 #, python-format
 msgid "Getting episodes details for '%s', please wait..."
 msgstr "Lade Folgendetails für '%s', bitte warten..."
@@ -494,7 +494,7 @@ msgstr "Speichern"
 
 #: ../../../Rename.py:68
 #: ../../../MoveCopy.py:247
-#: ../../../AdvancedMovieSelectionSetup.py:610
+#: ../../../AdvancedMovieSelectionSetup.py:611
 #: ../../../DownloadMovies.py:57
 #: ../../../TagEditor.py:43
 #: ../../../SelectionListScreen.py:39
@@ -833,7 +833,7 @@ msgstr "Zeige bis FSK-%d"
 #: ../../../QuickButton.py:59
 #: ../../../QuickButton.py:225
 #: ../../../QuickButton.py:366
-#: ../../../AdvancedMovieSelectionSetup.py:674
+#: ../../../AdvancedMovieSelectionSetup.py:675
 msgid "Mark as seen"
 msgstr "Gesehen markieren"
 
@@ -886,8 +886,8 @@ msgid "To library"
 msgstr "Zur Bibliothek"
 
 #: ../../../QuickButton.py:98
-#: ../../../AdvancedMovieSelectionSetup.py:648
-#: ../../../AdvancedMovieSelectionSetup.py:682
+#: ../../../AdvancedMovieSelectionSetup.py:649
+#: ../../../AdvancedMovieSelectionSetup.py:683
 msgid "Nothing"
 msgstr "nichts Zugeordnet"
 
@@ -914,7 +914,7 @@ msgstr "Unbekannt"
 
 #: ../../../QuickButton.py:223
 #: ../../../QuickButton.py:369
-#: ../../../AdvancedMovieSelectionSetup.py:675
+#: ../../../AdvancedMovieSelectionSetup.py:676
 msgid "Mark as unseen"
 msgstr "Ungesehen mark."
 
@@ -1026,7 +1026,7 @@ msgid "Error creating settings backup!"
 msgstr "Fehler beim Erstellen der Sicherungsdatei!"
 
 #: ../../../AdvancedMovieSelectionSetup.py:165
-#: ../../../AdvancedMovieSelectionSetup.py:569
+#: ../../../AdvancedMovieSelectionSetup.py:570
 #: ../../../MovieSelection.py:968
 msgid "Some settings changes require close/reopen the movielist to take effect."
 msgstr "Einige Einstellungen benötigen das Schließen und erneutes öffnen der Filmliste um wirksam zu werden."
@@ -1161,7 +1161,7 @@ msgid "Displays the size from directories in movie list."
 msgstr "Mit dieser Option wird die Größe vom Verzeichnis in der Filmliste angezeigt."
 
 #: ../../../AdvancedMovieSelectionSetup.py:376
-#: ../../../AdvancedMovieSelectionSetup.py:462
+#: ../../../AdvancedMovieSelectionSetup.py:463
 msgid "Show decimal points:"
 msgstr "Dezimalstelle anzeigen:"
 
@@ -1518,339 +1518,347 @@ msgid "Displays the moviebar position setup function in the menu at the movie li
 msgstr "Mit dieser Option wird der Menüpunkt Position verändern der Filminfoleiste im Menü der Filmliste angezeigt."
 
 #: ../../../AdvancedMovieSelectionSetup.py:439
+msgid "Color for movies:"
+msgstr "Farbe für Film:"
+
+#: ../../../AdvancedMovieSelectionSetup.py:439
+msgid "With this option you can assign what color should displayed for the movies in movie list."
+msgstr "Mit dieser Option können Sie bestimmen welche Textfarbe die Filme in der Liste haben sollen."
+
+#: ../../../AdvancedMovieSelectionSetup.py:440
 msgid "Color for not ready seen movies:"
 msgstr "Farbe für nicht zu 100% gesehenen Film: "
 
-#: ../../../AdvancedMovieSelectionSetup.py:439
+#: ../../../AdvancedMovieSelectionSetup.py:440
 msgid "With this option you can assign what color should displayed for not ready seen movies in movie list."
 msgstr "Mit dieser Option können Sie bestimmen welche Farbe die Filmmarkierung bei einem nicht als 100 % gesehenem Film haben soll."
 
-#: ../../../AdvancedMovieSelectionSetup.py:440
+#: ../../../AdvancedMovieSelectionSetup.py:441
 msgid "Color for ready seen movies:"
 msgstr "Farbe für 100% gesehenen Film:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:440
+#: ../../../AdvancedMovieSelectionSetup.py:441
 msgid "With this option you can assign what color should displayed for ready seen movies in movie list."
 msgstr "Mit dieser Option können Sie bestimmen welche Farbe die Filmmarkierung bei einem als 100 % gesehenem Film haben soll."
 
-#: ../../../AdvancedMovieSelectionSetup.py:441
+#: ../../../AdvancedMovieSelectionSetup.py:442
 msgid "Color for recording movies:"
 msgstr "Farbe für Aufnahme:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:441
+#: ../../../AdvancedMovieSelectionSetup.py:442
 msgid "With this option you can assign what color should displayed for recording movies in movie list."
 msgstr "Mit dieser Option können Sie bestimmen welche Farbe die Filmmarkierung bei einer Aufnahme haben soll."
 
-#: ../../../AdvancedMovieSelectionSetup.py:442
+#: ../../../AdvancedMovieSelectionSetup.py:443
 msgid "Color for multiple selection:"
 msgstr "Farbe für Mehrfachauswahl:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:442
+#: ../../../AdvancedMovieSelectionSetup.py:443
 msgid "With this option you can assign what color should displayed for multiple selection in movie list."
 msgstr "Mit dieser Option können Sie bestimmen welche Farbe die Filmmarkierung bei der Mehrfachauswahl haben soll."
 
-#: ../../../AdvancedMovieSelectionSetup.py:443
+#: ../../../AdvancedMovieSelectionSetup.py:444
 msgid "Assign the date format for movielist:"
 msgstr "Datumsformat in der Filmliste:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:443
+#: ../../../AdvancedMovieSelectionSetup.py:444
 msgid "With this option you can assign the date format in movie list (7 different sizes are available)."
 msgstr "Mit dieser Option können Sie das Datumsformat in der Filmliste ändern (es stehen 7 zur Auswahl)."
 
-#: ../../../AdvancedMovieSelectionSetup.py:445
+#: ../../../AdvancedMovieSelectionSetup.py:446
 msgid "Show new recordings icon:"
 msgstr "Neue Aufnahmen Icon anzeigen:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:445
+#: ../../../AdvancedMovieSelectionSetup.py:446
 msgid "With this option you can display a icon for new recordings."
 msgstr "Mit dieser Option können Sie neue Aufnahmen mit einem eigenen Icon in der Filmliste anzeigen."
 
-#: ../../../AdvancedMovieSelectionSetup.py:446
+#: ../../../AdvancedMovieSelectionSetup.py:447
 msgid "Show Mini TV:"
 msgstr "Mini TV anzeigen:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:446
+#: ../../../AdvancedMovieSelectionSetup.py:447
 msgid "With this option you can switch on/off the Mini TV in the movie list."
 msgstr "Mit dieser Option können Sie die Mini TV Anzeige in der Filmliste ein/aus schalten."
 
-#: ../../../AdvancedMovieSelectionSetup.py:447
+#: ../../../AdvancedMovieSelectionSetup.py:448
 msgid "Use folder name for display covers:"
 msgstr "Ordnername anstelle von folder.jpg verwenden:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:447
+#: ../../../AdvancedMovieSelectionSetup.py:448
 msgid "With this option you can use the foldername instead of folder.jpg to display covers in folders."
 msgstr "Mit dieser Option können Sie bestimmen das für die Cover anzeige von Ordnern der Ordnername anstelle von folder.jpg verwendet wird."
 
-#: ../../../AdvancedMovieSelectionSetup.py:448
+#: ../../../AdvancedMovieSelectionSetup.py:449
 msgid "Close with EXIT key:"
 msgstr "Beenden mit der EXIT Taste:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:448
+#: ../../../AdvancedMovieSelectionSetup.py:449
 msgid "If this option is enabled you can stop play a movie with the EXIT button, and the Advanced Movie Selection plugin will also be closed immediately (if the next option is disabled)."
 msgstr "Wenn diese Option aktiviert ist kann das abspielen eines Films mit der EXIT Taste beendet werden, und die Erweiterte Filmliste wird dabei auch sofort geschlossen (wenn die nächste Option deaktiviert bleibt)."
 
-#: ../../../AdvancedMovieSelectionSetup.py:450
+#: ../../../AdvancedMovieSelectionSetup.py:451
 msgid "Use behavior when a movie is stopped:"
 msgstr "Verhalten beim Stoppen eines Filmes verwenden:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:450
+#: ../../../AdvancedMovieSelectionSetup.py:451
 msgid "If this option is activated the behavior when stop a film also will used when you use the EXIT button."
 msgstr "Wenn aktiviert wird auch beim beenden mit der EXIT Taste das eingestellte Verhalten beim Stoppen eines Filmes verwendet."
 
-#: ../../../AdvancedMovieSelectionSetup.py:451
+#: ../../../AdvancedMovieSelectionSetup.py:452
 msgid "Show info messages:"
 msgstr "Info Nachrichten anzeigen:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:451
+#: ../../../AdvancedMovieSelectionSetup.py:452
 msgid "If this option is activated will be displayed different info message. This should help with the operation of the extension."
 msgstr "Wenn diese Option aktiviert ist werden verschieden Info Nachrichten angezeigt. Diese sollen die Bedienung der Erweiterten Filmliste vereinfachen."
 
-#: ../../../AdvancedMovieSelectionSetup.py:452
+#: ../../../AdvancedMovieSelectionSetup.py:453
 msgid "Use alternative jump function:"
 msgstr "Alternative Sprungfunktionen aktivieren:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:452
+#: ../../../AdvancedMovieSelectionSetup.py:453
 msgid "If this option is activated more jump functions ar available. ATTENTION: Enigma 2 restart is necessary!"
 msgstr "Wenn diese Option aktiviert ist stehen mehr Sprungfunktionen zur Verfügung. ACHTUNG: Bei einer Änderung dieser Einstellung muss Enigma 2 neu gestartet werden (es kommt beim Speichern ein Abfrage)!"
 
-#: ../../../AdvancedMovieSelectionSetup.py:455
+#: ../../../AdvancedMovieSelectionSetup.py:456
 msgid "Change function from left/right buttons:"
 msgstr "Funktion der Pfeiltasten (links/rechts) tauschen:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:455
+#: ../../../AdvancedMovieSelectionSetup.py:456
 msgid "If this option is activated the function of the left/right arrow buttons will changed. Normal you can use the buttons also for winding, if is changed you have quick access to the new jump function. ATTENTION: Enigma 2 restart is necessary!"
 msgstr "Wenn aktiviert ist anstelle vom Spulen das schnelle aufrufen der Sprungfunktion möglich. ACHTUNG: Bei einer Änderung dieser Einstellung muss Enigma 2 neu gestartet werden (es kommt beim Speichern ein Abfrage)!"
 
-#: ../../../AdvancedMovieSelectionSetup.py:456
+#: ../../../AdvancedMovieSelectionSetup.py:457
 msgid "Manual jump sensibility:"
 msgstr "Zeit für manuelles Springen (in %):"
 
-#: ../../../AdvancedMovieSelectionSetup.py:456
+#: ../../../AdvancedMovieSelectionSetup.py:457
 msgid "Here you can adjust the manually jump length relative to the film length in percent."
 msgstr "Hier können Sie die manuelle Sprunglänge relativ zur Filmlänge in Prozent einstellen."
 
-#: ../../../AdvancedMovieSelectionSetup.py:457
+#: ../../../AdvancedMovieSelectionSetup.py:458
 msgid "Use wastebasket:"
 msgstr "Papierkorb benutzen:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:457
+#: ../../../AdvancedMovieSelectionSetup.py:458
 msgid "If this option is activated the movie will not be deleted but moved into the wastebasket."
 msgstr "Wenn diese Option aktiviert ist wird beim löschen eines Filmes dieser nicht gleich gelöscht sondern in den Papierkorb verschoben."
 
-#: ../../../AdvancedMovieSelectionSetup.py:459
+#: ../../../AdvancedMovieSelectionSetup.py:460
 msgid "Show Wastebasket in extensions menu from movielist:"
 msgstr "Papierkorb im Menü der Filmliste anzeigen:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:459
+#: ../../../AdvancedMovieSelectionSetup.py:460
 msgid "Displays wastebasket function in the menu at the movie list."
 msgstr "Mit dieser Option wird der Menüpunkt Papierkorb im Menü der Filmliste angezeigt."
 
-#: ../../../AdvancedMovieSelectionSetup.py:460
+#: ../../../AdvancedMovieSelectionSetup.py:461
 msgid "Show Clientbox setup in movielist:"
 msgstr "Fernwartung Einstellungen anzeigen:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:460
+#: ../../../AdvancedMovieSelectionSetup.py:461
 msgid "Displays Clientbox setup function in the menu at the movie list."
 msgstr "Mit dieser Option wird der Menüpunkt Fernwartung Einstellungen im Menü der Filmliste angezeigt."
 
-#: ../../../AdvancedMovieSelectionSetup.py:461
+#: ../../../AdvancedMovieSelectionSetup.py:462
 msgid "Wastebasket file(s):"
 msgstr "Papierkorb Datei(en):"
 
-#: ../../../AdvancedMovieSelectionSetup.py:461
+#: ../../../AdvancedMovieSelectionSetup.py:462
 msgid "Here you can select which files to Wastebasket are displayed. ATTENTION: All directorys below '/media' will take very long until the list is displayed!"
 msgstr "Hier können Sie einstellen wo nach Papierkorb Dateien gesucht werden soll. ACHTUNG: Wenn die Option 'Alles unter /media' verwendet wird, wird das Anzeigen des Papierkorbes sehr lange dauern (1->3 Minuten)."
 
-#: ../../../AdvancedMovieSelectionSetup.py:462
+#: ../../../AdvancedMovieSelectionSetup.py:463
 msgid "Here you can choose how many decimal points for the file size in the wastebasket will be displayed."
 msgstr "Hier können Sie wählen wie viele Dezimalstellen für die Dateigröße im Papierkorb angezeigt werden soll."
 
-#: ../../../AdvancedMovieSelectionSetup.py:463
+#: ../../../AdvancedMovieSelectionSetup.py:464
 msgid "Server enabled:"
 msgstr "Fernwartungsserver aktivieren:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:463
+#: ../../../AdvancedMovieSelectionSetup.py:464
 msgid "If you enable this feature, all remote functions are enabled."
 msgstr "Wenn Sie diese Funktion aktivieren, stehen danach alle Fernwartungsfunktionen zur Verfügung."
 
-#: ../../../AdvancedMovieSelectionSetup.py:464
+#: ../../../AdvancedMovieSelectionSetup.py:465
 msgid "Auto empty wastebasket:"
 msgstr "Papierkorb automatisch leeren:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:464
+#: ../../../AdvancedMovieSelectionSetup.py:465
 msgid "If you enable this function the wastebasket will be emptied automatically at the set time."
 msgstr "Wenn Sie diese Funktion aktivieren wird der Papierkorb um die eingestellt Uhrzeit automatisch geleert."
 
-#: ../../../AdvancedMovieSelectionSetup.py:466
+#: ../../../AdvancedMovieSelectionSetup.py:467
 msgid "Auto empty wastebasket time:"
 msgstr "Zeit für Papierkorb leeren:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:466
+#: ../../../AdvancedMovieSelectionSetup.py:467
 msgid "Here you can define when to empty the wastebasket."
 msgstr "Hier können Sie die Uhrzeit für das automatische leeren vom Papierkorb einstellen."
 
-#: ../../../AdvancedMovieSelectionSetup.py:467
+#: ../../../AdvancedMovieSelectionSetup.py:468
 msgid "Check again in x minutes:"
 msgstr "Erneut versuchen in x Minuten:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:467
+#: ../../../AdvancedMovieSelectionSetup.py:468
 msgid "If recordings are active again after the set time is trying to empty the wastebasket."
 msgstr "Wenn Aufnahmen aktiv sind oder gleich starten wird der Papierkorb nicht geleert. Hier können Sie die Zeit einstellen wann wieder versucht werden soll den Papierkorb zu leeren (min. 15 Minuten / max. 60 Minuten)."
 
-#: ../../../AdvancedMovieSelectionSetup.py:468
+#: ../../../AdvancedMovieSelectionSetup.py:469
 msgid "Wastebasket retention period (days):"
 msgstr "Papierkorb Aufbewahrungsfrist (Tagen):"
 
-#: ../../../AdvancedMovieSelectionSetup.py:468
+#: ../../../AdvancedMovieSelectionSetup.py:469
 msgid "Defines how long files need to dwell in the wastebasket before auto empty will consider to remove them (0 means no retention)."
 msgstr "Legt die Anzahl der Tage fest, wie lange die Filme im Papierkorb aufbewahrt werden sollen, bovor diese gelöscht werden. (0 ist keine Aufbewahrung)"
 
-#: ../../../AdvancedMovieSelectionSetup.py:469
+#: ../../../AdvancedMovieSelectionSetup.py:470
 msgid "Start at the beginning depends on end (in Minutes):"
 msgstr "Starte Wiedergabe von Anfang x Minuten bevor Ende erreicht:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:469
+#: ../../../AdvancedMovieSelectionSetup.py:470
 msgid "Here you can set off when a movie to play automatically from the beginning when you start again (On settings=0, functions is disabled)."
 msgstr "Hier können Sie festlegen ab wieviel Minuten vor Filmende ein Film bei erneutem Start automatisch von Anfang an abgespielt werden soll (bei 0 ist diese Funktion deaktiviert)."
 
-#: ../../../AdvancedMovieSelectionSetup.py:470
+#: ../../../AdvancedMovieSelectionSetup.py:471
 msgid "Use activ Skin LCD/OLED representation:"
 msgstr "LCD/OLED Anzeige vom aktivem Skin verwenden:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:470
+#: ../../../AdvancedMovieSelectionSetup.py:471
 msgid "If you enable this function, the display summary from aktiv skin will be used."
 msgstr "Wenn Sie diese Funktion aktivieren, wird bei der Filmwiedergabe die Anzeige vom aktivem Skin für das LCD/OLED Display verwendet."
 
-#: ../../../AdvancedMovieSelectionSetup.py:472
+#: ../../../AdvancedMovieSelectionSetup.py:473
 msgid "Show date:"
 msgstr "Datum anzeigen:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:472
+#: ../../../AdvancedMovieSelectionSetup.py:473
 msgid "If this option is activated the date will be displayed on the lcd/oled when no short description is available."
 msgstr "Wenn diese Option aktiviert ist wird wenn keine Kurzbeschreibung vorhanden ist das Datum am LCD/OLED angezeigt."
 
-#: ../../../AdvancedMovieSelectionSetup.py:474
+#: ../../../AdvancedMovieSelectionSetup.py:475
 msgid "Use date from timestamp:"
 msgstr "Datum vom Zeitstempel verwenden:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:474
+#: ../../../AdvancedMovieSelectionSetup.py:475
 msgid "If this option is activated the date from the file create instead today's date will be displayed on the lcd/oled when no short description is available."
 msgstr "Wenn diese Option aktiviert ist wird das Datum wo die Datei erzeugt wurde angezeigt anstatt dem aktuellen Datum."
 
-#: ../../../AdvancedMovieSelectionSetup.py:476
+#: ../../../AdvancedMovieSelectionSetup.py:477
 msgid "Use video preview:"
 msgstr "Filmvorschau aktivieren:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:476
+#: ../../../AdvancedMovieSelectionSetup.py:477
 msgid "If you enable this function, selected movie in movielist will bring you a preview."
 msgstr "Wenn Sie diese Funktion aktivieren, wird eine Vorschau vom ausgewählten Film in der Filmliste gezeigt."
 
-#: ../../../AdvancedMovieSelectionSetup.py:480
+#: ../../../AdvancedMovieSelectionSetup.py:481
 msgid "Show video preview in fullscreen:"
 msgstr "Filmvorschau als Vollbild anzeigen:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:480
+#: ../../../AdvancedMovieSelectionSetup.py:481
 msgid "If you enable this function, the video preview function will display as full screen in skin."
 msgstr "Wenn Sie diese Funktion aktivieren, wird eine Vorschau vom ausgewählten Film im Skin als Vollbild angezeigt."
 
-#: ../../../AdvancedMovieSelectionSetup.py:481
+#: ../../../AdvancedMovieSelectionSetup.py:482
 msgid "Video preview autostart:"
 msgstr "Autostart der Filmvorschau aktivieren:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:481
+#: ../../../AdvancedMovieSelectionSetup.py:482
 msgid "If you enable this feature, the movie preview starts automatically after the delay with a change in the movie list."
 msgstr "Wenn Sie diese Funktion deaktiviert haben können sie die Filmvorschau händisch mit der Stop Taste starten/stoppen."
 
-#: ../../../AdvancedMovieSelectionSetup.py:483
+#: ../../../AdvancedMovieSelectionSetup.py:484
 msgid "Video preview delay:"
 msgstr "Filmvorschau Verzögerung:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:483
+#: ../../../AdvancedMovieSelectionSetup.py:484
 msgid "Setup the delay in seconds to start the video preview."
 msgstr "Hier können Sie in Sekunden die Startverzögerung für das abspielen der Filmvorschau einstellen."
 
-#: ../../../AdvancedMovieSelectionSetup.py:484
+#: ../../../AdvancedMovieSelectionSetup.py:485
 msgid "Use last stop mark:"
 msgstr "Letzte Stop Position benutzen:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:484
+#: ../../../AdvancedMovieSelectionSetup.py:485
 msgid "Preview will start on last stop marker."
 msgstr "Mit dieser Option startet die Filmvorschau auf der letzten Stop Position."
 
-#: ../../../AdvancedMovieSelectionSetup.py:485
+#: ../../../AdvancedMovieSelectionSetup.py:486
 msgid "Video preview jump time (in minutes):"
 msgstr "Sprungzeit für die Filmvorschau (in Minuten):"
 
-#: ../../../AdvancedMovieSelectionSetup.py:485
+#: ../../../AdvancedMovieSelectionSetup.py:486
 msgid "Here you can set the jump time for the movie preview (< > buttons or bouquet +/- buttons)."
 msgstr "Hier können Sie die Sprungzeit für das Springen in der Filmvorschau einstellen (< > oder Bouquet +/- Tasten sind für das Springen)."
 
-#: ../../../AdvancedMovieSelectionSetup.py:486
+#: ../../../AdvancedMovieSelectionSetup.py:487
 msgid "Select keyboard:"
 msgstr "Eingabehilfe auswählen:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:486
+#: ../../../AdvancedMovieSelectionSetup.py:487
 msgid "You can select yout prefered keyboard (Virtual, Numerical or both)."
 msgstr "Hier können Sie die Eingabehilfe auswählen (Virtuelle Tastatur, Numerische oder beide)."
 
-#: ../../../AdvancedMovieSelectionSetup.py:487
+#: ../../../AdvancedMovieSelectionSetup.py:488
 msgid "Show recorded movies in epg:"
 msgstr "Aufgenommene Filme im EPG anzeigen:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:487
+#: ../../../AdvancedMovieSelectionSetup.py:488
 msgid "If you enable this function, your recorded movies will be marked in epg list."
 msgstr "Wenn Sie diese Funktion aktivieren, werden die aufgenommenen Filme mit einem Stern in der EPG Liste angezeigt."
 
-#: ../../../AdvancedMovieSelectionSetup.py:488
+#: ../../../AdvancedMovieSelectionSetup.py:489
 msgid "Enable Enigma2 debug:"
 msgstr "Enigma 2 Fehlersuche aktivieren:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:488
+#: ../../../AdvancedMovieSelectionSetup.py:489
 msgid "If you enable this function, all standard output from enigma will be stored to /tmp folder."
 msgstr "Wenn Sie diese Funktion aktivieren, werden alle Standard-Ausgaben von Enigma 2 im /tmp Ordner gespeichert (bei einem E2 neustart wird es automatisch deaktiviert)."
 
-#: ../../../AdvancedMovieSelectionSetup.py:496
+#: ../../../AdvancedMovieSelectionSetup.py:497
 msgid "No Helptext available!"
 msgstr "Kein Hilfstext vorhanden!"
 
-#: ../../../AdvancedMovieSelectionSetup.py:500
+#: ../../../AdvancedMovieSelectionSetup.py:501
 msgid "IMDb plugin installed. Assign function to info button is possible."
 msgstr "IMDb Erweiterung ist installiert. Funktion kann der INFO Taste zugewiesen werden."
 
-#: ../../../AdvancedMovieSelectionSetup.py:502
+#: ../../../AdvancedMovieSelectionSetup.py:503
 msgid "IMDb plugin NOT installed. Assign function to info button is NOT possible."
 msgstr "IMDb Erweiterung ist NICHT installiert. Funktion kann der INFO Taste NICHT zugewiesen werden."
 
-#: ../../../AdvancedMovieSelectionSetup.py:504
+#: ../../../AdvancedMovieSelectionSetup.py:505
 msgid "OFDb plugin installed. Assign function to info button is possible."
 msgstr "OFDb Erweiterung ist installiert. Funktion kann der INFO Taste zugewiesen werden."
 
-#: ../../../AdvancedMovieSelectionSetup.py:506
+#: ../../../AdvancedMovieSelectionSetup.py:507
 msgid "OFDb plugin NOT installed. Assign function to info button is NOT possible."
 msgstr "OFDb Erweiterung ist NICHT installiert. Funktion kann der INFO Taste NICHT zugewiesen werden."
 
-#: ../../../AdvancedMovieSelectionSetup.py:508
+#: ../../../AdvancedMovieSelectionSetup.py:509
 msgid "TMDb plugin installed. Assign function to info button is possible."
 msgstr "TMDb Erweiterung ist installiert. Funktion kann der INFO Taste zugewiesen werden."
 
-#: ../../../AdvancedMovieSelectionSetup.py:510
+#: ../../../AdvancedMovieSelectionSetup.py:511
 msgid "TMDb plugin NOT installed. Assign function to info button is NOT possible."
 msgstr "TMDb Erweiterung ist NICHT installiert. Funktion kann der INFO Taste NICHT zugewiesen werden."
 
-#: ../../../AdvancedMovieSelectionSetup.py:512
+#: ../../../AdvancedMovieSelectionSetup.py:513
 msgid "YTTrailer plugin installed. Search for trailers on the Web is possible."
 msgstr "YTTrailer Erweiterung ist installiert. Trailer können im Web gesucht werden."
 
-#: ../../../AdvancedMovieSelectionSetup.py:514
+#: ../../../AdvancedMovieSelectionSetup.py:515
 msgid "YTTrailer plugin NOT installed. Search for trailers on the Web is NOT possible."
 msgstr "YTTrailer Erweiterung ist NICHT installiert. Trailer können NICHT im Web gesucht werden."
 
-#: ../../../AdvancedMovieSelectionSetup.py:525
-#: ../../../AdvancedMovieSelectionSetup.py:1217
+#: ../../../AdvancedMovieSelectionSetup.py:526
+#: ../../../AdvancedMovieSelectionSetup.py:1218
 msgid "Really close without saving settings?"
 msgstr "Wirklich ohne Speichern schließen?"
 
-#: ../../../AdvancedMovieSelectionSetup.py:564
+#: ../../../AdvancedMovieSelectionSetup.py:565
 msgid ""
 "Some settings changes require a restart to take effect.\n"
 "If you  use a skin without PiG (Picture in Graphic) you have to restart the box (not only Enigma 2)!\n"
@@ -1860,7 +1868,7 @@ msgstr ""
 "Wenn Sie einen Skin ohne PiG (Bild in Grafik/MiniTV) verwenden müssen Sie die Box komplett neu starten (Enigma 2 alleine reicht nicht)!\n"
 "Mit JA wird \"nur\" Enigma 2 neu gestartet, mit NEIN die komplette Box."
 
-#: ../../../AdvancedMovieSelectionSetup.py:566
+#: ../../../AdvancedMovieSelectionSetup.py:567
 msgid ""
 "Some settings changes require a Enigma 2 restart to take effect.\n"
 "\n"
@@ -1870,8 +1878,8 @@ msgstr ""
 "\n"
 "Soll Enigma 2 nun neu gestartet werden?"
 
-#: ../../../AdvancedMovieSelectionSetup.py:575
-#: ../../../AdvancedMovieSelectionSetup.py:585
+#: ../../../AdvancedMovieSelectionSetup.py:576
+#: ../../../AdvancedMovieSelectionSetup.py:586
 #: ../../../TagEditor.py:100
 #: ../../../TagEditor.py:209
 #: ../../../TagEditor.py:250
@@ -1879,417 +1887,417 @@ msgstr ""
 msgid "Aborted by user!!"
 msgstr "Abbruch durch Benutzer!!"
 
-#: ../../../AdvancedMovieSelectionSetup.py:611
-#: ../../../AdvancedMovieSelectionSetup.py:1048
+#: ../../../AdvancedMovieSelectionSetup.py:612
+#: ../../../AdvancedMovieSelectionSetup.py:1049
 #: ../../../TagEditor.py:44
 #: ../../../SelectionListScreen.py:40
 #: ../../../SelectionListScreen.py:58
 msgid "Save/Close"
 msgstr "Speichern/Schließen"
 
-#: ../../../AdvancedMovieSelectionSetup.py:612
+#: ../../../AdvancedMovieSelectionSetup.py:613
 msgid "Own button description"
 msgstr "Eigene Tastenbezeichnung"
 
-#: ../../../AdvancedMovieSelectionSetup.py:637
+#: ../../../AdvancedMovieSelectionSetup.py:638
 msgid "Movie Quick Button Setup"
 msgstr "Farbtasten Einst."
 
-#: ../../../AdvancedMovieSelectionSetup.py:649
+#: ../../../AdvancedMovieSelectionSetup.py:650
 #: ../../../MovieSelection.py:196
 msgid "Delete"
 msgstr "Löschen"
 
-#: ../../../AdvancedMovieSelectionSetup.py:650
+#: ../../../AdvancedMovieSelectionSetup.py:651
 msgid "Move-Copy"
 msgstr "Versch. / Kopieren"
 
-#: ../../../AdvancedMovieSelectionSetup.py:651
+#: ../../../AdvancedMovieSelectionSetup.py:652
 #: ../../../MovieSelection.py:200
 msgid "Rename"
 msgstr "Umbenennen"
 
-#: ../../../AdvancedMovieSelectionSetup.py:652
+#: ../../../AdvancedMovieSelectionSetup.py:653
 #: ../../../MovieSelection.py:184
 msgid "Wastebasket"
 msgstr "Papierkorb"
 
-#: ../../../AdvancedMovieSelectionSetup.py:653
+#: ../../../AdvancedMovieSelectionSetup.py:654
 msgid "Sort"
 msgstr "Sortieren"
 
-#: ../../../AdvancedMovieSelectionSetup.py:654
+#: ../../../AdvancedMovieSelectionSetup.py:655
 msgid "Switch library/movielist"
 msgstr "Zur Bibliothek/Filmliste wechseln"
 
-#: ../../../AdvancedMovieSelectionSetup.py:655
+#: ../../../AdvancedMovieSelectionSetup.py:656
 msgid "Show/Hide library"
 msgstr "Bibliothek ein/ausblenden "
 
-#: ../../../AdvancedMovieSelectionSetup.py:656
+#: ../../../AdvancedMovieSelectionSetup.py:657
 msgid "Show/Hide folders"
 msgstr "Ordner ein/ausblenden "
 
-#: ../../../AdvancedMovieSelectionSetup.py:657
+#: ../../../AdvancedMovieSelectionSetup.py:658
 msgid "Show/Hide seen movies"
 msgstr "Umschalten neue/alle Filme"
 
-#: ../../../AdvancedMovieSelectionSetup.py:658
+#: ../../../AdvancedMovieSelectionSetup.py:659
 msgid "Bookmark(s) on/off"
 msgstr "Lesezeichen ein/aus"
 
-#: ../../../AdvancedMovieSelectionSetup.py:659
+#: ../../../AdvancedMovieSelectionSetup.py:660
 msgid "Library marker on/off"
 msgstr "Marker in der Bibliothek ein/aus"
 
-#: ../../../AdvancedMovieSelectionSetup.py:660
+#: ../../../AdvancedMovieSelectionSetup.py:661
 msgid "Update library"
 msgstr "BIB aktualisieren"
 
-#: ../../../AdvancedMovieSelectionSetup.py:661
+#: ../../../AdvancedMovieSelectionSetup.py:662
 msgid "Home"
 msgstr "Heimverzeichnis"
 
-#: ../../../AdvancedMovieSelectionSetup.py:662
+#: ../../../AdvancedMovieSelectionSetup.py:663
 msgid "Bookmark 1"
 msgstr "Lesezeichen 1"
 
-#: ../../../AdvancedMovieSelectionSetup.py:663
+#: ../../../AdvancedMovieSelectionSetup.py:664
 msgid "Bookmark 2"
 msgstr "Lesezeichen 2"
 
-#: ../../../AdvancedMovieSelectionSetup.py:664
+#: ../../../AdvancedMovieSelectionSetup.py:665
 msgid "Bookmark 3"
 msgstr "Lesezeichen 3"
 
-#: ../../../AdvancedMovieSelectionSetup.py:665
+#: ../../../AdvancedMovieSelectionSetup.py:666
 msgid "Bookmark 4"
 msgstr "Lesezeichen 4"
 
-#: ../../../AdvancedMovieSelectionSetup.py:666
+#: ../../../AdvancedMovieSelectionSetup.py:667
 msgid "Bookmark 5"
 msgstr "Lesezeichen 5"
 
-#: ../../../AdvancedMovieSelectionSetup.py:667
+#: ../../../AdvancedMovieSelectionSetup.py:668
 msgid "Bookmark 6"
 msgstr "Lesezeichen 6"
 
-#: ../../../AdvancedMovieSelectionSetup.py:668
+#: ../../../AdvancedMovieSelectionSetup.py:669
 msgid "Bookmark 7"
 msgstr "Lesezeichen 7"
 
-#: ../../../AdvancedMovieSelectionSetup.py:669
+#: ../../../AdvancedMovieSelectionSetup.py:670
 #: ../../../MovieSelection.py:291
 msgid "Filter by Tags"
 msgstr "Nach Tags filtern"
 
-#: ../../../AdvancedMovieSelectionSetup.py:670
+#: ../../../AdvancedMovieSelectionSetup.py:671
 msgid "Tag Editor"
 msgstr "Tag Editor"
 
-#: ../../../AdvancedMovieSelectionSetup.py:671
+#: ../../../AdvancedMovieSelectionSetup.py:672
 #: ../../../MovieSelection.py:192
 msgid "TMDb Info & D/L"
 msgstr "TMDb Info & D/L"
 
-#: ../../../AdvancedMovieSelectionSetup.py:673
+#: ../../../AdvancedMovieSelectionSetup.py:674
 msgid "Toggle seen"
 msgstr "Umschalten Gesehen/Ungesehen"
 
-#: ../../../AdvancedMovieSelectionSetup.py:676
+#: ../../../AdvancedMovieSelectionSetup.py:677
 msgid "Show Timer"
 msgstr "Timerliste"
 
-#: ../../../AdvancedMovieSelectionSetup.py:677
+#: ../../../AdvancedMovieSelectionSetup.py:678
 msgid "Show up to VSR-X"
 msgstr "Zeige Filme bis FSK-X"
 
-#: ../../../AdvancedMovieSelectionSetup.py:678
+#: ../../../AdvancedMovieSelectionSetup.py:679
 #: ../../../MovieSelection.py:186
 msgid "Filter by description"
 msgstr "Nach Kurzbeschreibung filtern"
 
-#: ../../../AdvancedMovieSelectionSetup.py:683
+#: ../../../AdvancedMovieSelectionSetup.py:684
 msgid "DM-600PVR"
 msgstr "DM-600PVR"
 
-#: ../../../AdvancedMovieSelectionSetup.py:684
+#: ../../../AdvancedMovieSelectionSetup.py:685
 msgid "DM-7000"
 msgstr "DM-7000"
 
-#: ../../../AdvancedMovieSelectionSetup.py:685
+#: ../../../AdvancedMovieSelectionSetup.py:686
 msgid "DM-7025"
 msgstr "DM-7025"
 
-#: ../../../AdvancedMovieSelectionSetup.py:686
+#: ../../../AdvancedMovieSelectionSetup.py:687
 msgid "DM-8000HD"
 msgstr "DM-8000HD"
 
-#: ../../../AdvancedMovieSelectionSetup.py:687
+#: ../../../AdvancedMovieSelectionSetup.py:688
 msgid "DM-500HD"
 msgstr "DM-500HD"
 
-#: ../../../AdvancedMovieSelectionSetup.py:688
+#: ../../../AdvancedMovieSelectionSetup.py:689
 msgid "DM-800HD"
 msgstr "DM-800HD"
 
-#: ../../../AdvancedMovieSelectionSetup.py:689
+#: ../../../AdvancedMovieSelectionSetup.py:690
 msgid "DM-800HDse"
 msgstr "DM-800HDse"
 
-#: ../../../AdvancedMovieSelectionSetup.py:690
+#: ../../../AdvancedMovieSelectionSetup.py:691
 msgid "DM-7020HD"
 msgstr "DM-7020HD"
 
-#: ../../../AdvancedMovieSelectionSetup.py:691
+#: ../../../AdvancedMovieSelectionSetup.py:692
 msgid "internal HDD"
 msgstr "interne HDD"
 
-#: ../../../AdvancedMovieSelectionSetup.py:692
+#: ../../../AdvancedMovieSelectionSetup.py:693
 msgid "NAS"
 msgstr "NAS"
 
-#: ../../../AdvancedMovieSelectionSetup.py:693
+#: ../../../AdvancedMovieSelectionSetup.py:694
 msgid "NAS-Movies"
 msgstr "NAS-Filme"
 
-#: ../../../AdvancedMovieSelectionSetup.py:695
+#: ../../../AdvancedMovieSelectionSetup.py:696
 msgid "Display plugin name"
 msgstr "Erweiterungsnamen"
 
-#: ../../../AdvancedMovieSelectionSetup.py:696
+#: ../../../AdvancedMovieSelectionSetup.py:697
 msgid "Display plugin description"
 msgstr "Erweiterungsbeschreibung"
 
-#: ../../../AdvancedMovieSelectionSetup.py:811
+#: ../../../AdvancedMovieSelectionSetup.py:812
 msgid "(long)"
 msgstr "(lang)"
 
-#: ../../../AdvancedMovieSelectionSetup.py:814
+#: ../../../AdvancedMovieSelectionSetup.py:815
 msgid "Quickbutton:"
 msgstr "Quickbutton:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:817
+#: ../../../AdvancedMovieSelectionSetup.py:818
 msgid "Button caption"
 msgstr "Tastenbezeichnung bei Erweiterungen:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:819
+#: ../../../AdvancedMovieSelectionSetup.py:820
 msgid "Home button text"
 msgstr "Heimverzeichnis Tastenbezeichnung:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:821
+#: ../../../AdvancedMovieSelectionSetup.py:822
 msgid "Bookmark 1 button text"
 msgstr "Lesezeichen 1 Tastenbezeichnung:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:823
+#: ../../../AdvancedMovieSelectionSetup.py:824
 msgid "Bookmark 2 button text"
 msgstr "Lesezeichen 2 Tastenbezeichnung:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:825
+#: ../../../AdvancedMovieSelectionSetup.py:826
 msgid "Bookmark 3 button text"
 msgstr "Lesezeichen 3 Tastenbezeichnung:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:827
+#: ../../../AdvancedMovieSelectionSetup.py:828
 msgid "Bookmark 4 button text"
 msgstr "Lesezeichen 4 Tastenbezeichnung:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:829
+#: ../../../AdvancedMovieSelectionSetup.py:830
 msgid "Bookmark 5 button text"
 msgstr "Lesezeichen 5 Tastenbezeichnung:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:831
+#: ../../../AdvancedMovieSelectionSetup.py:832
 msgid "Bookmark 6 button text"
 msgstr "Lesezeichen 6 Tastenbezeichnung:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:833
+#: ../../../AdvancedMovieSelectionSetup.py:834
 msgid "Bookmark 7 button text"
 msgstr "Lesezeichen 7 Tastenbezeichnung:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:835
+#: ../../../AdvancedMovieSelectionSetup.py:836
 msgid "Home path"
 msgstr "Heimverzeichnis:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:837
+#: ../../../AdvancedMovieSelectionSetup.py:838
 msgid "Bookmark 1 path"
 msgstr "Lesezeichen 1 Speicherort:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:839
+#: ../../../AdvancedMovieSelectionSetup.py:840
 msgid "Bookmark 2 path"
 msgstr "Lesezeichen 2 Speicherort:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:841
+#: ../../../AdvancedMovieSelectionSetup.py:842
 msgid "Bookmark 3 path"
 msgstr "Lesezeichen 3 Speicherort:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:843
+#: ../../../AdvancedMovieSelectionSetup.py:844
 msgid "Bookmark 4 path"
 msgstr "Lesezeichen 4 Speicherort:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:845
+#: ../../../AdvancedMovieSelectionSetup.py:846
 msgid "Bookmark 5 path"
 msgstr "Lesezeichen 5 Speicherort:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:847
+#: ../../../AdvancedMovieSelectionSetup.py:848
 msgid "Bookmark 6 path"
 msgstr "Lesezeichen 6 Speicherort:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:849
+#: ../../../AdvancedMovieSelectionSetup.py:850
 msgid "Bookmark 7 path"
 msgstr "Lesezeichen 7 Speicherort:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:890
+#: ../../../AdvancedMovieSelectionSetup.py:891
 #: ../../../MovieSelection.py:210
 msgid "Alphabetic sort"
 msgstr "Alphabetisch sortieren"
 
-#: ../../../AdvancedMovieSelectionSetup.py:891
+#: ../../../AdvancedMovieSelectionSetup.py:892
 #: ../../../MovieSelection.py:216
 msgid "Sort by date (ascending)"
 msgstr "Sortieren nach Datum (aufsteigend)"
 
-#: ../../../AdvancedMovieSelectionSetup.py:892
+#: ../../../AdvancedMovieSelectionSetup.py:893
 #: ../../../MovieSelection.py:214
 msgid "Sort by date (descending)"
 msgstr "Sortieren nach Datum (absteigend)"
 
-#: ../../../AdvancedMovieSelectionSetup.py:893
+#: ../../../AdvancedMovieSelectionSetup.py:894
 #: ../../../MovieSelection.py:212
 msgid "Sort by description"
 msgstr "Sortieren nach Filmbeschreibung"
 
-#: ../../../AdvancedMovieSelectionSetup.py:900
+#: ../../../AdvancedMovieSelectionSetup.py:901
 msgid "Select sort functions"
 msgstr "Funktionen für die Sortierung wählen"
 
-#: ../../../AdvancedMovieSelectionSetup.py:903
+#: ../../../AdvancedMovieSelectionSetup.py:904
 msgid "Movie Quick Button Home path"
 msgstr "Auswahl des Heimverzeichnisses"
 
-#: ../../../AdvancedMovieSelectionSetup.py:906
+#: ../../../AdvancedMovieSelectionSetup.py:907
 msgid "Movie Quick Button Bookmark 1 path"
 msgstr "Auswahl Lesezeichen 1 Verzeichnis"
 
-#: ../../../AdvancedMovieSelectionSetup.py:909
+#: ../../../AdvancedMovieSelectionSetup.py:910
 msgid "Movie Quick Button Bookmark 2 path"
 msgstr "Auswahl Lesezeichen 2 Verzeichnis"
 
-#: ../../../AdvancedMovieSelectionSetup.py:912
+#: ../../../AdvancedMovieSelectionSetup.py:913
 msgid "Movie Quick Button Bookmark 3 path"
 msgstr "Auswahl Lesezeichen 3 Verzeichnis"
 
-#: ../../../AdvancedMovieSelectionSetup.py:915
+#: ../../../AdvancedMovieSelectionSetup.py:916
 msgid "Movie Quick Button Bookmark 4 path"
 msgstr "Auswahl Lesezeichen 4 Verzeichnis"
 
-#: ../../../AdvancedMovieSelectionSetup.py:918
+#: ../../../AdvancedMovieSelectionSetup.py:919
 msgid "Movie Quick Button Bookmark 5 path"
 msgstr "Auswahl Lesezeichen 5 Verzeichnis"
 
-#: ../../../AdvancedMovieSelectionSetup.py:921
+#: ../../../AdvancedMovieSelectionSetup.py:922
 msgid "Movie Quick Button Bookmark 6 path"
 msgstr "Auswahl Lesezeichen 6 Verzeichnis"
 
-#: ../../../AdvancedMovieSelectionSetup.py:924
+#: ../../../AdvancedMovieSelectionSetup.py:925
 msgid "Movie Quick Button Bookmark 7 path"
 msgstr "Auswahl Lesezeichen 7 Verzeichnis"
 
-#: ../../../AdvancedMovieSelectionSetup.py:1057
+#: ../../../AdvancedMovieSelectionSetup.py:1058
 msgid "Movie Quick Button Name Setup"
 msgstr "Bezeichnung Farbtasten"
 
-#: ../../../AdvancedMovieSelectionSetup.py:1069
+#: ../../../AdvancedMovieSelectionSetup.py:1070
 msgid "Enter Home button descrition:"
 msgstr "Heimtaste Tastenbezeichnung eingeben:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:1071
+#: ../../../AdvancedMovieSelectionSetup.py:1072
 msgid "Enter Bookmark 1 button descrition:"
 msgstr "Lesezeichen 1 Tastenbezeichnung eingeben:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:1073
+#: ../../../AdvancedMovieSelectionSetup.py:1074
 msgid "Enter Bookmark 2 button descrition:"
 msgstr "Lesezeichen 2 Tastenbezeichnung eingeben:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:1075
+#: ../../../AdvancedMovieSelectionSetup.py:1076
 msgid "Enter Bookmark 3 button descrition:"
 msgstr "Lesezeichen 3 Tastenbezeichnung eingeben:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:1077
+#: ../../../AdvancedMovieSelectionSetup.py:1078
 msgid "Enter Bookmark 4 button descrition:"
 msgstr "Lesezeichen 4 Tastenbezeichnung eingeben:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:1079
+#: ../../../AdvancedMovieSelectionSetup.py:1080
 msgid "Enter Bookmark 5 button descrition:"
 msgstr "Lesezeichen 5 Tastenbezeichnung eingeben:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:1081
+#: ../../../AdvancedMovieSelectionSetup.py:1082
 msgid "Enter Bookmark 6 button descrition:"
 msgstr "Lesezeichen 6 Tastenbezeichnung eingeben:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:1083
+#: ../../../AdvancedMovieSelectionSetup.py:1084
 msgid "Enter Bookmark 7 button descrition:"
 msgstr "Lesezeichen 7 Tastenbezeichnung eingeben:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:1127
+#: ../../../AdvancedMovieSelectionSetup.py:1128
 msgid "Home button description:"
 msgstr "Heimtaste Tastenbezeichnung:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:1128
+#: ../../../AdvancedMovieSelectionSetup.py:1129
 msgid "Bookmark 1 button description:"
 msgstr "Lesezeichen 1 Tastenbezeichnung:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:1129
+#: ../../../AdvancedMovieSelectionSetup.py:1130
 msgid "Bookmark 2 button description:"
 msgstr "Lesezeichen 2 Tastenbezeichnung:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:1130
+#: ../../../AdvancedMovieSelectionSetup.py:1131
 msgid "Bookmark 3 button description:"
 msgstr "Lesezeichen 3 Tastenbezeichnung:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:1131
+#: ../../../AdvancedMovieSelectionSetup.py:1132
 msgid "Bookmark 4 button description:"
 msgstr "Lesezeichen 4 Tastenbezeichnung:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:1132
+#: ../../../AdvancedMovieSelectionSetup.py:1133
 msgid "Bookmark 5 button description:"
 msgstr "Lesezeichen 5 Tastenbezeichnung:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:1133
+#: ../../../AdvancedMovieSelectionSetup.py:1134
 msgid "Bookmark 6 button description:"
 msgstr "Lesezeichen 6 Tastenbezeichnung:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:1134
+#: ../../../AdvancedMovieSelectionSetup.py:1135
 msgid "Bookmark 7 button description:"
 msgstr "Lesezeichen 7 Tastenbezeichnung:"
 
-#: ../../../AdvancedMovieSelectionSetup.py:1151
+#: ../../../AdvancedMovieSelectionSetup.py:1152
 msgid "Here you can give the home button a special name."
 msgstr "Hier können Sie die Tastenbezeichnung für das Heimverzeichnis ändern."
 
-#: ../../../AdvancedMovieSelectionSetup.py:1155
+#: ../../../AdvancedMovieSelectionSetup.py:1156
 msgid "Here you can give the bookmark 1 button a special name."
 msgstr "Hier können Sie die Tastenbezeichnung für das Lesezeichen 1 ändern."
 
-#: ../../../AdvancedMovieSelectionSetup.py:1159
+#: ../../../AdvancedMovieSelectionSetup.py:1160
 msgid "Here you can give the bookmark 2 button a special name."
 msgstr "Hier können Sie die Tastenbezeichnung für das Lesezeichen 2 ändern."
 
-#: ../../../AdvancedMovieSelectionSetup.py:1163
+#: ../../../AdvancedMovieSelectionSetup.py:1164
 msgid "Here you can give the bookmark 3 button a special name."
 msgstr "Hier können Sie die Tastenbezeichnung für das Lesezeichen 3 ändern."
 
-#: ../../../AdvancedMovieSelectionSetup.py:1167
+#: ../../../AdvancedMovieSelectionSetup.py:1168
 msgid "Here you can give the bookmark 4 button a special name."
 msgstr "Hier können Sie die Tastenbezeichnung für das Lesezeichen 4 ändern."
 
-#: ../../../AdvancedMovieSelectionSetup.py:1171
+#: ../../../AdvancedMovieSelectionSetup.py:1172
 msgid "Here you can give the bookmark 5 button a special name."
 msgstr "Hier können Sie die Tastenbezeichnung für das Lesezeichen 5 ändern."
 
-#: ../../../AdvancedMovieSelectionSetup.py:1175
+#: ../../../AdvancedMovieSelectionSetup.py:1176
 msgid "Here you can give the bookmark 6 button a special name."
 msgstr "Hier können Sie die Tastenbezeichnung für das Lesezeichen 6 ändern."
 
-#: ../../../AdvancedMovieSelectionSetup.py:1179
+#: ../../../AdvancedMovieSelectionSetup.py:1180
 msgid "Here you can give the bookmark 7 button a special name."
 msgstr "Hier können Sie die Tastenbezeichnung für das Lesezeichen 7 ändern."
 
@@ -2968,11 +2976,11 @@ msgstr "Suche nach Dreamboxen, bitte warten..."
 msgid "Manual search finished"
 msgstr "Manuelle suche beendet"
 
-#: ../../../MovieList.py:554
+#: ../../../MovieList.py:509
 msgid "REC"
 msgstr "Aufn."
 
-#: ../../../MovieList.py:556
+#: ../../../MovieList.py:511
 msgid "Records"
 msgstr "Aufnahme"
 
@@ -3345,197 +3353,186 @@ msgstr "Englisch (mit Jahr)"
 msgid "English (with Starttime)"
 msgstr "Englisch (mit Startzeit)"
 
-#: ../../../Source/Config.py:53
-#: ../../../Source/Config.py:54
 #: ../../../Source/Config.py:55
-#: ../../../Source/Config.py:56
 msgid "Yellow"
 msgstr "Gelb"
 
-#: ../../../Source/Config.py:53
-#: ../../../Source/Config.py:54
-#: ../../../Source/Config.py:55
-#: ../../../Source/Config.py:56
-msgid "Blue"
-msgstr "Blau"
-
-#: ../../../Source/Config.py:53
-#: ../../../Source/Config.py:54
-#: ../../../Source/Config.py:55
-#: ../../../Source/Config.py:56
-msgid "Red"
-msgstr "Rot"
-
-#: ../../../Source/Config.py:53
-#: ../../../Source/Config.py:54
-#: ../../../Source/Config.py:55
-#: ../../../Source/Config.py:56
-msgid "Black"
-msgstr "Schwarz"
-
-#: ../../../Source/Config.py:53
-#: ../../../Source/Config.py:54
-#: ../../../Source/Config.py:55
 #: ../../../Source/Config.py:56
 msgid "Green"
 msgstr "Grün"
 
-#: ../../../Source/Config.py:56
+#: ../../../Source/Config.py:57
+msgid "Red"
+msgstr "Rot"
+
+#: ../../../Source/Config.py:58
 msgid "Grey"
 msgstr "Grau"
 
-#: ../../../Source/Config.py:56
+#: ../../../Source/Config.py:59
+msgid "White"
+msgstr "Weiß"
+
+#: ../../../Source/Config.py:60
+msgid "Black"
+msgstr "Schwarz"
+
+#: ../../../Source/Config.py:61
 msgid "Orange"
 msgstr "Orange"
 
-#: ../../../Source/Config.py:87
+#: ../../../Source/Config.py:62
+msgid "Blue"
+msgstr "Blau"
+
+#: ../../../Source/Config.py:116
 msgid "Homebutton"
 msgstr "Heimtaste"
 
-#: ../../../Source/Config.py:88
+#: ../../../Source/Config.py:117
 msgid "Own text 1"
 msgstr "eigener Text 1"
 
-#: ../../../Source/Config.py:89
+#: ../../../Source/Config.py:118
 msgid "Own text 2"
 msgstr "eigener Text 2"
 
-#: ../../../Source/Config.py:90
+#: ../../../Source/Config.py:119
 msgid "Own text 3"
 msgstr "eigener Text 3"
 
-#: ../../../Source/Config.py:91
+#: ../../../Source/Config.py:120
 msgid "Own text 4"
 msgstr "eigener Text 4"
 
-#: ../../../Source/Config.py:92
+#: ../../../Source/Config.py:121
 msgid "Own text 5"
 msgstr "eigener Text 5"
 
-#: ../../../Source/Config.py:93
+#: ../../../Source/Config.py:122
 msgid "Own text 6"
 msgstr "eigener Text 6"
 
-#: ../../../Source/Config.py:94
+#: ../../../Source/Config.py:123
 msgid "Own text 7"
 msgstr "eigener Text 7"
 
-#: ../../../Source/Config.py:95
+#: ../../../Source/Config.py:125
 msgid "No override"
 msgstr "keine Zuordnung"
 
-#: ../../../Source/Config.py:96
+#: ../../../Source/Config.py:126
 msgid "Video-button"
 msgstr "Video-Taste"
 
-#: ../../../Source/Config.py:97
+#: ../../../Source/Config.py:127
 msgid "TV-button"
 msgstr "TV-Taste"
 
-#: ../../../Source/Config.py:98
+#: ../../../Source/Config.py:128
 msgid "Radio-button"
 msgstr "Radio-Taste"
 
-#: ../../../Source/Config.py:99
+#: ../../../Source/Config.py:129
 msgid "Timeshift-button"
 msgstr "Timeshift-Taste"
 
-#: ../../../Source/Config.py:104
-#: ../../../Source/Config.py:105
-#: ../../../Source/Config.py:106
-#: ../../../Source/Config.py:107
-#: ../../../Source/Config.py:108
-#: ../../../Source/Config.py:109
-#: ../../../Source/Config.py:110
+#: ../../../Source/Config.py:135
+#: ../../../Source/Config.py:136
+#: ../../../Source/Config.py:137
+#: ../../../Source/Config.py:138
+#: ../../../Source/Config.py:139
+#: ../../../Source/Config.py:140
+#: ../../../Source/Config.py:141
 msgid "Advanced Movie Selection info"
 msgstr "Erweiterte Filmauswahl Info"
 
-#: ../../../Source/Config.py:104
-#: ../../../Source/Config.py:107
-#: ../../../Source/Config.py:108
-#: ../../../Source/Config.py:109
+#: ../../../Source/Config.py:135
+#: ../../../Source/Config.py:138
+#: ../../../Source/Config.py:139
+#: ../../../Source/Config.py:140
 msgid "TMDb info"
 msgstr "TMDb Info"
 
-#: ../../../Source/Config.py:104
-#: ../../../Source/Config.py:105
-#: ../../../Source/Config.py:108
-#: ../../../Source/Config.py:110
+#: ../../../Source/Config.py:135
+#: ../../../Source/Config.py:136
+#: ../../../Source/Config.py:139
+#: ../../../Source/Config.py:141
 msgid "IMDb info"
 msgstr "IMDb Info"
 
-#: ../../../Source/Config.py:104
-#: ../../../Source/Config.py:106
-#: ../../../Source/Config.py:109
-#: ../../../Source/Config.py:110
+#: ../../../Source/Config.py:135
+#: ../../../Source/Config.py:137
+#: ../../../Source/Config.py:140
+#: ../../../Source/Config.py:141
 msgid "OFDb info"
 msgstr "OFDb Info"
 
-#: ../../../Source/Config.py:129
+#: ../../../Source/Config.py:160
 msgid "Thumb (92x138)"
 msgstr "Minibild (92x138)"
 
-#: ../../../Source/Config.py:130
+#: ../../../Source/Config.py:161
 msgid "Cover (185x278)"
 msgstr "Cover (185x278)"
 
-#: ../../../Source/Config.py:131
+#: ../../../Source/Config.py:162
 msgid "Mid (500x750)"
 msgstr "Mittel (500x750)"
 
-#: ../../../Source/Config.py:132
+#: ../../../Source/Config.py:163
 msgid "Original (1400x2100)"
 msgstr "Original (1400x2100)"
 
-#: ../../../Source/Config.py:138
+#: ../../../Source/Config.py:169
 msgid "300x169"
 msgstr "300x169"
 
-#: ../../../Source/Config.py:139
+#: ../../../Source/Config.py:170
 msgid "780x439"
 msgstr "780x439"
 
-#: ../../../Source/Config.py:140
+#: ../../../Source/Config.py:171
 msgid "1280x720"
 msgstr "1280x720"
 
-#: ../../../Source/Config.py:141
+#: ../../../Source/Config.py:172
 msgid "Original (1920x1080)"
 msgstr "Original (1920x1080)"
 
-#: ../../../Source/Config.py:161
+#: ../../../Source/Config.py:192
 msgid "Disabled"
 msgstr "Deaktiviert"
 
-#: ../../../Source/Config.py:161
+#: ../../../Source/Config.py:192
 msgid "Daily"
 msgstr "Täglich"
 
-#: ../../../Source/Config.py:161
+#: ../../../Source/Config.py:192
 msgid "Every second day"
 msgstr "Jeden zweiten Tag"
 
-#: ../../../Source/Config.py:161
+#: ../../../Source/Config.py:192
 msgid "Weekly"
 msgstr "Wöchentlich"
 
-#: ../../../Source/Config.py:161
+#: ../../../Source/Config.py:192
 msgid "Every two weeks"
 msgstr "Alle zwei Wochen"
 
-#: ../../../Source/Config.py:161
+#: ../../../Source/Config.py:192
 msgid "Monthly"
 msgstr "Monatlich"
 
-#: ../../../Source/Config.py:191
+#: ../../../Source/Config.py:222
 msgid "Virtual and Numerical"
 msgstr "Virtuelle und Numerische"
 
-#: ../../../Source/Config.py:191
+#: ../../../Source/Config.py:222
 msgid "Virtual"
 msgstr "Virtuelle Tastatur"
 
-#: ../../../Source/Config.py:191
+#: ../../../Source/Config.py:222
 msgid "Numerical"
 msgstr "Numerische"
 

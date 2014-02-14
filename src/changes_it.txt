@@ -359,3 +359,4 @@ Nuove schermate: AdvancedMovieSelection_Backdrop, AdvancedMovieSelectionEventVie
 
 versione: 3.3.1
 * fix: tvdb crash
+* new: select colors from skin
