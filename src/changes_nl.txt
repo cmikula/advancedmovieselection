@@ -356,4 +356,4 @@ nieuwe screens: AdvancedMovieSelection_Backdrop, AdvancedMovieSelectionEventView
 
 versie: 3.3.1
 * fix: tvdb crash
-* new: select colors from skin
+* nieuw: kleurselectie vanuit skin
