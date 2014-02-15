@@ -358,5 +358,5 @@ Skinners ATTENZIONE: rimuovere tutte le estensioni HD e _HD, stessa cosa per SD 
 Nuove schermate: AdvancedMovieSelection_Backdrop, AdvancedMovieSelectionEventView_Backdrop, TMDbMain_Backdrop
 
 versione: 3.3.1
-* fix: tvdb crash
-* new: select colors from skin
+* corretto: crash con tvdb
+* novità: colori della skin selezionabili
