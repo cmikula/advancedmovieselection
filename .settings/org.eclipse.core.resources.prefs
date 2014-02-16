@@ -27,6 +27,7 @@ encoding//src/Source/AccessRestriction.py=utf-8
 encoding//src/Source/AutoNetwork.py=utf-8
 encoding//src/Source/Config.py=utf-8
 encoding//src/Source/CueSheetSupport.py=utf-8
+encoding//src/Source/EITTools.py=utf-8
 encoding//src/Source/EpgListExtension.py=utf-8
 encoding//src/Source/EventInformationTable.py=utf-8
 encoding//src/Source/Globals.py=utf-8

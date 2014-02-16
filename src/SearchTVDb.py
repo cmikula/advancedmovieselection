@@ -37,7 +37,7 @@ from Components.AVSwitch import AVSwitch
 from Components.ProgressBar import ProgressBar
 from os import environ
 from Source.ServiceProvider import ServiceCenter
-from Source.EventInformationTable import createEITtvdb
+from Source.EITTools import createEITtvdb
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
 from SearchTMDb import InfoLoadChoice
 from Source.Globals import pluginPresent

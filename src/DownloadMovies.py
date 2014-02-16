@@ -32,7 +32,7 @@ from enigma import eServiceReference, ePicLoad
 from timer import eTimer
 from Components.MenuList import MenuList
 from Source.ServiceProvider import ServiceCenter
-from Source.EventInformationTable import createEIT
+from Source.EITTools import createEIT
 from Source.MovieDB import tmdb, downloadCover
 from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Components.ScrollLabel import ScrollLabel

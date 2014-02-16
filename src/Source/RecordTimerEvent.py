@@ -73,7 +73,7 @@ class CoverLoader():
 
     def downloadMovieInfo(self, name, filename=None):
         try:
-            from EventInformationTable import createEIT
+            from EITTools import createEIT
             print "[AdvancedMovieSelection] RecordTimerEvent, loading info from tmdb:", name
             createEIT(filename, name)
         except:

@@ -574,7 +574,7 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
         if self.checkConnection() == False or not self["list"].getCurrent():
             return
         overwrite_eit, overwrite_cover, overwrite_backdrop = answer and answer[1] or (False, False, False)
-        from Source.EventInformationTable import createEIT
+        from Source.EITTools import createEIT
         current_movie = self["list"].getCurrent()[0]
         title = current_movie.title.encode('utf-8')
         if self.service is not None:

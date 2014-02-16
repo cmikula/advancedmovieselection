@@ -45,7 +45,8 @@ from Source.ServiceUtils import serviceUtil, realSize, diskUsage
 from Source.CueSheetSupport import hasLastPosition, CueSheet
 from Source.AutoNetwork import autoNetwork 
 from Source.Trashcan import TRASH_NAME
-from Source.EventInformationTable import EventInformationTable, appendShortDescriptionToMeta
+from Source.EventInformationTable import EventInformationTable
+from Source.EITTools import appendShortDescriptionToMeta
 from Source.AccessRestriction import accessRestriction
 from Source.MovieScanner import movieScanner
 from Source.Hotplug import hotplug
