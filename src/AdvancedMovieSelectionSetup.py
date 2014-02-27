@@ -187,7 +187,6 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
     def __init__(self, session, csel=None):
         Screen.__init__(self, session)
         self.csel = csel
-        self.bouquet_length = 13
         self.needsRestartFlag = False
         self.needsE2restartFlag = False
         self.needsReopenFlag = False
@@ -242,16 +241,16 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.csel.reloadList()
         
     def saveListsize(self):
+        # TODO: remove
         listsize = self["config"].instance.size()
         self.listWidth = listsize.width()
         self.listHeight = listsize.height()
-        self.bouquet_length = int(self.listHeight / 25)
 
     def nextBouquet(self):
-        self["config"].setCurrentIndex(max(self["config"].getCurrentIndex() - self.bouquet_length, 0))
+        self["config"].instance.moveSelection(self["config"].instance.pageUp)
 
     def prevBouquet(self):
-        self["config"].setCurrentIndex(min(self["config"].getCurrentIndex() + self.bouquet_length, len(self.list) - 1))
+        self["config"].instance.moveSelection(self["config"].instance.pageDown)
 
     def setWindowTitle(self):
         self.setTitle(_("Advanced Movie Selection Setup"))
