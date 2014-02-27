@@ -361,3 +361,6 @@ neue screens: AdvancedMovieSelection_Backdrop, AdvancedMovieSelectionEventView_B
 version: 3.3.1
 * fix: tvdb crash
 * neu: farben vom skin auswählbar
+
+version: 3.4
+* neu: tmdb & tvdb ist in der kanalauswahl verfügbar

@@ -121,13 +121,21 @@ def Plugins(**kwargs):
         print e
     
     descriptors = []
+    descriptors.append(PluginDescriptor(name=_("Setup Advanced Movie Selection"), where=PluginDescriptor.WHERE_PLUGINMENU, description=_("Alternate Movie Selection"), fnc=pluginMenu, needsRestart=True))
+    descriptors.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, description=_("Alternate Movie Selection"), fnc=Setup, needsRestart=True))
     if not config.AdvancedMovieSelection.ml_disable.value:
         descriptors.append(PluginDescriptor(name=_("Advanced Movie Selection"), where=PluginDescriptor.WHERE_SESSIONSTART, description=_("Alternate Movie Selection"), fnc=sessionstart, needsRestart=True))
         descriptors.append(PluginDescriptor(name=_("Advanced Movie Selection"), where=PluginDescriptor.WHERE_EXTENSIONSMENU, description=_("Alternate Movie Selection"), fnc=pluginOpen))
         descriptors.append(PluginDescriptor(name=_("Move Copy Progress"), where=PluginDescriptor.WHERE_EXTENSIONSMENU, description=_("Show progress of move or copy job"), fnc=openProgress))
-    descriptors.append(PluginDescriptor(name=_("Setup Advanced Movie Selection"), where=PluginDescriptor.WHERE_PLUGINMENU, description=_("Alternate Movie Selection"), fnc=pluginMenu, needsRestart=True))
-    descriptors.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, description=_("Alternate Movie Selection"), fnc=Setup, needsRestart=True))
     
-    # descriptors.append(PluginDescriptor(name=_("TMDb Info"), where=PluginDescriptor.WHERE_EVENTINFO, description=_("TMDb Info"), fnc=tmdbInfo))
-    # descriptors.append(PluginDescriptor(name=_("TVDb Info"), where=PluginDescriptor.WHERE_EVENTINFO, description=_("TVDb Info"), fnc=tvdbInfo))
+        descriptors.append(PluginDescriptor(name=_("TMDb Info (AMS)"), where=PluginDescriptor.WHERE_EVENTINFO, description=_("TMDb Info (AMS)"), fnc=tmdbInfo))
+        descriptors.append(PluginDescriptor(name=_("TVDb Info (AMS)"), where=PluginDescriptor.WHERE_EVENTINFO, description=_("TVDb Info (AMS)"), fnc=tvdbInfo))
+        try:
+            # not implemented in oe1.6
+            descriptors.append(PluginDescriptor(name=_("TMDb Info (AMS)"), where=PluginDescriptor.WHERE_CHANNEL_CONTEXT_MENU, description=_("TMDb Info (AMS)"), fnc=tmdbInfo))
+            descriptors.append(PluginDescriptor(name=_("TVDb Info (AMS)"), where=PluginDescriptor.WHERE_CHANNEL_CONTEXT_MENU, description=_("TVDb Info (AMS)"), fnc=tvdbInfo))
+        except:
+            from MovieDBChannelContext import AMSChannelContextMenuInit
+            AMSChannelContextMenuInit()
+            pass
     return descriptors
