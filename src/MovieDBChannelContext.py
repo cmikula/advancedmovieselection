@@ -21,7 +21,8 @@
 #
 from __init__ import _
 from Components.ActionMap import ActionMap
-from Screens.EpgSelection import EPGSelection
+from Components.config import config
+from Screens.EpgSelection import EPGSelection, EPG_TYPE_SINGLE
 from Screens.ChannelSelection import ChannelContextMenu, MODE_TV
 from Screens.Screen import Screen
 from Components.ChoiceList import ChoiceList, ChoiceEntryComponent
@@ -50,21 +51,6 @@ def getInfo(session, service):
             shortdescr = event.getShortDescription()
         print "[AdvancedMovieSelection] current name:", eventName
     return eventName, shortdescr
-
-EPGSelection_enterDateTime = None
-def AMSEPGSelectionInit():
-    print "[AdvancedMovieSelection] override EPGSelection.enterDateTime"
-    global EPGSelection_enterDateTime
-    if EPGSelection_enterDateTime is None:
-        EPGSelection_enterDateTime = EPGSelection.enterDateTime
-        EPGSelection.enterDateTime = AMSenterDateTime
-    
-def AMSenterDateTime(self):
-    event = self["Event"].event
-    if self.type == 0 and event:
-        self.session.open(MovieDBContextMenu, event)
-        return
-    EPGSelection_enterDateTime(self)
 
 ChannelContextMenu__init__ = None
 def AMSChannelContextMenuInit():
@@ -106,13 +92,32 @@ def closeafterfinish(self, retval=None):
     self.close() 
 
 
+EPGSelection_enterDateTime = None
+def AMSEPGSelectionInit():
+    print "[AdvancedMovieSelection] override EPGSelection.enterDateTime"
+    global EPGSelection_enterDateTime
+    if EPGSelection_enterDateTime is None:
+        EPGSelection_enterDateTime = EPGSelection.enterDateTime
+        EPGSelection.enterDateTime = AMSenterDateTime
+        EPGSelection.openOutdatedEPGSelection = openOutdatedEPGSelection
+    
+def AMSenterDateTime(self):
+    event = self["Event"].event
+    if self.type == EPG_TYPE_SINGLE and event:
+        self.session.openWithCallback(self.openOutdatedEPGSelection, MovieDBContextMenu, event, self)
+        return
+    EPGSelection_enterDateTime(self)
+
+def openOutdatedEPGSelection(self, reason=None):
+    if reason == 1:
+        EPGSelection_enterDateTime(self)
+
 class MovieDBContextMenu(Screen):
-    def __init__(self, session, event):
+    def __init__(self, session, event, epg):
         Screen.__init__(self, session)
         self.skinName = "ChannelContextMenu"
         #raise Exception("we need a better summary screen here")
         self.event = event
-
         self["actions"] = ActionMap(["OkCancelActions", "ColorActions", "NumberActions"],
             {
                 "ok": self.okbuttonClick,
@@ -120,9 +125,14 @@ class MovieDBContextMenu(Screen):
             })
         menu = [ ]
 
-        # menu.append(ChoiceEntryComponent(text = (_("back"), self.cancelClick)))
         menu.append(ChoiceEntryComponent(text = (_("TMDb Info (AMS)"), self.openTMDb)))
         menu.append(ChoiceEntryComponent(text = (_("TVDb Info (AMS)"), self.openTVDb)))
+        try:
+            from Screens.EpgSelection import OutdatedEPGSelection
+            if config.misc.epgcache_outdated_timespan.value and not isinstance(epg, OutdatedEPGSelection):
+                menu.append(ChoiceEntryComponent(text = (_("Outdated EPG"), self.closeOutdated)))
+        except:
+            pass
         self["menu"] = ChoiceList(menu)
 
     def okbuttonClick(self):
@@ -143,4 +153,7 @@ class MovieDBContextMenu(Screen):
         self.session.openWithCallback(self.closeafterfinish, TheTVDBMain, None, eventName, shortDescription) 
         
     def closeafterfinish(self, retval=None):
-        self.close() 
+        self.close()
+    
+    def closeOutdated(self, retval=None):
+        self.close(1)
