@@ -25,6 +25,29 @@ from Components.ChoiceList import ChoiceEntryComponent
 from Tools.BoundFunction import boundFunction
 from enigma import eServiceCenter, eServiceReference
 
+def getInfo(session, service):
+    eventName = ""
+    shortdescr = ""
+    if isinstance(service, str):
+        eventName = service
+        print "[AdvancedMovieSelection] name:", eventName
+    elif isinstance(service, eServiceReference):
+        info = eServiceCenter.getInstance().info(service)
+        event = info.getEvent(service)
+        if event:
+            eventName = event.getEventName()
+            shortdescr = event.getShortDescription()
+        print "[AdvancedMovieSelection] service name:", eventName
+    else:
+        s = session.nav.getCurrentService()
+        info = s.info()
+        event = info.getEvent(0)
+        if event:
+            eventName = event.getEventName()
+            shortdescr = event.getShortDescription()
+        print "[AdvancedMovieSelection] current name:", eventName
+    return eventName, shortdescr
+
 ChannelContextMenu__init__ = None
 def AMSChannelContextMenuInit():
     print "[AdvancedMovieSelection] override ChannelContextMenu.__init__"
@@ -47,35 +70,19 @@ def AMSChannelContextMenu__init__(self, session, csel):
 
 def startTMDb(self):
     from SearchTMDb import TMDbMain
-    if isinstance(self, ChannelContextMenu):
-        print "[AdvancedMovieSelection] tmdb"
-        service = self.csel.servicelist.getCurrent()
-        info = eServiceCenter.getInstance().info(service)
-        event = info.getEvent(service)
-        eventName = "22 bullets"
-        if event:
-            eventName = event.getEventName()
-            self.session.openWithCallback(self.AMScloseafterfinish, TMDbMain, eventName) 
-    else:
-        info = self.session.nav.getCurrentService().info()
-        event = info.getEvent(0)
-        if event:
-            eventName = event.getEventName()
-            self.session.openWithCallback(self.AMScloseafterfinish, TMDbMain, eventName)
+    print "[AdvancedMovieSelection] tmdb"
+    service = self.csel.servicelist.getCurrent()
+    eventName, shortDescription = getInfo(self.session, service)
+    if eventName:
+        self.session.openWithCallback(self.AMScloseafterfinish, TMDbMain, eventName) 
 
 def startTVDb(self):
     from SearchTVDb import TheTVDBMain
-    if isinstance(self, ChannelContextMenu):
-        print "[AdvancedMovieSelection] tvdb"
-        service = self.csel.servicelist.getCurrent()
-        info = eServiceCenter.getInstance().info(service)
-        event = info.getEvent(service)
-        eventName = "Law & Order"
-        shortdescr = ""
-        if event:
-            eventName = event.getEventName()
-            shortdescr = event.getShortDescription()
-            self.session.openWithCallback(self.AMScloseafterfinish, TheTVDBMain, None, eventName, shortdescr) 
+    print "[AdvancedMovieSelection] tvdb"
+    service = self.csel.servicelist.getCurrent()
+    eventName, shortDescription = getInfo(self.session, service)
+    if eventName:
+        self.session.openWithCallback(self.AMScloseafterfinish, TheTVDBMain, None, eventName, shortDescription) 
 
 def closeafterfinish(self, retval=None):
     self.close() 

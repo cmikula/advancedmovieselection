@@ -79,33 +79,19 @@ def Setup(menuid, **kwargs):
         return [(_("Setup Advanced Movie Selection"), pluginMenu, "SetupAdvancedMovieSelection", None)]
     return []
 
-def tmdbInfo(session, eventName="", **kwargs):
-    try:
-        s = session.nav.getCurrentService()
-        info = s.info()
-        event = info.getEvent(0)
-        if event:
-            eventName = event.getEventName()
-        if eventName:
-            from SearchTMDb import TMDbMain
-            session.open(TMDbMain, eventName)
-    except Exception, e:
-        print e
+def tmdbInfo(session, service=None, **kwargs):
+    from MovieDBChannelContext import getInfo
+    eventName, shortDescription = getInfo(session, service)
+    if eventName:
+        from SearchTMDb import TMDbMain
+        session.open(TMDbMain, eventName)
         
-def tvdbInfo(session, eventName="", **kwargs):
-    try:
-        s = session.nav.getCurrentService()
-        info = s.info()
-        event = info.getEvent(0)
-        shortdescr = ""
-        if event:
-            eventName = event.getEventName()
-            shortdescr = event.getShortDescription()
-        if eventName:
-            from SearchTVDb import TheTVDBMain
-            session.open(TheTVDBMain, None, eventName, shortdescr) 
-    except Exception, e:
-        print e
+def tvdbInfo(session, service=None, **kwargs):
+    from MovieDBChannelContext import getInfo
+    eventName, shortDescription = getInfo(session, service)
+    if eventName:
+        from SearchTVDb import TheTVDBMain
+        session.open(TheTVDBMain, None, eventName, shortDescription) 
 
 def Plugins(**kwargs):
     try:
@@ -137,5 +123,4 @@ def Plugins(**kwargs):
         except:
             from MovieDBChannelContext import AMSChannelContextMenuInit
             AMSChannelContextMenuInit()
-            pass
     return descriptors
