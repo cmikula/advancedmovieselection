@@ -20,8 +20,11 @@
 #  distributed other than under the conditions noted above.
 #
 from __init__ import _
+from Components.ActionMap import ActionMap
+from Screens.EpgSelection import EPGSelection
 from Screens.ChannelSelection import ChannelContextMenu, MODE_TV
-from Components.ChoiceList import ChoiceEntryComponent
+from Screens.Screen import Screen
+from Components.ChoiceList import ChoiceList, ChoiceEntryComponent
 from Tools.BoundFunction import boundFunction
 from enigma import eServiceCenter, eServiceReference
 
@@ -47,6 +50,21 @@ def getInfo(session, service):
             shortdescr = event.getShortDescription()
         print "[AdvancedMovieSelection] current name:", eventName
     return eventName, shortdescr
+
+EPGSelection_enterDateTime = None
+def AMSEPGSelectionInit():
+    print "[AdvancedMovieSelection] override EPGSelection.enterDateTime"
+    global EPGSelection_enterDateTime
+    if EPGSelection_enterDateTime is None:
+        EPGSelection_enterDateTime = EPGSelection.enterDateTime
+        EPGSelection.enterDateTime = AMSenterDateTime
+    
+def AMSenterDateTime(self):
+    event = self["Event"].event
+    if self.type == 0 and event:
+        self.session.open(MovieDBContextMenu, event)
+        return
+    EPGSelection_enterDateTime(self)
 
 ChannelContextMenu__init__ = None
 def AMSChannelContextMenuInit():
@@ -87,3 +105,42 @@ def startTVDb(self):
 def closeafterfinish(self, retval=None):
     self.close() 
 
+
+class MovieDBContextMenu(Screen):
+    def __init__(self, session, event):
+        Screen.__init__(self, session)
+        self.skinName = "ChannelContextMenu"
+        #raise Exception("we need a better summary screen here")
+        self.event = event
+
+        self["actions"] = ActionMap(["OkCancelActions", "ColorActions", "NumberActions"],
+            {
+                "ok": self.okbuttonClick,
+                "cancel": self.cancelClick,
+            })
+        menu = [ ]
+
+        # menu.append(ChoiceEntryComponent(text = (_("back"), self.cancelClick)))
+        menu.append(ChoiceEntryComponent(text = (_("TMDb Info (AMS)"), self.openTMDb)))
+        menu.append(ChoiceEntryComponent(text = (_("TVDb Info (AMS)"), self.openTVDb)))
+        self["menu"] = ChoiceList(menu)
+
+    def okbuttonClick(self):
+        self["menu"].getCurrent()[0][1]()
+
+    def cancelClick(self):
+        self.close(False)
+
+    def openTMDb(self):
+        from SearchTMDb import TMDbMain
+        eventName = self.event.getEventName()
+        self.session.openWithCallback(self.closeafterfinish, TMDbMain, eventName) 
+        
+    def openTVDb(self):
+        from SearchTVDb import TheTVDBMain
+        eventName = self.event.getEventName()
+        shortDescription = self.event.getShortDescription()
+        self.session.openWithCallback(self.closeafterfinish, TheTVDBMain, None, eventName, shortDescription) 
+        
+    def closeafterfinish(self, retval=None):
+        self.close() 

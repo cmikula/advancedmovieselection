@@ -114,6 +114,8 @@ def Plugins(**kwargs):
         descriptors.append(PluginDescriptor(name=_("Advanced Movie Selection"), where=PluginDescriptor.WHERE_EXTENSIONSMENU, description=_("Alternate Movie Selection"), fnc=pluginOpen))
         descriptors.append(PluginDescriptor(name=_("Move Copy Progress"), where=PluginDescriptor.WHERE_EXTENSIONSMENU, description=_("Show progress of move or copy job"), fnc=openProgress))
     
+        from MovieDBChannelContext import AMSEPGSelectionInit
+        AMSEPGSelectionInit()
         descriptors.append(PluginDescriptor(name=_("TMDb Info (AMS)"), where=PluginDescriptor.WHERE_EVENTINFO, description=_("TMDb Info (AMS)"), fnc=tmdbInfo))
         descriptors.append(PluginDescriptor(name=_("TVDb Info (AMS)"), where=PluginDescriptor.WHERE_EVENTINFO, description=_("TVDb Info (AMS)"), fnc=tvdbInfo))
         try:
