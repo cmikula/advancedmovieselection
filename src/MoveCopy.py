@@ -27,10 +27,18 @@ from Components.config import config
 from Source.ServiceUtils import serviceUtil, realSize, diskUsage
 from Source.ServiceProvider import ServiceCenter
 from enigma import eTimer
+from Tools import Notifications
 import os, time
 
 def openDialog(job, session):
     error = job.getError()
+    # always show error message box
+    if error:
+        text = _("Job failed") + "\r\n\r\n"
+        text += _("Error") + ": " + str(error) + "\r\n"
+        #session.open(MessageBox, text, MessageBox.TYPE_ERROR)
+        Notifications.AddNotification(MessageBox, text, type=MessageBox.TYPE_ERROR)
+
     # abort all if we have no session
     if not session:
         return
@@ -38,16 +46,12 @@ def openDialog(job, session):
     from MovieSelection import MovieSelection
     if isinstance(session.current_dialog, MovieSelection):
         session.current_dialog.updateList(job)
-        if not error:
-            return
-    # show progress dialog
-    if not isinstance(session.current_dialog, MoveCopyProgress):
         session.open(MoveCopyProgress)
-    # always show error message box
-    if error:
-        text = _("Job failed") + "\r\n\r\n"
-        text += _("Error") + ": " + str(error) + "\r\n"
-        session.open(MessageBox, text, MessageBox.TYPE_ERROR)
+    # show progress dialog
+    elif not isinstance(session.current_dialog, MoveCopyProgress):
+        #session.open(MoveCopyProgress)
+        Notifications.AddNotification(MoveCopyProgress)
+
 
 class MoveCopyNotifier():
     def __init__(self):
@@ -59,8 +63,8 @@ class MoveCopyNotifier():
         print "MoveCopyNotifier", str(serviceUtil.getJobs())
         for job in serviceUtil.getJobs():
             if job.isFinished():
-                openDialog(job, self.session)
                 self.timer.stop()
+                openDialog(job, self.session)
         
     def start(self, session):
         self.session = session
@@ -229,7 +233,6 @@ class ProgressList(GUIComponent):
 
 from Screens.Screen import Screen
 from Screens.HelpMenu import HelpableScreen
-from enigma import eTimer
 from Components.ActionMap import HelpableActionMap
 from Components.Button import Button
 
