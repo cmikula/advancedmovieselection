@@ -115,7 +115,7 @@ exit 0\n"
 
 POSTRM = "#!/bin/sh\n\
 \n\
-rm -r /usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection > /dev/null 2>&1\n\
+rm -rf /usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/\n\
 \n\
 exit"
 
