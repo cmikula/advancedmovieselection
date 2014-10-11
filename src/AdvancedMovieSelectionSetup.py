@@ -30,80 +30,18 @@ from Plugins.Plugin import PluginDescriptor
 from Components.config import config, getConfigListEntry, configfile, ConfigSelection
 from Components.Sources.StaticText import StaticText
 from Components.Button import Button
-from Components import ConfigList as eConfigList
+from Components.ConfigList import ConfigListScreen
 from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Screens.LocationBox import MovieLocationBox
 from Components.UsageConfig import preferredPath
 from Screens.MessageBox import MessageBox
 from MessageBoxEx import MessageBox as MessageBoxEx
 from Components.Sources.List import List
-from Components.ActionMap import ActionMap, NumberActionMap
+from Components.ActionMap import ActionMap
 from enigma import getDesktop, quitMainloop
 from ClientSetup import ClientSetup
 from Source.Globals import pluginPresent
 from Source.Config import qButtons
-
-class ConfigList(eConfigList.ConfigList):
-    def __init__(self, list, session=None):
-        eConfigList.ConfigList.__init__(self, list, session=session)
-    
-    def selectionChanged(self):
-        if isinstance(self.current, tuple) and len(self.current) >= 2:
-            self.current[1].onDeselect(self.session)
-        self.current = self.getCurrent()
-        if isinstance(self.current, tuple) and len(self.current) >= 2:
-            self.current[1].onSelect(self.session)
-        else:
-            return
-        for x in self.onSelectionChanged:
-            x()
-
-    def preWidgetRemove(self, instance):
-        if isinstance(self.current, tuple) and len(self.current) >= 2:
-            self.current[1].onDeselect(self.session)
-        instance.selectionChanged.get().remove(self.selectionChanged)
-        instance.setContent(None)
-
-class ConfigListScreen(eConfigList.ConfigListScreen):
-    def __init__(self, list, session=None, on_change=None):
-        self["config_actions"] = NumberActionMap(["SetupActions", "InputAsciiActions", "KeyboardInputActions"],
-        {
-            "gotAsciiCode": self.keyGotAscii,
-            "ok": self.keyOK,
-            "left": self.keyLeft,
-            "right": self.keyRight,
-            "home": self.keyHome,
-            "end": self.keyEnd,
-            "deleteForward": self.keyDelete,
-            "deleteBackward": self.keyBackspace,
-            "toggleOverwrite": self.keyToggleOW,
-            "1": self.keyNumberGlobal,
-            "2": self.keyNumberGlobal,
-            "3": self.keyNumberGlobal,
-            "4": self.keyNumberGlobal,
-            "5": self.keyNumberGlobal,
-            "6": self.keyNumberGlobal,
-            "7": self.keyNumberGlobal,
-            "8": self.keyNumberGlobal,
-            "9": self.keyNumberGlobal,
-            "0": self.keyNumberGlobal
-        }, -1) # to prevent left/right overriding the listbox
-
-        self["VirtualKB"] = ActionMap(["VirtualKeyboardActions"],
-        {
-            "showVirtualKeyboard": self.KeyText,
-        }, -2)
-        self["VirtualKB"].setEnabled(False)
-        
-        self["config"] = ConfigList(list, session=session)
-        
-        if on_change is not None:
-            self.__changed = on_change
-        else:
-            self.__changed = lambda: None
-        
-        if not self.handleInputHelpers in self["config"].onSelectionChanged:
-            self["config"].onSelectionChanged.append(self.handleInputHelpers)
 
 class BackupRestore(ConfigListScreen, Screen):
     def __init__(self, session, csel=None):
