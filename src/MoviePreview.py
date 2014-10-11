@@ -21,12 +21,13 @@
 #
 from Components.AVSwitch import AVSwitch
 from Components.Pixmap import Pixmap
-from enigma import ePicLoad, gPixmapPtr, eTimer
+from enigma import gPixmapPtr, eTimer
 from Tools.Directories import fileExists
 import os
 from Components.config import config
 from Source.ServiceProvider import eServiceReferenceDvd, getServiceInfoValue, ServiceCenter, eServiceReferenceBludisc
 from Source.ISOInfo import ISOInfo
+from Source.PicLoader import PicLoader
 from enigma import iServiceInformation, eServiceReference
 from os import environ
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
@@ -41,10 +42,10 @@ class MoviePreview():
         self.old_service = None
         self.working = False
         self.picParam = None
-        self.picload = ePicLoad()
-        self.picload.PictureData.get().append(self.showPreviewCallback)
-        self.backdrop = ePicLoad()
-        self.backdrop.PictureData.get().append(self.showBackdropCallback)
+        self.picload = PicLoader()
+        self.picload.addCallback(self.showPreviewCallback)
+        self.backdrop = PicLoader()
+        self.backdrop.addCallback(self.showBackdropCallback)
         self.onLayoutFinish.append(self.layoutFinish)
         self.onClose.append(self.__onClose)
         global nocover
@@ -54,8 +55,8 @@ class MoviePreview():
             nocover = resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/nocover_en.png")
 
     def __onClose(self):
-        del self.picload
-        del self.backdrop
+        self.picload.destroy()
+        self.backdrop.destroy()
     
     def layoutFinish(self):
         sc = AVSwitch().getFramebufferScale()

@@ -27,9 +27,11 @@ from Components.AVSwitch import AVSwitch
 from enigma import ePicLoad
 
 class PicLoader:
-    def __init__(self, width, height, sc=None):
+    def __init__(self):
         self.picload = ePicLoad()
-        if(not sc):
+
+    def setSize(self, width, height, sc=None):
+        if sc is None:
             sc = AVSwitch().getFramebufferScale()
         self.picload.setPara((width, height, sc[0], sc[1], False, 1, "#ff000000"))
 
@@ -41,3 +43,16 @@ class PicLoader:
     def destroy(self):
         del self.picload
 
+    def addCallback(self, callback):
+        self.picload.PictureData.get().append(callback)
+
+    def getData(self):
+        return self.picload.getData()
+
+    def setPara(self, *args):
+        print "W"* 80
+        print args
+        self.picload.setPara(*args)
+
+    def startDecode(self, f):
+        self.picload.startDecode(f)

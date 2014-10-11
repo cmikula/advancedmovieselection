@@ -28,7 +28,7 @@ from Components.Pixmap import Pixmap
 from Components.ActionMap import ActionMap
 from Components.AVSwitch import AVSwitch
 from threading import Thread
-from enigma import eServiceReference, ePicLoad
+from enigma import eServiceReference
 from timer import eTimer
 from Components.MenuList import MenuList
 from Source.ServiceProvider import ServiceCenter
@@ -38,6 +38,7 @@ from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Components.ScrollLabel import ScrollLabel
 from Tools.Directories import resolveFilename, SCOPE_PLUGINS, SCOPE_CURRENT_PLUGIN
 from Source.Globals import printStackTrace
+from Source.PicLoader import PicLoader
 import os
 
 fetchingMovies = None
@@ -47,6 +48,7 @@ class DownloadMovies(Screen):
         Screen.__init__(self, session)
         self.skinName = "AdvancedMovieSelectionDownload"
         self.onShow.append(self.selectionChanged)
+        self.onClose.append(self.__onClose)
         self.service = service
         self["logo"] = Pixmap()  
         self["info"] = Label()
@@ -80,8 +82,8 @@ class DownloadMovies(Screen):
         self["list"] = MenuList(self.l)
         self["list"].onSelectionChanged.append(self.selectionChanged)
         
-        self.picload = ePicLoad()
-        self.picload.PictureData.get().append(self.paintPosterPixmap)
+        self.picload = PicLoader()
+        self.picload.addCallback(self.paintPosterPixmap)
 
         self.tmdb3 = tmdb.init_tmdb3()
         
@@ -104,6 +106,9 @@ class DownloadMovies(Screen):
         self.progressTimer.callback.append(self.updateProgress)
         self.progressTimer.start(250, False)
         fetchingMovies.is_hidden = False
+
+    def __onClose(self):
+        self.picload.destroy()
 
     def setWindowTitle(self):
         self.setTitle(_("Search for %s, please wait...") % (self.movie_title))

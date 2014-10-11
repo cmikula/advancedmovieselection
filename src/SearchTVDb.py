@@ -32,7 +32,6 @@ from enigma import RT_WRAP, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, gFont, eListboxPyth
 from Components.Label import Label
 from Components.ScrollLabel import ScrollLabel
 from Tools.Directories import pathExists
-from enigma import ePicLoad
 from Components.AVSwitch import AVSwitch
 from Components.ProgressBar import ProgressBar
 from os import environ
@@ -191,10 +190,10 @@ class TheTVDBMain(Screen, InfoLoadChoice):
         if self.description == self.searchTitle:
             self.description = ""
 
-        self.picload = ePicLoad()
-        self.picload.PictureData.get().append(self.paintPosterPixmapCB)
-        self.picload2 = ePicLoad()
-        self.picload2.PictureData.get().append(self.paintBannerPixmapCB)
+        self.picload = PicLoader()
+        self.picload.addCallback(self.paintPosterPixmapCB)
+        self.picload2 = PicLoader()
+        self.picload2.addCallback(self.paintBannerPixmapCB)
         
         self["cover"] = Pixmap()
         self["banner"] = Pixmap()
@@ -256,8 +255,8 @@ class TheTVDBMain(Screen, InfoLoadChoice):
         self["description_episode"].pageDown()
 
     def deleteTempDir(self):
-        del self.picload
-        del self.picload2
+        self.picload.destroy()
+        self.picload2.destroy()
         try:
             shutil.rmtree(temp_dir)
         except Exception, e:

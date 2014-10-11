@@ -106,7 +106,8 @@ class MovieList(GUIListComponent):
     def __init__(self, root, list_type=None, sort_type=None, descr_state=None, show_folders=False, show_progressbar=False, show_percent=False, show_statusicon=False, show_statuscolor=False, show_date=True, show_time=True, show_service=True, show_tags=False):
         GUIListComponent.__init__(self)
         self.movieConfig = MovieConfig()
-        self.picloader = PicLoader(75, 75)
+        self.picloader = PicLoader()
+        self.picloader.setSize(75, 75)
         self.list_type = list_type or self.LISTTYPE_ORIGINAL
         self.descr_state = descr_state or self.HIDE_DESCRIPTION
         self.sort_type = sort_type or self.SORT_DATE_ASC

@@ -29,7 +29,6 @@ from Components.ActionMap import HelpableActionMap
 from Components.Sources.StaticText import StaticText
 from Components.Pixmap import Pixmap
 from os import path as os_path, mkdir as os_mkdir
-from enigma import ePicLoad
 from timer import eTimer
 from Components.Label import Label
 from Components.ScrollLabel import ScrollLabel
@@ -126,7 +125,8 @@ class TMDbList(GUIListComponent, object):
         self.l.setFont(0, gFont("Regular", 20))
         self.l.setFont(1, gFont("Regular", 17))
         self.l.setItemHeight(140)
-        self.picloader = PicLoader(92, 138)
+        self.picloader = PicLoader()
+        self.picloader.setSize(92, 138)
 
     def destroy(self):
         self.picloader.destroy()
@@ -237,10 +237,10 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
         self["tmdblogo"] = Pixmap()
         self["cover"] = Pixmap()
         self["backdrop"] = Pixmap()
-        self.picload = ePicLoad()
-        self.picload.PictureData.get().append(self.paintCoverPixmapCB)
-        self.backdrop_picload = ePicLoad()
-        self.backdrop_picload.PictureData.get().append(self.paintBackdropPixmapCB)
+        self.picload = PicLoader()
+        self.picload.addCallback(self.paintCoverPixmapCB)
+        self.backdrop_picload = PicLoader()
+        self.backdrop_picload.addCallback(self.paintBackdropPixmapCB)
         self["description"] = ScrollLabel()
         self["extended"] = Label()
         self["status"] = Label()
@@ -281,8 +281,8 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
         self.backdrop_picload.setPara((self["backdrop"].instance.size().width(), self["backdrop"].instance.size().height(), sc[0], sc[1], False, 1, "#10000000"))
 
     def deleteTempDir(self):
-        del self.picload
-        del self.backdrop_picload
+        self.picload.destroy()
+        self.backdrop_picload.destroy()
         try:
             shutil.rmtree(IMAGE_TEMPFILE)
         except Exception, e:
