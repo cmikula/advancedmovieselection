@@ -20,12 +20,12 @@
 #  distributed other than under the conditions noted above.
 #
 from __init__ import _
-from Components.GUIComponent import GUIComponent
+from GUIListComponent import GUIListComponent
 from Tools.FuzzyDate import FuzzyTime
 from ServiceReference import ServiceReference
 from Components.MultiContent import MultiContentEntryText, MultiContentEntryProgress
 from Components.config import config
-from enigma import eListboxPythonMultiContent, eListbox, gFont, iServiceInformation, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, eServiceReference, RT_HALIGN_CENTER
+from enigma import eListboxPythonMultiContent, gFont, iServiceInformation, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, eServiceReference
 from Tools.LoadPixmap import LoadPixmap
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
 import os
@@ -42,7 +42,7 @@ from Source.ServiceProvider import detectDVDStructure, eServiceReferenceDvd
 from Source.ServiceProvider import detectBludiscStructure, eServiceReferenceBludisc
 from Source.ServiceProvider import eServiceReferenceVDir, eServiceReferenceBackDir, eServiceReferenceListAll, eServiceReferenceHotplug, eServiceReferenceMarker
 from Source.ServiceUtils import serviceUtil, realSize, diskUsage
-from Source.CueSheetSupport import hasLastPosition, CueSheet
+from Source.CueSheetSupport import hasLastPosition
 from Source.AutoNetwork import autoNetwork 
 from Source.Trashcan import TRASH_NAME
 from Source.EventInformationTable import EventInformationTable
@@ -72,7 +72,7 @@ MEDIAEXTENSIONS = {
         "mp3": "audio"
     }
 
-class MovieList(GUIComponent):
+class MovieList(GUIListComponent):
     SORT_ALPHANUMERIC = 1
     SORT_RECORDED = 2
 
@@ -104,7 +104,7 @@ class MovieList(GUIComponent):
     DATE_TIME_FORMAT = ""
 
     def __init__(self, root, list_type=None, sort_type=None, descr_state=None, show_folders=False, show_progressbar=False, show_percent=False, show_statusicon=False, show_statuscolor=False, show_date=True, show_time=True, show_service=True, show_tags=False):
-        GUIComponent.__init__(self)
+        GUIListComponent.__init__(self)
         self.movieConfig = MovieConfig()
         self.picloader = PicLoader(75, 75)
         self.list_type = list_type or self.LISTTYPE_ORIGINAL
@@ -124,7 +124,6 @@ class MovieList(GUIComponent):
         self.show_service = show_service or self.SHOW_SERVICE
         self.show_tags = show_tags or self.HIDE_TAGS
         self.show_tags = show_tags or self.SHOW_TAGS
-        self.l = eListboxPythonMultiContent()
         self.tags = set()
         self.filter_description = None
         
@@ -133,7 +132,6 @@ class MovieList(GUIComponent):
         
         self.redrawList()
         self.l.setBuildFunc(self.buildMovieListEntry)
-        self.onSelectionChanged = [ ]
         #self.onFirstStart()
         
     def onFirstStart(self):
@@ -142,10 +140,10 @@ class MovieList(GUIComponent):
 
     def destroy(self):
         self.picloader.destroy()
-        GUIComponent.destroy(self)
+        GUIListComponent.destroy(self)
     
     def onShow(self):
-        GUIComponent.onShow(self)
+        GUIListComponent.onShow(self)
         self.updateSettings()
         
     def updateSettings(self):
@@ -240,18 +238,6 @@ class MovieList(GUIComponent):
             if movieScanner.enabled:
                 movieScanner.checkAllAvailable()
         return res
-
-    def connectSelChanged(self, fnc):
-        if not fnc in self.onSelectionChanged:
-            self.onSelectionChanged.append(fnc)
-
-    def disconnectSelChanged(self, fnc):
-        if fnc in self.onSelectionChanged:
-            self.onSelectionChanged.remove(fnc)
-
-    def selectionChanged(self):
-        for x in self.onSelectionChanged:
-            x()
 
     def setListType(self, type):
         self.list_type = type
@@ -709,12 +695,6 @@ class MovieList(GUIComponent):
         idx = self.getPrevMarkerPos()
         self.instance.moveSelectionTo(idx)
 
-    def moveToIndex(self, index):
-        self.instance.moveSelectionTo(index)
-
-    def getCurrentIndex(self):
-        return self.instance.getCurrentIndex()
-
     def getCurrentInfo(self):
         l = self.l.getCurrentSelection()
         return l and l[0].info
@@ -727,16 +707,6 @@ class MovieList(GUIComponent):
     def getCurrent(self):
         l = self.l.getCurrentSelection()
         return l and l[0].serviceref
-
-    GUI_WIDGET = eListbox
-
-    def postWidgetCreate(self, instance):
-        instance.setContent(self.l)
-        instance.selectionChanged.get().append(self.selectionChanged)
-
-    def preWidgetRemove(self, instance):
-        instance.setContent(None)
-        instance.selectionChanged.get().remove(self.selectionChanged)
 
     def reload(self, root=None, filter_tags=None):
         self.movieConfig.readDMconf()
@@ -1018,12 +988,6 @@ class MovieList(GUIComponent):
             count += 1
         return False
     
-    def moveUp(self):
-        self.instance.moveSelection(self.instance.moveUp)
-
-    def moveDown(self):
-        self.instance.moveSelection(self.instance.moveDown)
-        
     def updateCurrentSelection(self, dummy=None):
         cur_idx = self.instance.getCurrentIndex()
         self.l.invalidateEntry(cur_idx)

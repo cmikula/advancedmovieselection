@@ -25,60 +25,23 @@ from Components.Sources.StaticText import StaticText
 from Components.Pixmap import Pixmap
 from Components.ActionMap import ActionMap
 from Source.AboutParser import AboutParser
-from Components.GUIComponent import GUIComponent
-from enigma import RT_HALIGN_LEFT, gFont, eListbox, eListboxPythonMultiContent
+from enigma import RT_HALIGN_LEFT, gFont, eListboxPythonMultiContent
 from Components.ScrollLabel import ScrollLabel
+from GUIListComponent import GUIListComponent
 import Version
 
-class VersionList(GUIComponent):
+class VersionList(GUIListComponent):
     def __init__(self):
-        GUIComponent.__init__(self)
-        self.l = eListboxPythonMultiContent()
+        GUIListComponent.__init__(self)
         self.l.setBuildFunc(self.buildMovieSelectionListEntry)
         self.l.setFont(0, gFont("Regular", 20))                             
         self.l.setItemHeight(30)
-        self.onSelectionChanged = [ ]
-
-    def connectSelChanged(self, fnc):
-        if not fnc in self.onSelectionChanged:
-            self.onSelectionChanged.append(fnc)
-
-    def disconnectSelChanged(self, fnc):
-        if fnc in self.onSelectionChanged:
-            self.onSelectionChanged.remove(fnc)
-
-    def selectionChanged(self):
-        for x in self.onSelectionChanged:
-            x()        
 
     def buildMovieSelectionListEntry(self, version):
         width = self.l.getItemSize().width()
         res = [ None ]        
         res.append((eListboxPythonMultiContent.TYPE_TEXT, 5, 2, width - 30 , 23, 0, RT_HALIGN_LEFT, "%s" % version.getVersion()))
         return res
-
-    GUI_WIDGET = eListbox
-    
-    def postWidgetCreate(self, instance):
-        instance.setContent(self.l)
-        instance.selectionChanged.get().append(self.selectionChanged)
-
-    def preWidgetRemove(self, instance):
-        instance.setContent(None)
-        instance.selectionChanged.get().remove(self.selectionChanged)
-
-    def getCurrentIndex(self):
-        return self.instance.getCurrentIndex()
-    
-    def getSelectionIndex(self):
-        return self.l.getCurrentSelectionIndex()
-
-    def setList(self, l):
-        self.l.setList(l)
-    
-    def getCurrent(self):
-        l = self.l.getCurrentSelection()
-        return l and l[0]
 
 class AdvancedMovieSelectionAbout(Screen):
     def __init__(self, session):

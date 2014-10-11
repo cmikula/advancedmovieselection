@@ -21,8 +21,8 @@
 #
 from __init__ import _
 import shutil
-from enigma import RT_WRAP, RT_VALIGN_CENTER, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, gFont, eListbox, eListboxPythonMultiContent
-from Components.GUIComponent import GUIComponent
+from enigma import RT_WRAP, RT_VALIGN_CENTER, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, gFont, eListboxPythonMultiContent
+from GUIListComponent import GUIListComponent
 from Screens.Screen import Screen
 from Screens.HelpMenu import HelpableScreen
 from Components.ActionMap import HelpableActionMap
@@ -119,10 +119,9 @@ class InfoLoadChoice():
     def __timerCallback(self):
         self.__callback(self.answer)
 
-class TMDbList(GUIComponent, object):
+class TMDbList(GUIListComponent, object):
     def __init__(self):
-        GUIComponent.__init__(self)
-        self.l = eListboxPythonMultiContent()
+        GUIListComponent.__init__(self)
         self.l.setBuildFunc(self.buildMovieSelectionListEntry)
         self.l.setFont(0, gFont("Regular", 20))
         self.l.setFont(1, gFont("Regular", 17))
@@ -131,7 +130,7 @@ class TMDbList(GUIComponent, object):
 
     def destroy(self):
         self.picloader.destroy()
-        GUIComponent.destroy(self)
+        GUIListComponent.destroy(self)
 
     def buildMovieSelectionListEntry(self, movie):
         width = self.l.getItemSize().width()
@@ -173,17 +172,6 @@ class TMDbList(GUIComponent, object):
             printStackTrace()
         return res
         
-    GUI_WIDGET = eListbox
-    
-    def postWidgetCreate(self, instance):
-        instance.setContent(self.l)
-
-    def preWidgetRemove(self, instance):
-        instance.setContent(None)
-
-    def getCurrentIndex(self):
-        return self.instance.getCurrentIndex()
-
     def setList(self, l):
         self.list = l
         self.l.setList(l)
@@ -193,12 +181,6 @@ class TMDbList(GUIComponent, object):
     
     def getLength(self):
         return len(self.list)
-
-    def moveUp(self):
-        self.instance.moveSelection(self.instance.moveUp)
-
-    def moveDown(self):
-        self.instance.moveSelection(self.instance.moveDown)
 
     
 class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):

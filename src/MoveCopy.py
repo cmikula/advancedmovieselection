@@ -72,34 +72,19 @@ class MoveCopyNotifier():
 
 moveCopyNotifier = MoveCopyNotifier()
 
-from Components.GUIComponent import GUIComponent
-from enigma import eListboxPythonMultiContent, eListbox, gFont, RT_HALIGN_LEFT, RT_HALIGN_RIGHT
+from GUIListComponent import GUIListComponent
+from enigma import gFont, RT_HALIGN_LEFT, RT_HALIGN_RIGHT
 from Components.MultiContent import MultiContentEntryText, MultiContentEntryProgress
 
-class ProgressList(GUIComponent):
+class ProgressList(GUIListComponent):
     def __init__(self):
-        GUIComponent.__init__(self)
+        GUIListComponent.__init__(self)
         self.list = []
-        self.l = eListboxPythonMultiContent()
         self.l.setFont(0, gFont("Regular", 20))
         self.l.setFont(1, gFont("Regular", 16))
         self.l.setItemHeight(155)
         self.l.setBuildFunc(self.buildListEntry)
         
-        self.onSelectionChanged = [ ]
-
-    def connectSelChanged(self, fnc):
-        if not fnc in self.onSelectionChanged:
-            self.onSelectionChanged.append(fnc)
-
-    def disconnectSelChanged(self, fnc):
-        if fnc in self.onSelectionChanged:
-            self.onSelectionChanged.remove(fnc)
-
-    def selectionChanged(self):
-        for x in self.onSelectionChanged:
-            x()
-
     def buildListEntry(self, job):
         res = [ None ]
         try:
@@ -182,29 +167,9 @@ class ProgressList(GUIComponent):
             print e
         return res
 
-    def moveToIndex(self, index):
-        self.instance.moveSelectionTo(index)
-
-    def getCurrentIndex(self):
-        return self.instance.getCurrentIndex()
-
     def getCurrentEvent(self):
         l = self.l.getCurrentSelection()
         return l and l[0] and l[1] and l[1].getEvent(l[0])
-
-    def getCurrent(self):
-        l = self.l.getCurrentSelection()
-        return l and l[0]
-
-    GUI_WIDGET = eListbox
-
-    def postWidgetCreate(self, instance):
-        instance.setContent(self.l)
-        instance.selectionChanged.get().append(self.selectionChanged)
-
-    def preWidgetRemove(self, instance):
-        instance.setContent(None)
-        instance.selectionChanged.get().remove(self.selectionChanged)
 
     def load(self, jobs):
         self.list = []

@@ -28,37 +28,23 @@ from Components.config import config, getConfigListEntry
 from Components.ActionMap import ActionMap
 from Components.ConfigList import ConfigListScreen
 from Components.MultiContent import MultiContentEntryText
-from Components.GUIComponent import GUIComponent
 from Components.Sources.StaticText import StaticText
-from enigma import eListboxPythonMultiContent, eListbox, gFont, RT_HALIGN_LEFT, RT_HALIGN_RIGHT
+from enigma import gFont, RT_HALIGN_LEFT, RT_HALIGN_RIGHT
 from Source.Remote.MessageServer import serverInstance, getIpAddress
 from Source.Remote.Client import getClients
 from time import localtime, strftime
+from GUIListComponent import GUIListComponent
 
 staticIP = None
 
-class ClientSetupList(GUIComponent):
+class ClientSetupList(GUIListComponent):
     def __init__(self, ip_address):
-        GUIComponent.__init__(self)
-        self.l = eListboxPythonMultiContent()        
+        GUIListComponent.__init__(self)
         self.l.setFont(0, gFont("Regular", 22))
         self.l.setFont(1, gFont("Regular", 18))
         self.l.setItemHeight(100)
         self.l.setBuildFunc(self.buildMovieListEntry)
-        self.onSelectionChanged = [ ]
         self.staticIP = ip_address
-
-    def connectSelChanged(self, fnc):
-        if not fnc in self.onSelectionChanged:
-            self.onSelectionChanged.append(fnc)
-
-    def disconnectSelChanged(self, fnc):
-        if fnc in self.onSelectionChanged:
-            self.onSelectionChanged.remove(fnc)
-
-    def selectionChanged(self):
-        for x in self.onSelectionChanged:
-            x()
 
     def buildMovieListEntry(self, client):
         res = [ None ]
@@ -102,26 +88,6 @@ class ClientSetupList(GUIComponent):
         res.append(MultiContentEntryText(pos=(5, 50), size=(width, 30), font=1, flags=RT_HALIGN_LEFT, text=last_trash_clean_status))
         res.append(MultiContentEntryText(pos=(5, 75), size=(width, 30), font=1, flags=RT_HALIGN_LEFT, text=next_trash_clean_status))
         return res
-
-    def moveToIndex(self, index):
-        self.instance.moveSelectionTo(index)
-
-    def getCurrentIndex(self):
-        return self.instance.getCurrentIndex()
-
-    def getCurrent(self):
-        l = self.l.getCurrentSelection()
-        return l and l[0]
-
-    GUI_WIDGET = eListbox
-
-    def postWidgetCreate(self, instance):
-        instance.setContent(self.l)
-        instance.selectionChanged.get().append(self.selectionChanged)
-
-    def preWidgetRemove(self, instance):
-        instance.setContent(None)
-        instance.selectionChanged.get().remove(self.selectionChanged)
 
     def reload(self):
         self.list = []

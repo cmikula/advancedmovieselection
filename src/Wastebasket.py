@@ -41,8 +41,8 @@ from enigma import eTimer
 from Tools.Directories import fileExists
 from Components.DiskInfo import DiskInfo
 from Components.UsageConfig import defaultMoviePath
-from Components.GUIComponent import GUIComponent
-from enigma import eListboxPythonMultiContent, eListbox, gFont, RT_HALIGN_LEFT, RT_HALIGN_RIGHT
+from GUIListComponent import GUIListComponent
+from enigma import gFont, RT_HALIGN_LEFT, RT_HALIGN_RIGHT
 from Components.MultiContent import MultiContentEntryText
 from datetime import datetime
 from Tools.Directories import getSize as getServiceSize
@@ -52,10 +52,9 @@ from Source.Remote.Client import getClients
 from ClientSetup import ClientSetup
 from Components.Pixmap import Pixmap
 
-class TrashMovieList(GUIComponent):
+class TrashMovieList(GUIListComponent):
     def __init__(self, root):
-        GUIComponent.__init__(self)
-        self.l = eListboxPythonMultiContent()
+        GUIListComponent.__init__(self)
         if root is not None:
             self.reload(root)
         self.l.setFont(0, gFont("Regular", 20))
@@ -65,18 +64,6 @@ class TrashMovieList(GUIComponent):
         self.l.setBuildFunc(self.buildMovieListEntry)
         
         self.onSelectionChanged = [ ]
-
-    def connectSelChanged(self, fnc):
-        if not fnc in self.onSelectionChanged:
-            self.onSelectionChanged.append(fnc)
-
-    def disconnectSelChanged(self, fnc):
-        if fnc in self.onSelectionChanged:
-            self.onSelectionChanged.remove(fnc)
-
-    def selectionChanged(self):
-        for x in self.onSelectionChanged:
-            x()
 
     def buildMovieListEntry(self, serviceref, info, begin, length):
         res = [ None ]
@@ -99,29 +86,9 @@ class TrashMovieList(GUIComponent):
         res.append(MultiContentEntryText(pos=(width - 255, 54), size=(250, 22), font=2, flags=RT_HALIGN_RIGHT, text=date))
         return res
 
-    def moveToIndex(self, index):
-        self.instance.moveSelectionTo(index)
-
-    def getCurrentIndex(self):
-        return self.instance.getCurrentIndex()
-
     def getCurrentEvent(self):
         l = self.l.getCurrentSelection()
         return l and l[0] and l[1] and l[1].getEvent(l[0])
-
-    def getCurrent(self):
-        l = self.l.getCurrentSelection()
-        return l and l[0]
-
-    GUI_WIDGET = eListbox
-
-    def postWidgetCreate(self, instance):
-        instance.setContent(self.l)
-        instance.selectionChanged.get().append(self.selectionChanged)
-
-    def preWidgetRemove(self, instance):
-        instance.setContent(None)
-        instance.selectionChanged.get().remove(self.selectionChanged)
 
     def load(self, root):
         self.list = [ ]
@@ -158,9 +125,6 @@ class TrashMovieList(GUIComponent):
             count += 1
         return False
     
-    def moveDown(self):
-        self.instance.moveSelection(self.instance.moveDown)
-
     def getDate(self, serviceref):
         dvd_path = detectDVDStructure(serviceref.getPath() + "/")
         if dvd_path:

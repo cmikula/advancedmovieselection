@@ -20,15 +20,15 @@
 #  distributed other than under the conditions noted above.
 #
 from __init__ import _
-import urllib, datetime, re, os, shutil
+import datetime, re, os, shutil
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
-from enigma import getDesktop, iServiceInformation, eTimer
+from enigma import iServiceInformation, eTimer
 from Components.Sources.StaticText import StaticText
 from Components.Pixmap import Pixmap
 from Components.ActionMap import ActionMap
-from Components.GUIComponent import GUIComponent
-from enigma import RT_WRAP, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, gFont, eListbox, eListboxPythonMultiContent
+from GUIListComponent import GUIListComponent
+from enigma import RT_WRAP, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, gFont, eListboxPythonMultiContent
 from Components.Label import Label
 from Components.ScrollLabel import ScrollLabel
 from Tools.Directories import pathExists
@@ -69,33 +69,19 @@ def getImage(serie):
     else:
         return nocover
 
-class ListBase(GUIComponent, object):
+class ListBase(GUIListComponent, object):
     def __init__(self):
-        GUIComponent.__init__(self)
+        GUIListComponent.__init__(self)
         self.picloader = PicLoader(95, 138)
 
     def destroy(self):
         self.picloader.destroy()
-        GUIComponent.destroy(self)
-
-    GUI_WIDGET = eListbox
+        GUIListComponent.destroy(self)
     
-    def postWidgetCreate(self, instance):
-        instance.setContent(self.l)
-
-    def preWidgetRemove(self, instance):
-        instance.setContent(None)
-
-    def getCurrentIndex(self):
-        return self.instance.getCurrentIndex()
-
     def setList(self, _list):
         self.list = _list
         self.l.setList(_list)
     
-    def getCurrent(self):
-        return self.l.getCurrentSelection()
-
     def getLength(self):
         return len(self.list)
 
@@ -106,7 +92,6 @@ class ListBase(GUIComponent, object):
 class SeriesList(ListBase):
     def __init__(self):
         ListBase.__init__(self)
-        self.l = eListboxPythonMultiContent()
         self.l.setBuildFunc(self.buildMovieSelectionListEntry)
         self.l.setFont(0, gFont("Regular", 24))
         self.l.setFont(1, gFont("Regular", 20))
@@ -136,7 +121,6 @@ class SeriesList(ListBase):
 class EpisodesList(ListBase):
     def __init__(self):
         ListBase.__init__(self)
-        self.l = eListboxPythonMultiContent()
         self.l.setBuildFunc(self.buildMovieSelectionListEntry)
         self.l.setFont(0, gFont("Regular", 20))
         self.l.setFont(1, gFont("Regular", 17))                               
@@ -707,11 +691,11 @@ class TheTVDBMain(Screen, InfoLoadChoice):
         cur_serie = self["list"].getCurrent()
         cur_episode = self["episodes_list"].getCurrent()
         if self.view_mode == self.SHOW_SERIE_LIST and cur_serie:
-            self.showSeriesDetails(cur_serie[0])
+            self.showSeriesDetails(cur_serie)
         elif self.view_mode == self.SHOW_EPISODE_LIST and cur_episode:
-            self.showEpisodeDetails(cur_episode[0])
+            self.showEpisodeDetails(cur_episode)
         elif self.view_mode == self.SHOW_EPISODE_DETAIL and cur_episode:
-            self.showEpisodeList(cur_serie[0])
+            self.showEpisodeList(cur_serie)
         elif self.view_mode == self.SHOW_SERIE_DETAIL:
             self.showSeriesList()
 
@@ -725,13 +709,13 @@ class TheTVDBMain(Screen, InfoLoadChoice):
             self.showSeriesList()
         elif text == self.SHOW_ALL_EPISODES_TEXT:
             cur = self["list"].getCurrent()
-            self.showEpisodeList(cur[0])
+            self.showEpisodeList(cur)
         elif text == self.SHOW_DETAIL_TEXT:
             cur = self["list"].getCurrent()
-            self.showSeriesDetails(cur[0])
+            self.showSeriesDetails(cur)
         elif text == self.SHOW_EPISODE_TEXT:
             cur = self["episodes_list"].getCurrent()
-            self.showEpisodeDetails(cur[0])
+            self.showEpisodeDetails(cur)
 
     def yellow_pressed(self):
         self.searchManual()
@@ -747,13 +731,13 @@ class TheTVDBMain(Screen, InfoLoadChoice):
         if not self.checkConnection() or not cur:
             return
         overwrite_eit, overwrite_cover, overwrite_backdrop = answer and answer[1] or (False, False, False)
-        current_movie = cur[0]['Serie'][0]
+        current_movie = cur['Serie'][0]
         title = current_movie['SeriesName'].encode('utf-8', 'ignore')
         episode = None
         cur_epi = self["episodes_list"].getCurrent()
         # check entry and only store info if episode or episode details are shown
         if cur_epi and (self.view_mode == self.SHOW_EPISODE_LIST or self.view_mode == self.SHOW_EPISODE_DETAIL):
-            episode = cur_epi[0]
+            episode = cur_epi
         if self.service is not None:
             # using image type as 'banner' 'poster' 'fanart'
             createEITtvdb(self.service.getPath(), title, serie=current_movie, episode=episode, overwrite_eit=overwrite_eit, overwrite_cover=overwrite_cover, overwrite_backdrop=overwrite_backdrop, cover_type='poster', backdrop_type='fanart')
@@ -779,7 +763,7 @@ class TheTVDBMain(Screen, InfoLoadChoice):
             self.setTitle(_("Getting episodes list for '%s', please wait...") % self.getInfoText())
         elif text == self.SHOW_EPISODE_TEXT:
             cur_episode = self["episodes_list"].getCurrent()
-            name = cur_episode[1]
+            name = cur_episode
             self.setTitle(_("Getting episodes details for '%s', please wait...") % name)
         self.blue_button_timer.start(100, True)
 
