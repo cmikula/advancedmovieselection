@@ -50,8 +50,6 @@ class PicLoader:
         return self.picload.getData()
 
     def setPara(self, *args):
-        print "W"* 80
-        print args
         self.picload.setPara(*args)
 
     def startDecode(self, f):
