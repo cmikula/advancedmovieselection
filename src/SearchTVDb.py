@@ -71,7 +71,8 @@ def getImage(serie):
 class ListBase(GUIListComponent, object):
     def __init__(self):
         GUIListComponent.__init__(self)
-        self.picloader = PicLoader(95, 138)
+        self.picloader = PicLoader()
+        self.picloader.setSize(95, 138)
 
     def destroy(self):
         self.picloader.destroy()
