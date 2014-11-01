@@ -971,10 +971,12 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self.updateVideoPreviewSettings()
     
     def nextBouquet(self):
-        self.jumpForward()
+        if not self.jumpForward():
+            self.setQButtonIndex(1)
 
     def prevBouquet(self):
-        self.jumpBackward()
+        if not self.jumpBackward():
+            self.setQButtonIndex(-1)
 
     def nextMarker(self):
         self["list"].moveToNextMarker()

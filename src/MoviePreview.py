@@ -202,11 +202,11 @@ class VideoPreview():
         self.cut_list = cut_list
         
     def jumpForward(self):
-        self.seekRelativ(config.AdvancedMovieSelection.video_preview_jump_time.value)
+        return self.seekRelativ(config.AdvancedMovieSelection.video_preview_jump_time.value)
     
     def jumpBackward(self):
         jumptime = config.AdvancedMovieSelection.video_preview_jump_time.value
-        self.seekRelativ(-jumptime)
+        return self.seekRelativ(-jumptime)
 
     def togglePreviewStatus(self, service=None):
         self.enabled = not self.enabled
@@ -220,6 +220,7 @@ class VideoPreview():
     def seekRelativ(self, minutes):
         if self.currentlyPlayingService:
             self.doSeekRelative(minutes * 60 * 90000)
+            return True
 
     def getSeek(self):
         service = self.session.nav.getCurrentService()

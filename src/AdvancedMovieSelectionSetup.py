@@ -584,18 +584,7 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
     def createConfig(self):
         self.entryguilist = []
         self.entryguilist.append(("Nothing", _("Nothing")))
-        self.entryguilist.append(("Delete", _("Delete")))
-        self.entryguilist.append(("Move-Copy", _("Move-Copy")))
-        self.entryguilist.append(("Rename", _("Rename")))
-        self.entryguilist.append(("Wastebasket", _("Wastebasket")))
-        self.entryguilist.append(("Sort", _("Sort")))
-        self.entryguilist.append(("Library/Movielist", _("Switch library/movielist")))
-        self.entryguilist.append(("Show/Hide library", _("Show/Hide library")))
-        self.entryguilist.append(("Show/Hide folders", _("Show/Hide folders")))
-        self.entryguilist.append(("Show/Hide seen", _("Show/Hide seen movies")))
-        self.entryguilist.append(("Bookmark(s) on/off", _("Bookmark(s) on/off")))
-        self.entryguilist.append(("LIB marker on/off", _("Library marker on/off")))
-        self.entryguilist.append(("Update library", _("Update library")))
+        self.entryguilist.extend(self.csel.qbuttons)
         self.entryguilist.append(("Home", _("Home")))
         self.entryguilist.append(("Bookmark 1", _("Bookmark 1")))
         self.entryguilist.append(("Bookmark 2", _("Bookmark 2")))
@@ -604,18 +593,7 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         self.entryguilist.append(("Bookmark 5", _("Bookmark 5")))
         self.entryguilist.append(("Bookmark 6", _("Bookmark 6")))
         self.entryguilist.append(("Bookmark 7", _("Bookmark 7")))
-        self.entryguilist.append(("Filter by Tags", _("Filter by Tags")))
-        self.entryguilist.append(("Tag Editor", _("Tag Editor")))
-        self.entryguilist.append(("TMDb Info & D/L", _("TMDb Info & D/L")))
-        self.entryguilist.append(("TheTVDB Info & D/L", _("TheTVDB Info & D/L")))
-        self.entryguilist.append(("Toggle seen", _("Toggle seen")))
-        self.entryguilist.append(("Mark as seen", _("Mark as seen")))
-        self.entryguilist.append(("Mark as unseen", _("Mark as unseen")))
-        self.entryguilist.append(("Show Timer", _("Show Timer")))
-        self.entryguilist.append(("Show up to VSR-X", _("Show up to VSR-X")))
-        self.entryguilist.append(("Filter by description", _("Filter by description")))
-        if pluginPresent.YTTrailer == True:
-            self.entryguilist.append(("Trailer search", _("Trailer search")))
+
         self.entryguilist2 = []
         self.entryguilist2.append(("Nothing", _("Nothing")))
         self.entryguilist2.append(("DM-600PVR", _("DM-600PVR")))
@@ -629,6 +607,7 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         self.entryguilist2.append(("internal HDD", _("internal HDD")))
         self.entryguilist2.append(("NAS", _("NAS")))
         self.entryguilist2.append(("NAS-Movies", _("NAS-Movies")))
+        
         self.entryguilist3 = []
         self.entryguilist3.append(("Display plugin name", _("Display plugin name")))
         self.entryguilist3.append(("Display plugin description", _("Display plugin description")))        

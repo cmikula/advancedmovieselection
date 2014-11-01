@@ -360,3 +360,6 @@ versie: 3.3.1
 
 versie: 3.4
 * new: start tmdb & tvdb from channel selection
+
+versie: 3.5
+* new: switch quickbuttons with bouquet buttons

@@ -33,6 +33,42 @@ from Rename import MovieRetitle
 from Wastebasket import Wastebasket
 from enigma import eServiceReference
 from Source.Config import qButtons
+from Source.Globals import pluginPresent
+from math import ceil
+
+def getQButtons():
+    l = []
+
+    l.append(("Filter by description", _("Filter by description")))
+    l.append(("Filter by Tags", _("Filter by Tags")))
+    l.append(("Show/Hide seen", _("Show/Hide seen movies")))
+    l.append(("Sort", _("Sort")))
+    
+    l.append(("Show/Hide folders", _("Show/Hide folders")))
+    l.append(("Bookmark(s) on/off", _("Bookmark(s) on/off")))
+    l.append(("Toggle seen", _("Toggle seen")))
+    l.append(("Tag Editor", _("Tag Editor")))
+
+    l.append(("Update library", _("Update library")))
+    l.append(("Library/Movielist", _("Switch library/movielist")))
+    l.append(("Show/Hide library", _("Show/Hide library")))
+    l.append(("LIB marker on/off", _("Library marker on/off")))
+
+    l.append(("TheTVDB Info & D/L", _("TheTVDB Info & D/L")))
+    l.append(("TMDb Info & D/L", _("TMDb Info & D/L")))
+    l.append(("Mark as seen", _("Mark as seen")))
+    l.append(("Mark as unseen", _("Mark as unseen")))
+
+    l.append(("Delete", _("Delete")))
+    l.append(("Wastebasket", _("Wastebasket")))
+    l.append(("Move-Copy", _("Move-Copy")))
+    l.append(("Rename", _("Rename")))
+
+    l.append(("Show Timer", _("Show Timer")))
+    l.append(("Show up to VSR-X", _("Show up to VSR-X")))
+    if pluginPresent.YTTrailer:
+        l.append(("Trailer search", _("Trailer search")))
+    return l
 
 
 def getPluginCaption(pname):
@@ -95,12 +131,15 @@ def getPluginCaption(pname):
                 else:
                     return p.description
         return _(pname)
-    return _("Nothing")
+    return ""#"_("Nothing")
 
 toggleSeenButton = None
 
 class QuickButton:
     def __init__(self):
+        self.qindex = 0
+        self.qbuttons = getQButtons()
+        self.fn = ('red', 'green', 'yellow', 'blue')
         self["key_red"] = Button()
         self["key_green"] = Button()
         self["key_yellow"] = Button()
@@ -123,17 +162,29 @@ class QuickButton:
         for (actionmap, context, actions) in self.helpList:
             if context == "ColorActionsLong":
                 for index, item in enumerate(actions):
-                    func = qButtons.getFunction(item[0])
+                    func = self.getFunction(item[0])
                     text = getPluginCaption(func)
                     actions[index] = (item[0], text)
-
+    
+    def getFunction(self, key):
+        if self.qindex == 0 or not key in self.fn:
+            print "stored function", key
+            return qButtons.getFunction(key)
+        else:
+            num = self.fn.index(key)
+            n = ((self.qindex -1) * 4) + num
+            print "index funktion", key, str(n)
+            if n < len(self.qbuttons):
+                return self.qbuttons[n][0]
+            else:
+                return "Nothing"
+    
     def updateButtonText(self):
         global toggleSeenButton
         toggleSeenButton = None
-        fn = ('red', 'green', 'yellow', 'blue')
-        for key in fn:
+        for key in self.fn:
             key_text = 'key_%s' % (key)
-            function = qButtons.getFunction(key)
+            function = self.getFunction(key)
             text = getPluginCaption(function)
             self[key_text].setText(text)
             if function == "Toggle seen":
@@ -159,8 +210,7 @@ class QuickButton:
         return newType
 
     def findButton(self, function):
-        fn = ('red', 'green', 'yellow', 'blue')
-        for key in fn:
+        for key in self.fn:
             func = qButtons.getFunction(key)
             if func == function:
                 key_text = 'key_%s' % (key)
@@ -189,16 +239,16 @@ class QuickButton:
             key_number.setText(getPluginCaption("Library/Movielist"))
     
     def redpressed(self):
-        self.startPlugin(qButtons.getFunction("red"), self["key_red"])
+        self.startPlugin(self.getFunction("red"), self["key_red"])
      
     def greenpressed(self):
-        self.startPlugin(qButtons.getFunction("green"), self["key_green"])
+        self.startPlugin(self.getFunction("green"), self["key_green"])
      
     def yellowpressed(self):
-        self.startPlugin(qButtons.getFunction("yellow"), self["key_yellow"])
+        self.startPlugin(self.getFunction("yellow"), self["key_yellow"])
      
     def bluepressed(self):
-        self.startPlugin(qButtons.getFunction("blue"), self["key_blue"])
+        self.startPlugin(self.getFunction("blue"), self["key_blue"])
  
     def redpressedlong(self):
         print "red long"
@@ -227,6 +277,18 @@ class QuickButton:
     def setButtonText(self, key_number, caption):
         if key_number:
             key_number.setText(caption)
+    
+    def setQButtonIndex(self, index):
+        self.qindex += index
+        m = int(ceil(len(self.qbuttons) / 4.0))
+        print "XXXXXXX", str(m)
+        if self.qindex > m:
+            self.qindex = 0
+        if self.qindex < 0:
+            self.qindex = m
+        print "qButton", str(self.qindex)
+        self.updateButtonText()
+        self.updateHelpText()
     
     def startPlugin(self, pname, key_number):
         print "qButtonFX:", str(pname)
