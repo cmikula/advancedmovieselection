@@ -366,4 +366,4 @@ version: 3.4
 * neu: tmdb & tvdb ist in der kanalauswahl verfügbar
 
 version: 3.5
-* neu: umschalten der quickbuttons mit den bouquet tasten
+* neu: umschalten der farbtastenbelegung mit den bouquet tasten
