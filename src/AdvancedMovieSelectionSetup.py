@@ -584,7 +584,8 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
     def createConfig(self):
         self.entryguilist = []
         self.entryguilist.append(("Nothing", _("Nothing")))
-        self.entryguilist.extend(self.csel.qbuttons)
+        from QuickButton import getQButtons
+        self.entryguilist.extend(getQButtons())
         self.entryguilist.append(("Home", _("Home")))
         self.entryguilist.append(("Bookmark 1", _("Bookmark 1")))
         self.entryguilist.append(("Bookmark 2", _("Bookmark 2")))
