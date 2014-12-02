@@ -363,3 +363,6 @@ versie: 3.4
 
 versie: 3.5
 * nieuw: quickbuttons met bouquet knoppen wisselen
+
+versie: 3.5.1
+* nieuw: ondersteuning voor serienrekorder plugin cover uitzicht

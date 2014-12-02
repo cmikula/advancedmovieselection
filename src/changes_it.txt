@@ -365,4 +365,7 @@ versione: 3.4
 * novità: start tmdb & tvdb from channel selection
 
 versione: 3.5
-* novità: switch quickbuttons with bouquet buttons
+* novità: switch color buttons funktions with bouquet buttons
+
+versione: 3.5.1
+* novità: supporto per serienrekorder vista copertura spina

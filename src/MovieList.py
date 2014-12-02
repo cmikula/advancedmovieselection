@@ -335,7 +335,15 @@ class MovieList(GUIListComponent):
                         png = self.picloader.load(filename)
                         res.append((TYPE_PIXMAP, 0, 2, 75, 76, png))
                     else:
-                        res.append((TYPE_PIXMAP, 0, 2, 20, 20, png))
+                        # cover for serienrecorder plugin
+                        dir_name = os.path.dirname(serviceref.getPath())
+                        filename = os.path.join(dir_name,  os.path.basename(dir_name) + ".jpg")
+                        if os.path.exists(filename):
+                            offset = 75
+                            png = self.picloader.load(filename)
+                            res.append((TYPE_PIXMAP, 0, 2, 75, 76, png))
+                        else:
+                            res.append((TYPE_PIXMAP, 0, 2, 20, 20, png))
                     if not isinstance(serviceref, eServiceReferenceListAll):
                         res.append(MultiContentEntryText(pos=(offset, 30), size=(width, 25), font=1, flags=RT_HALIGN_LEFT, text=serviceref.getPath(), color=color))
                 else:
@@ -521,10 +529,14 @@ class MovieList(GUIListComponent):
                 prec_text = str(perc) + '%'
                 png = None
                 series_path = os.path.join(os.path.dirname(serviceref.getPath()), "series.jpg")
+                dir_name = os.path.dirname(serviceref.getPath())
+                series_path_plugin = os.path.join(dir_name,  os.path.basename(dir_name) + ".jpg")
                 if os.path.exists(series_path):
                     png = self.picloader.load(series_path)
                 elif os.path.exists(filename):
                     png = self.picloader.load(filename)
+                elif os.path.exists(series_path_plugin):
+                    png = self.picloader.load(series_path_plugin)
                 elif serviceref.getPath().endswith("ts"):
                     # picon, make sure only ts files goes here
                     picon = getServiceInfoValue(serviceref, iServiceInformation.sServiceref).rstrip(':').replace(':', '_') + ".png"

@@ -103,6 +103,12 @@ class MoviePreview():
         if fileExists(series_path):
             self.picload.startDecode(series_path)
             return
+        # cover for serienrecorder plugin
+        dir_name = os.path.dirname(path)
+        series_path = os.path.join(dir_name,  os.path.basename(dir_name) + ".jpg")
+        if fileExists(series_path):
+            self.picload.startDecode(series_path)
+            return
         if serviceref.getPath().endswith(".ts") and config.AdvancedMovieSelection.show_picon.value:
             picon = getServiceInfoValue(serviceref, iServiceInformation.sServiceref).rstrip(':').replace(':', '_') + ".png"
             piconpath = os.path.join(config.AdvancedMovieSelection.piconpath.value, picon)

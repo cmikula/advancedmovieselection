@@ -367,3 +367,6 @@ version: 3.4
 
 version: 3.5
 * neu: umschalten der farbtastenbelegung mit den bouquet tasten
+
+version: 3.5.1
+* neu: unterstützung für serienrekorder cover anzeige
