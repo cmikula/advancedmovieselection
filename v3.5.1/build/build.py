@@ -30,6 +30,7 @@ use command line parameters to export other svn locations
 -s or --svn       # specifies the subversion repository path
 -d or --deploy    # specifies the output path for the ipk file
 -b or --build     # specifies the build path for the ipk file
+-t or --package   # specifies the package type (ipk - deb - ipk,deb - all)
 
 for example: export the tag version 2.6.1 and the ipk should stored to location /media/net/hdd1/enigma/deploy/ams/
 
@@ -42,10 +43,15 @@ import os, shutil, subprocess, time
 from tarfile import TarFile
 from arfile import ArFile
 import sys, platform 
+from datetime import date
 
 print "sys.version:\t", sys.version
 print "sys.platform:\t", sys.platform
 print "platform:\t", platform.platform()
+
+def path_join(path, *paths):
+    p = os.path.join(path, *paths).replace('\\', '/')
+    return p
 
 py_version = 0 
 # checking python version
@@ -59,6 +65,7 @@ if (sys.version_info < (2, 7, 9) and sys.version_info > (2, 7, 0)):
     ARCH = "mips32el"
     py_version = 2.7
 
+PACKAGE_TYPE = "ipk"
 BUILD_PATH = "deploy/build"
 DEPLOY_PATH = "deploy"
 CURRENT_PATH = os.getcwd()
@@ -66,10 +73,10 @@ CURRENT_PATH = os.getcwd()
 PLUGIN_NAME = "AdvancedMovieSelection"
 PLUGIN_PATH = "/usr/lib/enigma2/python/Plugins/Extensions/"
 
-PLUGIN = os.path.join(PLUGIN_PATH, PLUGIN_NAME)
+PLUGIN = path_join(PLUGIN_PATH, PLUGIN_NAME)
 
-PLUGIN_VERSION_FILE = os.path.join(PLUGIN, "Version.py") 
-PLUGIN_HASH_FILE = os.path.join(PLUGIN, "md5hash") 
+PLUGIN_VERSION_FILE = path_join(PLUGIN, "Version.py") 
+PLUGIN_HASH_FILE = path_join(PLUGIN, "md5sums") 
 
 PACKAGE_PREFIX = "enigma2-plugin-extensions"
 PACKAGE = "%s-%s" % (PACKAGE_PREFIX, PLUGIN_NAME.lower())
@@ -79,7 +86,7 @@ PACKAGE_SECTION = "extra"
 PACKAGE_PRIORITY = "optional"
 PACKAGE_MAINTAINER = "JackDaniel, cmikula"
 PACKAGE_HOMEPAGE = "http://www.i-have-a-dreambox.com"
-PACKAGE_DEPENDS = "kernel-module-isofs, kernel-module-udf, enigma2(>3.2cvs20111016), python-json"  # TODO: check working enigma version
+PACKAGE_DEPENDS = "kernel-module-isofs, kernel-module-udf, python-json"  # TODO: check working enigma version
 PACKAGE_SOURCE = "QNAP from JackDaniel"
 
 SVN_REPOSITORY_EXPORT = "svn://jackdaniel.dyndns.tv:4000/AdvancedMovieSelection/trunk/src"
@@ -98,7 +105,7 @@ echo \"* www.i-have-a-dreambox.com *\"\n\
 echo \"* ATTENTION *\"\n\
 echo \"* E2 restart is required *\"\n\
 \n\
-exit"
+exit 0\n"
 
 PREINST = "#!/bin/sh\n\
 #created by mod ipkg-build from Erim\n\
@@ -115,17 +122,37 @@ exit 0\n"
 
 POSTRM = "#!/bin/sh\n\
 \n\
-rm -rf /usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/\n\
+if [ $1 = \"remove\" ]; then\n\
+    echo \"* POSTRM: deleting AdvancedMovieSelection\"\n\
+    rm -rf /usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/\n\
+fi\n\
 \n\
-exit"
+exit 0\n"
 
 # create dictionary of branding strings
 branding_info = {}
 
 def genBrandingInfo(package_revision=None):
+    svn_info = ["svn", "info", SVN_REPOSITORY_EXPORT]
+    proc = subprocess.Popen(svn_info, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    proc.wait()
+    out = proc.stdout.read()
+    err = proc.stderr.read().replace("\r\n", "")
+    proc.stdout.close()
+    proc.stderr.close()
+    if err:
+        raise Exception(err)
+    for line in out.split("\r\n"):
+        if line.startswith("Last Changed Rev:") or line.startswith("Letzte geänderte Rev:"):
+            print line
+            branding_info['svn_revision'] = line.strip().split(' ')[-1]
+            break
+    # checking svn revision, we can not update the version file without this info
+    if not branding_info.has_key('svn_revision'):
+        raise Exception("error getting last changed revision from svn server")
+
     # read back currently control revision
-    control_path = os.path.join(BUILD_PATH, "CONTROL", "control")
-    from datetime import date
+    control_path = path_join(BUILD_PATH, "CONTROL", "control")
     current_date = date.today().strftime("%Y%m%d")
     
     if os.path.exists(control_path) and package_revision is None:
@@ -141,7 +168,8 @@ def genBrandingInfo(package_revision=None):
     
     if package_revision is None:
         package_revision = 0
-    
+
+def updateVersionFile():
     version_file = open(PLUGIN_VERSION_FILE, 'rb')
     version = version_file.readlines()
     version_file.close()
@@ -166,9 +194,11 @@ def genBrandingInfo(package_revision=None):
             version_file.writelines(new_version)
             version_file.close()
             break
-    
-    branding_info['version'] = "%s-%s-r%s" % (branding_info["__version__"], current_date, branding_info['svn_revision'])
-    branding_info['ipkg_name'] = "%s_%s_%s.ipk" % (PACKAGE, branding_info['version'], PACKAGE_ARCHITECTURE)
+
+    current_date = date.today().strftime("%Y%m%d")
+    branding_info['version'] = "%s-%s" % (branding_info["__version__"], branding_info['svn_revision'])
+    branding_info['file_version'] = "%s-%s-r%s" % (branding_info["__version__"], current_date, branding_info['svn_revision'])
+    branding_info['ipkg_name'] = "%s_%s_%s.%s" % (PACKAGE, branding_info['file_version'], PACKAGE_ARCHITECTURE, PACKAGE_TYPE)
 
 def makeTarGz(folder_name, tar_name):
     import tarfile
@@ -183,7 +213,7 @@ def clearPluginPath():
         # prevent win 8 io error
         time.sleep(2)
 
-def createControl(control_path="."):
+def createControl(control_path=".", size=0):
     data = []
     data.append("Package: %s" % (PACKAGE))
     data.append("Version: %s" % (branding_info['version']))
@@ -194,41 +224,44 @@ def createControl(control_path="."):
     data.append("Architecture: %s" % (PACKAGE_ARCHITECTURE))
     data.append("Homepage: %s" % (PACKAGE_HOMEPAGE))
     data.append("Depends: %s" % (PACKAGE_DEPENDS))
-    data.append("Source: %s\n" % (PACKAGE_SOURCE))
+    data.append("Source: %s" % (PACKAGE_SOURCE))
     if PACKAGE_RECOMENDS:
         data.append("Recommends: %s" % (PACKAGE_RECOMENDS))
+    if size > 0:
+        data.append("Installed-Size: " + str(int(size / 1024.0)))
 
-    file_name = os.path.join(control_path, "control")
+    data[-1] += "\n" # finally append newline
+    file_name = path_join(control_path, "control")
     f = open(file_name, 'wb')
     f.write("\n".join(data))
     f.close()
 
 def createConfFiles(control_path="."):
-    file_name = os.path.join(control_path, "conffiles")
+    file_name = path_join(control_path, "conffiles")
     if len(CONTROL_CONFFILES) > 0:
         f = open(file_name, 'wb')
         f.write("\n".join(CONTROL_CONFFILES))
         f.close()
 
 def createPreInst(control_path="."):
-    file_name = os.path.join(control_path, "preinst")
+    file_name = path_join(control_path, "preinst")
     f = open(file_name, 'wb')
     f.write(PREINST)
     f.close()
 
 def createPostInst(control_path="."):
-    file_name = os.path.join(control_path, "postinst")
+    file_name = path_join(control_path, "postinst")
     f = open(file_name, 'wb')
     f.write(POSTINST)
     f.close()
 
 def createPreRM(control_path="."):
-    file_name = os.path.join(control_path, "prerm")
+    file_name = path_join(control_path, "prerm")
     # f = open(file_name, 'wb')
     # f.close()
 
 def createPostRM(control_path="."):
-    file_name = os.path.join(control_path, "postrm")
+    file_name = path_join(control_path, "postrm")
     f = open(file_name, 'wb')
     f.write(POSTRM)
     f.close()
@@ -248,10 +281,12 @@ def tar_filter(tarinfo):
         tarinfo.mode = int('755', 8)
     return tarinfo
 
-def createPluginStructure():
+def createPluginStructure(size):
     global BUILD_PATH
     if os.path.exists(BUILD_PATH):
         shutil.rmtree(BUILD_PATH)
+        # prevent win 8 io error
+        time.sleep(1)
     
     if not os.path.exists(BUILD_PATH):
         os.makedirs(BUILD_PATH)
@@ -259,9 +294,10 @@ def createPluginStructure():
 
     BUILD_PATH = os.getcwd()
     
-    control_path = os.path.join(BUILD_PATH, "CONTROL")
+    control_path = path_join(BUILD_PATH, "CONTROL")
     os.mkdir(control_path)
-    createControl(control_path)
+    shutil.move(PLUGIN_HASH_FILE, path_join(BUILD_PATH, "CONTROL"))
+    createControl(control_path, size)
     createConfFiles(control_path)
     createPreInst(control_path)
     createPostInst(control_path)
@@ -280,13 +316,13 @@ def createPluginStructure():
         tar.add(PLUGIN)
         tar.close()
 
-    # tar_name = os.path.join(BUILD_PATH, "control.tar.gz")
-    # os.chdir(os.path.join(BUILD_PATH, "CONTROL"))
+    # tar_name = path_join(BUILD_PATH, "control.tar.gz")
+    # os.chdir(path_join(BUILD_PATH, "CONTROL"))
     # os.system("chmod 755 *")
     # makeTarGz(".", tar_name)
     # os.chdir(BUILD_PATH)
 
-    # tar_name = os.path.join(BUILD_PATH, "data.tar.gz")
+    # tar_name = path_join(BUILD_PATH, "data.tar.gz")
     # makeTarGz(PLUGIN, tar_name)
     
     if native_tar:
@@ -300,12 +336,12 @@ def createPluginStructure():
 
 def createIPKG():
     archiveFile = ArFile()
-    debian_tar = os.path.join(BUILD_PATH, "debian-binary")
+    debian_tar = path_join(BUILD_PATH, "debian-binary")
     archiveFile.files.append(debian_tar)
-    data_tar = os.path.join(BUILD_PATH, "data.tar.gz")
-    archiveFile.files.append(data_tar)
-    control_tar = os.path.join(BUILD_PATH, "control.tar.gz")
+    control_tar = path_join(BUILD_PATH, "control.tar.gz")
     archiveFile.files.append(control_tar)
+    data_tar = path_join(BUILD_PATH, "data.tar.gz")
+    archiveFile.files.append(data_tar)
     
     native_ar = False
     
@@ -322,62 +358,44 @@ def moveToDeploy():
     os.chdir(CURRENT_PATH)
     if not os.path.exists(DEPLOY_PATH):
         os.makedirs(DEPLOY_PATH)
-    src = os.path.join(BUILD_PATH, branding_info['ipkg_name'])
-    dst = os.path.join(DEPLOY_PATH, branding_info['ipkg_name'])
+    src = path_join(BUILD_PATH, branding_info['ipkg_name'])
+    dst = path_join(DEPLOY_PATH, branding_info['ipkg_name'])
     shutil.move(src, dst)
     return dst
 
 def cleanup():
-    # clean = os.path.join(BUILD_PATH, "CONTROL")
-    # if os.path.exists(clean):
-    #    shutil.rmtree(clean)
+    if os.path.exists(BUILD_PATH):
+        shutil.rmtree(BUILD_PATH)
 
-    clean = os.path.join(BUILD_PATH, "control.tar.gz")
+    clean = path_join(BUILD_PATH, "control.tar.gz")
     if os.path.exists(clean):
         os.remove(clean)
 
-    clean = os.path.join(BUILD_PATH, "data.tar.gz")
+    clean = path_join(BUILD_PATH, "data.tar.gz")
     if os.path.exists(clean):
         os.remove(clean)
     
-    clean = os.path.join(BUILD_PATH, "debian-binary")
+    clean = path_join(BUILD_PATH, "debian-binary")
     if os.path.exists(clean):
         os.remove(clean)
 
 def exportSVNRepository():
-    svn_info = ["svn", "info", SVN_REPOSITORY_EXPORT]
-    proc = subprocess.Popen(svn_info, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    proc.wait()
-    out = proc.stdout.read()
-    err = proc.stderr.read().replace("\r\n", "")
-    proc.stdout.close()
-    proc.stderr.close()
-    if err:
-        raise Exception(err)
-    for line in out.split("\r\n"):
-        if line.startswith("Last Changed Rev:") or line.startswith("Letzte geänderte Rev:"):
-            print line
-            branding_info['svn_revision'] = line.strip().split(' ')[-1]
-            break
-    # checking svn revision, we can not update the version file without this info
-    if not branding_info.has_key('svn_revision'):
-        raise Exception("error getting last changed revision from svn server")
-    
     cmd = "svn export %s %s" % (SVN_REPOSITORY_EXPORT, PLUGIN)
     exit_code = os.system(cmd)
     if exit_code != 0:
         raise Exception("error exporting sources from svn server")
+    updateVersionFile()
 
 def compilePlugin():
     # compileall.compile_dir(PLUGIN, force=1)
     for lib in LIBRARY_SOURCES:
         # Not supported in python26
-        # compileall.compile_file(os.path.join(PLUGIN, lib), force=1)
-        py_compile.compile(os.path.join(PLUGIN, lib), None, None, True)
+        # compileall.compile_file(path_join(PLUGIN, lib), force=1)
+        py_compile.compile(path_join(PLUGIN, lib), None, None, True)
 
 def removeLibrarySources():
     for lib in LIBRARY_SOURCES:
-        library = os.path.join(PLUGIN, lib)
+        library = path_join(PLUGIN, lib)
         if os.path.exists(library):
             print "removing library", library
             os.remove(library)
@@ -391,6 +409,7 @@ def applyUserSettings():
     parser.add_option("-s", "--svn", dest="repository", help="repository location")  # , default="trunk")
     parser.add_option("-b", "--build", dest="build_path", help="build location")
     parser.add_option("-a", "--arch", dest="architecture", help="pakage architecture")
+    parser.add_option("-t", "--package_type", dest="package_type", help="package type")
     
     (options, args) = parser.parse_args()
     if options.deploypath:
@@ -412,6 +431,13 @@ def applyUserSettings():
         global PACKAGE_ARCHITECTURE
         PACKAGE_ARCHITECTURE = options.architecture
         print "set package architecture to", PACKAGE_ARCHITECTURE
+    if options.package_type:
+        global PACKAGE_TYPE
+        if options.package_type == 'deb':
+            PACKAGE_TYPE = options.package_type
+            global PACKAGE_ARCHITECTURE
+            PACKAGE_ARCHITECTURE = "mipsel"
+            print "set package type to", PACKAGE_TYPE
 
 def checkingBuildOptions():
     sys.stdout.write("checking build options...")
@@ -421,9 +447,9 @@ def checkingBuildOptions():
     if py_version == 2.6:
         if PACKAGE_ARCHITECTURE != "mipsel": 
             raise Exception("python version with package version is not compatibel!")
-    if py_version == 2.7:
-        if PACKAGE_ARCHITECTURE != "mips32el": 
-            raise Exception("python version with package version is not compatibel!")
+#    if py_version == 2.7:
+#        if PACKAGE_ARCHITECTURE != "mips32el": 
+#            raise Exception("python version with package version is not compatibel!")
     
     if __debug__:
         raise Exception("Optimization is currently disabled! Start build file with python -O and try again...\n")
@@ -435,7 +461,7 @@ def listSourceFiles():
     for (path, dirs, files) in os.walk(PLUGIN):
         for filename in files:
             if filename.endswith('.py'):
-                f = os.path.join(path, filename)
+                f = path_join(path, filename)
                 l.append(f)
     return l
 
@@ -448,14 +474,18 @@ def md5sum(filename):
     return md5.hexdigest()
 
 def createMD5Hashes():
+    size = 0
     hash_file = open(PLUGIN_HASH_FILE, 'wb')
     sources = listSourceFiles()
     for filename in sources:
         hash_file.write(md5sum(filename) + '  ' + filename + '\r\n')
+        size += os.path.getsize(filename)
     for lib in LIBRARY_SOURCES:
-        filename = os.path.join(PLUGIN, lib + 'o')
+        filename = path_join(PLUGIN, lib + 'o')
         hash_file.write(md5sum(filename) + '  ' + filename + '\r\n')
+        size += os.path.getsize(filename)
     hash_file.close()
+    return size
 
 def hashFromFile(filename):
     print "create hash for:", filename
@@ -468,18 +498,18 @@ def main():
     print "--- start building enigma2.%s package ---" % (PACKAGE_ARCHITECTURE)
     checkingBuildOptions()
     clearPluginPath()
+    cleanup()
+    genBrandingInfo()
     exportSVNRepository()
     compilePlugin()
     removeLibrarySources()
-    genBrandingInfo()
-    createMD5Hashes()
+    size = createMD5Hashes()
     print "build package:", PLUGIN_NAME, branding_info['version']
     
-    createPluginStructure()
+    createPluginStructure(size)
     createIPKG()
     ipkg = moveToDeploy()
     hashFromFile(ipkg)
-    cleanup()
     print "build success:", branding_info['ipkg_name']
     print "stored in:", DEPLOY_PATH
 

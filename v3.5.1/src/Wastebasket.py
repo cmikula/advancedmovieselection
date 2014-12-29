@@ -149,7 +149,7 @@ class Wastebasket(Screen, HelpableScreen):
         HelpableScreen.__init__(self)
         self.skinName = "AdvancedMovieSelectionTrash"
         self.delayTimer = eTimer()
-        self.delayTimer.callback.append(self.updateHDDData)
+        self.delayTimer_conn = self.delayTimer.timeout.connect(self.updateHDDData)
         self.current_ref = eServiceReferenceTrash(config.movielist.last_videodir.value)  
         self["ColorActions"] = HelpableActionMap(self, "ColorActions",
         {
@@ -361,9 +361,9 @@ class WastebasketTimer():
     def __init__(self, session):
         self.session = session
         self.recTimer = eTimer()
-        self.recTimer.callback.append(self.autoDeleteAllMovies)
+        self.recTimer_conn = self.recTimer.timeout.connect(self.autoDeleteAllMovies)
         self.wastebasketTimer = eTimer()
-        self.wastebasketTimer.callback.append(self.autoDeleteAllMovies)
+        self.wastebasketTimer_conn = self.wastebasketTimer.timeout.connect(self.autoDeleteAllMovies)
         self.startTimer()
         config.AdvancedMovieSelection.empty_wastebasket_time.addNotifier(self.startTimer, initial_call=False)
     

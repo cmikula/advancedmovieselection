@@ -31,21 +31,22 @@ class Hotplug():
         self.notifier = []
         self.hotplugServices = []
         self.hotplug_timer = eTimer()
-        self.hotplug_timer.callback.append(self.updateHotplugDevices)
+        self.hotplug_timer_conn = self.hotplug_timer.timeout.connect(self.updateHotplugDevices)
         self.addHotplugNotifier()
         self.hotplugChanged()
 
+    def destroy(self):
+        del self.hotplug_timer_conn
+
     def addHotplugNotifier(self):
         from Plugins.SystemPlugins.Hotplug.plugin import hotplugNotifier
-        if not self.hotplugNotifier in hotplugNotifier:
-            print "add hotplugNotifier" 
-            hotplugNotifier.append(self.hotplugNotifier)
+        print "add hotplugNotifier" 
+        hotplugNotifier.append(self.hotplugNotifier)
         
     def removeHotplugNotifier(self):
         from Plugins.SystemPlugins.Hotplug.plugin import hotplugNotifier
-        if self.hotplugNotifier in hotplugNotifier:
-            print "remove hotplugNotifier" 
-            hotplugNotifier.remove(self.hotplugNotifier)
+        print "remove hotplugNotifier" 
+        hotplugNotifier.remove(self.hotplugNotifier)
     
     def hotplugNotifier(self, dev, media_state):
         print "[hotplugNotifier]", dev, media_state

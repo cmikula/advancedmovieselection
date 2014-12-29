@@ -64,7 +64,7 @@ class EventViewBase:
                 "pageDown": self.pageDown
             })
         self.__timer = eTimer()
-        self.__timer.callback.append(self.__timerCallback)
+        self.__timer_conn = self.__timer.timeout.connect(self.__timerCallback)
         self.onShown.append(self.onCreate)
 
     def onCreate(self):

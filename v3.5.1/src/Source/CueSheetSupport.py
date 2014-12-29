@@ -162,7 +162,7 @@ class CutListSupportBase:
         if service is None:
             return None
         cue = service.cueSheet()
-        if cue:
+        if cue and len(cue.getCutList()) > 0: # on eo2.2 the instance is present but the list is empty
             return cue
         else:
             cue = CueSheet(self.currentService)
@@ -173,10 +173,11 @@ class CutListSupportBase:
         self.jump_first_mark = None
         self.jump_first_play_last = None
         stop_before_end_time = int(config.AdvancedMovieSelection.stop_before_end_time.value)
-        length, last = self.getCuePositions()  
+        length, last = self.getCuePositions()
         if stop_before_end_time > 0:
             if ((length - last) / 60) < stop_before_end_time or length < last:
                 self.ENABLE_RESUME_SUPPORT = False
+                print "disable resume support"
             else:
                 self.ENABLE_RESUME_SUPPORT = True
         if config.AdvancedMovieSelection.jump_first_mark.value == True:
@@ -199,10 +200,6 @@ class CutListSupportBase:
 
     def downloadCuesheet(self):
         try:
-            if not self.new_service_started:
-                print "cancel cue download, no new service started!!!"
-                self.ENABLE_RESUME_SUPPORT = False
-                return
             self.new_service_started = False
             self.currently_playing = True
             cue = self.getCuesheet()
@@ -215,6 +212,7 @@ class CutListSupportBase:
                 self.cut_list = cue.getCutList()
             self.checkResumeSupport()
             if self.jump_first_mark:
+                print "jump to first mark", str(self.resume_point)
                 self.doSeek(self.resume_point)
         except Exception, e:
             print "DownloadCutList exception:\n" + str(e)

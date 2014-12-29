@@ -223,11 +223,11 @@ class TheTVDBMain(Screen, InfoLoadChoice):
         self["key_blue"] = StaticText("")
 
         self.timer = eTimer()
-        self.timer.callback.append(self.getSeriesList)
+        self.timer_conn = self.timer.timeout.connect(self.getSeriesList)
         self.red_button_timer = eTimer()
-        self.red_button_timer.callback.append(self.callback_red_pressed)
+        self.red_button_timer_conn = self.red_button_timer.timeout.connect(self.callback_red_pressed)
         self.blue_button_timer = eTimer()
-        self.blue_button_timer.callback.append(self.callback_blue_pressed)        
+        self.blue_button_timer_conn = self.blue_button_timer.timeout.connect(self.callback_blue_pressed)        
         self.onLayoutFinish.append(self.layoutFinished)
         self.onClose.append(self.deleteTempDir)
         self.view_mode = self.SHOW_SEARCH

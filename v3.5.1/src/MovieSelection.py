@@ -650,7 +650,7 @@ class SelectionEventInfo:
         self["Service"] = ServiceEvent()
         self.list.connectSelChanged(self.__selectionChanged)
         self.timer = eTimer()
-        self.timer.callback.append(self.updateEventInfo)
+        self.timer_conn = self.timer.timeout.connect(self.updateEventInfo)
         self.onShown.append(self.__selectionChanged)
 
     def __selectionChanged(self):
@@ -743,7 +743,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self.bouquet_mark_edit = False
 
         self.delayTimer = eTimer()
-        self.delayTimer.callback.append(self.updateHDDData)
+        self.delayTimer_conn = self.delayTimer.timeout.connect(self.updateHDDData)
 
         self["waitingtext"] = Label(_("Please wait... Loading list..."))
         self["DescriptionBorder"] = Pixmap()
@@ -810,7 +810,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self.inited = False
         MovieSearch.__init__(self)
         self.__dbUpdate = eTimer()
-        self.__dbUpdate.callback.append(self.libraryUpdateTimerEvent)
+        self.__dbUpdate_conn = self.__dbUpdate.timeout.connect(self.libraryUpdateTimerEvent)
         print "end constructor", str(self.stopwatch.elapsed)
     
     def createSummary(self):

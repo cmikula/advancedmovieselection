@@ -67,7 +67,7 @@ class AdvancedKeyBoard(VirtualKeyBoard, NumericalTextInput):
 
         if use & self.NUM_KEYB:
             self.timer = eTimer()
-            self.timer.callback.append(self.timeout)
+            self.timer_conn = self.timer.timeout.connect(self.timeout)
             self.configText = ConfigText("", False)
             if text:
                 self.configText.text = text

@@ -91,7 +91,7 @@ class DownloadMovies(Screen):
         if self.service is not None:
             self.movie_title = ServiceCenter.getInstance().info(self.service).getName(self.service).encode("utf-8").split(" - ")[0].strip()
             self.progressTimer = eTimer()
-            self.progressTimer.callback.append(self.refresh)
+            self.progressTimer_conn = self.progressTimer.timeout.connect(self.refresh)
             self.progressTimer.start(50, True)
             return
 
@@ -103,7 +103,7 @@ class DownloadMovies(Screen):
         else:
             fetchingMovies.cancel = False
         self.progressTimer = eTimer()
-        self.progressTimer.callback.append(self.updateProgress)
+        self.progressTimer_conn = self.progressTimer.timeout.connect(self.updateProgress)
         self.progressTimer.start(250, False)
         fetchingMovies.is_hidden = False
 
@@ -235,7 +235,7 @@ class FetchingMovies(Thread):
         self.current = 0
         self.total = 0
         self.timer = eTimer()
-        self.timer.callback.append(self.checkFinished)
+        self.timer_conn = self.timer.timeout.connect(self.checkFinished)
         self.items = items
         self.start()
         self.finished = False
@@ -274,3 +274,4 @@ class FetchingMovies(Thread):
             if self.is_hidden == True:
                 self.session.open(MessageBox, (_("Download and save from movie infos and covers complete.")), MessageBox.TYPE_INFO, 10, True)
             self.timer.stop()
+            del self.timer_conn

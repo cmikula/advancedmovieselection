@@ -98,7 +98,7 @@ class SelectionEventInfo:
         self["ServiceEvent"] = ServiceEvent()
         self["ShortDesc"] = Label("")
         self.timer = eTimer()
-        self.timer.callback.append(self.updateEventInfo)
+        self.timer_conn = self.timer.timeout.connect(self.updateEventInfo)
         self.onShow.append(self.__selectionChanged)
 
     def __selectionChanged(self):

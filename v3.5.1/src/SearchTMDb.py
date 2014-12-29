@@ -86,7 +86,7 @@ class InfoLoadChoice():
     def __init__(self, callback):
         self.__callback = callback
         self.__timer = eTimer()
-        self.__timer.callback.append(self.__timerCallback)
+        self.__timer_conn = self.__timer.timeout.connect(self.__timerCallback)
     
     def checkExistence(self, file_name):
         l = []
@@ -262,9 +262,9 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
         self.downloadItems = {}
         self.useTMDbInfoAsEventInfo = True
         self.timer = eTimer()
-        self.timer.callback.append(self.searchForMovies)
+        self.timer_conn = self.timer.timeout.connect(self.searchForMovies)
         self.blue_button_timer = eTimer()
-        self.blue_button_timer.callback.append(self.callback_blue_pressed) 
+        self.blue_button_timer_conn = self.blue_button_timer.timeout.connect(self.callback_blue_pressed) 
         self.onClose.append(self.deleteTempDir)
         self.onLayoutFinish.append(self.layoutFinished)
         self.view_mode = self.SHOW_SEARCH

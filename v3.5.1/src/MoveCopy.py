@@ -56,7 +56,7 @@ def openDialog(job, session):
 class MoveCopyNotifier():
     def __init__(self):
         self.timer = eTimer()
-        self.timer.callback.append(self.__timeout)
+        self.timer_conn = self.timer.timeout.connect(self.__timeout)
         pass
     
     def __timeout(self):
@@ -206,7 +206,7 @@ class MoveCopyProgress(Screen, HelpableScreen):
         Screen.__init__(self, session)
         HelpableScreen.__init__(self)
         self.timer = eTimer()
-        self.timer.callback.append(self.update)
+        self.timer.timeout.connect(self.update)
         self["ColorActions"] = HelpableActionMap(self, "ColorActions",
             {
                 "red": (self.abort, _("Abort selected job")),

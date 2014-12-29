@@ -29,6 +29,7 @@ from enigma import ePicLoad
 class PicLoader:
     def __init__(self):
         self.picload = ePicLoad()
+        self.picload_conn = None
 
     def setSize(self, width, height, sc=None):
         if sc is None:
@@ -36,15 +37,16 @@ class PicLoader:
         self.picload.setPara((width, height, sc[0], sc[1], False, 1, "#ff000000"))
 
     def load(self, filename):
-        self.picload.startDecode(filename, 0, 0, False)
+        self.picload.startDecode(filename, False)
         data = self.picload.getData()
         return data
     
     def destroy(self):
         del self.picload
+        del self.picload_conn
 
     def addCallback(self, callback):
-        self.picload.PictureData.get().append(callback)
+        self.picload_conn = self.picload.PictureData.connect(callback)
 
     def getData(self):
         return self.picload.getData()
