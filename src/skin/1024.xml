@@ -18,7 +18,7 @@
 		<widget name="key0" position="132,92" size="130,30" font="Regular;14" halign="center" valign="center" />
 		<widget name="help2" position="262,92" size="130,30" font="Regular;18" halign="center" valign="center" />
 	</screen>
-	<screen name="SelectionListScreen" position="center,center" size="1024,576" flags="wfNoBorder">
+	<screen name="SelectSortFunctions" position="center,center" size="1024,576" flags="wfNoBorder">
 		<!-- HelpableScreen: Add help button -->
 		<widget source="Title" render="Label" position="60,72" size="700,30" zPosition="3" font="Regular;22" foregroundColor="#ffffff" backgroundColor="#605F5E" transparent="1" />
 		<widget source="session.VideoPicture" render="Pig" position="65,115" size="256,144" zPosition="3" backgroundColor="#ff000000" />
@@ -26,7 +26,7 @@
 		<ePixmap pixmap="skin_default/buttons/button_green.png" position="60,380" size="21,21" alphatest="blend" />
 		<widget source="key_red" render="Label" position="90,328" size="300,28" font="Regular;22" halign="left" valign="top" transparent="1" />
 		<widget source="key_green" render="Label" position="90,378" size="300,28" font="Regular;22" halign="left" valign="top" transparent="1" />
-		<widget name="list" position="450,110" size="514,500" scrollbarMode="showOnDemand" transparent="1" enableWrapAround="1" />
+		<widget name="config" position="450,110" size="514,500" scrollbarMode="showOnDemand" transparent="1" enableWrapAround="1" />
 	</screen>
 	<screen name="MoveCopyProgress" position="center,center" size="1024,576" title=" " flags="wfNoBorder">
 		<!-- HelpableScreen: Add help button -->

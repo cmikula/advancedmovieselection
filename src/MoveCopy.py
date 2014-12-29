@@ -28,6 +28,7 @@ from Source.ServiceUtils import serviceUtil, realSize, diskUsage
 from Source.ServiceProvider import ServiceCenter
 from enigma import eTimer
 from Tools import Notifications
+from SkinParam import MoveCopyProgressSkinParam
 import os, time
 
 def openDialog(job, session):
@@ -73,16 +74,14 @@ class MoveCopyNotifier():
 moveCopyNotifier = MoveCopyNotifier()
 
 from GUIListComponent import GUIListComponent
-from enigma import gFont, RT_HALIGN_LEFT, RT_HALIGN_RIGHT
+from enigma import RT_HALIGN_LEFT, RT_HALIGN_RIGHT
 from Components.MultiContent import MultiContentEntryText, MultiContentEntryProgress
 
-class ProgressList(GUIListComponent):
+class ProgressList(GUIListComponent, MoveCopyProgressSkinParam):
     def __init__(self):
         GUIListComponent.__init__(self)
+        MoveCopyProgressSkinParam.__init__(self)
         self.list = []
-        self.l.setFont(0, gFont("Regular", 20))
-        self.l.setFont(1, gFont("Regular", 16))
-        self.l.setItemHeight(155)
         self.l.setBuildFunc(self.buildListEntry)
         
     def buildListEntry(self, job):
@@ -140,28 +139,28 @@ class ProgressList(GUIListComponent):
                 remaining_time = "%d %s" % (remaining_seconds, _("Seconds"))
             speed = realSize(b_per_sec, 3) + "/" + _("Second")
             
-            res.append(MultiContentEntryProgress(pos=(5, 2), size=(width - 10, 5), percent=progress, borderWidth=1))
+            res.append(MultiContentEntryProgress(pos=(self.progressPos.x(), self.progressPos.y()), size=(width - (2 * self.progressPos.x()), self.progressHeight), percent=progress, borderWidth=1))
             
-            info_width = 180
-            res.append(MultiContentEntryText(pos=(5, 9), size=(width, 26), font=0, flags=RT_HALIGN_LEFT, text=_("Status:")))
-            res.append(MultiContentEntryText(pos=(5, 32), size=(info_width, 22), font=1, flags=RT_HALIGN_LEFT, text=name_info))
-            res.append(MultiContentEntryText(pos=(5, 52), size=(info_width, 20), font=1, flags=RT_HALIGN_LEFT, text=_("From:")))
-            res.append(MultiContentEntryText(pos=(5, 72), size=(info_width, 20), font=1, flags=RT_HALIGN_LEFT, text=_("To:")))
+            info_width = self.lineSplit
+            res.append(MultiContentEntryText(pos=(self.line1Pos.x(), self.line1Pos.y()), size=(width, self.f0h), font=0, flags=RT_HALIGN_LEFT, text=_("Status:")))
+            res.append(MultiContentEntryText(pos=(self.line2Pos.x(), self.line2Pos.y()), size=(info_width, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=name_info))
+            res.append(MultiContentEntryText(pos=(self.line3Pos.x(), self.line3Pos.y()), size=(info_width, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=_("From:")))
+            res.append(MultiContentEntryText(pos=(self.line4Pos.x(), self.line4Pos.y()), size=(info_width, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=_("To:")))
             if not job.isFinished():
-                res.append(MultiContentEntryText(pos=(5, 92), size=(info_width, 20), font=1, flags=RT_HALIGN_LEFT, text=_("Remaining time:")))
-            res.append(MultiContentEntryText(pos=(5, 112), size=(info_width, 20), font=1, flags=RT_HALIGN_LEFT, text=_("Remaining elements:")))
-            res.append(MultiContentEntryText(pos=(5, 132), size=(info_width, 20), font=1, flags=RT_HALIGN_LEFT, text=_("Speed:")))
+                res.append(MultiContentEntryText(pos=(self.line5Pos.x(), self.line5Pos.y()), size=(info_width, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=_("Remaining time:")))
+            res.append(MultiContentEntryText(pos=(self.line6Pos.x(), self.line6Pos.y()), size=(info_width, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=_("Remaining elements:")))
+            res.append(MultiContentEntryText(pos=(self.line7Pos.x(), self.line7Pos.y()), size=(info_width, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=_("Speed:")))
     
-            res.append(MultiContentEntryText(pos=(info_width, 9), size=(width, 26), font=0, flags=RT_HALIGN_LEFT, text=main_info))
-            res.append(MultiContentEntryText(pos=(info_width, 32), size=(width, 22), font=1, flags=RT_HALIGN_LEFT, text=movie_name))
-            res.append(MultiContentEntryText(pos=(info_width, 52), size=(width, 20), font=1, flags=RT_HALIGN_LEFT, text=from_info))
-            res.append(MultiContentEntryText(pos=(info_width, 72), size=(width, 20), font=1, flags=RT_HALIGN_LEFT, text=to_info))
+            res.append(MultiContentEntryText(pos=(info_width, self.line1Pos.y()), size=(width, self.f0h), font=0, flags=RT_HALIGN_LEFT, text=main_info))
+            res.append(MultiContentEntryText(pos=(info_width, self.line2Pos.y()), size=(width, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=movie_name))
+            res.append(MultiContentEntryText(pos=(info_width, self.line3Pos.y()), size=(width, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=from_info))
+            res.append(MultiContentEntryText(pos=(info_width, self.line4Pos.y()), size=(width, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=to_info))
             if not job.isFinished():
-                res.append(MultiContentEntryText(pos=(info_width, 92), size=(width, 20), font=1, flags=RT_HALIGN_LEFT, text=remaining_time))
-            res.append(MultiContentEntryText(pos=(info_width, 112), size=(width, 20), font=1, flags=RT_HALIGN_LEFT, text=remaining_elements))
-            res.append(MultiContentEntryText(pos=(info_width, 132), size=(width, 20), font=1, flags=RT_HALIGN_LEFT, text=speed))
+                res.append(MultiContentEntryText(pos=(info_width, self.line5Pos.y()), size=(width, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=remaining_time))
+            res.append(MultiContentEntryText(pos=(info_width, self.line6Pos.y()), size=(width, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=remaining_elements))
+            res.append(MultiContentEntryText(pos=(info_width, self.line7Pos.y()), size=(width, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=speed))
     
-            res.append(MultiContentEntryText(pos=(width - 200, 9), size=(195, 26), font=0, flags=RT_HALIGN_RIGHT, text=realSize(copied)))
+            res.append(MultiContentEntryText(pos=(width - 250, self.line1Pos.y()), size=(245, self.f0h), font=0, flags=RT_HALIGN_RIGHT, text=realSize(copied)))
             #res.append(MultiContentEntryText(pos=(width - 150, 32), size=(145, 22), font=1, flags=RT_HALIGN_RIGHT, text=etime))
         except Exception, e:
             print e

@@ -51,19 +51,17 @@ from Source.Remote.MessageServer import getIpAddress
 from Source.Remote.Client import getClients
 from ClientSetup import ClientSetup
 from Components.Pixmap import Pixmap
+from Source.ServiceUtils import realSize
+from SkinParam import WastebasketSkinParam
 
-class TrashMovieList(GUIListComponent):
+class TrashMovieList(WastebasketSkinParam, GUIListComponent):
     def __init__(self, root):
         GUIListComponent.__init__(self)
+        WastebasketSkinParam.__init__(self)
+        self.l.setBuildFunc(self.buildMovieListEntry)
+        self.onSelectionChanged = [ ]
         if root is not None:
             self.reload(root)
-        self.l.setFont(0, gFont("Regular", 20))
-        self.l.setFont(1, gFont("Regular", 18))
-        self.l.setFont(2, gFont("Regular", 16))
-        self.l.setItemHeight(75)
-        self.l.setBuildFunc(self.buildMovieListEntry)
-        
-        self.onSelectionChanged = [ ]
 
     def buildMovieListEntry(self, serviceref, info, begin, length):
         res = [ None ]
@@ -71,19 +69,13 @@ class TrashMovieList(GUIListComponent):
         date = _("Record date:") + ' ' + self.getDate(serviceref)
         time = _("Record time:") + ' ' + self.getTime(serviceref)
         description = serviceref.getShortDescription()
-        filesize = float(getServiceSize(serviceref.getPath()) / (1024 * 1024))
-        if filesize <= 999:
-            size = "%d MB" % (filesize)
-        else:
-            format_string = "%%.%sf GB" % (config.AdvancedMovieSelection.filesize_digits.value)
-            size = (format_string) % (filesize / 1000.0)
-
-        res.append(MultiContentEntryText(pos=(5, 2), size=(width - 155, 26), font=0, flags=RT_HALIGN_LEFT, text=serviceref.getName()))
-        res.append(MultiContentEntryText(pos=(width - 155, 2), size=(150, 26), font=0, flags=RT_HALIGN_RIGHT, text=size))
-        res.append(MultiContentEntryText(pos=(5, 29), size=(width - 205, 22), font=1, flags=RT_HALIGN_LEFT, text=description))
-        res.append(MultiContentEntryText(pos=(width - 205, 29), size=(200, 22), font=1, flags=RT_HALIGN_RIGHT, text=time))
-        res.append(MultiContentEntryText(pos=(5, 54), size=(width - 205, 20), font=2, flags=RT_HALIGN_LEFT, text=os.path.dirname(serviceref.getPath())))
-        res.append(MultiContentEntryText(pos=(width - 255, 54), size=(250, 22), font=2, flags=RT_HALIGN_RIGHT, text=date))
+        filesize = realSize(getServiceSize(serviceref.getPath()), int(config.AdvancedMovieSelection.filesize_digits.value))
+        res.append(MultiContentEntryText(pos=(self.line1Pos.x(), self.line1Pos.y()), size=(width - self.line1Pos.x() - self.line1Split, self.f0h), font=0, flags=RT_HALIGN_LEFT, text=serviceref.getName()))
+        res.append(MultiContentEntryText(pos=(self.line2Pos.x(), self.line2Pos.y()), size=(width - self.line2Pos.x() - self.line2Split, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=description))
+        res.append(MultiContentEntryText(pos=(self.line3Pos.x(), self.line3Pos.y()), size=(width - self.line3Pos.x() - self.line3Split, self.f2h), font=2, flags=RT_HALIGN_LEFT, text=os.path.dirname(serviceref.getPath())))
+        res.append(MultiContentEntryText(pos=(width - self.line1Split, self.line1Pos.y()), size=(self.line1Split - self.line1Pos.x(), self.f0h), font=0, flags=RT_HALIGN_RIGHT, text=filesize))
+        res.append(MultiContentEntryText(pos=(width - self.line2Split, self.line2Pos.y()), size=(self.line2Split - self.line2Pos.x(), self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=time))
+        res.append(MultiContentEntryText(pos=(width - self.line3Split, self.line3Pos.y()), size=(self.line3Split - self.line3Pos.x(), self.f2h), font=2, flags=RT_HALIGN_RIGHT, text=date))
         return res
 
     def getCurrentEvent(self):
@@ -209,7 +201,7 @@ class Wastebasket(Screen, HelpableScreen):
                         lastEmptyEvent = client.lastTrashEvent()
                         if lastEmptyEvent != -1:
                             t = localtime(lastEmptyEvent)
-                            self["autoemptylast"].setText( _("Last remote wastebasket empty at %s") % (strftime(("%02d.%02d.%04d" % (t[2], t[1], t[0])) + ' ' + _("at") + ' ' + ("%02d:%02d" % (t[3], t[4])) + ' ' + _("Clock"))))
+                            self["autoemptylast"].setText(_("Last remote wastebasket empty at %s") % (strftime(("%02d.%02d.%04d" % (t[2], t[1], t[0])) + ' ' + _("at") + ' ' + ("%02d:%02d" % (t[3], t[4])) + ' ' + _("Clock"))))
                         nextEmptyEvent = client.nextTrashEvent()
                         if nextEmptyEvent != -1:
                             t = localtime(nextEmptyEvent)

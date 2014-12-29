@@ -814,8 +814,8 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
             if len(sels) == 0:
                 for s in sorts:
                     sels.append(s[0])
-            from SelectionListScreen import SelectionListScreen
-            self.session.openWithCallback(self.sortTypeSelected, SelectionListScreen, _("Select sort functions"), sorts, sels)
+            from SelectSortFunctions import SelectSortFunctions
+            self.session.openWithCallback(self.sortTypeSelected, SelectSortFunctions, _("Select sort functions"), sorts, sels)
         elif currentry == self.homepath:
             self.entrydirname = self.homepath_dirname
             self.session.openWithCallback(self.dirnameSelected, MovieLocationBox, _("Movie Quick Button Home path"), preferredPath(self.homepath_dirname.value))

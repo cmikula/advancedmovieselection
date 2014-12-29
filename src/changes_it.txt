@@ -369,3 +369,7 @@ versione: 3.5
 
 versione: 3.5.1
 * novità: supporto per serienrekorder vista copertura spina
+
+versione: 3.6
+* novità: alle listen jetzt skinbar
+Skinners ATTENTION, SelectionListScreen changed to SelectSortFunctions (<widget name="list"... change to <widget name="config"...)

@@ -366,3 +366,7 @@ versie: 3.5
 
 versie: 3.5.1
 * nieuw: ondersteuning voor serienrekorder plugin cover uitzicht
+
+versie: 3.6
+* new: all list are skinable
+Skinners ATTENTION, SelectionListScreen changed to SelectSortFunctions (<widget name="list"... change to <widget name="config"...)

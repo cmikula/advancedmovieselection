@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 
 '''
-Copyright (C) 2012 cmikula
+Copyright (C) 2014 cmikula
 
-SelectionListScreen for Advanced Movie Selection
+SelectSortFunctions for Advanced Movie Selection
 
 In case of reuse of this source code please do not remove this copyright.
 
@@ -29,27 +29,32 @@ from __init__ import _
 from Screens.Screen import Screen
 from Components.ActionMap import HelpableActionMap
 from Components.Sources.StaticText import StaticText
-from Components.SelectionList import SelectionList
 from Screens.HelpMenu import HelpableScreen
+from Components.ConfigList import ConfigListScreen
+from Components.config import config, getConfigListEntry, ConfigYesNo
 
-class SelectionListScreen(Screen, HelpableScreen):
+class SelectSortFunctions(ConfigListScreen, Screen, HelpableScreen):
     def __init__(self, session, title, item_descr, selected_items):
         Screen.__init__(self, session)
+        ConfigListScreen.__init__(self, [], session)
         HelpableScreen.__init__(self)
         self["key_red"] = StaticText(_("Cancel"))
         self["key_green"] = StaticText(_("Save/Close"))
-        self["list"] = SelectionList([])
-        self.selected_items = selected_items
-        for l in item_descr:
-            selected = False
-            for x in selected_items:
-                if l[0] in x:
-                    selected = True
-            self["list"].addSelection(l[1], l[0], 0, selected)
+        sels = config.AdvancedMovieSelection.sort_functions.value.split()
+        from MovieList import MovieList
+        self.conf1 = ConfigYesNo(str(MovieList.SORT_ALPHANUMERIC) in sels)
+        self.conf2 = ConfigYesNo(str(MovieList.SORT_DATE_ASC) in sels)
+        self.conf3 = ConfigYesNo(str(MovieList.SORT_DATE_DESC) in sels)
+        self.conf4 = ConfigYesNo(str(MovieList.SORT_DESCRIPTION) in sels)
+        self["config"].setList([
+            getConfigListEntry(_("Alphabetic sort"), self.conf1),
+            getConfigListEntry(_("Sort by date (ascending)"), self.conf2),
+            getConfigListEntry(_("Sort by date (descending)"), self.conf3),
+            getConfigListEntry(_("Sort by description"), self.conf4)
+        ])
 
         self["OkCancelActions"] = HelpableActionMap(self, "OkCancelActions",
         {
-            "ok": (self["list"].toggleSelection,_("Toggle selected")),
             "cancel": (self.cancel, _("Cancel")),
         })
         self["ColorActions"] = HelpableActionMap(self, "ColorActions",
@@ -63,5 +68,14 @@ class SelectionListScreen(Screen, HelpableScreen):
         self.close(None)
 
     def accept(self):
-        l = [x[1] for x in self["list"].getSelectionsList()]
+        from MovieList import MovieList
+        l = []
+        if self.conf1.value:
+            l.append(str(MovieList.SORT_ALPHANUMERIC))
+        if self.conf2.value:
+            l.append(str(MovieList.SORT_DATE_ASC))
+        if self.conf3.value:
+            l.append(str(MovieList.SORT_DATE_DESC))
+        if self.conf4.value:
+            l.append(str(MovieList.SORT_DESCRIPTION))
         self.close(l)

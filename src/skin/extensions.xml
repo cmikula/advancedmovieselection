@@ -1,0 +1,40 @@
+  <screen name="AdvancedMovieListSkinExtension">
+  	<!-- listType0: MovieList.LISTTYPE_ORIGINAL | MovieList.LISTTYPE_EXTENDED -->
+  	<!-- listType1: MovieList.LISTTYPE_COMPACT_DESCRIPTION | MovieList.LISTTYPE_COMPACT -->
+  	<!-- listType2: MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection -->
+	<!-- listType3: others -->
+	<MovieList 
+		listType0_Font0="Regular;22" listType0_Font1="Regular;19" listType0_Font2="Regular;16" listType0_ListHeight="78" 
+		listType1_Font0="Regular;20" listType1_Font1="Regular;14" listType1_ListHeight="39" 
+		listType2_Font0="Regular;18" listType2_Font1="Regular;14" listType2_ListHeight="26"
+		listType3_Font0="Regular;20" listType3_Font1="Regular;16" listType3_ListHeight="26"
+		>
+	</MovieList> 
+	<Wastebasket 
+		font0="Regular;20" font1="Regular;18" font2="Regular;16" listHeight="75"
+		line1Pos="5,2" line2Pos="5,29" line3Pos="5,54" 
+		line1Split="200" line2Split="200" line3Split="300" 
+		>
+	</Wastebasket> 
+	<TMDb 
+		font0="Regular;20" font1="Regular;18" listHeight="140"
+		picPos="0,1" picSize="92,138" line1Pos="100,5" line2Pos="100,32" 
+		>
+	</TMDb> 
+	<TVDbSerie 
+		font0="Regular;20" font1="Regular;18" listHeight="140"
+		picPos="0,1" picSize="92,138" line1Pos="100,5" line2Pos="100,32" 
+		>
+	</TVDbSerie> 
+	<TVDbEpisode 
+		font0="Regular;20" font1="Regular;18" listHeight="140"
+		line1Pos="5,2" line2Pos="5,27" line3Pos="5,52" 
+		>
+	</TVDbEpisode> 
+	<MoveCopyProgress
+		font0="Regular;20" font1="Regular;16" listHeight="155" lineSplit="180"
+		line1Pos="5,9" line2Pos="5,32" line3Pos="5,52" line4Pos="5,72" line5Pos="5,92" line6Pos="5,112" line7Pos="5,132"
+		progressPos="5,2" progressHeight="5" 
+		>
+	</MoveCopyProgress> 
+  </screen>

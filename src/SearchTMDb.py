@@ -21,7 +21,7 @@
 #
 from __init__ import _
 import shutil
-from enigma import RT_WRAP, RT_VALIGN_CENTER, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, gFont, eListboxPythonMultiContent
+from enigma import RT_WRAP, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, eListboxPythonMultiContent
 from GUIListComponent import GUIListComponent
 from Screens.Screen import Screen
 from Screens.HelpMenu import HelpableScreen
@@ -42,6 +42,7 @@ from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
 from Screens.ChoiceBox import ChoiceBox
 from Source.Globals import pluginPresent, SkinTools
 from Source.MovieDB import tmdb, downloadCover
+from SkinParam import TMDbSkinParam
 import datetime
 
 IMAGE_TEMPFILE = "/tmp/TMDb_temp"
@@ -118,15 +119,13 @@ class InfoLoadChoice():
     def __timerCallback(self):
         self.__callback(self.answer)
 
-class TMDbList(GUIListComponent, object):
+class TMDbList(GUIListComponent, TMDbSkinParam, object):
     def __init__(self):
         GUIListComponent.__init__(self)
+        TMDbSkinParam.__init__(self)
         self.l.setBuildFunc(self.buildMovieSelectionListEntry)
-        self.l.setFont(0, gFont("Regular", 20))
-        self.l.setFont(1, gFont("Regular", 17))
-        self.l.setItemHeight(140)
         self.picloader = PicLoader()
-        self.picloader.setSize(92, 138)
+        self.picloader.setSize(self.picSize.width(), self.picSize.height())
 
     def destroy(self):
         self.picloader.destroy()
@@ -134,6 +133,7 @@ class TMDbList(GUIListComponent, object):
 
     def buildMovieSelectionListEntry(self, movie):
         width = self.l.getItemSize().width()
+        height = self.l.getItemSize().height()
         res = [ None ]
         try:
             name = movie.title
@@ -149,7 +149,7 @@ class TMDbList(GUIListComponent, object):
             else:
                 overview = ""
             if released:
-                released_text = released
+                released_text = str(released)
             else:
                 released_text = ""
 
@@ -163,10 +163,10 @@ class TMDbList(GUIListComponent, object):
                     png = self.picloader.load(filename)
                 else:
                     png = self.picloader.load(nocover)
-            res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 1, 92, 138, png))
-            res.append((eListboxPythonMultiContent.TYPE_TEXT, 100, 5, width - 100 , 23, 0, RT_HALIGN_LEFT | RT_VALIGN_CENTER, "%s" % name.encode('utf-8', 'ignore')))
-            res.append((eListboxPythonMultiContent.TYPE_TEXT, width - 140, 5, 130 , 20, 1, RT_HALIGN_RIGHT | RT_VALIGN_CENTER, "%s" % released_text))
-            res.append((eListboxPythonMultiContent.TYPE_TEXT, 100, 30, width - 100, 100, 1, RT_WRAP, "%s" % overview))
+            res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, self.picPos.x(), self.picPos.y(), self.picSize.width(), self.picSize.height(), png))
+            res.append((eListboxPythonMultiContent.TYPE_TEXT, self.line1Pos.x(), self.line1Pos.y(), width - self.line1Pos.x(), self.f0h, 0, RT_HALIGN_LEFT, name.encode('utf-8', 'ignore')))
+            res.append((eListboxPythonMultiContent.TYPE_TEXT, width - 255, self.line1Pos.y(), 250, self.f0h, 0, RT_HALIGN_RIGHT, released_text))
+            res.append((eListboxPythonMultiContent.TYPE_TEXT, self.line2Pos.x(), self.line2Pos.y(), width - self.line2Pos.x(), height - self.line2Pos.y(), 1, RT_WRAP, overview))
         except:
             from Source.Globals import printStackTrace
             printStackTrace()

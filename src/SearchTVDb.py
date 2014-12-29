@@ -28,7 +28,7 @@ from Components.Sources.StaticText import StaticText
 from Components.Pixmap import Pixmap
 from Components.ActionMap import ActionMap
 from GUIListComponent import GUIListComponent
-from enigma import RT_WRAP, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, gFont, eListboxPythonMultiContent
+from enigma import RT_WRAP, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, eListboxPythonMultiContent
 from Components.Label import Label
 from Components.ScrollLabel import ScrollLabel
 from Tools.Directories import pathExists
@@ -42,6 +42,7 @@ from SearchTMDb import InfoLoadChoice
 from Source.Globals import pluginPresent
 from Source.MovieDB import tvdb, downloadCover
 from Source.PicLoader import PicLoader
+from SkinParam import TVDbSerieSkinParam, TVDbEpisodeSkinParam
 
 temp_dir = "/tmp/TheTVDB_temp/"
 
@@ -89,16 +90,16 @@ class ListBase(GUIListComponent, object):
         if index > -1:
             self.instance.moveSelectionTo(index)
 
-class SeriesList(ListBase):
+class SeriesList(ListBase, TVDbSerieSkinParam):
     def __init__(self):
         ListBase.__init__(self)
+        TVDbSerieSkinParam.__init__(self)
         self.l.setBuildFunc(self.buildMovieSelectionListEntry)
-        self.l.setFont(0, gFont("Regular", 24))
-        self.l.setFont(1, gFont("Regular", 20))
-        self.l.setItemHeight(140)
+        self.picloader.setSize(self.picSize.width(), self.picSize.height())
 
     def buildMovieSelectionListEntry(self, movie, series_id):
         width = self.l.getItemSize().width()
+        height = self.l.getItemSize().height()
         res = [ None ]
         
         serie = movie['Serie'][0]
@@ -112,31 +113,30 @@ class SeriesList(ListBase):
         
         filename = getImage(serie)
         png = self.picloader.load(filename)
-        res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, 0, 1, 95, 138, png))
-        res.append((eListboxPythonMultiContent.TYPE_TEXT, 100, 2, width - 250 , 26, 0, RT_HALIGN_LEFT, "%s" % name))
-        res.append((eListboxPythonMultiContent.TYPE_TEXT, width - 255, 2, 250, 26, 0, RT_HALIGN_RIGHT, "%s" % id_txt))
-        res.append((eListboxPythonMultiContent.TYPE_TEXT, 100, 40, width - 100, 95, 1, RT_HALIGN_LEFT | RT_WRAP, "%s" % desc_txt))
+        res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, self.picPos.x(), self.picPos.y(), self.picSize.width(), self.picSize.height(), png))
+        res.append((eListboxPythonMultiContent.TYPE_TEXT, self.line1Pos.x(), self.line1Pos.y(), width - self.line1Pos.x(), self.f0h, 0, RT_HALIGN_LEFT, name))
+        res.append((eListboxPythonMultiContent.TYPE_TEXT, width - 255, self.line1Pos.y(), 250, self.f0h, 0, RT_HALIGN_RIGHT, id_txt))
+        res.append((eListboxPythonMultiContent.TYPE_TEXT, self.line2Pos.x(), self.line2Pos.y(), width - self.line2Pos.x(), height - self.line2Pos.y(), 1, RT_WRAP, desc_txt))
         return res
 
-class EpisodesList(ListBase):
+class EpisodesList(ListBase, TVDbEpisodeSkinParam):
     def __init__(self):
         ListBase.__init__(self)
+        TVDbEpisodeSkinParam.__init__(self)
         self.l.setBuildFunc(self.buildMovieSelectionListEntry)
-        self.l.setFont(0, gFont("Regular", 20))
-        self.l.setFont(1, gFont("Regular", 17))                               
-        self.l.setItemHeight(140)
 
     def buildMovieSelectionListEntry(self, episode, episode_name, episode_number, episode_season_number, episode_id, episode_overview):
         width = self.l.getItemSize().width()
+        height = self.l.getItemSize().height()
         res = [ None ]
-        id_txt = (_("ID: %s") % episode_id)
-        season = (_("Season: %s") % episode_season_number)
-        episode_txt = (_("Episode: %s") % episode_number)
-        res.append((eListboxPythonMultiContent.TYPE_TEXT, 5, 2, width - 250 , 23, 0, RT_HALIGN_LEFT, "%s" % episode_name))
-        res.append((eListboxPythonMultiContent.TYPE_TEXT, width - 255, 2, 250, 23, 0, RT_HALIGN_RIGHT, "%s" % id_txt))
-        res.append((eListboxPythonMultiContent.TYPE_TEXT, 5, 27, width - 250 , 23, 0, RT_HALIGN_LEFT, "%s" % season))
-        res.append((eListboxPythonMultiContent.TYPE_TEXT, width - 255, 26, 250, 23, 0, RT_HALIGN_RIGHT, "%s" % episode_txt))
-        res.append((eListboxPythonMultiContent.TYPE_TEXT, 5, 52, width - 5, 79, 1, RT_HALIGN_LEFT | RT_WRAP, "%s" % episode_overview))
+        id_txt = _("ID: %s") % episode_id
+        season = _("Season: %s") % episode_season_number
+        episode_txt = _("Episode: %s") % episode_number
+        res.append((eListboxPythonMultiContent.TYPE_TEXT, self.line1Pos.x(), self.line1Pos.y(), width - 250, self.f0h, 0, RT_HALIGN_LEFT, episode_name))
+        res.append((eListboxPythonMultiContent.TYPE_TEXT, self.line2Pos.x(), self.line2Pos.y(), width - 250 , self.f0h, 0, RT_HALIGN_LEFT, season))
+        res.append((eListboxPythonMultiContent.TYPE_TEXT, width - 255, self.line1Pos.y(), 250, self.f0h, 0, RT_HALIGN_RIGHT, id_txt))
+        res.append((eListboxPythonMultiContent.TYPE_TEXT, width - 255, self.line2Pos.y(), 250, self.f0h, 0, RT_HALIGN_RIGHT, episode_txt))
+        res.append((eListboxPythonMultiContent.TYPE_TEXT, self.line3Pos.x(), self.line3Pos.y(), width - 5, height - self.line3Pos.y(), 1, RT_HALIGN_LEFT | RT_WRAP, episode_overview))
         return res
         
 class TheTVDBMain(Screen, InfoLoadChoice):
