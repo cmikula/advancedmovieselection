@@ -599,25 +599,28 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 res.append(MultiContentEntryText(pos=(width - line1w2, line1y1), size=(line1w2 - 5, self.f2h), font=2, flags=RT_HALIGN_RIGHT, text=service.getServiceName(), color=color))
     
             elif self.list_type == MovieList.LISTTYPE_COMPACT_DESCRIPTION:
+                linew2 = int(width / 3)
+                linew1 = width - linew2
+                line1w = width
                 if png is not None: # self.show_folders:
                     res.append((TYPE_PIXMAP, 0, 9, 20, 20, png))
-                res.append(MultiContentEntryText(pos=(0 + offset, 0), size=(width, self.f0h), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))                
-                res.append(MultiContentEntryText(pos=(0 + offset, line2y), size=(width - 212, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=description, color=color))
                 if self.show_date == MovieList.SHOW_DATE:
-                    w = self.f1h * 10 # 135/14
-                    res.append(MultiContentEntryText(pos=(width - w, 4), size=(w - 5, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))                
+                    line1w = linew1 - offset
+                    res.append(MultiContentEntryText(pos=(linew1, 4), size=(linew2 - 5, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))                
                 if self.show_time == MovieList.SHOW_TIME:
-                    w = self.f1h * 16 # 215/14
                     dr = service.getServiceName() + " " + length_text
-                    res.append(MultiContentEntryText(pos=(width - w, line2y), size=(w - 5, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=dr, color=color))
+                    res.append(MultiContentEntryText(pos=(linew1, line2y), size=(linew2 - 5, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=dr, color=color))
                 else:
-                    w = self.f1h * 12 # 155 14
-                    res.append(MultiContentEntryText(pos=(width - w, line2y), size=(w - 5, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=service.getServiceName(), color=color))
+                    res.append(MultiContentEntryText(pos=(linew1, line2y), size=(linew2 - 5, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=service.getServiceName(), color=color))
+                res.append(MultiContentEntryText(pos=(offset, line2y), size=(linew1 - offset, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=description, color=color))
+                res.append(MultiContentEntryText(pos=(offset, 0), size=(line1w, self.f0h), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))                
     
             elif self.list_type == MovieList.LISTTYPE_COMPACT:
+                linew2 = int(width / 3)
+                linew1 = width - linew2
+                line1w = width
                 if png is not None: # self.show_folders:
                     res.append((TYPE_PIXMAP, 0, 9, 20, 20, png))            
-                res.append(MultiContentEntryText(pos=(offset, 0), size=(width, self.f0h), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
                 if tags and self.show_tags == MovieList.SHOW_TAGS:
                     line2_text = self.arrangeTags(tags)
                 else:
@@ -628,13 +631,12 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                     else:
                         line2_text = begin_string
                 if service is not None:
-                    w = self.f1h * 15 # 205/14
-                    res.append(MultiContentEntryText(pos=(width - w, line2y), size=(w - 5, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=service.getServiceName(), color=color))        
-                w = self.f1h * 15 # 200/14
-                res.append(MultiContentEntryText(pos=(offset, line2y), size=(w - 5, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=line2_text, color=color))            
+                    res.append(MultiContentEntryText(pos=(linew1, line2y), size=(linew2 - 5, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=service.getServiceName(), color=color))        
                 if self.show_time == MovieList.SHOW_TIME:
-                    w = self.f0h * 5 # 80/20
-                    res.append(MultiContentEntryText(pos=(width - w, 0), size=(w - 5, self.f0h), font=0, flags=RT_HALIGN_RIGHT, text=length_text, color=color))            
+                    line1w = linew1 - offset
+                    res.append(MultiContentEntryText(pos=(linew1, 0), size=(linew2 - 5, self.f0h), font=0, flags=RT_HALIGN_RIGHT, text=length_text, color=color))            
+                res.append(MultiContentEntryText(pos=(offset, line2y), size=(linew1 - offset, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=line2_text, color=color))            
+                res.append(MultiContentEntryText(pos=(offset, 0), size=(line1w, self.f0h), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
     
             elif self.list_type == MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection:
                 if self.show_date == MovieList.SHOW_DATE:
