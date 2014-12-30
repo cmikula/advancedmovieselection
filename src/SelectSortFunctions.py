@@ -34,10 +34,11 @@ from Components.ConfigList import ConfigListScreen
 from Components.config import config, getConfigListEntry, ConfigYesNo
 
 class SelectSortFunctions(ConfigListScreen, Screen, HelpableScreen):
-    def __init__(self, session, title, item_descr, selected_items):
+    def __init__(self, session):
         Screen.__init__(self, session)
         ConfigListScreen.__init__(self, [], session)
         HelpableScreen.__init__(self)
+        self.setTitle(_("Select sort functions"))
         self["key_red"] = StaticText(_("Cancel"))
         self["key_green"] = StaticText(_("Save/Close"))
         sels = config.AdvancedMovieSelection.sort_functions.value.split()
@@ -62,7 +63,6 @@ class SelectSortFunctions(ConfigListScreen, Screen, HelpableScreen):
             "red": (self.cancel, _("Cancel")),
             "green": (self.accept, _("Save/Close"))
         })
-        self.setTitle(title)
 
     def cancel(self):
         self.close(None)

@@ -803,19 +803,8 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
         currentry = self["config"].getCurrent()
         self.lastvideodirs = config.movielist.videodirs.value
         if currentry[1].getValue() == "Sort":
-            from MovieList import MovieList
-            sorts = [] 
-            sorts.append((str(MovieList.SORT_ALPHANUMERIC), _("Alphabetic sort")))
-            sorts.append((str(MovieList.SORT_DATE_ASC), _("Sort by date (ascending)")))
-            sorts.append((str(MovieList.SORT_DATE_DESC), _("Sort by date (descending)")))
-            sorts.append((str(MovieList.SORT_DESCRIPTION), _("Sort by description")))
-            
-            sels = config.AdvancedMovieSelection.sort_functions.value.split()
-            if len(sels) == 0:
-                for s in sorts:
-                    sels.append(s[0])
             from SelectSortFunctions import SelectSortFunctions
-            self.session.openWithCallback(self.sortTypeSelected, SelectSortFunctions, _("Select sort functions"), sorts, sels)
+            self.session.openWithCallback(self.sortTypeSelected, SelectSortFunctions)
         elif currentry == self.homepath:
             self.entrydirname = self.homepath_dirname
             self.session.openWithCallback(self.dirnameSelected, MovieLocationBox, _("Movie Quick Button Home path"), preferredPath(self.homepath_dirname.value))
