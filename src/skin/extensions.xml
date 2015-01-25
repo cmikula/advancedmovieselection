@@ -4,10 +4,11 @@
   	<!-- listType2: MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection -->
 	<!-- listType3: others -->
 	<MovieList 
-		listType0_Font0="Regular;22" listType0_Font1="Regular;19" listType0_Font2="Regular;16" listType0_ListHeight="78" 
-		listType1_Font0="Regular;20" listType1_Font1="Regular;14" listType1_ListHeight="39" 
-		listType2_Font0="Regular;18" listType2_Font1="Regular;14" listType2_ListHeight="26"
-		listType3_Font0="Regular;20" listType3_Font1="Regular;16" listType3_ListHeight="26"
+		list3_Font1="Regular;22" list3_Font2="Regular;19" list3_Font3="Regular;16" list3_ListHeight="78" 
+		list2_Font1="Regular;20" list2_Font2="Regular;14" list2_ListHeight="39" 
+		list1_Font1="Regular;20" list1_Font2="Regular;16" list1_ListHeight="26"
+		list3_ProgressSize="50,8" list3_ProgressBorder="1"
+		progressSize="50,8" progressBorder="1"
 		>
 	</MovieList> 
 	<Wastebasket 

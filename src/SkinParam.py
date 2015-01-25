@@ -5,7 +5,7 @@ Created on 15.12.2014
 '''
 
 from enigma import gFont, ePoint, eSize
-from skin import parseColor, parseFont, parseSize, parsePosition
+from skin import parseFont, parseSize, parsePosition
 from Tools.Directories import resolveFilename, SCOPE_SKIN
 import xml.etree.cElementTree
 from os import path
@@ -79,97 +79,91 @@ class SkinParam():
 class MovieListSkinParam(SkinParam):
     def __init__(self):
         SkinParam.__init__(self, "MovieList")
-        self.listType0_Font0 = gFont("Regular", 22)
-        self.listType0_Font1 = gFont("Regular", 19)
-        self.listType0_Font2 = gFont("Regular", 16)
-        self.listType0_ListHeight = 78
+        self.list3_Font1 = gFont("Regular", 22)
+        self.list3_Font2 = gFont("Regular", 19)
+        self.list3_Font3 = gFont("Regular", 16)
+        self.list3_ListHeight = 78
+        self.list3_ProgressSize = eSize(50, 8)
+        self.list3_ProgressBorder = 1
 
-        self.listType1_Font0 = gFont("Regular", 20)
-        self.listType1_Font1 = gFont("Regular", 14)
-        self.listType1_ListHeight = 39
+        self.list2_Font1 = gFont("Regular", 20)
+        self.list2_Font2 = gFont("Regular", 14)
+        self.list2_ListHeight = 39
         
-        self.listType2_Font0 = gFont("Regular", 18)
-        self.listType2_Font1 = gFont("Regular", 14)
-        self.listType2_ListHeight = 26
+        self.list1_Font1 = gFont("Regular", 20)
+        self.list1_Font2 = gFont("Regular", 16)
+        self.list1_ListHeight = 26
         
-        self.listType3_Font0 = gFont("Regular", 20)
-        self.listType3_Font1 = gFont("Regular", 16)
-        self.listType3_ListHeight = 26
+        self.progressSize = eSize(50, 8)
+        self.progressBorder = 1
         self.loadSkinData()
     
     def redrawList(self):
         from MovieList import MovieList
         if self.list_type == MovieList.LISTTYPE_ORIGINAL or self.list_type == MovieList.LISTTYPE_EXTENDED:
-            self.l.setFont(0, self.listType0_Font0)
-            self.l.setFont(1, self.listType0_Font1)
-            self.l.setFont(2, self.listType0_Font2)
-            self.l.setItemHeight(self.listType0_ListHeight)
+            self.l.setFont(0, self.list3_Font1)
+            self.l.setFont(1, self.list3_Font2)
+            self.l.setFont(2, self.list3_Font3)
+            self.l.setItemHeight(self.list3_ListHeight)
             
             self.f0y = 0
-            self.f0h = self.listType0_Font0.pointSize + 5
-            self.f1y = self.listType0_Font0.pointSize + 3
-            self.f1h = self.listType0_Font1.pointSize + 5
+            self.f0h = self.list3_Font1.pointSize + 5
+            self.f1y = self.list3_Font1.pointSize + 5
+            self.f1h = self.list3_Font2.pointSize + 5
+            self.f2y = self.list3_Font2.pointSize + 5 + self.f1y
+            self.f2h = self.list3_Font3.pointSize + 5
+            self.prorgessY = self.f2y + (self.list3_Font3.pointSize / 2) - (self.list3_ProgressSize.height() / 2) + 3
         elif self.list_type == MovieList.LISTTYPE_COMPACT_DESCRIPTION or self.list_type == MovieList.LISTTYPE_COMPACT:
-            self.l.setFont(0, self.listType1_Font0)
-            self.l.setFont(1, self.listType1_Font1)
-            self.l.setItemHeight(self.listType1_ListHeight)
+            self.l.setFont(0, self.list2_Font1)
+            self.l.setFont(1, self.list2_Font2)
+            self.l.setItemHeight(self.list2_ListHeight)
 
             self.f0y = 0
-            self.f0h = self.listType1_Font0.pointSize + 5
-            self.f1y = self.listType1_Font0.pointSize + 3
-            self.f1h = self.listType1_Font1.pointSize + 5
-        elif self.list_type == MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection:
-            self.l.setFont(0, self.listType2_Font0)
-            self.l.setFont(1, self.listType2_Font1)
-            self.l.setItemHeight(self.listType2_ListHeight)
-            
-            self.f0y = 0
-            self.f0h = self.listType2_Font0.pointSize + 5
-            self.f1y = self.listType2_Font0.pointSize + 3
-            self.f1h = self.listType2_Font1.pointSize + 5
+            self.f0h = self.list2_Font1.pointSize + 5
+            self.f1y = self.list2_Font1.pointSize + 3
+            self.f1h = self.list2_Font2.pointSize + 5
         else:
-            self.l.setFont(0, self.listType3_Font0)
-            self.l.setFont(1, self.listType3_Font1)
-            self.l.setItemHeight(self.listType3_ListHeight)
+            self.l.setFont(0, self.list1_Font1)
+            self.l.setFont(1, self.list1_Font2)
+            self.l.setItemHeight(self.list1_ListHeight)
             
             self.f0y = 0
-            self.f0h = self.listType3_Font0.pointSize + 5
-            self.f1y = self.listType3_Font0.pointSize + 3
-            self.f1h = self.listType3_Font1.pointSize + 5
-        
-        self.f2y = self.listType0_Font1.pointSize + 3 + self.f1y
-        self.f2h = self.listType0_Font2.pointSize + 5
+            self.f0h = self.list1_Font1.pointSize + 5
+            self.f1y = self.list1_Font1.pointSize + 3
+            self.f1h = self.list1_Font2.pointSize + 5
     
     def parseAttribute(self, attrib, value):
-        if attrib == "listType0_Font0":
-            self.listType0_Font0 = parseFont(value, self.scale)
-        elif attrib == "listType0_Font1":
-            self.listType0_Font1 = parseFont(value, self.scale)
-        elif attrib == "listType0_Font2":
-            self.listType0_Font2 = parseFont(value, self.scale)
-        elif attrib == "listType0_ListHeight":
-            self.listType0_ListHeight = int(value)
+        if attrib == "list3_Font1":
+            self.list3_Font1 = parseFont(value, self.scale)
+        elif attrib == "list3_Font2":
+            self.list3_Font2 = parseFont(value, self.scale)
+        elif attrib == "list3_Font3":
+            self.list3_Font3 = parseFont(value, self.scale)
+        elif attrib == "list3_ListHeight":
+            self.list3_ListHeight = int(value)
+        elif attrib == "list3_ProgressSize":
+            self.list3_ProgressSize = parseSize(value, self.scale)
+        elif attrib == "list3_ProgressBorder":
+            self.list3_ProgressBorder = int(value)
 
-        elif attrib == "listType1_Font0":
-            self.listType1_Font0 = parseFont(value, self.scale)
-        elif attrib == "listType1_Font1":
-            self.listType1_Font1 = parseFont(value, self.scale)
-        elif attrib == "listType1_ListHeight":
-            self.listType1_ListHeight = int(value)
+        elif attrib == "list2_Font1":
+            self.list2_Font1 = parseFont(value, self.scale)
+        elif attrib == "list2_Font2":
+            self.list2_Font2 = parseFont(value, self.scale)
+        elif attrib == "list2_ListHeight":
+            self.list2_ListHeight = int(value)
 
-        elif attrib == "listType2_Font0":
-            self.listType2_Font0 = parseFont(value, self.scale)
-        elif attrib == "listType2_Font1":
-            self.listType2_Font1 = parseFont(value, self.scale)
-        elif attrib == "listType2_ListHeight":
-            self.listType2_ListHeight = int(value)
+        elif attrib == "list1_Font1":
+            self.list1_Font1 = parseFont(value, self.scale)
+        elif attrib == "list1_Font2":
+            self.list1_Font2 = parseFont(value, self.scale)
+        elif attrib == "list1_ListHeight":
+            self.list1_ListHeight = int(value)
 
-        elif attrib == "listType3_Font0":
-            self.listType3_Font0 = parseFont(value, self.scale)
-        elif attrib == "listType3_Font1":
-            self.listType3_Font1 = parseFont(value, self.scale)
-        elif attrib == "listType3_ListHeight":
-            self.listType3_ListHeight = int(value)
+        elif attrib == "progressSize":
+            self.progressSize = parseSize(value, self.scale)
+        elif attrib == "progressBorder":
+            self.progressBorder = int(value)
 
 class WastebasketSkinParam(SkinParam):
     def __init__(self):
