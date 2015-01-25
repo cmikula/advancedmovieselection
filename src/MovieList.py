@@ -579,7 +579,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                     res.append(MultiContentEntryProgress(pos=(0 + offset, prorgessY), size=(self.progressSize.width(), self.progressSize.height()), percent=perc, borderWidth=self.progressBorder, foreColor=color))
                     offset2x = offset + self.progressSize.width() + 5
                 if self.show_percent:
-                    description = str.format("%s %d%%" % (perc, description))
+                    description = str.format("%d%% %s" % (perc, description))
                 res.append(MultiContentEntryText(pos=(offset2x, line2y), size=(linew1 - offset, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=description, color=color))
                 res.append(MultiContentEntryText(pos=(offset, 0), size=(line1w, self.f0h), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))                
     
