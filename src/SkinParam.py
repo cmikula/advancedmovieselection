@@ -83,8 +83,7 @@ class MovieListSkinParam(SkinParam):
         self.list3_Font2 = gFont("Regular", 20)
         self.list3_Font3 = gFont("Regular", 18)
         self.list3_ListHeight = 78
-        self.list3_ProgressSize = eSize(50, 8)
-        self.list3_ProgressBorder = 1
+        self.list3_Progress = (50, 8, 1, 60)
         self.list3Pos1 = 0
         self.list3Pos2 = 26
         self.list3Pos3 = 52
@@ -92,16 +91,16 @@ class MovieListSkinParam(SkinParam):
         self.list2_Font1 = gFont("Regular", 20)
         self.list2_Font2 = gFont("Regular", 15)
         self.list2_ListHeight = 39
+        self.list2_Progress = (50, 8, 1, 26)
         self.list2Pos1 = 0
         self.list2Pos2 = 22
         
         self.list1_Font1 = gFont("Regular", 20)
         self.list1_Font2 = gFont("Regular", 15)
         self.list1_ListHeight = 26
+        self.list1_Progress = (50, 8, 1, 8)
         self.list1Pos1 = 0
         
-        self.progressSize = eSize(50, 8)
-        self.progressBorder = 1
         self.loadSkinData()
     
     def redrawList(self):
@@ -120,7 +119,7 @@ class MovieListSkinParam(SkinParam):
             self.f0h = self.list3_Font1.pointSize + 4
             self.f1h = self.list3_Font2.pointSize + 4
             self.f2h = self.list3_Font3.pointSize + 4
-            self.prorgessY = self.line3y + ((self.list3_Font3.pointSize / 2) - (self.list3_ProgressSize.height() / 2)) + 1
+            self.progress = self.list3_Progress
         elif self.list_type == MovieList.LISTTYPE_COMPACT_DESCRIPTION or self.list_type == MovieList.LISTTYPE_COMPACT:
             self.l.setFont(0, self.list2_Font1)
             self.l.setFont(1, self.list2_Font2)
@@ -130,7 +129,7 @@ class MovieListSkinParam(SkinParam):
             self.line2y = self.list2Pos2
             self.f0h = self.list2_Font1.pointSize + 4
             self.f1h = self.list2_Font2.pointSize + 4
-            self.prorgessY = self.line2y + ((self.list2_Font2.pointSize / 2) - (self.progressSize.height() / 2)) + 1
+            self.progress = self.list2_Progress
         else:
             self.l.setFont(0, self.list1_Font1)
             self.l.setFont(1, self.list1_Font2)
@@ -140,7 +139,7 @@ class MovieListSkinParam(SkinParam):
             self.line1yr = self.line1y + self.list1_Font1.pointSize - self.list1_Font2.pointSize
             self.f0h = self.list1_Font1.pointSize + 4
             self.f1h = self.list1_Font2.pointSize + 4
-            self.prorgessY = self.line1y + ((self.list1_Font1.pointSize / 2) - (self.progressSize.height() / 2)) + 1
+            self.progress = self.list1_Progress
     
     def parseAttribute(self, attrib, value):
         if attrib == "list3_Font1":
@@ -151,10 +150,6 @@ class MovieListSkinParam(SkinParam):
             self.list3_Font3 = parseFont(value, self.scale)
         elif attrib == "list3_ListHeight":
             self.list3_ListHeight = int(value)
-        elif attrib == "list3_ProgressSize":
-            self.list3_ProgressSize = parseSize(value, self.scale)
-        elif attrib == "list3_ProgressBorder":
-            self.list3_ProgressBorder = int(value)
         elif attrib == "list3Pos":
             v = value.split(',')
             self.list3Pos1 = int(v[0])
@@ -182,10 +177,15 @@ class MovieListSkinParam(SkinParam):
             v = value.split(',')
             self.list1Pos1 = int(v[0])
 
-        elif attrib == "progressSize":
-            self.progressSize = parseSize(value, self.scale)
-        elif attrib == "progressBorder":
-            self.progressBorder = int(value)
+        elif attrib == "list1_Progress":
+            v = value.split(',')
+            self.list1_Progress = (int(v[0]), int(v[1]), int(v[2]), int(v[3]))
+        elif attrib == "list2_Progress":
+            v = value.split(',')
+            self.list2_Progress = (int(v[0]), int(v[1]), int(v[2]), int(v[3]))
+        elif attrib == "list3_Progress":
+            v = value.split(',')
+            self.list3_Progress = (int(v[0]), int(v[1]), int(v[2]), int(v[3]))
 
 class WastebasketSkinParam(SkinParam):
     def __init__(self):
