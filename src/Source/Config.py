@@ -67,11 +67,34 @@ def checkColor(color, l):
             return False
     return True
 
-from skin import colorNames
 skin_colors = []
-for col in colorNames:
-    rgb = colorNames[col]
-    skin_colors.append((str.format("#%02X%02X%02X%02X" % (rgb.a%256, rgb.r%256, rgb.g%256, rgb.b%256)), col))
+import xml.etree.cElementTree
+from Tools.Directories import SCOPE_SKIN
+import os
+def loadSingleSkinData(skin, path_prefix):
+    for c in skin.findall("colors"):
+        for color in c.findall("color"):
+            get_attr = color.attrib.get
+            name = get_attr("name")
+            color = get_attr("value")
+            if name and color:
+                skin_colors.append((color, name))
+
+def loadSkin(name, scope = SCOPE_SKIN):
+    # read the skin
+    filename = resolveFilename(scope, name)
+    mpath = os.path.dirname(filename) + "/"
+    skins = []
+    skins.append((mpath, xml.etree.cElementTree.parse(filename).getroot()))
+    skins.reverse()
+    for (path, dom_skin) in skins:
+        loadSingleSkinData(dom_skin, path)
+
+try:
+    loadSkin(config.skin.primary_skin.value)
+except:
+    printStackTrace()
+
 skin_colors = sorted(skin_colors, key=lambda x: (x[1], x[1]))
 for col in skin_colors:
     if checkColor(col[0], color_choice): 
