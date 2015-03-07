@@ -71,7 +71,7 @@ from skin import colorNames
 skin_colors = []
 for col in colorNames:
     rgb = colorNames[col]
-    skin_colors.append((str.format("#%02X%02X%02X%02X" % (rgb.a, rgb.r, rgb.g, rgb.b)), col))
+    skin_colors.append((str.format("#%02X%02X%02X%02X" % (rgb.a%256, rgb.r%256, rgb.g%256, rgb.b%256)), col))
 skin_colors = sorted(skin_colors, key=lambda x: (x[1], x[1]))
 for col in skin_colors:
     if checkColor(col[0], color_choice): 
