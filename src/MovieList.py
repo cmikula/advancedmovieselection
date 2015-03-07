@@ -553,11 +553,14 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 linew2 = int(width / 3)
                 linew1 = width - linew2
                 line1w = width
+
+                res.append(MultiContentEntryText(pos=(offset, self.line1y), size=(line1w, self.f0h), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
+
                 if png is not None: # self.show_folders:
                     res.append((TYPE_PIXMAP, 0, 2, 20, 20, png))
                 if self.show_date == MovieList.SHOW_DATE:
                     line1w = linew1 - offset
-                    res.append(MultiContentEntryText(pos=(linew1, 4), size=(linew2 - 5, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))                
+                    res.append(MultiContentEntryText(pos=(linew1, self.line1yr), size=(linew2 - 5, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))                
                 if self.show_time == MovieList.SHOW_TIME:
                     dr = service.getServiceName() + " " + length_text
                     res.append(MultiContentEntryText(pos=(linew1, self.line2y), size=(linew2 - 5, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=dr, color=color))
@@ -569,8 +572,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                     offset2x = offset + self.progress[0] + (self.progress[1] / 2)
                 if self.show_percent:
                     description = str.format("%d%% %s" % (perc, description))
-                res.append(MultiContentEntryText(pos=(offset2x, self.line2y), size=(linew1 - offset, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=description, color=color))
-                res.append(MultiContentEntryText(pos=(offset, self.line1y), size=(line1w, self.f0h), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))                
+                res.append(MultiContentEntryText(pos=(offset2x, self.line2y), size=(linew1 - offset2x, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=description, color=color))
     
             elif self.list_type == MovieList.LISTTYPE_COMPACT:
                 linew2 = int(width / 3)

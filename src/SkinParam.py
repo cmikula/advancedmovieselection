@@ -127,6 +127,7 @@ class MovieListSkinParam(SkinParam):
 
             self.line1y = self.list2Pos1
             self.line2y = self.list2Pos2
+            self.line1yr = self.line1y + self.list2_Font1.pointSize - self.list2_Font2.pointSize
             self.f0h = self.list2_Font1.pointSize + 8
             self.f1h = self.list2_Font2.pointSize + 8
             self.progress = self.list2_Progress
