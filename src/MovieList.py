@@ -25,7 +25,7 @@ from Tools.FuzzyDate import FuzzyTime
 from ServiceReference import ServiceReference
 from Components.MultiContent import MultiContentEntryText, MultiContentEntryProgress
 from Components.config import config
-from enigma import eListboxPythonMultiContent, gFont, iServiceInformation, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, eServiceReference
+from enigma import eListboxPythonMultiContent, iServiceInformation, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, eServiceReference
 from Tools.LoadPixmap import LoadPixmap
 from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
 import os
