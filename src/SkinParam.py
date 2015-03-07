@@ -52,7 +52,7 @@ class SkinParam():
             skin_node = False
         self.redrawList()
 
-        allways_reload_skin = True
+        allways_reload_skin = False
         if allways_reload_skin:
             global skin_node
             skin_node = None
