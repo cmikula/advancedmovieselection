@@ -52,7 +52,7 @@ class SkinParam():
             skin_node = False
         self.redrawList()
 
-        allways_reload_skin = False
+        allways_reload_skin = True
         if allways_reload_skin:
             global skin_node
             skin_node = None
@@ -85,17 +85,20 @@ class MovieListSkinParam(SkinParam):
         self.list3_ListHeight = 78
         self.list3_ProgressSize = eSize(50, 8)
         self.list3_ProgressBorder = 1
-        self.list3Pos1 = 2
-        self.list3Pos2 = 28
-        self.list3Pos3 = 53
+        self.list3Pos1 = 0
+        self.list3Pos2 = 26
+        self.list3Pos3 = 52
 
         self.list2_Font1 = gFont("Regular", 20)
-        self.list2_Font2 = gFont("Regular", 16)
+        self.list2_Font2 = gFont("Regular", 15)
         self.list2_ListHeight = 39
+        self.list2Pos1 = 0
+        self.list2Pos2 = 22
         
         self.list1_Font1 = gFont("Regular", 20)
-        self.list1_Font2 = gFont("Regular", 16)
+        self.list1_Font2 = gFont("Regular", 15)
         self.list1_ListHeight = 26
+        self.list1Pos1 = 0
         
         self.progressSize = eSize(50, 8)
         self.progressBorder = 1
@@ -109,31 +112,35 @@ class MovieListSkinParam(SkinParam):
             self.l.setFont(2, self.list3_Font3)
             self.l.setItemHeight(self.list3_ListHeight)
             
-            self.f0y = 0
-            self.f0h = self.list3_Font1.pointSize + 5
-            self.f1y = self.list3_Font1.pointSize + 5
-            self.f1h = self.list3_Font2.pointSize + 5
-            self.f2y = self.list3_Font2.pointSize + 5 + self.f1y
-            self.f2h = self.list3_Font3.pointSize + 5
-            self.prorgessY = self.list3Pos3 + ((self.list3_Font3.pointSize / 2) - (self.list3_ProgressSize.height() / 2)) + 1
+            self.line1y = self.list3Pos1
+            self.line2y = self.list3Pos2
+            self.line3y = self.list3Pos3
+            self.line1yr = self.line1y + self.list3_Font1.pointSize - self.list3_Font3.pointSize
+            self.line2yr = self.line2y + self.list3_Font2.pointSize - self.list3_Font3.pointSize
+            self.f0h = self.list3_Font1.pointSize + 4
+            self.f1h = self.list3_Font2.pointSize + 4
+            self.f2h = self.list3_Font3.pointSize + 4
+            self.prorgessY = self.line3y + ((self.list3_Font3.pointSize / 2) - (self.list3_ProgressSize.height() / 2)) + 1
         elif self.list_type == MovieList.LISTTYPE_COMPACT_DESCRIPTION or self.list_type == MovieList.LISTTYPE_COMPACT:
             self.l.setFont(0, self.list2_Font1)
             self.l.setFont(1, self.list2_Font2)
             self.l.setItemHeight(self.list2_ListHeight)
 
-            self.f0y = 0
-            self.f0h = self.list2_Font1.pointSize + 5
-            self.f1y = self.list2_Font1.pointSize + 3
-            self.f1h = self.list2_Font2.pointSize + 5
+            self.line1y = self.list2Pos1
+            self.line2y = self.list2Pos2
+            self.f0h = self.list2_Font1.pointSize + 4
+            self.f1h = self.list2_Font2.pointSize + 4
+            self.prorgessY = self.line2y + ((self.list2_Font2.pointSize / 2) - (self.progressSize.height() / 2)) + 1
         else:
             self.l.setFont(0, self.list1_Font1)
             self.l.setFont(1, self.list1_Font2)
             self.l.setItemHeight(self.list1_ListHeight)
             
-            self.f0y = 0
-            self.f0h = self.list1_Font1.pointSize + 5
-            self.f1y = self.list1_Font1.pointSize + 3
-            self.f1h = self.list1_Font2.pointSize + 5
+            self.line1y = self.list1Pos1
+            self.line1yr = self.line1y + self.list1_Font1.pointSize - self.list1_Font2.pointSize
+            self.f0h = self.list1_Font1.pointSize + 4
+            self.f1h = self.list1_Font2.pointSize + 4
+            self.prorgessY = self.line1y + ((self.list1_Font1.pointSize / 2) - (self.progressSize.height() / 2)) + 1
     
     def parseAttribute(self, attrib, value):
         if attrib == "list3_Font1":
@@ -160,6 +167,10 @@ class MovieListSkinParam(SkinParam):
             self.list2_Font2 = parseFont(value, self.scale)
         elif attrib == "list2_ListHeight":
             self.list2_ListHeight = int(value)
+        elif attrib == "list2Pos":
+            v = value.split(',')
+            self.list2Pos1 = int(v[0])
+            self.list2Pos2 = int(v[1])
 
         elif attrib == "list1_Font1":
             self.list1_Font1 = parseFont(value, self.scale)
@@ -167,6 +178,9 @@ class MovieListSkinParam(SkinParam):
             self.list1_Font2 = parseFont(value, self.scale)
         elif attrib == "list1_ListHeight":
             self.list1_ListHeight = int(value)
+        elif attrib == "list1Pos":
+            v = value.split(',')
+            self.list1Pos1 = int(v[0])
 
         elif attrib == "progressSize":
             self.progressSize = parseSize(value, self.scale)
