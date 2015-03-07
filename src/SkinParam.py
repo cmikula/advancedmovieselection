@@ -116,9 +116,9 @@ class MovieListSkinParam(SkinParam):
             self.line3y = self.list3Pos3
             self.line1yr = self.line1y + self.list3_Font1.pointSize - self.list3_Font3.pointSize
             self.line2yr = self.line2y + self.list3_Font2.pointSize - self.list3_Font3.pointSize
-            self.f0h = self.list3_Font1.pointSize + 6
-            self.f1h = self.list3_Font2.pointSize + 6
-            self.f2h = self.list3_Font3.pointSize + 6
+            self.f0h = self.list3_Font1.pointSize + 7
+            self.f1h = self.list3_Font2.pointSize + 7
+            self.f2h = self.list3_Font3.pointSize + 7
             self.progress = self.list3_Progress
         elif self.list_type == MovieList.LISTTYPE_COMPACT_DESCRIPTION or self.list_type == MovieList.LISTTYPE_COMPACT:
             self.l.setFont(0, self.list2_Font1)
@@ -209,9 +209,9 @@ class WastebasketSkinParam(SkinParam):
         self.l.setFont(2, self.font2)
         self.l.setItemHeight(self.listHeight)
         
-        self.f0h = self.font0.pointSize + 5
-        self.f1h = self.font1.pointSize + 5
-        self.f2h = self.font2.pointSize + 5
+        self.f0h = self.font0.pointSize + 7
+        self.f1h = self.font1.pointSize + 7
+        self.f2h = self.font2.pointSize + 7
     
     def parseAttribute(self, attrib, value):
         if attrib == "font0":
@@ -252,7 +252,7 @@ class TMDbSkinParam(SkinParam):
         self.l.setFont(1, self.font1)
         self.l.setItemHeight(self.listHeight)
 
-        self.f0h = self.font0.pointSize + 5
+        self.f0h = self.font0.pointSize + 7
     
     def parseAttribute(self, attrib, value):
         if attrib == "font0":
@@ -310,8 +310,8 @@ class MoveCopyProgressSkinParam(SkinParam):
         self.l.setFont(1, self.font1)
         self.l.setItemHeight(self.listHeight)
         
-        self.f0h = self.font0.pointSize + 5
-        self.f1h = self.font1.pointSize + 5
+        self.f0h = self.font0.pointSize + 7
+        self.f1h = self.font1.pointSize + 7
     
     def parseAttribute(self, attrib, value):
         if attrib == "font0":
