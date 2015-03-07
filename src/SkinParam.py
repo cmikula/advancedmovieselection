@@ -116,9 +116,9 @@ class MovieListSkinParam(SkinParam):
             self.line3y = self.list3Pos3
             self.line1yr = self.line1y + self.list3_Font1.pointSize - self.list3_Font3.pointSize
             self.line2yr = self.line2y + self.list3_Font2.pointSize - self.list3_Font3.pointSize
-            self.f0h = self.list3_Font1.pointSize + 8
-            self.f1h = self.list3_Font2.pointSize + 8
-            self.f2h = self.list3_Font3.pointSize + 8
+            self.f0h = self.list3_Font1.pointSize + 6
+            self.f1h = self.list3_Font2.pointSize + 6
+            self.f2h = self.list3_Font3.pointSize + 6
             self.progress = self.list3_Progress
         elif self.list_type == MovieList.LISTTYPE_COMPACT_DESCRIPTION or self.list_type == MovieList.LISTTYPE_COMPACT:
             self.l.setFont(0, self.list2_Font1)
@@ -128,8 +128,8 @@ class MovieListSkinParam(SkinParam):
             self.line1y = self.list2Pos1
             self.line2y = self.list2Pos2
             self.line1yr = self.line1y + self.list2_Font1.pointSize - self.list2_Font2.pointSize
-            self.f0h = self.list2_Font1.pointSize + 8
-            self.f1h = self.list2_Font2.pointSize + 8
+            self.f0h = self.list2_Font1.pointSize + 6
+            self.f1h = self.list2_Font2.pointSize + 6
             self.progress = self.list2_Progress
         else:
             self.l.setFont(0, self.list1_Font1)
@@ -138,8 +138,8 @@ class MovieListSkinParam(SkinParam):
             
             self.line1y = self.list1Pos1
             self.line1yr = self.line1y + self.list1_Font1.pointSize - self.list1_Font2.pointSize
-            self.f0h = self.list1_Font1.pointSize + 8
-            self.f1h = self.list1_Font2.pointSize + 8
+            self.f0h = self.list1_Font1.pointSize + 6
+            self.f1h = self.list1_Font2.pointSize + 6
             self.progress = self.list1_Progress
     
     def parseAttribute(self, attrib, value):
