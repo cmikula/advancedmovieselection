@@ -80,14 +80,17 @@ class MovieListSkinParam(SkinParam):
     def __init__(self):
         SkinParam.__init__(self, "MovieList")
         self.list3_Font1 = gFont("Regular", 22)
-        self.list3_Font2 = gFont("Regular", 19)
-        self.list3_Font3 = gFont("Regular", 16)
+        self.list3_Font2 = gFont("Regular", 20)
+        self.list3_Font3 = gFont("Regular", 18)
         self.list3_ListHeight = 78
         self.list3_ProgressSize = eSize(50, 8)
         self.list3_ProgressBorder = 1
+        self.list3Pos1 = 2
+        self.list3Pos2 = 28
+        self.list3Pos3 = 53
 
         self.list2_Font1 = gFont("Regular", 20)
-        self.list2_Font2 = gFont("Regular", 14)
+        self.list2_Font2 = gFont("Regular", 16)
         self.list2_ListHeight = 39
         
         self.list1_Font1 = gFont("Regular", 20)
@@ -112,7 +115,7 @@ class MovieListSkinParam(SkinParam):
             self.f1h = self.list3_Font2.pointSize + 5
             self.f2y = self.list3_Font2.pointSize + 5 + self.f1y
             self.f2h = self.list3_Font3.pointSize + 5
-            self.prorgessY = self.f2y + (self.list3_Font3.pointSize / 2) - (self.list3_ProgressSize.height() / 2) + 3
+            self.prorgessY = self.list3Pos3 + ((self.list3_Font3.pointSize / 2) - (self.list3_ProgressSize.height() / 2)) + 1
         elif self.list_type == MovieList.LISTTYPE_COMPACT_DESCRIPTION or self.list_type == MovieList.LISTTYPE_COMPACT:
             self.l.setFont(0, self.list2_Font1)
             self.l.setFont(1, self.list2_Font2)
@@ -145,6 +148,11 @@ class MovieListSkinParam(SkinParam):
             self.list3_ProgressSize = parseSize(value, self.scale)
         elif attrib == "list3_ProgressBorder":
             self.list3_ProgressBorder = int(value)
+        elif attrib == "list3Pos":
+            v = value.split(',')
+            self.list3Pos1 = int(v[0])
+            self.list3Pos2 = int(v[1])
+            self.list3Pos3 = int(v[2])
 
         elif attrib == "list2_Font1":
             self.list2_Font1 = parseFont(value, self.scale)

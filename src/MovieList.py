@@ -164,8 +164,6 @@ class MovieList(MovieListSkinParam, GUIListComponent):
         try: self.movie_color = parseColor("movieColor").argb()    
         except: self.movie_color = parseColor(config.AdvancedMovieSelection.color5.value).argb()
         from Source.Config import color_choice
-        if self.movie_color == color_choice[4][0]:
-            self.movie_color = None
 
         self.COLOR_MOVIE_ICON = None
         if self.show_statusicon and self.show_folders:
@@ -547,7 +545,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                     #self.textRenderer.setText(line3_text)
                     #length_ = self.textRenderer.calculateSize().width() + 10 + offset
                     res.append(MultiContentEntryProgress(pos=(offset, self.prorgessY), size=(self.list3_ProgressSize.width(), self.list3_ProgressSize.height()), percent=perc, borderWidth=self.list3_ProgressBorder, foreColor=color))
-                    offset = offset + self.list3_ProgressSize.width() + 5
+                    offset = offset + self.list3_ProgressSize.width() + (self.list3_ProgressSize.height() / 2)
                 if self.show_percent:
                     line3_l.append(str.format("%d%%" % (perc)))
                 if self.show_date == MovieList.SHOW_DATE:
@@ -555,7 +553,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 if tags:
                     line3_l.append(self.arrangeTags(tags))
                 line3_text = ", ".join(line3_l)
-                line3y = self.f2y
+                line3y = self.list3Pos3
                 res.append(MultiContentEntryText(pos=(0 + offset, line3y), size=(width - 120, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=line3_text, color=color))
                 res.append(MultiContentEntryText(pos=(width - 120, line3y), size=(115, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=length_text, color=color))
     
@@ -577,7 +575,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 if self.show_progressbar:
                     prorgessY = self.f1y + (self.list2_Font2.pointSize / 2) - (self.progressSize.height() / 2) + 1
                     res.append(MultiContentEntryProgress(pos=(0 + offset, prorgessY), size=(self.progressSize.width(), self.progressSize.height()), percent=perc, borderWidth=self.progressBorder, foreColor=color))
-                    offset2x = offset + self.progressSize.width() + 5
+                    offset2x = offset + self.progressSize.width() + (self.progressSize.height() / 2)
                 if self.show_percent:
                     description = str.format("%d%% %s" % (perc, description))
                 res.append(MultiContentEntryText(pos=(offset2x, line2y), size=(linew1 - offset, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=description, color=color))
@@ -608,7 +606,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 if self.show_progressbar:
                     prorgessY = self.f1y + (self.list2_Font2.pointSize / 2) - (self.progressSize.height() / 2) + 1
                     res.append(MultiContentEntryProgress(pos=(0 + offset, prorgessY), size=(self.progressSize.width(), self.progressSize.height()), percent=perc, borderWidth=self.progressBorder, foreColor=color))
-                    offset2x = offset + self.progressSize.width() + 5
+                    offset2x = offset + self.progressSize.width() + (self.progressSize.height() / 2)
                 res.append(MultiContentEntryText(pos=(offset, 0), size=(line1w, self.f0h), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
                 res.append(MultiContentEntryText(pos=(offset2x, line2y), size=(linew1 - offset, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=line2_text, color=color))            
     
@@ -637,7 +635,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 if self.show_progressbar:
                     prorgessY = self.f0y + (self.list1_Font1.pointSize / 2) - (self.progressSize.height() / 2) + 3
                     res.append(MultiContentEntryProgress(pos=(offset + 1, prorgessY), size=(self.progressSize.width(), self.progressSize.height()), percent=perc, borderWidth=self.progressBorder, foreColor=color))
-                    offset = offset + self.progressSize.width() + 5
+                    offset = offset + self.progressSize.width() + (self.progressSize.height() / 2)
                 
                 offsetServiceName = 0
                 if self.show_service == MovieList.SHOW_SERVICE:
@@ -659,7 +657,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 if self.show_progressbar:
                     prorgessY = self.f0y + (self.list1_Font1.pointSize / 2) - (self.progressSize.height() / 2) + 3
                     res.append(MultiContentEntryProgress(pos=(offset + 1, prorgessY), size=(self.progressSize.width(), self.progressSize.height()), percent=perc, borderWidth=self.progressBorder, foreColor=color))
-                    offset = offset + self.progressSize.width() + 5
+                    offset = offset + self.progressSize.width() + (self.progressSize.height() / 2)
 
                 w = 0
                 if self.show_date == MovieList.SHOW_DATE:
