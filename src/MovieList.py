@@ -163,6 +163,9 @@ class MovieList(MovieListSkinParam, GUIListComponent):
         except: self.mark_color = parseColor(config.AdvancedMovieSelection.color4.value).argb()
         try: self.movie_color = parseColor("movieColor").argb()    
         except: self.movie_color = parseColor(config.AdvancedMovieSelection.color5.value).argb()
+        # Set default foreground color (color selection for this is never working)
+        try: self.movie_color = parseColor("foreground").argb()    
+        except: self.movie_color = parseColor(config.AdvancedMovieSelection.color5.value).argb()
         from Source.Config import color_choice
 
         self.COLOR_MOVIE_ICON = None
