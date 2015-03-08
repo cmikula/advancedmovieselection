@@ -328,11 +328,10 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                             res.append((TYPE_PIXMAP, 0, 2, self.list3_ListHeight - 2, self.list3_ListHeight - 2, png))
                         else:
                             res.append((TYPE_PIXMAP, 0, 2, 20, 20, png))
-                else:
-                    res.append((TYPE_PIXMAP, 0, 2, 20, 20, png))
-                if can_show_folder_image and (self.list_type != MovieList.LISTTYPE_MINIMAL and self.list_type != MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection):
                     if not isinstance(serviceref, eServiceReferenceListAll):
                         res.append(MultiContentEntryText(pos=(offset, self.line2y), size=(width, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=serviceref.getPath(), color=color))
+                else:
+                    res.append((TYPE_PIXMAP, 0, 2, 20, 20, png))
 
                 res.append(MultiContentEntryText(pos=(offset, self.line1y), size=(width - 150, self.f0h), font=0, flags=RT_HALIGN_LEFT, text=serviceref.getName(), color=color))
                 if config.AdvancedMovieSelection.show_dirsize.value:
