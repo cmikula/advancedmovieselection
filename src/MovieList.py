@@ -532,11 +532,11 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 line_width = width - new_offset - offset
                 line1w1 = line_width
                 service_name = service.getServiceName()
-                self.textRenderer.setFont(self.list3_Font2)
+                self.textRenderer.setFont(self.list3_Font3)
                 self.textRenderer.setText(service_name)
                 service_name_width = self.textRenderer.calculateSize().width()
                 if service_name_width > 0:
-                    line1w1 = line_width - service_name_width
+                    line1w1 = line_width - service_name_width - 5
                     res.append(MultiContentEntryText(pos=(width - service_name_width - 5, self.line1yr), size=(service_name_width, self.f2h), font=2, flags=RT_HALIGN_RIGHT, text=service_name, color=color))
                 res.append(MultiContentEntryText(pos=(new_offset + offset, self.line1y), size=(line1w1, self.f0h), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
                 line3_l = []
