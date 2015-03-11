@@ -40,9 +40,9 @@ class SkinTools():
         dw = SkinTools.getDesktopWidth()
         if dw == SkinTools.DESKTOP_WIDTH_XD:
             return "1024.xml"
-        elif dw == SkinTools.DESKTOP_WIDTH_HD:
-            return "1280.xml"
-        return "720.xml"
+        elif dw == SkinTools.DESKTOP_WIDTH_SD:
+            return "720.xml"
+        return "1280.xml"
     
     @staticmethod
     def getDesktopWidth():
