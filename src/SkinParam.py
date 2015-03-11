@@ -26,12 +26,14 @@ class SkinLoader():
         self.dom_skins.append((mpath, xml.etree.cElementTree.parse(filename).getroot()))
 
 skin_node = None
+skin_fonts = {}
 
 class SkinParam():
     def __init__(self, node="MovieList"):
         self.node_name = node
         self.scale = ((1, 1), (1, 1))
-        
+        self.renderer_extend = 0
+                
     def loadSkinData(self):
         if skin_node is False:
             print "[AdvancedMovieSelection] load skin disabled"
@@ -63,6 +65,19 @@ class SkinParam():
                 continue
             global skin_node
             skin_node = node
+        skin_fonts.clear()
+        for c in skin.findall("fonts"):
+            for font in c.findall("font"):
+                get_attr = font.attrib.get
+                name = get_attr("name", "Regular")
+                scale = get_attr("scale")
+                print name, str(scale)
+                if scale:
+                    scale = int(scale)
+                else:
+                    scale = 100
+                skin_fonts[name] = int(scale)
+
         
     def parseNode(self, node):
         print "[AdvancedMovieSelection] parse node", self.node_name
@@ -74,7 +89,9 @@ class SkinParam():
     
     def parseAttribute(self, attrib, value):
         pass
-
+    
+    def getTextRendererWidth(self):
+        return self.textRenderer.calculateSize().width() + self.renderer_extend
 
 class MovieListSkinParam(SkinParam):
     def __init__(self):
@@ -100,6 +117,8 @@ class MovieListSkinParam(SkinParam):
         self.list1_ListHeight = 26
         self.list1_Progress = (50, 8, 1, 8)
         self.list1Pos1 = 0
+        
+        self.font_scale = 100
         
         self.loadSkinData()
     
@@ -145,6 +164,10 @@ class MovieListSkinParam(SkinParam):
     def parseAttribute(self, attrib, value):
         if attrib == "list3_Font1":
             self.list3_Font1 = parseFont(value, self.scale)
+            name = value.split(';')[0]
+            scale = skin_fonts[name]
+            if scale:
+                self.font_scale = scale / 2
         elif attrib == "list3_Font2":
             self.list3_Font2 = parseFont(value, self.scale)
         elif attrib == "list3_Font3":
@@ -187,6 +210,8 @@ class MovieListSkinParam(SkinParam):
         elif attrib == "list3_Progress":
             v = value.split(',')
             self.list3_Progress = (int(v[0]), int(v[1]), int(v[2]), int(v[3]))
+        elif attrib == "renderer_extend":
+            self.renderer_extend = int(value)
 
 class WastebasketSkinParam(SkinParam):
     def __init__(self):

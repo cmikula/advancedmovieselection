@@ -534,7 +534,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 service_name = service.getServiceName()
                 self.textRenderer.setFont(self.list3_Font3)
                 self.textRenderer.setText(service_name)
-                service_name_width = self.textRenderer.calculateSize().width()
+                service_name_width = self.getTextRendererWidth()
                 if service_name_width > 0:
                     line1w1 = line_width - service_name_width - 5
                     res.append(MultiContentEntryText(pos=(width - service_name_width - 5, self.line1yr), size=(service_name_width, self.f2h), font=2, flags=RT_HALIGN_RIGHT, text=service_name, color=color))
@@ -543,7 +543,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 if self.show_progressbar:
                     #self.textRenderer.setFont(self.list3_Font2)
                     #self.textRenderer.setText(line3_text)
-                    #length_ = self.textRenderer.calculateSize().width() + 10 + offset
+                    #length_ = self.getTextRendererWidth() + 10 + offset
                     res.append(MultiContentEntryProgress(pos=(offset, self.progress[3]), size=(self.progress[0], self.progress[1]), percent=perc, borderWidth=self.progress[2], foreColor=color))
                     offset = offset + self.progress[0] + (self.progress[1] / 2)
                 if self.show_percent:
@@ -645,7 +645,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 if text_right:
                     self.textRenderer.setFont(self.list1_Font2)
                     self.textRenderer.setText(text_right)
-                    text_right_width = self.textRenderer.calculateSize().width()
+                    text_right_width = self.getTextRendererWidth()
                     line1w1 = line_width - text_right_width - 5
                     res.append(MultiContentEntryText(pos=(width - text_right_width - 5, self.line1yr), size=(text_right_width, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=text_right, color=color))
 
@@ -673,7 +673,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 if text_right:
                     self.textRenderer.setFont(self.list1_Font2)
                     self.textRenderer.setText(text_right)
-                    text_right_width = self.textRenderer.calculateSize().width()
+                    text_right_width = self.getTextRendererWidth()
                     line1w1 = line_width - text_right_width - 5
                     res.append(MultiContentEntryText(pos=(width - text_right_width - 5, self.line1yr), size=(text_right_width, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=text_right, color=color))
 

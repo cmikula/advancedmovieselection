@@ -4,6 +4,7 @@
   	<!-- listType3: 3 lines -->
 	<!-- list?_Progress: (width,height,border,y_position) -->
 	<!-- list?_Pos: (line1y_pos,line2y_pos,line3y_pos) -->
+	<!-- renderer_extend: extends the text renderer with defined points (default=0) -->
 	<MovieList 
 		list1_Font1="Regular;20" list1_Font2="Regular;15" list1_ListHeight="26" list1Pos="2"
 		list1_Progress="50,8,1,2"
@@ -12,6 +13,7 @@
 		list3_Font1="Regular;22" list3_Font2="Regular;20" list3_ListHeight="78" list3Pos="2,28,53"
 		list3_Font3="Regular;18"
 		list3_Progress="50,8,1,60"
+		renderer_extend="10"
 		>
 	</MovieList> 
 	<Wastebasket 
