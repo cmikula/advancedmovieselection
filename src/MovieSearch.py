@@ -52,6 +52,10 @@ class PopupInputDialog(InputBox):
         self.configText.help_window.hide()
         return Screen.hide(self)
 
+    def _showHelpWindow(self):
+        # prevent showing help window in oe2.2
+        pass
+
 class MovieSearch():
     def __init__(self):
         self.popup = self.session.instantiateDialog(PopupInputDialog)
