@@ -136,8 +136,8 @@ class AdvancedKeyBoard(VirtualKeyBoard, NumericalTextInput):
     def keyNumberGlobal(self, number):
         self.handleKey(KEY_0 + number)
         self.getKey(number)
-        self.text = self.configText.getText()
-        self["text"].setText(self.configText.getText())
+        self.text = str(self.configText.getText())
+        self["text"].setText(self.text)
         self["text"].setMarkedPos(self.configText.marked_pos)
 
     def okClicked(self):
