@@ -166,12 +166,16 @@ class MovieList(MovieListSkinParam, GUIListComponent):
         except: self.recording_color = parseColor(config.AdvancedMovieSelection.color3.value).argb()
         try: self.mark_color = parseColor("movieMarcColor").argb()    
         except: self.mark_color = parseColor(config.AdvancedMovieSelection.color4.value).argb()
-        try: self.movie_color = parseColor("movieColor").argb()    
-        except: self.movie_color = parseColor(config.AdvancedMovieSelection.color5.value).argb()
-        # Set default foreground color (color selection for this is never working)
-        try: self.movie_color = parseColor("foreground").argb()    
-        except: self.movie_color = parseColor(config.AdvancedMovieSelection.color5.value).argb()
+        #try: self.movie_color = parseColor("movieColor").argb()    
+        #except: self.movie_color = parseColor(config.AdvancedMovieSelection.color5.value).argb()
         from Source.Config import color_choice
+        try:
+            if config.AdvancedMovieSelection.color5.value == color_choice[8][0]:
+                self.movie_color = parseColor("foreground").argb()
+            else:
+                self.movie_color = parseColor(config.AdvancedMovieSelection.color5.value).argb()
+        except:
+            self.movie_color = parseColor(color_choice[4][0]).argb()
 
         self.COLOR_MOVIE_ICON = None
         if self.show_statusicon and self.show_folders:

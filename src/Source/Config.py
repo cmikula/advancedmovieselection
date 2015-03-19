@@ -104,7 +104,9 @@ config.AdvancedMovieSelection.color1 = ConfigSelection(default=color_choice[0][0
 config.AdvancedMovieSelection.color2 = ConfigSelection(default=color_choice[1][0] , choices=color_choice)
 config.AdvancedMovieSelection.color3 = ConfigSelection(default=color_choice[2][0] , choices=color_choice)
 config.AdvancedMovieSelection.color4 = ConfigSelection(default=color_choice[3][0] , choices=color_choice)
-config.AdvancedMovieSelection.color5 = ConfigSelection(default=color_choice[4][0] , choices=color_choice)
+color_choice = color_choice[:]
+color_choice.insert(8, ("#FFFFFFFF", _("Skin default")))
+config.AdvancedMovieSelection.color5 = ConfigSelection(default=color_choice[8][0] , choices=color_choice)
 
 config.AdvancedMovieSelection.moviepercentseen = ConfigInteger(default=80, limits=(50, 100))
 config.AdvancedMovieSelection.showfoldersinmovielist = ConfigYesNo(default=False)
