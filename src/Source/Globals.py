@@ -20,7 +20,7 @@
 #  distributed other than under the conditions noted above.
 #
 from enigma import getDesktop
-from Tools.Directories import fileExists, resolveFilename, SCOPE_HDD, SCOPE_CURRENT_SKIN, SCOPE_CURRENT_PLUGIN
+from Tools.Directories import fileExists, resolveFilename, SCOPE_CURRENT_PLUGIN
 
 def printStackTrace():
     import sys, traceback
@@ -32,13 +32,16 @@ class SkinTools():
     DESKTOP_WIDTH_SD = 720
     DESKTOP_WIDTH_XD = 1024
     DESKTOP_WIDTH_HD = 1280
+    DESKTOP_WIDTH_FHD = 1920
     def __init__(self):
         pass
 
     @staticmethod
     def getSkinName():
         dw = SkinTools.getDesktopWidth()
-        if dw == SkinTools.DESKTOP_WIDTH_XD:
+        if dw == SkinTools.DESKTOP_WIDTH_FHD:
+            return "1920.xml"
+        elif dw == SkinTools.DESKTOP_WIDTH_XD:
             return "1024.xml"
         elif dw == SkinTools.DESKTOP_WIDTH_SD:
             return "720.xml"
