@@ -437,7 +437,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
             if length > 0:
                 length_text = "%d:%02d" % (length / 60, length % 60)
             else:
-                length_text = ""
+                length_text = "0:00"
             
             recording = False
             if NavigationInstance.instance.getRecordings():
@@ -625,9 +625,10 @@ class MovieList(MovieListSkinParam, GUIListComponent):
 
                 if self.show_time == MovieList.SHOW_TIME:
                     line1_width -= self.list2_length_width
-                    res.append(MultiContentEntryText(pos=(width - self.list2_length_width - 5, self.line1y), size=(self.list2_length_width, self.f0h), font=0, flags=RT_HALIGN_RIGHT, text=length_text, color=color))            
+                    res.append(MultiContentEntryText(pos=(width - self.list2_length_width - 5, self.line1yr), size=(self.list2_length_width, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=length_text, color=color))            
 
                 service_name = service.getServiceName()
+                text2_right_width = 0
                 if service_name:
                     self.textRenderer.setFont(self.list2_Font2)
                     self.textRenderer.setText(service_name)
