@@ -155,7 +155,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
         self.textRenderer.hide()
         
         self.textRenderer.setFont(self.list2_Font1)
-        self.textRenderer.setText("####")
+        self.textRenderer.setText("###:##")
         self.list2_length_width = self.getTextRendererWidth()
 
         try: self.watching_color = parseColor("movieWatching").argb()    
@@ -431,8 +431,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                     movie_info.percent = perc # update percent
 
             if length > 0:
-                #length_text = "%d:%02d" % (length / 60, length % 60)
-                length_text = "%d" % (length / 60)
+                length_text = "%d:%02d" % (length / 60, length % 60)
             else:
                 length_text = ""
             
@@ -608,9 +607,6 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 line_width = width - offset
                 line1_width = line_width - 5
 
-                linew2 = int(width / 3)
-                linew1 = width - linew2
-                line1w = width
                 if png is not None: # self.show_folders:
                     res.append((TYPE_PIXMAP, 0, 2, 20, 20, png))
                 
@@ -629,7 +625,6 @@ class MovieList(MovieListSkinParam, GUIListComponent):
 
                 service_name = service.getServiceName()
                 if service_name:
-                    #res.append(MultiContentEntryText(pos=(linew1, self.line2y), size=(linew2 - 5, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=service.getServiceName(), color=color))        
                     self.textRenderer.setFont(self.list2_Font2)
                     self.textRenderer.setText(service_name)
                     text2_right_width = self.getTextRendererWidth()
