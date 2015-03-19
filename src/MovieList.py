@@ -153,6 +153,11 @@ class MovieList(MovieListSkinParam, GUIListComponent):
         self.textRenderer = eLabel(self.instance)
         self.textRenderer.resize(eSize(self.l.getItemSize().width(), 0))
         self.textRenderer.hide()
+        
+        self.textRenderer.setFont(self.list2_Font1)
+        self.textRenderer.setText("####")
+        self.list2_length_width = self.getTextRendererWidth()
+
         try: self.watching_color = parseColor("movieWatching").argb()    
         except: self.watching_color = parseColor(config.AdvancedMovieSelection.color1.value).argb()
         try: self.finished_color = parseColor("movieFinished").argb()    
@@ -426,7 +431,8 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                     movie_info.percent = perc # update percent
 
             if length > 0:
-                length_text = "%d:%02d" % (length / 60, length % 60)
+                #length_text = "%d:%02d" % (length / 60, length % 60)
+                length_text = "%d" % (length / 60)
             else:
                 length_text = ""
             
@@ -557,31 +563,51 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 res.append(MultiContentEntryText(pos=(width - 120, self.line3y), size=(115, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=length_text, color=color))
     
             elif self.list_type == MovieList.LISTTYPE_COMPACT_DESCRIPTION:
-                linew2 = int(width / 3)
-                linew1 = width - linew2
-                line1w = width
-
-                res.append(MultiContentEntryText(pos=(offset, self.line1y), size=(line1w, self.f0h), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
+                line_width = width - offset
+                line1_width = line_width - 5
 
                 if png is not None: # self.show_folders:
                     res.append((TYPE_PIXMAP, 0, 2, 20, 20, png))
                 if self.show_date == MovieList.SHOW_DATE:
-                    line1w = linew1 - offset
-                    res.append(MultiContentEntryText(pos=(linew1, self.line1yr), size=(linew2 - 5, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))                
-                if self.show_time == MovieList.SHOW_TIME:
-                    dr = service.getServiceName() + " " + length_text
-                    res.append(MultiContentEntryText(pos=(linew1, self.line2y), size=(linew2 - 5, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=dr, color=color))
-                else:
-                    res.append(MultiContentEntryText(pos=(linew1, self.line2y), size=(linew2 - 5, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=service.getServiceName(), color=color))
+                    self.textRenderer.setFont(self.list2_Font2)
+                    self.textRenderer.setText(begin_string)
+                    text1_right_width = self.getTextRendererWidth()
+                    res.append(MultiContentEntryText(pos=(width - text1_right_width - 5, self.line1yr), size=(text1_right_width, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))
+                    line1_width -= text1_right_width
+                time_width = 0
+                if self.show_time == MovieList.SHOW_TIME and length_text:
+                    #time_width = self.list2_length_width
+                    #res.append(MultiContentEntryText(pos=(width - self.list2_length_width - 5, self.line2y), size=(self.list2_length_width, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=length_text, color=color))
+                    if True:
+                        txt += str.format(" ({0})", length_text)
+                    else:
+                        self.textRenderer.setFont(self.list2_Font1)
+                        self.textRenderer.setText(txt)
+                        txt_width = self.getTextRendererWidth() + time_width
+                        res.append(MultiContentEntryText(pos=(offset + txt_width, self.line1yr), size=(self.list2_length_width, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=str.format("({0})", length_text), color=color))
+                        line1_width = txt_width
+
+                service_name = service.getServiceName()
+                text2_right_width = 0
+                if service_name:
+                    self.textRenderer.setFont(self.list2_Font2)
+                    self.textRenderer.setText(service_name)
+                    text2_right_width = self.getTextRendererWidth() + time_width
+                    res.append(MultiContentEntryText(pos=(width - text2_right_width - 5, self.line2y), size=(text2_right_width - time_width, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=service_name, color=color))
+
                 offset2x = offset
                 if self.show_progressbar:
                     res.append(MultiContentEntryProgress(pos=(0 + offset, self.progress[3]), size=(self.progress[0], self.progress[1]), percent=perc, borderWidth=self.progress[2], foreColor=color))
                     offset2x = offset + self.progress[0] + (self.progress[1] / 2)
                 if self.show_percent:
                     description = str.format("%d%% %s" % (perc, description))
-                res.append(MultiContentEntryText(pos=(offset2x, self.line2y), size=(linew1 - offset2x, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=description, color=color))
+                res.append(MultiContentEntryText(pos=(offset2x, self.line2y), size=(width - offset2x - text2_right_width, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=description, color=color))
+                res.append(MultiContentEntryText(pos=(offset, self.line1y), size=(line1_width, self.f0h), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
     
             elif self.list_type == MovieList.LISTTYPE_COMPACT:
+                line_width = width - offset
+                line1_width = line_width - 5
+
                 linew2 = int(width / 3)
                 linew1 = width - linew2
                 line1w = width
@@ -598,16 +624,23 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 line2_text = ", ".join(line_l)
 
                 if self.show_time == MovieList.SHOW_TIME:
-                    line1w = linew1 - offset
-                    res.append(MultiContentEntryText(pos=(linew1, self.line1y), size=(linew2 - 5, self.f0h), font=0, flags=RT_HALIGN_RIGHT, text=length_text, color=color))            
-                if service is not None:
-                    res.append(MultiContentEntryText(pos=(linew1, self.line2y), size=(linew2 - 5, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=service.getServiceName(), color=color))        
+                    line1_width -= self.list2_length_width
+                    res.append(MultiContentEntryText(pos=(width - self.list2_length_width - 5, self.line1y), size=(self.list2_length_width, self.f0h), font=0, flags=RT_HALIGN_RIGHT, text=length_text, color=color))            
+
+                service_name = service.getServiceName()
+                if service_name:
+                    #res.append(MultiContentEntryText(pos=(linew1, self.line2y), size=(linew2 - 5, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=service.getServiceName(), color=color))        
+                    self.textRenderer.setFont(self.list2_Font2)
+                    self.textRenderer.setText(service_name)
+                    text2_right_width = self.getTextRendererWidth()
+                    res.append(MultiContentEntryText(pos=(width - text2_right_width - 5, self.line2y), size=(text2_right_width, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=service_name, color=color))
+
                 offset2x = offset
                 if self.show_progressbar:
                     res.append(MultiContentEntryProgress(pos=(0 + offset, self.progress[3]), size=(self.progress[0], self.progress[1]), percent=perc, borderWidth=self.progress[2], foreColor=color))
                     offset2x = offset + self.progress[0] + (self.progress[1] / 2)
-                res.append(MultiContentEntryText(pos=(offset, self.line1y), size=(line1w, self.f0h), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
-                res.append(MultiContentEntryText(pos=(offset2x, self.line2y), size=(linew1 - offset, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=line2_text, color=color))            
+                res.append(MultiContentEntryText(pos=(offset, self.line1y), size=(line1_width, self.f0h), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
+                res.append(MultiContentEntryText(pos=(offset2x, self.line2y), size=(width - offset2x - text2_right_width, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=line2_text, color=color))            
     
             elif self.list_type == MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection:
                 if self.show_date == MovieList.SHOW_DATE:
