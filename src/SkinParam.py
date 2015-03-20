@@ -32,7 +32,7 @@ class SkinParam():
     def __init__(self, node="MovieList"):
         self.node_name = node
         self.scale = ((1, 1), (1, 1))
-        self.renderer_extend = 0
+        self.renderer_extend = 3
                 
     def loadSkinData(self):
         if skin_node is False:
