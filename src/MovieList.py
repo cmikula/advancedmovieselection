@@ -155,8 +155,17 @@ class MovieList(MovieListSkinParam, GUIListComponent):
         self.textRenderer.hide()
         
         self.textRenderer.setFont(self.list2_Font1)
-        self.textRenderer.setText("###:##")
+        self.textRenderer.setText(str.format(config.AdvancedMovieSelection.movie_length_format.value, 999, 0))
         self.list2_length_width = self.getTextRendererWidth()
+        
+        self.textRenderer.setText("#")
+        self.textRenderer.setFont(self.font1)
+        self.f0h = self.textRenderer.calculateSize().height()
+        self.textRenderer.setFont(self.font2)
+        self.f1h = self.textRenderer.calculateSize().height()
+        
+        #self.line1yr = self.line1y + self.f0h - self.f1h
+        self.line1yr = self.line1y + self.font1.pointSize - self.font2.pointSize
 
         try: self.watching_color = parseColor("movieWatching").argb()    
         except: self.watching_color = parseColor(config.AdvancedMovieSelection.color1.value).argb()
@@ -435,9 +444,9 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                     movie_info.percent = perc # update percent
 
             if length > 0:
-                length_text = "%d:%02d" % (length / 60, length % 60)
+                length_text = str.format(config.AdvancedMovieSelection.movie_length_format.value, length / 60, length % 60)
             else:
-                length_text = "0:00"
+                length_text = str.format(config.AdvancedMovieSelection.movie_length_format.value, 0, 0)
             
             recording = False
             if NavigationInstance.instance.getRecordings():
@@ -496,7 +505,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 if self.show_statuscolor:
                     color = self.mark_color
             else:
-                txt = service_name
+                txt = service_name# + "#" * 80
     
             if self.list_type == MovieList.LISTTYPE_EXTENDED or self.list_type == MovieList.LISTTYPE_ORIGINAL:
                 offset = 5
@@ -536,17 +545,17 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 filesize = info.getInfoObject(serviceref, iServiceInformation.sFileSize)
                 if filesize:
                     filesize = realSize(filesize, int(config.AdvancedMovieSelection.dirsize_digits.value))
-                    res.append(MultiContentEntryText(pos=(width - 185, self.line2yr), size=(180, self.f2h), font=2, flags=RT_HALIGN_RIGHT, text=filesize, color=color))
+                    res.append(MultiContentEntryText(pos=(width - 185, self.line2y), size=(180, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=filesize, color=color))
                 # Line 1: Movie Text, service name
                 line_width = width - new_offset - offset
                 line1w1 = line_width
                 service_name = service.getServiceName()
-                self.textRenderer.setFont(self.list3_Font3)
+                self.textRenderer.setFont(self.font2)
                 self.textRenderer.setText(service_name)
                 service_name_width = self.getTextRendererWidth()
                 if service_name_width > 0:
                     line1w1 = line_width - service_name_width - 5
-                    res.append(MultiContentEntryText(pos=(width - service_name_width - 5, self.line1yr), size=(service_name_width, self.f2h), font=2, flags=RT_HALIGN_RIGHT, text=service_name, color=color))
+                    res.append(MultiContentEntryText(pos=(width - service_name_width - 5, self.line1yr), size=(service_name_width, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=service_name, color=color))
                 res.append(MultiContentEntryText(pos=(new_offset + offset, self.line1y), size=(line1w1, self.f0h), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
                 line3_l = []
                 if self.show_progressbar:
@@ -572,28 +581,28 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 if png is not None: # self.show_folders:
                     res.append((TYPE_PIXMAP, 0, 2, 20, 20, png))
                 if self.show_date == MovieList.SHOW_DATE:
-                    self.textRenderer.setFont(self.list2_Font2)
+                    self.textRenderer.setFont(self.font2)
                     self.textRenderer.setText(begin_string)
                     text1_right_width = self.getTextRendererWidth()
                     res.append(MultiContentEntryText(pos=(width - text1_right_width - 5, self.line1yr), size=(text1_right_width, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color))
                     line1_width -= text1_right_width
                 time_width = 0
-                if self.show_time == MovieList.SHOW_TIME and length_text:
+                if self.show_time == MovieList.SHOW_TIME:
                     #time_width = self.list2_length_width
                     #res.append(MultiContentEntryText(pos=(width - self.list2_length_width - 5, self.line2y), size=(self.list2_length_width, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=length_text, color=color))
-                    if True:
+                    if False:
                         txt += str.format(" ({0})", length_text)
                     else:
-                        self.textRenderer.setFont(self.list2_Font1)
+                        self.textRenderer.setFont(self.font1)
                         self.textRenderer.setText(txt)
                         txt_width = self.getTextRendererWidth() + time_width
-                        res.append(MultiContentEntryText(pos=(offset + txt_width, self.line1yr), size=(self.list2_length_width, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=str.format("({0})", length_text), color=color))
+                        res.append(MultiContentEntryText(pos=(offset + txt_width, self.line1yr), size=(self.list2_length_width + 10, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=str.format("({0})", length_text), color=color))
                         line1_width = txt_width
 
                 service_name = service.getServiceName()
                 text2_right_width = 0
                 if service_name:
-                    self.textRenderer.setFont(self.list2_Font2)
+                    self.textRenderer.setFont(self.font2)
                     self.textRenderer.setText(service_name)
                     text2_right_width = self.getTextRendererWidth() + time_width
                     res.append(MultiContentEntryText(pos=(width - text2_right_width - 5, self.line2y), size=(text2_right_width - time_width, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=service_name, color=color))

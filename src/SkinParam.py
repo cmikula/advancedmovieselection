@@ -32,7 +32,7 @@ class SkinParam():
     def __init__(self, node="MovieList"):
         self.node_name = node
         self.scale = ((1, 1), (1, 1))
-        self.renderer_extend = 3
+        self.renderer_extend = 10
                 
     def loadSkinData(self):
         if skin_node is False:
@@ -98,7 +98,6 @@ class MovieListSkinParam(SkinParam):
         SkinParam.__init__(self, "MovieList")
         self.list3_Font1 = gFont("Regular", 22)
         self.list3_Font2 = gFont("Regular", 20)
-        self.list3_Font3 = gFont("Regular", 18)
         self.list3_ListHeight = 78
         self.list3_Progress = (50, 8, 1, 60)
         self.list3Pos1 = 0
@@ -125,41 +124,32 @@ class MovieListSkinParam(SkinParam):
     def redrawList(self):
         from MovieList import MovieList
         if self.list_type == MovieList.LISTTYPE_ORIGINAL or self.list_type == MovieList.LISTTYPE_EXTENDED:
-            self.l.setFont(0, self.list3_Font1)
-            self.l.setFont(1, self.list3_Font2)
-            self.l.setFont(2, self.list3_Font3)
+            self.font1 = self.list3_Font1
+            self.font2 = self.list3_Font2
             self.l.setItemHeight(self.list3_ListHeight)
             
             self.line1y = self.list3Pos1
             self.line2y = self.list3Pos2
             self.line3y = self.list3Pos3
-            self.line1yr = self.line1y + self.list3_Font1.pointSize - self.list3_Font3.pointSize
-            self.line2yr = self.line2y + self.list3_Font2.pointSize - self.list3_Font3.pointSize
-            self.f0h = self.list3_Font1.pointSize + 7
-            self.f1h = self.list3_Font2.pointSize + 7
-            self.f2h = self.list3_Font3.pointSize + 7
             self.progress = self.list3_Progress
         elif self.list_type == MovieList.LISTTYPE_COMPACT_DESCRIPTION or self.list_type == MovieList.LISTTYPE_COMPACT:
-            self.l.setFont(0, self.list2_Font1)
-            self.l.setFont(1, self.list2_Font2)
+            self.font1 = self.list2_Font1
+            self.font2 = self.list2_Font2
             self.l.setItemHeight(self.list2_ListHeight)
 
             self.line1y = self.list2Pos1
             self.line2y = self.list2Pos2
-            self.line1yr = self.line1y + self.list2_Font1.pointSize - self.list2_Font2.pointSize
-            self.f0h = self.list2_Font1.pointSize + 6
-            self.f1h = self.list2_Font2.pointSize + 6
             self.progress = self.list2_Progress
         else:
-            self.l.setFont(0, self.list1_Font1)
-            self.l.setFont(1, self.list1_Font2)
+            self.font1 = self.list1_Font1
+            self.font2 = self.list1_Font2
             self.l.setItemHeight(self.list1_ListHeight)
             
             self.line1y = self.list1Pos1
-            self.line1yr = self.line1y + self.list1_Font1.pointSize - self.list1_Font2.pointSize
-            self.f0h = self.list1_Font1.pointSize + 6
-            self.f1h = self.list1_Font2.pointSize + 6
             self.progress = self.list1_Progress
+
+        self.l.setFont(0, self.font1)
+        self.l.setFont(1, self.font2)
     
     def parseAttribute(self, attrib, value):
         if attrib == "list3_Font1":
