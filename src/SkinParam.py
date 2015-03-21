@@ -160,7 +160,7 @@ class MovieListSkinParam(SkinParam):
                 self.font_scale = scale / 2
         elif attrib == "list3_Font2":
             self.list3_Font2 = parseFont(value, self.scale)
-        elif attrib == "list3_Font3":
+        elif attrib == "list3_Font3": # TODO: remove
             self.list3_Font3 = parseFont(value, self.scale)
         elif attrib == "list3_ListHeight":
             self.list3_ListHeight = int(value)
