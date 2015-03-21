@@ -379,6 +379,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.list.append(getConfigListEntry(_("Color for recording movies:"), config.AdvancedMovieSelection.color3, _("With this option you can assign what color should displayed for recording movies in movie list.")))
             self.list.append(getConfigListEntry(_("Color for multiple selection:"), config.AdvancedMovieSelection.color4, _("With this option you can assign what color should displayed for multiple selection in movie list.")))
         self.list.append(getConfigListEntry(_("Assign the date format for movielist:"), config.AdvancedMovieSelection.dateformat, _("With this option you can assign the date format in movie list (7 different sizes are available).")))
+        self.list.append(getConfigListEntry(_("Movie length format for movielist:"), config.AdvancedMovieSelection.movie_length_format, _("With this option you can format the length of movies in movie list.")))
         if config.AdvancedMovieSelection.showfoldersinmovielist.value:
             self.list.append(getConfigListEntry(_("Show new recordings icon:"), config.AdvancedMovieSelection.shownew, _("With this option you can display a icon for new recordings.")))
         self.list.append(getConfigListEntry(_("Show Mini TV:"), config.AdvancedMovieSelection.minitv, _("With this option you can switch on/off the Mini TV in the movie list.")))
