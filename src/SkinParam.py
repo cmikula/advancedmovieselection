@@ -109,7 +109,7 @@ class MovieListSkinParam(SkinParam):
         self.list2_ListHeight = 39
         self.list2_Progress = (50, 8, 1, 26)
         self.list2Pos1 = 0
-        self.list2Pos2 = 21
+        self.list2Pos2 = 22
         
         self.list1_Font1 = gFont("Regular", 20)
         self.list1_Font2 = gFont("Regular", 15)
