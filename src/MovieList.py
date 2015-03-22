@@ -158,11 +158,11 @@ class MovieList(MovieListSkinParam, GUIListComponent):
         self.textRenderer.setText(str.format(config.AdvancedMovieSelection.movie_length_format.value, 999, 0))
         self.list2_length_width = self.getTextRendererWidth()
         
-        self.textRenderer.setText("#")
+        self.textRenderer.setText("Äg")
         self.textRenderer.setFont(self.font1)
-        self.f0h = self.textRenderer.calculateSize().height()
+        self.f0h = self.textRenderer.calculateSize().height() + 4
         self.textRenderer.setFont(self.font2)
-        self.f1h = self.textRenderer.calculateSize().height()
+        self.f1h = self.textRenderer.calculateSize().height() + 4
         
         #self.line1yr = self.line1y + self.f0h - self.f1h
         self.line1yr = self.line1y + self.font1.pointSize - self.font2.pointSize
@@ -648,8 +648,8 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 if self.show_progressbar:
                     res.append(MultiContentEntryProgress(pos=(0 + offset, self.progress[3]), size=(self.progress[0], self.progress[1]), percent=perc, borderWidth=self.progress[2], foreColor=color))
                     offset2x = offset + self.progress[0] + (self.progress[1] / 2)
-                res.append(MultiContentEntryText(pos=(offset, self.line1y), size=(line1_width, self.f0h), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
                 res.append(MultiContentEntryText(pos=(offset2x, self.line2y), size=(width - offset2x - text2_right_width, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=line2_text, color=color))            
+                res.append(MultiContentEntryText(pos=(offset, self.line1y), size=(line1_width, self.f0h), font=0, flags=RT_HALIGN_LEFT, text=txt, color=color))
     
             elif self.list_type == MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection:
                 if self.show_date == MovieList.SHOW_DATE:
