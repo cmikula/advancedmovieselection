@@ -42,4 +42,8 @@
 		progressPos="5,2" progressHeight="5" 
 		>
 	</MoveCopyProgress> 
+    <AboutVersionList 
+        font="Regular;20" listHeight="30"
+        >
+	</AboutVersionList>
   </screen>

@@ -25,22 +25,22 @@ from Components.Sources.StaticText import StaticText
 from Components.Pixmap import Pixmap
 from Components.ActionMap import ActionMap
 from Source.AboutParser import AboutParser
-from enigma import RT_HALIGN_LEFT, gFont, eListboxPythonMultiContent
+from enigma import RT_HALIGN_LEFT, eListboxPythonMultiContent
 from Components.ScrollLabel import ScrollLabel
 from GUIListComponent import GUIListComponent
+from SkinParam import AboutSkinParam
 import Version
 
-class VersionList(GUIListComponent):
+class VersionList(AboutSkinParam, GUIListComponent):
     def __init__(self):
         GUIListComponent.__init__(self)
+        AboutSkinParam.__init__(self)
         self.l.setBuildFunc(self.buildMovieSelectionListEntry)
-        self.l.setFont(0, gFont("Regular", 20))                             
-        self.l.setItemHeight(30)
 
     def buildMovieSelectionListEntry(self, version):
         width = self.l.getItemSize().width()
         res = [ None ]        
-        res.append((eListboxPythonMultiContent.TYPE_TEXT, 5, 2, width - 30 , 23, 0, RT_HALIGN_LEFT, "%s" % version.getVersion()))
+        res.append((eListboxPythonMultiContent.TYPE_TEXT, 5, 2, width - 30 , self.fh, 0, RT_HALIGN_LEFT, "%s" % version.getVersion()))
         return res
 
 class AdvancedMovieSelectionAbout(Screen):

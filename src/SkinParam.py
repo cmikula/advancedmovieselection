@@ -353,3 +353,22 @@ class MoveCopyProgressSkinParam(SkinParam):
             self.progressPos = parsePosition(value, self.scale)
         elif attrib == "progressHeight":
             self.progressHeight = int(value)
+
+class AboutSkinParam(SkinParam):
+    def __init__(self):
+        SkinParam.__init__(self, "AboutVersionList")
+        self.font = gFont("Regular", 20)
+        self.listHeight = 30
+        self.loadSkinData()
+    
+    def redrawList(self):
+        self.l.setFont(0, self.font)
+        self.l.setItemHeight(self.listHeight)
+        
+        self.fh = self.font.pointSize + 7
+    
+    def parseAttribute(self, attrib, value):
+        if attrib == "font":
+            self.font = parseFont(value, self.scale)
+        elif attrib == "listHeight":
+            self.listHeight = int(value)
