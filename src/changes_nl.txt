@@ -367,6 +367,7 @@ versie: 3.5
 versie: 3.5.1
 * nieuw: ondersteuning voor serienrekorder plugin cover uitzicht
 
-versie: 3.6
+versie: 4.0
 * nieuw: alle lijsten zijn nu skinbaar
-OPGELET voor de skinners, SelectionListScreen gewijzigd naar SelectSortFunctions (<widget name="list"... change to <widget name="config"...)
+* nieuw: instelbare weergave filmlengte 
+OPGELET voor de skinners, SelectionListScreen gewijzigd naar SelectSortFunctions (<widget name="list"... change to <widget name="config"...) 

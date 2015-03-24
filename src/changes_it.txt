@@ -370,6 +370,7 @@ versione: 3.5
 versione: 3.5.1
 * novità: supporto per serienrekorder vista copertura spina
 
-versione: 3.6
-* novità: alle listen jetzt skinbar
-Skinners ATTENTION, SelectionListScreen changed to SelectSortFunctions (<widget name="list"... change to <widget name="config"...)
+versione: 4.0
+* novità: ascolta ora skinbar
+* novità: formato registrabile per lungometraggio
+Skinners ATTENZIONE: Cambiato SelectionListScreen in SelectSortFunctions (<widget name= "list" ... in <widget name= "config" ... il cambiamento) 

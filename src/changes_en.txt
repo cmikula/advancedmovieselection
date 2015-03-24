@@ -370,6 +370,7 @@ version: 3.5
 version: 3.5.1
 * new: support for serienrekorder plugin cover view
 
-version: 3.6
-* new: all list are skinable
-Skinners ATTENTION, SelectionListScreen changed to SelectSortFunctions (<widget name="list"... change to <widget name="config"...)
+version: 4.0
+* new: lists now skinable
+* new: format for film length adjustable
+Skinners ATTENTION: SelectionListScreen changed to SelectSortFunctions (<widget name="list"... change to <widget name="config"...)
