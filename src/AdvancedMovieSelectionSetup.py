@@ -311,8 +311,6 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append(getConfigListEntry(_("Show directory size in movie list:"), config.AdvancedMovieSelection.show_dirsize, _("Displays the size from directories in movie list.")))
         if config.AdvancedMovieSelection.show_dirsize.value:
             self.list.append(getConfigListEntry(_("Show decimal points:"), config.AdvancedMovieSelection.dirsize_digits, _("Here you can choose how many decimal points for the directory size in the movie list will be displayed.")))
-            # TODO: remove
-            # self.list.append(getConfigListEntry(_("Show full depth of directories:"), config.AdvancedMovieSelection.show_dirsize_full, _("Displays the full size of all sub directories of directory size.")))
         self.list.append(getConfigListEntry(_("Load Length of Movies in Movielist:"), config.usage.load_length_of_movies_in_moviellist, _("This option is for many of the functions from the Advanced Movie Selection necessary. If this option is disabled are many functions not available.")))
         if config.usage.load_length_of_movies_in_moviellist.value:
             self.list.append(getConfigListEntry(_("Show list options in extensions menu from movielist:"), config.AdvancedMovieSelection.showextras, _("Displays the various list view options in the menu at the movie list (Progressbar,View folders...).")))
@@ -626,10 +624,6 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
             csel = (button, ConfigSelection(default=function, choices=self.entryguilist))
             self.qbutton_choicelist.append(csel)
 
-        #self.redchoice = ConfigSelection(default=config.AdvancedMovieSelection.red.value, choices=self.entryguilist)
-        #self.greenchoice = ConfigSelection(default=config.AdvancedMovieSelection.green.value, choices=self.entryguilist)
-        #self.yellowchoice = ConfigSelection(default=config.AdvancedMovieSelection.yellow.value, choices=self.entryguilist)
-        #self.bluechoice = ConfigSelection(default=config.AdvancedMovieSelection.blue.value, choices=self.entryguilist)
         self.buttoncaptionchoice = ConfigSelection(default=config.AdvancedMovieSelection.buttoncaption.value, choices=self.entryguilist3)
 
         default = self.checkOwnButtonText(self.entryguilist2, config.AdvancedMovieSelection.hometext.value, config.AdvancedMovieSelection.homeowntext.value)

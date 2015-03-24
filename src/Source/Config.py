@@ -119,10 +119,6 @@ config.AdvancedMovieSelection.about = ConfigSelection(default="1", choices=[("1"
 config.AdvancedMovieSelection.ml_disable = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.showmenu = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.pluginmenu_list = ConfigYesNo(default=False)
-config.AdvancedMovieSelection.red = ConfigText(default="Delete", visible_width=50, fixed_size=False)
-config.AdvancedMovieSelection.green = ConfigText(default="Nothing", visible_width=50, fixed_size=False)
-config.AdvancedMovieSelection.yellow = ConfigText(default="Nothing", visible_width=50, fixed_size=False)
-config.AdvancedMovieSelection.blue = ConfigText(default="Nothing", visible_width=50, fixed_size=False)
 config.AdvancedMovieSelection.bookmark1text = ConfigText(default="Bookmark 1", visible_width=50, fixed_size=False)
 config.AdvancedMovieSelection.bookmark2text = ConfigText(default="Bookmark 2", visible_width=50, fixed_size=False)
 config.AdvancedMovieSelection.bookmark3text = ConfigText(default="Bookmark 3", visible_width=50, fixed_size=False)
@@ -232,8 +228,6 @@ config.AdvancedMovieSelection.server_port = ConfigInteger(default=20000, limits=
 config.AdvancedMovieSelection.show_remote_setup = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.show_dirsize = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.show_diskusage = ConfigYesNo(default=False)
-# TODO: remove
-# config.AdvancedMovieSelection.show_dirsize_full = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.dirsize_digits = ConfigSelection(default="0", choices=[("0", "0"), ("1", "1"), ("2", "2"), ("3", "3")])
 config.AdvancedMovieSelection.showpercentinmovielist = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.filesize_digits = ConfigSelection(default="1", choices=[("0", "0"), ("1", "1"), ("2", "2"), ("3", "3")])
@@ -289,24 +283,11 @@ class QuickButtons():
             l = eval(config.AdvancedMovieSelection.qButtons.value)
             if isinstance(l, list):
                 self.qlist = l
-        else:
-            self.updateOldVersion()
     
     def save(self):
         config.AdvancedMovieSelection.qButtons.value = str(self.qlist)
         config.AdvancedMovieSelection.qButtons.save()
         
-    def updateOldVersion(self):
-        try:
-            print "update older config version"
-            self.setFunction('red', config.AdvancedMovieSelection.red.value)
-            self.setFunction('green', config.AdvancedMovieSelection.green.value)
-            self.setFunction('yellow', config.AdvancedMovieSelection.yellow.value)
-            self.setFunction('blue', config.AdvancedMovieSelection.blue.value)
-            print self.qlist
-        except:
-            printStackTrace()
-    
 qButtons = QuickButtons()
 
 def initializeConfig():

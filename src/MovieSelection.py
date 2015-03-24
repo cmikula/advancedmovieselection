@@ -707,8 +707,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         MoviePreview.__init__(self, session)
         VideoPreview.__init__(self)
         self.skinName = ["AdvancedMovieSelection"]
-        #if config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.minitv.value:
-        #    self.skinName.insert(0, "AdvancedMovieSelection") # TODO: may delete this
         if not config.AdvancedMovieSelection.showpreview.value and config.AdvancedMovieSelection.minitv.value:
             self.skinName.insert(0, "AdvancedMovieSelection1")
         if config.AdvancedMovieSelection.showpreview.value and not config.AdvancedMovieSelection.minitv.value:
@@ -771,7 +769,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self["MovieService"] = ServiceEvent()
         self["MovieSize"] = ServiceEvent()
         self["Movietitle"] = StaticText()
-        # TODO: ???self["Movielocation"] = StaticText()
         self["freeDiskSpace"] = self.diskinfo = DiskInfo(config.movielist.last_videodir.value, DiskInfo.FREE, update=False)
         self["InfobarActions"] = HelpableActionMap(self, "InfobarActions",
             {
@@ -923,8 +920,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self.list.updateCurrentSelection()
 
     def updateName(self, serviceref, event):
-        # TODO: ???location = (_("Movie location: %s") % config.movielist.last_videodir.value)
-        # TODO: ???self["Movielocation"].setText(location)
         if event:
             moviename = event.getEventName()
             self["Movietitle"].setText(moviename)

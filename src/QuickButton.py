@@ -199,14 +199,13 @@ class QuickButton:
 
     def getNextSortType(self):
         sort = config.AdvancedMovieSelection.sort_functions.value.split()
-        # TODO: remove printout after beta tests
         if len(sort) < 1:
-            print "default sort list"
+            #print "default sort list"
             sort = [MovieList.SORT_ALPHANUMERIC, MovieList.SORT_DESCRIPTION, MovieList.SORT_DATE_DESC, MovieList.SORT_DATE_ASC]
-        print "sorting:", sort
-        print "current:", str(config.movielist.moviesort.value)
+        #print "sorting:", sort
+        #print "current:", str(config.movielist.moviesort.value)
         newType = int(self.getNextFromList(sort, config.movielist.moviesort.value))
-        print "next:", str(newType)
+        #print "next:", str(newType)
         return newType
 
     def findButton(self, function):
