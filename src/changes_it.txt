@@ -362,15 +362,15 @@ versione: 3.3.1
 * novità: colori della skin selezionabili
 
 versione: 3.4
-* novità: start tmdb & tvdb from channel selection
+* novità: avvia tmdb & tvdb dalla selezione canali
 
 versione: 3.5
-* novità: switch color buttons funktions with bouquet buttons
+* novità: scambia i pulsanti colore con i pulsanti bouquet
 
 versione: 3.5.1
-* novità: supporto per serienrekorder vista copertura spina
+* novità: porto per visualizzare le cover delle registrazioni seriali
 
 versione: 4.0
-* novità: ascolta ora skinbar
-* novità: formato registrabile per lungometraggio
-Skinners ATTENZIONE: Cambiato SelectionListScreen in SelectSortFunctions (<widget name= "list" ... in <widget name= "config" ... il cambiamento) 
+* novità: tutte le liste sono adattabili alla skin
+* novità: formato regolabile per la durata del film
+Skinners ATTENZIONE: Cambiato SelectionListScreen in SelectSortFunctions (<widget name= "list" ... cambiato in <widget name= "config" ...) 
