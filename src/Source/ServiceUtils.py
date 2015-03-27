@@ -26,7 +26,6 @@ must pass on to the recipients the same freedoms that you received. You must mak
 that they, too, receive or can get the source code. And you must show them these terms so they know their rights.
 '''
 import os, glob, time, operator
-import threading
 
 def realSize(bytes, digits=1, factor=1024):
     size = float(bytes)
@@ -159,12 +158,10 @@ class Job():
         self.current_index = 0
         self.count = 0
         self.total = 0
-        self.lock = threading.Lock()
         self.start_time = 0
         self.end_time = 0
         self.file_copied = 0
         self.do_move = False
-        self.setCurrentFile(None, None)
         self.current_name = ""
         self.current_dst_path = ""
         self.current_src_path = ""
@@ -222,7 +219,6 @@ class Job():
                     dst = old = new + si.CP_EXT
                 elif os.path.exists(dst):
                     raise Exception("File already exists: %s" % (os.path.basename(dst)))
-                self.setCurrentFile(src[0], dst)
                 # do copy/move
                 if do_move:
                     print "move: \"%s\" -> \"%s\"" % (src[0], dst)
@@ -240,9 +236,8 @@ class Job():
                 #l = os.popen(cmd) 
                 #print l.readlines()
                 #l.close()
-    
-                self.setCurrentFile(None, None)
                 
+                self.file_copied = 0
                 self.copied += src[1]
         finally:
             if os.path.exists(old):
@@ -277,29 +272,12 @@ class Job():
     def isCancelled(self):
         return self.abort
 
-    def setCurrentFile(self, src_file, dst_file):
-        self.lock.acquire()
-        self.src_file = src_file
-        self.dst_file = dst_file
-        self.lock.release()
-
-    def getSizeCopied(self):
-        return self.file_copied
+    def getProgress(self):
+        return self.getSizeCopied() * 100 / self.getSizeTotal()
     
-    # TODO: obsolete
-    def __getSizeCopied(self):
-        self.lock.acquire()
-        copied = self.copied
-        try:
-            if self.dst_file and os.path.exists(self.dst_file):
-                if os.path.isfile(self.dst_file):
-                    copied = self.copied + os.path.getsize(self.dst_file)
-                else:
-                    copied = self.copied + getFolderSize(self.dst_file)
-        finally:
-            self.lock.release()
-        return copied
-
+    def getSizeCopied(self):
+        return self.copied + self.file_copied
+    
     def getFileInfo(self):
         return self.src_file, self.dst_file
 
@@ -351,7 +329,7 @@ class Job():
         return self.do_move
     
     def __repr__(self):
-        return "<MoveCopyJob: %d/%d>"%(self.file_index, self.count)
+        return "<MoveCopyJob: %d%% %d/%d>"%(self.getProgress(), self.file_index, self.count)
 
 class ServiceUtil():
     def __init__(self):
