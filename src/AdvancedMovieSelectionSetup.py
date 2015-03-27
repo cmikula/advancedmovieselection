@@ -331,7 +331,6 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.list.append(getConfigListEntry(_("Show delete images in extensions menu from movielist:"), config.AdvancedMovieSelection.show_cover_del, _("Displays delete images function in the menu at the movie list.")))
             self.list.append(getConfigListEntry(_("Show delete movie info in extensions menu from movielist:"), config.AdvancedMovieSelection.show_info_del, _("Displays delete movie info function in the menu at the movie list.")))
             self.list.append(getConfigListEntry(_("Show Provider Logo:"), config.AdvancedMovieSelection.show_picon, _("Displays the Provider Logo when no Cover available.")))
-            self.list.append(getConfigListEntry(_("Show update genre in extensions menu from movielist:"), config.AdvancedMovieSelection.show_update_genre, _("Displays Update all genre in meta from eit options in the menu at the movie list.")))     
         if config.AdvancedMovieSelection.show_picon.value:
             self.list.append(getConfigListEntry(_("Show Provider Logo in original size:"), config.AdvancedMovieSelection.piconsize, _("Displays the Provider Logo in original size. Otherwise, the provider logo be displayed zoomed up to cover size.")))    
             self.list.append(getConfigListEntry(_("Provider Logo path:"), config.AdvancedMovieSelection.piconpath, _("Where to look for the provider logos? (Default is /usr/share/enigma2/picon)"))) 

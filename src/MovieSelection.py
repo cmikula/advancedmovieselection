@@ -276,8 +276,6 @@ class MovieContextMenu(Screen):
             menu.append((_("Download and save movie info/cover for all movies"), boundFunction(self.downloadMovieInfoAll)))
         if config.AdvancedMovieSelection.showcoveroptions.value and not self.service.flags & eServiceReference.mustDescent:
             menu.append((_("Download and save movie info/cover"), self.downloadMovieInfo))              
-        if config.AdvancedMovieSelection.show_update_genre.value:
-            menu.append((_("Update all genre in meta from eit"), boundFunction(self.updateMetaFromEit)))
         if config.AdvancedMovieSelection.show_cover_del.value:
             menu.append((_("Delete movie images"), boundFunction(self.deleteCover)))
         if config.AdvancedMovieSelection.show_info_del.value:
