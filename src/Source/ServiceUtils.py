@@ -25,7 +25,7 @@ For example, if you distribute copies of such a program, whether gratis or for a
 must pass on to the recipients the same freedoms that you received. You must make sure 
 that they, too, receive or can get the source code. And you must show them these terms so they know their rights.
 '''
-import os, glob, shutil, time, operator
+import os, glob, time, operator
 import threading
 
 def realSize(bytes, digits=1, factor=1024):
@@ -162,6 +162,7 @@ class Job():
         self.lock = threading.Lock()
         self.start_time = 0
         self.end_time = 0
+        self.file_copied = 0
         self.do_move = False
         self.setCurrentFile(None, None)
         self.current_name = ""
@@ -189,7 +190,7 @@ class Job():
                 self.current_dst_path = si.getDestinationPath()
                 self.current_index += 1
                 si.setStatus(ServiceFileInfo.STAT_STARTED)
-                self.copy(si, do_move)
+                self.__copy(si, do_move)
                 si.setStatus(ServiceFileInfo.STAT_FINISHED)
         except Exception, e:
             self.error = e
@@ -203,7 +204,9 @@ class Job():
             if self.cb:
                 self.cb(self)
 
-    def copy(self, si, do_move=False):
+    def __copy(self, si, do_move=False):
+        import nshutil
+        nshutil.copyfileobj = self.__copyfileobj
         if len(si.file_list) == 0:
             return
         if not os.path.exists(si.getDestinationPath()):
@@ -223,20 +226,20 @@ class Job():
                 # do copy/move
                 if do_move:
                     print "move: \"%s\" -> \"%s\"" % (src[0], dst)
-                    cmd = "mv \"%s\" \"%s\"" % (src[0], dst)
-                    #shutil.move(src[0], dst)
+                    #cmd = "mv \"%s\" \"%s\"" % (src[0], dst)
+                    nshutil.move(src[0], dst)
                 else:
                     print "copy: \"%s\" -> \"%s\"" % (src[0], dst)
                     if os.path.isfile(src[0]):
-                        cmd = "cp -p \"%s\" \"%s\"" % (src[0], dst)
-                        # shutil.copy2(src[0], dst)
+                        #cmd = "cp -p \"%s\" \"%s\"" % (src[0], dst)
+                        nshutil.copy2(src[0], dst)
                     else:
-                        cmd = "cp -p -r \"%s\" \"%s\"" % (src[0], dst)
-                        # shutil.copytree(src[0], dst)
-                print cmd
-                l = os.popen(cmd) 
-                print l.readlines()
-                l.close()
+                        #cmd = "cp -p -r \"%s\" \"%s\"" % (src[0], dst)
+                        nshutil.copytree(src[0], dst)
+                #print cmd
+                #l = os.popen(cmd) 
+                #print l.readlines()
+                #l.close()
     
                 self.setCurrentFile(None, None)
                 
@@ -246,6 +249,16 @@ class Job():
                 # rename movie to original file
                 print "rename: \"%s\" -> \"%s\"" % (old, new)
                 os.rename(old, new)
+
+    def __copyfileobj(self, fsrc, fdst, length=16*1024):
+        """copy data from file-like object fsrc to file-like object fdst"""
+        while 1:
+            buf = fsrc.read(length)
+            if not buf:
+                break
+            fdst.write(buf)
+            self.file_copied += len(buf)
+            time.sleep(0.0001)
 
     def prepare(self):
         available = []
@@ -271,6 +284,10 @@ class Job():
         self.lock.release()
 
     def getSizeCopied(self):
+        return self.file_copied
+    
+    # TODO: obsolete
+    def __getSizeCopied(self):
         self.lock.acquire()
         copied = self.copied
         try:
