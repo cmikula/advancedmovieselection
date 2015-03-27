@@ -390,6 +390,14 @@ class ServiceUtil():
                 for si in job.list:
                     if si.service.getPath() == serviceref.getPath():
                         return True
+    
+    def isAnyAktive(self):
+        for job in self.proc:
+            if not job.isStarted():
+                return True
+            if job.isStarted() and not job.isFinished():
+                return True
+        return False
 
 class eServiceReference():
     def __init__(self, path):

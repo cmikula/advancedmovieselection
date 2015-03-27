@@ -69,7 +69,10 @@ class MoveCopyNotifier():
         
     def start(self, session):
         self.session = session
-        self.timer.start(10000, False)
+        self.timer.start(2000, False)
+
+    def stop(self):
+        self.timer.stop()
 
 moveCopyNotifier = MoveCopyNotifier()
 
@@ -380,11 +383,14 @@ class MovieMove(ChoiceBox):
         elif action == "move":
             serviceUtil.move()
         if config.AdvancedMovieSelection.show_move_copy_progress.value:
-            moveCopyNotifier.start(self.session)
             self.session.openWithCallback(self.__doClose, MoveCopyProgress)
         else:
             self.__doClose()
 
     def __doClose(self, dummy=None):
+        if config.AdvancedMovieSelection.show_move_copy_progress.value and serviceUtil.isAnyAktive():
+            moveCopyNotifier.start(self.session)
+        else:
+            moveCopyNotifier.stop()
         self.csel.reloadList()
         self.close()
