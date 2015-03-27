@@ -102,19 +102,6 @@
 		<widget name="status" position="0,0" size="560,445" zPosition="2" font="Regular;20" transparent="1" valign="center" halign="center" />
 		<widget name="thetvdb_logo" position="192,391" zPosition="4" size="175,54" transparent="1" alphatest="on" />
 	</screen>
-	<screen name="AdvancedMovieSelection_ClientSetup" position="center,center" size="550,400" title=" ">
-		<ePixmap pixmap="skin_default/buttons/red.png" position="0,0" size="140,40" alphatest="on" />
-		<widget name="green_button" pixmap="skin_default/buttons/green.png" position="140,0" size="140,40" alphatest="on" />
-		<widget name="yellow_button" pixmap="skin_default/buttons/yellow.png" position="280,0" size="140,40" alphatest="on" />
-		<widget name="key_red" position="0,0" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" />
-		<widget source="key_green" render="Label" position="140,0" zPosition="1" size="140,40" font="Regular;18" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" />
-		<widget source="key_yellow" render="Label" position="280,0" zPosition="1" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#a08500" transparent="1" />
-		<widget source="status" render="Label" position="0,40" size="550,20" font="Regular;18" valign="top" halign="center" transparent="1" />
-		<widget name="config" position="0,60" size="550,75" scrollbarMode="showOnDemand" enableWrapAround="1" transparent="1" />
-		<widget source="clienttxt" render="Label" position="0,135" size="550,20" font="Regular;18" valign="top" halign="center" transparent="1" />
-		<widget name="list" position="0,155" size="550,200" scrollbarMode="showOnDemand" zPosition="2" enableWrapAround="1" transparent="1" selectionDisabled="1" backgroundPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sepmovie.png" />
-		<widget source="help" render="Label" position="0,360" size="550,40" font="Regular;18" valign="top" halign="center" transparent="1" />
-	</screen>
 	<screen name="AdvancedMovieSelection_Rename" position="center,center" size="560,400" title=" ">
 		<ePixmap pixmap="skin_default/buttons/red.png" zPosition="1" position="0,0" size="140,40" alphatest="on" />
 		<ePixmap pixmap="skin_default/buttons/green.png" zPosition="1" position="150,0" size="140,40" alphatest="on" />

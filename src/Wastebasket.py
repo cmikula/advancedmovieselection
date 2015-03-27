@@ -42,14 +42,11 @@ from Tools.Directories import fileExists
 from Components.DiskInfo import DiskInfo
 from Components.UsageConfig import defaultMoviePath
 from GUIListComponent import GUIListComponent
-from enigma import gFont, RT_HALIGN_LEFT, RT_HALIGN_RIGHT
+from enigma import RT_HALIGN_LEFT, RT_HALIGN_RIGHT
 from Components.MultiContent import MultiContentEntryText
 from datetime import datetime
 from Tools.Directories import getSize as getServiceSize
 from time import time, strftime, localtime
-from Source.Remote.MessageServer import getIpAddress
-from Source.Remote.Client import getClients
-from ClientSetup import ClientSetup
 from Components.Pixmap import Pixmap
 from Source.ServiceUtils import realSize
 from SkinParam import WastebasketSkinParam
@@ -164,15 +161,10 @@ class Wastebasket(Screen, HelpableScreen):
         self["autoemptynext"] = Label()
         self["list"] = TrashMovieList(None)
         self.list = self["list"]
-        self.staticIP = getIpAddress('eth0')
         self["OkCancelActions"] = HelpableActionMap(self, "OkCancelActions",
             {
                 "cancel": (self.abort, _("Exit wastebasket"))
             })
-        self["MenuActions"] = HelpableActionMap(self, "MenuActions",
-            {
-                "menu": (self.clientSetup, _("Clientbox setup"))
-            })        
         self.inited = False
         self.onShown.append(self.setWindowTitle)
 
@@ -195,22 +187,7 @@ class Wastebasket(Screen, HelpableScreen):
             nextUpdateCheck_time = strftime(("%02d.%02d.%04d" % (t[2], t[1], t[0])) + ' ' + _("at") + ' ' + ("%02d:%02d" % (t[3], t[4])) + ' ' + _("Clock"))
             self["autoemptynext"].setText(_("Next automated wastebasket empty at %s") % nextUpdateCheck_time)
         else:
-            if self.staticIP:
-                for client in getClients():
-                    if client is not None:
-                        lastEmptyEvent = client.lastTrashEvent()
-                        if lastEmptyEvent != -1:
-                            t = localtime(lastEmptyEvent)
-                            self["autoemptylast"].setText(_("Last remote wastebasket empty at %s") % (strftime(("%02d.%02d.%04d" % (t[2], t[1], t[0])) + ' ' + _("at") + ' ' + ("%02d:%02d" % (t[3], t[4])) + ' ' + _("Clock"))))
-                        nextEmptyEvent = client.nextTrashEvent()
-                        if nextEmptyEvent != -1:
-                            t = localtime(nextEmptyEvent)
-                            self["autoemptynext"].setText(_("Next remote wastebasket empty at %s") % (strftime(("%02d.%02d.%04d" % (t[2], t[1], t[0])) + ' ' + _("at") + ' ' + ("%02d:%02d" % (t[3], t[4])) + ' ' + _("Clock"))))
-                    else:
-                        self["autoemptylast"].setText(_("No last empty status available!"))
-                        self["autoemptynext"].setText(_("No next empty status available!"))
-            else:
-                self["autoemptylast"].setText(_("Auto empty wastebasket is disabled"))
+            self["autoemptylast"].setText(_("Auto empty wastebasket is disabled"))
 
     def updateHDDData(self):
         self.reloadList(self.current_ref)
@@ -246,9 +223,6 @@ class Wastebasket(Screen, HelpableScreen):
             self["wastetxt"].setText(_("Wastebasket is empty!"))
         else:
             self["wastetxt"].setText(wastebasket_info)
-
-    def clientSetup(self):
-        self.session.open(ClientSetup)
 
     def getCurrent(self):
         return self["list"].getCurrent()
@@ -421,19 +395,11 @@ class WastebasketTimer():
         self.startTimer()
         
     def autoDeleteAllMovies(self):
-        from Source.Remote.Client import isAnyRecording
-        remote_recordings = isAnyRecording()
-        
         retryvalue = "%s minutes" % int(config.AdvancedMovieSelection.next_empty_check.value)
 
         if self.recTimer.isActive():
             self.recTimer.stop()
 
-        if remote_recordings:
-            print "[AdvancedMovieSelection] Start automated deleting all movies but remote recordings activ, retry at", retryvalue
-            self.recTimer.start(config.AdvancedMovieSelection.next_empty_check.value * 60000)
-            return
-        
         if not Screens.Standby.inStandby:
             print "[AdvancedMovieSelection] Start automated deleting all movies but box not in standby, retry in", retryvalue
             self.recTimer.start(config.AdvancedMovieSelection.next_empty_check.value * 60000)

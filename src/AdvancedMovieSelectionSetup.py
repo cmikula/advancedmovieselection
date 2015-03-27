@@ -39,7 +39,6 @@ from MessageBoxEx import MessageBox as MessageBoxEx
 from Components.Sources.List import List
 from Components.ActionMap import ActionMap
 from enigma import getDesktop, quitMainloop
-from ClientSetup import ClientSetup
 from Source.Globals import pluginPresent
 from Source.Config import qButtons
 
@@ -137,7 +136,6 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             "yellow": self.buttonsetup,
             "blue": self.RecPathSettings,
             "info": self.about,
-            "menu": self.clientsetup,
             "nextBouquet": self.nextBouquet,
             "prevBouquet": self.prevBouquet,
         }, -2)
@@ -167,10 +165,6 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self["MenuIcon"].show()
         else:
             self["MenuIcon"].hide()
-
-    def clientsetup(self):
-        if config.AdvancedMovieSelection.use_wastebasket.value:
-            self.session.open(ClientSetup)
 
     def updateSettings(self):
         if self.csel:
@@ -394,10 +388,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append(getConfigListEntry(_("Use wastebasket:"), config.AdvancedMovieSelection.use_wastebasket, _("If this option is activated the movie will not be deleted but moved into the wastebasket.")))
         if config.AdvancedMovieSelection.use_wastebasket.value:
             self.list.append(getConfigListEntry(_("Show Wastebasket in extensions menu from movielist:"), config.AdvancedMovieSelection.show_wastebasket, _("Displays wastebasket function in the menu at the movie list.")))
-            self.list.append(getConfigListEntry(_("Show Clientbox setup in movielist:"), config.AdvancedMovieSelection.show_remote_setup, _("Displays Clientbox setup function in the menu at the movie list.")))
             self.list.append(getConfigListEntry(_("Wastebasket file(s):"), config.AdvancedMovieSelection.wastelist_buildtype, _("Here you can select which files to Wastebasket are displayed. ATTENTION: All directorys below '/media' will take very long until the list is displayed!")))
             self.list.append(getConfigListEntry(_("Show decimal points:"), config.AdvancedMovieSelection.filesize_digits, _("Here you can choose how many decimal points for the file size in the wastebasket will be displayed.")))
-            self.list.append(getConfigListEntry(_("Server enabled:"), config.AdvancedMovieSelection.server_enabled, _("If you enable this feature, all remote functions are enabled.")))
             self.list.append(getConfigListEntry(_("Auto empty wastebasket:"), config.AdvancedMovieSelection.auto_empty_wastebasket, _("If you enable this function the wastebasket will be emptied automatically at the set time.")))
             if not int(config.AdvancedMovieSelection.auto_empty_wastebasket.value) == -1:
                 self.list.append(getConfigListEntry(_("Auto empty wastebasket time:"), config.AdvancedMovieSelection.empty_wastebasket_time, _("Here you can define when to empty the wastebasket.")))
@@ -466,8 +458,6 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
     def keySave(self):
         from Wastebasket import configChange
         configChange()
-        if not config.AdvancedMovieSelection.use_wastebasket.value:
-            config.AdvancedMovieSelection.server_enabled.setValue(False)
         if config.AdvancedMovieSelection.ml_disable.isChanged():
             self.needsRestartFlag = True
         if config.AdvancedMovieSelection.movie_launch.isChanged():
@@ -481,16 +471,6 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             config.AdvancedMovieSelection.showpercentinmovielist.value = False
         if config.AdvancedMovieSelection.use_original_movieplayer_summary.isChanged():
             self.needsE2restartFlag = True
-        if config.AdvancedMovieSelection.server_enabled.isChanged():
-            from Source.Remote.MessageServer import serverInstance
-            if config.AdvancedMovieSelection.server_enabled.value:
-                serverInstance.setPort(config.AdvancedMovieSelection.server_port.value)
-                serverInstance.start()
-                serverInstance.setSearchRange(config.AdvancedMovieSelection.start_search_ip.value, config.AdvancedMovieSelection.stop_search_ip.value)
-                serverInstance.startScanForClients()
-            else:
-                serverInstance.shutdown()
-                serverInstance.active_clients = []
         
         from Source.EpgListExtension import epgListExtension
         epgListExtension.setEnabled(config.AdvancedMovieSelection.epg_extension.value)

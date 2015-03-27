@@ -55,7 +55,6 @@ import NavigationInstance
 from timer import TimerEntry
 from Source.Trashcan import Trashcan, AsynchTrash
 from RecordTimer import AFTEREVENT
-from ClientSetup import ClientSetup
 from time import localtime, strftime
 from datetime import datetime
 from Tools.FuzzyDate import FuzzyTime
@@ -293,8 +292,6 @@ class MovieContextMenu(Screen):
             menu.append((_("Setup Moviebar position"), self.moviebarsetup))
         if pluginPresent.YTTrailer == True and config.AdvancedMovieSelection.showtrailer.value and not (self.service.flags & eServiceReference.mustDescent): 
             menu.append((_("Search Trailer on web"), boundFunction(self.showTrailer)))
-        if config.AdvancedMovieSelection.show_remote_setup.value:
-            menu.append((_("Clientbox setup"), boundFunction(self.serversetup)))
         if config.AdvancedMovieSelection.show_backup_restore.value:
             menu.append((_("Backup/Restore"), boundFunction(self.openBackupRestore)))
         if config.AdvancedMovieSelection.show_location_indexing.value:
@@ -338,9 +335,6 @@ class MovieContextMenu(Screen):
             self.close()        
         else:
             self.session.open(MessageBox, _("Error occurred during unmounting device!"), MessageBox.TYPE_ERROR)
-
-    def serversetup(self):
-        self.session.open(ClientSetup)
 
     def waste(self):
         from Wastebasket import Wastebasket

@@ -42,12 +42,6 @@ def sessionstart(reason, **kwargs):
                 elif value == "timeshiftStart": InfoBar.startTimeshift = showMovies
                 from Wastebasket import createWasteTimer
                 createWasteTimer(session)
-                from Source.Remote.MessageServer import serverInstance
-                if config.AdvancedMovieSelection.server_enabled.value:
-                    serverInstance.setPort(config.AdvancedMovieSelection.server_port.value)
-                    serverInstance.start()
-                    serverInstance.setSearchRange(config.AdvancedMovieSelection.start_search_ip.value, config.AdvancedMovieSelection.stop_search_ip.value)
-                    serverInstance.startScanForClients()
                 
                 from Source.EpgListExtension import epgListExtension
                 epgListExtension.setEnabled(config.AdvancedMovieSelection.epg_extension.value)

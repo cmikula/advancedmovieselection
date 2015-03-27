@@ -31,12 +31,10 @@ from Source.ServiceProvider import ServiceCenter, eServiceReferenceBludisc
 from Source.CueSheetSupport import DVDCutListSupport, CutListSupport
 from Screens.MessageBox import MessageBox
 from Screens.InfoBar import MoviePlayer
-from Tools.Directories import resolveFilename, SCOPE_CURRENT_SKIN, fileExists
+from Tools.Directories import fileExists
 from enigma import ePoint, eTimer, iPlayableService
 from Tools import Notifications
 from Components.Sources.ServiceEvent import ServiceEvent
-#from ServiceProvider import ServiceEvent
-from Components.Sources.StaticText import StaticText
 from MoviePreview import MoviePreview
 from Components.Label import Label
 from Components.Pixmap import Pixmap
