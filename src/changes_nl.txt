@@ -371,3 +371,6 @@ versie: 4.0
 * nieuw: alle lijsten zijn nu skinbaar
 * nieuw: instelbare weergave filmlengte 
 OPGELET voor de skinners, SelectionListScreen gewijzigd naar SelectSortFunctions (<widget name="list"... change to <widget name="config"...) 
+
+versie: 4.0.1
+* new: skin_user.xml

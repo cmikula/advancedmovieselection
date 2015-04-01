@@ -374,3 +374,6 @@ versione: 4.0
 * novità: tutte le liste sono adattabili alla skin
 * novità: formato regolabile per la durata del film
 Skinners ATTENZIONE: Cambiato SelectionListScreen in SelectSortFunctions (<widget name= "list" ... cambiato in <widget name= "config" ...) 
+
+versione: 4.0.1
+* new: skin_user.xml

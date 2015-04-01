@@ -375,4 +375,6 @@ version: 4.0
 * neu: Listen jetzt skinbar
 * neu: Format für Filmlänge einstellbar
 ACHTUNG an die Skinner: SelectionListScreen geändert in SelectSortFunctions (<widget name="list"... in <widget name="config"... ändern)
- 
+
+version: 4.0.1
+* neu: skin_user.xml
