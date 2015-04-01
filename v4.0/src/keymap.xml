@@ -1,0 +1,17 @@
+<keymap>
+	<map context="ColorActionsLong">
+		<key id="KEY_RED" mapto="red" flags="b" />
+		<key id="KEY_GREEN" mapto="green" flags="b" />
+		<key id="KEY_YELLOW" mapto="yellow" flags="b" />
+		<key id="KEY_BLUE" mapto="blue" flags="b" />
+		<key id="KEY_RED" mapto="red_long" flags="l" />
+		<key id="KEY_GREEN" mapto="green_long" flags="l" />
+		<key id="KEY_YELLOW" mapto="yellow_long" flags="l" />
+		<key id="KEY_BLUE" mapto="blue_long" flags="l" />
+	</map>
+	<map context="AMSMenuActions">
+		<key id="KEY_MENU" mapto="menu" flags="b" />
+		<key id="KEY_MENU" mapto="menu_long" flags="l" />
+		<key id="KEY_INFO" mapto="showEventInfo" flags="m" />
+	</map>
+</keymap>

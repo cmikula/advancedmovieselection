@@ -1,0 +1,1 @@
+from Source.LocaleInit import _
