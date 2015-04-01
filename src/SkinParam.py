@@ -6,10 +6,9 @@ Created on 15.12.2014
 
 from enigma import gFont, ePoint, eSize
 from skin import parseFont, parseSize, parsePosition
-from Tools.Directories import resolveFilename, SCOPE_SKIN
-import xml.etree.cElementTree
-from os import path
+from Tools.Directories import resolveFilename, fileExists, SCOPE_SKIN, SCOPE_CONFIG
 from Components.config import config
+import os, xml.etree.cElementTree
 
 class SkinLoader():
     def __init__(self):
@@ -17,16 +16,19 @@ class SkinLoader():
     
     def load(self):
         self.dom_skins = []
+        self.loadSkin('skin_user.xml', SCOPE_CONFIG)
         self.loadSkin(config.skin.primary_skin.value)
 
     def loadSkin(self, name, scope=SCOPE_SKIN):
         # read the skin
         filename = resolveFilename(scope, name)
-        mpath = path.dirname(filename) + "/"
-        self.dom_skins.append((mpath, xml.etree.cElementTree.parse(filename).getroot()))
+        if fileExists(filename):
+            mpath = os.path.dirname(filename) + "/"
+            self.dom_skins.append((mpath, xml.etree.cElementTree.parse(filename).getroot()))
+            return True
+        return False
 
 skin_node = None
-skin_fonts = {}
 
 class SkinParam():
     def __init__(self, node="MovieList"):
@@ -65,19 +67,6 @@ class SkinParam():
                 continue
             global skin_node
             skin_node = node
-        skin_fonts.clear()
-        for c in skin.findall("fonts"):
-            for font in c.findall("font"):
-                get_attr = font.attrib.get
-                name = get_attr("name", "Regular")
-                scale = get_attr("scale")
-                print name, str(scale)
-                if scale:
-                    scale = int(scale)
-                else:
-                    scale = 100
-                skin_fonts[name] = int(scale)
-
         
     def parseNode(self, node):
         print "[AdvancedMovieSelection] parse node", self.node_name
@@ -117,8 +106,6 @@ class MovieListSkinParam(SkinParam):
         self.list1_Progress = (50, 8, 1, 8)
         self.list1Pos1 = 0
         
-        self.font_scale = 100
-        
         self.loadSkinData()
     
     def redrawList(self):
@@ -154,10 +141,6 @@ class MovieListSkinParam(SkinParam):
     def parseAttribute(self, attrib, value):
         if attrib == "list3_Font1":
             self.list3_Font1 = parseFont(value, self.scale)
-            name = value.split(';')[0]
-            scale = skin_fonts[name]
-            if scale:
-                self.font_scale = scale / 2
         elif attrib == "list3_Font2":
             self.list3_Font2 = parseFont(value, self.scale)
         elif attrib == "list3_ListHeight":
