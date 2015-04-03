@@ -27,7 +27,7 @@ from Components.MultiContent import MultiContentEntryText, MultiContentEntryProg
 from Components.config import config
 from enigma import eListboxPythonMultiContent, iServiceInformation, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, eServiceReference
 from Tools.LoadPixmap import LoadPixmap
-from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
+from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN, SCOPE_CURRENT_SKIN, fileExists
 import os
 from skin import parseColor
 import NavigationInstance
@@ -59,19 +59,32 @@ from enigma import eLabel, eSize
 IMAGE_PATH = "Extensions/AdvancedMovieSelection/images/"
 
 MEDIAEXTENSIONS = {
-        "ts": "movie",
-        "avi": "movie",
-        "divx": "movie",
-        "mpg": "movie",
-        "mpeg": "movie",
-        "mkv": "movie",
-        "mp4": "movie",
-        "m4v": "movie",
-        "flv": "movie",
-        "m2ts": "movie",
-        "mov": "movie",
-        "trash": "movie",
-        "mp3": "audio"
+        "m2ts": ('movie', 'm2ts'),
+        "m4a": ('music', 'm4a'),
+        "mp2": ('music', 'mp2'),
+        "mp3": ('music', 'mp3'),
+        "wav": ('music', 'wav'),
+        "ogg": ('music', 'ogg'),
+        "wma": ('music', 'wma'),
+        "flac": ('music', 'flac'),
+        "jpg": ('picture', 'jpg'),
+        "jpeg": ('picture', 'jpg'),
+        "png": ('picture', 'png'),
+        "bmp": ('picture', 'png'),
+        "ts": ('movie', 'ts'),
+        "avi": ('movie', 'avi'),
+        "divx": ('movie', 'avi'),
+        "mpg": ('movie', 'mpg'),
+        "mpeg": ('movie', 'mpg'),
+        "mkv": ('movie', 'mkv'),
+        "mp4": ('movie', 'mp4'),
+        "mov": ('movie', 'mov'),
+        "wmv": ('movie', 'wmv'),
+        "flv": ('movie', 'flv'),
+        "m4v": ('movie', 'm4v'),
+        "dat": ('movie', 'dat'),
+        "iso": ('movie', 'iso'),
+        "img": ('movie', 'iso')
     }
 
 class MovieList(MovieListSkinParam, GUIListComponent):
@@ -101,8 +114,8 @@ class MovieList(MovieListSkinParam, GUIListComponent):
     SHOW_TAGS = 2
     
     COLOR_MOVIE_ICON = None
-    COLOR_PERCENT_1 = None
-    COLOR_PERCENT_2 = None
+    MOVIEICON_PERCENT_1 = None
+    MOVIEICON_PERCENT_2 = None
     DATE_TIME_FORMAT = ""
 
     def __init__(self, root, list_type=None, sort_type=None, descr_state=None, show_folders=False, show_progressbar=False, show_percent=False, show_statusicon=False, show_statuscolor=False, show_date=True, show_time=True, show_service=True, show_tags=False):
@@ -189,37 +202,37 @@ class MovieList(MovieListSkinParam, GUIListComponent):
         self.COLOR_MOVIE_ICON = None
         if self.show_statusicon and self.show_folders:
             if config.AdvancedMovieSelection.color3.value == color_choice[0][0]:
-                self.COLOR_MOVIE_ICON = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "yellow_movieicon.png"))
+                self.COLOR_MOVIE_ICON = self.loadIcon("yellow_movieicon.png", False)
             elif config.AdvancedMovieSelection.color3.value == color_choice[7][0]:
-                self.COLOR_MOVIE_ICON = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "blue_movieicon.png"))
+                self.COLOR_MOVIE_ICON = self.loadIcon("blue_movieicon.png", False)
             elif config.AdvancedMovieSelection.color3.value == color_choice[2][0]:
-                self.COLOR_MOVIE_ICON = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "red_movieicon.png"))
+                self.COLOR_MOVIE_ICON = self.loadIcon("red_movieicon.png", False)
             elif config.AdvancedMovieSelection.color3.value == color_choice[5][0]:
-                self.COLOR_MOVIE_ICON = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "black_movieicon.png"))
+                self.COLOR_MOVIE_ICON = self.loadIcon("black_movieicon.png", False)
             elif config.AdvancedMovieSelection.color3.value == color_choice[1][0]:
-                self.COLOR_MOVIE_ICON = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "green_movieicon.png"))
+                self.COLOR_MOVIE_ICON = self.loadIcon("green_movieicon.png", False)
             
         if config.AdvancedMovieSelection.color1.value == color_choice[0][0]:
-            self.COLOR_PERCENT_1 = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "yellow_movieicon.png"))
+            self.MOVIEICON_PERCENT_1 = self.loadIcon("yellow_movieicon.png", False)
         elif config.AdvancedMovieSelection.color1.value == color_choice[7][0]:
-            self.COLOR_PERCENT_1 = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "blue_movieicon.png"))
+            self.MOVIEICON_PERCENT_1 = self.loadIcon("blue_movieicon.png", False)
         elif config.AdvancedMovieSelection.color1.value == color_choice[2][0]:
-            self.COLOR_PERCENT_1 = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "red_movieicon.png"))
+            self.MOVIEICON_PERCENT_1 = self.loadIcon("red_movieicon.png", False)
         elif config.AdvancedMovieSelection.color1.value == color_choice[5][0]:
-            self.COLOR_PERCENT_1 = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "black_movieicon.png"))
+            self.MOVIEICON_PERCENT_1 = self.loadIcon("black_movieicon.png", False)
         elif config.AdvancedMovieSelection.color1.value == color_choice[1][0]:
-            self.COLOR_PERCENT_1 = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "green_movieicon.png"))
+            self.MOVIEICON_PERCENT_1 = self.loadIcon("green_movieicon.png", False)
         
         if config.AdvancedMovieSelection.color2.value == color_choice[0][0]:
-            self.COLOR_PERCENT_2 = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "yellow_movieicon.png"))
+            self.MOVIEICON_PERCENT_2 = self.loadIcon("yellow_movieicon.png", False)
         elif config.AdvancedMovieSelection.color2.value == color_choice[7][0]:
-            self.COLOR_PERCENT_2 = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "blue_movieicon.png"))
+            self.MOVIEICON_PERCENT_2 = self.loadIcon("blue_movieicon.png", False)
         elif config.AdvancedMovieSelection.color2.value == color_choice[2][0]:
-            self.COLOR_PERCENT_2 = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "red_movieicon.png"))
+            self.MOVIEICON_PERCENT_2 = self.loadIcon("red_movieicon.png", False)
         elif config.AdvancedMovieSelection.color2.value == color_choice[5][0]:
-            self.COLOR_PERCENT_2 = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "black_movieicon.png"))
+            self.MOVIEICON_PERCENT_2 = self.loadIcon("black_movieicon.png", False)
         elif config.AdvancedMovieSelection.color2.value == color_choice[1][0]:
-            self.COLOR_PERCENT_2 = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "green_movieicon.png"))
+            self.MOVIEICON_PERCENT_2 = self.loadIcon("green_movieicon.png", False)
 
         if config.AdvancedMovieSelection.dateformat.value == "1":
             self.DATE_TIME_FORMAT = "%d.%m.%Y"
@@ -237,14 +250,14 @@ class MovieList(MovieListSkinParam, GUIListComponent):
         from Components.Language import language
         lang = language.getLanguage()
         if lang == "de_DE" or lang == "de":
-            self.MOVIE_NEW_PNG = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "movie_de_new.png"))
-            self.NO_COVER_PNG_FILE = resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/nocover_de.png")
+            self.MOVIE_NEW_PNG = self.loadIcon("movie_de_new.png", False)
+            self.NO_COVER_PNG_FILE = self.getIconPath("nocover_de.png")
         elif lang == "en":
-            self.MOVIE_NEW_PNG = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "movie_en_new.png"))
-            self.NO_COVER_PNG_FILE = resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/nocover_en.png")
+            self.MOVIE_NEW_PNG = self.loadIcon("movie_en_new.png", False)
+            self.NO_COVER_PNG_FILE = self.getIconPath("nocover_en.png")
         else:
-            self.MOVIE_NEW_PNG = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "movie_new.png"))
-            self.NO_COVER_PNG_FILE = resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/nocover_en.png")
+            self.MOVIE_NEW_PNG = self.loadIcon("movie_new.png", False)
+            self.NO_COVER_PNG_FILE = self.getIconPath("nocover_en.png")
 
     def updateHotplugDevices(self):
         self.hotplugServices = hotplug.getHotplugServices()
@@ -300,6 +313,18 @@ class MovieList(MovieListSkinParam, GUIListComponent):
     def showTags(self, val):
         self.show_tags = val
 
+    def getIconPath(self, png_name):
+        p = resolveFilename(SCOPE_CURRENT_SKIN, "extensions/" + png_name)
+        if not fileExists(p):
+            p = p = resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + png_name)
+        return p
+    
+    def loadIcon(self, png_name, cached=True):
+        png = LoadPixmap(cached=cached, path=resolveFilename(SCOPE_CURRENT_SKIN, "extensions/" + png_name))
+        if png is None:
+            png = LoadPixmap(cached=cached, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + png_name))
+        return png
+    
 #    def buildMovieListEntry(self, serviceref, info, begin, len, selection_index= -1):
     def buildMovieListEntry(self, movie_info, selection_index= -1):
         res = [ None ]
@@ -313,23 +338,23 @@ class MovieList(MovieListSkinParam, GUIListComponent):
             if serviceref.flags & eServiceReference.mustDescent:
                 can_show_folder_image = True
                 if isinstance(serviceref, eServiceReferenceVDir):
-                    png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "bookmark.png"))
+                    png = self.loadIcon("bookmark.png")
                 elif isinstance(serviceref, eServiceReferenceListAll):
                     if movieScanner.isWorking:
-                        png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "movielibrary_reload.png"))
+                        png = self.loadIcon("movielibrary_reload.png")
                     else:
-                        png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "movielibrary.png"))
+                        png = self.loadIcon("movielibrary.png")
                     can_show_folder_image = False
                 elif isinstance(serviceref, eServiceReferenceHotplug):
-                    png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "hotplug.png"))
+                    png = self.loadIcon("hotplug.png")
                 elif isinstance(serviceref, eServiceReferenceBackDir):
-                    png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "back.png"))
+                    png = self.loadIcon("back.png")
                 elif isinstance(serviceref, eServiceReferenceMarker):
-                    png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "location.png"))
+                    png = self.loadIcon("location.png")
                 else:
-                    png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "directory.png"))
+                    png = self.loadIcon("directory.png")
                 
-                offset = 25
+                offset = self.icon_size + 5
                 if can_show_folder_image and self.list_type == MovieList.LISTTYPE_EXTENDED:
                     if config.AdvancedMovieSelection.usefoldername.value:
                         filename = serviceref.getPath()[:-1] + ".jpg"
@@ -348,11 +373,11 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                             png = self.picloader.load(filename)
                             res.append((TYPE_PIXMAP, 0, 2, self.list3_ListHeight - 2, self.list3_ListHeight - 2, png))
                         else:
-                            res.append((TYPE_PIXMAP, 0, 2, 20, 20, png))
+                            res.append((TYPE_PIXMAP, 0, 2, self.icon_size, self.icon_size, png))
                     if not isinstance(serviceref, eServiceReferenceListAll):
                         res.append(MultiContentEntryText(pos=(offset, self.line2y), size=(width, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=serviceref.getPath(), color=color))
                 else:
-                    res.append((TYPE_PIXMAP, 0, 2, 20, 20, png))
+                    res.append((TYPE_PIXMAP, 0, 2, self.icon_size, self.icon_size, png))
 
                 res.append(MultiContentEntryText(pos=(offset, self.line1y), size=(width - 150, self.f0h), font=0, flags=RT_HALIGN_LEFT, text=serviceref.getName(), color=color))
                 if config.AdvancedMovieSelection.show_dirsize.value:
@@ -370,30 +395,11 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                         res.append(MultiContentEntryText(pos=(width - w, 4), size=(w - 5, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=dir_size, color=color))
                 
                 if os.path.islink(serviceref.getPath()[:-1]) and can_show_folder_image:
-                    link_png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "link.png"))
+                    link_png = self.loadIcon("link.png")
                     res.append((TYPE_PIXMAP, 10, 15, 9, 10, link_png))
 
                 return res
                 
-            png = None
-            if self.list_type != MovieList.LISTTYPE_EXTENDED and self.show_statusicon:
-                extension = serviceref.toString().split('.')
-                extension = extension[-1].lower()
-                offset = 25
-                if MEDIAEXTENSIONS.has_key(extension):
-                    media_ext = MEDIAEXTENSIONS[extension]
-                    if media_ext == "audio":
-                        png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + media_ext + ".png"))
-                    else:
-                        filename = os.path.realpath(serviceref.getPath())
-                        if config.AdvancedMovieSelection.shownew.value and not hasLastPosition(serviceref):
-                            png = self.MOVIE_NEW_PNG
-                        else:
-                            png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + media_ext + ".png"))
-                else:
-                    if isinstance(serviceref, eServiceReferenceDvd) or isinstance(serviceref, eServiceReferenceBludisc):
-                        png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + "dvd_watching.png"))
-    
             if info is not None:
                 # get service, tags and description
                 # service_name = info.getName(serviceref)
@@ -469,7 +475,41 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                     if math_fabs(mtime - int(currentTime)) <= 10:
                         recording = True
             
-            if recording: 
+            png = None
+            if self.show_statusicon:
+                offset = self.icon_size + 5
+                if self.show_statuscolor:
+                    if perc < 5:
+                        png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_SKIN, "extensions/movie.png"))
+                        if png is None:
+                            png = self.COLOR_MOVIE_ICON
+                    elif perc <= int(config.AdvancedMovieSelection.moviepercentseen.value):
+                        png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_SKIN, "extensions/movie_watching.png"))
+                        if png is None:
+                            png = self.MOVIEICON_PERCENT_1
+                    else:
+                        png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_SKIN, "extensions/movie_finished.png"))
+                        if png is None:
+                            png = self.MOVIEICON_PERCENT_2
+                else:
+                    extension = serviceref.getPath().split('.')
+                    extension = extension[-1].lower()
+                    if MEDIAEXTENSIONS.has_key(extension):
+                        media_ext = MEDIAEXTENSIONS[extension]
+                        if config.AdvancedMovieSelection.shownew.value and not hasLastPosition(serviceref):
+                            png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_SKIN, "extensions/movie_new.png"))
+                            if png is None:
+                                png = self.MOVIE_NEW_PNG
+                        if png is None:
+                            png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_SKIN, "extensions/" + media_ext[1] + ".png"))
+                        if png is None:
+                            png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_SKIN, "extensions/" + media_ext[0] + ".png"))
+                        if png is None:
+                            png = LoadPixmap(resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + media_ext[0] + ".png"))
+                    elif isinstance(serviceref, eServiceReferenceDvd) or isinstance(serviceref, eServiceReferenceBludisc):
+                            png = self.loadIcon("iso.png")
+
+            if recording:
                 if self.show_statuscolor:
                     color = self.recording_color
                 if self.COLOR_MOVIE_ICON:
@@ -480,18 +520,13 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                     color = self.watching_color
                 elif (perc > config.AdvancedMovieSelection.moviepercentseen.value):
                     color = self.finished_color
-            if self.show_statusicon and not recording:
-                if perc > 1 and perc <= config.AdvancedMovieSelection.moviepercentseen.value:
-                    png = self.COLOR_PERCENT_1
-                elif perc > config.AdvancedMovieSelection.moviepercentseen.value:
-                    png = self.COLOR_PERCENT_2
     
             begin_string = ""
             if recording:
                 if config.AdvancedMovieSelection.dateformat.value in ("6", "7"):
-                    begin_string = (_("REC"))
+                    begin_string = _("REC")
                 else:
-                    begin_string = (_("Records"))        
+                    begin_string = _("Records")        
             else:
                 if config.AdvancedMovieSelection.dateformat.value == "2" and begin > 0:
                     t = FuzzyTime(begin)
@@ -514,31 +549,31 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                         filename = os.path.splitext(serviceref.getPath())[0] + ".jpg"
                     else:
                         filename = serviceref.getPath() + ".jpg"
-                    png = None
+                    png1 = None
                     series_path = os.path.join(os.path.dirname(serviceref.getPath()), "series.jpg")
                     dir_name = os.path.dirname(serviceref.getPath())
                     series_path_plugin = os.path.join(dir_name, os.path.basename(dir_name) + ".jpg")
                     if os.path.exists(series_path):
-                        png = self.picloader.load(series_path)
+                        png1 = self.picloader.load(series_path)
                     elif os.path.exists(filename):
-                        png = self.picloader.load(filename)
+                        png1 = self.picloader.load(filename)
                     elif os.path.exists(series_path_plugin):
-                        png = self.picloader.load(series_path_plugin)
+                        png1 = self.picloader.load(series_path_plugin)
                     elif serviceref.getPath().endswith("ts"):
                         # picon, make sure only ts files goes here
                         picon = getServiceInfoValue(serviceref, iServiceInformation.sServiceref).rstrip(':').replace(':', '_') + ".png"
                         piconpath = os.path.join(config.AdvancedMovieSelection.piconpath.value, picon)
                         if os.path.exists(piconpath):
-                            png = self.picloader.load(piconpath)
-                    if not png:
-                        png = self.picloader.load(self.NO_COVER_PNG_FILE)
-                    res.append((TYPE_PIXMAP, 0, 2, self.list3_ListHeight - 2, self.list3_ListHeight - 2, png))
+                            png1 = self.picloader.load(piconpath)
+                    if png1 is None:
+                        png1 = self.picloader.load(self.NO_COVER_PNG_FILE)
+                    res.append((TYPE_PIXMAP, 0, 2, self.list3_ListHeight - 2, self.list3_ListHeight - 2, png1))
                     offset = self.list3_ListHeight
                 new_offset = 0
                 # new icon
                 if config.AdvancedMovieSelection.shownew.value and not hasLastPosition(serviceref):
-                    res.append((TYPE_PIXMAP, offset, 2, 20, 20, self.MOVIE_NEW_PNG))
-                    new_offset = new_offset + 24
+                    res.append((TYPE_PIXMAP, offset, 2, self.icon_size, self.icon_size, png))
+                    new_offset = new_offset + self.icon_size + 5
     
                 # line 2: description, file size 
                 res.append(MultiContentEntryText(pos=(0 + offset, self.line2y), size=(width - offset - 185, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=description, color=color))
@@ -579,7 +614,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 line1_width = line_width - 5
 
                 if png is not None: # self.show_folders:
-                    res.append((TYPE_PIXMAP, 0, 2, 20, 20, png))
+                    res.append((TYPE_PIXMAP, 0, 2, self.icon_size, self.icon_size, png))
                 if self.show_date == MovieList.SHOW_DATE:
                     self.textRenderer.setFont(self.font2)
                     self.textRenderer.setText(begin_string)
@@ -622,7 +657,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 line1_width = line_width - 5
 
                 if png is not None: # self.show_folders:
-                    res.append((TYPE_PIXMAP, 0, 2, 20, 20, png))
+                    res.append((TYPE_PIXMAP, 0, 2, self.icon_size, self.icon_size, png))
                 
                 line_l = []
                 if self.show_percent:
@@ -672,7 +707,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                     displaytext = str.format("%s (%s)" % (displaytext, ", ".join(textl)))
                 
                 if png is not None: # self.show_folders:
-                    res.append((TYPE_PIXMAP, 0, 2, 20, 20, png))
+                    res.append((TYPE_PIXMAP, 0, 2, self.icon_size, self.icon_size, png))
 
                 if self.show_progressbar:
                     res.append(MultiContentEntryProgress(pos=(offset, self.progress[3]), size=(self.progress[0], self.progress[1]), percent=perc, borderWidth=self.progress[2], foreColor=color))
@@ -695,7 +730,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 res.append(MultiContentEntryText(pos=(offset, self.line1y), size=(line1w1, self.f0h), font=0, flags=RT_HALIGN_LEFT, text=displaytext, color=color))
             else:
                 if png is not None: # self.show_folders:
-                    res.append((TYPE_PIXMAP, 0, 2, 20, 20, png))
+                    res.append((TYPE_PIXMAP, 0, 2, self.icon_size, self.icon_size, png))
 
                 if self.show_progressbar:
                     res.append(MultiContentEntryProgress(pos=(offset + 1, self.progress[3]), size=(self.progress[0], self.progress[1]), percent=perc, borderWidth=self.progress[2], foreColor=color))

@@ -106,6 +106,8 @@ class MovieListSkinParam(SkinParam):
         self.list1_Progress = (50, 8, 1, 8)
         self.list1Pos1 = 0
         
+        self.icon_size = 20
+
         self.loadSkinData()
     
     def redrawList(self):
@@ -183,6 +185,9 @@ class MovieListSkinParam(SkinParam):
             self.list3_Progress = (int(v[0]), int(v[1]), int(v[2]), int(v[3]))
         elif attrib == "renderer_extend":
             self.renderer_extend = int(value)
+
+        elif attrib == "icon_size":
+            self.icon_size = int(value)
 
 class WastebasketSkinParam(SkinParam):
     def __init__(self):

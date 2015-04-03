@@ -38,7 +38,7 @@ from Screens.ChoiceBox import ChoiceBox
 from Screens.LocationBox import MovieLocationBox
 from AdvancedMovieSelectionSetup import AdvancedMovieSelectionSetup, AdvancedMovieSelectionButtonSetup
 from Tools.BoundFunction import boundFunction
-from Tools.Directories import resolveFilename, fileExists, SCOPE_HDD, SCOPE_CURRENT_SKIN
+from Tools.Directories import resolveFilename, fileExists, SCOPE_HDD
 from enigma import eServiceReference, eSize, ePoint, eTimer, iServiceInformation
 from Screens.Console import eConsoleAppContainer
 from MoveCopy import MovieMove

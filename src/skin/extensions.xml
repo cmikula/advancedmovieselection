@@ -13,6 +13,7 @@
 		list3_Font1="Regular;22" list3_Font2="Regular;20" list3_ListHeight="78" list3Pos="2,28,53"
 		list3_Progress="50,8,1,60"
 		renderer_extend="10"
+		icon_size="40"
 		>
 	</MovieList> 
 	<Wastebasket 
@@ -47,3 +48,47 @@
         >
 	</AboutVersionList>
   </screen>
+<!-- skin/extensions/
+	nocover_de.png
+	nocover_en.png 
+	bookmark.png
+	movielibrary.png
+	movielibrary_reload.png
+	hotplug.png
+	back.png
+	location.png
+	directory.png
+	link.png
+	movie_new.png
+	movie_watching.png
+	movie_finished.png
+	dvd_finished.png
+	dvd_watching.png
+	
+	music.png
+	m2ts.png
+	m4a.png
+	mp2.png
+	mp3.png
+	wav.png
+	ogg.png
+	wma.png
+	flac.png
+	
+	picture.png
+	jpg.png
+	png.png
+	png.png
+	
+	movie.png
+	ts.png
+	avi.png
+	mpg.png
+	mkv.png
+	mp4.png
+	mov.png
+	wmv.png
+	flv.png
+	m4v.png
+	dat.png
+-->
