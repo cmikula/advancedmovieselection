@@ -595,9 +595,10 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                     else:
                         self.textRenderer.setFont(self.font1)
                         self.textRenderer.setText(txt)
-                        txt_width = self.getTextRendererWidth() + time_width
-                        res.append(MultiContentEntryText(pos=(offset + txt_width, self.line1yr), size=(self.list2_length_width + 10, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=str.format("({0})", length_text), color=color))
-                        line1_width = txt_width
+                        txt_width = self.getTextRendererWidth()
+                        if self.list2_length_width + txt_width < line1_width:
+                            res.append(MultiContentEntryText(pos=(offset + txt_width, self.line1yr), size=(self.list2_length_width + 10, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=str.format("({0})", length_text), color=color))
+                            line1_width = txt_width
 
                 service_name = service.getServiceName()
                 text2_right_width = 0
