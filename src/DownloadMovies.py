@@ -38,7 +38,7 @@ from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Components.ScrollLabel import ScrollLabel
 from Source.Globals import printStackTrace
 from Source.PicLoader import PicLoader
-from SkinParam import getIconPath
+from Source.Globals import getIconPath
 import os
 
 fetchingMovies = None

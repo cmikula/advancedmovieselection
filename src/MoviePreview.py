@@ -30,7 +30,7 @@ from Source.ISOInfo import ISOInfo
 from Source.PicLoader import PicLoader
 from enigma import iServiceInformation, eServiceReference
 from os import environ
-from SkinParam import getIconPath
+from Source.Globals import getIconPath
 
 nocover = None
 

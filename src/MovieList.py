@@ -27,7 +27,7 @@ from Components.MultiContent import MultiContentEntryText, MultiContentEntryProg
 from Components.config import config
 from enigma import eListboxPythonMultiContent, iServiceInformation, RT_HALIGN_LEFT, RT_HALIGN_RIGHT, eServiceReference
 from Tools.LoadPixmap import LoadPixmap
-from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN, SCOPE_CURRENT_SKIN, fileExists
+from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN, SCOPE_CURRENT_SKIN
 import os
 from skin import parseColor
 import NavigationInstance
@@ -53,7 +53,8 @@ from Source.Hotplug import hotplug
 from Source.ServiceDescriptor import MovieInfo
 from Source.MovieConfig import MovieConfig
 from Source.PicLoader import PicLoader
-from SkinParam import MovieListSkinParam, getIconPath, IMAGE_PATH
+from SkinParam import MovieListSkinParam
+from Source.Globals import getIconPath, IMAGE_PATH
 from enigma import eLabel, eSize
 
 MEDIAEXTENSIONS = {
@@ -470,7 +471,11 @@ class MovieList(MovieListSkinParam, GUIListComponent):
             png = None
             if self.show_statusicon:
                 offset = self.icon_size + 5
-                if self.show_statuscolor:
+                if config.AdvancedMovieSelection.shownew.value and not hasLastPosition(serviceref):
+                    png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_SKIN, "extensions/movie_new.png"))
+                    if png is None:
+                        png = self.MOVIE_NEW_PNG
+                elif self.show_statuscolor:
                     if perc < 5:
                         png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_SKIN, "extensions/movie.png"))
                         if png is None:
@@ -488,10 +493,6 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                     extension = extension[-1].lower()
                     if MEDIAEXTENSIONS.has_key(extension):
                         media_ext = MEDIAEXTENSIONS[extension]
-                        if config.AdvancedMovieSelection.shownew.value and not hasLastPosition(serviceref):
-                            png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_SKIN, "extensions/movie_new.png"))
-                            if png is None:
-                                png = self.MOVIE_NEW_PNG
                         if png is None:
                             png = LoadPixmap(cached=True, path=resolveFilename(SCOPE_CURRENT_SKIN, "extensions/" + media_ext[1] + ".png"))
                         if png is None:

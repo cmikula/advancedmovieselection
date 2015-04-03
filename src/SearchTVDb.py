@@ -37,12 +37,11 @@ from Components.ProgressBar import ProgressBar
 from os import environ
 from Source.ServiceProvider import ServiceCenter
 from Source.EITTools import createEITtvdb
-from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
 from SearchTMDb import InfoLoadChoice
-from Source.Globals import pluginPresent
+from Source.Globals import pluginPresent, getIconPath
 from Source.MovieDB import tvdb, downloadCover
 from Source.PicLoader import PicLoader
-from SkinParam import TVDbSerieSkinParam, TVDbEpisodeSkinParam, getIconPath
+from SkinParam import TVDbSerieSkinParam, TVDbEpisodeSkinParam
 
 temp_dir = "/tmp/TheTVDB_temp/"
 

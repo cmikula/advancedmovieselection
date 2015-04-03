@@ -26,7 +26,7 @@ that they, too, receive or can get the source code. And you must show them these
 from Components.EpgList import EPGList
 from Tools.LoadPixmap import LoadPixmap
 from MovieScanner import movieScanner
-from SkinParam import getIconPath
+from Globals import getIconPath
 
 av1_pixmap = LoadPixmap(getIconPath("movie.png"))
 av2_pixmap = LoadPixmap(getIconPath("blue_movieicon.png"))

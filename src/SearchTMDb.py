@@ -39,9 +39,9 @@ from Components.ProgressBar import ProgressBar
 from os import environ
 from Source.PicLoader import PicLoader
 from Screens.ChoiceBox import ChoiceBox
-from Source.Globals import pluginPresent, SkinTools
+from Source.Globals import pluginPresent, SkinTools, getIconPath
 from Source.MovieDB import tmdb, downloadCover
-from SkinParam import TMDbSkinParam, getIconPath
+from SkinParam import TMDbSkinParam
 import datetime
 
 IMAGE_TEMPFILE = "/tmp/TMDb_temp"
