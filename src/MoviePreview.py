@@ -30,7 +30,7 @@ from Source.ISOInfo import ISOInfo
 from Source.PicLoader import PicLoader
 from enigma import iServiceInformation, eServiceReference
 from os import environ
-from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
+from SkinParam import getIconPath
 
 nocover = None
 
@@ -50,9 +50,9 @@ class MoviePreview():
         self.onClose.append(self.__onClose)
         global nocover
         if environ["LANGUAGE"] == "de" or environ["LANGUAGE"] == "de_DE":
-            nocover = resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/nocover_de.png")
+            nocover = getIconPath("nocover_de.png")
         else:
-            nocover = resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/nocover_en.png")
+            nocover = getIconPath("nocover_en.png")
 
     def __onClose(self):
         self.picload.destroy()

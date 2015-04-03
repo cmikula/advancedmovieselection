@@ -6,9 +6,17 @@ Created on 15.12.2014
 
 from enigma import gFont, ePoint, eSize
 from skin import parseFont, parseSize, parsePosition
-from Tools.Directories import resolveFilename, fileExists, SCOPE_SKIN, SCOPE_CONFIG
+from Tools.Directories import resolveFilename, fileExists, SCOPE_SKIN, SCOPE_CONFIG, SCOPE_CURRENT_SKIN, SCOPE_CURRENT_PLUGIN
 from Components.config import config
 import os, xml.etree.cElementTree
+
+IMAGE_PATH = "Extensions/AdvancedMovieSelection/images/"
+
+def getIconPath(png_name):
+    p = resolveFilename(SCOPE_CURRENT_SKIN, "extensions/" + png_name)
+    if not fileExists(p):
+        p = p = resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + png_name)
+    return p
 
 class SkinLoader():
     def __init__(self):

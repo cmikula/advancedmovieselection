@@ -53,10 +53,8 @@ from Source.Hotplug import hotplug
 from Source.ServiceDescriptor import MovieInfo
 from Source.MovieConfig import MovieConfig
 from Source.PicLoader import PicLoader
-from SkinParam import MovieListSkinParam
+from SkinParam import MovieListSkinParam, getIconPath, IMAGE_PATH
 from enigma import eLabel, eSize
-
-IMAGE_PATH = "Extensions/AdvancedMovieSelection/images/"
 
 MEDIAEXTENSIONS = {
         "m2ts": ('movie', 'm2ts'),
@@ -251,13 +249,13 @@ class MovieList(MovieListSkinParam, GUIListComponent):
         lang = language.getLanguage()
         if lang == "de_DE" or lang == "de":
             self.MOVIE_NEW_PNG = self.loadIcon("movie_de_new.png", False)
-            self.NO_COVER_PNG_FILE = self.getIconPath("nocover_de.png")
+            self.NO_COVER_PNG_FILE = getIconPath("nocover_de.png")
         elif lang == "en":
             self.MOVIE_NEW_PNG = self.loadIcon("movie_en_new.png", False)
-            self.NO_COVER_PNG_FILE = self.getIconPath("nocover_en.png")
+            self.NO_COVER_PNG_FILE = getIconPath("nocover_en.png")
         else:
             self.MOVIE_NEW_PNG = self.loadIcon("movie_new.png", False)
-            self.NO_COVER_PNG_FILE = self.getIconPath("nocover_en.png")
+            self.NO_COVER_PNG_FILE = getIconPath("nocover_en.png")
 
     def updateHotplugDevices(self):
         self.hotplugServices = hotplug.getHotplugServices()
@@ -313,12 +311,6 @@ class MovieList(MovieListSkinParam, GUIListComponent):
     def showTags(self, val):
         self.show_tags = val
 
-    def getIconPath(self, png_name):
-        p = resolveFilename(SCOPE_CURRENT_SKIN, "extensions/" + png_name)
-        if not fileExists(p):
-            p = p = resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + png_name)
-        return p
-    
     def loadIcon(self, png_name, cached=True):
         png = LoadPixmap(cached=cached, path=resolveFilename(SCOPE_CURRENT_SKIN, "extensions/" + png_name))
         if png is None:

@@ -42,14 +42,14 @@ from SearchTMDb import InfoLoadChoice
 from Source.Globals import pluginPresent
 from Source.MovieDB import tvdb, downloadCover
 from Source.PicLoader import PicLoader
-from SkinParam import TVDbSerieSkinParam, TVDbEpisodeSkinParam
+from SkinParam import TVDbSerieSkinParam, TVDbEpisodeSkinParam, getIconPath
 
 temp_dir = "/tmp/TheTVDB_temp/"
 
 if environ["LANGUAGE"] == "de" or environ["LANGUAGE"] == "de_DE":
-    nocover = resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/nocover_de.png")
+    nocover = getIconPath("nocover_de.png")
 else:
-    nocover = resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/nocover_en.png")
+    nocover = getIconPath("nocover_en.png")
 
 def getImage(serie):
     thumb = serie['poster']
@@ -235,7 +235,7 @@ class TheTVDBMain(Screen, InfoLoadChoice):
         self.startSearch()
 
     def layoutFinished(self):
-        self["thetvdb_logo"].instance.setPixmapFromFile(resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/thetvdb_logo.png"))
+        self["thetvdb_logo"].instance.setPixmapFromFile(getIconPath("thetvdb_logo.png"))
         sc = AVSwitch().getFramebufferScale()
         self.picload.setPara((self["cover"].instance.size().width(), self["cover"].instance.size().height(), sc[0], sc[1], False, 1, "#ff000000"))
         self.picload2.setPara((self["banner"].instance.size().width(), self["banner"].instance.size().height(), sc[0], sc[1], False, 1, "#ff000000"))

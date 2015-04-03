@@ -36,9 +36,9 @@ from Source.EITTools import createEIT
 from Source.MovieDB import tmdb, downloadCover
 from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Components.ScrollLabel import ScrollLabel
-from Tools.Directories import resolveFilename, SCOPE_PLUGINS, SCOPE_CURRENT_PLUGIN
 from Source.Globals import printStackTrace
 from Source.PicLoader import PicLoader
+from SkinParam import getIconPath
 import os
 
 fetchingMovies = None
@@ -112,7 +112,7 @@ class DownloadMovies(Screen):
 
     def setWindowTitle(self):
         self.setTitle(_("Search for %s, please wait...") % (self.movie_title))
-        self["logo"].instance.setPixmapFromFile(resolveFilename(SCOPE_PLUGINS, "Extensions/AdvancedMovieSelection/images/tmdb_logo.png"))
+        self["logo"].instance.setPixmapFromFile(getIconPath("tmdb_logo.png"))
 
     def scrollLabelPageUp(self):
         self["description"].pageUp()
@@ -205,7 +205,7 @@ class DownloadMovies(Screen):
                 if cover_url is not None:
                     downloadCover(cover_url, jpg_file, True)
                 else:
-                    jpg_file = resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/nocover_de.png")
+                    jpg_file = getIconPath("nocover_de.png")
                 sc = AVSwitch().getFramebufferScale()
                 self.picload.setPara((self["poster"].instance.size().width(), self["poster"].instance.size().height(), sc[0], sc[1], False, 1, "#ff000000"))
                 self.picload.startDecode(jpg_file)

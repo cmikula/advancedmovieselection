@@ -38,19 +38,18 @@ from Components.config import config
 from Components.ProgressBar import ProgressBar
 from os import environ
 from Source.PicLoader import PicLoader
-from Tools.Directories import resolveFilename, SCOPE_CURRENT_PLUGIN
 from Screens.ChoiceBox import ChoiceBox
 from Source.Globals import pluginPresent, SkinTools
 from Source.MovieDB import tmdb, downloadCover
-from SkinParam import TMDbSkinParam
+from SkinParam import TMDbSkinParam, getIconPath
 import datetime
 
 IMAGE_TEMPFILE = "/tmp/TMDb_temp"
 
 if environ["LANGUAGE"] == "de" or environ["LANGUAGE"] == "de_DE":
-    nocover = resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/nocover_de.png")
+    nocover = getIconPath("nocover_de.png")
 else:
-    nocover = resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/nocover_en.png")
+    nocover = getIconPath("nocover_en.png")
 
 class InfoChecker:
     INFO = 0x01
@@ -275,7 +274,7 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
         self.startSearch()
 
     def layoutFinished(self):
-        self["tmdblogo"].instance.setPixmapFromFile(resolveFilename(SCOPE_CURRENT_PLUGIN, "Extensions/AdvancedMovieSelection/images/tmdb.png"))
+        self["tmdblogo"].instance.setPixmapFromFile(getIconPath("tmdb.png"))
         sc = AVSwitch().getFramebufferScale()
         self.picload.setPara((self["cover"].instance.size().width(), self["cover"].instance.size().height(), sc[0], sc[1], False, 1, "#ff000000"))
         self.backdrop_picload.setPara((self["backdrop"].instance.size().width(), self["backdrop"].instance.size().height(), sc[0], sc[1], False, 1, "#10000000"))
