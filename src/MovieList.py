@@ -505,8 +505,9 @@ class MovieList(MovieListSkinParam, GUIListComponent):
             if recording:
                 if self.show_statuscolor:
                     color = self.recording_color
-                if self.COLOR_MOVIE_ICON:
-                    png = self.COLOR_MOVIE_ICON
+                rec_ico = self.loadIcon("movie_recording.png")
+                if rec_ico:
+                    png = rec_ico
             
             if self.show_statuscolor and not recording:
                 if (perc > 1) and (perc <= config.AdvancedMovieSelection.moviepercentseen.value):
