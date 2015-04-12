@@ -85,6 +85,7 @@ if not config.content.items.has_key("movielist"):
     config.movielist = ConfigSubsection()
 # all config.entries from Screens.MovieSelection
 config.movielist.moviesort = ConfigInteger(default=MovieList.SORT_ALPHANUMERIC)
+config.movielist.listtype = ConfigInteger(default=MovieList.LISTTYPE_ORIGINAL)
 config.AdvancedMovieSelection.listtype = ConfigInteger(default=MovieList.LISTTYPE_ORIGINAL)
 config.movielist.description = ConfigInteger(default=MovieList.HIDE_DESCRIPTION)
 config.movielist.last_videodir = ConfigText(default=resolveFilename(SCOPE_HDD))
@@ -98,6 +99,10 @@ config.movielist.showtime = ConfigInteger(default=MovieList.SHOW_TIME)
 config.movielist.showdate = ConfigInteger(default=MovieList.SHOW_DATE)
 config.movielist.showservice = ConfigInteger(default=MovieList.SHOW_SERVICE)
 config.movielist.showtags = ConfigInteger(default=MovieList.HIDE_TAGS)
+
+# reset original list type
+if config.movielist.listtype.value > MovieList.LISTTYPE_MINIMAL:
+    config.movielist.listtype.value = MovieList.LISTTYPE_ORIGINAL
 
 SHOW_ALL_MOVIES = _("Show all movies")
 
