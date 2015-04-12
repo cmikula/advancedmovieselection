@@ -103,6 +103,7 @@ config.movielist.showtags = ConfigInteger(default=MovieList.HIDE_TAGS)
 # reset original list type
 if config.movielist.listtype.value > MovieList.LISTTYPE_MINIMAL:
     config.movielist.listtype.value = MovieList.LISTTYPE_ORIGINAL
+    config.movielist.listtype.save()
 
 SHOW_ALL_MOVIES = _("Show all movies")
 
