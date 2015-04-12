@@ -85,7 +85,7 @@ if not config.content.items.has_key("movielist"):
     config.movielist = ConfigSubsection()
 # all config.entries from Screens.MovieSelection
 config.movielist.moviesort = ConfigInteger(default=MovieList.SORT_ALPHANUMERIC)
-config.movielist.listtype = ConfigInteger(default=MovieList.LISTTYPE_ORIGINAL)
+config.AdvancedMovieSelection.listtype = ConfigInteger(default=MovieList.LISTTYPE_ORIGINAL)
 config.movielist.description = ConfigInteger(default=MovieList.HIDE_DESCRIPTION)
 config.movielist.last_videodir = ConfigText(default=resolveFilename(SCOPE_HDD))
 config.movielist.last_timer_videodir = ConfigText(default=resolveFilename(SCOPE_HDD))
@@ -222,12 +222,12 @@ class MovieContextMenu(Screen):
                 (_("List style single line"), boundFunction(self.listType, MovieList.LISTTYPE_MINIMAL)),
                 (_("List style Advanced Movie Selection single line"), boundFunction(self.listType, MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection)),
             ))
-        if config.AdvancedMovieSelection.showliststyle.value and config.movielist.listtype.value == MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection:
+        if config.AdvancedMovieSelection.showliststyle.value and config.AdvancedMovieSelection.listtype.value == MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection:
             if config.movielist.showservice.value == MovieList.SHOW_SERVICE:
                 menu.append((_("Hide broadcaster"), boundFunction(self.showService, MovieList.HIDE_SERVICE)))
             else:
                 menu.append((_("Show broadcaster"), boundFunction(self.showService, MovieList.SHOW_SERVICE)))
-        if config.AdvancedMovieSelection.showliststyle.value and config.movielist.listtype.value == MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection or config.movielist.listtype.value == MovieList.LISTTYPE_ORIGINAL or config.movielist.listtype.value == MovieList.LISTTYPE_COMPACT and config.movielist.showservice.value == MovieList.HIDE_SERVICE:
+        if config.AdvancedMovieSelection.showliststyle.value and config.AdvancedMovieSelection.listtype.value == MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection or config.AdvancedMovieSelection.listtype.value == MovieList.LISTTYPE_ORIGINAL or config.AdvancedMovieSelection.listtype.value == MovieList.LISTTYPE_COMPACT and config.movielist.showservice.value == MovieList.HIDE_SERVICE:
             if config.movielist.showtags.value == MovieList.SHOW_TAGS:
                 menu.append((_("Hide tags in movielist"), boundFunction(self.showTags, MovieList.HIDE_TAGS)))
             else:
@@ -449,7 +449,7 @@ class MovieContextMenu(Screen):
         self.close()
 
     def listType(self, newType):
-        config.movielist.listtype.value = newType
+        config.AdvancedMovieSelection.listtype.value = newType
         self.csel.setListType(newType)
         self.csel.list.redrawList()
         self.close()
@@ -743,7 +743,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             self["warning"].setText(_("ATTENTION: Ask before delete is disabled!"))
             
         self["list"] = MovieList(None,
-            config.movielist.listtype.value,
+            config.AdvancedMovieSelection.listtype.value,
             config.movielist.moviesort.value,
             config.movielist.description.value,
             config.AdvancedMovieSelection.showfoldersinmovielist.value,
@@ -1170,7 +1170,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
     def saveconfig(self):
         config.movielist.last_selected_tags.value = self.selected_tags
         config.movielist.moviesort.save()
-        config.movielist.listtype.save()
+        config.AdvancedMovieSelection.listtype.save()
         config.movielist.description.save()
         config.movielist.showdate.save()
         config.movielist.showtime.save()
