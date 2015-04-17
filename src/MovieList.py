@@ -395,8 +395,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                         res.append(MultiContentEntryText(pos=(offset, self.line2y), size=(width, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=serviceref.getPath(), color=color2, color_sel=self.colorSel2))
                 else:
                     res.append((TYPE_PIXMAP, 0, 2, self.icon_size, self.icon_size, png))
-
-                res.append(MultiContentEntryText(pos=(offset, self.line1y), size=(width - 150, self.f0h), font=0, flags=RT_HALIGN_LEFT, text=serviceref.getName(), color=color, color_sel=self.colorSel1))
+                line1_width = width - offset - 5
                 if config.AdvancedMovieSelection.show_dirsize.value:
                     dir_size = -1
                     if isinstance(serviceref, eServiceReferenceHotplug):
@@ -408,12 +407,14 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                             dir_size = movieScanner.movielibrary.getSize(serviceref.getPath())
                     if dir_size >= 0:
                         dir_size = realSize(dir_size, int(config.AdvancedMovieSelection.dirsize_digits.value))
-                        w = self.f1h * 8
+                        w = self.f1h * 5
                         res.append(MultiContentEntryText(pos=(width - w, 4), size=(w - 5, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=dir_size, color=color2, color_sel=self.colorSel2))
+                        line1_width -= w
                 
                 if os.path.islink(serviceref.getPath()[:-1]) and can_show_folder_image:
                     link_png = self.loadIcon("link.png")
                     res.append((TYPE_PIXMAP, 10, 15, 9, 10, link_png))
+                res.append(MultiContentEntryText(pos=(offset, self.line1y), size=(line1_width, self.f0h), font=0, flags=RT_HALIGN_LEFT, text=serviceref.getName(), color=color, color_sel=self.colorSel1))
 
                 return res
                 
