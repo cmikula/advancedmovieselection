@@ -163,7 +163,6 @@ class MovieList(MovieListSkinParam, GUIListComponent):
         self.updateSettings()
     
     def getColor(self, color, default):
-        print color, default
         if color == skin_choice:
             return parseColor(default).argb()
         else:
@@ -203,8 +202,9 @@ class MovieList(MovieListSkinParam, GUIListComponent):
             else:
                 self.movie_color = self.getColor(config.AdvancedMovieSelection.color5.value, color_choice[5][0])
         except:
-            self.movie_color = parseColor(color_choice[4][0]).argb()
-
+            self.movie_color = parseColor(color_choice[5][0]).argb()
+        
+        self.movie_color2 = None
         if config.AdvancedMovieSelection.color1.value == skin_choice and self.colorWatching:
             self.watching_color = self.colorWatching
         if config.AdvancedMovieSelection.color2.value == skin_choice and self.colorFinished:
@@ -217,7 +217,10 @@ class MovieList(MovieListSkinParam, GUIListComponent):
             self.movie_color = self.color1
         if config.AdvancedMovieSelection.color5.value == skin_choice and self.color2:
             self.movie_color2 = self.color2
-
+        
+        if self.movie_color2 is None:
+            self.movie_color2 = self.movie_color
+        
         self.COLOR_MOVIE_ICON = None
         if self.show_statusicon and self.show_folders:
             if config.AdvancedMovieSelection.color3.value == color_choice[1][0]:
@@ -344,9 +347,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
         try:
             #print "update"
             color = self.movie_color
-            if self.color2: 
-                color2 = self.color2
-            else: color2 = color
+            color2 = self.movie_color2
             TYPE_PIXMAP = eListboxPythonMultiContent.TYPE_PIXMAP_ALPHABLEND
             width = self.l.getItemSize().width()
             offset = 0
