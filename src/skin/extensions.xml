@@ -14,6 +14,14 @@
 		list3_Progress="50,8,1,60"
 		renderer_extend="10"
 		icon_size="40"
+		color1="#00aaaaaa"
+		color2="#00666666"
+		colorSel1="#00ffffff"
+		colorSel2="#00CCCCCC"
+		colorWatching="#0000ffff"
+		colorFinished="#0000aa00"
+		colorRecording="#00aa0000"
+		colorMark="#00ffa500"
 		>
 	</MovieList> 
 	<Wastebasket 

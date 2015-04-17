@@ -22,6 +22,13 @@
 from enigma import getDesktop
 from Tools.Directories import fileExists, resolveFilename, SCOPE_CURRENT_PLUGIN, SCOPE_CURRENT_SKIN
 
+try:
+    from enigma import eMediaDatabase
+    isDreamOS = True
+except:
+    isDreamOS = False
+
+
 IMAGE_PATH = "Extensions/AdvancedMovieSelection/images/"
 
 def getIconPath(png_name):

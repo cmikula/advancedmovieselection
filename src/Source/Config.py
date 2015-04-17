@@ -54,6 +54,7 @@ movie_length_format_choice = [("{0:d}:{1:02d}" , _("Minutes and seconds (90:01)"
 config.AdvancedMovieSelection.movie_length_format = ConfigSelection(default=movie_length_format_choice[1][0], choices=movie_length_format_choice)
 
 color_choice = [
+                ("#FFFFFFFF", _("Skin default")),
                 ("#00ffcc00", _("Yellow")),
                 ("#0038FF48", _("Green")),
                 ("#00ff4A3C", _("Red")),
@@ -63,6 +64,8 @@ color_choice = [
                 ("#00ffa500", _("Orange")),
                 ("#008585ff", _("Blue")),
                 ]
+skin_choice = color_choice[0][0]
+
 def checkColor(color, l):
     for x, n in l:
         if color == x:
@@ -103,12 +106,10 @@ for col in skin_colors:
         color_choice.append(col)
 
 config.AdvancedMovieSelection.color1 = ConfigSelection(default=color_choice[0][0] , choices=color_choice)
-config.AdvancedMovieSelection.color2 = ConfigSelection(default=color_choice[1][0] , choices=color_choice)
-config.AdvancedMovieSelection.color3 = ConfigSelection(default=color_choice[2][0] , choices=color_choice)
-config.AdvancedMovieSelection.color4 = ConfigSelection(default=color_choice[3][0] , choices=color_choice)
-color_choice = color_choice[:]
-color_choice.insert(8, ("#FFFFFFFF", _("Skin default")))
-config.AdvancedMovieSelection.color5 = ConfigSelection(default=color_choice[8][0] , choices=color_choice)
+config.AdvancedMovieSelection.color2 = ConfigSelection(default=color_choice[0][0] , choices=color_choice)
+config.AdvancedMovieSelection.color3 = ConfigSelection(default=color_choice[0][0] , choices=color_choice)
+config.AdvancedMovieSelection.color4 = ConfigSelection(default=color_choice[0][0] , choices=color_choice)
+config.AdvancedMovieSelection.color5 = ConfigSelection(default=color_choice[0][0] , choices=color_choice)
 
 config.AdvancedMovieSelection.moviepercentseen = ConfigInteger(default=80, limits=(50, 100))
 config.AdvancedMovieSelection.showfoldersinmovielist = ConfigYesNo(default=False)

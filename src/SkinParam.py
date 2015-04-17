@@ -5,7 +5,7 @@ Created on 15.12.2014
 '''
 
 from enigma import gFont, ePoint, eSize
-from skin import parseFont, parseSize, parsePosition
+from skin import parseFont, parseSize, parsePosition, parseColor
 from Tools.Directories import resolveFilename, fileExists, SCOPE_SKIN, SCOPE_CONFIG
 from Components.config import config
 import os, xml.etree.cElementTree
@@ -107,7 +107,16 @@ class MovieListSkinParam(SkinParam):
         self.list1Pos1 = 0
         
         self.icon_size = 20
-
+        
+        self.colorSel1 = None
+        self.colorSel2 = None
+        self.color1 = None
+        self.color2 = None
+        self.colorWatching = None
+        self.colorFinished = None
+        self.colorRecording = None
+        self.colorMark = None
+        
         self.loadSkinData()
     
     def redrawList(self):
@@ -188,6 +197,23 @@ class MovieListSkinParam(SkinParam):
 
         elif attrib == "icon_size":
             self.icon_size = int(value)
+
+        elif attrib == "color1":
+            self.color1 = parseColor(value).argb()
+        elif attrib == "color2":
+            self.color2 = parseColor(value).argb()
+        elif attrib == "colorSel1":
+            self.colorSel1 = parseColor(value).argb()
+        elif attrib == "colorSel2":
+            self.colorSel2 = parseColor(value).argb()
+        elif attrib == "colorWatching":
+            self.colorWatching = parseColor(value).argb()
+        elif attrib == "colorFinished":
+            self.colorFinished = parseColor(value).argb()
+        elif attrib == "colorRecording":
+            self.colorRecording = parseColor(value).argb()
+        elif attrib == "colorMark":
+            self.colorMark = parseColor(value).argb()
 
 class WastebasketSkinParam(SkinParam):
     def __init__(self):

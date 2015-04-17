@@ -26,6 +26,7 @@ from Components.config import config
 from AdvancedMovieSelectionSetup import AdvancedMovieSelectionSetup
 from TagEditor import TagEditor
 from Source.Config import initializeConfig
+from Source.Globals import isDreamOS
 
 initializeConfig()
 
@@ -69,7 +70,7 @@ def pluginMenu(session, **kwargs):
     session.open(AdvancedMovieSelectionSetup)
 
 def Setup(menuid, **kwargs):
-    if menuid == "setup":
+    if (not isDreamOS and menuid == "setup") or menuid == "services_recordings":
         return [(_("Setup Advanced Movie Selection"), pluginMenu, "SetupAdvancedMovieSelection", None)]
     return []
 
