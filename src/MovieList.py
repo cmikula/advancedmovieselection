@@ -532,7 +532,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                         png = self.loadIcon("movie_new.png")
                         if png is None:
                             png = self.MOVIE_NEW_PNG
-                    elif self.show_statuscolor:
+                    else: #elif self.show_statuscolor:
                         if perc < 5:
                             png = self.loadIcon("movie.png")
                             if png is None:
@@ -545,6 +545,8 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                             png = self.loadIcon("movie_finished.png")
                             if png is None:
                                 png = self.MOVIEICON_PERCENT_2
+                    if png is None:
+                        png = self.loadIcon("movie.png")
 
             if recording:
                 if self.show_statuscolor:
