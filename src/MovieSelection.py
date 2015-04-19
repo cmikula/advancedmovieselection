@@ -272,10 +272,20 @@ class MovieContextMenu(Screen):
                     menu.append((_("Hide movie status icon in movielist"), boundFunction(self.showStatusIcon, False)))
                 else:
                     menu.append((_("Show movie status icon in movielist"), boundFunction(self.showStatusIcon, True)))
+                if config.AdvancedMovieSelection.showiconstatusinmovielist.value:
+                    if config.AdvancedMovieSelection.showmediaiconsinmovielist.value:
+                        menu.append((_("Show status icons"), boundFunction(self.showMediaIcon, False)))
+                    else:
+                        menu.append((_("Show media extension icons"), boundFunction(self.showMediaIcon, True)))
                 if config.AdvancedMovieSelection.showcolorstatusinmovielist.value:
                     menu.append((_("Hide movie color status in movielist"), boundFunction(self.showStatusColor, False)))
                 else:
                     menu.append((_("Show movie color status in movielist"), boundFunction(self.showStatusColor, True)))
+                if config.AdvancedMovieSelection.showcolorstatusinmovielist.value:
+                    if config.AdvancedMovieSelection.showsinglecolorinmovielist.value:
+                        menu.append((_("Dual color"), boundFunction(self.showSingleColor, False)))
+                    else:
+                        menu.append((_("Single color"), boundFunction(self.showSingleColor, True)))
         if config.AdvancedMovieSelection.showcolorkey.value:        
             menu.append((_("Color key settings"), self.setupbutton))     
         if config.AdvancedMovieSelection.showcoveroptions2.value:
@@ -498,6 +508,20 @@ class MovieContextMenu(Screen):
         config.AdvancedMovieSelection.showcolorstatusinmovielist.value = value
         config.AdvancedMovieSelection.showcolorstatusinmovielist.save()
         self.csel.showStatusColor(value)
+        self.csel.reloadList()
+        self.close()
+        
+    def showMediaIcon(self, value):
+        config.AdvancedMovieSelection.showmediaiconsinmovielist.value = value
+        config.AdvancedMovieSelection.showmediaiconsinmovielist.save()
+        self.csel["list"].showMediaIcon(value)
+        self.csel.reloadList()
+        self.close()
+        
+    def showSingleColor(self, value):
+        config.AdvancedMovieSelection.showsinglecolorinmovielist.value = value
+        config.AdvancedMovieSelection.showsinglecolorinmovielist.save()
+        self.csel["list"].showSingleColor(value)
         self.csel.reloadList()
         self.close()
         
