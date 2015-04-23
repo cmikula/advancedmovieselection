@@ -26,15 +26,27 @@ that they, too, receive or can get the source code. And you must show them these
 from Components.EpgList import EPGList
 from Tools.LoadPixmap import LoadPixmap
 from MovieScanner import movieScanner
-from Globals import getIconPath
+from Globals import getIconPath, printStackTrace, config
 
-av1_pixmap = LoadPixmap(getIconPath("movie.png"))
-av2_pixmap = LoadPixmap(getIconPath("blue_movieicon.png"))
+av1_pixmap = None
+av2_pixmap = None
 
-savedPixmapForEntry = EPGList.getPixmapForEntry
-savedBuildSingleEntry = EPGList.buildSingleEntry
-savedBuildMultiEntry = EPGList.buildMultiEntry
-savedBuildSimilarEntry = EPGList.buildSimilarEntry
+EPGListExtensionSuccess = True
+try:
+    savedPixmapForEntry = EPGList.getPixmapForEntry
+    savedBuildSingleEntry = EPGList.buildSingleEntry
+    savedBuildMultiEntry = EPGList.buildMultiEntry
+    savedBuildSimilarEntry = EPGList.buildSimilarEntry
+
+    def updateImage(conf):
+        global av1_pixmap, av2_pixmap
+        av1_pixmap = LoadPixmap(getIconPath("movie.png"))
+        av2_pixmap = LoadPixmap(getIconPath("blue_movieicon.png"))
+    
+    config.AdvancedMovieSelection.showskinicons.addNotifier(updateImage)
+except:
+    EPGListExtensionSuccess = False
+    printStackTrace()
 
 def getPixmapForEntry(self, service, eventId, beginTime, duration):
     pixmap = savedPixmapForEntry(self, service, eventId, beginTime, duration)
@@ -61,6 +73,9 @@ class EPGListExtension():
         self.current_name = ""
     
     def setEnabled(self, enabled):
+        if not EPGListExtensionSuccess:
+            print "[AdvancedMovieSelection] EPG extension not available"
+            return
         print "[AdvancedMovieSelection] Set epg extension:", str(enabled)
         if enabled:
             EPGList.getPixmapForEntry = getPixmapForEntry
