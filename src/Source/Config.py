@@ -44,8 +44,8 @@ config.AdvancedMovieSelection.exitprompt = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.exitkey = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.showtrailer = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.jump_first_mark = ConfigYesNo(default=False)
-config.AdvancedMovieSelection.showfiltertags = ConfigYesNo(default=False)
-config.AdvancedMovieSelection.showmovietagsinmenu = ConfigYesNo(default=False)
+config.AdvancedMovieSelection.showfiltertags = ConfigYesNo(default=True)
+config.AdvancedMovieSelection.showmovietagsinmenu = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.usefoldername = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.minitv = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.shownew = ConfigYesNo(default=True)
@@ -171,10 +171,10 @@ config.AdvancedMovieSelection.showliststyle = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.showextras = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.showsort = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.showmark = ConfigYesNo(default=True)
-config.AdvancedMovieSelection.startdir = ConfigYesNo(default=False)
+config.AdvancedMovieSelection.startdir = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.showdelete = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.showmove = ConfigYesNo(default=True)
-config.AdvancedMovieSelection.startonfirst = ConfigYesNo(default=True)
+config.AdvancedMovieSelection.startonfirst = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.movecopydirs = ConfigText(default=resolveFilename(SCOPE_HDD))
 config.AdvancedMovieSelection.showsearch = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.showcoveroptions = ConfigYesNo(default=True)
@@ -239,7 +239,7 @@ config.AdvancedMovieSelection.video_preview_fullscreen = ConfigYesNo(default=Tru
 config.AdvancedMovieSelection.epg_extension = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.show_set_vsr = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.keyboard = ConfigSelection(default="virtual_numerical" , choices=[("virtual_numerical" , _("Virtual and Numerical")), ("virtual" , _("Virtual")), ("numerical" , _("Numerical"))])
-config.AdvancedMovieSelection.show_filter_by_description = ConfigYesNo(default=False)
+config.AdvancedMovieSelection.show_filter_by_description = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.show_backup_restore = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.cover_auto_download = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.version = ConfigText()
@@ -256,10 +256,15 @@ config.AdvancedMovieSelection.movielibrary_mark = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.movielibrary_show_mark_cnt = ConfigInteger(default=2, limits=(1, 10))
 config.AdvancedMovieSelection.hide_seen_movies = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.show_backdrop = ConfigYesNo(default=False)
-config.AdvancedMovieSelection.qButtons = ConfigText()
 
 class QuickButtons():
     def __init__(self):
+        config.AdvancedMovieSelection.qButtons = ConfigText(default="[\
+            ('red', 'Delete'), ('red_long', 'Nothing'), \
+            ('green', 'TMDb Info & D/L'), ('green_long', 'Nothing'), \
+            ('yellow', 'Show/Hide seen'), ('yellow_long', 'Nothing'), \
+            ('blue', 'Toggle seen'), ('blue_long', 'Nothing')\
+        ]")
         self.qlist = [('red', ''), ('red_long', ''), ('green', ''), ('green_long', ''), ('yellow', ''), ('yellow_long', ''), ('blue', ''), ('blue_long', '')]
         self.load()
 

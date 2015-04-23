@@ -86,8 +86,8 @@ if not config.content.items.has_key("movielist"):
 # all config.entries from Screens.MovieSelection
 config.movielist.moviesort = ConfigInteger(default=MovieList.SORT_ALPHANUMERIC)
 config.movielist.listtype = ConfigInteger(default=MovieList.LISTTYPE_ORIGINAL)
-config.AdvancedMovieSelection.listtype = ConfigInteger(default=MovieList.LISTTYPE_ORIGINAL)
-config.movielist.description = ConfigInteger(default=MovieList.HIDE_DESCRIPTION)
+config.AdvancedMovieSelection.listtype = ConfigInteger(default=MovieList.LISTTYPE_COMPACT_DESCRIPTION)
+config.movielist.description = ConfigInteger(default=MovieList.SHOW_DESCRIPTION)
 config.movielist.last_videodir = ConfigText(default=resolveFilename(SCOPE_HDD))
 config.movielist.last_timer_videodir = ConfigText(default=resolveFilename(SCOPE_HDD))
 config.movielist.videodirs = ConfigLocations(default=[resolveFilename(SCOPE_HDD)])
