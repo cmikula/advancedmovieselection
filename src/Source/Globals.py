@@ -34,7 +34,7 @@ IMAGE_PATH = "Extensions/AdvancedMovieSelection/images/"
 
 def getIconPath(png_name):
     p = resolveFilename(SCOPE_CURRENT_SKIN, "extensions/" + png_name)
-    if config.AdvancedMovieSelection.showskinicons.value or not fileExists(p):
+    if not config.AdvancedMovieSelection.showskinicons.value or not fileExists(p):
         p = resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + png_name)
     return p
 
