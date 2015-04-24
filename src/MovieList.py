@@ -615,6 +615,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 new_offset = 0
                 # new icon
                 if config.AdvancedMovieSelection.shownew.value and not hasLastPosition(serviceref):
+                    png = self.loadIcon("movie_new.png")
                     res.append((TYPE_PIXMAP, offset, 2, self.icon_size, self.icon_size, png))
                     new_offset = new_offset + self.icon_size + 5
     
