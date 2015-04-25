@@ -373,4 +373,10 @@ versie: 4.0
 OPGELET voor de skinners, SelectionListScreen gewijzigd naar SelectSortFunctions (<widget name="list"... change to <widget name="config"...) 
 
 versie: 4.0.1
-* new: skin_user.xml
+* nieuw: AdvancedMovieListSkinExtension eveneens over skin_user.xml mogelijk
+* nieuw: weergave van media-iconen (eveneens over skin mogelijk)
+* nieuw: weergave van status-iconen (eveneens over skin mogelijk)
+* nieuw: standaard cover en iconen (eveneens over skin mogelijk)
+Info in de extensions.xml
+* nieuw: instelling "weergave iconen van de skin"
+* nieuw: filmstatus in kleur extra instelbaar 
