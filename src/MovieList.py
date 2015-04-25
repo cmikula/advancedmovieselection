@@ -754,7 +754,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                     res.append((TYPE_PIXMAP, 0, 2, self.icon_size, self.icon_size, png))
 
                 if self.show_progressbar:
-                    res.append(MultiContentEntryProgress(pos=(offset, self.progress[3]), size=(self.progress[0], self.progress[1]), percent=perc, borderWidth=self.progress[2], foreColor=color2))
+                    res.append(MultiContentEntryProgress(pos=(offset, self.progress[3]), size=(self.progress[0], self.progress[1]), percent=perc, borderWidth=self.progress[2], foreColor=color))
                     offset = offset + self.progress[0] + (self.progress[1] / 2)
                 
                 line_width = width - offset
@@ -777,7 +777,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                     res.append((TYPE_PIXMAP, 0, 2, self.icon_size, self.icon_size, png))
 
                 if self.show_progressbar:
-                    res.append(MultiContentEntryProgress(pos=(offset + 1, self.progress[3]), size=(self.progress[0], self.progress[1]), percent=perc, borderWidth=self.progress[2], foreColor=color2))
+                    res.append(MultiContentEntryProgress(pos=(offset + 1, self.progress[3]), size=(self.progress[0], self.progress[1]), percent=perc, borderWidth=self.progress[2], foreColor=color))
                     offset = offset + self.progress[0] + (self.progress[1] / 2)
 
                 line_width = width - offset
@@ -797,7 +797,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                     self.textRenderer.setText(text_right)
                     text_right_width = self.getTextRendererWidth()
                     line1w1 = line_width - text_right_width - 5
-                    res.append(MultiContentEntryText(pos=(width - text_right_width - 5, self.line1yr), size=(text_right_width, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=text_right, color=color, color_sel=self.colorSel1))
+                    res.append(MultiContentEntryText(pos=(width - text_right_width - 5, self.line1yr), size=(text_right_width, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=text_right, color=color2, color_sel=self.colorSel1))
 
                 textl = []
                 if self.show_percent:
