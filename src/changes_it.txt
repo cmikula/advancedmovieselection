@@ -376,10 +376,10 @@ versione: 4.0
 Skinners ATTENZIONE: Cambiato SelectionListScreen in SelectSortFunctions (<widget name= "list" ... cambiato in <widget name= "config" ...) 
 
 versione: 4.0.1
-* new: AdvancedMovieListSkinExtension also possible in the skin_user.xml
-* new: display of media icons (also possible in the skin)
-* new: display of status icons (also possible in the skin)
-* new: default cover and icons (also possible in the skin)
-Info in the extensions.xml
-* new: setup setting "display icons from the skin"
-* new: film status in colors extra setting 
+* novità: AdvancedMovieListSkinExtension possibile anche nel skin_user.xml
+* novità: visualizzazione delle icone dei media (possibile anche nella skin)
+* novità: visualizzazione delle icone di stato (possibile anche nella skin)
+* novità: cover e icone di default (possibile anche nella skin)
+Info nel file extensions.xml
+* novità: impostazione "display icons from the skin"
+* novità: stato dei film nelle impostazioni extra dei colori
