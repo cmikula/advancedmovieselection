@@ -654,8 +654,13 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 if tags:
                     line3_l.append(self.arrangeTags(tags))
                 line3_text = ", ".join(line3_l)
-                res.append(MultiContentEntryText(pos=(0 + offset, self.line3y), size=(width - 120, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=line3_text, color=color2, color_sel=self.colorSel2))
-                res.append(MultiContentEntryText(pos=(width - 120, self.line3y), size=(115, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=length_text, color=color2, color_sel=self.colorSel2))
+                length_text_width = 0
+                if length_text:
+                    # self.textRenderer.setFont(self.font2)
+                    self.textRenderer.setText(length_text)
+                    length_text_width = self.getTextRendererWidth()
+                res.append(MultiContentEntryText(pos=(0 + offset, self.line3y), size=(width - offset - length_text_width - 5, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=line3_text, color=color2, color_sel=self.colorSel2))
+                res.append(MultiContentEntryText(pos=(width - length_text_width - 5, self.line3y), size=(length_text_width, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=length_text, color=color2, color_sel=self.colorSel2))
     
             elif self.list_type == MovieList.LISTTYPE_COMPACT_DESCRIPTION:
                 line_width = width - offset
