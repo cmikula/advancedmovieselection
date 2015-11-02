@@ -49,12 +49,12 @@ print "platform:\t", platform.platform()
 
 py_version = 0 
 # checking python version
-if (sys.version_info < (2, 6, 9) and sys.version_info > (2, 6, 0)):
+if (sys.version_info < (2, 6, 99) and sys.version_info > (2, 6, 0)):
     # sys.stderr.write("You need python 2.6.6 to 2.6.8 to build package compiled for dream multimedia devices\n") 
     ARCH = "mipsel"
     py_version = 2.6
 
-if (sys.version_info < (2, 7, 9) and sys.version_info > (2, 7, 0)):
+if (sys.version_info < (2, 7, 99) and sys.version_info > (2, 7, 0)):
     # sys.stderr.write("You need python 2.7 to build package compiled for opendreambox-2.0.0\n") 
     ARCH = "mips32el"
     py_version = 2.7
