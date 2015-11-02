@@ -620,11 +620,15 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                     new_offset = new_offset + self.icon_size + 5
     
                 # line 2: description, file size 
-                res.append(MultiContentEntryText(pos=(0 + offset, self.line2y), size=(width - offset - 185, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=description, color=color2, color_sel=self.colorSel2))
+                filesize_width = 0
                 filesize = info.getInfoObject(serviceref, iServiceInformation.sFileSize)
                 if filesize:
-                    filesize = realSize(filesize, int(config.AdvancedMovieSelection.dirsize_digits.value))
-                    res.append(MultiContentEntryText(pos=(width - 185, self.line2y), size=(180, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=filesize, color=color2, color_sel=self.colorSel2))
+                    filesize_text = realSize(filesize, int(config.AdvancedMovieSelection.dirsize_digits.value))
+                    self.textRenderer.setFont(self.font2)
+                    self.textRenderer.setText(filesize_text)
+                    filesize_width = self.getTextRendererWidth()
+                    res.append(MultiContentEntryText(pos=(width - filesize_width - 5, self.line2y), size=(filesize_width, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=filesize_text, color=color2, color_sel=self.colorSel2))
+                res.append(MultiContentEntryText(pos=(0 + offset, self.line2y), size=(width - offset - filesize_width, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=description, color=color2, color_sel=self.colorSel2))
                 # Line 1: Movie Text, service name
                 line_width = width - new_offset - offset
                 line1w1 = line_width
