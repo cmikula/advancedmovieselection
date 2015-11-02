@@ -1,9 +1,9 @@
 <skin>
-	<screen name="PopupInputDialog" position="center,545" size="390,30" title="Input" flags="wfNoBorder">
+	<screen name="PopupInputDialog" position="center,545" size="390,30" title="Input" flags="wfNoBorder" zPosition="1000">
 		<widget source="Title" render="Label" position="10,2" size="100,25" font="Regular;20" backgroundColor="#605F5E" transparent="1" />
 		<widget name="input" position="100,2" size="380,25" font="Regular;20" />
 	</screen>
-	<screen name="PopupInputHelpDialog" position="center,580" zPosition="100" size="394,124" backgroundColor="#202020" flags="wfNoBorder">
+	<screen name="PopupInputHelpDialog" position="center,580" size="394,124" backgroundColor="#202020" flags="wfNoBorder" zPosition="1000" >
 		<eLabel position="0,0" size="392,122" backgroundColor="#c0c0c0" zPosition="-1" />
 		<widget name="key1" position="2,2" size="130,30" font="Regular;18" halign="center" valign="center" />
 		<widget name="key2" position="132,2" size="130,30" font="Regular;18" halign="center" valign="center" />
