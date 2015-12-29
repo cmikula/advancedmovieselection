@@ -1288,7 +1288,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         if not isinstance(self.current_ref, eServiceReferenceListAll):
             di = DirectoryInfo(config.movielist.last_videodir.value)
             sort_type = di.sort_type
-        if sort_type != -1:
+        if sort_type != 0:
             print "[AdvancedMovieSelection] Set new sort type:", str(sort_type)
             config.movielist.moviesort.value = sort_type
             self["list"].setSortType(sort_type)

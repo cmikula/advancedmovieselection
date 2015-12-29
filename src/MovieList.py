@@ -307,14 +307,14 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 movieScanner.checkAllAvailable()
         return res
 
-    def setListType(self, type):
-        self.list_type = type
+    def setListType(self, list_type):
+        self.list_type = list_type
 
     def setDescriptionState(self, val):
         self.descr_state = val
 
-    def setSortType(self, type):
-        self.sort_type = type
+    def setSortType(self, sort_type):
+        self.sort_type = sort_type
 
     def showFolders(self, val):
         self.show_folders = val
@@ -371,6 +371,10 @@ class MovieList(MovieListSkinParam, GUIListComponent):
             offset = 0
             service_name, serviceref, info, begin, length, perc = movie_info.name, movie_info.serviceref, movie_info.info, movie_info.begin, movie_info.length, movie_info.percent
             if serviceref.flags & eServiceReference.mustDescent:
+                movie_count = length
+                movie_seen = begin
+                movie_new = movie_count - movie_seen
+                dir_size1 = movie_info.size
                 can_show_folder_image = True
                 if isinstance(serviceref, eServiceReferenceVDir):
                     png = self.loadIcon("bookmark.png")
@@ -415,6 +419,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                     res.append((TYPE_PIXMAP, 0, 2, self.icon_size, self.icon_size, png))
                 line1_width = width - offset - 5
                 if config.AdvancedMovieSelection.show_dirsize.value:
+                    # TODO: we get dir size from movie info!!!
                     dir_size = -1
                     if isinstance(serviceref, eServiceReferenceHotplug):
                         dir_size = diskUsage(serviceref.getPath())[1]
@@ -424,15 +429,18 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                         else:
                             dir_size = movieScanner.movielibrary.getSize(serviceref.getPath())
                     if dir_size >= 0:
-                        dir_size = realSize(dir_size, int(config.AdvancedMovieSelection.dirsize_digits.value))
+                        dir_size_text = realSize(dir_size, int(config.AdvancedMovieSelection.dirsize_digits.value))
                         w = self.f1h * 5
-                        res.append(MultiContentEntryText(pos=(width - w, 4), size=(w - 5, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=dir_size, color=color2, color_sel=self.colorSel2))
+                        res.append(MultiContentEntryText(pos=(width - w, 4), size=(w - 5, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=dir_size_text, color=color2, color_sel=self.colorSel2))
                         line1_width -= w
                 
                 if os.path.islink(serviceref.getPath()[:-1]) and can_show_folder_image:
                     link_png = self.loadIcon("link.png")
                     res.append((TYPE_PIXMAP, 10, 15, 9, 10, link_png))
-                res.append(MultiContentEntryText(pos=(offset, self.line1y), size=(line1_width, self.f0h), font=0, flags=RT_HALIGN_LEFT, text=serviceref.getName(), color=color, color_sel=self.colorSel1))
+                info_text = serviceref.getName()
+                if not isinstance(serviceref, eServiceReferenceListAll) and movie_count > 0:
+                    info_text += " ({0}/{1})".format(movie_new, movie_count, realSize(dir_size1, int(config.AdvancedMovieSelection.dirsize_digits.value)))
+                res.append(MultiContentEntryText(pos=(offset, self.line1y), size=(line1_width, self.f0h), font=0, flags=RT_HALIGN_LEFT, text=info_text, color=color, color_sel=self.colorSel1))
 
                 return res
                 
@@ -864,7 +872,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
         l = self.l.getCurrentSelection()
         return l and l[0].serviceref
 
-    def reload(self, root=None, filter_tags=None):
+    def reload(self, root=None, filter_tags=None): #@ReservedAssignment
         self.movieConfig.readDMconf()
         if root is not None:
             self.load(root, filter_tags)
@@ -905,7 +913,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
         tt.setPath(tmp)
         mi = MovieInfo(tt.getName(), tt)
         self.list.insert(0, (mi,))
-
+    
     def load(self, root, filter_tags):
         self.updateHotplugDevices()
         self.root = root
@@ -924,7 +932,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
 
         self.serviceHandler = ServiceCenter.getInstance()
         
-        list = self.serviceHandler.list(root)
+        list = self.serviceHandler.list(root) #@ReservedAssignment
         if list is None:
             print "listing of movies failed"
             return
@@ -962,6 +970,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                         serviceref.setName(dirName)
                         info = self.serviceHandler.info(serviceref)
                         mi = MovieInfo(dirName, serviceref, info)
+                        self.addDirInfo(mi)
                         dirs.append((mi,))
                         continue
                 else:
@@ -1045,6 +1054,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                     tt.setName(self.movieConfig.getRenamedName(dirName))
                     info = self.serviceHandler.info(tt)
                     mi = MovieInfo(tt.getName(), tt, info)
+                    self.addDirInfo(mi)
                     vdirs.append((mi,))
             vdirs.sort(self.sortFolders)
             for servicedirs in vdirs:
@@ -1074,9 +1084,9 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 db_index += 1
 
         if len(config.AdvancedMovieSelection.videodirs.value) > 0 and config.AdvancedMovieSelection.show_movielibrary.value:
-            count = movieScanner.movielibrary.getFullCount()[1]
+            movie_cnt, movie_seen, dir_cnt, size = movieScanner.movielibrary.getFullCount() #@UnusedVariable
             tt1 = eServiceReferenceListAll(root_path)
-            tt1.setName(_("Movie library") + " (%d)" % (count))
+            tt1.setName(_("Movie library") + " (%d/%d)" % (movie_cnt - movie_seen, movie_cnt))
             info = self.serviceHandler.info(tt1)
             mi = MovieInfo(tt1.getName(), tt1, info)
             self.list.insert(db_index, (mi,))
@@ -1084,6 +1094,12 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 
         # finally, store a list of all tags which were found. these can be presented to the user to filter the list
         self.tags = sorted(tags)
+
+    def addDirInfo(self, mi):
+        l, dir_size, movie_seen = movieScanner.scanForMovies(mi.serviceref.getPath(), False)
+        mi.length = len(l)
+        mi.begin = movie_seen
+        mi.size = dir_size
 
     def sortMovieList(self):
         if self.sort_type == MovieList.SORT_ALPHANUMERIC:
@@ -1150,11 +1166,11 @@ class MovieList(MovieListSkinParam, GUIListComponent):
 
     def updateMovieLibraryEntry(self):
         cur_idx = 0
-        count = movieScanner.movielibrary.getFullCount()[1]
+        movie_cnt, movie_seen, dir_cnt, size = movieScanner.movielibrary.getFullCount() #@UnusedVariable
         for item in self.list:
             mi = item[0]
             if isinstance(mi.serviceref, eServiceReferenceListAll):
-                mi.serviceref.setName(_("Movie library") + " (%d)" % (count))
+                mi.serviceref.setName(_("Movie library") + " (%d/%d)" % (movie_cnt - movie_seen, movie_cnt))
                 self.l.invalidateEntry(cur_idx)
                 return
             cur_idx += 1

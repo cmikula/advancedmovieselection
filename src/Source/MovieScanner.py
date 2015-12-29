@@ -36,6 +36,7 @@ from StopWatch import clockit
 from RecordTimerEvent import recordTimerEvent
 from MovieLibrary import MovieLibrary
 from Hotplug import hotplug
+from CueSheetSupport import hasLastPosition
 
 SCAN_EXCLUDE = (ISOInfo.MOUNT_PATH, "DUMBO", "TIMOTHY", "/media/swap", "/media/ram", "/media/ba")
 AUDIO_EXCLUDE = ("mp3", "ogg", "wav", "m4a")
@@ -167,10 +168,10 @@ class MovieScanner():
         except:
             printStackTrace()
         self.isWorking = False
-        directories, movies = self.movielibrary.getFullCount()
-        print "[AdvancedMovieSelection] Finished scanning movies", str(directories), str(movies)
+        dbx = self.movielibrary.getFullCount()
+        print "[AdvancedMovieSelection] Finished scanning movies", str(dbx[2]), str(dbx[0])
 
-    def scanForMovies(self, root):
+    def scanForMovies(self, root, addtolib=True):
         # print "[AdvancedMovieSelection] scan folder:", root
 
         scan_service = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + root)
@@ -181,6 +182,7 @@ class MovieScanner():
         tags = set()
         l = []
         dirs = []
+        movie_seen = 0
         while 1:
             serviceref = root_list.getNext()
             if not serviceref.valid():
@@ -252,11 +254,15 @@ class MovieScanner():
             service_name = info.getName(serviceref)
             mi = MovieInfo(service_name, serviceref, info, begin)
             l.append(mi)
-
-        # we always must add location to movielibrary
+            if hasLastPosition(serviceref):
+                movie_seen += 1
+        
         dir_size = getDirSize(root)
-        self.movielibrary.addMovieList(root, l, dir_size)
-        self.movielibrary.addTags(tags)
+        # add location to movielibrary
+        if addtolib:
+            self.movielibrary.addMovieList(root, l, dir_size, movie_seen)
+            self.movielibrary.addTags(tags)
+        return l, dir_size, movie_seen
     
     def findMovies___(self, name):
         l = []
