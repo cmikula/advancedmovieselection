@@ -31,14 +31,13 @@ class MovieInfo():
     idDVD = 0x1111 # 4369
     idMP3 = 0x1001 # 4097
     idBD = 0x0004
-    def __init__(self, name, serviceref, info=None, begin=0, length=0, file_name=None, size=0):
+    def __init__(self, name, serviceref, info=None, begin= -1, length= -1, file_name=None):
         self.name = name
         self.info = info
         self.begin = begin
         self.length = length
-        self.size = size
         self.serviceref = serviceref
-        self.percent = 0
+        self.percent = -1
         if serviceref:
             self.flags = serviceref.flags
             self.type = serviceref.type
@@ -84,12 +83,11 @@ class DirectoryInfo():
         self.dir_path = dir_path
         self.meta_file = dir_path + ".meta"
         self.name = os.path.split(os.path.dirname(dir_path))[1]
-        self.sort_type = 0
-        self.used = 0
-        self.dir_size = 0
-        self.dir_count = 0
-        self.mov_count = 0
-        self.mov_seen = 0
+        self.sort_type = -1
+        self.used = -1
+        self.dir_size = -1
+        self.dir_count = -1
+        self.mov_count = -1
         if dir_path != '/':
             self.__read(dir_path)
     
@@ -202,9 +200,8 @@ class DirectoryEvent(DirectoryInfo):
             dbinfo = movieScanner.movielibrary.getInfo(serviceref.getPath())
             if dbinfo is not None:
                 self.mov_count = dbinfo[0]
-                self.mov_seen = dbinfo[1]
-                self.dir_count = dbinfo[2]
-                self.dir_size = dbinfo[3]
+                self.dir_count = dbinfo[1]
+                self.dir_size = dbinfo[2]
 
     def getEventName(self):
         return self.name
@@ -214,22 +211,16 @@ class DirectoryEvent(DirectoryInfo):
 
     def getDBDescription(self):
         from MovieScanner import movieScanner
-        dbinfo = movieScanner.movielibrary.getFullCount()
-        if dbinfo is not None:
-            self.mov_count = dbinfo[0]
-            self.mov_seen = dbinfo[1]
-            self.dir_count = dbinfo[2]
-            self.dir_size = dbinfo[3]
+        self.dir_size = movieScanner.movielibrary.getSize()
+        self.dir_count, self.mov_count = movieScanner.movielibrary.getFullCount()
         text1 = []
         
-        if self.dir_size > 0:
+        if self.dir_size > -1:
             text1.append(realSize(self.dir_size, 3))
         if self.dir_count > 0:
             text1.append(str(self.dir_count) + ' ' + _("Directories"))
         if self.mov_count > 0:
             text1.append(str(self.mov_count) + ' ' + _("Movies"))
-            text1.append(str(self.mov_seen) + ' ' + _("Seen"))
-            text1.append(str(self.mov_count - self.mov_seen) + ' ' + _("New"))
         
         result = ", ".join(text1)
         if movieScanner.last_update:
@@ -240,14 +231,12 @@ class DirectoryEvent(DirectoryInfo):
     def getDirDescription(self):
         text = _("Name:") + ' ' + self.name
         text1 = []
-        if self.dir_size > 0:
+        if self.dir_size > -1:
             text1.append(realSize(self.dir_size, 3))
         if self.dir_count > 0:
             text1.append(str(self.dir_count) + ' ' + _("Directories"))
         if self.mov_count > 0:
             text1.append(str(self.mov_count) + ' ' + _("Movies"))
-            text1.append(str(self.mov_seen) + ' ' + _("Seen"))
-            text1.append(str(self.mov_count - self.mov_seen) + ' ' + _("New"))
 
         if len(text1) > 0:
             text += "  (" + ", ".join(text1) + ")"
