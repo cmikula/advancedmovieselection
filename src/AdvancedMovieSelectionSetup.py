@@ -475,7 +475,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         if not result:
             return
         for x in self["config"].list:
-            x[1].cancel()
+            if len(x) > 1: # must check config entry
+                x[1].cancel()
         self.close()
 
     def keyCancel(self):
