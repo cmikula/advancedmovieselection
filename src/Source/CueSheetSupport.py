@@ -31,6 +31,26 @@ from shutil import copyfile
 from bisect import insort
 from Globals import printStackTrace
 
+def getPercentSeen(info, length):
+    cue = info.cueSheet()
+    perc = last = 0
+    if cue is not None:
+        cut_list = cue.getCutList()
+        for (pts, what) in cut_list:
+            if what == InfoBarCueSheetSupport.CUT_TYPE_OUT and length == 0:
+                length = pts / 90000
+            if what == InfoBarCueSheetSupport.CUT_TYPE_LAST:
+                last = pts / 90000
+
+    if last > 0 and length > 0:
+        perc = int((float(last) / float(length)) * 100);
+        if perc > 100:
+            perc = 100
+        if perc < 0:
+            perc = 0
+    
+    return perc
+
 
 def hasLastPosition(service):
     file_name = service.getPath() + ".cuts"

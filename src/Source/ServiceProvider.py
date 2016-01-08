@@ -31,7 +31,6 @@ from Tools.Directories import fileExists
 from EventInformationTable import EventInformationTable
 from ServiceUtils import getFolderSize
 from CueSheetSupport import CueSheet
-from ServiceDescriptor import DirectoryEvent
 from Globals import printStackTrace
 
 instance = None
@@ -153,6 +152,59 @@ def detectDVDStructure(loadPath):
     return None
 
 
+import struct
+from Screens.InfoBarGenerics import InfoBarCueSheetSupport
+def getPercentSeen(serviceref):
+    cuts = serviceref.getPath() + ".cuts"
+    if serviceref.type == eServiceReference.idDVB:
+        meta = serviceref.getPath() + ".meta"
+    else:
+        meta = serviceref.getPath() + ".ts.meta"
+    
+    length = 0
+    last = 0
+    perc = 0
+    f = None
+    if not os.path.exists(cuts) or not os.path.exists(meta):
+        return 0
+    try:
+        f = open(cuts, "rb")
+        while 1:
+            data = f.read(12)
+            if data == '':
+                break
+            what = struct.unpack('>I', data[8:12])[0]
+            if what == InfoBarCueSheetSupport.CUT_TYPE_LAST:
+                where = struct.unpack('>Q', data[0:8])[0]
+                last = long(where) / 90000
+            if what == InfoBarCueSheetSupport.CUT_TYPE_OUT:
+                where = struct.unpack('>Q', data[0:8])[0]
+                length = long(where) / 90000
+        f.close()
+        
+        if last > 0 and length == 0:
+            f = open(meta, "rb")
+            lines = f.readlines()
+            if len(lines) > 5:
+                length = long(lines[5]) / 90000
+        
+        if last > 0 and length > 0:
+            perc = int((float(last) / length) * 100)
+            if perc > 100:
+                perc = 100
+            if perc < 0:
+                perc = 0
+        print meta
+        print length
+        print perc
+    except:
+        printStackTrace()
+    finally:
+        if f is not None:
+            f.close()
+    return perc
+
+
 class ServiceCenter:
     def __init__(self):
         global instance
@@ -194,6 +246,8 @@ def checkCreateMetaFile(serviceref):
         else:
             meta_path = serviceref.getPath() + ".ts.meta"
         if not os.path.exists(meta_path):
+            if serviceref.getPath()[-3:] in ("mp3", "ogg", "wav", "m4a"):
+                return None
             if os.path.isfile(serviceref.getPath()):
                 title = os.path.basename(os.path.splitext(serviceref.getPath())[0])
             else:
@@ -225,8 +279,9 @@ class ServiceInfo:
                 meta_path = checkCreateMetaFile(serviceref)
             except Exception, e:
                 print e
+            if meta_path is None:
                 if os.path.isfile(serviceref.getPath()):
-                    self.name = os.path.basename(serviceref.getPath()).split('.')[0]
+                    self.name = os.path.splitext(os.path.basename(serviceref.getPath()))[0]
                 else:
                     self.name = serviceref.getName()
                 return
@@ -271,7 +326,7 @@ class Info:
     def getLength(self, serviceref):
         cut_list = self.cue.getCutList()
         for (pts, what) in cut_list:
-            if what == 1:
+            if what == InfoBarCueSheetSupport.CUT_TYPE_OUT:
                 self.length = pts / 90000
         if self.length == 0:
             file_name = serviceref.getPath()
@@ -326,6 +381,7 @@ class Info:
             eit_file = file_name + ".eit"
             if os.path.exists(eit_file):
                 return EventInformationTable(eit_file)
+            from ServiceDescriptor import DirectoryEvent
             return DirectoryEvent(serviceref)
         if not serviceref.flags & eServiceReference.isDirectory:
             eit_file = os.path.splitext(file_name)[0] + ".eit"

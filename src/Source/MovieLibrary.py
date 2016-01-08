@@ -21,7 +21,7 @@
 
 import os
 from ServiceProvider import ServiceCenter, eServiceReferenceMarker
-from ServiceDescriptor import MovieInfo
+from MovieInfo import MovieInfo
 from enigma import iServiceInformation
 from AccessRestriction import accessRestriction
 from Globals import printStackTrace
@@ -91,17 +91,19 @@ class MovieLibrary(dict, SortProvider):
             #print "new locatio:", location
             item = {}
             item["movies"] = []
-            item["dir_size"] = -1
-            item["sort_type"] = -1
+            item["dir_size"] = 0
+            item["movie_seen"] = 0
+            item["sort_type"] = 0
             self["db"][location] = item
             return item
         return self["db"][location]
     
-    def addMovieList(self, location, movie_list, dir_size):
+    def addMovieList(self, location, movie_list, dir_size, movie_seen):
         print "movielibrary add:", location
         item = self.getCreate(location)
         item["movies"].extend(movie_list)
         item["dir_size"] = dir_size
+        item["movie_seen"] = movie_seen
 
     def setSortType(self, location, sort_type):
         item = self.getCreate(location)
@@ -277,28 +279,43 @@ class MovieLibrary(dict, SortProvider):
         if not self["db"].has_key(location):
             return
         movie_cnt = 0
+        movie_seen = 0
         dir_cnt = -1
         size = 0
         dirs = self.getSubDirectories(location)
+        def updateItem(item):
+            item_seen = 0
+            for mi in item["movies"]:
+                if hasLastPosition(mi.serviceref):
+                    item_seen += 1
+            item["movie_seen"] = item_seen
+        
         for sub in dirs:
             item = self["db"][sub]
+            updateItem(item)
             movie_cnt += len(item["movies"])
+            movie_seen += item["movie_seen"]
             size += item["dir_size"]
             dir_cnt += 1
         if dir_cnt < 0:
             return None
-        return (movie_cnt, dir_cnt, size)
+        return (movie_cnt, movie_seen, dir_cnt, size)
     
     def getFullCount(self):
-        directories = 0
-        movies = 0
+        dir_cnt = 0
+        movie_cnt = 0
+        movie_seen = 0
+        size = 0
         try:
             for km in self["db"].iteritems():
-                directories += 1
-                movies += len(km[1]["movies"])
+                dir_cnt += 1
+                item = km[1]
+                movie_cnt += len(item["movies"])
+                movie_seen += item["movie_seen"]
+                size += item["dir_size"]
         except:
             pass
-        return directories, movies
+        return (movie_cnt, movie_seen, dir_cnt, size) 
 
     def getSize(self, dir_path=None):
         cnt = 0

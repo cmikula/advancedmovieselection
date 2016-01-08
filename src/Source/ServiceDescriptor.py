@@ -23,58 +23,10 @@ import os
 from LocaleInit import _
 from ServiceUtils import diskUsage, getDirSize, realSize
 from Globals import printStackTrace
-from enigma import eServiceReference, iServiceInformation
 from Config import config
-
-class MovieInfo():
-    idDVB = eServiceReference.idDVB
-    idDVD = 0x1111 # 4369
-    idMP3 = 0x1001 # 4097
-    idBD = 0x0004
-    def __init__(self, name, serviceref, info=None, begin= -1, length= -1, file_name=None):
-        self.name = name
-        self.info = info
-        self.begin = begin
-        self.length = length
-        self.serviceref = serviceref
-        self.percent = -1
-        if serviceref:
-            self.flags = serviceref.flags
-            self.type = serviceref.type
-            self.path = serviceref.getPath()
-            self.s_type = type(serviceref)
-        else:
-            self.flags = 0
-            self.type = self.idDVB
-            self.path = file_name
-            self.s_type = eServiceReference
-
-    def __repr__(self):
-        return self.name + "\t" + self.path
-    
-    def createService(self):
-        #print "x" * 80
-        #print self.path
-        if self.s_type == eServiceReference:
-            serviceref = self.s_type(self.type, self.flags, self.path)
-        else:
-            serviceref = self.s_type(self.path)
-        if self.flags & eServiceReference.mustDescent:
-            serviceref.setName(self.name)
-        return serviceref
-
-    #serviceref = property(createService)
-
-    def getPath(self):
-        return self.path
-    
-    def getTags(self):
-        if self.info is None:
-            return []
-        this_tags = self.info.getInfoString(self.serviceref, iServiceInformation.sTags).split(' ')
-        if this_tags is None or this_tags == ['']:
-            this_tags = []
-        return this_tags
+from StopWatch import clockit
+from ServiceProvider import eServiceReferenceListAll
+from MovieScanner import movieScanner
 
 class DirectoryInfo():
     def __init__(self, dir_path):
@@ -83,17 +35,15 @@ class DirectoryInfo():
         self.dir_path = dir_path
         self.meta_file = dir_path + ".meta"
         self.name = os.path.split(os.path.dirname(dir_path))[1]
-        self.sort_type = -1
-        self.used = -1
-        self.dir_size = -1
-        self.dir_count = -1
-        self.mov_count = -1
+        self.sort_type = 0
+        self.used = 0
+        self.dir_size = 0
+        self.dir_count = 0
+        self.mov_count = 0
+        self.mov_seen = 0
         if dir_path != '/':
             self.__read(dir_path)
     
-    def __repr__(self):
-        return ", ".join((str(self.__class__.__name__), self.name, self.dir_path, str(self.dir_count), str(self.mov_count)))  
-
     def __parse_int(self, metafile):
         try:
             entry = metafile.readline().rstrip()
@@ -155,7 +105,14 @@ class DirectoryInfo():
 
     def updateFolderSize(self):
         self.dir_size = getDirSize(self.dir_path)
-        print "scanned folder size", self.dir_size
+        #print "scanned folder size", self.dir_size
+    
+    def scanFolder(self):
+        i = movieScanner.scanForMovies(self.dir_path, False)
+        self.mov_count = len(i[0])
+        self.mov_seen = i[2]
+        self.dir_count = 0
+        self.dir_size = i[1]
     
     def getmount(self, path=None):
         path = path and path or self.dir_path
@@ -192,16 +149,15 @@ class DirectoryEvent(DirectoryInfo):
     def __init__(self, serviceref):
         DirectoryInfo.__init__(self, serviceref.getPath())
         self.is_movielibrary = False
-        from ServiceProvider import eServiceReferenceListAll
+        dbinfo = None
         if isinstance(serviceref, eServiceReferenceListAll):
+            dbinfo = movieScanner.movielibrary.getFullCount()
             self.is_movielibrary = True
-        elif serviceref is not None:
-            from MovieScanner import movieScanner
-            dbinfo = movieScanner.movielibrary.getInfo(serviceref.getPath())
-            if dbinfo is not None:
-                self.mov_count = dbinfo[0]
-                self.dir_count = dbinfo[1]
-                self.dir_size = dbinfo[2]
+        if dbinfo is not None:
+            self.mov_count = dbinfo[0]
+            self.mov_seen = dbinfo[1]
+            self.dir_count = dbinfo[2]
+            self.dir_size = dbinfo[3]
 
     def getEventName(self):
         return self.name
@@ -210,17 +166,16 @@ class DirectoryEvent(DirectoryInfo):
         return self.dir_path
 
     def getDBDescription(self):
-        from MovieScanner import movieScanner
-        self.dir_size = movieScanner.movielibrary.getSize()
-        self.dir_count, self.mov_count = movieScanner.movielibrary.getFullCount()
         text1 = []
         
-        if self.dir_size > -1:
+        if self.dir_size > 0:
             text1.append(realSize(self.dir_size, 3))
         if self.dir_count > 0:
             text1.append(str(self.dir_count) + ' ' + _("Directories"))
         if self.mov_count > 0:
             text1.append(str(self.mov_count) + ' ' + _("Movies"))
+            text1.append(str(self.mov_seen) + ' ' + _("seen"))
+            text1.append(str(self.mov_count - self.mov_seen) + ' ' + _("new"))
         
         result = ", ".join(text1)
         if movieScanner.last_update:
@@ -231,12 +186,14 @@ class DirectoryEvent(DirectoryInfo):
     def getDirDescription(self):
         text = _("Name:") + ' ' + self.name
         text1 = []
-        if self.dir_size > -1:
+        if self.dir_size > 0:
             text1.append(realSize(self.dir_size, 3))
         if self.dir_count > 0:
             text1.append(str(self.dir_count) + ' ' + _("Directories"))
         if self.mov_count > 0:
             text1.append(str(self.mov_count) + ' ' + _("Movies"))
+            text1.append(str(self.mov_seen) + ' ' + _("seen"))
+            text1.append(str(self.mov_count - self.mov_seen) + ' ' + _("new"))
 
         if len(text1) > 0:
             text += "  (" + ", ".join(text1) + ")"
@@ -255,7 +212,8 @@ class DirectoryEvent(DirectoryInfo):
                 text.append(_("Symlink:") + ' ' + real_path)
         
         return "\n".join(text)
-
+    
+    @clockit
     def getExtendedDescription(self):
         if not self.is_movielibrary:
             return self.getDirDescription()
