@@ -275,6 +275,7 @@ class ServiceInfo:
         self.name = ""
         self.time_create = ""
         try:
+            meta_path = None
             try:
                 meta_path = checkCreateMetaFile(serviceref)
             except Exception, e:
