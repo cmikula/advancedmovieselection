@@ -30,6 +30,7 @@ from Screens.InfoBarGenerics import InfoBarCueSheetSupport
 from shutil import copyfile
 from bisect import insort
 from Globals import printStackTrace
+from timer import eTimer
 
 def getPercentSeen(info, length):
     cue = info.cueSheet()
@@ -167,7 +168,17 @@ class CutListSupportBase:
         self.jump_first_play_last = None
         self.currently_playing = False
         self.new_service_started = True
-
+        self.__timer = eTimer()
+        self.__timer.callback.append(self.seekToResumePoint)
+        #self.__timer_conn = self.__timer.timeout.connect(self.seekToResumePoint)
+    
+    def seekToResumePoint(self):
+        print "[AdvancedMovieSelection] seekToResumePoint"
+        if self.jump_first_mark:
+            self.doSeek(self.resume_point)
+        self.__timer = None
+        #self.__timer_conn = None
+    
     def playNewService(self, service):
         if self.currentService == service:
             return
@@ -182,7 +193,7 @@ class CutListSupportBase:
         if service is None:
             return None
         cue = service.cueSheet()
-        if cue:
+        if cue and len(cue.getCutList()) > 0: # on eo2.2 the instance is present but the list is empty
             return cue
         else:
             cue = CueSheet(self.currentService)
@@ -203,7 +214,7 @@ class CutListSupportBase:
             first = self.getFirstMark()
             if (first and length > 0) and (first / 90000) < length / 2:
                 self.jump_first_play_last = first
-                if not hasLastPosition(self.currentService):
+                if not self.hasLastPosition():
                     self.ENABLE_RESUME_SUPPORT = False
                     self.jump_first_mark = self.resume_point = first
 
@@ -217,27 +228,22 @@ class CutListSupportBase:
                     firstMark = pts
         return firstMark
 
+    def hasLastPosition(self):
+        for ct in self.cut_list:
+            if ct[1] == InfoBarCueSheetSupport.CUT_TYPE_LAST:
+                return True
+
     def downloadCuesheet(self):
-        try:
-            if not self.new_service_started:
-                print "cancel cue download, no new service started!!!"
-                self.ENABLE_RESUME_SUPPORT = False
-                return
-            self.new_service_started = False
-            self.currently_playing = True
+        InfoBarCueSheetSupport.downloadCuesheet(self)
+        if len(self.cut_list) == 0:
             cue = self.getCuesheet()
             if cue is None:
-                print "download failed, no cuesheet interface! Try to load from cuts"
-                self.cut_list = [ ]
-                if self.currentService is not None:
-                    self.cut_list = CueSheet(self.currentService).getCutList()
-            else:
-                self.cut_list = cue.getCutList()
-            self.checkResumeSupport()
-            if self.jump_first_mark:
-                self.doSeek(self.resume_point)
-        except Exception, e:
-            print "DownloadCutList exception:\n" + str(e)
+                return
+            self.cut_list = cue.getCutList()
+        self.checkResumeSupport()
+        if self.resume_point > 0 and self.__timer is not None:
+            print "start resume timer"
+            self.__timer.start(1000, True)
 
     def modifyCutListEnries(self):
         seek = self.session.nav.getCurrentService().seek()
