@@ -194,9 +194,6 @@ def getPercentSeen(serviceref):
                 perc = 100
             if perc < 0:
                 perc = 0
-        print meta
-        print length
-        print perc
     except:
         printStackTrace()
     finally:
