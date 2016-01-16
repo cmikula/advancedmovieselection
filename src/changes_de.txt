@@ -49,7 +49,7 @@ version: 1.0
 * neu: farbe vom filmstatus in der filmliste kann verändert werden
 * neu: datum in der filmliste kann ein/aus geschalten werden
 * neu: filmlänge in der filmliste kann ein/aus geschalten werden
-* neu: datumsformat in der filmliste kann verˮdert werden
+* neu: datumsformat in der filmliste kann ver?dert werden
 * neu: nl übersetzung (thx @ Bschaar)
 * geändert: blaues sel.png anstatt graues beim standard skin für die filmauswahl (thx @ Joachim_Ernst)
 * fix: tastenzuordnung sortieren
@@ -384,3 +384,12 @@ version: 4.0.1
 Info in der extensions.xml
 * neu: Setup Einstellung "zeige Icons vom Skin"
 * neu: Filmstatus in Farbe extra einstellbar 
+
+version: 4.0.2
+* neu: Anzeige der Filmanzahl und gesehenen Filme bei Verzeichnissen
+* neu: Gruppierung bei den Einstellungen
+* neu: Zeige backdrop.jpg wenn kein Hintergrundbild für einen Film vorhanden ist
+* fix: Springen zum ersten Marker
+* fix: AdvancedKeyBoard default Ansicht
+* fix: Textrenderer Berechnungen
+* fix: Crash beim setzen von tags
