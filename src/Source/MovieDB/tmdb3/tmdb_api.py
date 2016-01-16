@@ -113,7 +113,6 @@ class Account( NameRepr, Element ):
 
 def searchMovie(query, locale=None, adult=False, year=None):
     kwargs = {'query':query, 'include_adult':adult and 'true' or 'false'}
-    print kwargs
     if year is not None:
         try:
             kwargs['year'] = year.year
