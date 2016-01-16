@@ -163,7 +163,7 @@ class ProgressList(GUIListComponent, MoveCopyProgressSkinParam):
             res.append(MultiContentEntryText(pos=(info_width, self.line6Pos.y()), size=(width, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=remaining_elements))
             res.append(MultiContentEntryText(pos=(info_width, self.line7Pos.y()), size=(width, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=speed))
     
-            res.append(MultiContentEntryText(pos=(width - 310, self.line1Pos.y()), size=(305, self.f0h), font=0, flags=RT_HALIGN_RIGHT, text=realSize(copied)))
+            res.append(MultiContentEntryText(pos=(width - 250, self.line1Pos.y()), size=(245, self.f0h), font=0, flags=RT_HALIGN_RIGHT, text=realSize(copied)))
             #res.append(MultiContentEntryText(pos=(width - 150, 32), size=(145, 22), font=1, flags=RT_HALIGN_RIGHT, text=etime))
         except Exception, e:
             print e

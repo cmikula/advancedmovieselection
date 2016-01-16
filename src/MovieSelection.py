@@ -721,7 +721,6 @@ class AdvancedMovieSelection_summary(Screen):
 
 class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, QuickButton, VideoPreview, MovieSearch):
     LIB_UPDATE_INTERVAL = 250
-    CACHE_UPDATE_INTERVAL = 500
     def __init__(self, session, selectedmovie=None, showLastDir=False):
         print "enter movieselection"
         self.stopwatch = StopWatch()
@@ -831,8 +830,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         MovieSearch.__init__(self)
         self.__dbUpdate = eTimer()
         self.__dbUpdate.callback.append(self.libraryUpdateTimerEvent)
-        self.__cacheUpdateTimer = eTimer()
-        self.__cacheUpdateTimer.callback.append(self.updateCacheTimerEvent)
         print "end constructor", str(self.stopwatch.elapsed)
     
     def createSummary(self):
@@ -1113,7 +1110,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
     def go(self):
         if not self.inited:
             print "on first show", str(self.stopwatch.elapsed)
-            self.delayTimer.start(50, True)
+            self.delayTimer.start(10, True)
             self.inited = True
 
     def saveListsize(self):
@@ -1147,7 +1144,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self.stopwatch.stop()
         self["waitingtext"].visible = False
         print "movielist started in", str(self.stopwatch.elapsed)
-    
+
     def moveTo(self):
         self["list"].moveTo(self.selectedmovie)
 
@@ -1291,7 +1288,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         if not isinstance(self.current_ref, eServiceReferenceListAll):
             di = DirectoryInfo(config.movielist.last_videodir.value)
             sort_type = di.sort_type
-        if sort_type != 0:
+        if sort_type != -1:
             print "[AdvancedMovieSelection] Set new sort type:", str(sort_type)
             config.movielist.moviesort.value = sort_type
             self["list"].setSortType(sort_type)
@@ -1369,7 +1366,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             sel = self.getCurrent()
             movieScanner.updateServiceInfo(sel)
         self["list"].reload(self.current_ref, self.selected_tags)
-        self.__cacheUpdateTimer.start(self.CACHE_UPDATE_INTERVAL, False)
         self.updateTitle(config.movielist.last_videodir.value)
         if not (sel and self["list"].moveTo(sel)):
             if home:
@@ -1387,7 +1383,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
 
     def gotFilename(self, res):
         if res is not None:# and res is not config.movielist.last_videodir.value:
-            if fileExists(res):
+            if fileExists(res):           
                 selection = None
                 current = self.getCurrent()
                 if current is not None:
@@ -1486,10 +1482,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         else:
             self.updateTitle("")
             self.list.updateMovieLibraryEntry()
-
-    def updateCacheTimerEvent(self):
-        if self.list.invalidateEntries():
-            self.__cacheUpdateTimer.stop()
             
         
 class MoviebarPositionSetupText(Screen):

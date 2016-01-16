@@ -228,7 +228,7 @@ class DownloadMovies(Screen):
 
 class FetchingMovies(Thread):
     def __init__(self, session, items):
-        Thread.__init__(self, name="AMS-FetchingMoviesThread")
+        Thread.__init__(self)
         self.session = session
         self.is_hidden = False
         self.movie_title = ""

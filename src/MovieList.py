@@ -37,11 +37,11 @@ from time import time as time_time
 from math import fabs as math_fabs
 from datetime import datetime
 from Source.Globals import printStackTrace
-from Source.ServiceProvider import Info, ServiceCenter, getServiceInfoValue, getPercentSeen
+from Source.ServiceProvider import Info, ServiceCenter, getServiceInfoValue
 from Source.ServiceProvider import detectDVDStructure, eServiceReferenceDvd
 from Source.ServiceProvider import detectBludiscStructure, eServiceReferenceBludisc
 from Source.ServiceProvider import eServiceReferenceVDir, eServiceReferenceBackDir, eServiceReferenceListAll, eServiceReferenceHotplug, eServiceReferenceMarker
-from Source.ServiceUtils import serviceUtil, realSize
+from Source.ServiceUtils import serviceUtil, realSize, diskUsage
 from Source.CueSheetSupport import hasLastPosition
 from Source.AutoNetwork import autoNetwork 
 from Source.Trashcan import TRASH_NAME
@@ -50,14 +50,13 @@ from Source.EITTools import appendShortDescriptionToMeta
 from Source.AccessRestriction import accessRestriction
 from Source.MovieScanner import movieScanner
 from Source.Hotplug import hotplug
-from Source.MovieInfo import MovieInfo
+from Source.ServiceDescriptor import MovieInfo
 from Source.MovieConfig import MovieConfig
 from Source.PicLoader import PicLoader
 from SkinParam import MovieListSkinParam
 from Source.Globals import getIconPath, IMAGE_PATH
 from enigma import eLabel, eSize
 from Source.Config import color_choice, skin_choice
-from Source.MovieCache import MovieCache
 
 MEDIAEXTENSIONS = {
         "m2ts": ('movie', 'm2ts'),
@@ -123,7 +122,6 @@ class MovieList(MovieListSkinParam, GUIListComponent):
         self.list_type = list_type or self.LISTTYPE_ORIGINAL
         GUIListComponent.__init__(self)
         MovieListSkinParam.__init__(self)
-        self.cache = MovieCache()
         self.movieConfig = MovieConfig()
         self.picloader = PicLoader()
         self.picloader.setSize(self.list3_ListHeight - 2, self.list3_ListHeight - 2)
@@ -144,7 +142,6 @@ class MovieList(MovieListSkinParam, GUIListComponent):
         self.show_tags = show_tags or self.HIDE_TAGS
         self.show_tags = show_tags or self.SHOW_TAGS
         self.tags = set()
-        self.root = None
         self.filter_description = None
         self.show_singlecolor = config.AdvancedMovieSelection.showsinglecolorinmovielist.value
         self.show_mediaicons = config.AdvancedMovieSelection.showmediaiconsinmovielist.value
@@ -160,7 +157,6 @@ class MovieList(MovieListSkinParam, GUIListComponent):
         self.updateHotplugDevices()
 
     def destroy(self):
-        self.cache.destroy()
         self.picloader.destroy()
         GUIListComponent.destroy(self)
     
@@ -311,14 +307,14 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 movieScanner.checkAllAvailable()
         return res
 
-    def setListType(self, list_type):
-        self.list_type = list_type
+    def setListType(self, type):
+        self.list_type = type
 
     def setDescriptionState(self, val):
         self.descr_state = val
 
-    def setSortType(self, sort_type):
-        self.sort_type = sort_type
+    def setSortType(self, type):
+        self.sort_type = type
 
     def showFolders(self, val):
         self.show_folders = val
@@ -361,6 +357,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
             png = LoadPixmap(cached=cached, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + png_name))
         return png
     
+#    def buildMovieListEntry(self, serviceref, info, begin, len, selection_index= -1):
     def buildMovieListEntry(self, movie_info, selection_index= -1):
         res = [ None ]
         try:
@@ -374,16 +371,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
             offset = 0
             service_name, serviceref, info, begin, length, perc = movie_info.name, movie_info.serviceref, movie_info.info, movie_info.begin, movie_info.length, movie_info.percent
             if serviceref.flags & eServiceReference.mustDescent:
-                movie_count = 0
-                dir_size = 0
-                pi = self.cache.getItem(serviceref)
-                if pi is not None:
-                    movie_count = pi.mov_count
-                    movie_seen = pi.mov_seen
-                    movie_new = movie_count - movie_seen
-                    dir_size = pi.dir_size
                 can_show_folder_image = True
-                info_text = serviceref.getName()
                 if isinstance(serviceref, eServiceReferenceVDir):
                     png = self.loadIcon("bookmark.png")
                 elif isinstance(serviceref, eServiceReferenceListAll):
@@ -426,18 +414,25 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 else:
                     res.append((TYPE_PIXMAP, 0, 2, self.icon_size, self.icon_size, png))
                 line1_width = width - offset - 5
-                if config.AdvancedMovieSelection.show_dirsize.value and dir_size > 0 and not isinstance(serviceref, eServiceReferenceBackDir):
-                    dir_size_text = realSize(dir_size, int(config.AdvancedMovieSelection.dirsize_digits.value))
-                    w = self.f1h * 5
-                    res.append(MultiContentEntryText(pos=(width - w, 4), size=(w - 5, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=dir_size_text, color=color2, color_sel=self.colorSel2))
-                    line1_width -= w
+                if config.AdvancedMovieSelection.show_dirsize.value:
+                    dir_size = -1
+                    if isinstance(serviceref, eServiceReferenceHotplug):
+                        dir_size = diskUsage(serviceref.getPath())[1]
+                    elif not movieScanner.isWorking: 
+                        if isinstance(serviceref, eServiceReferenceListAll):
+                            dir_size = movieScanner.movielibrary.getSize()
+                        else:
+                            dir_size = movieScanner.movielibrary.getSize(serviceref.getPath())
+                    if dir_size >= 0:
+                        dir_size = realSize(dir_size, int(config.AdvancedMovieSelection.dirsize_digits.value))
+                        w = self.f1h * 5
+                        res.append(MultiContentEntryText(pos=(width - w, 4), size=(w - 5, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=dir_size, color=color2, color_sel=self.colorSel2))
+                        line1_width -= w
                 
                 if os.path.islink(serviceref.getPath()[:-1]) and can_show_folder_image:
                     link_png = self.loadIcon("link.png")
                     res.append((TYPE_PIXMAP, 10, 15, 9, 10, link_png))
-                if movie_count > 0 and not isinstance(serviceref, eServiceReferenceBackDir) and not isinstance(serviceref, eServiceReferenceListAll):
-                    info_text += " ({0}/{1})".format(movie_new, movie_count)
-                res.append(MultiContentEntryText(pos=(offset, self.line1y), size=(line1_width, self.f0h), font=0, flags=RT_HALIGN_LEFT, text=info_text, color=color, color_sel=self.colorSel1))
+                res.append(MultiContentEntryText(pos=(offset, self.line1y), size=(line1_width, self.f0h), font=0, flags=RT_HALIGN_LEFT, text=serviceref.getName(), color=color, color_sel=self.colorSel1))
 
                 return res
                 
@@ -455,13 +450,39 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 if length < 0:  # recalc _len when not already done
                     if config.usage.load_length_of_movies_in_moviellist.value:
                         length = info.getLength(serviceref)  # recalc the movie length...
+                        if length == 0:
+                            file_name = serviceref.getPath()
+                            if not os.path.isdir(file_name):
+                                eit_file = os.path.splitext(file_name)[0] + ".eit"
+                            else:
+                                eit_file = file_name + ".eit"
+                            length = EventInformationTable(eit_file, True).getDuration()
                     else:
                         length = 0  # dont recalc movielist to speedup loading the list
                     movie_info.length = length  # update entry in list... so next time we don't need to recalc
     
                 # calculate percent
-                if perc == -1:
-                    perc = getPercentSeen(serviceref)
+                # if perc == -1:
+                if True:
+                    perc = 0
+                    last = None
+                    if length <= 0:  # Set default file length if is not calculateable
+                        length = 0
+                    cue = info.cueSheet()
+                    if cue is not None:
+                        cut_list = cue.getCutList()
+                        for (pts, what) in cut_list:
+                            if what == 1 and length == 0:
+                                length = pts / 90000
+                            if what == 3:
+                                last = pts
+    
+                    if last is not None and length > 0:
+                        perc = int((float(last) / 90000 / float(length)) * 100);
+                        if perc > 100:
+                            perc = 100
+                        if perc < 0:
+                            perc = 0
                     movie_info.percent = perc # update percent
 
             if length > 0:
@@ -599,15 +620,11 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                     new_offset = new_offset + self.icon_size + 5
     
                 # line 2: description, file size 
-                filesize_width = 0
+                res.append(MultiContentEntryText(pos=(0 + offset, self.line2y), size=(width - offset - 185, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=description, color=color2, color_sel=self.colorSel2))
                 filesize = info.getInfoObject(serviceref, iServiceInformation.sFileSize)
                 if filesize:
-                    filesize_text = realSize(filesize, int(config.AdvancedMovieSelection.dirsize_digits.value))
-                    self.textRenderer.setFont(self.font2)
-                    self.textRenderer.setText(filesize_text)
-                    filesize_width = self.getTextRendererWidth()
-                    res.append(MultiContentEntryText(pos=(width - filesize_width - 5, self.line2y), size=(filesize_width, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=filesize_text, color=color2, color_sel=self.colorSel2))
-                res.append(MultiContentEntryText(pos=(0 + offset, self.line2y), size=(width - offset - filesize_width, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=description, color=color2, color_sel=self.colorSel2))
+                    filesize = realSize(filesize, int(config.AdvancedMovieSelection.dirsize_digits.value))
+                    res.append(MultiContentEntryText(pos=(width - 185, self.line2y), size=(180, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=filesize, color=color2, color_sel=self.colorSel2))
                 # Line 1: Movie Text, service name
                 line_width = width - new_offset - offset
                 line1w1 = line_width
@@ -633,19 +650,14 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 if tags:
                     line3_l.append(self.arrangeTags(tags))
                 line3_text = ", ".join(line3_l)
-                length_text_width = 0
-                if length_text:
-                    # self.textRenderer.setFont(self.font2)
-                    self.textRenderer.setText(length_text)
-                    length_text_width = self.getTextRendererWidth()
-                res.append(MultiContentEntryText(pos=(0 + offset, self.line3y), size=(width - offset - length_text_width - 5, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=line3_text, color=color2, color_sel=self.colorSel2))
-                res.append(MultiContentEntryText(pos=(width - length_text_width - 5, self.line3y), size=(length_text_width, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=length_text, color=color2, color_sel=self.colorSel2))
+                res.append(MultiContentEntryText(pos=(0 + offset, self.line3y), size=(width - 120, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=line3_text, color=color2, color_sel=self.colorSel2))
+                res.append(MultiContentEntryText(pos=(width - 120, self.line3y), size=(115, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=length_text, color=color2, color_sel=self.colorSel2))
     
             elif self.list_type == MovieList.LISTTYPE_COMPACT_DESCRIPTION:
                 line_width = width - offset
                 line1_width = line_width - 5
 
-                if png is not None:
+                if png is not None: # self.show_folders:
                     res.append((TYPE_PIXMAP, 0, 2, self.icon_size, self.icon_size, png))
                 if self.show_date == MovieList.SHOW_DATE:
                     self.textRenderer.setFont(self.font2)
@@ -688,7 +700,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 line_width = width - offset
                 line1_width = line_width - 5
 
-                if png is not None:
+                if png is not None: # self.show_folders:
                     res.append((TYPE_PIXMAP, 0, 2, self.icon_size, self.icon_size, png))
                 
                 line_l = []
@@ -738,7 +750,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 if len(textl) > 0:
                     displaytext = str.format("%s (%s)" % (displaytext, ", ".join(textl)))
                 
-                if png is not None:
+                if png is not None: # self.show_folders:
                     res.append((TYPE_PIXMAP, 0, 2, self.icon_size, self.icon_size, png))
 
                 if self.show_progressbar:
@@ -761,7 +773,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
 
                 res.append(MultiContentEntryText(pos=(offset, self.line1y), size=(line1w1, self.f0h), font=0, flags=RT_HALIGN_LEFT, text=displaytext, color=color, color_sel=self.colorSel1))
             else:
-                if png is not None:
+                if png is not None: # self.show_folders:
                     res.append((TYPE_PIXMAP, 0, 2, self.icon_size, self.icon_size, png))
 
                 if self.show_progressbar:
@@ -843,7 +855,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
         l = self.l.getCurrentSelection()
         return l and l[0].serviceref
 
-    def reload(self, root=None, filter_tags=None): #@ReservedAssignment
+    def reload(self, root=None, filter_tags=None):
         self.movieConfig.readDMconf()
         if root is not None:
             self.load(root, filter_tags)
@@ -884,10 +896,9 @@ class MovieList(MovieListSkinParam, GUIListComponent):
         tt.setPath(tmp)
         mi = MovieInfo(tt.getName(), tt)
         self.list.insert(0, (mi,))
-    
+
     def load(self, root, filter_tags):
         self.updateHotplugDevices()
-        update_root = self.root
         self.root = root
         if config.AdvancedMovieSelection.movielibrary_show.value:
             self.loadMovieLibrary(root, filter_tags)
@@ -904,7 +915,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
 
         self.serviceHandler = ServiceCenter.getInstance()
         
-        list = self.serviceHandler.list(root) #@ReservedAssignment
+        list = self.serviceHandler.list(root)
         if list is None:
             print "listing of movies failed"
             return
@@ -953,9 +964,8 @@ class MovieList(MovieListSkinParam, GUIListComponent):
             file_name = parts[-1]
             if self.movieConfig.isHidden(file_name):
                 continue
-            
-            percent_seen = getPercentSeen(serviceref)
-            if config.AdvancedMovieSelection.hide_seen_movies.value and percent_seen > config.AdvancedMovieSelection.moviepercentseen.value and config.AdvancedMovieSelection.last_selected_service.value != serviceref.toString():
+
+            if config.AdvancedMovieSelection.hide_seen_movies.value and hasLastPosition(serviceref) and config.AdvancedMovieSelection.last_selected_service.value != serviceref.toString():
                 continue
             
             if serviceUtil.isServiceMoving(serviceref):
@@ -994,7 +1004,6 @@ class MovieList(MovieListSkinParam, GUIListComponent):
 
             service_name = info.getName(serviceref)
             mi = MovieInfo(service_name, serviceref, info, begin)
-            mi.percent = percent_seen
             self.list.append((mi,))
         
         if self.sort_type == MovieList.SORT_ALPHANUMERIC:
@@ -1034,8 +1043,6 @@ class MovieList(MovieListSkinParam, GUIListComponent):
         
         db_index = 0
         if self.show_folders:
-            if update_root and not update_root.getPath() in root.getPath():
-                self.cache.updateItem(update_root)
             if config.AdvancedMovieSelection.hotplug.value:
                 for tt in self.hotplugServices:
                     if tt.getPath() != root_path:
@@ -1058,9 +1065,9 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 db_index += 1
 
         if len(config.AdvancedMovieSelection.videodirs.value) > 0 and config.AdvancedMovieSelection.show_movielibrary.value:
-            movie_cnt, movie_seen, dir_cnt, size = movieScanner.movielibrary.getFullCount() #@UnusedVariable
+            count = movieScanner.movielibrary.getFullCount()[1]
             tt1 = eServiceReferenceListAll(root_path)
-            tt1.setName(_("Movie library") + " (%d/%d)" % (movie_cnt - movie_seen, movie_cnt))
+            tt1.setName(_("Movie library") + " (%d)" % (count))
             info = self.serviceHandler.info(tt1)
             mi = MovieInfo(tt1.getName(), tt1, info)
             self.list.insert(db_index, (mi,))
@@ -1134,11 +1141,11 @@ class MovieList(MovieListSkinParam, GUIListComponent):
 
     def updateMovieLibraryEntry(self):
         cur_idx = 0
-        movie_cnt, movie_seen, dir_cnt, size = movieScanner.movielibrary.getFullCount() #@UnusedVariable
+        count = movieScanner.movielibrary.getFullCount()[1]
         for item in self.list:
             mi = item[0]
             if isinstance(mi.serviceref, eServiceReferenceListAll):
-                mi.serviceref.setName(_("Movie library") + " (%d/%d)" % (movie_cnt - movie_seen, movie_cnt))
+                mi.serviceref.setName(_("Movie library") + " (%d)" % (count))
                 self.l.invalidateEntry(cur_idx)
                 return
             cur_idx += 1
@@ -1203,8 +1210,6 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                     new = (long(length * 90000), 3)
                     cutList.append(new)
                 result = cue.setCutList(cutList)
-                # force reload percent
-                self.list[cur_idx][0].percent = -1
                 self.l.invalidateEntry(cur_idx)
                 if result is not None:
                     # return error as string
@@ -1219,7 +1224,19 @@ class MovieList(MovieListSkinParam, GUIListComponent):
         x = self.list[cur_idx][0]
         if not x.info:
             return 0
-        return x.percent
+        cue = x.info.cueSheet()
+        length = x.info.getLength(x.serviceref)
+        last = 1
+        if cue is not None:
+            cutList = cue.getCutList()
+            for (pts, what) in cutList:
+                if what == 3:
+                    last = pts / 90000
+                    break
+        if length == 0:
+            return 0
+        perc = int((float(last) / float(length)) * 100);
+        return perc
 
     def updateMetaFromEit(self):
         for item in self.list:
@@ -1248,14 +1265,3 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                     accessRestriction.setToService(service.getPath(), access, clear)
             else:
                 accessRestriction.setToService(service.getPath(), access, clear)
-    
-    def invalidateEntries(self):
-        if self.cache.hasNewData():
-            print "[AdvancedMovieSelection] invalidate entries"
-            for index, item in enumerate(self.list):
-                serviceref = item[0].serviceref
-                if isinstance(serviceref, eServiceReferenceListAll):
-                    continue
-                if not serviceref.flags & eServiceReference.mustDescent:
-                    return
-                self.l.invalidateEntry(index)

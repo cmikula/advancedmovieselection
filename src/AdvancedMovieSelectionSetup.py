@@ -27,7 +27,7 @@ from About import AdvancedMovieSelectionAbout
 from Components.Pixmap import Pixmap
 from Components.PluginComponent import plugins
 from Plugins.Plugin import PluginDescriptor
-from Components.config import config, configfile, ConfigSelection, ConfigNothing
+from Components.config import config, getConfigListEntry, configfile, ConfigSelection
 from Components.Sources.StaticText import StaticText
 from Components.Button import Button
 from Components.ConfigList import ConfigListScreen
@@ -41,11 +41,6 @@ from Components.ActionMap import ActionMap
 from enigma import getDesktop, quitMainloop
 from Source.Globals import pluginPresent
 from Source.Config import qButtons
-
-def getConfigListEntry(*args):
-    if len(args) == 1:
-        return "{0} {1} {2}".format("-" * 5, args[0], "-" * 200), ConfigNothing(), args[0]
-    return args
 
 class BackupRestore(ConfigListScreen, Screen):
     def __init__(self, session, csel=None):
@@ -148,6 +143,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         ConfigListScreen.__init__(self, self.list, session=self.session)
         if not self.showHelp in self["config"].onSelectionChanged:
             self["config"].onSelectionChanged.append(self.showHelp)
+        self.createSetup()
         self["key_red"] = StaticText(_("Close"))
         self["key_green"] = StaticText(_("Save"))
         self["key_yellow"] = StaticText(_("Color key settings"))
@@ -190,7 +186,6 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
 
     def setWindowTitle(self):
         self.setTitle(_("Advanced Movie Selection Setup"))
-        self.createSetup()
 
     def keyLeft(self):
         ConfigListScreen.keyLeft(self)
@@ -294,43 +289,35 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
 
     def createSetup(self):
         self.list = []
-
-        # section general settings
-        self.list.append(getConfigListEntry(_("GENERAL SETTINGS")))
         self.list.append(getConfigListEntry(_("Disable Advanced Movie Selection:"), config.AdvancedMovieSelection.ml_disable, _("Switch on/off the Advanced Movie Selection.")))
         self.list.append(getConfigListEntry(_("Start Advanced Movie Selection with:"), config.AdvancedMovieSelection.movie_launch, _("Select Start button for the Advanced Movie Selection.")))
         self.list.append(getConfigListEntry(_("Start on last movie location:"), config.AdvancedMovieSelection.startdir, _("Opens the film list on the last used location.")))
         self.list.append(getConfigListEntry(_("Start on first position in movielist:"), config.AdvancedMovieSelection.startonfirst, _("Always show selection in the first position in the movie list.")))
         self.list.append(getConfigListEntry(_("Show bookmarks in movielist:"), config.AdvancedMovieSelection.show_bookmarks, _("When enabled all created bookmarks appear in the movie list.")))
         self.list.append(getConfigListEntry(_("Show hotplug devices:"), config.AdvancedMovieSelection.hotplug, _("Enable this option to use USB-Devices.")))
+        self.list.append(getConfigListEntry(_("Show plugin config in extensions menu from movielist:"), config.AdvancedMovieSelection.showmenu, _("Displays the Settings option in the menu at the movie list.")))
+        self.list.append(getConfigListEntry(_("Show path selection for movie library in extensions menu:"), config.AdvancedMovieSelection.show_location_indexing, _("Here you can select which folders to include in the movie library creation.")))
+        self.list.append(getConfigListEntry(_("Show movie library symbol in movielist:"), config.AdvancedMovieSelection.show_movielibrary, _("If enabled the movie library symbol is shown in movie list.")))
+        self.list.append(getConfigListEntry(_("Show path marker within movie library movies:"), config.AdvancedMovieSelection.show_videodirslocation, _("If enabled all movies in movie library will be shown with path marker and will be sorted below them.")))
+        self.list.append(getConfigListEntry(_("Use movie library path selection as marker within movies in library:"), config.AdvancedMovieSelection.movielibrary_mark, _("If enabled only the movie library path selections will be used as marker otherwise each sub directory will be shown as path marker in movie library view.")))
+        self.list.append(getConfigListEntry(_("Minimum movie count to show path marker in movie library view:"), config.AdvancedMovieSelection.movielibrary_show_mark_cnt, _("The minimum selected number of movies must be in one directory to show the path marker in movie library view.")))
         self.list.append(getConfigListEntry(_("Show disk usage in description:"), config.AdvancedMovieSelection.show_diskusage, _("Displays the disk usage in the description. (Leave it disabled if you have performance problems at the start of the movie list)")))
         self.list.append(getConfigListEntry(_("Show directory size in movie list:"), config.AdvancedMovieSelection.show_dirsize, _("Displays the size from directories in movie list.")))
         if config.AdvancedMovieSelection.show_dirsize.value:
             self.list.append(getConfigListEntry(_("Show decimal points:"), config.AdvancedMovieSelection.dirsize_digits, _("Here you can choose how many decimal points for the directory size in the movie list will be displayed.")))
         self.list.append(getConfigListEntry(_("Load Length of Movies in Movielist:"), config.usage.load_length_of_movies_in_moviellist, _("This option is for many of the functions from the Advanced Movie Selection necessary. If this option is disabled are many functions not available.")))
         if config.usage.load_length_of_movies_in_moviellist.value:
-            self.list.append(getConfigListEntry(_("Mark movie as seen at position (in percent):"), config.AdvancedMovieSelection.moviepercentseen, _("With this option you can assign as when a film is marked as seen.")))        
-        # wastebasket
-        self.list.append(getConfigListEntry(_("Use wastebasket:"), config.AdvancedMovieSelection.use_wastebasket, _("If this option is activated the movie will not be deleted but moved into the wastebasket.")))
-        if config.AdvancedMovieSelection.use_wastebasket.value:
-            self.list.append(getConfigListEntry(_("Wastebasket file(s):"), config.AdvancedMovieSelection.wastelist_buildtype, _("Here you can select which files to Wastebasket are displayed. ATTENTION: All directorys below '/media' will take very long until the list is displayed!")))
-            self.list.append(getConfigListEntry(_("Show decimal points:"), config.AdvancedMovieSelection.filesize_digits, _("Here you can choose how many decimal points for the file size in the wastebasket will be displayed.")))
-            self.list.append(getConfigListEntry(_("Auto empty wastebasket:"), config.AdvancedMovieSelection.auto_empty_wastebasket, _("If you enable this function the wastebasket will be emptied automatically at the set time.")))
-        if not int(config.AdvancedMovieSelection.auto_empty_wastebasket.value) == -1:
-                self.list.append(getConfigListEntry(_("Auto empty wastebasket time:"), config.AdvancedMovieSelection.empty_wastebasket_time, _("Here you can define when to empty the wastebasket.")))
-                self.list.append(getConfigListEntry(_("Check again in x minutes:"), config.AdvancedMovieSelection.next_empty_check, _("If recordings are active again after the set time is trying to empty the wastebasket.")))
-                self.list.append(getConfigListEntry(_("Wastebasket retention period (days):"), config.AdvancedMovieSelection.empty_wastebasket_min_age, _("Defines how long files need to dwell in the wastebasket before auto empty will consider to remove them (0 means no retention).")))
-
-        # section movie library
-        self.list.append(getConfigListEntry(_("LIBRARY")))
-        self.list.append(getConfigListEntry(_("Show recorded movies in epg:"), config.AdvancedMovieSelection.epg_extension, _("If you enable this function, your recorded movies will be marked in epg list.")))
-        self.list.append(getConfigListEntry(_("Show movie library symbol in movielist:"), config.AdvancedMovieSelection.show_movielibrary, _("If enabled the movie library symbol is shown in movie list.")))
-        self.list.append(getConfigListEntry(_("Show path marker within movie library movies:"), config.AdvancedMovieSelection.show_videodirslocation, _("If enabled all movies in movie library will be shown with path marker and will be sorted below them.")))
-        self.list.append(getConfigListEntry(_("Use movie library path selection as marker within movies in library:"), config.AdvancedMovieSelection.movielibrary_mark, _("If enabled only the movie library path selections will be used as marker otherwise each sub directory will be shown as path marker in movie library view.")))
-        self.list.append(getConfigListEntry(_("Minimum movie count to show path marker in movie library view:"), config.AdvancedMovieSelection.movielibrary_show_mark_cnt, _("The minimum selected number of movies must be in one directory to show the path marker in movie library view.")))
-        
-        # section cover, picon, backdrop
-        self.list.append(getConfigListEntry(_("COVER & PICON")))
+            self.list.append(getConfigListEntry(_("Show list options in extensions menu from movielist:"), config.AdvancedMovieSelection.showextras, _("Displays the various list view options in the menu at the movie list (Progressbar,View folders...).")))
+            self.list.append(getConfigListEntry(_("Show mark movie in extensions menu from movielist:"), config.AdvancedMovieSelection.showmark, _("Displays mark movie as seen/unseen in the menu at the movie list.")))
+            self.list.append(getConfigListEntry(_("Mark movie as seen at position (in percent):"), config.AdvancedMovieSelection.moviepercentseen, _("With this option you can assign as when a film is marked as seen.")))
+        self.list.append(getConfigListEntry(_("Show movie plugins in extensions menu from movielist:"), config.AdvancedMovieSelection.pluginmenu_list, _("Displays E2 movie list extensions in the menu at the movie list.")))
+        self.list.append(getConfigListEntry(_("Show color key setup in extensions menu from movielist:"), config.AdvancedMovieSelection.showcolorkey, _("Displays color key setup option in the menu at the movie list.")))        
+        self.list.append(getConfigListEntry(_("Show sort options in extensions menu from movielist:"), config.AdvancedMovieSelection.showsort, _("Displays sorting function in the menu at the movie list.")))
+        self.list.append(getConfigListEntry(_("Show list styles in extensions menu from movielist:"), config.AdvancedMovieSelection.showliststyle, _("Displays various lists typs in the menu at the movie list (Minimal,Compact...).")))        
+        self.list.append(getConfigListEntry(_("Show delete option in extensions menu from movielist:"), config.AdvancedMovieSelection.showdelete, _("Displays the movie delete function in the menu at the movie list.")))
+        self.list.append(getConfigListEntry(_("Show move/copy option in extensions menu from movielist:"), config.AdvancedMovieSelection.showmove, _("Displays the movie move/copy function in the menu at the movie list.")))
+        self.list.append(getConfigListEntry(_("Show move/copy progress on begin/end:"), config.AdvancedMovieSelection.show_move_copy_progress, _("Show the movie move/copy progress on begin and show notification on end of move/copy action.")))
+        self.list.append(getConfigListEntry(_("Show movie search in extensions menu from movielist:"), config.AdvancedMovieSelection.showsearch, _("Displays the movie search function in the menu at the movie list.")))
         self.list.append(getConfigListEntry(_("Show backdrops in movielist:"), config.AdvancedMovieSelection.show_backdrop, _("Displays the backdrop in movie list and event view.")))
         if config.AdvancedMovieSelection.show_backdrop.value:
             self.list.append(getConfigListEntry(_("Set backdrop size:"), config.AdvancedMovieSelection.tmdb_backdrop_size, _("Here you can determine the backdrop size for the download/save.")))
@@ -338,13 +325,25 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         if config.AdvancedMovieSelection.showpreview.value:
             self.list.append(getConfigListEntry(_("Set cover size:"), config.AdvancedMovieSelection.tmdb_poster_size, _("Here you can determine the coverfile size for the download/save.")))
             self.list.append(getConfigListEntry(_("Download cover from TMDB after timer is finished:"), config.AdvancedMovieSelection.cover_auto_download, _("If this function is enabled the cover is automatically downloaded from TMDB after timer is finished.")))
+            self.list.append(getConfigListEntry(_("Show D/L and store info/images in movielist extensions menu:"), config.AdvancedMovieSelection.showcoveroptions, _("Displays movie info/images options in the menu at the movie list.")))
+            self.list.append(getConfigListEntry(_("Show D/L and store ALL info/images in movielist extensions menu:"), config.AdvancedMovieSelection.showcoveroptions2, _("Displays download and save movie info/images for all movies options in the menu at the movie list.")))
+            self.list.append(getConfigListEntry(_("Show delete info and images in extensions menu from movielist:"), config.AdvancedMovieSelection.show_info_cover_del, _("Displays delete movie info and images function in the menu at the movie list.")))
+            self.list.append(getConfigListEntry(_("Show delete images in extensions menu from movielist:"), config.AdvancedMovieSelection.show_cover_del, _("Displays delete images function in the menu at the movie list.")))
+            self.list.append(getConfigListEntry(_("Show delete movie info in extensions menu from movielist:"), config.AdvancedMovieSelection.show_info_del, _("Displays delete movie info function in the menu at the movie list.")))
             self.list.append(getConfigListEntry(_("Show Provider Logo:"), config.AdvancedMovieSelection.show_picon, _("Displays the Provider Logo when no Cover available.")))
-            if config.AdvancedMovieSelection.show_picon.value:   
-                self.list.append(getConfigListEntry(_("Show Provider Logo in original size:"), config.AdvancedMovieSelection.piconsize, _("Displays the Provider Logo in original size. Otherwise, the provider logo be displayed zoomed up to cover size.")))    
-                self.list.append(getConfigListEntry(_("Provider Logo path:"), config.AdvancedMovieSelection.piconpath, _("Where to look for the provider logos? (Default is /usr/share/enigma2/picon)")))   
-        
-        # section features
-        self.list.append(getConfigListEntry(_("FEATURES")))
+        if config.AdvancedMovieSelection.show_picon.value:
+            self.list.append(getConfigListEntry(_("Show Provider Logo in original size:"), config.AdvancedMovieSelection.piconsize, _("Displays the Provider Logo in original size. Otherwise, the provider logo be displayed zoomed up to cover size.")))    
+            self.list.append(getConfigListEntry(_("Provider Logo path:"), config.AdvancedMovieSelection.piconpath, _("Where to look for the provider logos? (Default is /usr/share/enigma2/picon)"))) 
+        self.list.append(getConfigListEntry(_("Show rename in extensions menu from movielist:"), config.AdvancedMovieSelection.showrename, _("Displays rename function in the menu at the movie list.")))
+        self.list.append(getConfigListEntry(_("Show TMDb Info & D/L in extensions menu from movielist:"), config.AdvancedMovieSelection.showtmdb, _("Displays TMDb Info & D/L in the menu at the movie list.")))
+        self.list.append(getConfigListEntry(_("Show TheTVDB Info & D/L in extensions menu from movielist:"), config.AdvancedMovieSelection.showthetvdb, _("Displays TheTVDB Info & D/L in the menu at the movie list.")))
+        self.list.append(getConfigListEntry(_("Jump to first mark when starts playing movie:"), config.AdvancedMovieSelection.jump_first_mark, _("If this option is activated automatically when a movie does not start from the last position, the movie starts at the first marker.")))
+        self.list.append(getConfigListEntry(_("Show movie tags in extensions menu from movielist:"), config.AdvancedMovieSelection.showmovietagsinmenu, _("Displays movie tags function in the menu at the movie list.")))
+        self.list.append(getConfigListEntry(_("Show filter by tags in extensions menu from movielist:"), config.AdvancedMovieSelection.showfiltertags, _("Displays filter by tags function in the menu at the movie list.")))
+        self.list.append(getConfigListEntry(_("Show search trailer on web in extensions menu from movielist:"), config.AdvancedMovieSelection.showtrailer, _("Displays search trailer on web function in the menu at the movie list.")))
+        self.list.append(getConfigListEntry(_("Show Set VSR in extensions menu from movielist:"), config.AdvancedMovieSelection.show_set_vsr, _("Displays set VSR function in the menu at the movie list.")))
+        self.list.append(getConfigListEntry(_("Show Filter by description in extensions menu from movielist:"), config.AdvancedMovieSelection.show_filter_by_description, _("Displays the Filter by description function in the menu at the movie list.")))
+        self.list.append(getConfigListEntry(_("Show backup/restore in extensions menu from movielist:"), config.AdvancedMovieSelection.show_backup_restore, _("Displays the backup/restore function in the menu at the movie list.")))
         self.list.append(getConfigListEntry(_("Ask before delete:"), config.AdvancedMovieSelection.askdelete, _("With this option you can turn on/off the security question before delete a movie.")))
         if pluginPresent.IMDb and pluginPresent.OFDb and pluginPresent.TMDb:
             self.list.append(getConfigListEntry(_("INFO button function:"), config.AdvancedMovieSelection.Eventinfotyp, _("With this option you can assign what function should have the info button. The selection depends on the installed plugins.")))
@@ -363,19 +362,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append(getConfigListEntry(_("Behavior when a movie is started:"), config.usage.on_movie_start, _("With this option you can assign what should happen when a movie start.")))
         self.list.append(getConfigListEntry(_("Behavior when a movie is stopped:"), config.usage.on_movie_stop, _("With this option you can assign what should happen when a movie stop.")))
         self.list.append(getConfigListEntry(_("Behavior when a movie reaches the end:"), config.usage.on_movie_eof, _("With this option you can assign what should happen when the end of the films was achieved.")))
-        self.list.append(getConfigListEntry(_("Close with EXIT key:"), config.AdvancedMovieSelection.exitkey, _("If this option is enabled you can stop play a movie with the EXIT button, and the Advanced Movie Selection plugin will also be closed immediately (if the next option is disabled).")))
-        if config.AdvancedMovieSelection.exitkey.value:
-            self.list.append(getConfigListEntry(_("Use behavior when a movie is stopped:"), config.AdvancedMovieSelection.exitprompt, _("If this option is activated the behavior when stop a film also will used when you use the EXIT button.")))
-        self.list.append(getConfigListEntry(_("Start at the beginning depends on end (in Minutes):"), config.AdvancedMovieSelection.stop_before_end_time, _("Here you can set off when a movie to play automatically from the beginning when you start again (On settings=0, functions is disabled).")))
-        self.list.append(getConfigListEntry(_("Jump to first mark when starts playing movie:"), config.AdvancedMovieSelection.jump_first_mark, _("If this option is activated automatically when a movie does not start from the last position, the movie starts at the first marker.")))
-        self.list.append(getConfigListEntry(_("Use alternative jump function:"), config.AdvancedMovieSelection.useseekbar, _("If this option is activated more jump functions ar available. ATTENTION: Enigma 2 restart is necessary!")))
-        if config.AdvancedMovieSelection.useseekbar.value:
-            if config.AdvancedMovieSelection.useseekbar.value and not pluginPresent.pipzap:
-                self.list.append(getConfigListEntry(_("Change function from left/right buttons:"), config.AdvancedMovieSelection.overwrite_left_right, _("If this option is activated the function of the left/right arrow buttons will changed. Normal you can use the buttons also for winding, if is changed you have quick access to the new jump function. ATTENTION: Enigma 2 restart is necessary!")))
-            self.list.append(getConfigListEntry(_("Manual jump sensibility:"), config.AdvancedMovieSelection.sensibility, _("Here you can adjust the manually jump length relative to the film length in percent.")))
-        
-        #section display and skin options
-        self.list.append(getConfigListEntry(_("DISPLAY & SKIN")))
+        self.list.append(getConfigListEntry(_("Show Moviebar position setup in extensions menu from movielist:"), config.AdvancedMovieSelection.show_infobar_position, _("Displays the moviebar position setup function in the menu at the movie list.")))
         if config.AdvancedMovieSelection.showcolorstatusinmovielist.value:
             self.list.append(getConfigListEntry(_("Color for movies:"), config.AdvancedMovieSelection.color5, _("With this option you can assign what color should displayed for the movies in movie list.")))
             self.list.append(getConfigListEntry(_("Color for not ready seen movies:"), config.AdvancedMovieSelection.color1, _("With this option you can assign what color should displayed for not ready seen movies in movie list.")))
@@ -386,9 +373,33 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append(getConfigListEntry(_("Movie length format for movielist:"), config.AdvancedMovieSelection.movie_length_format, _("With this option you can format the length of movies in movie list.")))
         self.list.append(getConfigListEntry(_("Show new recordings icon:"), config.AdvancedMovieSelection.shownew, _("With this option you can display a icon for new recordings.")))
         self.list.append(getConfigListEntry(_("Show icon from skin:"), config.AdvancedMovieSelection.showskinicons, _("With this option you can display the icons from plugin or skin.")))
-        self.list.append(getConfigListEntry(_("Use folder name for display covers:"), config.AdvancedMovieSelection.usefoldername, _("With this option you can use the foldername instead of folder.jpg to display covers in folders.")))
-        self.list.append(getConfigListEntry(_("Show info messages:"), config.AdvancedMovieSelection.showinfo, _("If this option is activated will be displayed different info message. This should help with the operation of the extension.")))
         self.list.append(getConfigListEntry(_("Show Mini TV:"), config.AdvancedMovieSelection.minitv, _("With this option you can switch on/off the Mini TV in the movie list.")))
+        self.list.append(getConfigListEntry(_("Use folder name for display covers:"), config.AdvancedMovieSelection.usefoldername, _("With this option you can use the foldername instead of folder.jpg to display covers in folders.")))
+        self.list.append(getConfigListEntry(_("Close with EXIT key:"), config.AdvancedMovieSelection.exitkey, _("If this option is enabled you can stop play a movie with the EXIT button, and the Advanced Movie Selection plugin will also be closed immediately (if the next option is disabled).")))
+        if config.AdvancedMovieSelection.exitkey.value:
+            self.list.append(getConfigListEntry(_("Use behavior when a movie is stopped:"), config.AdvancedMovieSelection.exitprompt, _("If this option is activated the behavior when stop a film also will used when you use the EXIT button.")))
+        self.list.append(getConfigListEntry(_("Show info messages:"), config.AdvancedMovieSelection.showinfo, _("If this option is activated will be displayed different info message. This should help with the operation of the extension.")))
+        self.list.append(getConfigListEntry(_("Use alternative jump function:"), config.AdvancedMovieSelection.useseekbar, _("If this option is activated more jump functions ar available. ATTENTION: Enigma 2 restart is necessary!")))
+        if config.AdvancedMovieSelection.useseekbar.value:
+            if config.AdvancedMovieSelection.useseekbar.value and not pluginPresent.pipzap:
+                self.list.append(getConfigListEntry(_("Change function from left/right buttons:"), config.AdvancedMovieSelection.overwrite_left_right, _("If this option is activated the function of the left/right arrow buttons will changed. Normal you can use the buttons also for winding, if is changed you have quick access to the new jump function. ATTENTION: Enigma 2 restart is necessary!")))
+            self.list.append(getConfigListEntry(_("Manual jump sensibility:"), config.AdvancedMovieSelection.sensibility, _("Here you can adjust the manually jump length relative to the film length in percent.")))
+        self.list.append(getConfigListEntry(_("Use wastebasket:"), config.AdvancedMovieSelection.use_wastebasket, _("If this option is activated the movie will not be deleted but moved into the wastebasket.")))
+        if config.AdvancedMovieSelection.use_wastebasket.value:
+            self.list.append(getConfigListEntry(_("Show Wastebasket in extensions menu from movielist:"), config.AdvancedMovieSelection.show_wastebasket, _("Displays wastebasket function in the menu at the movie list.")))
+            self.list.append(getConfigListEntry(_("Wastebasket file(s):"), config.AdvancedMovieSelection.wastelist_buildtype, _("Here you can select which files to Wastebasket are displayed. ATTENTION: All directorys below '/media' will take very long until the list is displayed!")))
+            self.list.append(getConfigListEntry(_("Show decimal points:"), config.AdvancedMovieSelection.filesize_digits, _("Here you can choose how many decimal points for the file size in the wastebasket will be displayed.")))
+            self.list.append(getConfigListEntry(_("Auto empty wastebasket:"), config.AdvancedMovieSelection.auto_empty_wastebasket, _("If you enable this function the wastebasket will be emptied automatically at the set time.")))
+            if not int(config.AdvancedMovieSelection.auto_empty_wastebasket.value) == -1:
+                self.list.append(getConfigListEntry(_("Auto empty wastebasket time:"), config.AdvancedMovieSelection.empty_wastebasket_time, _("Here you can define when to empty the wastebasket.")))
+                self.list.append(getConfigListEntry(_("Check again in x minutes:"), config.AdvancedMovieSelection.next_empty_check, _("If recordings are active again after the set time is trying to empty the wastebasket.")))
+                self.list.append(getConfigListEntry(_("Wastebasket retention period (days):"), config.AdvancedMovieSelection.empty_wastebasket_min_age, _("Defines how long files need to dwell in the wastebasket before auto empty will consider to remove them (0 means no retention).")))
+        self.list.append(getConfigListEntry(_("Start at the beginning depends on end (in Minutes):"), config.AdvancedMovieSelection.stop_before_end_time, _("Here you can set off when a movie to play automatically from the beginning when you start again (On settings=0, functions is disabled).")))
+        self.list.append(getConfigListEntry(_("Use active Skin LCD/OLED representation:"), config.AdvancedMovieSelection.use_original_movieplayer_summary, _("If you enable this function, the display summary from aktiv skin will be used.")))
+        if config.AdvancedMovieSelection.use_original_movieplayer_summary.value:
+            self.list.append(getConfigListEntry(_("Show date:"), config.AdvancedMovieSelection.show_date_shortdesc, _("If this option is activated the date will be displayed on the lcd/oled when no short description is available.")))
+            if config.AdvancedMovieSelection.show_date_shortdesc.value:
+                self.list.append(getConfigListEntry(_("Use date from timestamp:"), config.AdvancedMovieSelection.show_begintime, _("If this option is activated the date from the file create instead today's date will be displayed on the lcd/oled when no short description is available.")))
         if config.AdvancedMovieSelection.minitv.value:
             self.list.append(getConfigListEntry(_("Use video preview:"), config.AdvancedMovieSelection.video_preview, _("If you enable this function, selected movie in movielist will bring you a preview.")))
         if config.AdvancedMovieSelection.minitv.value and config.AdvancedMovieSelection.video_preview.value:
@@ -400,55 +411,14 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
                 self.list.append(getConfigListEntry(_("Video preview delay:"), config.AdvancedMovieSelection.video_preview_delay, _("Setup the delay in seconds to start the video preview.")))
             self.list.append(getConfigListEntry(_("Use last stop mark:"), config.AdvancedMovieSelection.video_preview_marker, _("Preview will start on last stop marker.")))
             self.list.append(getConfigListEntry(_("Video preview jump time (in minutes):"), config.AdvancedMovieSelection.video_preview_jump_time, _("Here you can set the jump time for the movie preview (< > buttons or bouquet +/- buttons).")))
-        self.list.append(getConfigListEntry(_("Use active Skin LCD/OLED representation:"), config.AdvancedMovieSelection.use_original_movieplayer_summary, _("If you enable this function, the display summary from aktiv skin will be used.")))
-        if config.AdvancedMovieSelection.use_original_movieplayer_summary.value:
-            self.list.append(getConfigListEntry(_("Show date:"), config.AdvancedMovieSelection.show_date_shortdesc, _("If this option is activated the date will be displayed on the lcd/oled when no short description is available.")))
-            if config.AdvancedMovieSelection.show_date_shortdesc.value:
-                self.list.append(getConfigListEntry(_("Use date from timestamp:"), config.AdvancedMovieSelection.show_begintime, _("If this option is activated the date from the file create instead today's date will be displayed on the lcd/oled when no short description is available.")))
-        
-        # section menu options
-        self.list.append(getConfigListEntry(_("MENU OPTIONS")))
-        self.list.append(getConfigListEntry(_("Show plugin config in extensions menu from movielist:"), config.AdvancedMovieSelection.showmenu, _("Displays the Settings option in the menu at the movie list.")))
-        self.list.append(getConfigListEntry(_("Show path selection for movie library in extensions menu:"), config.AdvancedMovieSelection.show_location_indexing, _("Here you can select which folders to include in the movie library creation.")))
-        if config.AdvancedMovieSelection.use_wastebasket.value:
-            self.list.append(getConfigListEntry(_("Show Wastebasket in extensions menu from movielist:"), config.AdvancedMovieSelection.show_wastebasket, _("Displays wastebasket function in the menu at the movie list.")))
-        if config.usage.load_length_of_movies_in_moviellist.value:
-            self.list.append(getConfigListEntry(_("Show list options in extensions menu from movielist:"), config.AdvancedMovieSelection.showextras, _("Displays the various list view options in the menu at the movie list (Progressbar,View folders...).")))
-            self.list.append(getConfigListEntry(_("Show mark movie in extensions menu from movielist:"), config.AdvancedMovieSelection.showmark, _("Displays mark movie as seen/unseen in the menu at the movie list.")))
-            self.list.append(getConfigListEntry(_("Show movie plugins in extensions menu from movielist:"), config.AdvancedMovieSelection.pluginmenu_list, _("Displays E2 movie list extensions in the menu at the movie list.")))
-        self.list.append(getConfigListEntry(_("Show color key setup in extensions menu from movielist:"), config.AdvancedMovieSelection.showcolorkey, _("Displays color key setup option in the menu at the movie list.")))        
-        self.list.append(getConfigListEntry(_("Show sort options in extensions menu from movielist:"), config.AdvancedMovieSelection.showsort, _("Displays sorting function in the menu at the movie list.")))
-        self.list.append(getConfigListEntry(_("Show list styles in extensions menu from movielist:"), config.AdvancedMovieSelection.showliststyle, _("Displays various lists typs in the menu at the movie list (Minimal,Compact...).")))        
-        self.list.append(getConfigListEntry(_("Show delete option in extensions menu from movielist:"), config.AdvancedMovieSelection.showdelete, _("Displays the movie delete function in the menu at the movie list.")))
-        self.list.append(getConfigListEntry(_("Show move/copy option in extensions menu from movielist:"), config.AdvancedMovieSelection.showmove, _("Displays the movie move/copy function in the menu at the movie list.")))
-        self.list.append(getConfigListEntry(_("Show move/copy progress on begin/end:"), config.AdvancedMovieSelection.show_move_copy_progress, _("Show the movie move/copy progress on begin and show notification on end of move/copy action.")))
-        self.list.append(getConfigListEntry(_("Show movie search in extensions menu from movielist:"), config.AdvancedMovieSelection.showsearch, _("Displays the movie search function in the menu at the movie list.")))
-        self.list.append(getConfigListEntry(_("Show rename in extensions menu from movielist:"), config.AdvancedMovieSelection.showrename, _("Displays rename function in the menu at the movie list.")))
-        self.list.append(getConfigListEntry(_("Show TMDb Info & D/L in extensions menu from movielist:"), config.AdvancedMovieSelection.showtmdb, _("Displays TMDb Info & D/L in the menu at the movie list.")))
-        self.list.append(getConfigListEntry(_("Show TheTVDB Info & D/L in extensions menu from movielist:"), config.AdvancedMovieSelection.showthetvdb, _("Displays TheTVDB Info & D/L in the menu at the movie list.")))
-        if config.AdvancedMovieSelection.showpreview.value:
-            self.list.append(getConfigListEntry(_("Show D/L and store info/images in movielist extensions menu:"), config.AdvancedMovieSelection.showcoveroptions, _("Displays movie info/images options in the menu at the movie list.")))
-            self.list.append(getConfigListEntry(_("Show D/L and store ALL info/images in movielist extensions menu:"), config.AdvancedMovieSelection.showcoveroptions2, _("Displays download and save movie info/images for all movies options in the menu at the movie list.")))
-            self.list.append(getConfigListEntry(_("Show delete info and images in extensions menu from movielist:"), config.AdvancedMovieSelection.show_info_cover_del, _("Displays delete movie info and images function in the menu at the movie list.")))
-            self.list.append(getConfigListEntry(_("Show delete images in extensions menu from movielist:"), config.AdvancedMovieSelection.show_cover_del, _("Displays delete images function in the menu at the movie list.")))
-            self.list.append(getConfigListEntry(_("Show delete movie info in extensions menu from movielist:"), config.AdvancedMovieSelection.show_info_del, _("Displays delete movie info function in the menu at the movie list.")))
-        self.list.append(getConfigListEntry(_("Show movie tags in extensions menu from movielist:"), config.AdvancedMovieSelection.showmovietagsinmenu, _("Displays movie tags function in the menu at the movie list.")))
-        self.list.append(getConfigListEntry(_("Show filter by tags in extensions menu from movielist:"), config.AdvancedMovieSelection.showfiltertags, _("Displays filter by tags function in the menu at the movie list.")))
-        self.list.append(getConfigListEntry(_("Show search trailer on web in extensions menu from movielist:"), config.AdvancedMovieSelection.showtrailer, _("Displays search trailer on web function in the menu at the movie list.")))
-        self.list.append(getConfigListEntry(_("Show Set VSR in extensions menu from movielist:"), config.AdvancedMovieSelection.show_set_vsr, _("Displays set VSR function in the menu at the movie list.")))
-        self.list.append(getConfigListEntry(_("Show Filter by description in extensions menu from movielist:"), config.AdvancedMovieSelection.show_filter_by_description, _("Displays the Filter by description function in the menu at the movie list.")))
-        self.list.append(getConfigListEntry(_("Show backup/restore in extensions menu from movielist:"), config.AdvancedMovieSelection.show_backup_restore, _("Displays the backup/restore function in the menu at the movie list.")))
-        self.list.append(getConfigListEntry(_("Show Moviebar position setup in extensions menu from movielist:"), config.AdvancedMovieSelection.show_infobar_position, _("Displays the moviebar position setup function in the menu at the movie list.")))
-        
-        # section tools
-        self.list.append(getConfigListEntry(_("TOOLS")))
         self.list.append(getConfigListEntry(_("Select keyboard:"), config.AdvancedMovieSelection.keyboard, _("You can select yout prefered keyboard (Virtual, Numerical or both).")))
+        self.list.append(getConfigListEntry(_("Show recorded movies in epg:"), config.AdvancedMovieSelection.epg_extension, _("If you enable this function, your recorded movies will be marked in epg list.")))
         self.list.append(getConfigListEntry(_("Enable Enigma2 debug:"), config.AdvancedMovieSelection.debug, _("If you enable this function, all standard output from enigma will be stored to /tmp folder.")))
         self["config"].setList(self.list)
 
     def showHelp(self):
         current = self["config"].getCurrent()
-        if current and len(current) > 2 and current[2] is not None:
+        if len(current) > 2 and current[2] is not None:
             self["help"].setText(current[2])
         else:
             self["help"].setText(_("No Helptext available!"))
@@ -475,8 +445,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         if not result:
             return
         for x in self["config"].list:
-            if len(x) > 1: # must check config entry
-                x[1].cancel()
+            x[1].cancel()
         self.close()
 
     def keyCancel(self):

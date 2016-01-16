@@ -32,10 +32,7 @@ from enigma import iServiceInformation, eServiceReference
 from os import environ
 from Source.Globals import getIconPath
 
-if environ["LANGUAGE"] == "de" or environ["LANGUAGE"] == "de_DE":
-    nocover = getIconPath("nocover_de.png")
-else:
-    nocover = getIconPath("nocover_en.png")
+nocover = None
 
 class MoviePreview():
     def __init__(self, session):
@@ -51,6 +48,11 @@ class MoviePreview():
         self.backdrop.addCallback(self.showBackdropCallback)
         self.onLayoutFinish.append(self.layoutFinish)
         self.onClose.append(self.__onClose)
+        global nocover
+        if environ["LANGUAGE"] == "de" or environ["LANGUAGE"] == "de_DE":
+            nocover = getIconPath("nocover_de.png")
+        else:
+            nocover = getIconPath("nocover_en.png")
 
     def __onClose(self):
         self.picload.destroy()
@@ -87,7 +89,7 @@ class MoviePreview():
             # file service
             path_s = os.path.splitext(path)[0]
             path = path_s + ".jpg"
-        else:   
+        else:
             # structure service
             path = path + ".jpg"
         
@@ -117,27 +119,14 @@ class MoviePreview():
                 else:
                     self.picload.startDecode(piconpath)
                 return
-        cover_path = os.path.join(os.path.dirname(path), "cover.jpg")
-        if fileExists(cover_path):
-            self.picload.startDecode(cover_path)
-        else:
-            self.picload.startDecode(nocover)
+        self.picload.startDecode(nocover)
     
     def loadBackdrop(self, serviceref):
         self.backdrop_load = False
-        if serviceref is None or not config.AdvancedMovieSelection.show_backdrop.value:
+        if serviceref is None or serviceref.flags & eServiceReference.mustDescent or not config.AdvancedMovieSelection.show_backdrop.value:
             self["backdrop"].hide()
             return
-
-        if serviceref.flags & eServiceReference.mustDescent:
-            backdrop_file = os.path.join(os.path.dirname(serviceref.getPath()), "backdrop.jpg")
-            if fileExists(backdrop_file):
-                self.backdrop_load = True
-                self.backdrop.startDecode(backdrop_file)
-            else:
-                self["backdrop"].hide()
-            return
-        
+        backdrop_file = None
         path = serviceref.getPath()
         if os.path.isfile(path):
             # file service
@@ -149,11 +138,6 @@ class MoviePreview():
         
         # load backdrop
         if backdrop_file is not None and fileExists(backdrop_file):
-            self.backdrop_load = True
-            self.backdrop.startDecode(backdrop_file)
-            return
-        backdrop_file = os.path.join(os.path.dirname(path), "backdrop.jpg")
-        if fileExists(backdrop_file):
             self.backdrop_load = True
             self.backdrop.startDecode(backdrop_file)
         else:

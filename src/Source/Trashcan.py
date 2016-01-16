@@ -37,7 +37,7 @@ async_trash = None
 
 class AsynchTrash(Thread):
     def __init__(self, items, wait_ms=0, min_age=0):
-        Thread.__init__(self, name="AMS-AsynchTrashThread")
+        Thread.__init__(self)
         self.items = items
         self.wait_ms = wait_ms
         self.min_age = min_age

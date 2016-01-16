@@ -23,7 +23,7 @@ import os
 from datetime import datetime
 from ServiceProvider import ServiceCenter, eServiceReferenceDvd, eServiceReferenceBludisc
 from ServiceProvider import detectDVDStructure, detectBludiscStructure
-from MovieInfo import MovieInfo
+from ServiceDescriptor import MovieInfo
 from ServiceUtils import serviceUtil, diskUsage, getDirSize
 from AutoNetwork import autoNetwork
 from MovieConfig import MovieConfig
@@ -36,7 +36,6 @@ from StopWatch import clockit
 from RecordTimerEvent import recordTimerEvent
 from MovieLibrary import MovieLibrary
 from Hotplug import hotplug
-from CueSheetSupport import hasLastPosition
 
 SCAN_EXCLUDE = (ISOInfo.MOUNT_PATH, "DUMBO", "TIMOTHY", "/media/swap", "/media/ram", "/media/ba")
 AUDIO_EXCLUDE = ("mp3", "ogg", "wav", "m4a")
@@ -168,10 +167,10 @@ class MovieScanner():
         except:
             printStackTrace()
         self.isWorking = False
-        dbx = self.movielibrary.getFullCount()
-        print "[AdvancedMovieSelection] Finished scanning movies", str(dbx[2]), str(dbx[0])
+        directories, movies = self.movielibrary.getFullCount()
+        print "[AdvancedMovieSelection] Finished scanning movies", str(directories), str(movies)
 
-    def scanForMovies(self, root, addtolib=True):
+    def scanForMovies(self, root):
         # print "[AdvancedMovieSelection] scan folder:", root
 
         scan_service = eServiceReference("2:0:1:0:0:0:0:0:0:0:" + root)
@@ -182,7 +181,6 @@ class MovieScanner():
         tags = set()
         l = []
         dirs = []
-        movie_seen = 0
         while 1:
             serviceref = root_list.getNext()
             if not serviceref.valid():
@@ -254,16 +252,11 @@ class MovieScanner():
             service_name = info.getName(serviceref)
             mi = MovieInfo(service_name, serviceref, info, begin)
             l.append(mi)
-            if hasLastPosition(serviceref):
-                movie_seen += 1
-        
-        dir_size = 0
-        # add location to movielibrary
-        if addtolib:
-            dir_size = getDirSize(root)
-            self.movielibrary.addMovieList(root, l, dir_size, movie_seen)
-            self.movielibrary.addTags(tags)
-        return l, dir_size, movie_seen
+
+        # we always must add location to movielibrary
+        dir_size = getDirSize(root)
+        self.movielibrary.addMovieList(root, l, dir_size)
+        self.movielibrary.addTags(tags)
     
     def findMovies___(self, name):
         l = []

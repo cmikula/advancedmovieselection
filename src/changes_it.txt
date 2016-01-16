@@ -383,12 +383,3 @@ versione: 4.0.1
 Info nel file extensions.xml
 * novità: impostazione "display icons from the skin"
 * novità: stato dei film nelle impostazioni extra dei colori
-
-versione: 4.0.2
-* neu: Show amount of movies for directories
-* neu: Sections in menu settings
-* new: Show backdrop.jpg for default if no backdrop for service is available
-* fix: Jump to first marker position
-* fix: AdvancedKeyBoard default view
-* fix: Textrenderer for optimized list view
-* fix: Crash on set tags

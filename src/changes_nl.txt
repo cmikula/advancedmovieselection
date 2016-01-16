@@ -380,12 +380,3 @@ versie: 4.0.1
 Info in de extensions.xml
 * nieuw: instelling "weergave iconen van de skin"
 * nieuw: filmstatus in kleur extra instelbaar 
-
-versie: 4.0.2 
-* nieuw: weergeven aantal filmen voor mappen 
-* nieuw: onderverdeling in instellingen 
-* nieuw: backdrop.jpg weergeven indien geen backdrop beschikbaar voor film 
-* fix: springen naar eerste markering 
-* fix: AdvancedKeyBoard standaard weergave 
-* fix: berekeningen textrenderer  
-* fix: crash bij ingeven tags

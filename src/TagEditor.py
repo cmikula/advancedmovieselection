@@ -136,7 +136,7 @@ class TagEditor(Screen):
         else:
             file = file + ".ts.meta"
         if os_path.exists(file):
-            metafile = open(file, "r")
+            metafile = open(file + ".ts.meta", "r")
             sid = metafile.readline().strip("\r\n")
             title = metafile.readline().strip("\r\n")
             descr = metafile.readline().strip("\r\n")
@@ -146,7 +146,7 @@ class TagEditor(Screen):
             metafile.close()
             tags = " ".join(tags)
             if tags != oldtags:
-                metafile = open(file, "w")
+                metafile = open(file + ".ts.meta", "w")
                 metafile.write("%s\n%s\n%s\n%s\n%s\n%s" % (sid, title, descr, time, tags, rest))
                 metafile.close()
 
