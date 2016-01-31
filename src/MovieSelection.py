@@ -1367,7 +1367,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             self["freeDiskSpace"].path = path
         if sel is None:
             sel = self.getCurrent()
-            movieScanner.updateServiceInfo(sel)
+        movieScanner.updateServiceInfo(sel)
         self["list"].reload(self.current_ref, self.selected_tags)
         self.__cacheUpdateTimer.start(self.CACHE_UPDATE_INTERVAL, False)
         self.updateTitle(config.movielist.last_videodir.value)

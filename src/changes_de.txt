@@ -393,3 +393,6 @@ version: 4.0.2
 * fix: AdvancedKeyBoard default Ansicht
 * fix: Textrenderer Berechnungen
 * fix: Crash beim setzen von tags
+
+version: 4.0.3
+* fix: Movie percent seen in library

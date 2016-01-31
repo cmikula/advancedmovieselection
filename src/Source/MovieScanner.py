@@ -22,7 +22,7 @@
 import os
 from datetime import datetime
 from ServiceProvider import ServiceCenter, eServiceReferenceDvd, eServiceReferenceBludisc
-from ServiceProvider import detectDVDStructure, detectBludiscStructure
+from ServiceProvider import detectDVDStructure, detectBludiscStructure, getPercentSeen
 from MovieInfo import MovieInfo
 from ServiceUtils import serviceUtil, diskUsage, getDirSize
 from AutoNetwork import autoNetwork
@@ -347,6 +347,7 @@ class MovieScanner():
         if movie_info is not None:
             movie_info.info = self.serviceHandler.info(serviceref)
             movie_info.name = movie_info.info.getName(serviceref)
+            movie_info.percent = getPercentSeen(serviceref)
             print movie_info
 
     def addHotplugNotifier(self):

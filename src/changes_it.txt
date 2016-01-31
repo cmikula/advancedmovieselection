@@ -392,3 +392,6 @@ versione: 4.0.2
 * fix: AdvancedKeyBoard default view
 * fix: Textrenderer for optimized list view
 * fix: Crash on set tags
+
+versione: 4.0.3
+* fix: Movie percent seen in library
