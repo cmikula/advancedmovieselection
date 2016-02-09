@@ -167,7 +167,6 @@ class MovieList(MovieListSkinParam, GUIListComponent):
     def onShow(self):
         GUIListComponent.onShow(self)
         self.updateSettings()
-        self.cache.addCallback(self.invalidateEntries)
     
     def getColor(self, color, default):
         if color == skin_choice:
@@ -192,6 +191,10 @@ class MovieList(MovieListSkinParam, GUIListComponent):
         
         #self.line1yr = self.line1y + self.f0h - self.f1h
         self.line1yr = self.line1y + self.font1.pointSize - self.font2.pointSize
+        if config.AdvancedMovieSelection.show_directory_info.value:
+            self.directory_info_format = " (" + config.AdvancedMovieSelection.show_directory_info.value.replace("qty", "{0}").replace("seen", "{1}").replace("new", "{2}") + ")"
+        else:
+            self.directory_info_format = ""
 
         try: self.watching_color = parseColor("movieWatching").argb()    
         except: self.watching_color = self.getColor(config.AdvancedMovieSelection.color1.value, color_choice[1][0])
@@ -436,8 +439,8 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 if os.path.islink(serviceref.getPath()[:-1]) and can_show_folder_image:
                     link_png = self.loadIcon("link.png")
                     res.append((TYPE_PIXMAP, 10, 15, 9, 10, link_png))
-                if movie_count > 0 and not isinstance(serviceref, eServiceReferenceBackDir) and not isinstance(serviceref, eServiceReferenceListAll):
-                    info_text += " ({0}/{1})".format(movie_new, movie_count)
+                if movie_count > 0 and not isinstance(serviceref, eServiceReferenceBackDir) and not isinstance(serviceref, eServiceReferenceListAll) and self.directory_info_format:
+                    info_text += self.directory_info_format.format(movie_count, movie_seen, movie_count - movie_seen)
                 res.append(MultiContentEntryText(pos=(offset, self.line1y), size=(line1_width, self.f0h), font=0, flags=RT_HALIGN_LEFT, text=info_text, color=color, color_sel=self.colorSel1))
 
                 return res
@@ -869,8 +872,6 @@ class MovieList(MovieListSkinParam, GUIListComponent):
 
     def loadMovieLibrary(self, root, filter_tags):
         print "loadMovieLibrary:", root.getPath()
-        self.list = [ ]
-        self.multiSelection = []
 
         self.serviceHandler = ServiceCenter.getInstance()
         sort = self.sort_type
@@ -890,6 +891,10 @@ class MovieList(MovieListSkinParam, GUIListComponent):
         self.updateHotplugDevices()
         update_root = self.root
         self.root = root
+        # this lists our root service, then building a nice list
+        self.list = [ ]
+        self.multiSelection = []
+        self.cache.addCallback(self.invalidateEntries)
         if config.AdvancedMovieSelection.movielibrary_show.value:
             self.loadMovieLibrary(root, filter_tags)
             return
@@ -899,9 +904,6 @@ class MovieList(MovieListSkinParam, GUIListComponent):
             print "current type", root.type, "set to", eServiceReference.idFile
             root.type = eServiceReference.idFile
 
-        # this lists our root service, then building a nice list
-        self.list = [ ]
-        self.multiSelection = []
 
         self.serviceHandler = ServiceCenter.getInstance()
         
@@ -1059,9 +1061,9 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 db_index += 1
 
         if len(config.AdvancedMovieSelection.videodirs.value) > 0 and config.AdvancedMovieSelection.show_movielibrary.value:
-            movie_cnt, movie_seen, dir_cnt, size = movieScanner.movielibrary.getFullCount() #@UnusedVariable
+            movie_count, movie_seen, dir_cnt, size = movieScanner.movielibrary.getFullCount() #@UnusedVariable
             tt1 = eServiceReferenceListAll(root_path)
-            tt1.setName(_("Movie library") + " (%d/%d)" % (movie_cnt - movie_seen, movie_cnt))
+            tt1.setName(_("Movie library") + self.directory_info_format.format(movie_count, movie_seen, movie_count - movie_seen))
             info = self.serviceHandler.info(tt1)
             mi = MovieInfo(tt1.getName(), tt1, info)
             self.list.insert(db_index, (mi,))
@@ -1135,11 +1137,11 @@ class MovieList(MovieListSkinParam, GUIListComponent):
 
     def updateMovieLibraryEntry(self):
         cur_idx = 0
-        movie_cnt, movie_seen, dir_cnt, size = movieScanner.movielibrary.getFullCount() #@UnusedVariable
+        movie_count, movie_seen, dir_cnt, size = movieScanner.movielibrary.getFullCount() #@UnusedVariable
         for item in self.list:
             mi = item[0]
             if isinstance(mi.serviceref, eServiceReferenceListAll):
-                mi.serviceref.setName(_("Movie library") + " (%d/%d)" % (movie_cnt - movie_seen, movie_cnt))
+                mi.serviceref.setName(_("Movie library") + self.directory_info_format.format(movie_count, movie_seen, movie_count - movie_seen))
                 self.l.invalidateEntry(cur_idx)
                 return
             cur_idx += 1

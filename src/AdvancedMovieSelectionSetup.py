@@ -202,6 +202,9 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
 
     def checkListentrys(self):
         needRefresh = False          
+        if config.AdvancedMovieSelection.showfoldersinmovielist.isChanged():
+            config.AdvancedMovieSelection.showfoldersinmovielist.save()
+            needRefresh = True
         if config.AdvancedMovieSelection.show_dirsize.isChanged():
             config.AdvancedMovieSelection.show_dirsize.save()
             needRefresh = True
@@ -301,12 +304,15 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append(getConfigListEntry(_("Start Advanced Movie Selection with:"), config.AdvancedMovieSelection.movie_launch, _("Select Start button for the Advanced Movie Selection.")))
         self.list.append(getConfigListEntry(_("Start on last movie location:"), config.AdvancedMovieSelection.startdir, _("Opens the film list on the last used location.")))
         self.list.append(getConfigListEntry(_("Start on first position in movielist:"), config.AdvancedMovieSelection.startonfirst, _("Always show selection in the first position in the movie list.")))
+        self.list.append(getConfigListEntry(_("Show folders in movielist:"), config.AdvancedMovieSelection.showfoldersinmovielist, _("Displays folders in the movie list.")))
+        if config.AdvancedMovieSelection.showfoldersinmovielist.value:
+            self.list.append(getConfigListEntry(_("Show directory size in movie list:"), config.AdvancedMovieSelection.show_dirsize, _("Displays the size from directories in movie list.")))
+            if config.AdvancedMovieSelection.show_dirsize.value:
+                self.list.append(getConfigListEntry(_("Show decimal points:"), config.AdvancedMovieSelection.dirsize_digits, _("Here you can choose how many decimal points for the directory size in the movie list will be displayed.")))
+        self.list.append(getConfigListEntry(_("Show the number of movies in the directories:"), config.AdvancedMovieSelection.show_directory_info, _("Displays the amount of movies from directories and library in the movie list.")))
         self.list.append(getConfigListEntry(_("Show bookmarks in movielist:"), config.AdvancedMovieSelection.show_bookmarks, _("When enabled all created bookmarks appear in the movie list.")))
         self.list.append(getConfigListEntry(_("Show hotplug devices:"), config.AdvancedMovieSelection.hotplug, _("Enable this option to use USB-Devices.")))
         self.list.append(getConfigListEntry(_("Show disk usage in description:"), config.AdvancedMovieSelection.show_diskusage, _("Displays the disk usage in the description. (Leave it disabled if you have performance problems at the start of the movie list)")))
-        self.list.append(getConfigListEntry(_("Show directory size in movie list:"), config.AdvancedMovieSelection.show_dirsize, _("Displays the size from directories in movie list.")))
-        if config.AdvancedMovieSelection.show_dirsize.value:
-            self.list.append(getConfigListEntry(_("Show decimal points:"), config.AdvancedMovieSelection.dirsize_digits, _("Here you can choose how many decimal points for the directory size in the movie list will be displayed.")))
         self.list.append(getConfigListEntry(_("Load Length of Movies in Movielist:"), config.usage.load_length_of_movies_in_moviellist, _("This option is for many of the functions from the Advanced Movie Selection necessary. If this option is disabled are many functions not available.")))
         if config.usage.load_length_of_movies_in_moviellist.value:
             self.list.append(getConfigListEntry(_("Mark movie as seen at position (in percent):"), config.AdvancedMovieSelection.moviepercentseen, _("With this option you can assign as when a film is marked as seen.")))        

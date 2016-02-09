@@ -23,6 +23,7 @@ from threading import Thread, Event
 from ServiceDescriptor import DirectoryEvent
 from EventInformationTable import printStackTrace
 from twisted.internet import reactor
+from Components.config import config
 
 class MovieCache():
     def __init__(self):
@@ -69,9 +70,10 @@ class MovieCache():
             self.__callback.remove(callback)
         
     def addService(self, serviceref):
-        if not serviceref in self.cacheUpdates:
-            self.cacheUpdates.append(serviceref)
-            self.event.set()
+        if config.AdvancedMovieSelection.show_directory_info.value:
+            if not serviceref in self.cacheUpdates:
+                self.cacheUpdates.append(serviceref)
+                self.event.set()
 
     def updateItem(self, serviceref):
         if serviceref is not None:
