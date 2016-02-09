@@ -395,4 +395,5 @@ version: 4.0.2
 * fix: Crash beim setzen von tags
 
 version: 4.0.3
-* fix: Movie percent seen in library
+* new: Einstellung für das Anzeigen der Filmanzahl im Verzeichnis
+* fix: Prozent des gesehenen Filmes in der Bibliothek

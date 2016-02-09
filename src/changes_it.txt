@@ -394,4 +394,5 @@ versione: 4.0.2
 * fix: Crash on set tags
 
 versione: 4.0.3
+* new: Settings for the numbers of movies in the directory
 * fix: Movie percent seen in library

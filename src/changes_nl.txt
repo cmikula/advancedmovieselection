@@ -391,4 +391,5 @@ versie: 4.0.2
 * fix: crash bij ingeven tags
 
 versie: 4.0.3
+* new: Settings for the numbers of movies in the directory
 * fix: Movie percent seen in library
