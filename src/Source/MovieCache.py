@@ -22,12 +22,13 @@
 from threading import Thread, Event
 from ServiceDescriptor import DirectoryEvent
 from EventInformationTable import printStackTrace
+from twisted.internet import reactor
 
 class MovieCache():
     def __init__(self):
+        self.__callback = []
         self.cacheUpdates = []
         self.pathInfoCache = dict()
-        self.newData = False
         self.thread = Thread(target=self.__threadRun, name="AMS-CacheThread")
         self.event = Event()
         self.__run = True
@@ -37,6 +38,7 @@ class MovieCache():
         try:
             while self.__run:
                 if len(self.cacheUpdates) == 0:
+                    reactor.callFromThread(self.__notify) #@UndefinedVariable
                     self.event.wait()
                 self.event.clear()
                 print "[AdvancedMovieSelection] cache update"
@@ -49,14 +51,22 @@ class MovieCache():
                 de.scanFolder()
                 de.updateFolderSize()
                 self.pathInfoCache[path] = de
-                self.newData = True
         except:
             printStackTrace()
         print "[AdvancedMovieSelection] cache thread finished"
         
     def destroy(self):
+        self.__callback = []
         self.__run = False
         self.event.set()
+
+    def addCallback(self, callback):
+        if not callback in self.__callback:
+            self.__callback.append(callback)
+
+    def removeCallback(self, callback):
+        if callback in self.__callback:
+            self.__callback.remove(callback)
         
     def addService(self, serviceref):
         if not serviceref in self.cacheUpdates:
@@ -76,7 +86,8 @@ class MovieCache():
             return self.pathInfoCache[path]
         self.addService(serviceref)
 
-    def hasNewData(self):
-        result = self.newData
-        self.newData = False
-        return result
+    def __notify(self):
+        for callback in self.__callback:
+            callback()
+
+        

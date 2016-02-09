@@ -831,8 +831,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         MovieSearch.__init__(self)
         self.__dbUpdate = eTimer()
         self.__dbUpdate.callback.append(self.libraryUpdateTimerEvent)
-        self.__cacheUpdateTimer = eTimer()
-        self.__cacheUpdateTimer.callback.append(self.updateCacheTimerEvent)
         print "end constructor", str(self.stopwatch.elapsed)
     
     def createSummary(self):
@@ -1369,7 +1367,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             sel = self.getCurrent()
         movieScanner.updateServiceInfo(sel)
         self["list"].reload(self.current_ref, self.selected_tags)
-        self.__cacheUpdateTimer.start(self.CACHE_UPDATE_INTERVAL, False)
         self.updateTitle(config.movielist.last_videodir.value)
         if not (sel and self["list"].moveTo(sel)):
             if home:
@@ -1487,10 +1484,6 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             self.updateTitle("")
             self.list.updateMovieLibraryEntry()
 
-    def updateCacheTimerEvent(self):
-        if self.list.invalidateEntries():
-            self.__cacheUpdateTimer.stop()
-            
         
 class MoviebarPositionSetupText(Screen):
     def __init__(self, session):

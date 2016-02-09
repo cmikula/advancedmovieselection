@@ -167,6 +167,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
     def onShow(self):
         GUIListComponent.onShow(self)
         self.updateSettings()
+        self.cache.addCallback(self.invalidateEntries)
     
     def getColor(self, color, default):
         if color == skin_choice:
@@ -1250,12 +1251,11 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 accessRestriction.setToService(service.getPath(), access, clear)
     
     def invalidateEntries(self):
-        if self.cache.hasNewData():
-            print "[AdvancedMovieSelection] invalidate entries"
-            for index, item in enumerate(self.list):
-                serviceref = item[0].serviceref
-                if isinstance(serviceref, eServiceReferenceListAll):
-                    continue
-                if not serviceref.flags & eServiceReference.mustDescent:
-                    return
-                self.l.invalidateEntry(index)
+        print "[AdvancedMovieSelection] invalidate entries"
+        for index, item in enumerate(self.list):
+            serviceref = item[0].serviceref
+            if isinstance(serviceref, eServiceReferenceListAll):
+                continue
+            if not serviceref.flags & eServiceReference.mustDescent:
+                return
+            self.l.invalidateEntry(index)
