@@ -29,7 +29,7 @@ from Components.ActionMap import HelpableActionMap
 from Components.Sources.StaticText import StaticText
 from Components.Pixmap import Pixmap
 from os import path as os_path, mkdir as os_mkdir
-from timer import eTimer
+from Source.Timer import eTimer
 from Components.Label import Label
 from Components.ScrollLabel import ScrollLabel
 from Components.AVSwitch import AVSwitch
@@ -86,7 +86,7 @@ class InfoLoadChoice():
     def __init__(self, callback):
         self.__callback = callback
         self.__timer = eTimer()
-        self.__timer.callback.append(self.__timerCallback)
+        self.__timer.addCallback(self.__timerCallback)
     
     def checkExistence(self, file_name):
         l = []
@@ -261,9 +261,9 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
         self.downloadItems = {}
         self.useTMDbInfoAsEventInfo = True
         self.timer = eTimer()
-        self.timer.callback.append(self.searchForMovies)
+        self.timer.addCallback(self.searchForMovies)
         self.blue_button_timer = eTimer()
-        self.blue_button_timer.callback.append(self.callback_blue_pressed) 
+        self.blue_button_timer.addCallback(self.callback_blue_pressed) 
         self.onClose.append(self.deleteTempDir)
         self.onLayoutFinish.append(self.layoutFinished)
         self.view_mode = self.SHOW_SEARCH

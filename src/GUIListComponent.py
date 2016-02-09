@@ -21,12 +21,14 @@
 #
 from Components.GUIComponent import GUIComponent
 from enigma import eListbox, eListboxPythonMultiContent
+from Source.Globals import isDreamOS
 
 class GUIListComponent(GUIComponent):
     def __init__(self):
         GUIComponent.__init__(self)
         self.l = eListboxPythonMultiContent()
         self.onSelectionChanged = [ ]
+        self.selectionChanged_conn = None
 
     def connectSelChanged(self, fnc):
         if not fnc in self.onSelectionChanged:
@@ -41,15 +43,18 @@ class GUIListComponent(GUIComponent):
             x()        
 
     GUI_WIDGET = eListbox
-    
+
     def postWidgetCreate(self, instance):
         instance.setContent(self.l)
-        instance.selectionChanged.get().append(self.selectionChanged)
+        if isDreamOS:
+            self.selectionChanged_conn = instance.selectionChanged.connect(self.selectionChanged)
+        else:
+            instance.selectionChanged.get().append(self.selectionChanged)
 
     def preWidgetRemove(self, instance):
         instance.setContent(None)
-        instance.selectionChanged.get().remove(self.selectionChanged)
-
+        self.selectionChanged_conn = None
+    
     def moveUp(self):
         self.instance.moveSelection(self.instance.moveUp)
 

@@ -21,7 +21,8 @@
 #
 from Components.AVSwitch import AVSwitch
 from Components.Pixmap import Pixmap
-from enigma import gPixmapPtr, eTimer
+from enigma import gPixmapPtr
+from Source.Timer import eTimer
 from Tools.Directories import fileExists
 import os
 from Components.config import config
@@ -191,11 +192,11 @@ from Source.ServiceProvider import CueSheet
 class VideoPreview():
     def __init__(self):
         self.fwd_timer = eTimer()
-        self.fwd_timer.callback.append(self.fwd)
+        self.fwd_timer.addCallback(self.fwd)
         self.dvd_preview_timer = eTimer()
-        self.dvd_preview_timer.callback.append(self.playLastDVD)
+        self.dvd_preview_timer.addCallback(self.playLastDVD)
         self.video_preview_timer = eTimer()
-        self.video_preview_timer.callback.append(self.playMovie)
+        self.video_preview_timer.addCallback(self.playMovie)
         self.service = None
         self.currentlyPlayingService = None
         self.cut_list = None

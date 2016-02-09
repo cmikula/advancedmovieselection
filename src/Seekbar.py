@@ -25,7 +25,8 @@ from Components.config import config, ConfigNumber, ConfigSelection, getConfigLi
 from Components.ConfigList import ConfigListScreen
 from Components.Label import Label
 from Components.Pixmap import MovingPixmap
-from enigma import eTimer, getDesktop, ePoint
+from Source.Timer import eTimer
+from enigma import getDesktop, ePoint
 from keyids import KEYIDS
 from Screens.InfoBar import MoviePlayer
 from Screens.Screen import Screen
@@ -68,7 +69,7 @@ class Seekbar(ConfigListScreen, Screen):
             {"back": self.exit}, 
         -1)
         self.cursorTimer = eTimer()
-        self.cursorTimer.callback.append(self.updateCursor)
+        self.cursorTimer.addCallback(self.updateCursor)
         self.cursorTimer.start(200, False)
         self.onShown.append(self.setWindowTitle)
         self.onLayoutFinish.append(self.firstStart)

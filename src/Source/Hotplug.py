@@ -23,7 +23,7 @@ import os
 from Globals import printStackTrace
 from MovieConfig import MovieConfig
 from ServiceProvider import eServiceReferenceHotplug
-from enigma import eTimer
+from Timer import eTimer
 
 class Hotplug():
     NTFS_3G_DRIVER_DELAY = 3000
@@ -31,21 +31,19 @@ class Hotplug():
         self.notifier = []
         self.hotplugServices = []
         self.hotplug_timer = eTimer()
-        self.hotplug_timer.callback.append(self.updateHotplugDevices)
+        self.hotplug_timer.addCallback(self.updateHotplugDevices)
         self.addHotplugNotifier()
         self.hotplugChanged()
 
     def addHotplugNotifier(self):
         from Plugins.SystemPlugins.Hotplug.plugin import hotplugNotifier
-        if not self.hotplugNotifier in hotplugNotifier:
-            print "add hotplugNotifier" 
-            hotplugNotifier.append(self.hotplugNotifier)
+        print "add hotplugNotifier" 
+        hotplugNotifier.append(self.hotplugNotifier)
         
     def removeHotplugNotifier(self):
         from Plugins.SystemPlugins.Hotplug.plugin import hotplugNotifier
-        if self.hotplugNotifier in hotplugNotifier:
-            print "remove hotplugNotifier" 
-            hotplugNotifier.remove(self.hotplugNotifier)
+        print "remove hotplugNotifier" 
+        hotplugNotifier.remove(self.hotplugNotifier)
     
     def hotplugNotifier(self, dev, media_state):
         print "[hotplugNotifier]", dev, media_state

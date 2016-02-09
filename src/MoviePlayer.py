@@ -32,14 +32,15 @@ from Source.CueSheetSupport import DVDCutListSupport, CutListSupport
 from Screens.MessageBox import MessageBox
 from Screens.InfoBar import MoviePlayer
 from Tools.Directories import fileExists
-from enigma import ePoint, eTimer, iPlayableService
+from enigma import ePoint, iPlayableService
+from Source.Timer import eTimer
 from Tools import Notifications
 from Components.Sources.ServiceEvent import ServiceEvent
 from MoviePreview import MoviePreview
 from Components.Label import Label
 from Components.Pixmap import Pixmap
 from Components.ServiceEventTracker import ServiceEventTracker
-from Source.Globals import pluginPresent
+from Source.Globals import pluginPresent, isDreamOS
 from Version import __version__
 
 playerChoice = None
@@ -96,7 +97,7 @@ class SelectionEventInfo:
         self["ServiceEvent"] = ServiceEvent()
         self["ShortDesc"] = Label("")
         self.timer = eTimer()
-        self.timer.callback.append(self.updateEventInfo)
+        self.timer.addCallback(self.updateEventInfo)
         self.onShow.append(self.__selectionChanged)
 
     def __selectionChanged(self):
@@ -146,7 +147,8 @@ class PlayerBase(MoviePreview, SelectionEventInfo):
     def __evServiceEnd(self):
         if not self.is_closing and not self.new_service_started:
             print "[AdvancedMovieSelection] service end!!!"
-            self.close()
+            if not isDreamOS:
+                self.close() # TODO: check closing on oe2.2
     
     def openServiceList(self):
         pass

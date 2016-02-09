@@ -30,7 +30,6 @@ from MoviePreview import MoviePreview
 from Source.Globals import SkinTools, pluginPresent
 from Components.Sources.StaticText import StaticText
 from Components.Pixmap import Pixmap
-from timer import eTimer
 import os
 
 class EventViewBase:    
@@ -63,8 +62,6 @@ class EventViewBase:
                 "pageUp": self.pageUp,
                 "pageDown": self.pageDown
             })
-        self.__timer = eTimer()
-        self.__timer.callback.append(self.__timerCallback)
         self.onShown.append(self.onCreate)
 
     def onCreate(self):
@@ -115,9 +112,7 @@ class EventViewBase:
         self["Location"].setText(_("Movie location: %s") % (current_path))
         serviceref = self.currentService
         self["Service"].newService(serviceref)
-        self.__timer.start(100, True)
-    
-    def __timerCallback(self):
+
         self.loadBackdrop(self.currentService)
         self.loadPreview(self.currentService)
 

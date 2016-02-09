@@ -390,6 +390,6 @@ versie: 4.0.2
 * fix: berekeningen textrenderer  
 * fix: crash bij ingeven tags
 
-versie: 4.0.3
+versie: 4.1
 * new: Settings for the numbers of movies in the directory
 * fix: Movie percent seen in library

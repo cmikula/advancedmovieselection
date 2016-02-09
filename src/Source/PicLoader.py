@@ -25,10 +25,12 @@
 
 from Components.AVSwitch import AVSwitch
 from enigma import ePicLoad
+from Globals import isDreamOS
 
 class PicLoader:
     def __init__(self):
         self.picload = ePicLoad()
+        self.picload_conn = None
 
     def setSize(self, width, height, sc=None):
         if sc is None:
@@ -36,15 +38,22 @@ class PicLoader:
         self.picload.setPara((width, height, sc[0], sc[1], False, 1, "#ff000000"))
 
     def load(self, filename):
-        self.picload.startDecode(filename, 0, 0, False)
+        if isDreamOS:
+            self.picload.startDecode(filename, False)
+        else:
+            self.picload.startDecode(filename, 0, 0, False)
         data = self.picload.getData()
         return data
     
     def destroy(self):
-        del self.picload
+        self.picload = None
+        self.picload_conn = None
 
     def addCallback(self, callback):
-        self.picload.PictureData.get().append(callback)
+        if isDreamOS:
+            self.picload_conn = self.picload.PictureData.connect(callback)
+        else:
+            self.picload.PictureData.get().append(callback)
 
     def getData(self):
         return self.picload.getData()

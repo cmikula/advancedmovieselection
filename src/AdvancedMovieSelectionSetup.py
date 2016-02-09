@@ -27,7 +27,7 @@ from About import AdvancedMovieSelectionAbout
 from Components.Pixmap import Pixmap
 from Components.PluginComponent import plugins
 from Plugins.Plugin import PluginDescriptor
-from Components.config import config, configfile, ConfigSelection, ConfigNothing
+from Components.config import config, configfile, ConfigSelection
 from Components.Sources.StaticText import StaticText
 from Components.Button import Button
 from Components.ConfigList import ConfigListScreen
@@ -39,13 +39,17 @@ from MessageBoxEx import MessageBox as MessageBoxEx
 from Components.Sources.List import List
 from Components.ActionMap import ActionMap
 from enigma import getDesktop, quitMainloop
-from Source.Globals import pluginPresent
+from Source.Globals import pluginPresent, isDreamOS
 from Source.Config import qButtons
 
-def getConfigListEntry(*args):
-    if len(args) == 1:
-        return "{0} {1} {2}".format("-" * 5, args[0], "-" * 200), ConfigNothing(), args[0]
-    return args
+if isDreamOS:
+    from Components.config import getConfigListEntry
+else:
+    from Components.config import ConfigNothing
+    def getConfigListEntry(*args):
+        if len(args) == 1:
+            return "{0} {1} {2}".format("-" * 5, args[0], "-" * 200), ConfigNothing(), args[0]
+        return args
 
 class BackupRestore(ConfigListScreen, Screen):
     def __init__(self, session, csel=None):
@@ -132,8 +136,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.needsRestartFlag = False
         self.needsE2restartFlag = False
         self.needsReopenFlag = False
-        self["setupActions"] = ActionMap(["ColorActions", "OkCancelActions", "MenuActions", "EPGSelectActions"],
-        {
+        actions = {
             "ok": self.keySave,
             "cancel": self.keyCancel,
             "red": self.keyCancel,
@@ -141,9 +144,11 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             "yellow": self.buttonsetup,
             "blue": self.RecPathSettings,
             "info": self.about,
-            "nextBouquet": self.nextBouquet,
-            "prevBouquet": self.prevBouquet,
-        }, -2)
+        }
+        if not isDreamOS:
+            actions["nextBouquet"] = self.nextBouquet
+            actions["prevBouquet"] = self.prevBouquet
+        self["setupActions"] = ActionMap(["ColorActions", "OkCancelActions", "MenuActions", "EPGSelectActions"], actions, -2)
         self.list = [ ]
         ConfigListScreen.__init__(self, self.list, session=self.session)
         if not self.showHelp in self["config"].onSelectionChanged:

@@ -24,7 +24,7 @@ from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Components.ActionMap import ActionMap, NumberActionMap
 from Components.config import config, ConfigText, KEY_0, KEY_TIMEOUT, KEY_NUMBERS
 from Tools.NumericalTextInput import NumericalTextInput
-from enigma import eTimer
+from Source.Timer import eTimer
 
 from Screens.NumericalTextInputHelpDialog import NumericalTextInputHelpDialog
 class AdvancedTextInputHelpDialog(NumericalTextInputHelpDialog):
@@ -67,7 +67,7 @@ class AdvancedKeyBoard(VirtualKeyBoard, NumericalTextInput):
 
         if use & self.NUM_KEYB:
             self.timer = eTimer()
-            self.timer.callback.append(self.timeout)
+            self.timer.addCallback(self.timeout)
             self.configText = ConfigText("", False)
             if text:
                 self.configText.text = text

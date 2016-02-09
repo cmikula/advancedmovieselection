@@ -23,7 +23,8 @@ from __init__ import _
 import datetime, re, os, shutil
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
-from enigma import iServiceInformation, eTimer
+from enigma import iServiceInformation
+from Source.Timer import eTimer
 from Components.Sources.StaticText import StaticText
 from Components.Pixmap import Pixmap
 from Components.ActionMap import ActionMap
@@ -222,11 +223,11 @@ class TheTVDBMain(Screen, InfoLoadChoice):
         self["key_blue"] = StaticText("")
 
         self.timer = eTimer()
-        self.timer.callback.append(self.getSeriesList)
+        self.timer.addCallback(self.getSeriesList)
         self.red_button_timer = eTimer()
-        self.red_button_timer.callback.append(self.callback_red_pressed)
+        self.red_button_timer.addCallback(self.callback_red_pressed)
         self.blue_button_timer = eTimer()
-        self.blue_button_timer.callback.append(self.callback_blue_pressed)        
+        self.blue_button_timer.addCallback(self.callback_blue_pressed)        
         self.onLayoutFinish.append(self.layoutFinished)
         self.onClose.append(self.deleteTempDir)
         self.view_mode = self.SHOW_SEARCH

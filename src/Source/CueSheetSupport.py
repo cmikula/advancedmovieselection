@@ -30,7 +30,7 @@ from Screens.InfoBarGenerics import InfoBarCueSheetSupport
 from shutil import copyfile
 from bisect import insort
 from Globals import printStackTrace
-from timer import eTimer
+from Timer import eTimer
 
 def getPercentSeen(info, length):
     cue = info.cueSheet()
@@ -169,15 +169,13 @@ class CutListSupportBase:
         self.currently_playing = False
         self.new_service_started = True
         self.__timer = eTimer()
-        self.__timer.callback.append(self.seekToResumePoint)
-        #self.__timer_conn = self.__timer.timeout.connect(self.seekToResumePoint)
+        self.__timer.addCallback(self.seekToResumePoint)
     
     def seekToResumePoint(self):
         print "[AdvancedMovieSelection] seekToResumePoint"
         if self.jump_first_mark:
             self.doSeek(self.resume_point)
-        self.__timer = None
-        #self.__timer_conn = None
+        self.__timer.destroy()
     
     def playNewService(self, service):
         if self.currentService == service:

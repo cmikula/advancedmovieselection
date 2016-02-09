@@ -39,7 +39,8 @@ from Screens.LocationBox import MovieLocationBox
 from AdvancedMovieSelectionSetup import AdvancedMovieSelectionSetup, AdvancedMovieSelectionButtonSetup
 from Tools.BoundFunction import boundFunction
 from Tools.Directories import resolveFilename, fileExists, SCOPE_HDD
-from enigma import eServiceReference, eSize, ePoint, eTimer, iServiceInformation
+from enigma import eServiceReference, eSize, ePoint, iServiceInformation
+from Source.Timer import eTimer
 from Screens.Console import eConsoleAppContainer
 from MoveCopy import MovieMove
 from Rename import MovieRetitle
@@ -672,7 +673,7 @@ class SelectionEventInfo:
         self["Service"] = ServiceEvent()
         self.list.connectSelChanged(self.__selectionChanged)
         self.timer = eTimer()
-        self.timer.callback.append(self.updateEventInfo)
+        self.timer.addCallback(self.updateEventInfo)
         self.onShown.append(self.__selectionChanged)
 
     def __selectionChanged(self):
@@ -764,7 +765,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self.bouquet_mark_edit = False
 
         self.delayTimer = eTimer()
-        self.delayTimer.callback.append(self.updateHDDData)
+        self.delayTimer.addCallback(self.updateHDDData)
 
         self["waitingtext"] = Label(_("Please wait... Loading list..."))
         self["DescriptionBorder"] = Pixmap()
@@ -830,7 +831,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self.inited = False
         MovieSearch.__init__(self)
         self.__dbUpdate = eTimer()
-        self.__dbUpdate.callback.append(self.libraryUpdateTimerEvent)
+        self.__dbUpdate.addCallback(self.libraryUpdateTimerEvent)
         print "end constructor", str(self.stopwatch.elapsed)
     
     def createSummary(self):

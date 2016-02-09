@@ -25,7 +25,7 @@ from Screens.NumericalTextInputHelpDialog import NumericalTextInputHelpDialog
 from Tools.NumericalTextInput import NumericalTextInput
 from Screens.InputBox import InputBox
 from Components.ActionMap import ActionMap, NumberActionMap
-from enigma import eTimer
+from Source.Timer import eTimer
 
 class PopupInputHelpDialog(NumericalTextInputHelpDialog):
     pass
@@ -37,18 +37,21 @@ class PopupInputDialog(InputBox):
         self.configText = ConfigText("", False)
         self.configText.help_window = self.session.instantiateDialog(PopupInputHelpDialog, self.numti)
         self.setTitle(_("Search:"))
+        self.isShown = False # self.shown not working in oe2.2
 
     def keyNumberGlobal(self, number):
         self.configText.handleKey(KEY_0 + number)
         self["input"].number(number)
 
     def show(self):
+        self.isShown = True
         self["input"].setText("")
         self.configText.setValue("")
         self.configText.help_window.show()
         return Screen.show(self)
 
     def hide(self):
+        self.isShown = False
         self.configText.help_window.hide()
         return Screen.hide(self)
 
@@ -84,9 +87,9 @@ class MovieSearch():
         }, -2)
         self.last_result = -1
         self.__timer = eTimer()
-        self.__timer.callback.append(self.__timeout)
+        self.__timer.addCallback(self.__timeout)
         self.__timer_reload = eTimer()
-        self.__timer_reload.callback.append(self.__timeout_reload)
+        self.__timer_reload.addCallback(self.__timeout_reload)
         self.onClose.append(self.__onClose)
         self.onLayoutFinish.append(self.__onLayoutFinish)
 
@@ -99,6 +102,8 @@ class MovieSearch():
         self.popup.close()
         self.session.deleteDialog(self.popup)
         self.popup = None
+        self.__timer.destroy()
+        self.__timer_reload.destroy()
 
     def __timeout(self):
         self.popup.configText.handleKey(KEY_TIMEOUT)
@@ -114,7 +119,7 @@ class MovieSearch():
             self["list"].l.setList(self["list"].list)
 
     def showPopup(self):
-        if not self.popup.shown:
+        if not self.popup.isShown:
             self["SetupActions"].setEnabled(True)
             self.popup.show()
 

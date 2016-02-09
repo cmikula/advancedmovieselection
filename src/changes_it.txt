@@ -393,6 +393,6 @@ versione: 4.0.2
 * fix: Textrenderer for optimized list view
 * fix: Crash on set tags
 
-versione: 4.0.3
+versione: 4.1
 * new: Settings for the numbers of movies in the directory
 * fix: Movie percent seen in library
