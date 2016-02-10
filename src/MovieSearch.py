@@ -153,7 +153,9 @@ class MovieSearch():
     def clearSearch(self):
         if self.last_result > 0:
             self.last_result = 0
+            service = self["list"].getCurrent()
             self["list"].l.setList(self["list"].list)
+            self["list"].moveTo(service)
             return True
         
     def keyBackspace(self):
