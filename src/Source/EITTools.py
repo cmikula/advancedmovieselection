@@ -71,7 +71,6 @@ def createEIT(file_name, title, movie=None, overwrite_eit=False, overwrite_cover
     try:
         if title:
             title = title.replace("-", " ").replace("#", "%23")
-        print "Fetching info for movie: " + str(title)
         # DVD directory
         if not os.path.isdir(file_name):
             f_name = os.path.splitext(file_name)[0]
@@ -80,6 +79,15 @@ def createEIT(file_name, title, movie=None, overwrite_eit=False, overwrite_cover
         eit_file = f_name + ".eit"
         jpg_file = f_name + ".jpg"
         backdrop_file = f_name + ".backdrop.jpg"
+        
+        # check and cancel if all exists
+        if (not overwrite_eit and os.path.exists(eit_file)) and \
+        (not overwrite_cover and os.path.exists(jpg_file)) and \
+        (not overwrite_backdrop and os.path.exists(backdrop_file)):
+            print "Cancel all data exists:", str(title)
+            return
+
+        print "Fetching info for movie: " + str(title)
         
         if movie == None:
             tmdb3 = tmdb.init_tmdb3()

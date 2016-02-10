@@ -257,8 +257,11 @@ class FetchingMovies(Thread):
                     if service.flags & eServiceReference.mustDescent:
                         self.total -= 1
                         continue
-                    self.current += 1 
-                    self.movie_title = ServiceCenter.getInstance().info(service).getName(service).encode("utf-8").split(" - ")[0].strip()
+                    self.current += 1
+                    print service.toString()
+                    name = ServiceCenter.getInstance().info(service).getName(service)
+                    print name
+                    self.movie_title = name.split(" - ")[0].strip()
                     createEIT(service.getPath(), self.movie_title)
                 except:
                     printStackTrace()
