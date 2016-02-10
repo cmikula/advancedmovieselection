@@ -4,7 +4,7 @@ import os, urllib
 #@clockit
 def downloadCover(url, filename, overwrite=False):
     try:
-        if not os.path.exists(filename) or overwrite:
+        if (not os.path.exists(filename) or overwrite) and url:
             print "Try loading: ", str(url), "->", str(filename)
             urllib.urlretrieve(url, filename)
         else:
