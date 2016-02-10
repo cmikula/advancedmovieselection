@@ -743,31 +743,43 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                     textl.append(str.format("%d%%" % (perc)))
                 if self.show_time == MovieList.SHOW_TIME:
                     textl.append(length_text)
-                if len(textl) > 0:
-                    displaytext = str.format("%s (%s)" % (displaytext, ", ".join(textl)))
-                
+#                if len(textl) > 0:
+#                    displaytext = str.format("%s (%s)" % (displaytext, ", ".join(textl)))
+
                 if png is not None:
                     res.append((TYPE_PIXMAP, 0, 2, self.icon_size, self.icon_size, png))
 
                 if self.show_progressbar:
                     res.append(MultiContentEntryProgress(pos=(offset, self.progress[3]), size=(self.progress[0], self.progress[1]), percent=perc, borderWidth=self.progress[2], foreColor=color))
                     offset = offset + self.progress[0] + (self.progress[1] / 2)
-                
+
                 line_width = width - offset
-                line1w1 = line_width
+                line1_width = line_width - 5
                 text_right = None
                 if self.show_service == MovieList.SHOW_SERVICE:
                     text_right = service.getServiceName()
-                if tags and self.show_tags == MovieList.SHOW_TAGS and self.show_service == MovieList.HIDE_SERVICE:
+                if tags and self.show_tags == MovieList.SHOW_TAGS:
                     text_right = self.arrangeTags(tags, False)
                 if text_right:
                     self.textRenderer.setFont(self.list1_Font2)
                     self.textRenderer.setText(text_right)
                     text_right_width = self.getTextRendererWidth()
-                    line1w1 = line_width - text_right_width - 5
+                    line1_width -= text_right_width
                     res.append(MultiContentEntryText(pos=(width - text_right_width - 5, self.line1yr), size=(text_right_width, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=text_right, color=color2, color_sel=self.colorSel2))
 
-                res.append(MultiContentEntryText(pos=(offset, self.line1y), size=(line1w1, self.f0h), font=0, flags=RT_HALIGN_LEFT, text=displaytext, color=color, color_sel=self.colorSel1))
+                if len(textl) > 0:
+                    text_info = str.format("(%s)" % (", ".join(textl)))
+                    self.textRenderer.setFont(self.font1)
+                    self.textRenderer.setText(displaytext)
+                    txt_width = self.getTextRendererWidth()
+                    self.textRenderer.setFont(self.font2)
+                    self.textRenderer.setText(text_info)
+                    inf_width = self.getTextRendererWidth()
+                    if txt_width + inf_width < line1_width:
+                        res.append(MultiContentEntryText(pos=(offset + txt_width, self.line1yr), size=(inf_width, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=text_info, color=color2, color_sel=self.colorSel2))
+                        line1_width = txt_width
+
+                res.append(MultiContentEntryText(pos=(offset, self.line1y), size=(line1_width, self.f0h), font=0, flags=RT_HALIGN_LEFT, text=displaytext, color=color, color_sel=self.colorSel1))
             else:
                 if png is not None:
                     res.append((TYPE_PIXMAP, 0, 2, self.icon_size, self.icon_size, png))
