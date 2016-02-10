@@ -384,7 +384,6 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 if pi is not None:
                     movie_count = pi.mov_count
                     movie_seen = pi.mov_seen
-                    movie_new = movie_count - movie_seen
                     dir_size = pi.dir_size
                 can_show_folder_image = True
                 info_text = serviceref.getName()
@@ -651,29 +650,34 @@ class MovieList(MovieListSkinParam, GUIListComponent):
 
                 if png is not None:
                     res.append((TYPE_PIXMAP, 0, 2, self.icon_size, self.icon_size, png))
+
+                line1_r = []
+                if tags and self.show_tags == MovieList.SHOW_TAGS:
+                    line1_r.append(self.arrangeTags(tags))
                 if self.show_date == MovieList.SHOW_DATE:
+                    line1_r.append(begin_string)
+                line1_right_text = ", ".join(line1_r)
+                text1_right_width = 0
+                if line1_right_text:
                     self.textRenderer.setFont(self.font2)
-                    self.textRenderer.setText(begin_string)
+                    self.textRenderer.setText(line1_right_text)
                     text1_right_width = self.getTextRendererWidth()
-                    res.append(MultiContentEntryText(pos=(width - text1_right_width - 5, self.line1yr), size=(text1_right_width, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=begin_string, color=color2, color_sel=self.colorSel2))
-                    line1_width -= text1_right_width
+
                 time_width = 0
+                line1_width -= text1_right_width 
                 if self.show_time == MovieList.SHOW_TIME:
-                    #time_width = self.list2_length_width
-                    #res.append(MultiContentEntryText(pos=(width - self.list2_length_width - 5, self.line2y), size=(self.list2_length_width, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=length_text, color=color))
-                    if False:
-                        txt += str.format(" ({0})", length_text)
-                    else:
-                        self.textRenderer.setFont(self.font1)
-                        self.textRenderer.setText(txt)
-                        txt_width = self.getTextRendererWidth()
-                        if self.list2_length_width + txt_width < line1_width:
-                            res.append(MultiContentEntryText(pos=(offset + txt_width, self.line1yr), size=(self.list2_length_width + 10, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=str.format("({0})", length_text), color=color2, color_sel=self.colorSel2))
-                            line1_width = txt_width
+                    self.textRenderer.setFont(self.font1)
+                    self.textRenderer.setText(txt)
+                    txt_width = self.getTextRendererWidth()
+                    if self.list2_length_width + txt_width < line1_width:
+                        res.append(MultiContentEntryText(pos=(offset + txt_width, self.line1yr), size=(line1_width, self.f1h), font=1, flags=RT_HALIGN_LEFT, text=str.format("({0})", length_text), color=color2, color_sel=self.colorSel2))
+                        line1_width = txt_width
+
+                res.append(MultiContentEntryText(pos=(width - text1_right_width - 5, self.line1yr), size=(text1_right_width, self.f1h), font=1, flags=RT_HALIGN_RIGHT, text=line1_right_text, color=color2, color_sel=self.colorSel2))
 
                 service_name = service.getServiceName()
                 text2_right_width = 0
-                if service_name:
+                if service_name and self.show_service == MovieList.SHOW_SERVICE:
                     self.textRenderer.setFont(self.font2)
                     self.textRenderer.setText(service_name)
                     text2_right_width = self.getTextRendererWidth() + time_width
@@ -710,7 +714,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
 
                 service_name = service.getServiceName()
                 text2_right_width = 0
-                if service_name:
+                if service_name and self.show_service == MovieList.SHOW_SERVICE:
                     self.textRenderer.setFont(self.list2_Font2)
                     self.textRenderer.setText(service_name)
                     text2_right_width = self.getTextRendererWidth()
@@ -1000,17 +1004,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
             mi.percent = percent_seen
             self.list.append((mi,))
         
-        if self.sort_type == MovieList.SORT_ALPHANUMERIC:
-            self.list.sort(key=self.buildAlphaNumericSortKey)
-        elif self.sort_type == MovieList.SORT_DATE_ASC:
-            self.list.sort(self.sortbyDateAsc)
-        elif self.sort_type == MovieList.SORT_DESCRIPTION:
-            self.list.sort(self.sortbyDescription)
-        else:
-            self.list.sort(self.sortbyDateDesc)
-#            # sort: key is 'begin'
-#            self.list.sort(key=lambda x: -x[2])
-
+        self.sortMovieList()
         root_path = root.getPath()
 
         if config.AdvancedMovieSelection.show_bookmarks.value:

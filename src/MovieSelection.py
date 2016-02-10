@@ -229,12 +229,12 @@ class MovieContextMenu(Screen):
                 (_("List style single line"), boundFunction(self.listType, MovieList.LISTTYPE_MINIMAL)),
                 (_("List style Advanced Movie Selection single line"), boundFunction(self.listType, MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection)),
             ))
-        if config.AdvancedMovieSelection.showliststyle.value and config.AdvancedMovieSelection.listtype.value == MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection:
+        if config.AdvancedMovieSelection.showliststyle.value:
             if config.movielist.showservice.value == MovieList.SHOW_SERVICE:
                 menu.append((_("Hide broadcaster"), boundFunction(self.showService, MovieList.HIDE_SERVICE)))
             else:
                 menu.append((_("Show broadcaster"), boundFunction(self.showService, MovieList.SHOW_SERVICE)))
-        if config.AdvancedMovieSelection.showliststyle.value and config.AdvancedMovieSelection.listtype.value == MovieList.LISTTYPE_MINIMAL_AdvancedMovieSelection or config.AdvancedMovieSelection.listtype.value == MovieList.LISTTYPE_ORIGINAL or config.AdvancedMovieSelection.listtype.value == MovieList.LISTTYPE_COMPACT and config.movielist.showservice.value == MovieList.HIDE_SERVICE:
+        if config.AdvancedMovieSelection.showliststyle.value:
             if config.movielist.showtags.value == MovieList.SHOW_TAGS:
                 menu.append((_("Hide tags in movielist"), boundFunction(self.showTags, MovieList.HIDE_TAGS)))
             else:
