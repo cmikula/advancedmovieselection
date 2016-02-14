@@ -213,7 +213,7 @@ def clearPluginPath():
         # prevent win 8 io error
         time.sleep(2)
 
-def createControl(control_path=".", size=0):
+def createControl(control_path="."):
     data = []
     data.append("Package: %s" % (PACKAGE))
     data.append("Version: %s" % (branding_info['version']))
@@ -227,8 +227,8 @@ def createControl(control_path=".", size=0):
     data.append("Source: %s" % (PACKAGE_SOURCE))
     if PACKAGE_RECOMENDS:
         data.append("Recommends: %s" % (PACKAGE_RECOMENDS))
-    if size > 0:
-        data.append("Installed-Size: " + str(int(size / 1024.0)))
+    size = getDirSize(PLUGIN)
+    data.append("Installed-Size: " + str(int(size / 1024.0)))
 
     data[-1] += "\n" # finally append newline
     file_name = path_join(control_path, "control")
@@ -307,7 +307,6 @@ def createPluginStructure():
     control_path = path_join(BUILD_PATH, "CONTROL")
     os.mkdir(control_path)
     shutil.move(PLUGIN_HASH_FILE, path_join(BUILD_PATH, "CONTROL"))
-    size = getDirSize(PLUGIN)
     createControl(control_path)
     #createConfFiles(control_path)
     #createPreInst(control_path)
