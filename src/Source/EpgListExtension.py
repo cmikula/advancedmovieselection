@@ -36,7 +36,7 @@ try:
     savedPixmapForEntry = EPGList.getPixmapForEntry
     savedBuildSingleEntry = EPGList.buildSingleEntry
     savedBuildMultiEntry = EPGList.buildMultiEntry
-    savedBuildSimilarEntry = EPGList.buildSimilarEntry
+    #savedBuildSimilarEntry = EPGList.buildSimilarEntry
 
     def updateImage(conf):
         global av1_pixmap, av2_pixmap
@@ -65,8 +65,9 @@ def buildMultiEntry(self, changecount, service, eventId, beginTime, duration, Ev
     epgListExtension.current_name = EventName
     return savedBuildMultiEntry(self, changecount, service, eventId, beginTime, duration, EventName, nowTime, service_name)
 
-def buildSimilarEntry(self, service, eventId, beginTime, service_name, duration):
-    return savedBuildSimilarEntry(self, service, eventId, beginTime, service_name, duration)
+# TODO: removed in opendreambox
+#def buildSimilarEntry(self, service, eventId, beginTime, service_name, duration):
+#    return savedBuildSimilarEntry(self, service, eventId, beginTime, service_name, duration)
 
 class EPGListExtension():
     def __init__(self):
