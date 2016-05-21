@@ -23,7 +23,7 @@
 		<widget backgroundColor="background" source="key_green" render="Label" position="100,505" size="420,36" font="Regular;32" halign="left" valign="top" transparent="1" />
 		<widget backgroundColor="background" source="key_yellow" render="Label" position="100,570" size="420,36" font="Regular;32" halign="left" valign="top" transparent="1" />
 		<widget backgroundColor="background" source="key_blue" render="Label" position="100,635" size="420,36" font="Regular;32" halign="left" valign="top" transparent="1" />
-		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" position="470,445" zPosition="10" size="35,25" alphatest="on" />
+		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" position="470,445" zPosition="10" size="40,20" alphatest="on" />
 		<widget backgroundColor="background" source="IMDbtxt" render="Label" position="60,720" size="450,100" font="Regular;26" halign="left" transparent="1" />
 		<widget backgroundColor="background" source="OFDbtxt" render="Label" position="60,830" size="450,100" font="Regular;26" halign="left" transparent="1" />
 		<widget backgroundColor="background" source="Trailertxt" render="Label" position="60,940" size="450,100" font="Regular;26" halign="left" transparent="1" />
@@ -45,7 +45,7 @@
 		<widget backgroundColor="background" name="key_red" position="100,440" size="420,36" font="Regular;32" halign="left" valign="top" transparent="1" />
 		<widget backgroundColor="background" name="key_green" position="100,505" size="420,36" font="Regular;32" halign="left" valign="top" transparent="1" />
 		<widget backgroundColor="background" name="key_yellow" position="100,570" size="430,76" font="Regular;32" halign="left" valign="top" transparent="1" />
-		<widget name="OKIcon" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" position="470,445" size="35,25" alphatest="on" />
+		<widget name="OKIcon" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" position="470,445" size="40,20" alphatest="on" />
 </screen>
 <screen name="AdvancedMovieSelectionOwnButtonName" position="0,0" size="1920,1080" title=" " flags="wfNoBorder">
 		<widget backgroundColor="background" source="Title" render="Label" position="60,50" size="1200,55" font="Regular;46" transparent="1" />
@@ -63,7 +63,7 @@
 		<widget name="HelpWindow" position="600,600" />
 		<ePixmap pixmap="skin_default/buttons/button_red.png" position="60,450" size="30,30" alphatest="on" />
 		<widget backgroundColor="background" source="key_red" render="Label" position="100,440" size="420,36" font="Regular;32" halign="left" valign="top" transparent="1" />
-		<widget name="VKeyIcon" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_text.png" position="470,445" size="35,25" alphatest="on" />
+		<widget name="VKeyIcon" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_text.png" position="470,445" size="40,20" alphatest="on" />
 </screen>
 <screen name="AdvancedMovieSelectionDownload" position="0,0" size="1920,1080" title=" " flags="wfNoBorder">
 		<widget backgroundColor="background" source="Title" render="Label" position="60,50" size="1200,55" font="Regular;46" transparent="1" />
@@ -198,7 +198,7 @@
 		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sepmovie_1320.png" position="540,130" size="1320,2" />
 		<widget backgroundColor="background" source="info" render="Label" position="540,145" size="1320,40" font="Regular;34" halign="center" transparent="1" />
 		<widget name="list" position="540,200" size="1320,840" itemHeight="40" scrollbarMode="showOnDemand" enableWrapAround="1" transparent="1"/>
-		<ePixmap position="470,435" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" alphatest="on" />
+		<ePixmap position="470,435" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" alphatest="on" />
 		<ePixmap pixmap="skin_default/buttons/button_red.png" position="60,480" size="30,30" alphatest="on" />
 		<ePixmap pixmap="skin_default/buttons/button_green.png" position="60,555" size="30,30" alphatest="on" />
 		<ePixmap pixmap="skin_default/buttons/button_yellow.png" position="60,630" size="30,30" alphatest="on" />
@@ -357,11 +357,11 @@
 		<widget backgroundColor="background" source="Service" render="Label" position="290,860" size="1560,195" font="Regular;28" transparent="1">
 			<convert type="EventName">ExtendedDescription</convert>
 		</widget>
-		<ePixmap position="70,435" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" alphatest="on" />
-		<ePixmap position="170,435" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" alphatest="on" />
-		<ePixmap position="270,435" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" alphatest="on" />
-		<ePixmap position="370,435" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_radio.png" alphatest="on" />
-		<ePixmap position="470,435" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" alphatest="on" />
+		<ePixmap position="70,435" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" alphatest="on" />
+		<ePixmap position="170,435" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" alphatest="on" />
+		<ePixmap position="270,435" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" alphatest="on" />
+		<ePixmap position="370,435" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" alphatest="on" />
+		<ePixmap position="470,435" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_help.png" alphatest="on" />
 		<ePixmap pixmap="skin_default/buttons/button_red.png" position="60,480" size="30,30" alphatest="on" />
 		<ePixmap pixmap="skin_default/buttons/button_green.png" position="60,555" size="30,30" alphatest="on" />
 		<ePixmap pixmap="skin_default/buttons/button_yellow.png" position="60,630" size="30,30" alphatest="on" />
@@ -413,11 +413,11 @@
 		<widget backgroundColor="#313131" foregroundColor="#ffffff" source="Service" render="Label" position="290,860" size="1560,195" font="Regular;28" transparent="1">
 			<convert type="EventName">ExtendedDescription</convert>
 		</widget>
-		<ePixmap position="70,435" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" alphatest="on" />
-		<ePixmap position="170,435" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" alphatest="on" />
-		<ePixmap position="270,435" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" alphatest="on" />
-		<ePixmap position="370,435" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_radio.png" alphatest="on" />
-		<ePixmap position="470,435" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" alphatest="on" />
+		<ePixmap position="70,435" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" alphatest="on" />
+		<ePixmap position="170,435" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" alphatest="on" />
+		<ePixmap position="270,435" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" alphatest="on" />
+		<ePixmap position="370,435" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" alphatest="on" />
+		<ePixmap position="470,435" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_help.png" alphatest="on" />
 		<ePixmap pixmap="skin_default/buttons/button_red.png" position="60,480" size="30,30" alphatest="on" />
 		<ePixmap pixmap="skin_default/buttons/button_green.png" position="60,555" size="30,30" alphatest="on" />
 		<ePixmap pixmap="skin_default/buttons/button_yellow.png" position="60,630" size="30,30" alphatest="on" />
@@ -466,10 +466,10 @@
 		<widget backgroundColor="background" source="Service" render="Label" position="320,740" size="1540,268" font="Regular;29" transparent="1">
 			<convert type="EventName">ExtendedDescription</convert>
 		</widget>
-		<ePixmap position="1710,1035" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" alphatest="on" />
-		<ePixmap position="1750,1035" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" alphatest="on" />
-		<ePixmap position="1790,1035" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_radio.png" alphatest="on" />
-		<ePixmap position="1830,1035" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" alphatest="on" />
+		<ePixmap position="1710,1035" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" alphatest="on" />
+		<ePixmap position="1760,1035" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" alphatest="on" />
+		<ePixmap position="1810,1035" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" alphatest="on" />
+		<ePixmap position="1860,1035" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_help.png" alphatest="on" />
 		<ePixmap alphatest="on" pixmap="skin_default/buttons/button_red.png" position="60,1033" size="30,30" />
         <ePixmap alphatest="on" pixmap="skin_default/buttons/button_green.png" position="470,1033" size="30,30" />
         <ePixmap alphatest="on" pixmap="skin_default/buttons/button_yellow.png" position="880,1033" size="30,30" />
@@ -520,10 +520,10 @@
 		<widget backgroundColor="#313131" foregroundColor="#ffffff" source="Service" zPosition="1" render="Label" position="320,740" size="1540,268" font="Regular;29" transparent="1">
 			<convert type="EventName">ExtendedDescription</convert>
 		</widget>
-		<ePixmap position="1710,1035" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" alphatest="on" />
-		<ePixmap position="1750,1035" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" alphatest="on" />
-		<ePixmap position="1790,1035" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_radio.png" alphatest="on" />
-		<ePixmap position="1830,1035" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" alphatest="on" />
+		<ePixmap position="1710,1035" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" alphatest="on" />
+		<ePixmap position="1760,1035" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" alphatest="on" />
+		<ePixmap position="1810,1035" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" alphatest="on" />
+		<ePixmap position="1860,1035" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_help.png" alphatest="on" />
 		<ePixmap alphatest="on" pixmap="skin_default/buttons/button_red.png" position="60,1033" size="30,30" />
         <ePixmap alphatest="on" pixmap="skin_default/buttons/button_green.png" position="470,1033" size="30,30" />
         <ePixmap alphatest="on" pixmap="skin_default/buttons/button_yellow.png" position="880,1033" size="30,30" />
@@ -571,10 +571,10 @@
 		<widget backgroundColor="background" source="Service" render="Label" position="60,650" size="450,355" font="Regular;28" transparent="1">
 			<convert type="EventName">ExtendedDescription</convert>
 		</widget>
-		<ePixmap position="1710,1035" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" alphatest="on" />
-		<ePixmap position="1750,1035" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" alphatest="on" />
-		<ePixmap position="1790,1035" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_radio.png" alphatest="on" />
-		<ePixmap position="1830,1035" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" alphatest="on" />
+		<ePixmap position="1710,1035" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" alphatest="on" />
+		<ePixmap position="1760,1035" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" alphatest="on" />
+		<ePixmap position="1810,1035" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" alphatest="on" />
+		<ePixmap position="1860,1035" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_help.png" alphatest="on" />
 		<ePixmap alphatest="on" pixmap="skin_default/buttons/button_red.png" position="60,1033" size="30,30" />
         <ePixmap alphatest="on" pixmap="skin_default/buttons/button_green.png" position="470,1033" size="30,30" />
         <ePixmap alphatest="on" pixmap="skin_default/buttons/button_yellow.png" position="880,1033" size="30,30" />
@@ -621,10 +621,10 @@
 		<widget backgroundColor="background" source="Service" render="Label" position="60,740" size="1800,268" font="Regular;29" transparent="1">
 			<convert type="EventName">ExtendedDescription</convert>
 		</widget>
-		<ePixmap position="1710,1035" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" alphatest="on" />
-		<ePixmap position="1750,1035" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" alphatest="on" />
-		<ePixmap position="1790,1035" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_radio.png" alphatest="on" />
-		<ePixmap position="1830,1035" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" alphatest="on" />
+		<ePixmap position="1710,1035" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" alphatest="on" />
+		<ePixmap position="1760,1035" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" alphatest="on" />
+		<ePixmap position="1810,1035" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" alphatest="on" />
+		<ePixmap position="1860,1035" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_help.png" alphatest="on" />
 		<ePixmap alphatest="on" pixmap="skin_default/buttons/button_red.png" position="60,1033" size="30,30" />
         <ePixmap alphatest="on" pixmap="skin_default/buttons/button_green.png" position="470,1033" size="30,30" />
         <ePixmap alphatest="on" pixmap="skin_default/buttons/button_yellow.png" position="880,1033" size="30,30" />
@@ -673,11 +673,11 @@
 		<widget backgroundColor="#313131" foregroundColor="#ffffff" source="Service" render="Label" position="60,860" size="1800,195" font="Regular;28" transparent="1">
 			<convert type="EventName">ExtendedDescription</convert>
 		</widget>
-		<ePixmap position="70,435" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" alphatest="on" />
-		<ePixmap position="170,435" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" alphatest="on" />
-		<ePixmap position="270,435" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" alphatest="on" />
-		<ePixmap position="370,435" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_radio.png" alphatest="on" />
-		<ePixmap position="470,435" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" alphatest="on" />
+		<ePixmap position="70,435" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" alphatest="on" />
+		<ePixmap position="170,435" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" alphatest="on" />
+		<ePixmap position="270,435" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" alphatest="on" />
+		<ePixmap position="370,435" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" alphatest="on" />
+		<ePixmap position="470,435" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_help.png" alphatest="on" />
 		<ePixmap pixmap="skin_default/buttons/button_red.png" position="60,480" size="30,30" alphatest="on" />
 		<ePixmap pixmap="skin_default/buttons/button_green.png" position="60,555" size="30,30" alphatest="on" />
 		<ePixmap pixmap="skin_default/buttons/button_yellow.png" position="60,630" size="30,30" alphatest="on" />
@@ -728,11 +728,11 @@
 		<widget backgroundColor="#313131" foregroundColor="#ffffff" source="Service" render="Label" position="60,860" size="1800,195" font="Regular;28" transparent="1">
 			<convert type="EventName">ExtendedDescription</convert>
 		</widget>
-		<ePixmap position="70,435" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" alphatest="on" />
-		<ePixmap position="170,435" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" alphatest="on" />
-		<ePixmap position="270,435" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" alphatest="on" />
-		<ePixmap position="370,435" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_radio.png" alphatest="on" />
-		<ePixmap position="470,435" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" alphatest="on" />
+		<ePixmap position="70,435" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" alphatest="on" />
+		<ePixmap position="170,435" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" alphatest="on" />
+		<ePixmap position="270,435" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" alphatest="on" />
+		<ePixmap position="370,435" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" alphatest="on" />
+		<ePixmap position="470,435" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_help.png" alphatest="on" />
 		<ePixmap pixmap="skin_default/buttons/button_red.png" position="60,480" size="30,30" alphatest="on" />
 		<ePixmap pixmap="skin_default/buttons/button_green.png" position="60,555" size="30,30" alphatest="on" />
 		<ePixmap pixmap="skin_default/buttons/button_yellow.png" position="60,630" size="30,30" alphatest="on" />
@@ -759,11 +759,11 @@
 		  foregroundColorSelected="#ffffff" transparent="1" enableWrapAround="1" />		
 		<widget name="DescriptionBorder" position="0,0" size="0,0" />
 		<widget name="CoverPreview" position="60,140" size="450,676" zPosition="3" alphatest="on" />		
-		<ePixmap position="70,840" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" alphatest="on" />
-		<ePixmap position="170,840" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" alphatest="on" />
-		<ePixmap position="270,840" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" alphatest="on" />
-		<ePixmap position="370,840" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_radio.png" alphatest="on" />
-		<ePixmap position="470,840" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" alphatest="on" />
+		<ePixmap position="70,840" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" alphatest="on" />
+		<ePixmap position="170,840" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" alphatest="on" />
+		<ePixmap position="270,840" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" alphatest="on" />
+		<ePixmap position="370,840" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" alphatest="on" />
+		<ePixmap position="470,840" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_help.png" alphatest="on" />
         <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sepmovie_1800.png" position="60,1010" size="1800,2" />
         <ePixmap alphatest="on" pixmap="skin_default/buttons/button_red.png" position="60,1030" size="30,30" />
         <ePixmap alphatest="on" pixmap="skin_default/buttons/button_green.png" position="520,1030" size="30,30" />
@@ -812,10 +812,10 @@
 		<widget backgroundColor="#313131" foregroundColor="#ffffff" source="Service" render="Label" position="60,350" size="450,645" font="Regular;28" transparent="1">
 			<convert type="EventName">ExtendedDescription</convert>
 		</widget>
-		<ePixmap position="1710,1035" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" alphatest="on" />
-		<ePixmap position="1750,1035" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" alphatest="on" />
-		<ePixmap position="1790,1035" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_radio.png" alphatest="on" />
-		<ePixmap position="1830,1035" size="35,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" alphatest="on" />
+		<ePixmap position="1710,1035" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" alphatest="on" />
+		<ePixmap position="1760,1035" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" alphatest="on" />
+		<ePixmap position="1810,1035" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" alphatest="on" />
+		<ePixmap position="1860,1035" size="40,20" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_help.png" alphatest="on" />
 		<ePixmap alphatest="on" pixmap="skin_default/buttons/button_red.png" position="60,1033" size="30,30" />
         <ePixmap alphatest="on" pixmap="skin_default/buttons/button_green.png" position="470,1033" size="30,30" />
         <ePixmap alphatest="on" pixmap="skin_default/buttons/button_yellow.png" position="880,1033" size="30,30" />
@@ -850,7 +850,7 @@
         <widget backgroundColor="#313131" foregroundColor="#ffffff" font="Regular;32" halign="left" position="560,1020" size="410,36" name="key_green" transparent="1" />
         <widget backgroundColor="#313131" foregroundColor="#ffffff" font="Regular;32" halign="left" position="1010,1020" size="410,36" name="key_yellow" transparent="1" />
         <widget backgroundColor="#313131" foregroundColor="#ffffff" font="Regular;32" halign="left" position="1460,1020" size="410,36" name="key_blue" transparent="1" />
-        <ePixmap alphatest="on" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" position="1830,1025" size="35,25" />
+        <ePixmap alphatest="on" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" position="1830,1025" size="40,20" />
 </screen>
 <screen flags="wfNoBorder" name="AdvancedMovieSelectionEventView" position="0,0" size="1920,1080" title="">
         <widget backgroundColor="background" source="Title" render="Label" position="60,40" size="800,50" font="Regular;36" transparent="1" />
@@ -891,7 +891,7 @@
         <widget backgroundColor="background" font="Regular;32" halign="left" position="560,1020" render="Label" size="410,36" source="key_green" transparent="1" />
         <widget backgroundColor="background" font="Regular;32" halign="left" position="1010,1020" render="Label" size="410,36" source="key_yellow" transparent="1" />
         <widget backgroundColor="background" font="Regular;32" halign="left" position="1460,1020" render="Label" size="410,36" source="key_blue" transparent="1" />
-        <ePixmap alphatest="on" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" position="1830,1025" size="35,25" />
+        <ePixmap alphatest="on" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" position="1830,1025" size="40,20" />
 </screen>
 <screen flags="wfNoBorder" name="AdvancedMovieSelectionEventView_Backdrop" position="0,0" size="1920,1080" title="">
         <widget backgroundColor="#313131" foregroundColor="#ffffff" source="Title" render="Label" position="60,40" size="800,50" font="Regular;36" transparent="1" />
@@ -933,7 +933,7 @@
         <widget backgroundColor="#313131" foregroundColor="#ffffff" font="Regular;32" halign="left" position="560,1020" render="Label" size="410,36" source="key_green" transparent="1" />
         <widget backgroundColor="#313131" foregroundColor="#ffffff" font="Regular;32" halign="left" position="1010,1020" render="Label" size="410,36" source="key_yellow" transparent="1" />
         <widget backgroundColor="#313131" foregroundColor="#ffffff" font="Regular;32" halign="left" position="1460,1020" render="Label" size="410,36" source="key_blue" transparent="1" />
-        <ePixmap alphatest="on" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" position="1830,1025" size="35,25" />
+        <ePixmap alphatest="on" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" position="1830,1025" size="40,20" />
 </screen>
 <screen flags="wfNoBorder" name="TMDbMain" position="0,0" size="1920,1080" title="">
         <widget backgroundColor="background" source="Title" render="Label" position="60,50" size="1380,55" font="Regular;46" transparent="1" />

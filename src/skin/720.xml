@@ -72,8 +72,6 @@
 	<screen name="AdvancedMovieSelectionAboutDetails" position="center,center" title=" " size="560,400">
 		<ePixmap pixmap="skin_default/buttons/red.png" position="0,0" size="140,40" alphatest="on" />
 		<widget source="key_red" render="Label" position="0,0" zPosition="1" size="140,40" halign="center" valign="center" font="Regular;17" transparent="1" shadowColor="#000000" shadowOffset="-1,-1" />
-		<widget name="bouquet+" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_bouquet+.png" position="485,7" size="35,25" transparent="1" alphatest="on" />
-		<widget name="bouquet-" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_bouquet-.png" position="525,7" size="35,25" transparent="1" alphatest="on" />
 		<widget name="version_list" position="5,45" zPosition="2" size="200,350" scrollbarMode="showOnDemand" transparent="1" enableWrapAround="1" />
 		<widget name="details" position="210,45" zPosition="3" size="350,350" font="Regular;18" transparent="1" />
 	</screen>
@@ -302,7 +300,7 @@
 		<widget name="HelpWindow" pixmap="skin_default/vkey_icon.png" position="170,360" zPosition="1" size="1,1" transparent="1" alphatest="on" />
 	</screen>
 	<screen name="AdvancedMovieSelectionAbout" position="center,center" title=" " size="560,400">
-		<ePixmap position="300,40" size="200,92" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/gp3.png" transparent="1" alphatest="blend" />
+		<ePixmap position="300,40" size="200,92" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/logo.png" transparent="1" alphatest="blend" />
 		<widget name="red" pixmap="skin_default/buttons/red.png" zPosition="1" position="0,0" size="140,40" alphatest="on" />
 		<widget source="key_red" render="Label" position="0,0" zPosition="2" size="135,40" halign="center" valign="center" font="Regular;20" transparent="1" shadowColor="#000000" shadowOffset="-1,-1" />
 		<widget name="green" pixmap="skin_default/buttons/green.png" zPosition="1" position="150,0" size="140,40" alphatest="on" />
