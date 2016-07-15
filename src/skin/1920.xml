@@ -257,7 +257,7 @@
         <widget backgroundColor="background" font="Regular;28" foregroundColor="#e5b243" name="time" position="20,46" size="1400,35" transparent="1" />
         <widget backgroundColor="background" enableWrapAround="1" name="config" itemHeight="40" position="20,95" scrollbarMode="showOnDemand" size="1880,80" transparent="1" />
         <eLabel backgroundColor="grey" position="300,216" size="1340,2" />
-        <widget pointer="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/pointer.png:1360,4" position="300,208" render="PositionGauge" size="1340,18" source="session.CurrentService" transparent="1" zPosition="2">
+        <widget pointer="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/position_pointer.png:1360,4" position="300,208" render="PositionGauge" size="1340,18" source="session.CurrentService" transparent="1" zPosition="2">
             <convert type="ServicePosition">Gauge</convert>
         </widget>
         <widget backgroundColor="background" font="Regular;32" halign="right" position="20,195" render="Label" size="200,36" source="session.CurrentService" transparent="1">
