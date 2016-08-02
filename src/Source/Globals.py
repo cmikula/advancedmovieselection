@@ -46,8 +46,6 @@ def printStackTrace():
     print '-' * 50
 
 class SkinTools():
-    DESKTOP_WIDTH_SD = 720
-    DESKTOP_WIDTH_XD = 1024
     DESKTOP_WIDTH_HD = 1280
     DESKTOP_WIDTH_FHD = 1920
     def __init__(self):
@@ -58,10 +56,6 @@ class SkinTools():
         dw = SkinTools.getDesktopWidth()
         if dw == SkinTools.DESKTOP_WIDTH_FHD:
             return "1920.xml"
-        elif dw == SkinTools.DESKTOP_WIDTH_XD:
-            return "1024.xml"
-        elif dw == SkinTools.DESKTOP_WIDTH_SD:
-            return "720.xml"
         return "1280.xml"
     
     @staticmethod
@@ -69,7 +63,7 @@ class SkinTools():
         try:
             desktopWidth = getDesktop(0).size().width()
         except:
-            desktopWidth = SkinTools.DESKTOP_WIDTH_SD
+            desktopWidth = SkinTools.DESKTOP_WIDTH_HD
         return desktopWidth
     
     @staticmethod

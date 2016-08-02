@@ -393,3 +393,5 @@ versie: 4.0.2
 versie: 4.1
 * nieuw: instellingen voor aantal filmen in mappen
 * fix: percentage afgespeeld in bibliotheek
+* verwijderd: SD en XD skins niet langer ondersteund
+
