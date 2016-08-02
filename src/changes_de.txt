@@ -395,5 +395,6 @@ version: 4.0.2
 * fix: Crash beim setzen von tags
 
 version: 4.1
-* new: Einstellung für das Anzeigen der Filmanzahl im Verzeichnis
+* neu: Einstellung für das Anzeigen der Filmanzahl im Verzeichnis
 * fix: Prozent des gesehenen Filmes in der Bibliothek
+* entfernt: SD and XD skins werden nicht mehr unterstützt
