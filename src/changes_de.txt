@@ -397,4 +397,4 @@ version: 4.0.2
 version: 4.1
 * neu: Einstellung für das Anzeigen der Filmanzahl im Verzeichnis
 * fix: Prozent des gesehenen Filmes in der Bibliothek
-* entfernt: SD and XD skins werden nicht mehr unterstützt
+* entfernt: SD und XD skins werden nicht mehr unterstützt
