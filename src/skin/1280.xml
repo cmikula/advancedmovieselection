@@ -1,8 +1,4 @@
 <skin>
-    <screen backgroundColor="black" flags="wfNoBorder" name="PopupInputDialog" position="0,0" size="1280,45" zPosition="1000">
-        <widget backgroundColor="black" foregroundColor="white" font="Regular;30" position="20,5" render="Label" size="120,30" source="Title" transparent="1" />
-        <widget backgroundColor="black" foregroundColor="white" font="Regular;30" name="input" position="140,5" size="1120,30" transparent="1" />
-    </screen>
     <screen backgroundColor="white" flags="wfNoBorder" name="PopupInputHelpDialog" position="16,685" size="1250,30" zPosition="1001">
         <widget backgroundColor="black" foregroundColor="white" font="Regular;18" halign="center" name="key1" position="2,2" size="99,26" valign="center" />
         <widget backgroundColor="black" foregroundColor="white" font="Regular;18" halign="center" name="key2" position="102,2" size="119,26" valign="center" />
@@ -598,7 +594,7 @@
 		<widget source="Service" render="Label" position="720,95" size="140,30" font="Regular;24" foregroundColor="#ffcc00">
 			<convert type="MovieInfo">FileSize</convert>
 		</widget>
-		<widget source="Service" render="Label" position="880,95" size="310,30" font="Regular;24" halign="right">
+		<widget source="Service" render="Label" position="880,95" size="300,30" font="Regular;24" halign="right">
 			<convert type="ServiceTime">StartTime</convert>
 			<convert type="ClockToText">Format:%A %d %b, %Y</convert>
 		</widget>
@@ -632,10 +628,10 @@
 		<widget source="Service" render="Label" position="300,95" size="400,30" font="Regular;24" halign="left" transparent="1">
 			<convert type="MovieInfo">RecordServiceName</convert>
 		</widget>
-		<widget source="Service" render="Label" position="720,95" size="140,30" font="Regular;24" foregroundColor="#ffcc00" transparent="1">
+		<widget source="Service" render="Label" position="720,95" size="160,30" font="Regular;24" foregroundColor="#ffcc00" transparent="1">
 			<convert type="MovieInfo">FileSize</convert>
 		</widget>
-		<widget source="Service" render="Label" position="880,95" size="320,30" font="Regular;24" halign="right" transparent="1">
+		<widget source="Service" render="Label" position="930,95" size="320,30" font="Regular;24" halign="right" transparent="1">
 			<convert type="ServiceTime">StartTime</convert>
 			<convert type="ClockToText">Format:%A %d %b, %Y</convert>
 		</widget>
@@ -755,28 +751,28 @@
 			<convert type="ClockToText">Format:%A %d. %B</convert>
 		</widget>
 		<eLabel position="10,50" size="1180,1" backgroundColor="grey" />
-		<eLabel position="10,428" size="1180,1" backgroundColor="grey" />		
+		<eLabel position="10,417" size="1180,1" backgroundColor="grey" />		
 		<widget font="Regular;20" foregroundColor="#ffcc00" name="warning" halign="right" position="490,64" size="700,25"/>
 		<widget font="Regular;22" position="20,63" size="450,25" name="freeDiskSpace"/>	
-		<widget alphatest="on" name="CoverPreview" position="20,445" size="120,180" />
+		<widget alphatest="on" name="CoverPreview" position="20,424" size="120,180" />
 		<widget source="Service" render="Label" position="150,435" size="1000,24" font="Regular;20" halign="left" transparent="1">
 			<convert type="MovieInfo">RecordServiceName</convert>
 		</widget>
-		<widget source="Service" render="Label" position="150,460" size="1050,24" font="Regular;20" foregroundColor="#ffcc00" halign="left" transparent="1">
+		<widget source="Service" render="Label" position="150,460" size="1040,24" font="Regular;20" foregroundColor="#ffcc00" halign="left" transparent="1">
 			<convert type="MovieInfo">ShortDescription</convert>
 		</widget>
-		<widget source="Service" render="Label" position="150,435" size="1050,24" font="Regular;20" halign="right" transparent="1">
+		<widget source="Service" render="Label" position="150,435" size="1040,24" font="Regular;20" halign="right" transparent="1">
 			<convert type="ServiceTime">StartTime</convert>
 			<convert type="ClockToText">Format:%A %d %B, %Y</convert>
 		</widget>
-		<widget source="Service" render="Label" position="150,460" size="1050,22" font="Regular;20" foregroundColor="#ffcc00" halign="right" transparent="1">
+		<widget source="Service" render="Label" position="150,460" size="1040,22" font="Regular;20" foregroundColor="#ffcc00" halign="right" transparent="1">
 			<convert type="ServiceTime">Duration</convert>
 			<convert type="ClockToText">InMinutes</convert>
 		</widget>
-		<widget source="Service" render="Label" position="150,435" size="1050,22" font="Regular;20" halign="center" foregroundColor="#ffcc00" transparent="1">
+		<widget source="Service" render="Label" position="150,435" size="1040,22" font="Regular;20" halign="center" foregroundColor="#ffcc00" transparent="1">
 			<convert type="MovieInfo">FileSize</convert>
 		</widget>
-		<widget source="Service" render="Label" position="150,485" size="1050,140" font="Regular;20" transparent="1">
+		<widget source="Service" render="Label" position="150,490" size="1040,110" font="Regular;20" transparent="1">
 			<convert type="EventName">ExtendedDescription</convert>
 		</widget>
 		<widget name="waitingtext" position="20,110" size="1160,312" zPosition="3" font="Regular;26" halign="center" valign="center" />
@@ -901,6 +897,99 @@
 		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" position="1065,580" size="45,20" alphatest="on"/>
 		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_help.png" position="1120,580" size="45,20" alphatest="on"/>
 	</screen>
+	<screen name="MoviePlayerExtended" position="0,290" size="1280,400" backgroundColor="transparent" flags="wfNoBorder">
+        <ePixmap position="0,250" pixmap="skin_default/infobar.png" size="1280,150" zPosition="-1" />
+        <ePixmap pixmap="menu/mediacenter.png" position="40,310" zPosition="1" size="70,70" alphatest="on"/>
+        <widget source="global.CurrentTime" render="Label" position="10,261" size="75,26" halign="right" font="Regular;22" foregroundColor="yellow" backgroundColor="#263c59" transparent="1">
+			<convert type="ClockToText">Default</convert>
+		</widget>
+		<ePixmap pixmap="skin_default/icons/icon_event.png" position="100,267" size="20,13" alphatest="on" />
+		<widget source="session.CurrentService" render="Label" position="150,259" size="800,27" font="Regular;24" noWrap="1" backgroundColor="#263c59" transparent="1">
+			<convert type="ServiceName">Name</convert>
+		</widget>
+		<widget source="session.CurrentService" render="Label" position="990,280" size="60,22" backgroundColor="#263c59" font="Regular;19" halign="right" transparent="1">
+		    <convert type="ServiceInfo">VideoWidth</convert>
+	    </widget>
+	    <eLabel position="1052,280" size="20,20" backgroundColor="#263c59" transparent="1" text="x" font="Regular;19" halign="center"/>
+	    <widget source="session.CurrentService" render="Label" position="1074,280" size="60,22" backgroundColor="#263c59" font="Regular;19" halign="left" transparent="1">
+	     	<convert type="ServiceInfo">VideoHeight</convert>
+	    </widget>		
+		<ePixmap position="1066,0" size="188,268" zPosition="1" pixmap="skin_default/menu.png" />
+		<ePixmap position="1075,10" size="170,250" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/cover_back.png" />
+		<widget name="CoverPreview" position="1080,15" size="160,240" zPosition="2" />  		
+		<widget source="session.CurrentService" render="Pixmap" pixmap="skin_default/icons/ico_hd_off.png" position="1140,280" size="42,20" alphatest="on">
+			<convert type="ServiceInfo">VideoWidth</convert>
+			<convert type="ValueRange">0,720</convert>
+			<convert type="ConditionalShowHide" />
+		</widget>
+		<widget source="session.CurrentService" render="Pixmap" pixmap="skin_default/icons/ico_hd_on.png" position="1140,280" size="42,20" zPosition="1" alphatest="on">
+			<convert type="ServiceInfo">VideoWidth</convert>
+			<convert type="ValueRange">721,1980</convert>
+			<convert type="ConditionalShowHide" />
+		</widget>
+		<ePixmap pixmap="skin_default/icons/ico_format_off.png" position="1190,280" size="42,20" alphatest="on" />
+		<widget source="session.CurrentService" render="Pixmap" pixmap="skin_default/icons/ico_format_on.png" position="1190,280" size="42,20" zPosition="1" alphatest="on">
+			<convert type="ServiceInfo">IsWidescreen</convert>
+			<convert type="ConditionalShowHide" />
+		</widget>
+	    <widget source="session.CurrentService" render="Label" position="550,318" size="200,24" font="Regular;22" halign="center" backgroundColor="#263c59" transparent="1">
+			<convert type="ServicePosition">Length</convert>
+		</widget>
+		<widget source="session.CurrentService" render="Label" position="200,338" size="80,24" font="Regular;22" halign="right" backgroundColor="#263c59" transparent="1">
+			<convert type="ServicePosition">Position</convert>
+		</widget>	
+		<eLabel position="305,349" size="695,2" backgroundColor="grey" />
+		<widget source="session.CurrentService" render="Progress" position="305,346" size="695,8" zPosition="1" pixmap="skin_default/progress.png" transparent="1">
+			<convert type="ServicePosition">Position</convert>
+		</widget>
+		<widget source="session.CurrentService" render="Label" position="1020,335" size="80,24" font="Regular;22" halign="left" backgroundColor="#263c59" transparent="1">
+			<convert type="ServicePosition">Remaining,Negate</convert>
+		</widget>	
+		<widget source="session.RecordState" render="Pixmap" position="1110,375" size="42,20" pixmap="skin_default/icons/icon_rec.png" alphatest="on">
+			<convert type="ConditionalShowHide">Blink</convert>
+		</widget>
+		<ePixmap pixmap="skin_default/icons/ico_dolby_off.png" position="1180,375" size="57,20" alphatest="on" />
+		<widget source="session.CurrentService" render="Pixmap" pixmap="skin_default/icons/ico_dolby_on.png" position="1180,375" size="57,20" zPosition="1" >
+			<convert type="ServiceInfo">IsMultichannel</convert>
+			<convert type="ConditionalShowHide" />
+		</widget>
+    </screen>
+    <screen name="DVDPlayerExtended" position="0,290" size="1280,400" backgroundColor="transparent" flags="wfNoBorder">
+        <ePixmap position="0,250" pixmap="skin_default/infobar.png" size="1280,150" zPosition="-1" />
+        <ePixmap pixmap="menu/dvd_player.png" position="40,310" zPosition="1" size="70,70" alphatest="on"/>
+        <widget source="global.CurrentTime" render="Label" position="10,261" size="75,26" halign="right" font="Regular;22" foregroundColor="yellow" backgroundColor="#263c59" transparent="1">
+			<convert type="ClockToText">Default</convert>
+		</widget>
+		<ePixmap pixmap="skin_default/icons/icon_event.png" position="100,267" size="20,13" alphatest="on" />
+		<widget source="session.CurrentService" render="Label" position="150,259" size="700,27" font="Regular;24" noWrap="1" backgroundColor="#263c59" transparent="1">
+			<convert type="ServiceName">Name</convert>
+		</widget>
+		<eLabel backgroundColor="background" font="Regular;17" foregroundColor="grey" position="900,259" size="130,23" text="Audio:" transparent="1" />
+        <widget backgroundColor="background" font="Regular;17" name="audioLabel" position="1030,259" size="240,23" transparent="1" />
+        <eLabel backgroundColor="background" font="Regular;17" foregroundColor="grey" position="1270,259" size="160,23" text="Subtitle:" transparent="1" />
+        <widget backgroundColor="background" font="Regular;17" name="subtitleLabel" position="1430,259" size="180,23" transparent="1" />
+        <widget backgroundColor="background" font="Regular;22" name="chapterLabel" position="260,280" size="800,24" transparent="1" />
+        <widget alphatest="on" name="anglePix" pixmap="skin_default/icons/icon_view.png" position="960,281" size="52,32" />
+		<ePixmap position="1066,0" size="188,268" zPosition="1" pixmap="skin_default/menu.png" />
+		<ePixmap position="1075,10" size="170,250" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/cover_back.png" />
+		<widget name="CoverPreview" position="1080,15" size="160,240" zPosition="2" />  		
+	    <widget source="session.CurrentService" render="Label" position="550,318" size="200,24" font="Regular;22" halign="center" backgroundColor="#263c59" transparent="1">
+			<convert type="ServicePosition">Length</convert>
+		</widget>
+		<widget source="session.CurrentService" render="Label" position="200,338" size="80,24" font="Regular;22" halign="right" backgroundColor="#263c59" transparent="1">
+			<convert type="ServicePosition">Position</convert>
+		</widget>	
+		<eLabel position="305,349" size="695,2" backgroundColor="grey" />
+		<widget source="session.CurrentService" render="Progress" position="305,346" size="695,8" zPosition="1" pixmap="skin_default/progress.png" transparent="1">
+			<convert type="ServicePosition">Position</convert>
+		</widget>
+		<widget source="session.CurrentService" render="Label" position="1020,335" size="80,24" font="Regular;22" halign="left" backgroundColor="#263c59" transparent="1">
+			<convert type="ServicePosition">Remaining,Negate</convert>
+		</widget>	
+		<widget source="session.RecordState" render="Pixmap" position="1180,375" size="42,20" pixmap="skin_default/icons/icon_rec.png" alphatest="on">
+			<convert type="ConditionalShowHide">Blink</convert>
+		</widget>
+    </screen>
 	<!--LCD/OLED Screens -->
 	<!-- LCD screen (AdvancedMovieSelection) -->
 	<screen name="AdvancedMovieSelection_summary" position="0,0" size="132,64" id="1">
