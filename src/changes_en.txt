@@ -397,3 +397,6 @@ version: 4.1
 * new: Settings for the numbers of movies in the directory
 * fix: Movie percent seen in library
 * removed: SD and XD skins not longer supported
+
+version: 4.1.1
+* fix: Waste timer

@@ -395,3 +395,5 @@ versie: 4.1
 * fix: percentage afgespeeld in bibliotheek
 * verwijderd: SD en XD skins niet langer ondersteund
 
+versie: 4.1.1
+* fix: Waste timer

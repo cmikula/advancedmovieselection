@@ -29,7 +29,7 @@ from Components.ActionMap import ActionMap
 from Components.AVSwitch import AVSwitch
 from threading import Thread
 from enigma import eServiceReference
-from Source.Timer import eTimer
+from Source.Timer import xTimer
 from Components.MenuList import MenuList
 from Source.ServiceProvider import ServiceCenter
 from Source.EITTools import createEIT
@@ -90,7 +90,7 @@ class DownloadMovies(Screen):
         self.movie_title = ""
         if self.service is not None:
             self.movie_title = ServiceCenter.getInstance().info(self.service).getName(self.service).encode("utf-8").split(" - ")[0].strip()
-            self.progressTimer = eTimer()
+            self.progressTimer = xTimer()
             self.progressTimer.addCallback(self.refresh)
             self.progressTimer.start(50, True)
             return
@@ -102,7 +102,7 @@ class DownloadMovies(Screen):
             fetchingMovies = FetchingMovies(session, items)
         else:
             fetchingMovies.cancel = False
-        self.progressTimer = eTimer()
+        self.progressTimer = xTimer()
         self.progressTimer.addCallback(self.updateProgress)
         self.progressTimer.start(250, False)
         fetchingMovies.is_hidden = False
@@ -234,7 +234,7 @@ class FetchingMovies(Thread):
         self.movie_title = ""
         self.current = 0
         self.total = 0
-        self.timer = eTimer()
+        self.timer = xTimer()
         self.timer.addCallback(self.checkFinished)
         self.items = items
         self.start()

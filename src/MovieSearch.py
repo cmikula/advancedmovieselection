@@ -25,7 +25,7 @@ from Screens.NumericalTextInputHelpDialog import NumericalTextInputHelpDialog
 from Tools.NumericalTextInput import NumericalTextInput
 from Screens.InputBox import InputBox
 from Components.ActionMap import ActionMap, NumberActionMap
-from Source.Timer import eTimer
+from Source.Timer import xTimer
 
 class PopupInputHelpDialog(NumericalTextInputHelpDialog):
     pass
@@ -86,9 +86,9 @@ class MovieSearch():
             "gotAsciiCode": self.keyGotAscii
         }, -2)
         self.last_result = -1
-        self.__timer = eTimer()
+        self.__timer = xTimer()
         self.__timer.addCallback(self.__timeout)
-        self.__timer_reload = eTimer()
+        self.__timer_reload = xTimer()
         self.__timer_reload.addCallback(self.__timeout_reload)
         self.onClose.append(self.__onClose)
         self.onLayoutFinish.append(self.__onLayoutFinish)
