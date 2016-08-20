@@ -40,7 +40,7 @@ from AdvancedMovieSelectionSetup import AdvancedMovieSelectionSetup, AdvancedMov
 from Tools.BoundFunction import boundFunction
 from Tools.Directories import resolveFilename, fileExists, SCOPE_HDD
 from enigma import eServiceReference, eSize, ePoint, iServiceInformation
-from Source.Timer import eTimer
+from Source.Timer import xTimer
 from Screens.Console import eConsoleAppContainer
 from MoveCopy import MovieMove
 from Rename import MovieRetitle
@@ -672,7 +672,7 @@ class SelectionEventInfo:
     def __init__(self):
         self["Service"] = ServiceEvent()
         self.list.connectSelChanged(self.__selectionChanged)
-        self.timer = eTimer()
+        self.timer = xTimer()
         self.timer.addCallback(self.updateEventInfo)
         self.onShown.append(self.__selectionChanged)
 
@@ -764,7 +764,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self.movemode = False
         self.bouquet_mark_edit = False
 
-        self.delayTimer = eTimer()
+        self.delayTimer = xTimer()
         self.delayTimer.addCallback(self.updateHDDData)
 
         self["waitingtext"] = Label(_("Please wait... Loading list..."))
@@ -830,7 +830,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         self.onLayoutFinish.append(self.saveListsize)
         self.inited = False
         MovieSearch.__init__(self)
-        self.__dbUpdate = eTimer()
+        self.__dbUpdate = xTimer()
         self.__dbUpdate.addCallback(self.libraryUpdateTimerEvent)
         print "end constructor", str(self.stopwatch.elapsed)
     

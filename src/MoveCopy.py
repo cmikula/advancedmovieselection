@@ -26,7 +26,7 @@ from Screens.LocationBox import MovieLocationBox
 from Components.config import config
 from Source.ServiceUtils import serviceUtil, realSize, diskUsage
 from Source.ServiceProvider import ServiceCenter
-from Source.Timer import eTimer
+from Source.Timer import xTimer
 from Tools import Notifications
 from SkinParam import MoveCopyProgressSkinParam
 import os, time
@@ -56,7 +56,7 @@ def openDialog(job, session):
 
 class MoveCopyNotifier():
     def __init__(self):
-        self.timer = eTimer()
+        self.timer = xTimer()
         self.timer.addCallback(self.__timeout)
     
     def __timeout(self):
@@ -206,7 +206,7 @@ class MoveCopyProgress(Screen, HelpableScreen):
     def __init__(self, session):
         Screen.__init__(self, session)
         HelpableScreen.__init__(self)
-        self.timer = eTimer()
+        self.timer = xTimer()
         self.timer.addCallback(self.update)
         self["ColorActions"] = HelpableActionMap(self, "ColorActions",
             {

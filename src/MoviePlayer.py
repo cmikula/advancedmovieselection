@@ -33,7 +33,7 @@ from Screens.MessageBox import MessageBox
 from Screens.InfoBar import MoviePlayer
 from Tools.Directories import fileExists
 from enigma import ePoint, iPlayableService
-from Source.Timer import eTimer
+from Source.Timer import xTimer
 from Tools import Notifications
 from Components.Sources.ServiceEvent import ServiceEvent
 from MoviePreview import MoviePreview
@@ -96,7 +96,7 @@ class SelectionEventInfo:
     def __init__(self):
         self["ServiceEvent"] = ServiceEvent()
         self["ShortDesc"] = Label("")
-        self.timer = eTimer()
+        self.timer = xTimer()
         self.timer.addCallback(self.updateEventInfo)
         self.onShow.append(self.__selectionChanged)
 
