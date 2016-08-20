@@ -398,3 +398,6 @@ version: 4.1
 * neu: Einstellung für das Anzeigen der Filmanzahl im Verzeichnis
 * fix: Prozent des gesehenen Filmes in der Bibliothek
 * entfernt: SD und XD skins werden nicht mehr unterstützt
+
+version: 4.1.1
+* fix: Waste timer
