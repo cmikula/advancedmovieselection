@@ -37,7 +37,7 @@ from Components.Button import Button
 from Components.Label import Label
 from Source.ServiceProvider import detectDVDStructure
 from Screens.MessageBox import MessageBox
-from Source.Timer import xTimer
+from Source.Timer import eTimer
 from Tools.Directories import fileExists
 from Components.DiskInfo import DiskInfo
 from Components.UsageConfig import defaultMoviePath
@@ -137,7 +137,7 @@ class Wastebasket(Screen, HelpableScreen):
         Screen.__init__(self, session)
         HelpableScreen.__init__(self)
         self.skinName = "AdvancedMovieSelectionTrash"
-        self.delayTimer = xTimer()
+        self.delayTimer = eTimer()
         self.delayTimer.addCallback(self.updateHDDData)
         self.current_ref = eServiceReferenceTrash(config.movielist.last_videodir.value)  
         self["ColorActions"] = HelpableActionMap(self, "ColorActions",
@@ -326,9 +326,9 @@ from datetime import timedelta
 class WastebasketTimer():
     def __init__(self, session):
         self.session = session
-        self.recTimer = xTimer()
+        self.recTimer = eTimer()
         self.recTimer.addCallback(self.autoDeleteAllMovies)
-        self.wastebasketTimer = xTimer()
+        self.wastebasketTimer = eTimer()
         self.wastebasketTimer.addCallback(self.autoDeleteAllMovies)
         self.startTimer()
         config.AdvancedMovieSelection.empty_wastebasket_time.addNotifier(self.startTimer, initial_call=False)

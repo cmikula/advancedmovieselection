@@ -18,12 +18,12 @@
 #  modify it (if you keep the license), but it may not be commercially 
 #  distributed other than under the conditions noted above.
 #
-from enigma import eTimer
+from enigma import eTimer as Timer
 from Globals import isDreamOS
 
-class xTimer():
+class eTimer():
     def __init__(self):
-        self.__timer = eTimer()
+        self.__timer = Timer()
         self.__timer_conn = None
     
     def destroy(self):
@@ -38,10 +38,7 @@ class xTimer():
     
     def start(self, *args):
         return self.__timer.start(*args)
-
-    def startLongTimer(self, *args):
-        return self.__timer.startLongTimer(*args)
-
+    
     def stop(self):
         return self.__timer.stop()
     

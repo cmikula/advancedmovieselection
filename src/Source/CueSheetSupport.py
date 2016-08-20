@@ -30,7 +30,7 @@ from Screens.InfoBarGenerics import InfoBarCueSheetSupport
 from shutil import copyfile
 from bisect import insort
 from Globals import printStackTrace
-from Timer import xTimer
+from Timer import eTimer
 
 def getPercentSeen(info, length):
     cue = info.cueSheet()
@@ -168,7 +168,7 @@ class CutListSupportBase:
         self.jump_first_play_last = None
         self.currently_playing = False
         self.new_service_started = True
-        self.__timer = xTimer()
+        self.__timer = eTimer()
         self.__timer.addCallback(self.seekToResumePoint)
     
     def seekToResumePoint(self):

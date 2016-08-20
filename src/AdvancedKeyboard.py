@@ -24,9 +24,9 @@ from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Components.ActionMap import ActionMap, NumberActionMap
 from Components.config import config, ConfigText, KEY_0, KEY_TIMEOUT, KEY_NUMBERS
 from Tools.NumericalTextInput import NumericalTextInput
-from Source.Timer import xTimer
-from Screens.NumericalTextInputHelpDialog import NumericalTextInputHelpDialog
+from Source.Timer import eTimer
 
+from Screens.NumericalTextInputHelpDialog import NumericalTextInputHelpDialog
 class AdvancedTextInputHelpDialog(NumericalTextInputHelpDialog):
     def __init__(self, session, textinput):
         NumericalTextInputHelpDialog.__init__(self, session, textinput)
@@ -66,7 +66,7 @@ class AdvancedKeyBoard(VirtualKeyBoard, NumericalTextInput):
             }, -2)
 
         if use & self.NUM_KEYB:
-            self.timer = xTimer()
+            self.timer = eTimer()
             self.timer.addCallback(self.timeout)
             self.configText = ConfigText("", False)
             if text:

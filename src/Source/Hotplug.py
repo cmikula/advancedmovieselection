@@ -23,14 +23,14 @@ import os
 from Globals import printStackTrace
 from MovieConfig import MovieConfig
 from ServiceProvider import eServiceReferenceHotplug
-from Timer import xTimer
+from Timer import eTimer
 
 class Hotplug():
     NTFS_3G_DRIVER_DELAY = 3000
     def __init__(self):
         self.notifier = []
         self.hotplugServices = []
-        self.hotplug_timer = xTimer()
+        self.hotplug_timer = eTimer()
         self.hotplug_timer.addCallback(self.updateHotplugDevices)
         self.addHotplugNotifier()
         self.hotplugChanged()
