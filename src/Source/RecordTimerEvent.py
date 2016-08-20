@@ -69,12 +69,14 @@ class CoverLoader():
         print "[AdvancedMovieSelection] RecordTimerEvent:", str(timer.state), str(timer.cancelled), timer.Filename
         if timer.state == TimerEntry.StateEnded and not timer.cancelled:
             from thread import start_new_thread
-            start_new_thread(self.downloadMovieInfo, (timer.name, timer.Filename + ".ts"))
+            start_new_thread(self.downloadMovieInfo, (timer.name, timer.Filename))
 
     def downloadMovieInfo(self, name, filename=None):
         try:
             from EITTools import createEIT
             print "[AdvancedMovieSelection] RecordTimerEvent, loading info from tmdb:", name
+            if not filename.endswith(".ts"):
+                filename += ".ts"
             createEIT(filename, name)
         except:
             printStackTrace()
