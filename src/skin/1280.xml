@@ -961,15 +961,16 @@
 			<convert type="ClockToText">Default</convert>
 		</widget>
 		<ePixmap pixmap="skin_default/icons/icon_event.png" position="100,267" size="20,13" alphatest="on" />
-		<widget source="session.CurrentService" render="Label" position="150,259" size="700,27" font="Regular;24" noWrap="1" backgroundColor="#263c59" transparent="1">
+		<widget source="session.CurrentService" render="Label" position="150,259" size="550,27" font="Regular;24" noWrap="1" backgroundColor="#263c59" transparent="1">
 			<convert type="ServiceName">Name</convert>
 		</widget>
-		<eLabel backgroundColor="background" font="Regular;17" foregroundColor="grey" position="900,259" size="130,23" text="Audio:" transparent="1" />
-        <widget backgroundColor="background" font="Regular;17" name="audioLabel" position="1030,259" size="240,23" transparent="1" />
-        <eLabel backgroundColor="background" font="Regular;17" foregroundColor="grey" position="1270,259" size="160,23" text="Subtitle:" transparent="1" />
-        <widget backgroundColor="background" font="Regular;17" name="subtitleLabel" position="1430,259" size="180,23" transparent="1" />
+		<eLabel backgroundColor="background" font="Regular;17" foregroundColor="grey" position="720,251" size="80,20" text="Audio:" transparent="1" />
+        <widget backgroundColor="background" font="Regular;17" name="audioLabel" position="820,251" size="140,20" transparent="1" />
+        <eLabel backgroundColor="background" font="Regular;17" foregroundColor="grey" position="720,272" size="120,20" text="Subtitle:" transparent="1" />
+        <widget backgroundColor="background" font="Regular;17" name="subtitleLabel" position="820,272" size="140,20" transparent="1" />
         <widget backgroundColor="background" font="Regular;22" name="chapterLabel" position="260,280" size="800,24" transparent="1" />
-        <widget alphatest="on" name="anglePix" pixmap="skin_default/icons/icon_view.png" position="960,281" size="52,32" />
+        <widget alphatest="on" name="anglePix" pixmap="skin_default/icons/icon_view.png" position="970,281" size="52,32" />
+        <widget name="angleLabel" position="1000,280" size="120,19" font="Regular;17" foregroundColor="grey" backgroundColor="#263c59" transparent="1" />
 		<ePixmap position="1066,0" size="188,268" zPosition="1" pixmap="skin_default/menu.png" />
 		<ePixmap position="1075,10" size="170,250" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/cover_back.png" />
 		<widget name="CoverPreview" position="1080,15" size="160,240" zPosition="2" />  		
