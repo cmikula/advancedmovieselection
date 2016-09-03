@@ -23,13 +23,13 @@
 		<eLabel position="10,55" size="800,1" backgroundColor="grey" />
 		<widget name="config" position="10,62" size="800,450" enableWrapAround="1" scrollbarMode="showOnDemand"/>
 	</screen>
-	<screen name="MoveCopyProgress" position="center,110" size="820,540" title=" ">
+	<screen name="MoveCopyProgress" position="center,115" size="820,530" title=" ">
 		<ePixmap pixmap="skin_default/buttons/red.png" position="10,0" size="220,50" alphatest="on" />
 		<ePixmap pixmap="skin_default/buttons/green.png" position="230,0" size="220,50" alphatest="on" />
 		<widget name="key_red" position="20,0" size="200,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
 		<widget name="key_green" position="240,0" size="200,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
 		<eLabel position="10,55" size="800,1" backgroundColor="grey" />
-		<widget name="list" position="10,62" size="800,465" enableWrapAround="1" scrollbarMode="showOnDemand"/>
+		<widget name="list" position="10,60" size="800,465" enableWrapAround="1" scrollbarMode="showOnDemand"/>
 	</screen>
 	<screen name="BackupRestore" position="center,120" size="920,520" title=" ">
 		<ePixmap pixmap="skin_default/buttons/red.png" position="10,0" size="220,50" alphatest="on" />
@@ -498,8 +498,8 @@
 		<widget backgroundColor="black" font="Regular;24" foregroundColor="#ffcc00" halign="center" name="warning" position="20,100" size="1240,30" transparent="1" />
 		<widget backgroundColor="black" font="Regular;22" foregroundColor="white" render="Label" position="20,60" size="1240,25" source="Title" transparent="1" />
         <widget alphatest="on" name="CoverPreview" position="10,420" size="185,278" />
-        <widget backgroundColor="black" font="Regular;20" foregroundColor="white" position="220,380" render="Label" size="1040,90" source="Service" transparent="1">
-            <convert type="EventName">ExtendedDescription</convert>
+        <widget backgroundColor="black" font="Regular;20" foregroundColor="white" position="220,350" render="Label" size="1040,110" source="Service" transparent="1">
+            <convert type="EventName">FullDescription</convert>
         </widget>
         <widget backgroundColor="black" enableWrapAround="1" name="list" position="220,480" scrollbarMode="showOnDemand" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sel.png" backgroundPixmap="skin_default/div-h.png" size="1040,234" transparent="1" />
     </screen>
@@ -566,8 +566,8 @@
 		<widget name="backdrop" zPosition="-2" position="0,0" size="1280,720"/>
 		<widget backgroundColor="black" font="Regular;24" foregroundColor="#ffcc00" halign="center" name="warning" position="20,100" size="1240,30" transparent="1" />
 		<widget backgroundColor="black" font="Regular;22" foregroundColor="white" render="Label" position="20,60" size="1240,25" source="Title" transparent="1" />
-        <widget backgroundColor="black" font="Regular;20" foregroundColor="white" position="20,380" render="Label" size="1240,90" source="Service" transparent="1">
-            <convert type="EventName">ExtendedDescription</convert>
+        <widget backgroundColor="black" font="Regular;20" foregroundColor="white" position="20,350" render="Label" size="1240,110" source="Service" transparent="1">
+            <convert type="EventName">FullDescription</convert>
         </widget>
         <widget backgroundColor="black" enableWrapAround="1" name="list" position="20,480" scrollbarMode="showOnDemand" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sel.png" backgroundPixmap="skin_default/div-h.png" size="1240,234" transparent="1" />
     </screen>
@@ -800,8 +800,8 @@
 		<widget backgroundColor="black" font="Regular;24" foregroundColor="#ffcc00" halign="center" name="warning" position="20,100" size="1240,30" transparent="1" />
 		<widget backgroundColor="black" font="Regular;22" foregroundColor="white" render="Label" position="20,60" size="1240,25" source="Title" transparent="1" />
         <widget alphatest="on" name="CoverPreview" position="10,420" size="185,278" />
-        <widget backgroundColor="black" font="Regular;20" foregroundColor="white" position="220,380" render="Label" size="1040,90" source="Service" transparent="1">
-            <convert type="EventName">ExtendedDescription</convert>
+        <widget backgroundColor="black" font="Regular;20" foregroundColor="white" position="220,350" render="Label" size="1040,110" source="Service" transparent="1">
+            <convert type="EventName">FullDescription</convert>
         </widget>
         <widget backgroundColor="black" enableWrapAround="1" name="list" position="220,480" scrollbarMode="showOnDemand" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sel.png" backgroundPixmap="skin_default/div-h.png" size="1040,234" transparent="1" />
     </screen>
@@ -903,8 +903,12 @@
         <widget source="global.CurrentTime" render="Label" position="10,261" size="75,26" halign="right" font="Regular;22" foregroundColor="yellow" backgroundColor="#263c59" transparent="1">
 			<convert type="ClockToText">Default</convert>
 		</widget>
-		<ePixmap pixmap="skin_default/icons/icon_event.png" position="100,267" size="20,13" alphatest="on" />
-		<widget source="session.CurrentService" render="Label" position="150,259" size="800,27" font="Regular;24" noWrap="1" backgroundColor="#263c59" transparent="1">
+		<eLabel position="85,260" size="23,23" backgroundColor="#263c59" text="-" transparent="1" font="Regular;22" foregroundColor="yellow" halign="center" />
+		<widget source="session.CurrentService" render="Label" position="110,261" size="75,26" font="Regular;22" foregroundColor="yellow" backgroundColor="#263c59" transparent="1">
+		    <convert type="ServicePosition">EndTime,ShowNoSeconds</convert>
+	    </widget>
+		<ePixmap pixmap="skin_default/icons/icon_event.png" position="182,267" size="20,13" alphatest="on" />
+		<widget source="session.CurrentService" render="Label" position="220,259" size="720,27" font="Regular;24" noWrap="1" backgroundColor="#263c59" transparent="1">
 			<convert type="ServiceName">Name</convert>
 		</widget>
 		<widget source="session.CurrentService" render="Label" position="990,280" size="60,22" backgroundColor="#263c59" font="Regular;19" halign="right" transparent="1">
@@ -942,6 +946,9 @@
 		<widget source="session.CurrentService" render="Progress" position="305,346" size="695,8" zPosition="1" pixmap="skin_default/progress.png" transparent="1">
 			<convert type="ServicePosition">Position</convert>
 		</widget>
+		<widget source="session.CurrentService" render="PositionGauge" position="305,343" size="695,14" zPosition="2" transparent="1">
+			<convert type="ServicePosition">Gauge</convert>
+		</widget>
 		<widget source="session.CurrentService" render="Label" position="1020,335" size="80,24" font="Regular;22" halign="left" backgroundColor="#263c59" transparent="1">
 			<convert type="ServicePosition">Remaining,Negate</convert>
 		</widget>	
@@ -964,17 +971,17 @@
 		<widget source="session.CurrentService" render="Label" position="150,259" size="550,27" font="Regular;24" noWrap="1" backgroundColor="#263c59" transparent="1">
 			<convert type="ServiceName">Name</convert>
 		</widget>
-		<eLabel backgroundColor="background" font="Regular;17" foregroundColor="grey" position="720,251" size="80,20" text="Audio:" transparent="1" />
-        <widget backgroundColor="background" font="Regular;17" name="audioLabel" position="820,251" size="140,20" transparent="1" />
-        <eLabel backgroundColor="background" font="Regular;17" foregroundColor="grey" position="720,272" size="120,20" text="Subtitle:" transparent="1" />
-        <widget backgroundColor="background" font="Regular;17" name="subtitleLabel" position="820,272" size="140,20" transparent="1" />
-        <widget backgroundColor="background" font="Regular;22" name="chapterLabel" position="260,280" size="800,24" transparent="1" />
+		<eLabel backgroundColor="background" font="Regular;17" foregroundColor="grey" position="740,251" size="80,20" text="Audio:" transparent="1" />
+        <widget backgroundColor="background" font="Regular;17" name="audioLabel" position="840,251" size="140,20" transparent="1" />
+        <eLabel backgroundColor="background" font="Regular;17" foregroundColor="grey" position="740,272" size="120,20" text="Subtitle:" transparent="1" />
+        <widget backgroundColor="background" font="Regular;17" name="subtitleLabel" position="840,272" size="140,20" transparent="1" />
+        <widget backgroundColor="background" font="Regular;22" name="chapterLabel" position="350,295" size="600,24" halign="center" transparent="1" />
         <widget alphatest="on" name="anglePix" pixmap="skin_default/icons/icon_view.png" position="970,281" size="52,32" />
         <widget name="angleLabel" position="1000,280" size="120,19" font="Regular;17" foregroundColor="grey" backgroundColor="#263c59" transparent="1" />
 		<ePixmap position="1066,0" size="188,268" zPosition="1" pixmap="skin_default/menu.png" />
 		<ePixmap position="1075,10" size="170,250" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/cover_back.png" />
 		<widget name="CoverPreview" position="1080,15" size="160,240" zPosition="2" />  		
-	    <widget source="session.CurrentService" render="Label" position="550,318" size="200,24" font="Regular;22" halign="center" backgroundColor="#263c59" transparent="1">
+	    <widget source="session.CurrentService" render="Label" position="550,322" size="200,24" font="Regular;22" halign="center" backgroundColor="#263c59" transparent="1">
 			<convert type="ServicePosition">Length</convert>
 		</widget>
 		<widget source="session.CurrentService" render="Label" position="200,338" size="80,24" font="Regular;22" halign="right" backgroundColor="#263c59" transparent="1">
