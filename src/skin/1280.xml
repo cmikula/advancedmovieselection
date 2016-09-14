@@ -113,8 +113,8 @@
 		<widget name="HelpWindow" pixmap="skin_default/vkey_icon.png" position="340,500" alphatest="on" />
 	</screen>
 	<screen name="AdvancedMovieSelection_Rename" position="center,120" size="820,520" title=" ">
-		<widget name="red" pixmap="skin_default/buttons/red.png" position="10,0" size="220,50" alphatest="on" />
-		<widget name="green" pixmap="skin_default/buttons/green.png" position="230,0" size="220,50" alphatest="on" />
+		<ePixmap pixmap="skin_default/buttons/red.png" position="10,0" size="220,50" alphatest="on" />
+		<ePixmap pixmap="skin_default/buttons/green.png" position="230,0" size="220,50" alphatest="on" />
 		<widget source="key_red" render="Label" position="20,0" size="200,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
 		<widget source="key_green" render="Label" position="240,0" size="200,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
 		<eLabel position="10,55" size="800,1" backgroundColor="grey" />
@@ -498,7 +498,7 @@
 		<widget backgroundColor="black" font="Regular;24" foregroundColor="#ffcc00" halign="center" name="warning" position="20,100" size="1240,30" transparent="1" />
 		<widget backgroundColor="black" font="Regular;22" foregroundColor="white" render="Label" position="20,60" size="1240,25" source="Title" transparent="1" />
         <widget alphatest="on" name="CoverPreview" position="10,420" size="185,278" />
-        <widget backgroundColor="black" font="Regular;20" foregroundColor="white" position="220,350" render="Label" size="1040,110" source="Service" transparent="1">
+        <widget backgroundColor="black" font="Regular;20" foregroundColor="white" position="220,350" render="Label" size="1040,115" source="Service" transparent="1">
             <convert type="EventName">FullDescription</convert>
         </widget>
         <widget backgroundColor="black" enableWrapAround="1" name="list" position="220,480" scrollbarMode="showOnDemand" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sel.png" backgroundPixmap="skin_default/div-h.png" size="1040,234" transparent="1" />
@@ -566,7 +566,7 @@
 		<widget name="backdrop" zPosition="-2" position="0,0" size="1280,720"/>
 		<widget backgroundColor="black" font="Regular;24" foregroundColor="#ffcc00" halign="center" name="warning" position="20,100" size="1240,30" transparent="1" />
 		<widget backgroundColor="black" font="Regular;22" foregroundColor="white" render="Label" position="20,60" size="1240,25" source="Title" transparent="1" />
-        <widget backgroundColor="black" font="Regular;20" foregroundColor="white" position="20,350" render="Label" size="1240,110" source="Service" transparent="1">
+        <widget backgroundColor="black" font="Regular;20" foregroundColor="white" position="20,350" render="Label" size="1240,115" source="Service" transparent="1">
             <convert type="EventName">FullDescription</convert>
         </widget>
         <widget backgroundColor="black" enableWrapAround="1" name="list" position="20,480" scrollbarMode="showOnDemand" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sel.png" backgroundPixmap="skin_default/div-h.png" size="1240,234" transparent="1" />
@@ -800,7 +800,7 @@
 		<widget backgroundColor="black" font="Regular;24" foregroundColor="#ffcc00" halign="center" name="warning" position="20,100" size="1240,30" transparent="1" />
 		<widget backgroundColor="black" font="Regular;22" foregroundColor="white" render="Label" position="20,60" size="1240,25" source="Title" transparent="1" />
         <widget alphatest="on" name="CoverPreview" position="10,420" size="185,278" />
-        <widget backgroundColor="black" font="Regular;20" foregroundColor="white" position="220,350" render="Label" size="1040,110" source="Service" transparent="1">
+        <widget backgroundColor="black" font="Regular;20" foregroundColor="white" position="220,350" render="Label" size="1040,115" source="Service" transparent="1">
             <convert type="EventName">FullDescription</convert>
         </widget>
         <widget backgroundColor="black" enableWrapAround="1" name="list" position="220,480" scrollbarMode="showOnDemand" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sel.png" backgroundPixmap="skin_default/div-h.png" size="1040,234" transparent="1" />
