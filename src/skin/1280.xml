@@ -659,8 +659,8 @@
 		<widget source="global.CurrentTime" render="Label" position="1130,12" size="60,25" font="Regular;22" halign="right" backgroundColor="background" shadowColor="black" shadowOffset="-2,-2" transparent="1">
 			<convert type="ClockToText">Default</convert>
 		</widget>
-		<widget source="global.CurrentTime" render="Label" position="820,12" size="300,25" font="Regular;22" halign="right" backgroundColor="background" shadowColor="black" shadowOffset="-2,-2" transparent="1">
-			<convert type="ClockToText">Format:%A %d. %B</convert>
+		<widget source="global.CurrentTime" render="Label" position="900,12" size="220,25" font="Regular;22" halign="right" backgroundColor="background" shadowColor="black" shadowOffset="-2,-2" transparent="1">
+			<convert type="ClockToText">Format:%a %d. %B</convert>
 		</widget>
 		<eLabel position="10,50" size="1180,1" backgroundColor="grey" />
 		<widget name="no_stars" position="20,63" size="210,21" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/starsbar_empty.png" alphatest="on" />
@@ -716,8 +716,8 @@
 		<widget source="global.CurrentTime" render="Label" position="1130,12" size="60,25" font="Regular;22" halign="right" backgroundColor="background" shadowColor="black" shadowOffset="-2,-2" transparent="1">
 			<convert type="ClockToText">Default</convert>
 		</widget>
-		<widget source="global.CurrentTime" render="Label" position="820,12" size="300,25" font="Regular;22" halign="right" backgroundColor="background" shadowColor="black" shadowOffset="-2,-2" transparent="1">
-			<convert type="ClockToText">Format:%A %d. %B</convert>
+		<widget source="global.CurrentTime" render="Label" position="900,12" size="220,25" font="Regular;22" halign="right" backgroundColor="background" shadowColor="black" shadowOffset="-2,-2" transparent="1">
+			<convert type="ClockToText">Format:%a %d. %B</convert>
 		</widget>
 		<eLabel position="10,50" size="1180,1" backgroundColor="grey" />
 		<widget name="no_stars" position="20,63" size="210,21" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/starsbar_empty.png" alphatest="on" />
@@ -976,8 +976,8 @@
         <eLabel backgroundColor="background" font="Regular;17" foregroundColor="grey" position="740,272" size="120,20" text="Subtitle:" transparent="1" />
         <widget backgroundColor="background" font="Regular;17" name="subtitleLabel" position="840,272" size="140,20" transparent="1" />
         <widget backgroundColor="background" font="Regular;22" name="chapterLabel" position="350,295" size="600,24" halign="center" transparent="1" />
-        <widget alphatest="on" name="anglePix" pixmap="skin_default/icons/icon_view.png" position="970,281" size="52,32" />
-        <widget name="angleLabel" position="1000,280" size="120,19" font="Regular;17" foregroundColor="grey" backgroundColor="#263c59" transparent="1" />
+        <widget alphatest="on" name="anglePix" pixmap="skin_default/icons/icon_view.png" position="970,281" size="26,16" />
+        <widget name="angleLabel" position="1005,280" size="120,19" font="Regular;17" foregroundColor="grey" backgroundColor="#263c59" transparent="1" />
 		<ePixmap position="1066,0" size="188,268" zPosition="1" pixmap="skin_default/menu.png" />
 		<ePixmap position="1075,10" size="170,250" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/cover_back.png" />
 		<widget name="CoverPreview" position="1080,15" size="160,240" zPosition="2" />  		
