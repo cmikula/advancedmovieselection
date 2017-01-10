@@ -98,6 +98,8 @@ class Seekbar(ConfigListScreen, Screen):
                 x = 60 + int(11.5 * self.percent)
             elif sz_w == 1024:
                 x = 60 + int(9.0 * self.percent)
+            elif sz_w == 1920:
+                x = 100 + int(17.2 * self.percent)
             else:
                 x = 5 + int(6.8 * self.percent)
             self["cursor"].moveTo(x, 100, 1)
