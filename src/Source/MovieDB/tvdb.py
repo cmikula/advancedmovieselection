@@ -29,23 +29,20 @@ that they, too, receive or can get the source code. And you must show them these
 __author__ = "cmikula"
 __version__ = "1.0"
 
-config = None
+config = {}
+config['locale'] = 'de'
+config['apikey'] = "7E9EC2ECC1B1EB3A" # apikey from JD
+config['urls'] = {}
+config['urls']['movie.search'] = "http://www.thetvdb.com/api/GetSeries.php?seriesname=%%s" % (config)
+config['urls']['movie.getInfo'] = "http://www.thetvdb.com/api/%(apikey)s/series/%%s/all/%(locale)s.xml" % (config)
+config['urls']['movie.getImage'] = "http://www.thetvdb.com/banners/_cache/%%s" % (config)
 
 def setLocale(lng):
-    global config
     print "[AdvancedMovieSelection] Set tvdb locale to", lng
-    config = {}
     config['locale'] = lng
-    config['apikey'] = "7E9EC2ECC1B1EB3A" # apikey from JD
-    config['urls'] = {}
-    config['urls']['movie.search'] = "http://www.thetvdb.com/api/GetSeries.php?seriesname=%%s" % (config)
-    config['urls']['movie.getInfo'] = "http://www.thetvdb.com/api/%(apikey)s/series/%%s/all/%(locale)s.xml" % (config)
-    config['urls']['movie.getImage'] = "http://www.thetvdb.com/banners/_cache/%%s" % (config)
 
 def getLocale():
     return config['locale']
-
-# setLocale("de")
 
 import urllib, urllib2, xml.etree.cElementTree as ElementTree
 
