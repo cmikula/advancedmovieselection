@@ -62,7 +62,7 @@ if (sys.version_info < (2, 6, 99) and sys.version_info > (2, 6, 0)):
 
 if (sys.version_info < (2, 7, 99) and sys.version_info > (2, 7, 0)):
     # sys.stderr.write("You need python 2.7 to build package compiled for opendreambox-2.0.0\n") 
-    ARCH = "mips32el"
+    ARCH = "all"
     py_version = 2.7
 
 PACKAGE_TYPE = "ipk"
@@ -445,7 +445,7 @@ def applyUserSettings():
         if options.package_type == 'deb':
             PACKAGE_TYPE = options.package_type
             global PACKAGE_ARCHITECTURE
-            PACKAGE_ARCHITECTURE = "mipsel"
+            PACKAGE_ARCHITECTURE = "all"
             print "set package type to", PACKAGE_TYPE
 
 def checkingBuildOptions():
