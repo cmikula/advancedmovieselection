@@ -26,7 +26,11 @@ that they, too, receive or can get the source code. And you must show them these
 
 """An interface to the tmdb3 API"""
 
-config = None
+config = {}
+config['locale'] = 'de'
+config['apikey'] = "1f834eb425728133b9a2c1c0c82980eb" # apikey from JD
+config['poster_size'] = 'w185'
+config['backdrop_size'] = 'w1280'
 
 poster_sizes = ('w92', 'w154', 'w185', 'w342', 'w500', 'original')
 backdrop_sizes = ('w300', 'w780', 'w1280', 'original')
@@ -44,13 +48,8 @@ def setBackdropSize(size):
         config['backdrop_size'] = value
 
 def setLocale(lng):
-    global config
     print "[AdvancedMovieSelection] Set tmdb locale to", lng
-    config = {}
     config['locale'] = lng
-    config['apikey'] = "1f834eb425728133b9a2c1c0c82980eb" # apikey from JD
-    config['poster_size'] = 'w185'
-    config['backdrop_size'] = 'w1280'
 
 def getLocale():
     return config['locale']
