@@ -405,3 +405,4 @@ version: 4.1.1
 version: 4.2
 * fix: einstellung für tmdb und tvdb cover auflösung
 * fix: timer löschen in der filmliste (oe2.5)
+* neu: tmdb parser
