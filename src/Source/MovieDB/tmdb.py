@@ -161,8 +161,10 @@ def __searchMovieEx(title, year=None):
     nt = title
     print "__searchMovieEx:", str(nt)
     try:
+        import os
+        exfile = os.path.dirname(__file__) + '/tmdb.py.txt'
         excludes = []
-        with open(__file__ + '.txt','r') as f:
+        with open(exfile,'r') as f:
             for line in f.readlines():
                 if line:
                     excludes.append(line.replace('\r', '').replace('\n', '').lower())
