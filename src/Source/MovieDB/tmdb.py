@@ -150,16 +150,71 @@ def __collect_backdrop_urls(movie):
         movie.backdrop_url = None
         movie.backdrop_index = 0
 
-def __searchMovie(title):
-    res = original_search(title)
+def __searchMovie(title, year=None):
+    res = original_search(title, year=year)
     for movie in res:
         __collect_poster_urls(movie)
         __collect_backdrop_urls(movie)
     return res
 
+def __searchMovieEx(title, year=None):
+    nt = title
+    print "__searchMovieEx:", str(nt)
+    try:
+        excludes = []
+        with open(__file__ + '.txt','r') as f:
+            for line in f.readlines():
+                if line:
+                    excludes.append(line.replace('\r', '').replace('\n', '').lower())
+    except:
+        import sys, traceback
+        print "--- [AdvancedMovieSelection] STACK TRACE ---"
+        traceback.print_exc(file=sys.stdout)
+        print '-' * 50
+        excludes = ['german', 'dts', '1080p', '720p', 'dts', 'dl', 'bluray', 'x264']
+    print excludes
+
+    if year is None:
+        pos1 = nt.find("(")
+        pos2 = nt.find(")")
+        if pos2 - pos1 == 5:
+            year = nt[pos1 + 1:pos2]
+            nt = nt[:pos1] + nt[pos2 + 1:]
+
+    nt = nt.lower()
+    for x in excludes:
+        nt = nt.replace(x, '')
+    if nt.endswith('.ts'):
+        nt = nt[:-3]
+
+    nt = nt.replace('.', ' ').rstrip()
+    res = original_search(nt, year=year)
+
+    if len(res) == 0:
+        tt = nt.split('-')
+        if len(tt) > 1:
+            res = original_search(tt[0], year=year)
+    if len(res) == 0:
+        tt = nt.split('&')
+        if len(tt) > 1:
+            res = original_search(tt[0], year=year)
+    if len(res) == 0:
+        tt = nt.split(' ')[:-1]
+        while len(tt) >= 1 and len(res) == 0:
+            tt = " ".join(tt).rstrip()
+            res = original_search(tt, year=year)
+            tt = tt.split(' ')[:-1]
+
+    for movie in res:
+        __collect_poster_urls(movie)
+        __collect_backdrop_urls(movie)
+
+    print "__searchMovieEx:", str(len(res))
+    return res
+
 import tmdb3
 original_search = tmdb3.searchMovie
-tmdb3.searchMovie = __searchMovie
+tmdb3.searchMovie = __searchMovieEx
 
 def init_tmdb3():
     tmdb3.set_key(config['apikey'])
@@ -185,8 +240,10 @@ def init_tmdb3():
 def main():
     setLocale("de")
     tmdb3 = init_tmdb3()
-    res = tmdb3.searchMovie('Blitz')
-    # res = tmdb3.searchMovie('James Bond 007 - Skyfall')
+    res = tmdb3.searchMovie('James Bond 007 - Skyfall')
+    res = tmdb3.searchMovie("Bad.Teacher.2011.UNRATED.GERMAN.DTS.DL.720p.BluRay.x264 LeetHD)")
+    res = tmdb3.searchMovie('Der.Hobbit.-.Eine.Unerwartete.Reise.(2012).German.DTS.1080p')
+    res = tmdb3.searchMovie('Der Hobbit - Eine Unerwartete Reise (2012).German.DTS.1080p.ts')
     # res = tmdb3.searchMovie('Für immer Liebe')
     # res = tmdb3.searchMovie('Fight Club')
     # res = tmdb3.searchMovie('22 Bullets')
