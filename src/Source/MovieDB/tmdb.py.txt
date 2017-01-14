@@ -1,8 +1,8 @@
-german
-dts
+German
+BluRay
+DTS
+3D
+DL
 1080p
 720p
-dts
-dl
-bluray
 x264

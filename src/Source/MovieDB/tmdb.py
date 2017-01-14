@@ -173,7 +173,7 @@ def __searchMovieEx(title, year=None):
         print "--- [AdvancedMovieSelection] STACK TRACE ---"
         traceback.print_exc(file=sys.stdout)
         print '-' * 50
-        excludes = ['german', 'dts', '1080p', '720p', 'dts', 'dl', 'bluray', 'x264']
+        excludes = ['german', 'bluray', 'dts', '3d', 'dl', '1080p', '720p', 'x264']
     print excludes
 
     if year is None:
@@ -242,6 +242,7 @@ def init_tmdb3():
 def main():
     setLocale("de")
     tmdb3 = init_tmdb3()
+    res = tmdb3.searchMovie('3D R.I.P.D - Rest in Peace Department')
     res = tmdb3.searchMovie('James Bond 007 - Skyfall')
     res = tmdb3.searchMovie("Bad.Teacher.2011.UNRATED.GERMAN.DTS.DL.720p.BluRay.x264 LeetHD)")
     res = tmdb3.searchMovie('Der.Hobbit.-.Eine.Unerwartete.Reise.(2012).German.DTS.1080p')
