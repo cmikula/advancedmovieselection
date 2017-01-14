@@ -288,8 +288,12 @@ class MovieScanner():
             print "timer.state", timer.state
             if timer.state == TimerEntry.StateRunning:
                 print "TimerEntry", timer.name
-                print timer.Filename + ".ts"
-                mi = MovieInfo(timer.name, None, file_name=timer.Filename + ".ts")
+                if not timer.Filename:
+                    print "cancel, no timer filename"
+                    return
+                filename = timer.Filename.endswith(".ts") and timer.Filename or timer.Filename + ".ts" 
+                print filename
+                mi = MovieInfo(timer.name, None, file_name=filename)
                 serviceref = mi.createService()
                 mi.info = self.serviceHandler.info(serviceref)
                 mi.begin = mi.info.getInfo(serviceref, iServiceInformation.sTimeCreate)

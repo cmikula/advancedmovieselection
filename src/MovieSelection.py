@@ -881,12 +881,11 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         if NavigationInstance.instance.getRecordings():
             for timer in NavigationInstance.instance.RecordTimer.timer_list:
                 if timer.state == TimerEntry.StateRunning:
-                    try:
-                        filename = "%s.ts" % timer.Filename
-                    except:
-                        filename = ""
+                    if not timer.Filename:
+                        continue
+                    filename = timer.Filename.endswith(".ts") and timer.Filename or timer.Filename + ".ts" 
                     for serviceref in self.to_delete:
-                        if filename and os.path.realpath(filename) == os.path.realpath(serviceref.getPath()):
+                        if os.path.realpath(filename) == os.path.realpath(serviceref.getPath()):
                             recording = True
                             continue
   
@@ -900,11 +899,10 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         if NavigationInstance.instance.getRecordings():
             for timer in NavigationInstance.instance.RecordTimer.timer_list:
                 if timer.isRunning():
-                    try:
-                        filename = "%s.ts" % timer.Filename
-                    except:
-                        filename = ""
-                    if filename and os.path.realpath(filename) == os.path.realpath(file_path):
+                    if not timer.Filename:
+                        continue
+                    filename = timer.Filename.endswith(".ts") and timer.Filename or timer.Filename + ".ts" 
+                    if os.path.realpath(filename) == os.path.realpath(file_path):
                         timer.afterEvent = AFTEREVENT.NONE
                         timer.abort()
                         if timer.repeated == 0:

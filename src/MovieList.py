@@ -476,11 +476,10 @@ class MovieList(MovieListSkinParam, GUIListComponent):
             if NavigationInstance.instance.getRecordings():
                 for timer in NavigationInstance.instance.RecordTimer.timer_list:
                     if timer.state == TimerEntry.StateRunning:
-                        try:
-                            filename = "%s.ts" % timer.Filename
-                        except:
-                            filename = ""
-                        if filename and os.path.realpath(filename) == os.path.realpath(serviceref.getPath()):
+                        if not timer.Filename:
+                            continue
+                        filename = timer.Filename.endswith(".ts") and timer.Filename or timer.Filename + ".ts" 
+                        if os.path.realpath(filename) == os.path.realpath(serviceref.getPath()):
                             recording = True
                             break
             if not recording:
