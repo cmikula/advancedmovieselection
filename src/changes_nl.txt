@@ -401,4 +401,5 @@ versie: 4.1.1
 versie: 4.2
 * fix: settings for tmdb and tvdb cover resolution
 * fix: clear timer in movielist (oe2.5)
+* fix: audio selection with yellow key
 * new: tmdb parser
