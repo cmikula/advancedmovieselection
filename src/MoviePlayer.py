@@ -133,11 +133,6 @@ class PlayerBase(MoviePreview, SelectionEventInfo):
     def __init__(self, session):
         MoviePreview.__init__(self, session)
         SelectionEventInfo.__init__(self)
-        self["EPGActions"] = HelpableActionMap(self, "InfobarEPGActions",
-            {
-                "showEventInfo": (self.openInfoView, _("Show event details")),
-                "showEventInfoPlugin": (self.openServiceList, _("Open servicelist"))
-            })
         self.endless_loop = False
         self.__event_tracker = ServiceEventTracker(screen=self, eventmap=
             {
@@ -150,10 +145,7 @@ class PlayerBase(MoviePreview, SelectionEventInfo):
             if not isDreamOS:
                 self.close() # TODO: check closing on oe2.2
     
-    def openServiceList(self):
-        pass
-
-    def openInfoView(self):
+    def openEventView(self):
         from AdvancedMovieSelectionEventView import EventViewSimple
         serviceref = self.session.nav.getCurrentlyPlayingServiceReference()
         info = ServiceCenter.getInstance().info(serviceref)
@@ -162,7 +154,7 @@ class PlayerBase(MoviePreview, SelectionEventInfo):
             self.session.open(EventViewSimple, evt, serviceref)
 
 
-class MoviePlayerExtended(CutListSupport, MoviePlayer, PlayerBase):
+class MoviePlayerExtended(CutListSupport, PlayerBase, MoviePlayer):
     def __init__(self, session, service):
         CutListSupport.__init__(self, service)
         MoviePlayer.__init__(self, session, service)
@@ -412,13 +404,17 @@ class MoviePlayerExtended(CutListSupport, MoviePlayer, PlayerBase):
 
 if pluginPresent.DVDPlayer:
     from Plugins.Extensions.DVDPlayer.plugin import DVDPlayer as eDVDPlayer
-    class DVDPlayer(DVDCutListSupport, eDVDPlayer, PlayerBase):
+    class DVDPlayer(DVDCutListSupport, PlayerBase, eDVDPlayer):
         def __init__(self, session, service):
             DVDCutListSupport.__init__(self, service)
             eDVDPlayer.__init__(self, session, dvd_filelist=service.getDVD())
             PlayerBase.__init__(self, session)
             self.skinName = ["DVDPlayerExtended", "DVDPlayer"]
             self.addPlayerEvents()
+            self["EPGActions"] = HelpableActionMap(self, "InfobarEPGActions",
+            {
+                "showEventInfo": (self.openEventView, _("Show event details")),
+            })
 
         def askLeavePlayer(self):
             if config.AdvancedMovieSelection.exitkey.value:
