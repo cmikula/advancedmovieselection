@@ -349,12 +349,6 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
             txt = _("Total %d movies found") % count
         self["result_txt"].setText(txt) 
         
-    def pageUp(self):
-        self["description"].pageUp()
-
-    def pageDown(self):
-        self["description"].pageDown()
-
     def moveUp(self):
         if self.view_mode == self.SHOW_RESULT_LIST:
             self["list"].moveUp()
@@ -497,10 +491,16 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
         print "Dummy"
 
     def left(self):
-        self.updateImageIndex(tmdb.prevImageIndex)
+        if self.view_mode == self.SHOW_RESULT_LIST:
+            self["list"].pageUp()
+        else:
+            self.updateImageIndex(tmdb.prevImageIndex)
     
     def right(self):
-        self.updateImageIndex(tmdb.nextImageIndex)
+        if self.view_mode == self.SHOW_RESULT_LIST:
+            self["list"].pageDown()
+        else:
+            self.updateImageIndex(tmdb.nextImageIndex)
 
     def prevBackdrop(self):
         self.updateImageIndex(tmdb.prevBackdrop)

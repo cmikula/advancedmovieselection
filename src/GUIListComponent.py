@@ -55,14 +55,25 @@ class GUIListComponent(GUIComponent):
         instance.setContent(None)
         self.selectionChanged_conn = None
     
+    def pageUp(self):
+        if self.instance is not None:
+            self.instance.moveSelection(self.instance.pageUp)
+
+    def pageDown(self):
+        if self.instance is not None:
+            self.instance.moveSelection(self.instance.pageDown)
+
     def moveUp(self):
-        self.instance.moveSelection(self.instance.moveUp)
+        if self.instance is not None:
+            self.instance.moveSelection(self.instance.moveUp)
 
     def moveDown(self):
-        self.instance.moveSelection(self.instance.moveDown)
+        if self.instance is not None:
+            self.instance.moveSelection(self.instance.moveDown)
         
     def moveToIndex(self, index):
-        self.instance.moveSelectionTo(index)
+        if self.instance is not None:
+            self.instance.moveSelectionTo(index)
 
     def getCurrent(self):
         l = self.l.getCurrentSelection()
