@@ -190,6 +190,12 @@ def __searchMovieEx(title, year=None):
         nt = nt[:-3]
 
     nt = nt.replace('.', ' ').rstrip()
+    if year is None and title.count('.') > 1:
+        import re
+        match = re.search('\d{4}', nt)
+        if match is not None:
+            year = match.group()
+            nt = nt.replace(year, '').rstrip()
     res = original_search(nt, year=year)
 
     if len(res) == 0:
@@ -242,6 +248,8 @@ def init_tmdb3():
 def main():
     setLocale("de")
     tmdb3 = init_tmdb3()
+    res = tmdb3.searchMovie('Conan.2011.German.1080p')
+    res = tmdb3.searchMovie('300')
     res = tmdb3.searchMovie('3D R.I.P.D - Rest in Peace Department')
     res = tmdb3.searchMovie('James Bond 007 - Skyfall')
     res = tmdb3.searchMovie("Bad.Teacher.2011.UNRATED.GERMAN.DTS.DL.720p.BluRay.x264 LeetHD)")
