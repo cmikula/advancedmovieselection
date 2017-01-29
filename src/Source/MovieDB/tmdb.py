@@ -116,46 +116,42 @@ def poster_url(poster, size):
             return poster.geturl(size)
     poster.geturl()
 
-def __collect_poster_urls(movie):
-    l = []
-    if movie.poster is not None:
-        l.append(poster_url(movie.poster, config['poster_size']))
-    for p in movie.posters:
-        url = poster_url(p, config['poster_size'])
-        if not url in l:
-            l.append(url)
-    movie.poster_urls = l
-    # print "title: %s, poster: %d" % (movie.title, len(movie.poster_urls))
+def getPosterUrls(movie):
+    if len(movie.poster_urls) == 0:
+        l = movie.poster_url and [movie.poster_url] or []
+        for p in movie.posters:
+            url = poster_url(p, config['poster_size'])
+            if not url in l:
+                l.append(url)
+        movie.poster_urls = l
+    return movie.poster_urls
+
+def getBackdropUrls(movie):
+    if len(movie.backdrop_urls) == 0:
+        l = movie.backdrop_url and [movie.backdrop_url] or []
+        for p in movie.backdrops:
+            url = poster_url(p, config['backdrop_size'])
+            if not url in l:
+                l.append(url)
+        movie.backdrop_urls = l
+    return movie.backdrop_urls
+
+def __init_movie(movie):
+    movie.poster_url = None
     movie.poster_index = 1
-    if len(movie.poster_urls) > 0:
-        movie.poster_url = movie.poster_urls[0]
-    else:
-        movie.poster_url = None
-        movie.poster_index = 0
-
-def __collect_backdrop_urls(movie):
-    l = []
-    if movie.backdrop is not None:
-        l.append(poster_url(movie.backdrop, config['backdrop_size']))
-    for p in movie.backdrops:
-        url = poster_url(p, config['backdrop_size'])
-        if not url in l:
-            l.append(url)
-    movie.backdrop_urls = l
-    # print "title: %s, poster: %d" % (movie.title, len(movie.poster_urls))
+    movie.poster_urls = []
+    movie.backdrop_url = None
     movie.backdrop_index = 1
-    if len(movie.backdrop_urls) > 0:
-        movie.backdrop_url = movie.backdrop_urls[0]
-    else:
-        movie.backdrop_url = None
-        movie.backdrop_index = 0
+    movie.backdrop_urls = []
 
-def __searchMovie(title, year=None):
-    res = original_search(title, year=year)
-    for movie in res:
-        __collect_poster_urls(movie)
-        __collect_backdrop_urls(movie)
-    return res
+    if movie.poster is not None:
+        movie.poster_url = poster_url(movie.poster, config['poster_size'])
+    if movie.backdrop is not None:
+        movie.backdrop_url = poster_url(movie.backdrop, config['backdrop_size'])
+
+def __searchMovieExDebug(title, year=None):
+    print str.format("[TMDb] Title: {0}, Year: {1}", title, year)
+    return tmdb3_searchMovie(title, year=year)
 
 def __searchMovieEx(title, year=None):
     nt = title
@@ -174,7 +170,7 @@ def __searchMovieEx(title, year=None):
         traceback.print_exc(file=sys.stdout)
         print '-' * 50
         excludes = ['german', 'bluray', 'dts', '3d', 'dl', '1080p', '720p', 'x264']
-    print excludes
+    # print excludes
 
     if year is None:
         pos1 = nt.find("(")
@@ -192,10 +188,13 @@ def __searchMovieEx(title, year=None):
     nt = nt.replace('.', ' ').rstrip()
     if year is None and title.count('.') > 1:
         import re
-        match = re.search('\d{4}', nt)
-        if match is not None:
-            year = match.group()
+        match = re.findall('\d{4}', nt)
+        if len(match) > 0:
+            year = match[-1]
             nt = nt.replace(year, '').rstrip()
+    if not nt:
+        nt = year
+        year = None
     res = original_search(nt, year=year)
 
     if len(res) == 0:
@@ -214,14 +213,14 @@ def __searchMovieEx(title, year=None):
             tt = tt.split(' ')[:-1]
 
     for movie in res:
-        __collect_poster_urls(movie)
-        __collect_backdrop_urls(movie)
+        __init_movie(movie)
 
     print "__searchMovieEx:", str(len(res))
     return res
 
 import tmdb3
-original_search = tmdb3.searchMovie
+tmdb3_searchMovie = tmdb3.searchMovie
+original_search = __searchMovieExDebug
 tmdb3.searchMovie = __searchMovieEx
 
 def init_tmdb3():
@@ -248,6 +247,7 @@ def init_tmdb3():
 def main():
     setLocale("de")
     tmdb3 = init_tmdb3()
+    res = tmdb3.searchMovie('2012.2009.German.DL.1080p.BluRay')
     res = tmdb3.searchMovie('Conan.2011.German.1080p')
     res = tmdb3.searchMovie('300')
     res = tmdb3.searchMovie('3D R.I.P.D - Rest in Peace Department')
