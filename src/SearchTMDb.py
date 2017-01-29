@@ -375,6 +375,8 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
     def getMovieInfo(self, movie):
         try:
             if movie:
+                tmdb.getPosterUrls(movie)
+                tmdb.getBackdropUrls(movie)
                 extended = self.getImageIndexText(movie) + '\n'
                 name = movie.title.encode('utf-8', 'ignore')
                 description = movie.overview
