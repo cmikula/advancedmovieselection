@@ -32,8 +32,9 @@ from enigma import eServiceReference
 from Source.Timer import xTimer
 from Components.MenuList import MenuList
 from Source.ServiceProvider import ServiceCenter
-from Source.EITTools import createEIT
-from Source.MovieDB import tmdb, downloadCover
+from Source.EITTools import eitFromTMDb, writeEITex
+from Source.MovieDB import downloadCover
+from Source.MovieDB import tmdb
 from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Components.ScrollLabel import ScrollLabel
 from Source.Globals import printStackTrace
@@ -85,11 +86,9 @@ class DownloadMovies(Screen):
         self.picload = PicLoader()
         self.picload.addCallback(self.paintPosterPixmap)
 
-        self.tmdb3 = tmdb.init_tmdb3()
-        
         self.movie_title = ""
         if self.service is not None:
-            self.movie_title = ServiceCenter.getInstance().info(self.service).getName(self.service).encode("utf-8").split(" - ")[0].strip()
+            self.movie_title = ServiceCenter.getInstance().info(self.service).getName(self.service)
             self.progressTimer = xTimer()
             self.progressTimer.addCallback(self.refresh)
             self.progressTimer.start(50, True)
@@ -164,7 +163,7 @@ class DownloadMovies(Screen):
         self["info"].setText(_("Filename: %s") % os.path.basename(self.service.getPath()))
         self.setTitle(_("Search result(s) for %s") % (movie_title))
         try:
-            results = self.tmdb3.searchMovie(movie_title)
+            results = tmdb.searchMovie(movie_title)
         except:
             results = []
         if len(results) == 0:
@@ -177,11 +176,11 @@ class DownloadMovies(Screen):
         for movie in results:
             try:
                 self["key_green"].setText(_("Save infos/cover"))
-                released = str(movie.releasedate.year)
+                released = str(movie.ReleaseDate.year)
                 if released:
-                    self.l.append((movie.title.encode("utf-8") + " - " + released, movie))
+                    self.l.append((movie.Title + " - " + released, movie))
                 else:
-                    self.l.append((movie.title.encode("utf-8"), movie))
+                    self.l.append((movie.Title, movie))
             except:
                 pass
 
@@ -190,7 +189,7 @@ class DownloadMovies(Screen):
     def titleSelected(self):
         current = self["list"].l.getCurrentSelection()
         if self.service is not None and current:
-            createEIT(self.service.getPath(), self.movie_title, movie=current[1])
+            writeEITex(self.service.getPath(), current[1])
         self.__hide()        
     
     def selectionChanged(self):
@@ -199,7 +198,7 @@ class DownloadMovies(Screen):
         if current:
             try:
                 movie = current[1]
-                self["description"].setText("%s - %s\n\n%s" % (str(movie.title.encode('utf-8', 'ignore')), str(movie.releasedate), movie.overview.encode('utf-8', 'ignore')))
+                self["description"].setText("%s - %s\n\n%s" % (str(movie.Title), str(movie.ReleaseDate), movie.Overview))
                 jpg_file = "/tmp/preview.jpg"
                 cover_url = movie.poster_url
                 if cover_url is not None:
@@ -260,9 +259,8 @@ class FetchingMovies(Thread):
                     self.current += 1
                     print service.toString()
                     name = ServiceCenter.getInstance().info(service).getName(service)
-                    print name
-                    self.movie_title = name.split(" - ")[0].strip()
-                    createEIT(service.getPath(), self.movie_title)
+                    self.movie_title = name
+                    eitFromTMDb(service.getPath(), self.movie_title)
                 except:
                     printStackTrace()
         except:

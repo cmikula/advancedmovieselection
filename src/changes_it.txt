@@ -406,3 +406,8 @@ versione: 4.2
 * fix: clear timer in movielist (oe2.5)
 * fix: audio selection with yellow key
 * new: tmdb parser
+
+versione: 5
+* fix: hotplug devices
+* new: new tmdb api
+* new: tmdb search for series

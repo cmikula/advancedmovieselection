@@ -26,12 +26,14 @@ that they, too, receive or can get the source code. And you must show them these
 
 """An interface to the thetvdb.com API"""
 
+import base64
+
 __author__ = "cmikula"
 __version__ = "1.0"
 
 config = {}
 config['locale'] = 'de'
-config['apikey'] = "7E9EC2ECC1B1EB3A" # apikey from JD
+config['apikey'] = base64.b64decode("N0U5RUMyRUNDMUIxRUIzQQ==") # apikey from JD
 config['urls'] = {}
 config['urls']['movie.search'] = "http://www.thetvdb.com/api/GetSeries.php?seriesname=%%s" % (config)
 config['urls']['movie.getInfo'] = "http://www.thetvdb.com/api/%(apikey)s/series/%%s/all/%(locale)s.xml" % (config)

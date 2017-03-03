@@ -61,6 +61,7 @@ def AMSChannelContextMenuInit():
     ChannelContextMenu.__init__ = AMSChannelContextMenu__init__
     ChannelContextMenu.AMSstartTMDb = startTMDb
     ChannelContextMenu.AMSstartTVDb = startTVDb
+    ChannelContextMenu.AMSstartTMDbSeries = startTMDbSeries
     ChannelContextMenu.AMScloseafterfinish = closeafterfinish
 
 def AMSChannelContextMenu__init__(self, session, csel):
@@ -87,6 +88,14 @@ def startTVDb(self):
     eventName, shortDescription = getInfo(self.session, service)
     if eventName:
         self.session.openWithCallback(self.AMScloseafterfinish, TheTVDBMain, None, eventName, shortDescription) 
+
+def startTMDbSeries(self):
+    from SearchTMDbSeries import TMDbSeriesMain
+    print "[AdvancedMovieSelection] tmdb series"
+    service = self.csel.servicelist.getCurrent()
+    if service:
+        self.session.openWithCallback(self.AMScloseafterfinish, TMDbSeriesMain, service) 
+
 
 def closeafterfinish(self, retval=None):
     self.close() 
@@ -126,6 +135,7 @@ class MovieDBContextMenu(Screen):
         menu = [ ]
 
         menu.append(ChoiceEntryComponent(text = (_("TMDb Info (AMS)"), self.openTMDb)))
+        menu.append(ChoiceEntryComponent(text = (_("TMDb Series (AMS)"), self.openTMDbSeries)))
         menu.append(ChoiceEntryComponent(text = (_("TVDb Info (AMS)"), self.openTVDb)))
         try:
             from Screens.EpgSelection import OutdatedEPGSelection
@@ -151,6 +161,12 @@ class MovieDBContextMenu(Screen):
         eventName = self.event.getEventName()
         shortDescription = self.event.getShortDescription()
         self.session.openWithCallback(self.closeafterfinish, TheTVDBMain, None, eventName, shortDescription) 
+
+    def openTMDbSeries(self):
+        from SearchTMDbSeries import TMDbSeriesMain
+        eventName = self.event.getEventName()
+        shortDescription = self.event.getShortDescription()
+        self.session.openWithCallback(self.closeafterfinish, TMDbSeriesMain, None, eventName, shortDescription) 
         
     def closeafterfinish(self, retval=None):
         self.close()
