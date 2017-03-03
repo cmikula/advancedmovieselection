@@ -23,7 +23,7 @@ import base64
 
 REQUESTS = False
 try:
-    import requests
+    import requests #@UnresolvedImport
     REQUESTS = True
 except:
     import json
