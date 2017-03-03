@@ -42,7 +42,7 @@
 		<widget name="config" position="10,62" size="900,450" enableWrapAround="1" scrollbarMode="showOnDemand"/>
 	</screen>
 	<!-- AdvancedKeyBoard and AdvancedTextInputHelpDialog will be shown together -->
-	<screen name="AdvancedKeyBoard" position="center,60" size="820,520" zPosition="1" title="Virtual KeyBoard">
+	<screen name="AdvancedKeyBoard" position="center,60" size="820,520" zPosition="10000" title="Virtual KeyBoard">
 		<widget name="header" position="20,30" size="700,48" font="Regular;24" transparent="1" />
 		<widget source="country" render="Pixmap" position="740,20" size="60,40" alphatest="on" borderWidth="2" borderColor="yellow">
 			<convert type="ValueToPixmap">LanguageCode</convert>
@@ -51,7 +51,7 @@
 		<widget name="text" position="30,125" size="760,50" font="Regular;42" transparent="1" noWrap="1" halign="right" />
 		<widget name="list" position="20,276" size="780,225" selectionDisabled="1" transparent="1" />
 	</screen>
- 	<screen name="AdvancedTextInputHelpDialog" position="340,585" zPosition="2" size="606,127" backgroundColor="#ffffff" flags="wfNoBorder">
+ 	<screen name="AdvancedTextInputHelpDialog" position="340,585" zPosition="10001" size="606,127" backgroundColor="#ffffff" flags="wfNoBorder">
 		<widget name="key1" position="2,2" size="200,30" font="Regular;20" halign="center" valign="center" />
 		<widget name="key2" position="203,2" size="200,30" font="Regular;20" halign="center" valign="center" />
 		<widget name="key3" position="404,2" size="200,30" font="Regular;20" halign="center" valign="center" />
@@ -152,7 +152,7 @@
 		<widget source="key_green" render="Label" position="270,0" size="260,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
 		<widget source="key_yellow" render="Label" position="530,0" size="260,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#a08500" transparent="1"  shadowColor="black" shadowOffset="-2,-2" />
 		<widget source="key_blue" render="Label" position="790,0" size="260,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#18188b" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
-		<widget name="list" position="10,62" size="1050,420" enableWrapAround="1" scrollbarMode="showOnDemand"/>
+		<widget name="list" position="10,62" size="1040,420" enableWrapAround="1" scrollbarMode="showOnDemand"/>
 		<eLabel position="10,55" size="1040,1" backgroundColor="grey" />
 		<eLabel position="10,490" size="1040,1" backgroundColor="grey" />
 		<widget source="info" render="Label" position="10,505" size="1040,25" halign="center" font="Regular;21"/>
