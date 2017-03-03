@@ -25,6 +25,93 @@ from MovieConfig import MovieConfig
 from ServiceProvider import eServiceReferenceHotplug
 from Timer import xTimer
 
+try:
+    from Components.Harddisk import BlockDevice, Util #@UnresolvedImport
+except:
+    from os import path
+    class Util:
+        @staticmethod
+        def readFile(filename):
+            try:
+                return file(filename).read().strip()
+            except:
+                print "Failed to read %s" % filename
+    
+        @staticmethod
+        def __capacityStringDiv(cap, divisor, unit):
+            if cap < divisor:
+                return ""
+            value = cap * 10 / divisor
+            remainder = value % 10
+            value /= 10
+            # Return at most one decimal place, but no leading zero.
+            if remainder == 0:
+                return "%d %s" % (value, unit)
+            return "%d.%d %s" % (value, remainder, unit)
+    
+        @staticmethod
+        def capacityString(cap):
+            return (Util.__capacityStringDiv(cap, 1000000000000, 'PB') or
+                Util.__capacityStringDiv(cap, 1000000000, 'TB') or
+                Util.__capacityStringDiv(cap, 1000000, 'GB') or
+                Util.__capacityStringDiv(cap, 1000, 'MB') or
+                Util.__capacityStringDiv(cap, 1, 'KB'))
+
+    
+    class BlockDevice:
+        def __init__(self, devname):
+            self._name = path.basename(devname)
+            self._blockPath = path.join('/sys/block', self._name)
+            self._classPath = path.realpath(path.join('/sys/class/block', self._name))
+            self._deviceNode = devname
+            try:
+                self._partition = int(Util.readFile(self.sysfsPath('partition')))
+            except:
+                self._partition = 0
+            try:
+                # Partitions don't have a 'removable' property. Ask their parent.
+                self._isRemovable = bool(int(Util.readFile(self.sysfsPath('removable', physdev=True))))
+            except IOError:
+                self._isRemovable = False
+    
+        def capacityString(self):
+            return Util.capacityString(self.size())
+    
+        def name(self):
+            return self._name
+    
+        def partition(self):
+            return self._partition
+    
+        def isRemovable(self):
+            return self._isRemovable
+    
+        def hasMedium(self):
+            if self._isRemovable:
+                try:
+                    open(self._deviceNode, 'rb').close()
+                except IOError, err:
+                    if err.errno == 159: # no medium present
+                        return False
+            return True
+    
+        def sectors(self):
+            try:
+                return int(Util.readFile(self.sysfsPath('size')))
+            except:
+                return 0
+    
+        def size(self):
+            # Assume 512-bytes sectors, even for 4K drives. Return KB.
+            return self.sectors() * 512 / 1000
+    
+        def sysfsPath(self, filename, physdev=False):
+            classPath = self._classPath
+            if physdev and self._partition:
+                classPath = path.dirname(classPath)
+            return path.join(classPath, filename)
+
+
 class Hotplug():
     NTFS_3G_DRIVER_DELAY = 3000
     def __init__(self):
@@ -61,7 +148,6 @@ class Hotplug():
         self.hotplugServices = []
         print "[update hutplug]"
         try:
-            from Components.Harddisk import Harddisk
             import commands
             movieConfig = MovieConfig()
             lines = commands.getoutput('mount | grep /dev/sd').split('\n')
@@ -69,6 +155,7 @@ class Hotplug():
             for mount in lines:
                 if len(mount) < 2:
                     continue
+                dev = mount.split(' on ')[0].strip()
                 m = mount.split(' type')[0].split(' on ')
                 m_dev, m_path = m[0], m[1]
                 label = os.path.split(m_path)[-1]
@@ -78,13 +165,24 @@ class Hotplug():
                 if os.path.normpath(m_path) == "/media/hdd" or label in ("DUMBO", "TIMOTHY"):
                     continue
                 if not movieConfig.isHiddenHotplug(label):
+                    blkdev = BlockDevice(dev)
                     if m_path[-1] != "/":
                         m_path += "/"
+                    
+                    #print blkdev.isRemovable()
+                    #print blkdev.name()
+                    #print blkdev.capacityString()
+                    if not blkdev.isRemovable():
+                        continue
+                    
                     service = eServiceReferenceHotplug(m_path)
-                    hdd = Harddisk(m_dev.replace("/dev/", "")[:-1])
+                    devname = m_dev.replace("/dev/", "")[:-1]
+                    filename = str.format("/sys/block/{0}/device/block/{0}/device/model", devname)
+                    #model = commands.getoutput("cat " + filename)
+                    model = Util.readFile(filename)
                     if label:
                         label += " - "
-                    service.setName(label + hdd.model() + " - " + hdd.capacity())
+                    service.setName(label + model + " - " + blkdev.capacityString())
                     self.hotplugServices.append(service)
             
             for callback in self.notifier:
