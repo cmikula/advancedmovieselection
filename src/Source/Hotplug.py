@@ -160,8 +160,10 @@ class Hotplug():
                 m_dev, m_path = m[0], m[1]
                 label = os.path.split(m_path)[-1]
                 blkid = commands.getoutput('blkid ' + m_dev).split("\"")
-                if len(blkid) > 2 and blkid[1]:
-                    label = blkid[1]
+                #if len(blkid) > 2 and blkid[1]:
+                #    label = blkid[1]
+                if "LABEL" in blkid:
+                    label = blkid.split("LABEL=")[1].split(" ")[0].strip()
                 if os.path.normpath(m_path) == "/media/hdd" or label in ("DUMBO", "TIMOTHY"):
                     continue
                 if not movieConfig.isHiddenHotplug(label):
