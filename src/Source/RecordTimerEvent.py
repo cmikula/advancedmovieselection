@@ -73,11 +73,11 @@ class CoverLoader():
 
     def downloadMovieInfo(self, name, filename=None):
         try:
-            from EITTools import createEIT
+            from EITTools import eitFromTMDb
             print "[AdvancedMovieSelection] RecordTimerEvent, loading info from tmdb:", name
             if not filename.endswith(".ts"):
                 filename += ".ts"
-            createEIT(filename, name)
+            eitFromTMDb(filename, name)
         except:
             printStackTrace()
 

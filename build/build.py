@@ -445,7 +445,7 @@ def applyUserSettings():
         if options.package_type == 'deb':
             PACKAGE_TYPE = options.package_type
             global PACKAGE_ARCHITECTURE
-            PACKAGE_ARCHITECTURE = "mipsel"
+            PACKAGE_ARCHITECTURE = "all"
             print "set package type to", PACKAGE_TYPE
 
 def checkingBuildOptions():

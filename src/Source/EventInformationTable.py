@@ -437,7 +437,7 @@ INV_CHARS = [(u"é", "e"), (u"Č", "C"), (u"č", "c"), (u"Ć", "c"), (u"ć", "c
              (u"Ž", "Z"), (u"ž", "z"), (u"„", "\""), (u"“", "\""), (u"”", "\""), (u"’", "'"), (u"‘", "'"), (u"«", "<"), (u"»", ">")]
  
 def convertToUnicode(text):
-    text = unicode(text)
+    text = unicode(text.decode('utf-8'))
     for ic in INV_CHARS:
         text = text.replace(ic[0], ic[1])
     return unicode(text)
@@ -447,6 +447,7 @@ def writeEIT(file_name, eit_file, name, overview, genre, extended_info, released
     try:
         data = []
         name = convertToUnicode(name)
+        genre = convertToUnicode(genre)
         overview = convertToUnicode(overview)
         extended_info = convertToUnicode(extended_info)
         ShortEventDescriptor.encode(data, name, genre, language_code)

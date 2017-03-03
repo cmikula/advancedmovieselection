@@ -34,6 +34,7 @@ Digital Video Broadcasting (DVB) Specification for Service Information (SI) in D
 import os, time
 from EventInformationTable import EventInformationTable, writeEIT, getLanguageCode, printStackTrace
 from MovieDB import tmdb, tvdb, downloadCover
+from MovieDB.MovieDBI import MovieDBI
 
 
 def appendShortDescriptionToMeta(file_name, short_descr):
@@ -59,18 +60,21 @@ def appendShortDescriptionToMeta(file_name, short_descr):
 
 def setTmdbCertificationtion(movie, file_name):
     try:
-        cert = tmdb.decodeCertification(movie.releases)
+        cert = movie.Certification
         if cert:
             from AccessRestriction import accessRestriction
             accessRestriction.setToService(file_name, cert)
     except Exception, e:
         print e
 
+class OverwriteSettings:
+    def __init__(self):
+        self.eit = False
+        self.cover = False
+        self.backdrop = False
 
-def createEIT(file_name, title, movie=None, overwrite_eit=False, overwrite_cover=False, overwrite_backdrop=False):
+def writeEITex(file_name, movie=MovieDBI(), overwrite=OverwriteSettings()):
     try:
-        if title:
-            title = title.replace("-", " ").replace("#", "%23")
         # DVD directory
         if not os.path.isdir(file_name):
             f_name = os.path.splitext(file_name)[0]
@@ -81,50 +85,32 @@ def createEIT(file_name, title, movie=None, overwrite_eit=False, overwrite_cover
         backdrop_file = f_name + ".backdrop.jpg"
         
         # check and cancel if all exists
-        if (not overwrite_eit and os.path.exists(eit_file)) and \
-        (not overwrite_cover and os.path.exists(jpg_file)) and \
-        (not overwrite_backdrop and os.path.exists(backdrop_file)):
-            print "Cancel all data exists:", str(title)
+        if (not overwrite.eit and os.path.exists(eit_file)) and \
+        (not overwrite.cover and os.path.exists(jpg_file)) and \
+        (not overwrite.backdrop and os.path.exists(backdrop_file)):
+            print "Cancel all data exists:", str(file_name)
             return
-
-        print "Fetching info for movie: " + str(title)
         
-        if movie == None:
-            tmdb3 = tmdb.init_tmdb3()
-            results = tmdb3.searchMovie(title)
-            if len(results) == 0:
-                print "No info found for: " + str(title)
-                return False
-            searchResult = None
-            # locate fully agreement in list
-            for result in results:
-                if result.title == title:
-                    searchResult = result
-                    break
-            # if not identify one result select first item
-            if not searchResult:
-                searchResult = results[0]
-            movie = searchResult
-
-        name = movie.title
-        overview = movie.overview
-        runtime = movie.runtime
-        genre = []
-        for x in movie.genres:
-            genre.append(x.name)
-        genre = " ".join(genre)
+        movie.update()
+        name = movie.Title
+        overview = movie.Overview
+        runtime = movie.Runtime
+        genre = " ".join(movie.Genres)
+        directors = movie.Directors
+        writers = movie.Writers
+        producers = movie.Producers
+        actors = movie.Cast
+        released = movie.ReleaseDate
+        countries = movie.CountriesShort
 
         # update certificate and meta genre
         appendShortDescriptionToMeta(file_name, genre)
         setTmdbCertificationtion(movie, file_name)
         
-        if name:
-            print "Movie title: " + name.encode("utf-8", "ignore")
+        downloadCover(movie.poster_url, jpg_file, overwrite.cover)
+        downloadCover(movie.backdrop_url, backdrop_file, overwrite.backdrop)
 
-        downloadCover(movie.poster_url, jpg_file, overwrite_cover)
-        downloadCover(movie.backdrop_url, backdrop_file, overwrite_backdrop)
-
-        if os.path.exists(eit_file) and overwrite_eit == False:
+        if os.path.exists(eit_file) and overwrite.eit == False:
             print "File '%s' already exists, eit creation skipped!" % (eit_file)
             return True 
 
@@ -137,56 +123,28 @@ def createEIT(file_name, title, movie=None, overwrite_eit=False, overwrite_cover
             print "tmdb search results no valid movie overview"
             return False
 
-        directors = [x.name for x in movie.crew if x.job == 'Director']
-        actors = [x.name for x in movie.cast]
-        # print out extended movie informations
-        try:
-            #original_name = movie['original_name']
-            #print "Original name:"
-            #print " " * 4, str(original_name)
-            
-            released = movie.releasedate
-            print "Released:"
-            print " " * 4, str(released)
-    
-            for cast in movie.cast:
-                print cast.name
-        except Exception, e:
-            print e
-
         ex_info = []
+        print countries
+        country = ", ".join(countries)
+        print country
+        country = country.replace("US", "USA").replace("DE", "GER")
         if released:
-            try:
-                try:
-                    print movie.countries
-                    # countries = [c.name for c in movie.countries]
-                    countries = [c.code for c in movie.countries]
-                    country = ", ".join(countries) + " "
-                    country = country.replace("US", "USA").replace("DE", "GER")
-                except:
-                    country = ""
-                year = str(released.year)
-                ex_info.append(country + year) 
-            except Exception, e:
-                print e
-        else:
-            try:
-                countries = [c.code for c in movie.countries]
-                country = ", ".join(countries) + " "
-                country = country.replace("US", "USA").replace("DE", "GER")
-                ex_info.append(country) 
-            except:
-                pass
+            country += " " + str(released.year)
+            country = country.lstrip()
+        print country
+        ex_info.append(country) 
+        print ex_info
 
         if runtime:
-            try:
-                rt = str(int(runtime))
-                ex_info.append(rt + " Min") 
-            except Exception, e:
-                print e
+            ex_info.append(str.format("{0} Min", runtime)) 
         
         if len(directors) > 0:
             ex_info.append("Von " + ", ".join(directors))
+        elif len(writers) > 0:
+            ex_info.append("Von " + ", ".join(writers))
+        elif len(producers) > 0:
+            ex_info.append("Von " + ", ".join(producers))
+        
         if len(actors) > 0:
             ex_info.append("Mit " + ", ".join(actors))
         extended_info = ". ".join(ex_info)
@@ -195,11 +153,24 @@ def createEIT(file_name, title, movie=None, overwrite_eit=False, overwrite_cover
         print "Extended info:"
         print " " * 4, extended_info
         
-        language_code = getLanguageCode(tmdb)
+        language_code = "DEU"
+        if movie.language == "ru":
+            language_code = "rus"
+
         return writeEIT(file_name, eit_file, name, overview, genre, extended_info, str(released), runtime, language_code)
     except:
         printStackTrace()
         return False
+
+def eitFromTMDb(file_name, title, overwrite=OverwriteSettings()):
+    try:
+        results = tmdb.searchMovie(title)
+        if len(results) > 0:
+            movie = results[0]
+            writeEITex(file_name, movie, overwrite)
+    except:
+        printStackTrace()
+
         
 def createEITtvdb(file_name, title, serie=None, episode=None, overwrite_eit=False, overwrite_cover=False, overwrite_backdrop=False, cover_type='poster', backdrop_type='fanart'):
     try:
@@ -426,8 +397,8 @@ def compareResult(org, ref):
 
 def testEIT(language_code, TEST_STRING):
     print TEST_STRING
-    file_name = "./tmp/eit_test.mkv"
-    eit_file = "./tmp/eit_test.eit"
+    file_name = "/tmp/eit_test.mkv"
+    eit_file = "/tmp/eit_test.eit"
     name = TEST_STRING
     overview = TEST_STRING
     genre = TEST_STRING
@@ -457,22 +428,28 @@ def testMultiEit():
     testEIT("rus", TEST_RUS2)
 
 if __name__ == '__main__':
-    path = "./tmp/"
-    if not os.path.exists(path):
-        os.makedirs(path) 
-
     testMultiEit()
-    tmdb.setLocale('de')
-    createEIT("./tmp/Fight Club.ts", "Fight Club", "cover", overwrite_eit=True)
-    tmdb.setLocale('ru')
-    createEIT("./tmp/Blitz_ru.ts", "Черная Молния", "cover", overwrite_eit=True)
-    tmdb.setLocale('de')
-    printEIT("./tmp/Blitz_ru.eit")
-    printEIT("./tmp/russia.eit")
-    printEIT("./tmp/Shutter Island ru Original.eit")
-    printEIT("./tmp/Shutter Island ru tmdb.eit")
 
-    printEIT("./tmp/22 Bullets.eit")
+    eitFromTMDb("/tmp/2012_test.ts", "2012 (2009)")
+    results = tmdb.searchMovie("2012", "2009")
+    movie = results[0].update()
+    overwrite = OverwriteSettings()
+    overwrite.eit = True
+    overwrite.cover = True
+    overwrite.backdrop = True
+    writeEITex("/tmp/2012_test.ts", movie, overwrite)
+    
+    tmdb.setLocale('de')
+    eitFromTMDb("/tmp/Fight Club.ts", "Fight Club", overwrite)
+    tmdb.setLocale('ru')
+    eitFromTMDb("/tmp/Blitz_ru.ts", "Черная Молния", overwrite)
+    tmdb.setLocale('de')
+    printEIT("/tmp/Blitz_ru.eit")
+    printEIT("/tmp/russia.eit")
+    printEIT("/tmp/Shutter Island ru Original.eit")
+    printEIT("/tmp/Shutter Island ru tmdb.eit")
+
+    printEIT("/tmp/22 Bullets.eit")
 
     results = tvdb.search("Law & Order")
     #results = search("The Mentalist")
@@ -481,13 +458,14 @@ if __name__ == '__main__':
         serie = movie['Serie'][0]
         episode = tvdb.searchEpisode(movie['Episode'], "Die Wunderdoktorin")
         if episode:
-            createEITtvdb("./tmp/Law & Order.ts", None, overwrite_eit=True, serie=serie, episode=episode)
-
+            createEITtvdb("/tmp/Law & Order.ts", None, overwrite_eit=True, serie=serie, episode=episode)
+    
+    path = "/tmp/"
     supported = ["ts", "iso", "mkv"]
     dirList = os.listdir(path)
-    printEIT("./tmp/22 Bullets.eit")
-    createEIT("./tmp/22 Bullets.ts", "22 Bullets", "cover", overwrite_eit=True)
-    createEITtvdb("./tmp/King of Queens.ts", "King of Queens", overwrite_eit=True)
+    printEIT("/tmp/22 Bullets.eit")
+    eitFromTMDb("/tmp/22 Bullets.ts", "22 Bullets", overwrite)
+    createEITtvdb("/tmp/King of Queens.ts", "King of Queens", overwrite_eit=True)
     if False:
         for file_name in dirList:
             file_name = path + file_name
@@ -516,5 +494,5 @@ if __name__ == '__main__':
             if ext == "iso":
                 serviceref = eServiceReferenceDvd(serviceref)
             info = ServiceInfo(serviceref)
-            createEIT(serviceref.getPath(), info.getName(), "cover", overwrite_eit=False)
+            eitFromTMDb(serviceref.getPath(), info.getName(), overwrite)
     

@@ -66,6 +66,7 @@ def getQButtons():
 
     l.append(("Show Timer", _("Show Timer")))
     l.append(("Show up to VSR-X", _("Show up to VSR-X")))
+    l.append(("TMDb Series & D/L", _("TMDb Series & D/L")))
     if pluginPresent.YTTrailer:
         l.append(("Trailer search", _("Trailer search")))
     return l
@@ -402,6 +403,11 @@ class QuickButton:
                     if True or not service.flags & eServiceReference.mustDescent:
                         from SearchTVDb import TheTVDBMain
                         self.session.open(TheTVDBMain, service)
+                elif pname == "TMDb Series & D/L":
+                    # TODO: search?
+                    if True or not service.flags & eServiceReference.mustDescent:
+                        from SearchTMDbSeries import TMDbSeriesMain
+                        self.session.open(TMDbSeriesMain, service)
                 elif pname == "TMDb Info & D/L":
                     # TODO: search?
                     if True or not service.flags & eServiceReference.mustDescent:

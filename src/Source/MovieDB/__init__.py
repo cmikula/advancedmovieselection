@@ -4,11 +4,14 @@ import os, urllib
 #@clockit
 def downloadCover(url, filename, overwrite=False):
     try:
+        if not url:
+            return False
         if (not os.path.exists(filename) or overwrite) and url:
-            print "Try loading: ", str(url), "->", str(filename)
+            #print "Try loading: ", str(url), "->", str(filename)
             urllib.urlretrieve(url, filename)
         else:
-            print "Download skipped:", str(url), "->", str(filename)
+            pass
+            #print "Download skipped:", str(url), "->", str(filename)
     except:
         import sys, traceback
         print '-' * 50

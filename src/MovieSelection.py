@@ -196,6 +196,7 @@ class MovieContextMenu(Screen):
             menu.append((_("Unmount") + " " + service.getName(), boundFunction(self.unmount)))
         if config.AdvancedMovieSelection.showtmdb.value:
             menu.append((_("TMDb Info & D/L"), boundFunction(self.imdbsearch)))
+            menu.append((_("TMDb Series & D/L"), boundFunction(self.tmdbseries)))
         if config.AdvancedMovieSelection.showthetvdb.value:
             menu.append((_("TheTVDB Info & D/L"), boundFunction(self.thetvdbsearch)))
         if config.AdvancedMovieSelection.showdelete.value and not self.service.flags & eServiceReference.mustDescent:
@@ -290,9 +291,9 @@ class MovieContextMenu(Screen):
         if config.AdvancedMovieSelection.showcolorkey.value:        
             menu.append((_("Color key settings"), self.setupbutton))     
         if config.AdvancedMovieSelection.showcoveroptions2.value:
-            menu.append((_("Download and save movie info/cover for all movies"), boundFunction(self.downloadMovieInfoAll)))
+            menu.append((_("TMDb download for all movies"), boundFunction(self.downloadMovieInfoAll)))
         if config.AdvancedMovieSelection.showcoveroptions.value and not self.service.flags & eServiceReference.mustDescent:
-            menu.append((_("Download and save movie info/cover"), self.downloadMovieInfo))              
+            menu.append((_("TMDb movie info"), self.downloadMovieInfo))              
         if config.AdvancedMovieSelection.show_cover_del.value:
             menu.append((_("Delete movie images"), boundFunction(self.deleteCover)))
         if config.AdvancedMovieSelection.show_info_del.value:
@@ -407,6 +408,10 @@ class MovieContextMenu(Screen):
     def imdbsearch(self):
         searchTitle = ServiceCenter.getInstance().info(self.service).getName(self.service)
         self.session.openWithCallback(self.closeafterfinish, TMDbMainsave, searchTitle, service=self.service)
+
+    def tmdbseries(self):
+        from SearchTMDbSeries import TMDbSeriesMain
+        self.session.openWithCallback(self.closeafterfinish, TMDbSeriesMain, service=self.service)
 
     def menusetup(self):
         self.session.openWithCallback(self.cancelClick, AdvancedMovieSelectionSetup, self.csel)
