@@ -409,5 +409,6 @@ versione: 4.2
 
 versione: 5
 * fix: hotplug devices
+* new: additional quick action
 * new: new tmdb api
 * new: tmdb search for series

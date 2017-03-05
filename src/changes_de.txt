@@ -410,5 +410,6 @@ version: 4.2
 
 version: 5
 * fix: ansicht von usb geräten
+* neu: zusätzliche schnellauswahl
 * neu: neue tmdb api
 * neu: tmdb suche für serien
