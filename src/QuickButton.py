@@ -46,7 +46,7 @@ def getQButtons():
     
     l.append(("Show/Hide folders", _("Show/Hide folders")))
     l.append(("Bookmark(s) on/off", _("Bookmark(s) on/off")))
-    l.append(("Toggle seen", _("Toggle seen")))
+    l.append(("Show up to VSR-X", _("Show up to VSR-X")))
     l.append(("Tag Editor", _("Tag Editor")))
 
     l.append(("Update library", _("Update library")))
@@ -56,17 +56,18 @@ def getQButtons():
 
     l.append(("TheTVDB Info & D/L", _("TheTVDB Info & D/L")))
     l.append(("TMDb Info & D/L", _("TMDb Info & D/L")))
-    l.append(("Mark as seen", _("Mark as seen")))
-    l.append(("Mark as unseen", _("Mark as unseen")))
+    l.append(("TMDb Series & D/L", _("TMDb Series & D/L")))
+    l.append(("Show Timer", _("Show Timer")))
 
     l.append(("Delete", _("Delete")))
     l.append(("Wastebasket", _("Wastebasket")))
     l.append(("Move-Copy", _("Move-Copy")))
     l.append(("Rename", _("Rename")))
 
-    l.append(("Show Timer", _("Show Timer")))
-    l.append(("Show up to VSR-X", _("Show up to VSR-X")))
-    l.append(("TMDb Series & D/L", _("TMDb Series & D/L")))
+    l.append(("Mark as seen", _("Mark as seen")))
+    l.append(("Mark as unseen", _("Mark as unseen")))
+    l.append(("Toggle seen", _("Toggle seen")))
+    l.append(("Action choice", _("Action choice")))
     if pluginPresent.YTTrailer:
         l.append(("Trailer search", _("Trailer search")))
     return l
@@ -296,6 +297,9 @@ class QuickButton:
         self["ColorActions"].execEnd()
         self["ColorActions"].execBegin()
         errorText = None
+        if pname == "Action choice":
+            self.openQuickActionChoice()
+            return
         if pname and pname != "Nothing":
             # all functions with no service is needed
             if pname == "Wastebasket":
@@ -475,6 +479,19 @@ class QuickButton:
             errorText = _("No plugin assigned!")
         if errorText:
             self.session.open(MessageBox, errorText, MessageBox.TYPE_INFO)
+
+    def openQuickActionChoice(self):
+        l = []
+        for q in getQButtons():
+            if q[0] == "Action choice":
+                continue
+            l.append((q[1], q[0]))
+        self.session.openWithCallback(self.execQuickActionCallback, ChoiceBox, title=_("Select action:"), list=l)
+
+    def execQuickActionCallback(self, answer):
+        if answer:
+            action = answer[1]
+            self.startPlugin(action, None)
 
     def openAccessChoice(self):
         vsr = []

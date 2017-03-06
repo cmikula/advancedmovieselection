@@ -38,7 +38,6 @@ from Components.config import config
 from Components.ProgressBar import ProgressBar
 from os import environ
 from Source.PicLoader import PicLoader
-from Screens.ChoiceBox import ChoiceBox
 from Source.Globals import pluginPresent, SkinTools, getIconPath
 from Source.MovieDB import downloadCover
 from Source.MovieDB import tmdb
@@ -90,26 +89,32 @@ class InfoLoadChoice():
         self.__timer.addCallback(self.__timerCallback)
     
     def checkExistence(self, file_name):
-        l = []
         present = InfoChecker.check(file_name)
         default = (False, False, False)
         if False: # TODO: implement settings for disable choice here 
             self.startTimer(default)
             return
-        l.append((_("Only those, which are not available!"), default))
-        if present & InfoChecker.ALL == InfoChecker.ALL:
-            l.append((_("Overwrite all (description & cover & backdrop)"), (True, True, True)))
-        if present & InfoChecker.INFO:
-            l.append((_("Overwrite movie description"), (True, False, False)))
-        if present & InfoChecker.COVER:
-            l.append((_("Overwrite movie cover"), (False, True, False)))
-        if present & InfoChecker.BACKDROP:
-            l.append((_("Overwrite movie backdrop"), (False, False, True)))
-            
+        #l.append((_("Only those, which are not available!"), default))
+        #if present & InfoChecker.ALL == InfoChecker.ALL:
+        #    l.append((_("Overwrite all (description & cover & backdrop)"), (True, True, True)))
+        #if present & InfoChecker.INFO:
+        #    l.append((_("Overwrite movie description"), (True, False, False)))
+        #if present & InfoChecker.COVER:
+        #    l.append((_("Overwrite movie cover"), (False, True, False)))
+        #if present & InfoChecker.BACKDROP:
+        #    l.append((_("Overwrite movie backdrop"), (False, False, True)))
+
+        l = []
+        l.append((_("Overwrite movie description"), not bool(present & InfoChecker.INFO)))
+        l.append((_("Overwrite movie cover"), True))
+        l.append((_("Overwrite movie backdrop"), True))
         if present & InfoChecker.ALL != 0:
-            self.session.openWithCallback(self.startTimer, ChoiceBox, title=_("Data already exists! Should anything be updated?"), list=l)
+            # from Screens.ChoiceBox import ChoiceBox
+            # self.session.openWithCallback(self.startTimer, ChoiceBox, title=_("Data already exists! Should anything be updated?"), list=l)
+            from SelectionListScreen import SelectionListScreen
+            self.session.openWithCallback(self.startTimer, SelectionListScreen, title=_("Data already exists! Should anything be updated?"), list=l)
         else:
-            self.__callback(("Default", default))
+            self.__callback(default)
 
     def startTimer(self, answer):
         print "InfoLoadChoice", answer
@@ -550,7 +555,7 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
         
         from Source.EITTools import writeEITex, OverwriteSettings
         overwrite = OverwriteSettings()
-        overwrite.eit, overwrite.cover, overwrite.backdrop = answer and answer[1] or (False, False, False)
+        overwrite.eit, overwrite.cover, overwrite.backdrop = answer and answer or (False, False, False)
         current_movie = self["list"].getCurrent()[0]
         title = current_movie.Title
         if self.service is not None:
