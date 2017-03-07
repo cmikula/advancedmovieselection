@@ -157,6 +157,8 @@ class MovieListSkinParam(SkinParam):
             self.list3_Font2 = parseFont(value, self.scale)
         elif attrib == "list3_ListHeight":
             self.list3_ListHeight = int(value)
+        elif attrib == "list3_TextPos":
+            self.list3_TextPos = int(value)
         elif attrib == "list3Pos":
             v = value.split(',')
             self.list3Pos1 = int(v[0])
