@@ -411,7 +411,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                     else:
                         filename = serviceref.getPath() + "folder.jpg"
                     if os.path.exists(filename):
-                        offset = self.list3_ListHeight
+                        offset = self.list3_TextPos
                         png = self.picloader.load(filename)
                         res.append((TYPE_PIXMAP, 0, 2, self.list3_ListHeight - 2, self.list3_ListHeight - 2, png))
                     else:
@@ -419,7 +419,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                         dir_name = os.path.dirname(serviceref.getPath())
                         filename = os.path.join(dir_name, os.path.basename(dir_name) + ".jpg")
                         if os.path.exists(filename):
-                            offset = self.list3_ListHeight
+                            offset = self.list3_TextPos
                             png = self.picloader.load(filename)
                             res.append((TYPE_PIXMAP, 0, 2, self.list3_ListHeight - 2, self.list3_ListHeight - 2, png))
                         else:
@@ -592,7 +592,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                     if png1 is None:
                         png1 = self.picloader.load(self.NO_COVER_PNG_FILE)
                     res.append((TYPE_PIXMAP, 0, 2, self.list3_ListHeight - 2, self.list3_ListHeight - 2, png1))
-                    offset = self.list3_ListHeight
+                    offset = self.list3_TextPos
                 new_offset = 0
                 # new icon
                 if config.AdvancedMovieSelection.shownew.value and not hasLastPosition(serviceref):

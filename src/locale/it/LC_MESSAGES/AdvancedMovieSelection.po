@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-01 18:11+0100\n"
-"PO-Revision-Date: 2017-03-01 18:14+0100\n"
+"POT-Creation-Date: 2017-03-07 20:21+0100\n"
+"PO-Revision-Date: 2017-03-07 20:33+0100\n"
 "Last-Translator: cmikula\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "Language: it_IT\n"
@@ -66,7 +66,7 @@ msgid "Info/Cover save"
 msgstr "Salvare Info/Copertina"
 
 #: ../../../SearchTVDb.py:149
-#: ../../../QuickButton.py:71
+#: ../../../QuickButton.py:72
 msgid "Trailer search"
 msgstr "Cerca Trailer"
 
@@ -864,8 +864,8 @@ msgid "Bookmark(s) on/off"
 msgstr "Segnalibri on/off"
 
 #: ../../../QuickButton.py:49
-msgid "Toggle seen"
-msgstr "Scambiare Visto/Non visto"
+msgid "Show up to VSR-X"
+msgstr "Mostrare film fino a VSR-X"
 
 #: ../../../QuickButton.py:50
 msgid "Tag Editor"
@@ -892,17 +892,12 @@ msgid "TMDb Info & D/L"
 msgstr "TMDb Info & D/L"
 
 #: ../../../QuickButton.py:59
-#: ../../../QuickButton.py:96
-#: ../../../QuickButton.py:275
-#: ../../../QuickButton.py:433
-msgid "Mark as seen"
-msgstr "Segnare • Visto"
+msgid "TMDb Series & D/L"
+msgstr "TMDb Serie & D/L"
 
 #: ../../../QuickButton.py:60
-#: ../../../QuickButton.py:273
-#: ../../../QuickButton.py:436
-msgid "Mark as unseen"
-msgstr "Segnare • Non visto"
+msgid "Show Timer"
+msgstr "Mostrare elenco Timer"
 
 #: ../../../QuickButton.py:62
 msgid "Delete"
@@ -921,167 +916,180 @@ msgid "Rename"
 msgstr "Rinominare"
 
 #: ../../../QuickButton.py:67
-msgid "Show Timer"
-msgstr "Mostrare elenco Timer"
+#: ../../../QuickButton.py:97
+#: ../../../QuickButton.py:276
+#: ../../../QuickButton.py:437
+msgid "Mark as seen"
+msgstr "Segnare • Visto"
 
 #: ../../../QuickButton.py:68
-msgid "Show up to VSR-X"
-msgstr "Mostrare film fino a VSR-X"
+#: ../../../QuickButton.py:274
+#: ../../../QuickButton.py:440
+msgid "Mark as unseen"
+msgstr "Segnare • Non visto"
 
 #: ../../../QuickButton.py:69
-msgid "TMDb Series & D/L"
-msgstr "TMDb Serie & D/L"
+msgid "Toggle seen"
+msgstr "Scambiare Visto/Non visto"
 
-#: ../../../QuickButton.py:94
+#: ../../../QuickButton.py:70
+msgid "Action choice"
+msgstr "Scelta azione"
+
+#: ../../../QuickButton.py:95
 #, python-format
 msgid "Show up to VSR-%d"
 msgstr "Mostrare fino al VSR-%d"
 
-#: ../../../QuickButton.py:99
+#: ../../../QuickButton.py:100
 msgid "Show folders"
 msgstr "Mostrare cartelle"
 
-#: ../../../QuickButton.py:101
+#: ../../../QuickButton.py:102
 msgid "Hide folders"
 msgstr "Cancella cartelle"
 
-#: ../../../QuickButton.py:104
+#: ../../../QuickButton.py:105
 msgid "Show seen movies"
 msgstr "Mostrare film visti"
 
-#: ../../../QuickButton.py:106
+#: ../../../QuickButton.py:107
 msgid "Hide seen movies"
 msgstr "Nascondere film visti"
 
-#: ../../../QuickButton.py:109
+#: ../../../QuickButton.py:110
 msgid "Show bookmarks"
 msgstr "Mostrare segnalibri"
 
-#: ../../../QuickButton.py:111
+#: ../../../QuickButton.py:112
 msgid "Hide bookmarks"
 msgstr "Nascondi segnalibri"
 
-#: ../../../QuickButton.py:114
+#: ../../../QuickButton.py:115
 msgid "Show library"
 msgstr "Mostrare libreria"
 
-#: ../../../QuickButton.py:116
+#: ../../../QuickButton.py:117
 msgid "Hide library"
 msgstr "Nascondere libreria"
 
-#: ../../../QuickButton.py:119
+#: ../../../QuickButton.py:120
 msgid "Show marker"
 msgstr "Mostrare indicatore"
 
-#: ../../../QuickButton.py:121
+#: ../../../QuickButton.py:122
 msgid "Hide marker"
 msgstr "Nascondi indicatore"
 
-#: ../../../QuickButton.py:124
+#: ../../../QuickButton.py:125
 msgid "To movielist"
 msgstr "All'elenco dei film"
 
-#: ../../../QuickButton.py:126
+#: ../../../QuickButton.py:127
 msgid "To library"
 msgstr "Alla libreria"
 
-#: ../../../QuickButton.py:221
+#: ../../../QuickButton.py:222
 msgid "Sort alphabetically"
 msgstr "Ordina alfabeticam."
 
-#: ../../../QuickButton.py:223
+#: ../../../QuickButton.py:224
 msgid "Sort by Description"
 msgstr "Ordina per descriz."
 
-#: ../../../QuickButton.py:225
+#: ../../../QuickButton.py:226
 msgid "Sort by Date (9->1)"
 msgstr "Ordina per data 9··>1"
 
-#: ../../../QuickButton.py:227
+#: ../../../QuickButton.py:228
 msgid "Sort by Date (1->9)"
 msgstr "Ordina per data 1··>9"
 
-#: ../../../QuickButton.py:228
+#: ../../../QuickButton.py:229
 msgid "Unknown"
 msgstr "Sconosciuto"
 
-#: ../../../QuickButton.py:382
+#: ../../../QuickButton.py:386
 msgid "Set tag here not possible, please select a movie for!"
 msgstr "Non si può impostare un tag, selezionare un film per farlo!"
 
-#: ../../../QuickButton.py:388
+#: ../../../QuickButton.py:392
 msgid "Trailer search here not possible, please select a movie!"
 msgstr "Non si può cercare un trailer, seleziona un film!"
 
-#: ../../../QuickButton.py:394
+#: ../../../QuickButton.py:398
 msgid "Move/Copy from complete directory/symlink not possible, please select a single movie!"
 msgstr "Non si può Spostare/Copiare l'intera cartella/link, selezionare un singolo film!"
 
-#: ../../../QuickButton.py:400
+#: ../../../QuickButton.py:404
 msgid "Rename here not possible, please select a movie!"
 msgstr "Non è possibile rinominare, selezionare un film!"
 
-#: ../../../QuickButton.py:427
+#: ../../../QuickButton.py:431
 msgid "TMDb search here not possible, please select a movie!"
 msgstr "Non si può eseguire una ricerca su TMDb, selezionare un film!"
 
-#: ../../../QuickButton.py:449
+#: ../../../QuickButton.py:453
 msgid "Show up to"
 msgstr "Mostrare fino a"
 
-#: ../../../QuickButton.py:449
+#: ../../../QuickButton.py:453
 msgid "VSR"
 msgstr "VSR"
 
-#: ../../../QuickButton.py:455
+#: ../../../QuickButton.py:459
 msgid "This may not be marked as seen!"
 msgstr "Non può essere segnato come visto!"
 
-#: ../../../QuickButton.py:461
+#: ../../../QuickButton.py:465
 msgid "This may not be marked as unseen!"
 msgstr "Non può essere segnato come non visto!"
 
-#: ../../../QuickButton.py:471
+#: ../../../QuickButton.py:475
 msgid "Unknown error!"
 msgstr "Errore sconosciuto!"
 
-#: ../../../QuickButton.py:473
+#: ../../../QuickButton.py:477
 msgid "Plugin not found!"
 msgstr "Plugin non trovato!"
 
-#: ../../../QuickButton.py:475
+#: ../../../QuickButton.py:479
 msgid "No plugin assigned!"
 msgstr "Nessun plugin assegnato!"
 
-#: ../../../QuickButton.py:481
+#: ../../../QuickButton.py:489
+msgid "Select action:"
+msgstr "Selezione funzione:"
+
+#: ../../../QuickButton.py:498
 msgid "Clear"
 msgstr "Cancellare"
 
-#: ../../../QuickButton.py:482
+#: ../../../QuickButton.py:499
 msgid "VSR-0 (General Audience)"
 msgstr "VSR-0 (Per Tutti)"
 
-#: ../../../QuickButton.py:483
+#: ../../../QuickButton.py:500
 msgid "VSR-6 (Parental Guidance Suggested)"
 msgstr "VSR-6 (Consigliata Presenza Genitori)"
 
-#: ../../../QuickButton.py:484
+#: ../../../QuickButton.py:501
 msgid "VSR-12 (Parents Strongly Cautioned)"
 msgstr "VSR-12 (Consigliata Presenza Genitori)"
 
-#: ../../../QuickButton.py:485
+#: ../../../QuickButton.py:502
 msgid "VSR-16 (Restricted)"
 msgstr "VSR-16 (Visone Riservata)"
 
-#: ../../../QuickButton.py:486
+#: ../../../QuickButton.py:503
 msgid "VSR-18 (No One 17 And Under Admitted)"
 msgstr "VSR-18 (Visione per Adulti)"
 
-#: ../../../QuickButton.py:487
+#: ../../../QuickButton.py:504
 msgid "Please select the VSR here:"
 msgstr "Selezionare la VSR qui::"
 
-#: ../../../QuickButton.py:548
+#: ../../../QuickButton.py:565
 msgid "Select movie by description:"
 msgstr "Selezionare film per descrizione:"
 
@@ -1133,7 +1141,7 @@ msgstr "Impostazioni AMS"
 
 #: ../../../AdvancedMovieSelectionSetup.py:307
 msgid "GENERAL SETTINGS"
-msgstr ""
+msgstr "IMPOSTAZIONI GENERALI"
 
 #: ../../../AdvancedMovieSelectionSetup.py:308
 msgid "Disable Advanced Movie Selection:"
@@ -1168,12 +1176,10 @@ msgid "Always show selection in the first position in the movie list."
 msgstr "Se questa opzione è selezionata, l'indicatore di posizione sarà sempre al primo posto nell'elenco film."
 
 #: ../../../AdvancedMovieSelectionSetup.py:312
-#, fuzzy
 msgid "Show folders in movielist:"
 msgstr "Mostrare le cartelle nell'elenco film"
 
 #: ../../../AdvancedMovieSelectionSetup.py:312
-#, fuzzy
 msgid "Displays folders in the movie list."
 msgstr "Visualizza le coverà nell'elenco film."
 
@@ -1195,14 +1201,12 @@ msgid "Here you can choose how many decimal points for the directory size in the
 msgstr "Qui è possibile scegliere il numero di cifre decimali da mostrare per la dimensione della cartella nell'elenco film."
 
 #: ../../../AdvancedMovieSelectionSetup.py:317
-#, fuzzy
 msgid "Show the number of movies in the directories:"
-msgstr "Unterverzeichnisse mit einbeziehen:"
+msgstr "Mostra il numero di film nelle directory:"
 
 #: ../../../AdvancedMovieSelectionSetup.py:317
-#, fuzzy
 msgid "Displays the amount of movies from directories and library in the movie list."
-msgstr "Visualizzare le dimensioni delle cartelle nell'elenco film."
+msgstr "Consente di visualizzare la quantità di film da elenchi e biblioteca nella lista di film."
 
 #: ../../../AdvancedMovieSelectionSetup.py:318
 msgid "Show bookmarks in movielist:"
@@ -1298,7 +1302,7 @@ msgstr "Definisce per quanto tempo i files devono restare nel cestino prima dell
 
 #: ../../../AdvancedMovieSelectionSetup.py:336
 msgid "LIBRARY"
-msgstr ""
+msgstr "BIBLIOTECA"
 
 #: ../../../AdvancedMovieSelectionSetup.py:337
 msgid "Show recorded movies in epg:"
@@ -1342,7 +1346,7 @@ msgstr "Selezionare il numero minimo di film che deve essere presente in una car
 
 #: ../../../AdvancedMovieSelectionSetup.py:344
 msgid "COVER & PICON"
-msgstr ""
+msgstr "COPERTURA & PICON"
 
 #: ../../../AdvancedMovieSelectionSetup.py:345
 msgid "Show backdrops in movielist:"
@@ -1410,7 +1414,7 @@ msgstr "Dove cercare i logos dei provider? (Il percorso predefinito è /usr/shar
 
 #: ../../../AdvancedMovieSelectionSetup.py:358
 msgid "FEATURES"
-msgstr ""
+msgstr "CARATTERISTICHE"
 
 #: ../../../AdvancedMovieSelectionSetup.py:359
 msgid "Ask before delete:"
@@ -1522,7 +1526,7 @@ msgstr "Qui è possibile regolare manualmente la lunghezza del salto rispetto al
 
 #: ../../../AdvancedMovieSelectionSetup.py:389
 msgid "DISPLAY & SKIN"
-msgstr ""
+msgstr "DISPLAY & SKIN"
 
 #: ../../../AdvancedMovieSelectionSetup.py:391
 msgid "Color for movies:"
@@ -1694,7 +1698,7 @@ msgstr "Se questa opzione è attivata, quando non è disponibile la descrizione 
 
 #: ../../../AdvancedMovieSelectionSetup.py:421
 msgid "MENU OPTIONS"
-msgstr ""
+msgstr "OPZIONI DI MENU"
 
 #: ../../../AdvancedMovieSelectionSetup.py:422
 msgid "Show plugin config in extensions menu from movielist:"
@@ -1922,7 +1926,7 @@ msgstr "Visualizza la funzione di impostazione della Moviebar nel menu dell'elen
 
 #: ../../../AdvancedMovieSelectionSetup.py:455
 msgid "TOOLS"
-msgstr ""
+msgstr "UTENSILI"
 
 #: ../../../AdvancedMovieSelectionSetup.py:456
 msgid "Select keyboard:"
@@ -3052,80 +3056,72 @@ msgstr "Cercare AMS"
 msgid "Manual jump to:"
 msgstr "Salta manualmente a:"
 
-#: ../../../SearchTMDb.py:99
-msgid "Only those, which are not available!"
-msgstr "Solo quelli che non sono disponibili!"
-
-#: ../../../SearchTMDb.py:101
-msgid "Overwrite all (description & cover & backdrop)"
-msgstr "Sovrascrivere tutto (descrizione, cover e sfondo)"
-
-#: ../../../SearchTMDb.py:103
+#: ../../../SearchTMDb.py:108
 msgid "Overwrite movie description"
 msgstr "Sovrascrivere la descrizione del film"
 
-#: ../../../SearchTMDb.py:105
+#: ../../../SearchTMDb.py:109
 msgid "Overwrite movie cover"
 msgstr "Sovrascrivere la cover del film"
 
-#: ../../../SearchTMDb.py:107
+#: ../../../SearchTMDb.py:110
 msgid "Overwrite movie backdrop"
 msgstr "Sovrascrivere lo sfondo del film"
 
-#: ../../../SearchTMDb.py:110
+#: ../../../SearchTMDb.py:115
 msgid "Data already exists! Should anything be updated?"
 msgstr "I dati sono già presenti! Bisogna aggiornare qualcosa?"
 
-#: ../../../SearchTMDb.py:186
+#: ../../../SearchTMDb.py:191
 msgid "Show movie detail"
 msgstr "Mostrare dettagli del fim"
 
-#: ../../../SearchTMDb.py:211
-#: ../../../SearchTMDb.py:218
+#: ../../../SearchTMDb.py:216
+#: ../../../SearchTMDb.py:223
 msgid "Toggle detail and list view"
 msgstr "Alternare visualizzazione dettagli•elenco"
 
-#: ../../../SearchTMDb.py:212
+#: ../../../SearchTMDb.py:217
 msgid "Save info/cover"
 msgstr "Salvare info/cover"
 
-#: ../../../SearchTMDb.py:220
-#: ../../../SearchTMDb.py:233
+#: ../../../SearchTMDb.py:225
+#: ../../../SearchTMDb.py:238
 msgid "Show previous cover"
 msgstr "Mostrare anteprima cover"
 
-#: ../../../SearchTMDb.py:221
-#: ../../../SearchTMDb.py:232
+#: ../../../SearchTMDb.py:226
+#: ../../../SearchTMDb.py:237
 msgid "Show next cover"
 msgstr "Mostrare la cover successiva"
 
-#: ../../../SearchTMDb.py:222
+#: ../../../SearchTMDb.py:227
 msgid "Move up"
 msgstr "Spostare su"
 
-#: ../../../SearchTMDb.py:223
+#: ../../../SearchTMDb.py:228
 msgid "Move down"
 msgstr "Spostare giù"
 
-#: ../../../SearchTMDb.py:227
+#: ../../../SearchTMDb.py:232
 msgid "Show next backdrop"
 msgstr "Mostrare lo sfondo successivo"
 
-#: ../../../SearchTMDb.py:228
+#: ../../../SearchTMDb.py:233
 msgid "Show previous backdrop"
 msgstr "Mostrare lo sfondo precedente"
 
-#: ../../../SearchTMDb.py:292
+#: ../../../SearchTMDb.py:297
 #, python-format
 msgid "Searching for '%s' on TMDb, please wait..."
 msgstr "Cerco ' %s ' su TMDb, attendere prego…"
 
-#: ../../../SearchTMDb.py:327
+#: ../../../SearchTMDb.py:332
 #, python-format
 msgid "No data found for '%s' at themoviedb.org!"
 msgstr "Nessuna informazione per ' %s ' è stata trovata su themoviedb.org!"
 
-#: ../../../SearchTMDb.py:328
+#: ../../../SearchTMDb.py:333
 #, python-format
 msgid ""
 "No data found for '%s' at themoviedb.org!\n"
@@ -3134,75 +3130,75 @@ msgstr ""
 "Nessuna informazione per ' %s ' è stata trovata su themoviedb.org!!\n"
 "Vuoi cambiare il titolo da cercare?"
 
-#: ../../../SearchTMDb.py:333
+#: ../../../SearchTMDb.py:338
 #, python-format
 msgid "Total %d movie found"
 msgstr "Totale %d film trovato"
 
-#: ../../../SearchTMDb.py:340
+#: ../../../SearchTMDb.py:345
 #, python-format
 msgid "Total %d movies found"
 msgstr "Totale %d film trovati"
 
-#: ../../../SearchTMDb.py:380
+#: ../../../SearchTMDb.py:385
 #, python-format
 msgid "No description for '%s' at themoviedb.org found!"
 msgstr "Nessuna descrizione per ' %s ' è stata trovata su themoviedb.org!"
 
-#: ../../../SearchTMDb.py:383
+#: ../../../SearchTMDb.py:388
 msgid "Appeared:"
 msgstr "Pubblicato:"
 
-#: ../../../SearchTMDb.py:385
+#: ../../../SearchTMDb.py:390
 #, python-format
 msgid "Runtime: %s minutes"
 msgstr "Tempo di esecuzione: %s minuti"
 
-#: ../../../SearchTMDb.py:387
+#: ../../../SearchTMDb.py:392
 msgid "Certification:"
 msgstr "Certificazione:"
 
-#: ../../../SearchTMDb.py:389
+#: ../../../SearchTMDb.py:394
 msgid "Rating:"
 msgstr "Valutazione:"
 
-#: ../../../SearchTMDb.py:395
+#: ../../../SearchTMDb.py:400
 msgid "Genre:"
 msgstr "Genere:"
 
-#: ../../../SearchTMDb.py:401
+#: ../../../SearchTMDb.py:406
 msgid "Studio:"
 msgstr "Studio:"
 
-#: ../../../SearchTMDb.py:404
+#: ../../../SearchTMDb.py:409
 msgid "Director:"
 msgstr "Regista:"
 
-#: ../../../SearchTMDb.py:407
+#: ../../../SearchTMDb.py:412
 msgid "Production:"
 msgstr "Produzione:"
 
-#: ../../../SearchTMDb.py:410
+#: ../../../SearchTMDb.py:415
 msgid "Actors:"
 msgstr "Attori:"
 
-#: ../../../SearchTMDb.py:413
+#: ../../../SearchTMDb.py:418
 msgid "Voted:"
 msgstr "Votato:"
 
-#: ../../../SearchTMDb.py:420
+#: ../../../SearchTMDb.py:425
 msgid "Unknown error!!"
 msgstr "Errore sconosciuto!"
 
-#: ../../../SearchTMDb.py:466
+#: ../../../SearchTMDb.py:471
 msgid "Cover:"
 msgstr "Cover:"
 
-#: ../../../SearchTMDb.py:466
+#: ../../../SearchTMDb.py:471
 msgid "Backdrop:"
 msgstr "Sfondo:"
 
-#: ../../../SearchTMDb.py:560
+#: ../../../SearchTMDb.py:565
 #, python-format
 msgid "Sorry, no info/cover found for title: %s"
 msgstr "Spiacente, nessuna info/cover è stata trovata per il titolo: %s"
@@ -3534,27 +3530,27 @@ msgstr "Numerica"
 
 #: ../../../Source/Config.py:259
 msgid "no"
-msgstr ""
+msgstr "no"
 
 #: ../../../Source/Config.py:259
 msgid "(quantity)"
-msgstr ""
+msgstr "(quantita)"
 
 #: ../../../Source/Config.py:259
 msgid "(new)"
-msgstr ""
+msgstr "(nuovo)"
 
 #: ../../../Source/Config.py:259
 msgid "(seen)"
-msgstr ""
+msgstr "(visto)"
 
 #: ../../../Source/Config.py:259
 msgid "(new/quantity)"
-msgstr ""
+msgstr "(nuovo/quantita)"
 
 #: ../../../Source/Config.py:259
 msgid "(seen/quantity)"
-msgstr ""
+msgstr "(visto/quantita)"
 
 #: ../../../Source/ServiceDescriptor.py:174
 #: ../../../Source/ServiceDescriptor.py:192
@@ -3569,12 +3565,12 @@ msgstr "Film"
 #: ../../../Source/ServiceDescriptor.py:177
 #: ../../../Source/ServiceDescriptor.py:195
 msgid "seen"
-msgstr ""
+msgstr "visto"
 
 #: ../../../Source/ServiceDescriptor.py:178
 #: ../../../Source/ServiceDescriptor.py:196
 msgid "new"
-msgstr ""
+msgstr "nuovo"
 
 #: ../../../Source/ServiceDescriptor.py:182
 msgid "Last update:"
@@ -3595,6 +3591,12 @@ msgstr "Libero:"
 #: ../../../Source/ServiceDescriptor.py:212
 msgid "Symlink:"
 msgstr "Link simbolico:"
+
+#~ msgid "Only those, which are not available!"
+#~ msgstr "Solo quelli che non sono disponibili!"
+
+#~ msgid "Overwrite all (description & cover & backdrop)"
+#~ msgstr "Sovrascrivere tutto (descrizione, cover e sfondo)"
 
 #~ msgid "Download and save movie info/cover for all movies"
 #~ msgstr "Scaricare e salvare le informazioni e le cover per tutti i film"
@@ -3789,9 +3791,6 @@ msgstr "Link simbolico:"
 #~ "Mit dieser Option wird die Größe vom Verzeichnis inklusive aller "
 #~ "Unterverzeichnisse angezeigt (Achtung kann unter Umständen zum sehr "
 #~ "langen laden der Filmliste führen)."
-
-#~ msgid "Select scan locations"
-#~ msgstr "Verzeichnisse für die Suche auswählen"
 
 #~ msgid "description"
 #~ msgstr "Beschreibung"
