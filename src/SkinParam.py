@@ -87,6 +87,7 @@ class MovieListSkinParam(SkinParam):
         SkinParam.__init__(self, "MovieList")
         self.list3_Font1 = gFont("Regular", 22)
         self.list3_Font2 = gFont("Regular", 20)
+        self.list3_TextPos = 78
         self.list3_ListHeight = 78
         self.list3_Progress = (50, 8, 1, 60)
         self.list3Pos1 = 0

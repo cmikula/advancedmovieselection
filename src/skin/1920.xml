@@ -1030,7 +1030,7 @@
 </screen>
 <!-- Listenotionen -->
 <screen name="AdvancedMovieListSkinExtension">
-        <MovieList list1Pos="2" list1_Font1="Regular;30" list1_Font2="Regular;30" list1_ListHeight="42" list1_Progress="50,10,1,15" list2Pos="0,34" list2_Font1="Regular;32" list2_Font2="Regular;27" list2_ListHeight="63" list2_Progress="50,10,1,45" list3Pos="2,46,86" list3_Font1="Regular;34" list3_Font2="Regular;30" list3_ListHeight="126" list3_Progress="100,10,1,100" icon_size="40" renderer_extend="15">
+        <MovieList list1Pos="2" list1_Font1="Regular;30" list1_Font2="Regular;30" list1_ListHeight="42" list1_Progress="50,10,1,15" list2Pos="0,34" list2_Font1="Regular;32" list2_Font2="Regular;27" list2_ListHeight="63" list2_Progress="50,10,1,45" list3Pos="2,46,86" list3_Font1="Regular;34" list3_Font2="Regular;30" list3_ListHeight="126" list3_TextPos="126" list3_Progress="100,10,1,100" icon_size="40" renderer_extend="15">
 	</MovieList>
         <Wastebasket font0="Regular;28" font1="Regular;24" font2="Regular;24" line1Pos="5,2" line1Split="200" line2Pos="5,37" line2Split="350" line3Pos="5,68" line3Split="350" listHeight="103">
 	</Wastebasket>
