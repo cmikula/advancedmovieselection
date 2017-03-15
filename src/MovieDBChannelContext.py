@@ -71,6 +71,7 @@ def AMSChannelContextMenu__init__(self, session, csel):
     current_sel_flags = current.flags
     if csel.mode == MODE_TV and not (current_sel_path or current_sel_flags & (eServiceReference.isDirectory|eServiceReference.isMarker)):
         self["menu"].list.insert(0, ChoiceEntryComponent(text=(_("TVDb Info (AMS)"), boundFunction(self.AMSstartTVDb))))
+        self["menu"].list.insert(0, ChoiceEntryComponent(text=(_("TMDb Series (AMS)"), boundFunction(self.AMSstartTMDbSeries))))
         self["menu"].list.insert(0, ChoiceEntryComponent(text=(_("TMDb Info (AMS)"), boundFunction(self.AMSstartTMDb))))
 
 def startTMDb(self):
@@ -93,8 +94,9 @@ def startTMDbSeries(self):
     from SearchTMDbSeries import TMDbSeriesMain
     print "[AdvancedMovieSelection] tmdb series"
     service = self.csel.servicelist.getCurrent()
+    eventName, shortDescription = getInfo(self.session, service)
     if service:
-        self.session.openWithCallback(self.AMScloseafterfinish, TMDbSeriesMain, service) 
+        self.session.openWithCallback(self.AMScloseafterfinish, TMDbSeriesMain, None, eventName, shortDescription) 
 
 
 def closeafterfinish(self, retval=None):
