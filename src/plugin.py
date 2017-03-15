@@ -119,12 +119,12 @@ def Plugins(**kwargs):
         from MovieDBChannelContext import AMSEPGSelectionInit
         AMSEPGSelectionInit()
         descriptors.append(PluginDescriptor(name=_("TMDb Info (AMS)"), where=PluginDescriptor.WHERE_EVENTINFO, description=_("TMDb Info (AMS)"), fnc=tmdbInfo))
-        descriptors.append(PluginDescriptor(name=_("TMDb Series (AMS)"), where=PluginDescriptor.WHERE_EVENTINFO, description=_("TMDb Series (AMS)"), fnc=tvdbInfo))
+        descriptors.append(PluginDescriptor(name=_("TMDb Series (AMS)"), where=PluginDescriptor.WHERE_EVENTINFO, description=_("TMDb Series (AMS)"), fnc=tmdbSeriesInfo))
         descriptors.append(PluginDescriptor(name=_("TVDb Info (AMS)"), where=PluginDescriptor.WHERE_EVENTINFO, description=_("TVDb Info (AMS)"), fnc=tvdbInfo))
         try:
             # not implemented in oe1.6
             descriptors.append(PluginDescriptor(name=_("TMDb Info (AMS)"), where=PluginDescriptor.WHERE_CHANNEL_CONTEXT_MENU, description=_("TMDb Info (AMS)"), fnc=tmdbInfo))
-            descriptors.append(PluginDescriptor(name=_("TMDb Series (AMS)"), where=PluginDescriptor.WHERE_CHANNEL_CONTEXT_MENU, description=_("TMDb Series (AMS)"), fnc=tmdbInfo))
+            descriptors.append(PluginDescriptor(name=_("TMDb Series (AMS)"), where=PluginDescriptor.WHERE_CHANNEL_CONTEXT_MENU, description=_("TMDb Series (AMS)"), fnc=tmdbSeriesInfo))
             descriptors.append(PluginDescriptor(name=_("TVDb Info (AMS)"), where=PluginDescriptor.WHERE_CHANNEL_CONTEXT_MENU, description=_("TVDb Info (AMS)"), fnc=tvdbInfo))
         except:
             from MovieDBChannelContext import AMSChannelContextMenuInit
