@@ -66,10 +66,8 @@ class CoverLoader():
         if not config.AdvancedMovieSelection.cover_auto_download.value:
             return
         from timer import TimerEntry
-        print "[AdvancedMovieSelection] RecordTimerEvent:", str(timer.state), str(timer.cancelled), str(timer.begin), str(timer.end), timer.Filename
-        duration_minutes = (timer.end - timer.begin) / 60
-        print duration_minutes
-        if timer.state == TimerEntry.StateRunning and duration_minutes > 60:
+        print "[AdvancedMovieSelection] RecordTimerEvent:", str(timer.state), str(timer.cancelled), timer.Filename
+        if timer.state == TimerEntry.StateEnded and not timer.cancelled:
             from thread import start_new_thread
             start_new_thread(self.downloadMovieInfo, (timer.name, timer.Filename))
 
