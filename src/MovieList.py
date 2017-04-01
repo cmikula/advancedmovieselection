@@ -358,12 +358,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
         self.show_tags = val
 
     def loadIcon(self, png_name, cached=True):
-        png = None
-        if config.AdvancedMovieSelection.showskinicons.value:
-            png = LoadPixmap(cached=cached, path=resolveFilename(SCOPE_CURRENT_SKIN, "extensions/" + png_name))
-        if png is None:
-            png = LoadPixmap(cached=cached, path=resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + png_name))
-        return png
+        return LoadPixmap(cached=cached, path=getIconPath(png_name))
     
     def buildMovieListEntry(self, movie_info, selection_index= -1):
         res = [ None ]

@@ -33,11 +33,15 @@ except:
 IMAGE_PATH = "Extensions/AdvancedMovieSelection/images/"
 
 def getIconPath(png_name):
-    p = resolveFilename(SCOPE_CURRENT_SKIN, "extensions/" + png_name)
-    if not config.AdvancedMovieSelection.showskinicons.value or not fileExists(p):
-        p = resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + png_name)
-    return p
-
+    png = None
+    if config.AdvancedMovieSelection.showskinicons.value:
+        png = resolveFilename(SCOPE_CURRENT_SKIN) + "extensions/" + png_name
+        svg = png[:-3] + "svg"
+        if fileExists(svg):
+            png = svg
+    if png is None or not fileExists(png):
+        png = resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + png_name)
+    return png
 
 def printStackTrace():
     import sys, traceback
