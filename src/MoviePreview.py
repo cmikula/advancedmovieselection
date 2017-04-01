@@ -60,12 +60,6 @@ class MoviePreview():
     def layoutFinish(self):
         sc = AVSwitch().getFramebufferScale()
         self.picload.setPara((self["CoverPreview"].instance.size().width(), self["CoverPreview"].instance.size().height(), sc[0], sc[1], False, 1, "#ff000000"))
-        self.cpX = self["CoverPreview"].instance.position().x()
-        self.cpY = self["CoverPreview"].instance.position().y()
-        self.cpW = self["CoverPreview"].instance.size().width()
-        self.cpH = self["CoverPreview"].instance.size().height()
-        self.piconX = self.cpX + int(self.cpW / 2) - int(100 / 2)
-        self.piconY = self.cpY + int(self.cpH / 2) - int(60 / 2)
         self.backdrop.setPara((self["backdrop"].instance.size().width(), self["backdrop"].instance.size().height(), sc[0], sc[1], False, 1, "#ff000000"))
 
     def loadPreview(self, serviceref):
@@ -94,7 +88,6 @@ class MoviePreview():
         
         # load cover or provider icon
         self.working = True
-        self["CoverPreview"].setPosition(self.cpX, self.cpY)
         if fileExists(path):
             self.picload.startDecode(path)
             return
@@ -112,11 +105,7 @@ class MoviePreview():
             picon = getServiceInfoValue(serviceref, iServiceInformation.sServiceref).rstrip(':').replace(':', '_') + ".png"
             piconpath = os.path.join(config.AdvancedMovieSelection.piconpath.value, picon)
             if fileExists(piconpath):
-                if config.AdvancedMovieSelection.piconsize.value:
-                    self["CoverPreview"].instance.setPixmapFromFile(piconpath)
-                    self["CoverPreview"].setPosition(self.piconX, self.piconY)
-                else:
-                    self.picload.startDecode(piconpath)
+                self.picload.startDecode(piconpath)
                 return
         cover_path = os.path.join(os.path.dirname(path), "cover.jpg")
         if fileExists(cover_path):
