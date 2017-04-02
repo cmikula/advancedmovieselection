@@ -16,40 +16,40 @@
 		<widget source="howtotext" render="Label" position="60,0" size="1160,100" zPosition="1" valign="center" halign="center" font="Regular;22" transparent="1" />
 	</screen>
 	<screen name="SelectSortFunctions" position="center,120" size="820,520" title=" ">
-		<ePixmap pixmap="skin_default/buttons/red.png" position="10,0" size="220,50" scale="stretch" />
-		<ePixmap pixmap="skin_default/buttons/green.png" position="230,0" size="220,50" scale="stretch" />
-		<widget source="key_red" render="Label" position="20,0" size="200,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
-		<widget source="key_green" render="Label" position="240,0" size="200,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<ePixmap pixmap="skin_default/buttons/red.png" position="10,0" size="230,46" />
+		<ePixmap pixmap="skin_default/buttons/green.png" position="240,0" size="230,46" />
+		<widget source="key_red" render="Label" position="10,0" size="230,46" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<widget source="key_green" render="Label" position="240,0" size="230,46" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
 		<eLabel position="10,55" size="800,1" backgroundColor="grey" />
 		<widget name="config" position="10,62" size="800,450" enableWrapAround="1" scrollbarMode="showOnDemand" />
 	</screen>
 	<screen name="MoveCopyProgress" position="center,115" size="820,530" title=" ">
-		<ePixmap pixmap="skin_default/buttons/red.png" position="10,0" size="220,50" scale="stretch" />
-		<ePixmap pixmap="skin_default/buttons/green.png" position="230,0" size="220,50" scale="stretch" />
-		<widget name="key_red" position="20,0" size="200,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
-		<widget name="key_green" position="240,0" size="200,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<ePixmap pixmap="skin_default/buttons/red.png" position="10,0" size="230,46" />
+		<ePixmap pixmap="skin_default/buttons/green.png" position="240,0" size="230,46" />
+		<widget name="key_red" position="10,0" size="230,46" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<widget name="key_green" position="240,0" size="230,46" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
 		<eLabel position="10,55" size="800,1" backgroundColor="grey" />
 		<widget name="list" position="10,60" size="800,465" enableWrapAround="1" scrollbarMode="showOnDemand" />
 	</screen>
 	<screen name="BackupRestore" position="center,120" size="920,520" title=" ">
-		<ePixmap pixmap="skin_default/buttons/red.png" position="10,0" size="220,50" scale="stretch" />
-		<ePixmap pixmap="skin_default/buttons/green.png" position="230,0" size="220,50" scale="stretch" />
-		<ePixmap pixmap="skin_default/buttons/yellow.png" position="450,0" size="220,50" scale="stretch" />
-		<widget source="key_red" render="Label" position="20,0" size="200,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
-		<widget source="key_green" render="Label" position="240,0" size="200,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
-		<widget source="key_yellow" render="Label" position="460,0" size="200,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#a08500" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<ePixmap pixmap="skin_default/buttons/red.png" position="10,0" size="230,46" />
+		<ePixmap pixmap="skin_default/buttons/green.png" position="240,0" size="230,46" />
+		<ePixmap pixmap="skin_default/buttons/yellow.png" position="470,0" size="230,46" />
+		<widget source="key_red" render="Label" position="10,0" size="230,46" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<widget source="key_green" render="Label" position="240,0" size="230,46" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<widget source="key_yellow" render="Label" position="470,0" size="230,46" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#a08500" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
 		<eLabel position="10,55" size="900,1" backgroundColor="grey" />
 		<widget name="config" position="10,62" size="900,450" enableWrapAround="1" scrollbarMode="showOnDemand" />
 	</screen>
 	<!-- AdvancedKeyBoard and AdvancedTextInputHelpDialog will be shown together -->
 	<screen name="AdvancedKeyBoard" position="center,60" size="820,520" zPosition="10000" title="Virtual KeyBoard">
 		<widget name="header" position="20,30" size="700,48" font="Regular;24" transparent="1" />
-		<widget source="country" render="Pixmap" position="740,20" size="60,40" alphatest="on" borderWidth="2" borderColor="yellow">
+		<widget source="country" render="Pixmap" position="740,20" size="60,40" borderWidth="2" borderColor="yellow">
 			<convert type="ValueToPixmap">LanguageCode</convert>
 		</widget>
-		<ePixmap pixmap="skin_default/vkey_text.png" position="20,120" size="780,60" zPosition="-4" alphatest="on" />
+		<ePixmap pixmap="skin_default/vkey_text.png" position="20,120" size="780,60" zPosition="-4" />
 		<widget name="text" position="30,125" size="760,50" font="Regular;42" transparent="1" noWrap="1" halign="right" />
-		<widget name="list" position="20,276" size="780,225" selectionDisabled="1" transparent="1" />
+		<widget name="list" position="20,230" size="780,270" selectionDisabled="1" transparent="1" />
 	</screen>
 	<screen name="AdvancedTextInputHelpDialog" position="340,585" zPosition="10001" size="606,127" backgroundColor="#ffffff" flags="wfNoBorder">
 		<widget name="key1" position="2,2" size="200,30" font="Regular;20" halign="center" valign="center" />
@@ -89,74 +89,74 @@
 		<widget source="IMDbtxt" render="Label" position="890,200" size="300,85" font="Regular;18" valign="top" />
 		<widget source="OFDbtxt" render="Label" position="890,320" size="300,85" font="Regular;18" valign="top" />
 		<widget source="Trailertxt" render="Label" position="890,440" size="300,85" font="Regular;18" valign="top" />
-		<ePixmap pixmap="skin_default/buttons/key_info.png" position="1140,580" size="50,25" alphatest="on" />
+		<ePixmap pixmap="skin_default/buttons/key_info.png" position="1140,580" size="50,25" />
 	</screen>
 	<screen name="AdvancedMovieSelectionButtonSetup" position="center,120" size="820,520" title=" ">
-		<ePixmap pixmap="skin_default/buttons/red.png" position="10,0" size="220,50" scale="stretch" />
-		<ePixmap pixmap="skin_default/buttons/green.png" position="230,0" size="220,50" scale="stretch" />
-		<ePixmap pixmap="skin_default/buttons/yellow.png" position="450,0" size="220,50" scale="stretch" />
-		<widget name="key_red" position="20,0" size="200,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
-		<widget name="key_green" position="240,0" size="200,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
-		<widget name="key_yellow" position="460,0" size="200,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#a08500" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<ePixmap pixmap="skin_default/buttons/red.png" position="10,0" size="230,46" />
+		<ePixmap pixmap="skin_default/buttons/green.png" position="240,0" size="230,46" />
+		<ePixmap pixmap="skin_default/buttons/yellow.png" position="470,0" size="230,46" />
+		<widget name="key_red" position="10,0" size="230,46" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<widget name="key_green" position="240,0" size="230,46" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<widget name="key_yellow" position="470,0" size="230,46" zPosition="1" font="Regular;18" halign="center" valign="center" backgroundColor="#a08500" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
 		<eLabel position="10,55" size="800,1" backgroundColor="grey" />
 		<widget name="config" position="10,62" size="800,450" enableWrapAround="1" scrollbarMode="showOnDemand" />
-		<widget name="OKIcon" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" position="730,10" size="70,30" alphatest="on" />
+		<widget name="OKIcon" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" position="730,10" size="70,30" />
 	</screen>
 	<screen name="AdvancedMovieSelectionOwnButtonName" position="center,120" size="820,520" title=" ">
-		<ePixmap pixmap="skin_default/buttons/red.png" position="10,0" size="220,50" scale="stretch" />
-		<widget source="key_red" render="Label" position="20,0" size="200,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<ePixmap pixmap="skin_default/buttons/red.png" position="10,0" size="230,46" />
+		<widget source="key_red" render="Label" position="10,0" size="230,46" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
 		<eLabel position="10,55" size="800,1" backgroundColor="grey" />
 		<widget name="config" position="10,62" size="800,240" enableWrapAround="1" scrollbarMode="showOnDemand" />
 		<eLabel position="10,310" size="800,1" backgroundColor="grey" />
-		<widget name="VKeyIcon" pixmap="skin_default/icons/text.png" position="730,10" size="70,30" alphatest="on" />
+		<widget name="VKeyIcon" pixmap="skin_default/icons/text.png" position="730,10" size="70,30" />
 		<widget source="help" render="Label" position="10,320" size="800,25" halign="center" font="Regular;22" />
-		<widget name="HelpWindow" pixmap="skin_default/vkey_icon.png" position="340,500" alphatest="on" />
+		<widget name="HelpWindow" pixmap="skin_default/vkey_icon.png" position="340,500" />
 	</screen>
 	<screen name="AdvancedMovieSelection_Rename" position="center,120" size="820,520" title=" ">
-		<ePixmap pixmap="skin_default/buttons/red.png" position="10,0" size="220,50" scale="stretch" />
-		<ePixmap pixmap="skin_default/buttons/green.png" position="230,0" size="220,50" scale="stretch" />
-		<widget source="key_red" render="Label" position="20,0" size="200,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
-		<widget source="key_green" render="Label" position="240,0" size="200,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<ePixmap pixmap="skin_default/buttons/red.png" position="10,0" size="230,46" />
+		<ePixmap pixmap="skin_default/buttons/green.png" position="240,0" size="230,46" />
+		<widget source="key_red" render="Label" position="10,0" size="230,46" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<widget source="key_green" render="Label" position="240,0" size="230,46" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
 		<eLabel position="10,55" size="800,1" backgroundColor="grey" />
 		<widget name="config" position="10,62" size="800,120" enableWrapAround="1" scrollbarMode="showOnDemand" />
 		<eLabel position="10,185" size="800,1" backgroundColor="grey" />
 		<widget name="Path" position="10,195" size="800,75" halign="center" valign="center" font="Regular;22" />
-		<widget name="HelpWindow" pixmap="skin_default/vkey_icon.png" position="340,500" alphatest="on" />
+		<widget name="HelpWindow" pixmap="skin_default/vkey_icon.png" position="340,500" />
 	</screen>
 	<screen name="AdvancedMovieSelectionAbout" position="center,center" size="820,360" title=" ">
-		<ePixmap pixmap="skin_default/buttons/red.png" position="10,0" size="260,50" scale="stretch" />
-		<ePixmap pixmap="skin_default/buttons/green.png" position="270,0" size="260,50" scale="stretch" />
-		<widget source="key_red" render="Label" position="10,0" size="260,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
-		<widget source="key_green" render="Label" position="270,0" size="260,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<ePixmap pixmap="skin_default/buttons/red.png" position="10,0" size="260,52" />
+		<ePixmap pixmap="skin_default/buttons/green.png" position="270,0" size="260,52" />
+		<widget source="key_red" render="Label" position="10,0" size="260,52" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<widget source="key_green" render="Label" position="270,0" size="260,52" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
 		<eLabel position="10,55" size="800,1" backgroundColor="grey" />
 		<widget source="author" render="Label" position="20,60" size="700,50" font="Regular;22" valign="center" />
 		<widget source="translation" render="Label" position="70,130" size="500,50" font="Regular;22" valign="center" />
 		<widget source="thanks" render="Label" position="10,230" size="800,25" font="Regular;22" valign="top" />
 		<widget source="license" render="Label" position="10,280" size="800,50" font="Regular;22" foregroundColor="yellow" valign="top" />
-		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/logo.png" position="660,60" size="140,140" alphatest="on" />
+		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/logo.png" position="660,60" size="140,140" />
 	</screen>
 	<screen name="AdvancedMovieSelectionAboutDetails" position="center,120" size="820,520" title=" ">
-		<widget name="red" pixmap="skin_default/buttons/red.png" position="10,0" size="220,50" scale="stretch" />
-		<widget source="key_red" render="Label" position="20,0" size="200,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<widget name="red" pixmap="skin_default/buttons/red.png" position="10,0" size="230,46" />
+		<widget source="key_red" render="Label" position="10,0" size="230,46" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
 		<eLabel position="10,55" size="800,1" backgroundColor="grey" />
 		<widget name="version_list" position="10,60" size="800,150" scrollbarMode="showOnDemand" enableWrapAround="1" />
 		<eLabel position="10,220" size="800,1" backgroundColor="grey" />
 		<widget name="details" position="10,230" size="800,290" font="Regular;22" transparent="1" />
 	</screen>
 	<screen name="AdvancedMovieSelectionTagEditor" position="center,110" size="1060,540" title=" ">
-		<ePixmap pixmap="skin_default/buttons/red.png" position="10,0" size="260,50" scale="stretch" />
-		<ePixmap pixmap="skin_default/buttons/green.png" position="270,0" size="260,50" scale="stretch" />
-		<ePixmap pixmap="skin_default/buttons/yellow.png" position="530,0" size="260,50" scale="stretch" />
-		<ePixmap pixmap="skin_default/buttons/blue.png" position="790,0" size="260,50" scale="stretch" />
-		<widget source="key_red" render="Label" position="10,0" size="260,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
-		<widget source="key_green" render="Label" position="270,0" size="260,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
-		<widget source="key_yellow" render="Label" position="530,0" size="260,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#a08500" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
-		<widget source="key_blue" render="Label" position="790,0" size="260,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#18188b" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<ePixmap pixmap="skin_default/buttons/red.png" position="10,0" size="260,52" />
+		<ePixmap pixmap="skin_default/buttons/green.png" position="270,0" size="260,52" />
+		<ePixmap pixmap="skin_default/buttons/yellow.png" position="530,0" size="260,52" />
+		<ePixmap pixmap="skin_default/buttons/blue.png" position="790,0" size="260,52" />
+		<widget source="key_red" render="Label" position="10,0" size="260,52" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<widget source="key_green" render="Label" position="270,0" size="260,52" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<widget source="key_yellow" render="Label" position="530,0" size="260,52" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#a08500" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<widget source="key_blue" render="Label" position="790,0" size="260,52" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#18188b" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
 		<widget name="list" position="10,62" size="1040,420" enableWrapAround="1" scrollbarMode="showOnDemand" />
 		<eLabel position="10,55" size="1040,1" backgroundColor="grey" />
 		<eLabel position="10,490" size="1040,1" backgroundColor="grey" />
 		<widget source="info" render="Label" position="10,505" size="1040,25" halign="center" font="Regular;21" />
-		<ePixmap pixmap="skin_default/buttons/key_menu.png" position="1000,505" size="50,25" alphatest="on" />
+		<ePixmap pixmap="skin_default/buttons/key_menu.png" position="1000,505" size="50,25" />
 	</screen>
 	<screen name="AdvancedMovieSelectionTrash" position="center,80" size="1200,610" title=" ">
 		<ePixmap pixmap="skin_default/buttons/red.png" position="10,5" size="200,40" />
@@ -185,23 +185,23 @@
 		<widget name="autoemptynext" position="880,320" size="300,85" font="Regular;18" valign="top" />
 	</screen>
 	<screen name="AdvancedMovieSelectionDownload" position="center,80" size="1200,610" title=" ">
-		<ePixmap pixmap="skin_default/buttons/red.png" position="10,0" size="260,50" scale="stretch" />
-		<ePixmap pixmap="skin_default/buttons/green.png" position="270,0" size="260,50" scale="stretch" />
-		<ePixmap pixmap="skin_default/buttons/yellow.png" position="530,0" size="260,50" scale="stretch" />
-		<widget name="key_red" position="10,0" size="260,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
-		<widget name="key_green" position="270,0" size="260,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
-		<widget name="key_yellow" position="530,0" size="260,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#a08500" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<ePixmap pixmap="skin_default/buttons/red.png" position="10,0" size="260,52" />
+		<ePixmap pixmap="skin_default/buttons/green.png" position="270,0" size="260,52" />
+		<ePixmap pixmap="skin_default/buttons/yellow.png" position="530,0" size="260,52" />
+		<widget name="key_red" position="10,0" size="260,52" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<widget name="key_green" position="270,0" size="260,52" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<widget name="key_yellow" position="530,0" size="260,52" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#a08500" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
 		<eLabel position="10,55" size="1180,1" backgroundColor="grey" />
 		<widget name="info" position="10,65" size="1180,25" font="Regular;22" />
 		<widget name="title" position="10,100" size="1180,50" font="Regular;22" />
-		<widget name="poster" position="10,160" size="185,278" zPosition="2" alphatest="on" />
+		<widget name="poster" position="10,160" size="185,278" zPosition="2" />
 		<widget name="list" position="210,160" size="700,270" scrollbarMode="showOnDemand" enableWrapAround="1" />
 		<widget name="description" position="10,455" size="1180,150" font="Regular;22" />
-		<widget name="logo" position="930,0" size="260,54" alphatest="on" />
+		<widget name="logo" position="930,0" size="260,54" />
 	</screen>
 	<screen name="AdvancedMovieSelectionSeekbar" position="0,540" size="1280,170" backgroundColor="transparent" flags="wfNoBorder">
 		<ePixmap position="0,0" zPosition="-1" size="1280,170" pixmap="skin_default/infobar.png" />
-		<ePixmap pixmap="skin_default/icons/icon_event.png" position="20,18" size="20,13" alphatest="on" />
+		<ePixmap pixmap="skin_default/icons/icon_event.png" position="20,18" size="20,13" />
 		<widget source="session.CurrentService" render="Label" position="55,8" size="900,35" font="Regular;26" backgroundColor="#263c59" foregroundColor="#ffcc00" transparent="1">
 			<convert type="ServiceName">Name</convert>
 		</widget>
@@ -269,10 +269,10 @@
 		<widget name="waitingtext" position="20,60" size="890,390" zPosition="3" font="Regular;26" halign="center" valign="center" />
 		<widget name="list" position="20,63" size="890,390" scrollbarMode="showOnDemand" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sel.png" backgroundPixmap="skin_default/div-h.png" foregroundColorSelected="#ffffff" transparent="1" enableWrapAround="1" />
 		<widget name="CoverPreview" position="30,475" size="120,180" />
-		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" position="1060,645" size="45,20" alphatest="on" />
-		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" position="1110,645" size="45,20" alphatest="on" />
-		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" position="1160,645" size="45,20" alphatest="on" />
-		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_help.png" position="1210,645" size="45,20" alphatest="on" />
+		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" position="1060,645" size="45,20" />
+		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" position="1110,645" size="45,20" />
+		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" position="1160,645" size="45,20" />
+		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_help.png" position="1210,645" size="45,20" />
 	</screen>
 	<screen name="AdvancedMovieSelection_Backdrop" position="center,50" size="1280,670" title=" ">
 		<ePixmap pixmap="skin_default/buttons/red.png" position="10,5" size="200,40" />
@@ -319,10 +319,10 @@
 		<widget name="CoverPreview" position="30,475" size="120,180" />
 		<widget name="backdrop" zPosition="4" position="925,260" size="346,194" />
 		<widget name="freeDiskSpace" foregroundColor="#ffcc00" position="180,643" size="500,25" font="Regular;20" />
-		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" position="1060,645" size="45,20" alphatest="on" />
-		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" position="1110,645" size="45,20" alphatest="on" />
-		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" position="1160,645" size="45,20" alphatest="on" />
-		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_help.png" position="1210,645" size="45,20" alphatest="on" />
+		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" position="1060,645" size="45,20" />
+		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" position="1110,645" size="45,20" />
+		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" position="1160,645" size="45,20" />
+		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_help.png" position="1210,645" size="45,20" />
 	</screen>
 	<screen name="AdvancedMovieSelection1" position="center,50" size="1280,670" title=" ">
 		<ePixmap pixmap="skin_default/buttons/red.png" position="10,5" size="200,40" />
@@ -368,10 +368,10 @@
 		</widget>
 		<widget name="waitingtext" position="20,60" size="890,390" zPosition="3" font="Regular;26" halign="center" valign="center" />
 		<widget name="list" position="20,63" size="890,390" scrollbarMode="showOnDemand" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sel.png" backgroundPixmap="skin_default/div-h.png" foregroundColorSelected="#ffffff" transparent="1" enableWrapAround="1" />
-		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" position="1060,645" size="45,20" alphatest="on" />
-		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" position="1110,645" size="45,20" alphatest="on" />
-		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" position="1160,645" size="45,20" alphatest="on" />
-		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_help.png" position="1210,645" size="45,20" alphatest="on" />
+		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" position="1060,645" size="45,20" />
+		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" position="1110,645" size="45,20" />
+		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" position="1160,645" size="45,20" />
+		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_help.png" position="1210,645" size="45,20" />
 	</screen>
 	<screen name="AdvancedMovieSelection1_Backdrop" position="center,50" size="1280,670" title=" ">
 		<ePixmap pixmap="skin_default/buttons/red.png" position="10,5" size="200,40" />
@@ -418,10 +418,10 @@
 		<widget name="waitingtext" position="20,60" size="890,390" zPosition="3" font="Regular;26" halign="center" valign="center" />
 		<widget name="list" position="20,63" size="890,390" scrollbarMode="showOnDemand" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sel.png" backgroundPixmap="skin_default/div-h.png" foregroundColorSelected="#ffffff" transparent="1" enableWrapAround="1" />
 		<widget name="backdrop" zPosition="4" position="925,60" size="346,194" />
-		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" position="1060,645" size="45,20" alphatest="on" />
-		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" position="1110,645" size="45,20" alphatest="on" />
-		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" position="1160,645" size="45,20" alphatest="on" />
-		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_help.png" position="1210,645" size="45,20" alphatest="on" />
+		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" position="1060,645" size="45,20" />
+		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" position="1110,645" size="45,20" />
+		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" position="1160,645" size="45,20" />
+		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_help.png" position="1210,645" size="45,20" />
 	</screen>
 	<screen name="AdvancedMovieSelection_noMiniTV" position="center,50" size="1280,670" title=" ">
 		<ePixmap pixmap="skin_default/buttons/red.png" position="10,5" size="200,40" />
@@ -466,10 +466,10 @@
 		<widget name="waitingtext" position="20,60" size="890,390" zPosition="3" font="Regular;26" halign="center" valign="center" />
 		<widget name="list" position="20,63" size="890,390" scrollbarMode="showOnDemand" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sel.png" backgroundPixmap="skin_default/div-h.png" foregroundColorSelected="#ffffff" transparent="1" enableWrapAround="1" />
 		<widget name="CoverPreview" position="1010,60" size="185,278" />
-		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" position="1060,645" size="45,20" alphatest="on" />
-		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" position="1110,645" size="45,20" alphatest="on" />
-		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" position="1160,645" size="45,20" alphatest="on" />
-		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_help.png" position="1210,645" size="45,20" alphatest="on" />
+		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" position="1060,645" size="45,20" />
+		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" position="1110,645" size="45,20" />
+		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" position="1160,645" size="45,20" />
+		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_help.png" position="1210,645" size="45,20" />
 	</screen>
 	<screen flags="wfNoBorder" name="AdvancedMovieSelection_noMiniTV_Backdrop" position="0,0" size="1280,720" title=" ">
 		<ePixmap pixmap="skin_default/buttons/red.png" position="10,5" size="200,40" />
@@ -487,11 +487,11 @@
 			<convert type="ClockToText">Format:%A %d. %B</convert>
 		</widget>
 		<eLabel position="10,50" size="1260,1" backgroundColor="grey" />
-		<ePixmap position="0,0" size="1280,720" zPosition="-1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/background.png" alphatest="on" />
+		<ePixmap position="0,0" size="1280,720" zPosition="-1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/background.png" />
 		<widget name="backdrop" zPosition="-2" position="0,0" size="1280,720" />
 		<widget backgroundColor="black" font="Regular;24" foregroundColor="#ffcc00" halign="center" name="warning" position="20,100" size="1240,30" transparent="1" />
 		<widget backgroundColor="black" font="Regular;22" foregroundColor="white" render="Label" position="20,60" size="1240,25" source="Title" transparent="1" />
-		<widget alphatest="on" name="CoverPreview" position="10,420" size="185,278" />
+		<widget name="CoverPreview" position="10,420" size="185,278" />
 		<widget backgroundColor="black" font="Regular;20" foregroundColor="white" position="220,350" render="Label" size="1040,115" source="Service" transparent="1">
 			<convert type="EventName">FullDescription</convert>
 		</widget>
@@ -556,7 +556,7 @@
 			<convert type="ClockToText">Format:%A %d. %B</convert>
 		</widget>
 		<eLabel position="10,50" size="1260,1" backgroundColor="grey" />
-		<ePixmap position="0,0" size="1280,720" zPosition="-1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/background.png" alphatest="on" />
+		<ePixmap position="0,0" size="1280,720" zPosition="-1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/background.png" />
 		<widget name="backdrop" zPosition="-2" position="0,0" size="1280,720" />
 		<widget backgroundColor="black" font="Regular;24" foregroundColor="#ffcc00" halign="center" name="warning" position="20,100" size="1240,30" transparent="1" />
 		<widget backgroundColor="black" font="Regular;22" foregroundColor="white" render="Label" position="20,60" size="1240,25" source="Title" transparent="1" />
@@ -600,7 +600,7 @@
 			<convert type="ClockToText">InMinutes</convert>
 		</widget>
 		<widget name="epg_description" position="300,170" size="890,450" zPosition="1" font="Regular;22" />
-		<widget name="CoverPreview" position="20,115" size="256,360" zPosition="2" alphatest="on" />
+		<widget name="CoverPreview" position="20,115" size="256,360" zPosition="2" />
 	</screen>
 	<screen name="AdvancedMovieSelectionEventView_Backdrop" position="0,0" size="1280,720" title=" " flags="wfNoBorder">
 		<widget name="red_button" pixmap="skin_default/buttons/red.png" position="10,5" size="200,40" />
@@ -637,19 +637,19 @@
 			<convert type="ClockToText">InMinutes</convert>
 		</widget>
 		<widget name="epg_description" position="300,170" size="950,450" zPosition="1" font="Regular;22" transparent="1" />
-		<widget name="CoverPreview" position="20,115" size="256,360" zPosition="2" alphatest="on" />
-		<ePixmap position="0,0" size="1280,720" zPosition="-1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/background.png" alphatest="on" />
+		<widget name="CoverPreview" position="20,115" size="256,360" zPosition="2" />
+		<ePixmap position="0,0" size="1280,720" zPosition="-1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/background.png" />
 		<widget name="backdrop" zPosition="-2" position="0,0" size="1280,720" />
 	</screen>
 	<screen name="TMDbMain" position="center,80" size="1200,610" title=" ">
-		<widget name="button_red" pixmap="skin_default/buttons/red.png" position="10,0" size="220,50" scale="stretch" />
-		<widget name="button_green" pixmap="skin_default/buttons/green.png" position="230,0" size="220,50" scale="stretch" />
-		<widget name="button_yellow" pixmap="skin_default/buttons/yellow.png" position="450,0" size="220,50" scale="stretch" />
-		<widget name="button_blue" pixmap="skin_default/buttons/blue.png" position="670,0" size="220,50" scale="stretch" />
-		<widget source="key_red" render="Label" position="10,0" size="220,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
-		<widget source="key_green" render="Label" position="230,0" size="220,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
-		<widget source="key_yellow" render="Label" position="450,0" size="220,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#a08500" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
-		<widget source="key_blue" render="Label" position="670,0" size="220,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#18188b" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<widget name="button_red" pixmap="skin_default/buttons/red.png" position="10,0" size="230,46" />
+		<widget name="button_green" pixmap="skin_default/buttons/green.png" position="240,0" size="230,46" />
+		<widget name="button_yellow" pixmap="skin_default/buttons/yellow.png" position="470,0" size="230,46" />
+		<widget name="button_blue" pixmap="skin_default/buttons/blue.png" position="700,0" size="230,46" />
+		<widget source="key_red" render="Label" position="10,0" size="230,46" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<widget source="key_green" render="Label" position="240,0" size="230,46" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<widget source="key_yellow" render="Label" position="470,0" size="230,46" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#a08500" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<widget source="key_blue" render="Label" position="700,0" size="230,46" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#18188b" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
 		<widget source="global.CurrentTime" render="Label" position="1130,12" size="60,25" font="Regular;22" halign="right" backgroundColor="background" shadowColor="black" shadowOffset="-2,-2" transparent="1">
 			<convert type="ClockToText">Default</convert>
 		</widget>
@@ -657,26 +657,26 @@
 			<convert type="ClockToText">Format:%a %d. %B</convert>
 		</widget>
 		<eLabel position="10,50" size="1180,1" backgroundColor="grey" />
-		<widget name="no_stars" position="20,63" size="210,21" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/starsbar_empty.png" alphatest="on" />
+		<widget name="no_stars" position="20,63" size="210,21" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/starsbar_empty.png" />
 		<widget name="stars" position="20,63" size="210,21" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/starsbar_filled.png" transparent="1" />
 		<widget name="vote" position="250,60" size="300,28" font="Regular;23" valign="top" halign="left" />
 		<widget name="result_txt" position="20,60" size="1160,28" font="Regular;24" valign="top" halign="center" />
 		<widget name="list" position="20,100" zPosition="2" size="1160,420" scrollbarMode="showOnDemand" enableWrapAround="1" />
-		<widget name="cover" zPosition="2" position="35,100" size="185,278" alphatest="on" />
+		<widget name="cover" zPosition="2" position="35,100" size="185,278" />
 		<widget name="description" position="250,110" size="940,275" font="Regular;22" />
 		<widget name="extended" position="20,390" size="1160,210" font="Regular;20" halign="left" />
 		<widget name="status" position="20,0" size="1160,610" zPosition="2" font="Regular;22" valign="center" halign="center" transparent="1" />
-		<widget name="tmdblogo" position="1060,520" zPosition="4" size="150,90" alphatest="on" />
+		<widget name="tmdblogo" position="1060,520" zPosition="4" size="150,90" />
 	</screen>
 	<screen name="TMDbMain_Backdrop" position="0,0" size="1280,720" title=" " flags="wfNoBorder">
-		<widget name="button_red" pixmap="skin_default/buttons/red.png" position="10,0" size="220,50" scale="stretch" />
-		<widget name="button_green" pixmap="skin_default/buttons/green.png" position="230,0" size="220,50" scale="stretch" />
-		<widget name="button_yellow" pixmap="skin_default/buttons/yellow.png" position="450,0" size="220,50" scale="stretch" />
-		<widget name="button_blue" pixmap="skin_default/buttons/blue.png" position="670,0" size="220,50" scale="stretch" />
-		<widget source="key_red" render="Label" position="10,0" size="220,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
-		<widget source="key_green" render="Label" position="230,0" size="220,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
-		<widget source="key_yellow" render="Label" position="450,0" size="220,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#a08500" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
-		<widget source="key_blue" render="Label" position="670,0" size="220,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#18188b" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<widget name="button_red" pixmap="skin_default/buttons/red.png" position="10,0" size="230,46" />
+		<widget name="button_green" pixmap="skin_default/buttons/green.png" position="240,0" size="230,46" />
+		<widget name="button_yellow" pixmap="skin_default/buttons/yellow.png" position="470,0" size="230,46" />
+		<widget name="button_blue" pixmap="skin_default/buttons/blue.png" position="700,0" size="230,46" />
+		<widget source="key_red" render="Label" position="10,0" size="230,46" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<widget source="key_green" render="Label" position="240,0" size="230,46" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<widget source="key_yellow" render="Label" position="470,0" size="230,46" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#a08500" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<widget source="key_blue" render="Label" position="700,0" size="230,46" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#18188b" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
 		<widget source="global.CurrentTime" render="Label" position="1210,12" size="60,25" font="Regular;22" halign="right" backgroundColor="background" shadowColor="black" shadowOffset="-2,-2" transparent="1">
 			<convert type="ClockToText">Default</convert>
 		</widget>
@@ -685,28 +685,28 @@
 		</widget>
 		<eLabel position="10,50" size="1260,1" backgroundColor="grey" />
 		<widget source="Title" render="Label" position="30,55" size="1100,30" font="Regular;26" backgroundColor="#000000" foregroundColor="#ffffff" transparent="1" />
-		<widget name="no_stars" position="20,93" size="210,21" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/starsbar_empty.png" alphatest="on" />
+		<widget name="no_stars" position="20,93" size="210,21" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/starsbar_empty.png" />
 		<widget name="stars" position="20,93" size="210,21" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/starsbar_filled.png" transparent="1" />
 		<widget name="vote" position="250,90" size="300,28" zPosition="2" font="Regular;23" transparent="1" valign="top" halign="left" backgroundColor="#000000" foregroundColor="#ffffff" />
 		<widget name="result_txt" position="30,90" size="1220,30" zPosition="2" font="Regular;26" transparent="1" backgroundColor="#000000" foregroundColor="yellow" />
 		<widget name="list" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sel.png" position="30,130" zPosition="2" size="1220,560" scrollbarMode="showOnDemand" transparent="1" enableWrapAround="1" />
-		<widget name="cover" zPosition="2" position="35,130" size="185,278" alphatest="on" />
+		<widget name="cover" zPosition="2" position="35,130" size="185,278" />
 		<widget name="description" position="250,120" size="970,275" zPosition="3" font="Regular;22" backgroundColor="#000000" foregroundColor="#ffffff" transparent="1" />
 		<widget name="extended" position="30,420" size="1220,280" zPosition="2" font="Regular;20" transparent="1" halign="left" backgroundColor="#000000" foregroundColor="#ffffff" />
 		<widget name="status" position="30,0" size="1220,720" zPosition="2" font="Regular;22" transparent="1" valign="center" halign="center" backgroundColor="#000000" foregroundColor="#ffffff" />
-		<widget name="tmdblogo" position="1150,55" zPosition="4" size="117,70" alphatest="on" />
-		<ePixmap position="0,0" size="1280,720" zPosition="-1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/background.png" alphatest="on" />
+		<widget name="tmdblogo" position="1150,55" zPosition="4" size="117,70" />
+		<ePixmap position="0,0" size="1280,720" zPosition="-1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/background.png" />
 		<widget name="backdrop" zPosition="-2" position="0,0" size="1280,720" />
 	</screen>
 	<screen name="TheTVDBMain" position="center,80" size="1200,610" title=" ">
-		<widget name="button_red" pixmap="skin_default/buttons/red.png" position="10,0" size="220,50" scale="stretch" />
-		<widget name="button_green" pixmap="skin_default/buttons/green.png" position="230,0" size="220,50" scale="stretch" />
-		<widget name="button_yellow" pixmap="skin_default/buttons/yellow.png" position="450,0" size="220,50" scale="stretch" />
-		<widget name="button_blue" pixmap="skin_default/buttons/blue.png" position="670,0" size="220,50" scale="stretch" />
-		<widget source="key_red" render="Label" position="10,0" size="220,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
-		<widget source="key_green" render="Label" position="230,0" size="220,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
-		<widget source="key_yellow" render="Label" position="450,0" size="220,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#a08500" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
-		<widget source="key_blue" render="Label" position="670,0" size="220,50" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#18188b" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<widget name="button_red" pixmap="skin_default/buttons/red.png" position="10,0" size="230,46" />
+		<widget name="button_green" pixmap="skin_default/buttons/green.png" position="240,0" size="230,46" />
+		<widget name="button_yellow" pixmap="skin_default/buttons/yellow.png" position="470,0" size="230,46" />
+		<widget name="button_blue" pixmap="skin_default/buttons/blue.png" position="700,0" size="230,46" />
+		<widget source="key_red" render="Label" position="10,0" size="230,46" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<widget source="key_green" render="Label" position="240,0" size="230,46" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<widget source="key_yellow" render="Label" position="470,0" size="230,46" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#a08500" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
+		<widget source="key_blue" render="Label" position="700,0" size="230,46" zPosition="1" font="Regular;20" halign="center" valign="center" backgroundColor="#18188b" transparent="1" shadowColor="black" shadowOffset="-2,-2" />
 		<widget source="global.CurrentTime" render="Label" position="1130,12" size="60,25" font="Regular;22" halign="right" backgroundColor="background" shadowColor="black" shadowOffset="-2,-2" transparent="1">
 			<convert type="ClockToText">Default</convert>
 		</widget>
@@ -714,11 +714,11 @@
 			<convert type="ClockToText">Format:%a %d. %B</convert>
 		</widget>
 		<eLabel position="10,50" size="1180,1" backgroundColor="grey" />
-		<widget name="no_stars" position="20,63" size="210,21" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/starsbar_empty.png" alphatest="on" />
+		<widget name="no_stars" position="20,63" size="210,21" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/starsbar_empty.png" />
 		<widget name="stars" position="20,63" size="210,21" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/starsbar_filled.png" transparent="1" />
 		<widget name="voted" position="250,60" zPosition="2" size="300,28" font="Regular;23" />
-		<widget name="cover" zPosition="3" position="35,110" size="185,278" alphatest="on" />
-		<widget name="banner" zPosition="3" position="30,110" size="400,225" alphatest="on" />
+		<widget name="cover" zPosition="3" position="35,110" size="185,278" />
+		<widget name="banner" zPosition="3" position="30,110" size="400,225" />
 		<widget name="result_txt" position="20,60" size="1160,28" zPosition="2" font="Regular;24" valign="top" halign="center" />
 		<widget name="list" position="20,100" size="1160,420" scrollbarMode="showOnDemand" enableWrapAround="1" />
 		<widget name="episodes_list" position="20,100" zPosition="2" size="1160,420" scrollbarMode="showOnDemand" enableWrapAround="1" />
@@ -727,7 +727,7 @@
 		<widget name="description" position="20,400" size="1160,230" font="Regular;22" />
 		<widget name="description_episode" position="20,355" size="1160,240" font="Regular;22" />
 		<widget name="status" position="20,0" size="1160,610" zPosition="2" font="Regular;20" valign="center" halign="center" transparent="1" />
-		<widget name="thetvdb_logo" position="1005,540" zPosition="4" size="175,54" alphatest="on" />
+		<widget name="thetvdb_logo" position="1005,540" zPosition="4" size="175,54" />
 	</screen>
 	<screen name="AdvancedMovieSelection_Preview" position="center,80" size="1200,610" title=" ">
 		<ePixmap pixmap="skin_default/buttons/red.png" position="10,5" size="200,40" />
@@ -748,7 +748,7 @@
 		<eLabel position="10,417" size="1180,1" backgroundColor="grey" />
 		<widget font="Regular;20" foregroundColor="#ffcc00" name="warning" halign="right" position="490,64" size="700,25" />
 		<widget font="Regular;22" position="20,63" size="450,25" name="freeDiskSpace" />
-		<widget alphatest="on" name="CoverPreview" position="20,424" size="120,180" />
+		<widget name="CoverPreview" position="20,424" size="120,180" />
 		<widget source="Service" render="Label" position="150,435" size="1000,24" font="Regular;20" halign="left" transparent="1">
 			<convert type="MovieInfo">RecordServiceName</convert>
 		</widget>
@@ -789,11 +789,11 @@
 			<convert type="ClockToText">Format:%A %d. %B</convert>
 		</widget>
 		<eLabel position="10,50" size="1260,1" backgroundColor="grey" />
-		<ePixmap position="0,0" size="1280,720" zPosition="-1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/background.png" alphatest="on" />
+		<ePixmap position="0,0" size="1280,720" zPosition="-1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/background.png" />
 		<widget name="backdrop" zPosition="-2" position="0,0" size="1280,720" />
 		<widget backgroundColor="black" font="Regular;24" foregroundColor="#ffcc00" halign="center" name="warning" position="20,100" size="1240,30" transparent="1" />
 		<widget backgroundColor="black" font="Regular;22" foregroundColor="white" render="Label" position="20,60" size="1240,25" source="Title" transparent="1" />
-		<widget alphatest="on" name="CoverPreview" position="10,420" size="185,278" />
+		<widget name="CoverPreview" position="10,420" size="185,278" />
 		<widget backgroundColor="black" font="Regular;20" foregroundColor="white" position="220,350" render="Label" size="1040,115" source="Service" transparent="1">
 			<convert type="EventName">FullDescription</convert>
 		</widget>
@@ -885,14 +885,14 @@
 		<widget name="waitingtext" position="20,70" size="890,546" zPosition="3" font="Regular;26" halign="center" valign="center" />
 		<widget name="list" position="20,55" size="890,546" scrollbarMode="showOnDemand" selectionPixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sel.png" backgroundPixmap="skin_default/div-h.png" foregroundColorSelected="#ffffff" transparent="1" enableWrapAround="1" />
 		<widget name="CoverPreview" position="970,70" size="185,278" />
-		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" position="955,580" size="45,20" alphatest="on" />
-		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" position="1010,580" size="45,20" alphatest="on" />
-		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" position="1065,580" size="45,20" alphatest="on" />
-		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_help.png" position="1120,580" size="45,20" alphatest="on" />
+		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_menu.png" position="955,580" size="45,20" />
+		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_pvr.png" position="1010,580" size="45,20" />
+		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.png" position="1065,580" size="45,20" />
+		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_help.png" position="1120,580" size="45,20" />
 	</screen>
 	<screen name="MoviePlayerExtended" position="0,290" size="1280,400" backgroundColor="transparent" flags="wfNoBorder">
 		<ePixmap position="0,250" pixmap="skin_default/infobar.png" size="1280,150" zPosition="-1" />
-		<ePixmap pixmap="menu/mediacenter.png" position="40,310" zPosition="1" size="70,70" alphatest="on" />
+		<ePixmap pixmap="menu/mediacenter.png" position="40,310" zPosition="1" size="70,70" />
 		<widget source="global.CurrentTime" render="Label" position="10,261" size="75,26" halign="right" font="Regular;22" foregroundColor="yellow" backgroundColor="#263c59" transparent="1">
 			<convert type="ClockToText">Default</convert>
 		</widget>
@@ -900,7 +900,7 @@
 		<widget source="session.CurrentService" render="Label" position="110,261" size="75,26" font="Regular;22" foregroundColor="yellow" backgroundColor="#263c59" transparent="1">
 			<convert type="ServicePosition">EndTime,ShowNoSeconds</convert>
 		</widget>
-		<ePixmap pixmap="skin_default/icons/icon_event.png" position="182,267" size="20,13" alphatest="on" />
+		<ePixmap pixmap="skin_default/icons/icon_event.png" position="182,267" size="20,13" />
 		<widget source="session.CurrentService" render="Label" position="220,259" size="720,27" font="Regular;24" noWrap="1" backgroundColor="#263c59" transparent="1">
 			<convert type="ServiceName">Name</convert>
 		</widget>
@@ -911,21 +911,21 @@
 		<widget source="session.CurrentService" render="Label" position="1074,280" size="60,22" backgroundColor="#263c59" font="Regular;19" halign="left" transparent="1">
 			<convert type="ServiceInfo">VideoHeight</convert>
 		</widget>
-		<ePixmap position="1066,0" size="188,268" zPosition="1" pixmap="skin_default/menu.png" />
-		<ePixmap position="1075,10" size="170,250" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/cover_back.png" />
-		<widget name="CoverPreview" position="1080,15" size="160,240" zPosition="2" />
-		<widget source="session.CurrentService" render="Pixmap" pixmap="skin_default/icons/ico_hd_off.png" position="1140,280" size="42,20" alphatest="on">
+		<ePixmap position="1066,0" size="180,260" zPosition="1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/menu.png" />
+		<ePixmap position="1071,5" size="170,250" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/cover_back.png" />
+		<widget name="CoverPreview" position="1076,10" size="160,240" zPosition="2" />
+		<widget source="session.CurrentService" render="Pixmap" pixmap="skin_default/icons/ico_hd_off.png" position="1140,280" size="42,20">
 			<convert type="ServiceInfo">VideoWidth</convert>
 			<convert type="ValueRange">0,720</convert>
 			<convert type="ConditionalShowHide" />
 		</widget>
-		<widget source="session.CurrentService" render="Pixmap" pixmap="skin_default/icons/ico_hd_on.png" position="1140,280" size="42,20" zPosition="1" alphatest="on">
+		<widget source="session.CurrentService" render="Pixmap" pixmap="skin_default/icons/ico_hd_on.png" position="1140,280" size="42,20" zPosition="1">
 			<convert type="ServiceInfo">VideoWidth</convert>
 			<convert type="ValueRange">721,1980</convert>
 			<convert type="ConditionalShowHide" />
 		</widget>
-		<ePixmap pixmap="skin_default/icons/ico_format_off.png" position="1190,280" size="42,20" alphatest="on" />
-		<widget source="session.CurrentService" render="Pixmap" pixmap="skin_default/icons/ico_format_on.png" position="1190,280" size="42,20" zPosition="1" alphatest="on">
+		<ePixmap pixmap="skin_default/icons/ico_format_off.png" position="1190,280" size="42,20" />
+		<widget source="session.CurrentService" render="Pixmap" pixmap="skin_default/icons/ico_format_on.png" position="1190,280" size="42,20" zPosition="1">
 			<convert type="ServiceInfo">IsWidescreen</convert>
 			<convert type="ConditionalShowHide" />
 		</widget>
@@ -945,10 +945,10 @@
 		<widget source="session.CurrentService" render="Label" position="1020,335" size="80,24" font="Regular;22" halign="left" backgroundColor="#263c59" transparent="1">
 			<convert type="ServicePosition">Remaining,Negate</convert>
 		</widget>
-		<widget source="session.RecordState" render="Pixmap" position="1110,375" size="42,20" pixmap="skin_default/icons/icon_rec.png" alphatest="on">
+		<widget source="session.RecordState" render="Pixmap" position="1110,375" size="42,20" pixmap="skin_default/icons/icon_rec.png">
 			<convert type="ConditionalShowHide">Blink</convert>
 		</widget>
-		<ePixmap pixmap="skin_default/icons/ico_dolby_off.png" position="1180,375" size="57,20" alphatest="on" />
+		<ePixmap pixmap="skin_default/icons/ico_dolby_off.png" position="1180,375" size="57,20" />
 		<widget source="session.CurrentService" render="Pixmap" pixmap="skin_default/icons/ico_dolby_on.png" position="1180,375" size="57,20" zPosition="1">
 			<convert type="ServiceInfo">IsMultichannel</convert>
 			<convert type="ConditionalShowHide" />
@@ -956,11 +956,11 @@
 	</screen>
 	<screen name="DVDPlayerExtended" position="0,290" size="1280,400" backgroundColor="transparent" flags="wfNoBorder">
 		<ePixmap position="0,250" pixmap="skin_default/infobar.png" size="1280,150" zPosition="-1" />
-		<ePixmap pixmap="menu/dvd_player.png" position="40,310" zPosition="1" size="70,70" alphatest="on" />
+		<ePixmap pixmap="menu/dvd_player.png" position="40,310" zPosition="1" size="70,70" />
 		<widget source="global.CurrentTime" render="Label" position="10,261" size="75,26" halign="right" font="Regular;22" foregroundColor="yellow" backgroundColor="#263c59" transparent="1">
 			<convert type="ClockToText">Default</convert>
 		</widget>
-		<ePixmap pixmap="skin_default/icons/icon_event.png" position="100,267" size="20,13" alphatest="on" />
+		<ePixmap pixmap="skin_default/icons/icon_event.png" position="100,267" size="20,13" />
 		<widget source="session.CurrentService" render="Label" position="150,259" size="550,27" font="Regular;24" noWrap="1" backgroundColor="#263c59" transparent="1">
 			<convert type="ServiceName">Name</convert>
 		</widget>
@@ -969,11 +969,11 @@
 		<eLabel backgroundColor="background" font="Regular;17" foregroundColor="grey" position="740,272" size="120,20" text="Subtitle:" transparent="1" />
 		<widget backgroundColor="background" font="Regular;17" name="subtitleLabel" position="840,272" size="140,20" transparent="1" />
 		<widget backgroundColor="background" font="Regular;22" name="chapterLabel" position="350,295" size="600,24" halign="center" transparent="1" />
-		<widget alphatest="on" name="anglePix" pixmap="skin_default/icons/icon_view.png" position="970,281" size="26,16" />
+		<widget name="anglePix" pixmap="skin_default/icons/icon_view.png" position="970,281" size="26,16" />
 		<widget name="angleLabel" position="1005,280" size="120,19" font="Regular;17" foregroundColor="grey" backgroundColor="#263c59" transparent="1" />
-		<ePixmap position="1066,0" size="188,268" zPosition="1" pixmap="skin_default/menu.png" />
-		<ePixmap position="1075,10" size="170,250" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/cover_back.png" />
-		<widget name="CoverPreview" position="1080,15" size="160,240" zPosition="2" />
+		<ePixmap position="1066,0" size="180,260" zPosition="1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/menu.png" />
+		<ePixmap position="1071,5" size="170,250" zPosition="3" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/cover_back.png" />
+		<widget name="CoverPreview" position="1076,10" size="160,240" zPosition="2" />
 		<widget source="session.CurrentService" render="Label" position="550,322" size="200,24" font="Regular;22" halign="center" backgroundColor="#263c59" transparent="1">
 			<convert type="ServicePosition">Length</convert>
 		</widget>
@@ -987,16 +987,16 @@
 		<widget source="session.CurrentService" render="Label" position="1020,335" size="80,24" font="Regular;22" halign="left" backgroundColor="#263c59" transparent="1">
 			<convert type="ServicePosition">Remaining,Negate</convert>
 		</widget>
-		<widget source="session.RecordState" render="Pixmap" position="1180,375" size="42,20" pixmap="skin_default/icons/icon_rec.png" alphatest="on">
+		<widget source="session.RecordState" render="Pixmap" position="1180,375" size="42,20" pixmap="skin_default/icons/icon_rec.png">
 			<convert type="ConditionalShowHide">Blink</convert>
 		</widget>
 	</screen>
 	<!--LCD/OLED Screens -->
 	<screen name="AdvancedMovieSelection_summary" position="0,0" size="132,64" id="1">
 		<widget source="parent.Movietitle" render="Label" position="2,0" size="128,24" font="Display;12" halign="center" valign="top" />
-		<widget name="Seperator1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/seperator.png" position="0,25" size="132,1" alphatest="on" />
+		<widget name="Seperator1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/seperator.png" position="0,25" size="132,1" />
 		<widget name="ShortDesc" position="2,27" size="128,24" font="Display;12" halign="center" valign="top" />
-		<widget name="Seperator2" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/seperator.png" position="0,50" size="132,1" alphatest="on" />
+		<widget name="Seperator2" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/seperator.png" position="0,50" size="132,1" />
 		<widget source="parent.MovieSize" render="Label" position="2,54" size="64,10" font="Display;10" halign="left" valign="top">
 			<convert type="ServiceTime">Duration</convert>
 			<convert type="ClockToText">InMinutes</convert>
@@ -1007,9 +1007,9 @@
 	</screen>
 	<screen name="MoviePlayerExtended_summary" position="0,0" size="132,64" id="1">
 		<widget name="Title" position="2,0" size="128,24" font="Display;12" halign="center" valign="top" />
-		<widget name="Seperator1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/seperator.png" position="0,50" size="132,1" alphatest="on" />
+		<widget name="Seperator1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/seperator.png" position="0,50" size="132,1" />
 		<widget name="ShortDesc" position="2,27" size="128,24" font="Display;12" halign="center" valign="top" />
-		<widget name="Seperator2" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/seperator.png" position="0,50" size="132,1" alphatest="on" />
+		<widget name="Seperator2" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/seperator.png" position="0,50" size="132,1" />
 		<widget source="global.CurrentTime" render="Label" position="2,52" size="40,14" font="Display;14" halign="left" valign="top">
 			<convert type="ClockToText">Format:%H:%M</convert>
 		</widget>
@@ -1061,7 +1061,7 @@
 	</screen>
 	<screen name="MoviePlayerExtended_summary" position="0,0" size="400,240" id="3">
 		<widget name="Title" font="Display;50" halign="center" position="10,0" size="380,104" valign="center" />
-		<widget name="Seperator1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sepmovie.png" position="0,107" size="400,2" alphatest="on" />
+		<widget name="Seperator1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sepmovie.png" position="0,107" size="400,2" />
 		<widget font="Display;40" halign="center" name="ShortDesc" position="10,114" size="380,42" />
 		<widget borderWidth="1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/sel.png" position="10,165" render="Progress" size="380,14" source="session.CurrentService">
 			<convert type="ServicePosition">Position</convert>
