@@ -413,3 +413,7 @@ version: 5
 * neu: zusätzliche schnellauswahl
 * neu: neue tmdb api
 * neu: tmdb suche für serien
+
+version: 5.1
+* neu: tmdb info download erst ab 80 minuten timer länge
+* neu: SVG unterstützung
