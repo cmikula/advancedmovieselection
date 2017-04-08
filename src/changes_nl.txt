@@ -409,3 +409,7 @@ versie: 5
 * new: additional quick action
 * new: new tmdb api
 * new: tmdb search for series
+
+versie: 5.1
+* new: tmdb info download only if timer duration greater than 80 minutes
+* new: support for svg
