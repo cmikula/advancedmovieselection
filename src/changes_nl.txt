@@ -396,20 +396,20 @@ versie: 4.1
 * verwijderd: SD en XD skins niet langer ondersteund
 
 versie: 4.1.1
-* fix: Waste timer
+* fix: timer prullemand
 
 versie: 4.2
-* fix: settings for tmdb and tvdb cover resolution
-* fix: clear timer in movielist (oe2.5)
-* fix: audio selection with yellow key
-* new: tmdb parser
+* fix: instellingen voor tmdb en tvdb cover resolutie
+* fix: timer verwijderen in filmlijst (oe2.5)
+* fix: audio selectie met gele toets
+* nieuw: tmdb parser
 
 versie: 5
-* fix: hotplug devices
-* new: additional quick action
-* new: new tmdb api
-* new: tmdb search for series
+* fix: hotplug opslagmedia
+* nieuw: additionele quick actie
+* nieuw: nieuwe tmdb api
+* nieuw: tmdb zoekfunctie voor series
 
 versie: 5.1
-* new: tmdb info download only if timer duration greater than 80 minutes
-* new: support for svg
+* nieuw: tmdb info download enkel indien opname over 80 minuten
+* nieuw: support voor svg
