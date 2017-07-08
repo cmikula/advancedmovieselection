@@ -413,3 +413,6 @@ versie: 5
 versie: 5.1
 * nieuw: tmdb info download enkel indien opname over 80 minuten
 * nieuw: support voor svg
+
+versie: 5.1.1
+* fix: tvdb crash
