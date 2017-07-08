@@ -416,3 +416,6 @@ version: 5
 version: 5.1
 * new: tmdb info download only if timer duration greater than 80 minutes
 * new: support for svg
+
+version: 5.1.1
+* fix: tvdb crash
