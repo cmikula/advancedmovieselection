@@ -69,8 +69,7 @@ class CoverLoader():
         print "[AdvancedMovieSelection] RecordTimerEvent:", str(timer.state), str(timer.cancelled), str(timer.begin), str(timer.end), timer.Filename
         duration_minutes = (timer.end - timer.begin) / 60
         print duration_minutes
-        # if timer.state == TimerEntry.StateRunning and duration_minutes > 80:
-        if timer.state == TimerEntry.StateEnded and duration_minutes > 80:
+        if timer.state == TimerEntry.StateRunning and duration_minutes > 80:
             from thread import start_new_thread
             start_new_thread(self.downloadMovieInfo, (timer.name, timer.Filename))
 

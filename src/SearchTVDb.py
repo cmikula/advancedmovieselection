@@ -730,7 +730,7 @@ class TheTVDBMain(Screen, InfoLoadChoice):
         cur = self["list"].getCurrent()
         if not self.checkConnection() or not cur:
             return
-        overwrite_eit, overwrite_cover, overwrite_backdrop = answer and answer or (False, False, False)
+        overwrite_eit, overwrite_cover, overwrite_backdrop = answer and answer[1] or (False, False, False)
         current_movie = cur['Serie'][0]
         title = current_movie['SeriesName'].encode('utf-8', 'ignore')
         episode = None
