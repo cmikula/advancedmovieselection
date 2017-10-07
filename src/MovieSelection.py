@@ -884,7 +884,8 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
     def delete(self):
         self.service = self.getCurrent()
         if self.service.flags & eServiceReference.mustDescent:
-            if self.service.getName() == ".." or not self.service.getPath().startswith("/media/") or self.service.getPath() == "/media/" or \
+            if self.service.getName() == ".." or self.service.getPath() == "/media/" or \
+                not (self.service.getPath().startswith("/media/") or self.service.getPath().startswith("/hdd/")) or \
                 isinstance(self.service, eServiceReferenceVDir) or \
                 isinstance(self.service, eServiceReferenceMarker) or \
                 isinstance(self.service, eServiceReferenceBackDir) or \
