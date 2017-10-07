@@ -419,3 +419,4 @@ versione: 5.1
 
 versione: 5.1.1
 * fix: tvdb crash
+* new: directories can be deleted with pin code
