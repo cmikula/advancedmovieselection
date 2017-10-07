@@ -62,7 +62,7 @@ from Tools.FuzzyDate import FuzzyTime
 from MovieSearch import MovieSearch
 from Source.Globals import pluginPresent, SkinTools, printStackTrace
 from Source.ServiceProvider import ServiceEvent, ServiceCenter
-from Source.ServiceProvider import eServiceReferenceHotplug, eServiceReferenceBackDir, eServiceReferenceListAll
+from Source.ServiceProvider import eServiceReferenceHotplug, eServiceReferenceBackDir, eServiceReferenceListAll, eServiceReferenceVDir, eServiceReferenceMarker
 from Source.AutoNetwork import autoNetwork 
 from Source.MovieScanner import movieScanner
 from Source.ServiceDescriptor import DirectoryInfo
@@ -159,10 +159,10 @@ def getBeginTimeString(info, serviceref):
     return desc
 
 from Screens.LocationBox import LocationBox
-def ScanLocationBox(session, text, dir, minFree = None):
+def ScanLocationBox(session, text, dir, minFree=None):
     inhibitDirs = ["/bin", "/boot", "/dev", "/etc", "/lib", "/proc", "/sbin", "/sys", "/usr", "/var"]
     config.AdvancedMovieSelection.videodirs.load()
-    return LocationBox(session, text = text, currDir = dir, bookmarks = config.AdvancedMovieSelection.videodirs, autoAdd = False, editDir = False, inhibitDirs = inhibitDirs, minFree = minFree)
+    return LocationBox(session, text=text, currDir=dir, bookmarks=config.AdvancedMovieSelection.videodirs, autoAdd=False, editDir=False, inhibitDirs=inhibitDirs, minFree=minFree)
 
 class MovieContextMenu(Screen):
     MODE_NORMAL = 0
@@ -199,7 +199,7 @@ class MovieContextMenu(Screen):
             menu.append((_("TMDb Series & D/L"), boundFunction(self.tmdbseries)))
         if config.AdvancedMovieSelection.showthetvdb.value:
             menu.append((_("TheTVDB Info & D/L"), boundFunction(self.thetvdbsearch)))
-        if config.AdvancedMovieSelection.showdelete.value and not self.service.flags & eServiceReference.mustDescent:
+        if config.AdvancedMovieSelection.showdelete.value: # and not self.service.flags & eServiceReference.mustDescent:
             menu.append((_("Delete"), self.delete))
         if config.AdvancedMovieSelection.showmove.value and not self.service.flags & eServiceReference.mustDescent:
             menu.append((_("Move/Copy"), self.movecopy))
@@ -866,11 +866,35 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                 return timer_text + _("Do you really want to move selected movies to trashcan?")
             else:
                 return timer_text + _("Do you really want to delete selected movies?")
+    
+    def __deleteDirectory(self, valid):
+        try:
+            print "Delete directory", str(valid)
+            if valid and self.service.flags & eServiceReference.mustDescent:
+                to_delete = self.service.getPath()
+                if os.path.exists(to_delete):
+                    print "delete", to_delete
+                    import shutil
+                    shutil.rmtree(to_delete)
+                    self["list"].removeService(self.service)
+        except Exception, e:
+            print e
+            self.session.open(MessageBox, _("Delete failed!"), MessageBox.TYPE_ERROR)
 
     def delete(self):
         self.service = self.getCurrent()
         if self.service.flags & eServiceReference.mustDescent:
-            self.session.open(MessageBox, _("This cannot deleted, please select a movie for!"), MessageBox.TYPE_INFO)
+            if self.service.getName() == ".." or not self.service.getPath().startswith("/media/") or self.service.getPath() == "/media/" or \
+                isinstance(self.service, eServiceReferenceVDir) or \
+                isinstance(self.service, eServiceReferenceMarker) or \
+                isinstance(self.service, eServiceReferenceBackDir) or \
+                isinstance(self.service, eServiceReferenceListAll) or \
+                isinstance(self.service, eServiceReferenceHotplug):
+                self.session.open(MessageBox, _("This cannot deleted, please select a movie for!"), MessageBox.TYPE_INFO)
+                return
+            
+            from PinInputDialog import PinInputDialog
+            self.session.openWithCallback(self.__deleteDirectory, PinInputDialog, _("Delete directory"), self.service.getPath(), config.ParentalControl.retries.servicepin)
             return
 
         if len(self.list.multiSelection) > 0:
@@ -1338,7 +1362,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
         #if config.usage.setup_level.index >= 2: # expert+
         title = getSortDescription()
         if self.list.getAccess() < 18:
-            title += " [%s-%d]"%(_("VSR"), self.list.getAccess())
+            title += " [%s-%d]" % (_("VSR"), self.list.getAccess())
         title += " | "
         if not isinstance(self.current_ref, eServiceReferenceListAll):
             title += _("Movie location:") + " "

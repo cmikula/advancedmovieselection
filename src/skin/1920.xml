@@ -1,4 +1,10 @@
 <skin>
+	<screen name="PinInputDialog" position="center,center" size="800,200" title="">
+		<widget name="service" position="10,10" size="780,60" font="Regular;20" />
+		<widget name="text" position="10,80" size="780,25" font="Regular;20" halign="center" />
+		<widget name="tries" position="10,120" size="780,25" font="Regular;20" halign="center" />
+		<widget name="input" position="10,160" size="780,40" font="Regular;50" halign="center" />
+	</screen>
 	<screen name="AdvancedMovieSelectionMoviebarPositionSetup" position="0,60" size="1920,100" title=" " flags="wfNoBorder">
 		<widget source="howtotext" render="Label" position="60,0" size="1800,100" zPosition="1" valign="center" halign="center" font="Regular;28" transparent="1" />
 	</screen>
