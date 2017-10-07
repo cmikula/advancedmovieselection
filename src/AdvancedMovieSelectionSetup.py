@@ -27,7 +27,7 @@ from About import AdvancedMovieSelectionAbout
 from Components.Pixmap import Pixmap
 from Components.PluginComponent import plugins
 from Plugins.Plugin import PluginDescriptor
-from Components.config import config, configfile, ConfigSelection
+from Components.config import config, configfile, ConfigSelection, ConfigNothing, NoSave
 from Components.Sources.StaticText import StaticText
 from Components.Button import Button
 from Components.ConfigList import ConfigListScreen
@@ -45,7 +45,6 @@ from Source.Config import qButtons
 if isDreamOS:
     from Components.config import getConfigListEntry
 else:
-    from Components.config import ConfigNothing
     def getConfigListEntry(*args):
         if len(args) == 1:
             return "{0} {1} {2}".format("-" * 5, args[0], "-" * 200), ConfigNothing(), args[0]
@@ -129,6 +128,7 @@ class BackupRestore(ConfigListScreen, Screen):
         config.AdvancedMovieSelection.backup_path.value = answer
         config.AdvancedMovieSelection.backup_path.save()
 
+
 class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
     def __init__(self, session, csel=None):
         Screen.__init__(self, session)
@@ -137,7 +137,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.needsE2restartFlag = False
         self.needsReopenFlag = False
         actions = {
-            "ok": self.keySave,
+            "ok": self.keyOk,
             "cancel": self.keyCancel,
             "red": self.keyCancel,
             "green": self.keySave,
@@ -454,6 +454,10 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append(getConfigListEntry(_("TOOLS")))
         self.list.append(getConfigListEntry(_("Select keyboard:"), config.AdvancedMovieSelection.keyboard, _("You can select yout prefered keyboard (Virtual, Numerical or both).")))
         self.list.append(getConfigListEntry(_("Enable Enigma2 debug:"), config.AdvancedMovieSelection.debug, _("If you enable this function, all standard output from enigma will be stored to /tmp folder.")))
+
+        self.pin_setup = NoSave(ConfigNothing())
+        self.list.append(getConfigListEntry(_("Pin code setup..."), self.pin_setup, _("Press OK to setup the pin code.")))
+
         self["config"].setList(self.list)
 
     def showHelp(self):
@@ -494,6 +498,13 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.session.openWithCallback(self.cancelConfirm, MessageBox, _("Really close without saving settings?"))
         else:
             self.close()
+
+    def keyOk(self):
+        current = self["config"].l.getCurrentSelection()
+        if current and current[1] == self.pin_setup:
+            self.openPinSetup()
+        else:
+            self.keySave()
 
     def keySave(self):
         from Wastebasket import configChange
@@ -558,6 +569,11 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             
     def RecPathSettings(self):
         self.session.open(RecordPathsSettings)
+
+    def openPinSetup(self):
+        from Screens.ParentalControlSetup import ParentalControlChangePin
+        self.session.open(ParentalControlChangePin, config.AdvancedMovieSelection.pincode, _("delete PIN"))
+
 
 class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
     def __init__(self, session, csel=None):
@@ -942,6 +958,7 @@ class AdvancedMovieSelectionButtonSetup(Screen, ConfigListScreen):
 
     def ownname(self):
         self.session.openWithCallback(self.createConfig, AdvancedMovieSelectionOwnButtonName)
+
 
 class AdvancedMovieSelectionOwnButtonName(Screen, ConfigListScreen):        
     def __init__(self, session):

@@ -22,7 +22,7 @@
 
 from LocaleInit import _
 from Tools.Directories import resolveFilename, SCOPE_HDD
-from Components.config import config, ConfigSubsection, ConfigText, ConfigYesNo, ConfigInteger, ConfigSelection, ConfigClock, ConfigLocations, ConfigBoolean
+from Components.config import config, ConfigSubsection, ConfigText, ConfigYesNo, ConfigInteger, ConfigSelection, ConfigClock, ConfigLocations, ConfigBoolean, ConfigPIN
 from Globals import printStackTrace
 
 # configurations from enigma2 /Components/UsageConfig.py !!!don't edit default values from source!!!
@@ -256,6 +256,12 @@ config.AdvancedMovieSelection.movielibrary_show_mark_cnt = ConfigInteger(default
 config.AdvancedMovieSelection.hide_seen_movies = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.show_backdrop = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.show_directory_info = ConfigSelection(default="" , choices=[("" , _("no")), ("qty" , _("(quantity)")), ("new" , _("(new)")), ("seen" , _("(seen)")), ("new/qty" , _("(new/quantity)")), ("seen/qty" , _("(seen/quantity)"))])
+
+config.AdvancedMovieSelection.pincode = ConfigPIN(default = -1)
+config.AdvancedMovieSelection.retries = ConfigSubsection()
+config.AdvancedMovieSelection.retries.deletepin = ConfigSubsection()
+config.AdvancedMovieSelection.retries.deletepin.tries = ConfigInteger(default = 3)
+config.AdvancedMovieSelection.retries.deletepin.time = ConfigInteger(default = 3)    
 
 class QuickButtons():
     def __init__(self):

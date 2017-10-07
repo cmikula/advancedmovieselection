@@ -895,7 +895,8 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                 return
             
             from PinInputDialog import PinInputDialog
-            self.session.openWithCallback(self.__deleteDirectory, PinInputDialog, _("Delete directory"), self.service.getPath(), config.ParentalControl.retries.servicepin)
+            print [config.AdvancedMovieSelection.pincode.value]
+            self.session.openWithCallback(self.__deleteDirectory, PinInputDialog, _("Delete directory"), self.service.getPath(), config.AdvancedMovieSelection.retries.deletepin, [config.AdvancedMovieSelection.pincode.value])
             return
 
         if len(self.list.multiSelection) > 0:
