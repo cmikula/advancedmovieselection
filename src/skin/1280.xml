@@ -1,4 +1,10 @@
 <skin>
+	<screen name="PinInputDialog" position="center,center" size="800,200" title="">
+		<widget name="service" position="10,10" size="780,60" font="Regular;20" />
+		<widget name="text" position="10,80" size="780,25" font="Regular;20" halign="center" />
+		<widget name="tries" position="10,120" size="780,25" font="Regular;20" halign="center" />
+		<widget name="input" position="10,160" size="780,40" font="Regular;50" halign="center" />
+	</screen>
 	<screen backgroundColor="white" flags="wfNoBorder" name="PopupInputHelpDialog" position="16,685" size="1250,30" zPosition="1001">
 		<widget backgroundColor="black" foregroundColor="white" font="Regular;18" halign="center" name="key1" position="2,2" size="99,26" valign="center" />
 		<widget backgroundColor="black" foregroundColor="white" font="Regular;18" halign="center" name="key2" position="102,2" size="119,26" valign="center" />
