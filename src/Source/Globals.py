@@ -41,6 +41,9 @@ def getIconPath(png_name):
             png = svg
     if png is None or not fileExists(png):
         png = resolveFilename(SCOPE_CURRENT_PLUGIN, IMAGE_PATH + png_name)
+        svg = png[:-3] + "svg"
+        if fileExists(svg):
+            png = svg
     return png
 
 def printStackTrace():
