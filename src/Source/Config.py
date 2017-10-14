@@ -310,6 +310,8 @@ def getChanges(config_entry, changes):
     entry = config.content.items[config_entry]
     for item in entry.dict():
         conf = entry.__getattr__(item)
+        if isinstance(conf, ConfigSubsection):
+            continue
         if conf.default != conf.value: 
             txt = "config.%s.%s=%s" % (config_entry, item, conf.saved_value)
             print txt
