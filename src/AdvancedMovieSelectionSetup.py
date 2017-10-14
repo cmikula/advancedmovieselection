@@ -456,7 +456,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self.list.append(getConfigListEntry(_("Enable Enigma2 debug:"), config.AdvancedMovieSelection.debug, _("If you enable this function, all standard output from enigma will be stored to /tmp folder.")))
 
         self.pin_setup = NoSave(ConfigNothing())
-        self.list.append(getConfigListEntry(_("Pin code setup..."), self.pin_setup, _("Press OK to setup the pin code.")))
+        self.list.append(getConfigListEntry(_("PIN code setup..."), self.pin_setup, _("Press OK to setup the pin code.")))
 
         self["config"].setList(self.list)
 
