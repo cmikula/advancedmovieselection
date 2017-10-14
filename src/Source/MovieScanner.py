@@ -286,7 +286,7 @@ class MovieScanner():
             from timer import TimerEntry 
             print "timer.event", timer.name
             print "timer.state", timer.state
-            if timer.state == TimerEntry.StateRunning:
+            if timer.state == TimerEntry.StateEnded:
                 print "TimerEntry", timer.name
                 if not timer.Filename:
                     print "cancel, no timer filename"
@@ -295,9 +295,11 @@ class MovieScanner():
                 print filename
                 mi = MovieInfo(timer.name, None, file_name=filename)
                 serviceref = mi.createService()
+                mi.serviceref = serviceref
                 mi.info = self.serviceHandler.info(serviceref)
                 mi.begin = mi.info.getInfo(serviceref, iServiceInformation.sTimeCreate)
                 movie_path = os.path.dirname(mi.serviceref.getPath()) + os.sep
+                print movie_path
                 self.movielibrary.addMovie(movie_path, mi)
                 self.updateReloadTime()
                 print "add:", mi
