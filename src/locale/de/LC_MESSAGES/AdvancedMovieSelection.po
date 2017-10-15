@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-14 11:20+0100\n"
-"PO-Revision-Date: 2017-10-14 11:20+0100\n"
+"POT-Creation-Date: 2017-10-15 17:52+0100\n"
+"PO-Revision-Date: 2017-10-15 17:53+0100\n"
 "Last-Translator: cmikula\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "Language: de_AT\n"
@@ -2794,15 +2794,19 @@ msgid "This cannot deleted, please select a movie for!"
 msgstr "Löschen hier nicht möglich, wählen Sie bitte dafür einen Film aus!"
 
 #: ../../../MovieSelection.py:899
-msgid "Delete directory"
-msgstr "Verzeichnis löschen"
+msgid "The required PIN code is not set!"
+msgstr "Der erforderliche PIN Code ist nicht eingerichtet!"
 
-#: ../../../MovieSelection.py:909
+#: ../../../MovieSelection.py:901
+msgid "The PIN code is required to delete the directory"
+msgstr "Der PIN Code ist erforderlich um das Verzeichnis zu löschen"
+
+#: ../../../MovieSelection.py:911
 #: ../../../MoviePlayer.py:341
 msgid "this recording"
 msgstr "this recording"
 
-#: ../../../MovieSelection.py:1223
+#: ../../../MovieSelection.py:1225
 msgid ""
 "Load Length of Movies in Movielist has been disabled.\n"
 "Close and reopen Movielist is required to apply the setting."
@@ -2810,50 +2814,50 @@ msgstr ""
 "Anzeigen der Spielzeit in der Filmliste wurde deaktiviert.\n"
 "Das schließen und wieder öffnen der Filmliste ist erforderlich damit die Einstellungen übernommen werden."
 
-#: ../../../MovieSelection.py:1285
+#: ../../../MovieSelection.py:1287
 msgid "Tag 1"
 msgstr "Markierung 1"
 
-#: ../../../MovieSelection.py:1290
+#: ../../../MovieSelection.py:1292
 msgid "Tag 2"
 msgstr "Markierung 2"
 
-#: ../../../MovieSelection.py:1370
+#: ../../../MovieSelection.py:1372
 msgid "Movie location:"
 msgstr "Speicherort:"
 
-#: ../../../MovieSelection.py:1372
+#: ../../../MovieSelection.py:1374
 #: ../../../MovieList.py:1066
 #: ../../../MovieList.py:1144
 msgid "Movie library"
 msgstr "Bibliothek"
 
-#: ../../../MovieSelection.py:1387
+#: ../../../MovieSelection.py:1389
 msgid "[Library update in progress]"
 msgstr "[Bibliothek wird aktualisiert]"
 
-#: ../../../MovieSelection.py:1411
+#: ../../../MovieSelection.py:1413
 msgid "Please select the movie path..."
 msgstr "Please select the movie path..."
 
-#: ../../../MovieSelection.py:1440
+#: ../../../MovieSelection.py:1442
 #, python-format
 msgid "Directory %s nonexistent."
 msgstr "Directory %s nonexistent."
 
-#: ../../../MovieSelection.py:1489
+#: ../../../MovieSelection.py:1491
 msgid "Please select tag to filter..."
 msgstr "Please select tag to filter..."
 
-#: ../../../MovieSelection.py:1492
+#: ../../../MovieSelection.py:1494
 msgid "No tags are set on these movies."
 msgstr "No tags are set on these movies."
 
-#: ../../../MovieSelection.py:1499
+#: ../../../MovieSelection.py:1501
 msgid "Please select the search path(s) for movies..."
 msgstr "Bitte wählen Sie hier die Verzeichnisse für die suche der Filme aus…"
 
-#: ../../../MovieSelection.py:1522
+#: ../../../MovieSelection.py:1524
 msgid ""
 "Use direction keys to move the Moviebar.\n"
 "Press OK button for save or the EXIT button to cancel.\n"
@@ -3599,6 +3603,9 @@ msgstr "Frei:"
 #: ../../../Source/ServiceDescriptor.py:212
 msgid "Symlink:"
 msgstr "Symlink:"
+
+#~ msgid "Delete directory"
+#~ msgstr "Verzeichnis löschen"
 
 #~ msgid "Show Provider Logo in original size:"
 #~ msgstr "Senderlogo in original Größe anzeigen:"
