@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection(POT)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-14 11:20+0100\n"
-"PO-Revision-Date: 2017-10-14 11:20+0100\n"
+"POT-Creation-Date: 2017-10-15 17:47+0100\n"
+"PO-Revision-Date: 2017-10-15 17:47+0100\n"
 "Last-Translator: cmikula\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "Language: de_AT\n"
@@ -2761,64 +2761,68 @@ msgid "This cannot deleted, please select a movie for!"
 msgstr ""
 
 #: ../MovieSelection.py:899
-msgid "Delete directory"
+msgid "The required PIN code is not set!"
 msgstr ""
 
-#: ../MovieSelection.py:909
+#: ../MovieSelection.py:901
+msgid "The PIN code is required to delete the directory"
+msgstr ""
+
+#: ../MovieSelection.py:911
 #: ../MoviePlayer.py:341
 msgid "this recording"
 msgstr ""
 
-#: ../MovieSelection.py:1223
+#: ../MovieSelection.py:1225
 msgid ""
 "Load Length of Movies in Movielist has been disabled.\n"
 "Close and reopen Movielist is required to apply the setting."
 msgstr ""
 
-#: ../MovieSelection.py:1285
+#: ../MovieSelection.py:1287
 msgid "Tag 1"
 msgstr ""
 
-#: ../MovieSelection.py:1290
+#: ../MovieSelection.py:1292
 msgid "Tag 2"
 msgstr ""
 
-#: ../MovieSelection.py:1370
+#: ../MovieSelection.py:1372
 msgid "Movie location:"
 msgstr ""
 
-#: ../MovieSelection.py:1372
+#: ../MovieSelection.py:1374
 #: ../MovieList.py:1066
 #: ../MovieList.py:1144
 msgid "Movie library"
 msgstr ""
 
-#: ../MovieSelection.py:1387
+#: ../MovieSelection.py:1389
 msgid "[Library update in progress]"
 msgstr ""
 
-#: ../MovieSelection.py:1411
+#: ../MovieSelection.py:1413
 msgid "Please select the movie path..."
 msgstr ""
 
-#: ../MovieSelection.py:1440
+#: ../MovieSelection.py:1442
 #, python-format
 msgid "Directory %s nonexistent."
 msgstr ""
 
-#: ../MovieSelection.py:1489
+#: ../MovieSelection.py:1491
 msgid "Please select tag to filter..."
 msgstr ""
 
-#: ../MovieSelection.py:1492
+#: ../MovieSelection.py:1494
 msgid "No tags are set on these movies."
 msgstr ""
 
-#: ../MovieSelection.py:1499
+#: ../MovieSelection.py:1501
 msgid "Please select the search path(s) for movies..."
 msgstr ""
 
-#: ../MovieSelection.py:1522
+#: ../MovieSelection.py:1524
 msgid ""
 "Use direction keys to move the Moviebar.\n"
 "Press OK button for save or the EXIT button to cancel.\n"
