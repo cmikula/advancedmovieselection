@@ -54,7 +54,7 @@ from Source.MovieInfo import MovieInfo
 from Source.MovieConfig import MovieConfig
 from Source.PicLoader import PicLoader
 from SkinParam import MovieListSkinParam
-from Source.Globals import getIconPath, IMAGE_PATH
+from Source.Globals import getIconPath, getNocover, IMAGE_PATH
 from enigma import eLabel, eSize
 from Source.Config import color_choice, skin_choice
 from Source.MovieCache import MovieCache
@@ -285,17 +285,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
         else:
             self.DATE_TIME_FORMAT = "%d.%m.%Y - %H:%M"
 
-        from Components.Language import language
-        lang = language.getLanguage()
-        if lang == "de_DE" or lang == "de":
-            self.MOVIE_NEW_PNG = self.loadIcon("movie_de_new.png", False)
-            self.NO_COVER_PNG_FILE = getIconPath("nocover_de.png")
-        elif lang == "en":
-            self.MOVIE_NEW_PNG = self.loadIcon("movie_en_new.png", False)
-            self.NO_COVER_PNG_FILE = getIconPath("nocover_en.png")
-        else:
-            self.MOVIE_NEW_PNG = self.loadIcon("movie_new.png", False)
-            self.NO_COVER_PNG_FILE = getIconPath("nocover_en.png")
+        self.MOVIE_NEW_PNG = self.loadIcon("movie_new.png", False)
 
     def updateHotplugDevices(self):
         self.hotplugServices = hotplug.getHotplugServices()
@@ -585,7 +575,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                         if os.path.exists(piconpath):
                             png1 = self.picloader.load(piconpath)
                     if png1 is None:
-                        png1 = self.picloader.load(self.NO_COVER_PNG_FILE)
+                        png1 = self.picloader.load(getNocover())
                     res.append((TYPE_PIXMAP, 0, 2, self.list3_ListHeight - 2, self.list3_ListHeight - 2, png1))
                     offset = self.list3_TextPos
                 new_offset = 0

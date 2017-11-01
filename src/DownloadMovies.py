@@ -37,9 +37,9 @@ from Source.MovieDB import downloadCover
 from Source.MovieDB import tmdb
 from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Components.ScrollLabel import ScrollLabel
-from Source.Globals import printStackTrace
+from Source.Globals import printStackTrace, getNocover
 from Source.PicLoader import PicLoader
-from Source.Globals import getIconPath
+from Source.Globals import getIconPath, getNocover
 import os
 
 fetchingMovies = None
@@ -204,7 +204,7 @@ class DownloadMovies(Screen):
                 if cover_url is not None:
                     downloadCover(cover_url, jpg_file, True)
                 else:
-                    jpg_file = getIconPath("nocover_de.png")
+                    jpg_file = getNocover()
                 sc = AVSwitch().getFramebufferScale()
                 self.picload.setPara((self["poster"].instance.size().width(), self["poster"].instance.size().height(), sc[0], sc[1], False, 1, "#ff000000"))
                 self.picload.startDecode(jpg_file)

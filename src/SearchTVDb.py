@@ -35,21 +35,15 @@ from Components.ScrollLabel import ScrollLabel
 from Tools.Directories import pathExists
 from Components.AVSwitch import AVSwitch
 from Components.ProgressBar import ProgressBar
-from os import environ
 from Source.ServiceProvider import ServiceCenter
 from Source.EITTools import createEITtvdb
 from SearchTMDb import InfoLoadChoice
-from Source.Globals import pluginPresent, getIconPath
+from Source.Globals import pluginPresent, getIconPath, getNocover
 from Source.MovieDB import tvdb, downloadCover
 from Source.PicLoader import PicLoader
 from SkinParam import TVDbSerieSkinParam, TVDbEpisodeSkinParam
 
 temp_dir = "/tmp/TheTVDB_temp/"
-
-if environ["LANGUAGE"] == "de" or environ["LANGUAGE"] == "de_DE":
-    nocover = getIconPath("nocover_de.png")
-else:
-    nocover = getIconPath("nocover_en.png")
 
 def getImage(serie):
     thumb = serie['poster']
@@ -67,7 +61,7 @@ def getImage(serie):
     if filename and os.path.exists(filename):
         return filename
     else:
-        return nocover
+        return getNocover()
 
 class ListBase(GUIListComponent, object):
     def __init__(self):
@@ -502,7 +496,7 @@ class TheTVDBMain(Screen, InfoLoadChoice):
 
     def setBanner(self, filename):
         if not filename or not os.path.exists(filename):
-            filename = nocover
+            filename = getNocover()
         self.picload2.startDecode(filename)
 
     def paintBannerPixmapCB(self, picInfo=None):
@@ -520,7 +514,7 @@ class TheTVDBMain(Screen, InfoLoadChoice):
     
     def setPoster(self, filename):
         if not filename or not os.path.exists(filename):
-            filename = nocover
+            filename = getNocover()
         self.picload.startDecode(filename)
 
     def paintPosterPixmapCB(self, picInfo=None):

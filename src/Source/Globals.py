@@ -22,6 +22,7 @@
 from enigma import getDesktop
 from Tools.Directories import fileExists, resolveFilename, SCOPE_CURRENT_PLUGIN, SCOPE_CURRENT_SKIN
 from Components.config import config
+from os import environ
 
 try:
     from enigma import eMediaDatabase
@@ -45,6 +46,13 @@ def getIconPath(png_name):
         if fileExists(svg):
             png = svg
     return png
+
+def getNocover():
+    if environ["LANGUAGE"] == "de" or environ["LANGUAGE"] == "de_DE":
+        nocover = "nocover_de.png"
+    else:
+        nocover = "nocover_en.png"
+    return getIconPath(nocover)
 
 def printStackTrace():
     import sys, traceback

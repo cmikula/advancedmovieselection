@@ -30,13 +30,7 @@ from Source.ServiceProvider import eServiceReferenceDvd, getServiceInfoValue, Se
 from Source.ISOInfo import ISOInfo
 from Source.PicLoader import PicLoader
 from enigma import iServiceInformation, eServiceReference
-from os import environ
-from Source.Globals import getIconPath
-
-if environ["LANGUAGE"] == "de" or environ["LANGUAGE"] == "de_DE":
-    nocover = getIconPath("nocover_de.png")
-else:
-    nocover = getIconPath("nocover_en.png")
+from Source.Globals import getNocover
 
 class MoviePreview():
     def __init__(self, session):
@@ -111,7 +105,7 @@ class MoviePreview():
         if fileExists(cover_path):
             self.picload.startDecode(cover_path)
         else:
-            self.picload.startDecode(nocover)
+            self.picload.startDecode(getNocover())
     
     def loadBackdrop(self, serviceref):
         self.backdrop_load = False
