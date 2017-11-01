@@ -36,20 +36,14 @@ from Components.AVSwitch import AVSwitch
 from Screens.MessageBox import MessageBox
 from Components.config import config
 from Components.ProgressBar import ProgressBar
-from os import environ
 from Source.PicLoader import PicLoader
-from Source.Globals import pluginPresent, SkinTools, getIconPath
+from Source.Globals import pluginPresent, SkinTools, getIconPath, getNocover
 from Source.MovieDB import downloadCover
 from Source.MovieDB import tmdb
 from SkinParam import TMDbSkinParam
 import datetime
 
 IMAGE_TEMPFILE = "/tmp/TMDb_temp"
-
-if environ["LANGUAGE"] == "de" or environ["LANGUAGE"] == "de_DE":
-    nocover = getIconPath("nocover_de.png")
-else:
-    nocover = getIconPath("nocover_en.png")
 
 class InfoChecker:
     INFO = 0x01
@@ -158,7 +152,7 @@ class TMDbList(GUIListComponent, TMDbSkinParam, object):
             cover_url = movie.poster_url
             
             if not cover_url:
-                png = self.picloader.load(nocover)
+                png = self.picloader.load(getNocover())
             else:
                 parts = cover_url.split("/")
                 filename = os_path.join(IMAGE_TEMPFILE, str(movie.ID) + str(parts[-1]))
@@ -166,7 +160,7 @@ class TMDbList(GUIListComponent, TMDbSkinParam, object):
                 if downloadCover(cover_url, filename):
                     png = self.picloader.load(filename)
                 else:
-                    png = self.picloader.load(nocover)
+                    png = self.picloader.load(getNocover())
             res.append((eListboxPythonMultiContent.TYPE_PIXMAP_ALPHATEST, self.picPos.x(), self.picPos.y(), self.picSize.width(), self.picSize.height(), png))
             res.append((eListboxPythonMultiContent.TYPE_TEXT, self.line1Pos.x(), self.line1Pos.y(), width - self.line1Pos.x(), self.f0h, 0, RT_HALIGN_LEFT, name))
             res.append((eListboxPythonMultiContent.TYPE_TEXT, width - 255, self.line1Pos.y(), 250, self.f0h, 0, RT_HALIGN_RIGHT, released))
@@ -458,13 +452,13 @@ class TMDbMain(Screen, HelpableScreen, InfoLoadChoice):
         if downloadCover(movie.poster_url, filename):
             self.picload.startDecode(filename)
         else:
-            #self.picload.startDecode(nocover)
+            #self.picload.startDecode(getNocover())
             self["cover"].hide()
         filename = self.imageTMPFileName(movie.backdrop_url, movie.ID)
         if downloadCover(movie.backdrop_url, filename):
             self.backdrop_picload.startDecode(filename)
         else:
-            #self.backdrop_picload.startDecode(nocover)
+            #self.backdrop_picload.startDecode(getNocover())
             self["backdrop"].hide()
     
     def getImageIndexText(self, movie):
