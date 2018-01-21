@@ -53,6 +53,8 @@ config.AdvancedMovieSelection.dateformat = ConfigSelection(default="6" , choices
 movie_length_format_choice = [("{0:d}:{1:02d}" , _("Minutes and seconds (90:01)")), ("{0:d} %s" % (_("Min.")) , _("Minutes (90 Min.)")), ("{0:d}" , _("Pure minutes (90)"))]
 config.AdvancedMovieSelection.movie_length_format = ConfigSelection(default=movie_length_format_choice[1][0], choices=movie_length_format_choice)
 
+DEFAULT_MOVIE_PATH = "/media/hdd/movie/"
+
 color_choice = [
                 ("#FFFFFFFF", _("Skin default")),
                 ("#00ffcc00", _("Yellow")),
@@ -131,14 +133,14 @@ config.AdvancedMovieSelection.bookmark5text = ConfigText(default="Bookmark 5", v
 config.AdvancedMovieSelection.bookmark6text = ConfigText(default="Bookmark 6", visible_width=50, fixed_size=False)
 config.AdvancedMovieSelection.bookmark7text = ConfigText(default="Bookmark 7", visible_width=50, fixed_size=False)
 config.AdvancedMovieSelection.hometext = ConfigText(default="Home", visible_width=50, fixed_size=False)
-config.AdvancedMovieSelection.homepath = ConfigText(default="/hdd/movie/")
-config.AdvancedMovieSelection.bookmark1path = ConfigText(default="/hdd/movie/")
-config.AdvancedMovieSelection.bookmark2path = ConfigText(default="/hdd/movie/")
-config.AdvancedMovieSelection.bookmark3path = ConfigText(default="/hdd/movie/")
-config.AdvancedMovieSelection.bookmark4path = ConfigText(default="/hdd/movie/")
-config.AdvancedMovieSelection.bookmark5path = ConfigText(default="/hdd/movie/")
-config.AdvancedMovieSelection.bookmark6path = ConfigText(default="/hdd/movie/")
-config.AdvancedMovieSelection.bookmark7path = ConfigText(default="/hdd/movie/")
+config.AdvancedMovieSelection.homepath = ConfigText(default=DEFAULT_MOVIE_PATH)
+config.AdvancedMovieSelection.bookmark1path = ConfigText(default=DEFAULT_MOVIE_PATH)
+config.AdvancedMovieSelection.bookmark2path = ConfigText(default=DEFAULT_MOVIE_PATH)
+config.AdvancedMovieSelection.bookmark3path = ConfigText(default=DEFAULT_MOVIE_PATH)
+config.AdvancedMovieSelection.bookmark4path = ConfigText(default=DEFAULT_MOVIE_PATH)
+config.AdvancedMovieSelection.bookmark5path = ConfigText(default=DEFAULT_MOVIE_PATH)
+config.AdvancedMovieSelection.bookmark6path = ConfigText(default=DEFAULT_MOVIE_PATH)
+config.AdvancedMovieSelection.bookmark7path = ConfigText(default=DEFAULT_MOVIE_PATH)
 config.AdvancedMovieSelection.buttoncaption = ConfigText(default="Display plugin name")
 config.AdvancedMovieSelection.homeowntext = ConfigText(default=_("Homebutton"), visible_width=50, fixed_size=False)
 config.AdvancedMovieSelection.bookmark1owntext = ConfigText(default=_("Own text 1"), visible_width=50, fixed_size=False)
