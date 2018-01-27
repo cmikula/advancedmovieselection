@@ -126,6 +126,7 @@ POSTRM = "#!/bin/sh\n\
 if [ $1 = \"remove\" ]; then\n\
     echo \"* POSTRM: deleting AdvancedMovieSelection\"\n\
     rm -rf /usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/\n\
+    rm -f /usr/lib/enigma2/python/Components/Renderer/AdvancedMovieSelectionImageRenderer.py*\n\
 fi\n\
 \n\
 exit 0\n"
@@ -211,6 +212,12 @@ def clearPluginPath():
     print "clear plugin path", PLUGIN
     if os.path.exists(PLUGIN):
         shutil.rmtree(PLUGIN)
+        # prevent win 8 io error
+        time.sleep(2)
+
+    print "clear path:", COMPONENTS_PATH
+    if os.path.exists(COMPONENTS_PATH):
+        shutil.rmtree(COMPONENTS_PATH)
         # prevent win 8 io error
         time.sleep(2)
 
@@ -325,6 +332,7 @@ def createPluginStructure():
         
         tar = TarFile.open("data.tar.gz", "w:gz")
         tar.add(PLUGIN)
+        tar.add(COMPONENTS_PATH)
         tar.close()
 
     # tar_name = path_join(BUILD_PATH, "control.tar.gz")
@@ -391,6 +399,11 @@ def cleanup():
         os.remove(clean)
 
 def exportSVNRepository():
+    cmd = "svn export %s %s" % (SVN_REPOSITORY_EXPORT.replace("src", "Components"), COMPONENTS_PATH)
+    exit_code = os.system(cmd)
+    if exit_code != 0:
+        raise Exception("error exporting sources from svn server")
+
     cmd = "svn export %s %s" % (SVN_REPOSITORY_EXPORT, PLUGIN)
     exit_code = os.system(cmd)
     if exit_code != 0:
