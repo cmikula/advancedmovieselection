@@ -72,6 +72,7 @@ CURRENT_PATH = os.getcwd()
 
 PLUGIN_NAME = "AdvancedMovieSelection"
 PLUGIN_PATH = "/usr/lib/enigma2/python/Plugins/Extensions/"
+COMPONENTS_PATH = "/usr/lib/enigma2/python/Components"
 
 PLUGIN = path_join(PLUGIN_PATH, PLUGIN_NAME)
 
