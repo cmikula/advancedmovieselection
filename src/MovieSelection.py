@@ -682,6 +682,7 @@ class SelectionEventInfo:
         self.onShown.append(self.__selectionChanged)
 
     def __selectionChanged(self):
+        self.session.screen["AdvancedMovieSelection"].newService(self.getCurrent())
         self.timer.start(300, True)
 
     def updateEventInfo(self):
@@ -1007,6 +1008,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             self["MovieSize"].newService(None)
 
     def updateDescription(self):
+        self.session.screen["AdvancedMovieSelection"].newService(self.getCurrent())
         if config.movielist.description.value == MovieList.SHOW_DESCRIPTION:
             self["DescriptionBorder"].show()
             self["list"].instance.resize(eSize(self.listWidth, self.listHeight - self["DescriptionBorder"].instance.size().height()))

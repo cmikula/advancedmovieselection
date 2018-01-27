@@ -27,6 +27,12 @@ from AdvancedMovieSelectionSetup import AdvancedMovieSelectionSetup
 from TagEditor import TagEditor
 from Source.Config import initializeConfig
 from Source.Globals import isDreamOS
+from Components.Sources.ServiceEvent import ServiceEvent
+
+class AdvancedMovieSelectionServiceEvent(ServiceEvent):
+    def __init__(self):
+        ServiceEvent.__init__(self)
+
 
 initializeConfig()
 
@@ -49,6 +55,7 @@ def sessionstart(reason, **kwargs):
                 
                 from Source.MovieScanner import movieScanner
                 movieScanner.setEnabled(True)
+                session.screen["AdvancedMovieSelection"] = AdvancedMovieSelectionServiceEvent()
             except:
                 print '-' * 50
                 import traceback, sys
