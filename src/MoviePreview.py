@@ -114,7 +114,7 @@ class MoviePreview():
             return
 
         if serviceref.flags & eServiceReference.mustDescent:
-            backdrop_file = os.path.join(os.path.dirname(serviceref.getPath()), "backdrop.jpg")
+            backdrop_file = os.path.join(os.path.dirname(serviceref.getPath()), ".backdrop.jpg")
             if fileExists(backdrop_file):
                 self.backdrop_load = True
                 self.backdrop.startDecode(backdrop_file)
