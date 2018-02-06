@@ -899,7 +899,7 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
             if config.AdvancedMovieSelection.pincode.value == 'aaaa':
                 self.session.open(MessageBox, _("The required PIN code is not set!"), MessageBox.TYPE_INFO)
                 return
-            self.session.openWithCallback(self.__deleteDirectory, PinInputDialog, _("The PIN code is required to delete the directory"), self.service.getPath(), config.AdvancedMovieSelection.retries.deletepin, [config.AdvancedMovieSelection.pincode.value])
+            self.session.openWithCallback(self.__deleteDirectory, PinInputDialog, _("Enter PIN code"), _("The PIN code is required to delete the directory"), self.service.getPath(), config.AdvancedMovieSelection.retries.deletepin, [config.AdvancedMovieSelection.pincode.value])
             return
 
         if len(self.list.multiSelection) > 0:
