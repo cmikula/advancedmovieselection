@@ -327,6 +327,10 @@ class MoviePlayerExtended(CutListSupport, PlayerBase, MoviePlayer):
         else:
             self.leavePlayerConfirmed([True, how])
 
+    def deleteConfirmed(self, answer):
+        if answer:
+            self.leavePlayerConfirmed((True, "quitanddeleteconfirmed"))
+
     def returnanddeleteConfirmed(self, answer):
         if answer:
             self.leavePlayerConfirmed((True, "returnanddeleteconfirmed"))
