@@ -416,6 +416,6 @@ versie: 5.1
 
 versie: 5.2
 * fix: tvdb crash
-* fix: deleteConfirmd issue on oe25 changes
-* new: directories can be deleted with pin code
-* change: default movie path from /hdd/movie/ to /media/hdd/movie/
+* fix: deleteConfirmed issue voor oe25 wijziging
+* nieuw: mappen kunnen verwijderd worden met een pin code
+* aanpassing: standaard pad van /hdd/movie/ naar /media/hdd/movie/
