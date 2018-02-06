@@ -414,7 +414,8 @@ versie: 5.1
 * nieuw: tmdb info download enkel indien opname over 80 minuten
 * nieuw: support voor svg
 
-versie: 5.1.1
+versie: 5.2
 * fix: tvdb crash
+* fix: deleteConfirmd issue on oe25 changes
 * new: directories can be deleted with pin code
 * change: default movie path from /hdd/movie/ to /media/hdd/movie/

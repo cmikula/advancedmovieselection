@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-__version__ = "5.1.1-unstable"
+__version__ = "5.2-oe22"
 __date__ = "?"
 __branch__ = "?"
 __revision__ = "?"
