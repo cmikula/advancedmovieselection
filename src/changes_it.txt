@@ -417,7 +417,8 @@ versione: 5.1
 * new: tmdb info download only if timer duration greater than 80 minutes
 * new: support for svg
 
-versione: 5.1.1
+versione: 5.2
 * fix: tvdb crash
+* fix: deleteConfirmd issue on oe25 changes
 * new: directories can be deleted with pin code
 * change: default movie path from /hdd/movie/ to /media/hdd/movie/
