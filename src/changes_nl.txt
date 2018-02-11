@@ -416,7 +416,6 @@ versie: 5.1
 
 versie: 5.2
 * fix: tvdb crash
-* fix: verwijderen en cursor verplaatsen voor numeriek toetsenbord
 * fix: deleteConfirmed issue voor oe25 wijziging
 * nieuw: mappen kunnen verwijderd worden met een pin code
 * aanpassing: standaard pad van /hdd/movie/ naar /media/hdd/movie/
