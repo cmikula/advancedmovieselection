@@ -22,7 +22,7 @@
 from __init__ import _
 from Screens.VirtualKeyBoard import VirtualKeyBoard
 from Components.ActionMap import ActionMap, NumberActionMap
-from Components.config import config, ConfigText, KEY_0, KEY_TIMEOUT, KEY_NUMBERS
+from Components.config import config, ConfigText, KEY_0, KEY_TIMEOUT, KEY_NUMBERS, KEY_LEFT, KEY_RIGHT, KEY_HOME, KEY_END, KEY_DELETE, KEY_BACKSPACE
 from Tools.NumericalTextInput import NumericalTextInput
 from Source.Timer import xTimer
 from Screens.NumericalTextInputHelpDialog import NumericalTextInputHelpDialog
@@ -34,7 +34,7 @@ class AdvancedTextInputHelpDialog(NumericalTextInputHelpDialog):
 class AdvancedKeyBoard(VirtualKeyBoard, NumericalTextInput):
     KEYBOARD = 0x01
     NUM_KEYB = 0x02
-    BOTH = KEYBOARD|NUM_KEYB
+    BOTH = KEYBOARD | NUM_KEYB
     def __init__(self, session, title="", text=""):
         VirtualKeyBoard.__init__(self, session, title, text)
         NumericalTextInput.__init__(self, nextFunc=self.nextFunc)
@@ -54,14 +54,15 @@ class AdvancedKeyBoard(VirtualKeyBoard, NumericalTextInput):
             {
                 "ok": self.__ok,
                 "cancel": self.__cancel,
-                "left": self.dummy,
-                "right": self.dummy,
-                "up": self.dummy,
-                "down": self.dummy,
+                "left": self.keyLeft,
+                "right": self.keyRight,
+                "up": self.keyHome,
+                "down": self.keyEnd,
                 "red": self.__cancel,
                 "green": self.__ok,
                 "yellow": self.dummy,
-                "deleteBackward": self.dummy,
+                "deleteForward": self.keyDelete,
+                "deleteBackward": self.keyBackspace,
                 "back": self.dummy                
             }, -2)
 
@@ -133,12 +134,15 @@ class AdvancedKeyBoard(VirtualKeyBoard, NumericalTextInput):
             if key in KEY_NUMBERS:
                 self.timer.start(1000, 1)
 
-    def keyNumberGlobal(self, number):
-        self.handleKey(KEY_0 + number)
-        self.getKey(number)
+    def __keyNumberGlobal(self, number):
+        self.handleKey(number)
+        #self.getKey(number)
         self.text = str(self.configText.getText())
         self["text"].setText(self.text)
         self["text"].setMarkedPos(self.configText.marked_pos)
+
+    def keyNumberGlobal(self, number):
+        self.__keyNumberGlobal(KEY_0 + number)
 
     def okClicked(self):
         VirtualKeyBoard.okClicked(self)
@@ -149,3 +153,21 @@ class AdvancedKeyBoard(VirtualKeyBoard, NumericalTextInput):
 
     def nextFunc(self):
         self["text"].setMarkedPos(-1)
+
+    def keyLeft(self):
+        self.__keyNumberGlobal(KEY_LEFT)
+
+    def keyRight(self):
+        self.__keyNumberGlobal(KEY_RIGHT)
+
+    def keyHome(self):
+        self.__keyNumberGlobal(KEY_HOME)
+
+    def keyEnd(self):
+        self.__keyNumberGlobal(KEY_END)
+
+    def keyDelete(self):
+        self.__keyNumberGlobal(KEY_DELETE)
+
+    def keyBackspace(self):
+        self.__keyNumberGlobal(KEY_BACKSPACE)

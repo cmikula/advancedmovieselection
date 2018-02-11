@@ -420,6 +420,7 @@ version: 5.1
 
 version: 5.2
 * fix: tvdb crash
+* fix: löschen und zeiger navigieren in der numerischen tastatur
 * fix: deleteConfirmed problem für oe25
 * neu: ordner können mit pin-code gelöscht werden
 * geändert: standard pfad von /hdd/movie/ auf /media/hdd/movie/
