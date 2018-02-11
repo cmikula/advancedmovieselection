@@ -10,25 +10,23 @@ from Tools.Directories import resolveFilename, fileExists, SCOPE_SKIN, SCOPE_CON
 from Components.config import config
 import os, xml.etree.cElementTree
 
-class SkinLoader():
-    def __init__(self):
-        self.load()
-    
-    def load(self):
-        self.dom_skins = []
-        self.loadSkin('skin_user.xml', SCOPE_CONFIG)
-        self.loadSkin(config.skin.primary_skin.value)
+skin_node = None
 
-    def loadSkin(self, name, scope=SCOPE_SKIN):
-        # read the skin
-        filename = resolveFilename(scope, name)
+def findSkinParam():
+    from Source.LocaleInit import skin_path
+    skins = (resolveFilename(SCOPE_CONFIG, 'skin_user.xml'),
+             resolveFilename(SCOPE_SKIN, config.skin.primary_skin.value),
+             skin_path)
+    print "{AdvancedMovieSelection]", str(skins)
+    for filename in skins:
         if fileExists(filename):
             mpath = os.path.dirname(filename) + "/"
-            self.dom_skins.append((mpath, xml.etree.cElementTree.parse(filename).getroot()))
-            return True
-        return False
-
-skin_node = None
+            skin = xml.etree.cElementTree.parse(filename).getroot()
+            for node in skin.findall("screen"):
+                if node.attrib.get('name', '') == "AdvancedMovieListSkinExtension":
+                    return node, mpath
+    
+    return None, None
 
 class SkinParam():
     def __init__(self, node="MovieList"):
@@ -37,36 +35,32 @@ class SkinParam():
         self.renderer_extend = 10
                 
     def loadSkinData(self):
+        global skin_node
         if skin_node is False:
-            print "[AdvancedMovieSelection] load skin disabled"
+            print "AdvancedMovieListSkinExtension load skin disabled"
             self.redrawList()
             return
+        
         if skin_node is None:
-            print "[AdvancedMovieSelection] load skin data"
-            skinLoader = SkinLoader()
-            skinLoader.load()
-            skins = skinLoader.dom_skins[:]
-            skins.reverse()
-            for (path, dom_skin) in skins:
-                self.findSkinData(dom_skin, path)
+            node = findSkinParam()
+            skin_node = node[0]
+        
         if skin_node is not None:
             self.parseNode(skin_node)
         else:
-            global skin_node
+            print "AdvancedMovieListSkinExtension not found"
             skin_node = False
+
         self.redrawList()
 
         allways_reload_skin = False
         if allways_reload_skin:
-            global skin_node
             skin_node = None
 
     def findSkinData(self, skin, path_prefix):
         for node in skin.findall("screen"):
-            if not node.attrib.get('name', '') == "AdvancedMovieListSkinExtension":
-                continue
-            global skin_node
-            skin_node = node
+            if node.attrib.get('name', '') == "AdvancedMovieListSkinExtension":
+                return node
         
     def parseNode(self, node):
         print "[AdvancedMovieSelection] parse node", self.node_name
