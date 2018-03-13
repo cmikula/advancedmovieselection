@@ -135,16 +135,18 @@ class TMDb():
 
     def __getJson(self, url, params):
         if REQUESTS:
+            print "tmdb request", str(url)
             params = urlencode(params)
             r = requests.get(url, params, timeout=CONNECTION_TIMEOUT)
             j = r.json()
             #print j
             return j
         else:
+            print "tmdb urlopen", str(url)
             params = urlencode(params)
             headers = {"Content-Type" : "application/json;charset=utf-8"}
             req = urllib2.Request(url=url + '?' + params, headers=headers)
-            resp = urllib2.urlopen(req).read()
+            resp = urllib2.urlopen(req, timeout=CONNECTION_TIMEOUT).read()
             j = json.loads(resp)
             #print j
             return j
@@ -153,6 +155,8 @@ tmdb = TMDb()
 
 
 if __name__ == "__main__":
+    res = tmdb.searchMovie('20 Bullets')[0]
+    print res["overview"]
     res = tmdb.searchSerie('Blindspot')[0]
     serie = tmdb.getSerie(res)
     season = tmdb.getSeason(serie, serie['seasons'][0]['season_number'])

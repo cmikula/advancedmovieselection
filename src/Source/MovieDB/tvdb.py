@@ -57,6 +57,8 @@ class TvdHttpError(TvdBaseError):
 class TvdXmlError(TvdBaseError):
     pass
 
+CONNECTION_TIMEOUT = 20
+
 class XmlHandler:
     """Deals with retrieval of XML files from API"""
     def __init__(self, url):
@@ -64,7 +66,8 @@ class XmlHandler:
 
     def _grabUrl(self, url):
         try:
-            urlhandle = urllib2.urlopen(url)
+            print "tvdb urlopen", str(url)
+            urlhandle = urllib2.urlopen(url, timeout=CONNECTION_TIMEOUT)
         except IOError, errormsg:
             raise TvdHttpError(errormsg)
         if urlhandle.code >= 400:
