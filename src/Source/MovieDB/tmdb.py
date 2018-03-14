@@ -625,6 +625,8 @@ def main():
                 print episode.Title
 
     res = searchMovie('Die Verschwörung - Tödliche Geschäfte')
+    from __init__ import downloadCover
+    downloadCover(res[0].backdrop_url, "test.png", True)
     res = res[0].update()
     res = searchMovie('2012.2009.German.DL.1080p.BluRay')
     res = res[0].update()
