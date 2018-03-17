@@ -163,6 +163,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         self["IMDbtxt"] = StaticText("")
         self["OFDbtxt"] = StaticText("")
         self["MenuIcon"] = Pixmap()
+        self["HelpWindow"] = Pixmap()
         self.onShown.append(self.setWindowTitle)
         self.onLayoutFinish.append(self.saveListsize)
         self.pluginsavailable()
