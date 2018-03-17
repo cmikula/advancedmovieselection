@@ -97,7 +97,7 @@ PACKAGE_RECOMENDS = None
 
 CONTROL_CONFFILES = ()
 
-LIBRARY_SOURCES = ("Source/ServiceProvider.py", "Source/CueSheetSupport.py", "Source/ServiceUtils.py", "Source/EventInformationTable.py", "Source/EpgListExtension.py", "Source/ISOInfo.py")
+LIBRARY_SOURCES = ()#("Source/ServiceProvider.py", "Source/CueSheetSupport.py", "Source/ServiceUtils.py", "Source/EventInformationTable.py", "Source/EpgListExtension.py", "Source/ISOInfo.py")
 
 POSTINST = "#!/bin/sh\n\
 echo \"* plugin installed successfully *\"\n\
@@ -213,13 +213,13 @@ def clearPluginPath():
     if os.path.exists(PLUGIN):
         shutil.rmtree(PLUGIN)
         # prevent win 8 io error
-        time.sleep(2)
+        time.sleep(0)
 
     print "clear path:", COMPONENTS_PATH
     if os.path.exists(COMPONENTS_PATH):
         shutil.rmtree(COMPONENTS_PATH)
         # prevent win 8 io error
-        time.sleep(2)
+        time.sleep(0)
 
 def createControl(control_path="."):
     data = []
@@ -428,12 +428,15 @@ def removeLibrarySources():
 def applyUserSettings():
     from optparse import OptionParser
     parser = OptionParser()
-    parser.add_option("-d", "--deploy", dest="deploypath", help="path to deploy")
+    parser.add_option("-p", "--deploy", dest="deploypath", help="path to deploy")
     parser.add_option("-s", "--svn", dest="repository", help="repository location")  # , default="trunk")
     parser.add_option("-b", "--build", dest="build_path", help="build location")
     parser.add_option("-a", "--arch", dest="architecture", help="pakage architecture")
     parser.add_option("-t", "--package_type", dest="package_type", help="package type")
+    parser.add_option("-d", "--depends", dest="depends", help="depends")
     
+    global PACKAGE_DEPENDS
+    global PACKAGE_ARCHITECTURE
     (options, args) = parser.parse_args()
     if options.deploypath:
         global DEPLOY_PATH
@@ -451,14 +454,18 @@ def applyUserSettings():
         BUILD_PATH = options.build_path
         print "set build path to", BUILD_PATH
     if options.architecture:
-        global PACKAGE_ARCHITECTURE
         PACKAGE_ARCHITECTURE = options.architecture
         print "set package architecture to", PACKAGE_ARCHITECTURE
+    if options.depends:
+        if PACKAGE_DEPENDS:
+            PACKAGE_DEPENDS = PACKAGE_DEPENDS + ", " + options.depends
+        else:
+            PACKAGE_DEPENDS = options.depends
+        print "set depends to", PACKAGE_DEPENDS
     if options.package_type:
         global PACKAGE_TYPE
         if options.package_type == 'deb':
             PACKAGE_TYPE = options.package_type
-            global PACKAGE_ARCHITECTURE
             PACKAGE_ARCHITECTURE = "all"
             print "set package type to", PACKAGE_TYPE
 
@@ -467,9 +474,9 @@ def checkingBuildOptions():
     if py_version == 0:
         raise Exception("unrecognized python version!")
     
-    if py_version == 2.6:
-        if PACKAGE_ARCHITECTURE != "mipsel": 
-            raise Exception("python version with package version is not compatibel!")
+#    if py_version == 2.6:
+#        if PACKAGE_ARCHITECTURE != "mipsel": 
+#            raise Exception("python version with package version is not compatibel!")
 #    if py_version == 2.7:
 #        if PACKAGE_ARCHITECTURE != "mips32el": 
 #            raise Exception("python version with package version is not compatibel!")
