@@ -53,6 +53,7 @@
 		<widget backgroundColor="background" name="key_green" position="100,505" size="420,36" font="Regular;32" halign="left" valign="top" transparent="1" />
 		<widget backgroundColor="background" name="key_yellow" position="100,570" size="430,76" font="Regular;32" halign="left" valign="top" transparent="1" />
 		<widget name="OKIcon" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_ok.png" position="470,445" size="40,20" alphatest="on" />
+		<widget name="HelpWindow" position="520,810" />
 	</screen>
 	<screen name="AdvancedMovieSelectionOwnButtonName" position="0,0" size="1920,1080" title=" " flags="wfNoBorder">
 		<widget backgroundColor="background" source="Title" render="Label" position="60,50" size="1200,55" font="Regular;46" transparent="1" />
