@@ -423,3 +423,7 @@ versione: 5.2
 * fix: deleteConfirmd issue on oe25 changes
 * new: directories can be deleted with pin code
 * change: default movie path from /hdd/movie/ to /media/hdd/movie/
+
+versione: 5.3
+* fix: missing connection timeout
+* fix: help window in setup
