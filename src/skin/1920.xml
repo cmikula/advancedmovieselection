@@ -62,6 +62,7 @@
 		</widget>
 		<eLabel backgroundColor="grey" position="10,80" size="1180,1" />
 		<widget enableWrapAround="1" name="list" position="10,85" scrollbarMode="showOnDemand" size="1180,735" />
+		<widget name="HelpWindow" position="520,810" />
 	</screen>
 	<screen name="BackupRestore" position="center,170" size="1200,820" title=" ">
 		<ePixmap pixmap="Default-FHD/skin_default/buttons/red.svg" position="10,5" size="390,70" scale="stretch" />
