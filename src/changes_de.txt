@@ -424,3 +424,7 @@ version: 5.2
 * fix: deleteConfirmed problem für oe25
 * neu: ordner können mit pin-code gelöscht werden
 * geändert: standard pfad von /hdd/movie/ auf /media/hdd/movie/
+
+version: 5.3
+* fix: missing connection timeout
+* fix: help window in setup

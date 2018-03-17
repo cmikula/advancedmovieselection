@@ -420,3 +420,7 @@ versie: 5.2
 * fix: deleteConfirmed issue voor oe25 wijziging
 * nieuw: mappen kunnen verwijderd worden met een pin code
 * aanpassing: standaard pad van /hdd/movie/ naar /media/hdd/movie/
+
+versie: 5.3
+* fix: missing connection timeout
+* fix: help window in setup
