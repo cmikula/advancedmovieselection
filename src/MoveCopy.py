@@ -338,8 +338,10 @@ class MovieMove(ChoiceBox):
         if self.csel.getCurrentPath() == destinationpath:
             self.session.open(MessageBox, _("Source and destination path must be different."), MessageBox.TYPE_INFO)
             return
-        if destinationpath:
+        if os.path.exists(destinationpath):
             self.gotFilename(destinationpath)
+        else:
+            self.session.open(MessageBox, _("Directory %s nonexistent.") % (destinationpath), MessageBox.TYPE_ERROR)
 
     def gotFilename(self, destinationpath):
         if destinationpath:
