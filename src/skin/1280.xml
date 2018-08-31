@@ -215,7 +215,7 @@
 		</widget>
 		<widget name="config" position="60,50" size="1160,60" scrollbarMode="showOnDemand" enableWrapAround="1" transparent="1" />
 		<!--start don't change position or size here -->
-		<widget name="cursor" position="0,100" size="10,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/position_arrow.png" />
+		<widget name="cursor" size="10,25" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/position_arrow.png" />
 		<eLabel position="60,129" size="1160,2" backgroundColor="grey" />
 		<widget source="session.CurrentService" render="Progress" position="60,126" size="1160,8" zPosition="1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/progress.svg" transparent="1">
 			<convert type="ServicePosition">Position</convert>

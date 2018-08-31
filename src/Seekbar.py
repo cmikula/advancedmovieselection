@@ -93,16 +93,14 @@ class Seekbar(ConfigListScreen, Screen):
             try:
                 sz_w = getDesktop(0).size().width()
             except:
-                sz_w = 720
-            if sz_w == 1280:
-                x = 60 + int(11.5 * self.percent)
-            elif sz_w == 1024:
-                x = 60 + int(9.0 * self.percent)
-#            elif sz_w == 1920:
-#                x = 100 + int(17.2 * self.percent)
+                sz_w = 1280
+            if sz_w == 1920:
+                x = 300 + int(13.2 * self.percent)
+                y = 170
             else:
-                x = 5 + int(6.8 * self.percent)
-            self["cursor"].moveTo(x, 100, 1)
+                x = 60 + int(11.5 * self.percent)
+                y = 100
+            self["cursor"].moveTo(x, y, 1)
             self["cursor"].startMoving()
             pts = int(float(self.length[1]) / 100.0 * self.percent)
             self["time"].setText(_("Manual jump to:") + ' ' + ("%d:%02d" % ((pts/60/90000), ((pts/90000)%60))))

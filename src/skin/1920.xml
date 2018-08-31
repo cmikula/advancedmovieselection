@@ -62,7 +62,6 @@
 		</widget>
 		<eLabel backgroundColor="grey" position="10,80" size="1180,1" />
 		<widget enableWrapAround="1" name="list" position="10,85" scrollbarMode="showOnDemand" size="1180,735" />
-		<widget name="HelpWindow" position="520,810" />
 	</screen>
 	<screen name="BackupRestore" position="center,170" size="1200,820" title=" ">
 		<ePixmap pixmap="Default-FHD/skin_default/buttons/red.svg" position="10,5" size="390,70" scale="stretch" />
@@ -258,13 +257,14 @@
 		<widget name="logo" position="1410,90" size="385,80" />
 	</screen>
 	<screen flags="wfNoBorder" name="AdvancedMovieSelectionSeekbar" position="0,825" size="1920,225">
-		<ePixmap alphatest="off" pixmap="skin_default/infobar.png" position="0,0" size="1920,225" zPosition="-1" />
-		<widget backgroundColor="#263c59" font="Regular;40" noWrap="1" position="50,13" render="Label" size="1100,45" source="session.CurrentService" transparent="1">
+		<ePixmap alphatest="off" pixmap="skin_default/infobar.png" position="0,0" size="1920,225" zPosition="-1"/>
+		<widget backgroundColor="#263c59" font="Regular;40" noWrap="1" position="50,12" render="Label" size="1100,45" source="session.CurrentService" transparent="1">
 			<convert type="ServiceName">Name</convert>
 		</widget>
-		<widget backgroundColor="background" enableWrapAround="1" itemHeight="40" name="config" position="20,70" scrollbarMode="showOnDemand" size="1880,80" transparent="1" />
-		<widget backgroundColor="background" font="Regular;30" foregroundColor="yellow" halign="center" name="time" position="20,158" size="1880,35" transparent="1" />
+		<widget backgroundColor="background" enableWrapAround="1" itemHeight="37" name="config" position="20,70" scrollbarMode="showOnDemand" size="1880,74" transparent="1" />
+		<widget backgroundColor="background" font="Regular;30" foregroundColor="yellow" halign="center" name="time" position="20,150" size="1880,35" transparent="1" />
 		<eLabel backgroundColor="grey" position="300,205" size="1330,2" />
+		<widget name="cursor" size="16,40" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/position_arrow.png" zPosition="2"/>
 		<widget pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/images/progress.svg" position="300,200" render="Progress" size="1330,10" source="session.CurrentService" transparent="1" zPosition="1">
 			<convert type="ServicePosition">Position</convert>
 		</widget>
