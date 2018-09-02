@@ -266,7 +266,7 @@ class TMDbSkinParam(SkinParam):
         self.font1 = gFont("Regular", 18)
         self.listHeight = 140
         self.line1Pos = ePoint(100, 5)
-        self.line2Pos = ePoint(100, 30)
+        self.line2Pos = ePoint(100, 33)
         self.picPos = ePoint(0, 1)
         self.picSize = eSize(92, 138)
         self.loadSkinData()
@@ -303,7 +303,7 @@ class TVDbEpisodeSkinParam(TMDbSkinParam):
         TMDbSkinParam.__init__(self, "TVDbEpisode")
         self.line1Pos = ePoint(5, 2)
         self.line2Pos = ePoint(5, 27)
-        self.line3Pos = ePoint(5, 52)
+        self.line3Pos = ePoint(5, 54)
         self.loadSkinData()
 
     def parseAttribute(self, attrib, value):
