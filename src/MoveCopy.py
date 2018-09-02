@@ -335,6 +335,8 @@ class MovieMove(ChoiceBox):
         self.session.open(MoveCopyProgress)
 
     def checkLocation(self, destinationpath):
+        if not destinationpath:
+            return
         if self.csel.getCurrentPath() == destinationpath:
             self.session.open(MessageBox, _("Source and destination path must be different."), MessageBox.TYPE_INFO)
             return
