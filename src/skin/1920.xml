@@ -1,4 +1,17 @@
 <skin>
+    <screen backgroundColor="transparent" flags="wfNoBorder" name="TimerEditEntrySetup" position="center,center" size="1030,600" title=" ">
+        <eLabel backgroundColor="background" position="0,0" size="1030,600" zPosition="-1"/>
+        <eLabel backgroundColor="transparent" position="0,55" size="1030,2" zPosition="1"/>
+        <widget backgroundColor="background" font="Regular;26" foregroundColor="foreground" noWrap="1" position="30,15" render="Label" size="700,35" source="Title" transparent="1" valign="center"/>
+        <widget backgroundColor="background" font="Regular;28" foregroundColor="foreground" halign="right" position="900,15" render="Label" size="100,35" source="global.CurrentTime" transparent="1">
+            <convert type="ClockToText"/>
+        </widget>
+        <ePixmap alphatest="on" pixmap="skin_default/buttons/button_red.png" position="30,570" size="16,16"/>
+        <ePixmap alphatest="on" pixmap="skin_default/buttons/button_green.png" position="290,570" size="16,16"/>
+        <widget backgroundColor="background" font="Regular;20" foregroundColor="foreground" halign="left" position="60,568" render="Label" size="200,30" source="key_red" transparent="1"/>
+        <widget backgroundColor="background" font="Regular;20" foregroundColor="foreground" halign="left" position="320,568" render="Label" size="200,30" source="key_green" transparent="1"/>
+        <widget backgroundColor="background" enableWrapAround="1" itemHeight="25" name="config" position="30,70" scrollbarMode="showOnDemand" size="970,475" transparent="1"/>
+    </screen>
 	<screen name="AdvancedMovieListSkinExtension">
 		<MovieList color1="foreground" color2="#a0a0a0" colorFinished="green" colorMark="grey" colorRecording="red" colorSel1="foreground" colorSel2="foreground" colorWatching="yellow" icon_size="32" list1Pos="5" list1_Font1="Regular;28" list1_Font2="Regular;26" list1_ListHeight="45" list1_Progress="70,16,1,13" list2Pos="0,31" list2_Font1="Regular;28" list2_Font2="Regular;24" list2_ListHeight="60" list2_Progress="50,10,1,39" list3Pos="0,34,63" list3_Font1="Regular;28" list3_Font2="Regular;24" list3_ListHeight="90" list3_Progress="100,10,1,72" list3_TextPos="100" renderer_extend="25"></MovieList>
 		<Wastebasket font0="Regular;30" font1="Regular;24" font2="Regular;24" line1Pos="5,5" line1Split="200" line2Pos="5,45" line2Split="350" line3Pos="5,78" line3Split="350" listHeight="116"></Wastebasket>

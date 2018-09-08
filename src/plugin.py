@@ -118,10 +118,10 @@ def Plugins(**kwargs):
     descriptors = []
     descriptors.append(PluginDescriptor(name=_("Setup Advanced Movie Selection"), where=PluginDescriptor.WHERE_PLUGINMENU, description=_("Alternate Movie Selection"), icon="images/setup.svg", fnc=pluginMenu, needsRestart=True))
     descriptors.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, description=_("Alternate Movie Selection"), fnc=Setup, needsRestart=True))
-    descriptors.append(PluginDescriptor(name=_("Advanced Movie Selection"), where=PluginDescriptor.WHERE_PLUGINMENU, description=_("Alternate Movie Selection"), icon="images/plugin.svg", fnc=pluginOpen))
     if not config.AdvancedMovieSelection.ml_disable.value:
         descriptors.append(PluginDescriptor(name=_("Advanced Movie Selection"), where=PluginDescriptor.WHERE_SESSIONSTART, description=_("Alternate Movie Selection"), fnc=sessionstart, needsRestart=True))
         descriptors.append(PluginDescriptor(name=_("Advanced Movie Selection"), where=PluginDescriptor.WHERE_EXTENSIONSMENU, description=_("Alternate Movie Selection"), fnc=pluginOpen))
+        descriptors.append(PluginDescriptor(name=_("Advanced Movie Selection"), where=PluginDescriptor.WHERE_PLUGINMENU, description=_("Alternate Movie Selection"), icon="images/plugin.svg", fnc=pluginOpen))
         descriptors.append(PluginDescriptor(name=_("Move Copy Progress"), where=PluginDescriptor.WHERE_EXTENSIONSMENU, description=_("Show progress of move or copy job"), fnc=openProgress))
     
         from MovieDBChannelContext import AMSEPGSelectionInit
@@ -137,4 +137,11 @@ def Plugins(**kwargs):
         except:
             from MovieDBChannelContext import AMSChannelContextMenuInit
             AMSChannelContextMenuInit()
+            
+        try:
+            from TimerEditEntry import getTimerEditEntry
+            descriptors.append(PluginDescriptor(name="AMS_COVER_DOWNLOAD", where=PluginDescriptor.WHERE_TIMEREDIT, description=_("Select cover download from movie db."), fnc=getTimerEditEntry()))
+        except:
+            print "[AdvancedMovieSelection] no support for PluginDescriptor.WHERE_TIMEREDIT"
+
     return descriptors
