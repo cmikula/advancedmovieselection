@@ -171,6 +171,15 @@ def eitFromTMDb(file_name, title, overwrite=OverwriteSettings()):
     except:
         printStackTrace()
 
+def downloadTMDbSerie(file_name, title, overwrite=OverwriteSettings()):
+    try:
+        results = tmdb.searchSerie(title)
+        if len(results) > 0:
+            movie = results[0]
+            writeEITex(file_name, movie, overwrite)
+    except:
+        printStackTrace()
+
         
 def createEITtvdb(file_name, title, serie=None, episode=None, overwrite_eit=False, overwrite_cover=False, overwrite_backdrop=False, cover_type='poster', backdrop_type='fanart'):
     try:
@@ -429,7 +438,8 @@ def testMultiEit():
 
 if __name__ == '__main__':
     testMultiEit()
-
+    downloadTMDbSerie("/tmp/Blindspot_tmdb.ts", "Blindspot")
+    createEITtvdb("/tmp/Blindspot_tvdb.ts", "Blindspot")
     eitFromTMDb("/tmp/2012_test.ts", "2012 (2009)")
     results = tmdb.searchMovie("2012", "2009")
     movie = results[0].update()

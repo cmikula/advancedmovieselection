@@ -137,4 +137,12 @@ def Plugins(**kwargs):
         except:
             from MovieDBChannelContext import AMSChannelContextMenuInit
             AMSChannelContextMenuInit()
+            
+    try:
+        if not config.AdvancedMovieSelection.ml_disable.value:
+            from TimerEditEntry import getTimerEditEntry
+            descriptors.append(PluginDescriptor(name="AMS_COVER_DOWNLOAD", where=PluginDescriptor.WHERE_TIMEREDIT, description=_("Select cover download from movie db."), fnc=getTimerEditEntry()))
+    except:
+        print "[AdvancedMovieSelection] no support for PluginDescriptor.WHERE_TIMEREDIT"
+
     return descriptors
