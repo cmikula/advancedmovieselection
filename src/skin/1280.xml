@@ -1,4 +1,17 @@
 <skin>
+    <screen backgroundColor="transparent" flags="wfNoBorder" name="TimerEditEntrySetup" position="center,center" size="1030,600" title=" ">
+        <eLabel backgroundColor="background" position="0,0" size="1030,600" zPosition="-1"/>
+        <eLabel backgroundColor="transparent" position="0,55" size="1030,2" zPosition="1"/>
+        <widget backgroundColor="background" font="Regular;26" foregroundColor="foreground" noWrap="1" position="30,15" render="Label" size="700,35" source="Title" transparent="1" valign="center"/>
+        <widget backgroundColor="background" font="Regular;28" foregroundColor="foreground" halign="right" position="900,15" render="Label" size="100,35" source="global.CurrentTime" transparent="1">
+            <convert type="ClockToText"/>
+        </widget>
+        <ePixmap alphatest="on" pixmap="skin_default/buttons/button_red.png" position="30,570" size="16,16"/>
+        <ePixmap alphatest="on" pixmap="skin_default/buttons/button_green.png" position="290,570" size="16,16"/>
+        <widget backgroundColor="background" font="Regular;20" foregroundColor="foreground" halign="left" position="60,568" render="Label" size="200,30" source="key_red" transparent="1"/>
+        <widget backgroundColor="background" font="Regular;20" foregroundColor="foreground" halign="left" position="320,568" render="Label" size="200,30" source="key_green" transparent="1"/>
+        <widget backgroundColor="background" enableWrapAround="1" itemHeight="25" name="config" position="30,70" scrollbarMode="showOnDemand" size="970,475" transparent="1"/>
+    </screen>
 	<screen name="PinInputDialog" position="center,center" size="800,200" title="">
 		<widget name="description" position="10,10" size="780,25" font="Regular;20" />
 		<widget name="service" position="10,40" size="780,60" font="Regular;20" />

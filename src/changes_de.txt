@@ -428,3 +428,6 @@ version: 5.2
 version: 5.3
 * fix: missing connection timeout
 * fix: help window in setup
+
+version: 5.4
+* neu: movie db search type after timer ended

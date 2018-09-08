@@ -62,6 +62,18 @@ class CoverLoader():
     def __init__(self):
         recordTimerEvent.appendCallback(self.timerStateChanged)
 
+    def getTimerEntryDownloadType(self, timer):
+        download = "tmdb_movie"
+        try:
+            if hasattr(timer, 'plugins'):
+                ams_timer = timer.plugins.get("AMS_COVER_DOWNLOAD")
+                #print str(ams_timer)
+                if ams_timer is not None:
+                    download = ams_timer[0];
+        except:
+            pass
+        return download
+    
     def timerStateChanged(self, timer):
         if not config.AdvancedMovieSelection.cover_auto_download.value:
             return
@@ -70,17 +82,27 @@ class CoverLoader():
         duration_minutes = (timer.end - timer.begin) / 60
         print duration_minutes
         # if timer.state == TimerEntry.StateRunning and duration_minutes > 80:
-        if timer.state == TimerEntry.StateEnded and duration_minutes > 80:
-            from thread import start_new_thread
-            start_new_thread(self.downloadMovieInfo, (timer.name, timer.Filename))
+        if timer.state == TimerEntry.StateEnded: # and duration_minutes > 80:
+            download_type = self.getTimerEntryDownloadType(timer)
+            if download_type:
+                print "[AdvancedMovieSelection] RecordTimerEvent, loading info"
+                print "Name:", timer.name
+                print "Description:", timer.description
+                print "Download:", download_type
+                from thread import start_new_thread
+                start_new_thread(self.downloadMovieInfo, (download_type, timer.name, timer.description, timer.Filename))
 
-    def downloadMovieInfo(self, name, filename=None):
+    def downloadMovieInfo(self, download_type, name, description, filename):
         try:
-            from EITTools import eitFromTMDb
-            print "[AdvancedMovieSelection] RecordTimerEvent, loading info from tmdb:", name
+            from EITTools import eitFromTMDb, downloadTMDbSerie, createEITtvdb
             if not filename.endswith(".ts"):
                 filename += ".ts"
-            eitFromTMDb(filename, name)
+            if download_type == "tmdb_movie":
+                eitFromTMDb(filename, name)
+            if download_type == "tmdb_serie":
+                downloadTMDbSerie(filename, name)
+            if download_type == "tvdb_serie":
+                createEITtvdb(filename, name)
         except:
             printStackTrace()
 

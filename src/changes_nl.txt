@@ -424,3 +424,6 @@ versie: 5.2
 versie: 5.3
 * fix: missing connection timeout
 * fix: help window in setup
+
+versie: 5.4
+* new: movie db search type after timer ended
