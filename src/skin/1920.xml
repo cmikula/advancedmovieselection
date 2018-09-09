@@ -128,7 +128,6 @@
 		<eLabel backgroundColor="grey" position="10,730" size="1180,1" />
 		<widget font="Regular;27" foregroundColor="yellow" halign="center" position="70,733" render="Label" size="1040,95" source="help" valign="center" />
 		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/AdvancedMovieSelection/buttons/key_info.svg" position="1130,790" size="60,30" />
-		<widget name="HelpWindow" position="520,810" />
 	</screen>
 	<screen name="AdvancedMovieSelectionButtonSetup" position="center,170" size="1200,820" title=" ">
 		<ePixmap pixmap="Default-FHD/skin_default/buttons/red.svg" position="10,2" size="350,75" scale="stretch" />
