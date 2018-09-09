@@ -186,6 +186,9 @@ def updateVersionFile():
         key, value = [s.strip() for s in line.split('=', 1)]
         branding_info[key] = value.replace("\"", "")
         if line.startswith("__version__") and branding_info.has_key('svn_revision'):
+            oe_version = branding_info.get("__oe__")
+            if oe_version:
+                branding_info["__version__"] = branding_info["__version__"] + "-" + branding_info["__oe__"]
             print "write new version file, for revision", branding_info['svn_revision']
             new_version.append("__date__ = \"" + date.today().strftime("%Y.%m.%d") + "\"\r\n")
             new_version.append("__branch__ = \"" + branding_info["__branch__"] + "\"\r\n")

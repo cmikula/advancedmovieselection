@@ -214,7 +214,11 @@ config.AdvancedMovieSelection.stop_before_end_time = ConfigInteger(default=5, li
 config.AdvancedMovieSelection.debug = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.hotplug = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.show_picon = ConfigYesNo(default=True)
-config.AdvancedMovieSelection.piconpath = ConfigText(default=("/usr/share/enigma2/picon"), visible_width=50, fixed_size=False)
+#config.AdvancedMovieSelection.piconpath = ConfigText(default=("/usr/share/enigma2/picon"), visible_width=50, fixed_size=False)
+try:
+    test = config.usage.configselection_piconspath.value
+except:
+    config.usage.configselection_piconspath = ConfigText(default=("/usr/share/enigma2/picon"), visible_width=50, fixed_size=False)
 config.AdvancedMovieSelection.show_wastebasket = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.use_original_movieplayer_summary = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.auto_empty_wastebasket = ConfigSelection(default="-1", choices=[("-1", _("Disabled")), ("1", _("Daily")), ("2", _("Every second day")), ("7", _("Weekly")), ("14", _("Every two weeks")), ("30", _("Monthly"))])
