@@ -602,7 +602,6 @@
 		<widget source="TMDbtxt" render="Label" position="60,600" zPosition="2" size="1160,26" font="Regular;22" valign="top" halign="left" transparent="1" />
 		<widget source="IMDbtxt" render="Label" position="60,630" zPosition="2" size="1160,26" font="Regular;22" valign="top" halign="left" transparent="1" />
 		<widget source="OFDbtxt" render="Label" position="60,660" zPosition="2" size="1160,26" font="Regular;22" valign="top" halign="left" transparent="1" />
-		<widget name="HelpWindow" pixmap="skin_default/vkey_icon.png" position="170,593" />
 	</screen>
 	<screen name="AdvancedMovieSelectionButtonSetup" position="center,center" size="1280,720" title=" " flags="wfNoBorder">
 		<widget source="Title" render="Label" position="60,60" size="1160,30" font="Regular;26" transparent="1" />
