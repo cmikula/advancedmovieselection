@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-__oe__ = "-oe25"
+__oe__ = "oe25"
 __version__ = "5.4"
 __date__ = "?"
 __branch__ = "?"
