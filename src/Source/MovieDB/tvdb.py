@@ -37,7 +37,8 @@ config['apikey'] = base64.b64decode("N0U5RUMyRUNDMUIxRUIzQQ==") # apikey from JD
 config['urls'] = {}
 config['urls']['movie.search'] = "http://www.thetvdb.com/api/GetSeries.php?seriesname=%%s" % (config)
 config['urls']['movie.getInfo'] = "http://www.thetvdb.com/api/%(apikey)s/series/%%s/all/%(locale)s.xml" % (config)
-config['urls']['movie.getImage'] = "http://www.thetvdb.com/banners/_cache/%%s" % (config)
+config['urls']['movie.getImage'] = "http://www.thetvdb.com/banners/%%s" % (config)
+#config['urls']['movie.getImage'] = "http://www.thetvdb.com/banners/_cache/%%s" % (config)
 
 def setLocale(lng):
     print "[AdvancedMovieSelection] Set tvdb locale to", lng
@@ -226,9 +227,24 @@ def searchEpisode(episodes, episode_name):
             if ep_name.lower() == episode_name.lower():
                 return episode
 
+def searchEpisodeEx(seriesname, episodename):
+    results = search(seriesname)
+    for result in results:
+        try:
+            movie = getMovieInfo(result['id'])
+            for episode in movie['Episode']:
+                name = episode.get('EpisodeName')
+                print name
+                if name == episodename:
+                    return episode
+        except Exception, ex:
+            print ex
+
+
 def main():
     setLocale("de")
     results = search("Law & Order")
+    info = searchEpisodeEx('The Last Ship', 'Casus Belli')
     #results = search("The Mentalist")
     for searchResult in results:
         print searchResult['SeriesName']
