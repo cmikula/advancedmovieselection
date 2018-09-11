@@ -38,7 +38,7 @@ from Components.ProgressBar import ProgressBar
 from Source.ServiceProvider import ServiceCenter
 from Source.EITTools import createEITtvdb
 from SearchTMDb import InfoLoadChoice
-from Source.Globals import pluginPresent, getIconPath, getNocover
+from Source.Globals import pluginPresent, getIconPath, getNocover, printStackTrace
 from Source.MovieDB import tvdb, downloadCover
 from Source.PicLoader import PicLoader
 from SkinParam import TVDbSerieSkinParam, TVDbEpisodeSkinParam
@@ -331,15 +331,16 @@ class TheTVDBMain(Screen, InfoLoadChoice):
                     episode_overview = ""
                     overview = episode['Overview']
                     if overview:
-                        episode_overview = str(overview).encode('utf-8', 'ignore')
+                        episode_overview = overview.encode('utf-8', 'ignore')
                     else:
                         episode_overview = (_("Sorry, no description for this episode at TheTVDB.com available!"))
                     if episode_name != "" and self.description != "":
                         if episode_name == self.description:
                             episodeIndex = len(tmpEpisodeList) 
                     tmpEpisodeList.append((episode, episode_name, episode_number, episode_season_number, episode_id, episode_overview),)
-            except Exception, e:
-                print e
+            except:
+                printStackTrace()
+
         if len(tmpEpisodeList) > 0:
             self.updateView(self.SHOW_EPISODE_LIST)
             self["episodes_list"].setList(tmpEpisodeList)
@@ -362,23 +363,34 @@ class TheTVDBMain(Screen, InfoLoadChoice):
             try:
                 overview = movie['Overview']
                 if overview:
-                    overview = str(overview).encode('utf-8', 'ignore')
+                    overview = overview.encode('utf-8', 'ignore')
                 else:
                     overview = (_("Sorry, no description for this episode at TheTVDB.com available!"))          
 
                 extended = ""
                 director = movie["Director"]
                 if director:
+                    if isinstance(director, list):
+                        director = " ,".join(director)
                     director = director.replace("|", ", ")
                     extended = (_("Regie: %s") % director.encode('utf-8', 'ignore')) + ' / '
 
                 writer = movie["Writer"]
                 if writer:
+                    print writer
+                    if isinstance(writer, list):
+                        writer = " ,".join(writer)
+                    if writer.startswith("|"):
+                        writer = writer[1:]
+                    if writer.endswith("|"):
+                        writer = writer[:-1]
                     writer = writer.replace("|", ", ")
                     extended += (_("Writer: %s\n") % writer.encode('utf-8', 'ignore'))
 
                 guest_stars = movie["GuestStars"]
                 if guest_stars:
+                    if isinstance(guest_stars, list):
+                        guest_stars = " ,".join(guest_stars)
                     if guest_stars.startswith("|"):
                         guest_stars = guest_stars[1:-1].replace("|", ", ")
                     else:
@@ -399,8 +411,8 @@ class TheTVDBMain(Screen, InfoLoadChoice):
                 self["description_episode"].setText(overview)
                 self["extended_episode"].setText(extended)
                 self.updateView(self.SHOW_EPISODE_DETAIL)
-            except Exception, e:
-                print e
+            except:
+                printStackTrace()
                 self.updateView(self.SHOW_EPISODE_NO_RESULT)
 
     def searchManual(self):
@@ -452,7 +464,7 @@ class TheTVDBMain(Screen, InfoLoadChoice):
             
             if serie['Genre']:
                 genre = " ,".join(serie['Genre'])
-                extended += (_("Genre: %s\n") % str(genre).encode('utf-8', 'ignore'))
+                extended += (_("Genre: %s\n") % genre.encode('utf-8', 'ignore'))
                 
             content_rating = serie['ContentRating']
             if content_rating:
@@ -484,8 +496,8 @@ class TheTVDBMain(Screen, InfoLoadChoice):
                 self["voted"].setText(_("Voted: %s") % user_rating.encode('utf-8', 'ignore') + ' ' + _("times"))
             else:
                 self["voted"].setText(_("No user voted!"))
-        except Exception, e:
-            print e
+        except:
+            printStackTrace()
             self.updateView(self.SHOW_SERIE_NO_RESULT)
 
     def downloadBanner(self, image):
