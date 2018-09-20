@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-09-20 19:21+0200\n"
-"PO-Revision-Date: 2018-09-20 19:35+0200\n"
+"PO-Revision-Date: 2018-09-20 20:00+0200\n"
 "Last-Translator: cmikula\n"
 "Language-Team: IhaD\n"
 "Language: de_AT\n"
@@ -3724,7 +3724,7 @@ msgstr "TMDb Serien Info"
 
 #: ../../../TimerEditEntry.py:35
 msgid "TVDb serie"
-msgstr "TVDB Serien Info"
+msgstr "TVDb Serien Info"
 
 #: ../../../TimerEditEntry.py:62
 msgid "Cover download"
