@@ -127,6 +127,30 @@ def searchSerie(title):
     print "TMDb.searchSerie:", str(len(result))
     return result
 
+@clockit
+def searchSeason(title, season_name):
+    res = search(tmdb.searchSerie, title)
+    result = TMDbSeriesInfo.parse(res)
+    for serie in result:
+        serie.update()
+        for season in serie.seasons:
+            season.update()
+            if season.Title == season_name:
+                return season
+
+@clockit
+def searchEpisode(title, episode_name):
+    res = search(tmdb.searchSerie, title)
+    result = TMDbSeriesInfo.parse(res)
+    for serie in result:
+        serie.update()
+        for season in serie.seasons:
+            season.update()
+            for episode in season.episodes:
+                if episode.Title == episode_name:
+                    episode.update()
+                    return episode
+
 class Parser():
     def __init__(self, data, def_str="N/A", def_int=0):
         self.data = data
@@ -612,13 +636,25 @@ class TMDbEpisodeInfo(TMDbBase):
         # self.Producers = serie.Producers
 
 def main():
-    if False:
+    if True:
+        series = searchSerie('Blindspot')
+        serie = series[0]
+        serie.update()
+        season = serie.seasons[1]
+        season.update()
+        episode = season.episodes[2]
+        episode.update()
+        season = searchSeason('Blindspot', 'Staffel 2')
+        episode = searchEpisode('Blindspot', 'Eingeschlossen')
+        info = searchEpisode('Blindspot', 'Eingeschlossen')
+        info = searchEpisode('The Last Ship', 'Casus Belli') # 'The Last Ship', 'Casus Belli' S05E01
+        print info
         series = TMDbSeriesInfo.search('Blindspot')
         #series = TMDbSeriesInfo.search('Law & Order')
         #series = TMDbSeriesInfo.search('2_Broke_Girls_-_S06E04_-_Taufman')
         serie = series[0].update()
         for season in serie.seasons:
-            #season.update()
+            season.update()
             print season.Title
             for episode in season.episodes:
                 #episode.update()

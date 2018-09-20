@@ -23,6 +23,7 @@ must pass on to the recipients the same freedoms that you received. You must mak
 that they, too, receive or can get the source code. And you must show them these terms so they know their rights.
 '''
 from Globals import printStackTrace
+from EITTools import eitFromTMDb, downloadTMDbSerie, downloadTMDbEpisode, createEITtvdb
 
 class RecordTimerEvent():
     def __init__(self):
@@ -94,13 +95,13 @@ class CoverLoader():
 
     def downloadMovieInfo(self, download_type, name, description, filename):
         try:
-            from EITTools import eitFromTMDb, downloadTMDbSerie, createEITtvdb
             if not filename.endswith(".ts"):
                 filename += ".ts"
             if download_type == "tmdb_movie":
                 eitFromTMDb(filename, name)
             if download_type == "tmdb_serie":
-                downloadTMDbSerie(filename, name)
+                #downloadTMDbSerie(filename, name)
+                downloadTMDbEpisode(filename, name, description)
             if download_type == "tvdb_serie":
                 createEITtvdb(filename, name)
         except:

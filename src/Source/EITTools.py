@@ -180,6 +180,21 @@ def downloadTMDbSerie(file_name, title, overwrite=OverwriteSettings()):
     except:
         printStackTrace()
 
+def downloadTMDbSeason(file_name, title, season_name, overwrite=OverwriteSettings()):
+    try:
+        result = tmdb.searchSeason(title, season_name)
+        if result is not None:
+            writeEITex(file_name, result, overwrite)
+    except:
+        printStackTrace()
+
+def downloadTMDbEpisode(file_name, title, episode_name, overwrite=OverwriteSettings()):
+    try:
+        result = tmdb.searchEpisode(title, episode_name)
+        if result is not None:
+            writeEITex(file_name, result, overwrite)
+    except:
+        printStackTrace()
         
 def createEITtvdb(file_name, title, serie=None, episode=None, overwrite_eit=False, overwrite_cover=False, overwrite_backdrop=False, cover_type='poster', backdrop_type='fanart'):
     try:
@@ -438,7 +453,9 @@ def testMultiEit():
 
 if __name__ == '__main__':
     testMultiEit()
-    downloadTMDbSerie("/tmp/Blindspot_tmdb.ts", "Blindspot")
+    downloadTMDbSerie("/tmp/Blindspot_tmdb_serie.ts", "Blindspot")
+    downloadTMDbSeason("/tmp/Blindspot_tmdb_season.ts", "Blindspot", "Staffel 2")
+    downloadTMDbEpisode("/tmp/Blindspot_tmdb_episode.ts", "Blindspot", "Eingeschlossen")
     createEITtvdb("/tmp/Blindspot_tvdb.ts", "Blindspot")
     eitFromTMDb("/tmp/2012_test.ts", "2012 (2009)")
     results = tmdb.searchMovie("2012", "2009")
