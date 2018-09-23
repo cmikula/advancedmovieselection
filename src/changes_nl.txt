@@ -427,3 +427,8 @@ versie: 5.3
 
 versie: 5.4
 * new: movie db search type after timer ended
+
+versie: 5.5
+* new: hour movie length format for movie list
+* change: selectable picon path
+* fix: keyboard support
