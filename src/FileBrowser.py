@@ -25,6 +25,19 @@ from Components.ActionMap import ActionMap
 from Components.Sources.StaticText import StaticText
 from Components.FileList import FileList
 from Tools.Directories import pathExists
+from Screens.LocationBox import LocationBox
+from Components.config import config
+
+def ScanLocationBox(session, text, currDir, minFree=None):
+    inhibitDirs = ["/bin", "/boot", "/dev", "/etc", "/lib", "/proc", "/sbin", "/sys", "/usr", "/var"]
+    config.AdvancedMovieSelection.videodirs.load()
+    return LocationBox(session, text=text, currDir=currDir, bookmarks=config.AdvancedMovieSelection.videodirs, autoAdd=False, editDir=False, inhibitDirs=inhibitDirs, minFree=minFree)
+
+def PiconLocationBox(session, currDir):
+    inhibitDirs = ["/bin", "/boot", "/dev", "/lib", "/proc", "/sbin", "/sys", "/var"]
+    config.AdvancedMovieSelection.videodirs.load()
+    return LocationBox(session, text=_("Directory browser"), currDir=currDir, bookmarks=config.AdvancedMovieSelection.videodirs, autoAdd=False, editDir=False, inhibitDirs=inhibitDirs)
+
 
 lastpath = ""
 
