@@ -501,11 +501,20 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
 
     def keyOk(self):
         current = self["config"].l.getCurrentSelection()
+        if current and current[1] == config.AdvancedMovieSelection.piconpath:
+            from FileBrowser import DirectoryBrowser
+            val = config.AdvancedMovieSelection.piconpath.value
+            self.session.openWithCallback(self.piconBrowserClosed, DirectoryBrowser, val)
+            return
         if current and current[1] == self.pin_setup:
             self.openPinSetup()
         else:
             self.keySave()
-
+    
+    def piconBrowserClosed(self, path):
+        if path:
+            config.AdvancedMovieSelection.piconpath.value = path
+    
     def keySave(self):
         from Wastebasket import configChange
         configChange()
