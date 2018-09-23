@@ -50,7 +50,7 @@ config.AdvancedMovieSelection.usefoldername = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.minitv = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.shownew = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.dateformat = ConfigSelection(default="6" , choices=[("6" , _("German (without Year)")), ("1" , _("German (with Year)")), ("3" , _("German (with Starttime)")), ("2" , _("Enigma 2 default")), ("7" , _("English (without Year)")), ("4" , _("English (with Year)")), ("5" , _("English (with Starttime)"))])
-movie_length_format_choice = [("{0:d}:{1:02d}" , _("Minutes and seconds (90:01)")), ("{0:d} %s" % (_("Min.")) , _("Minutes (90 Min.)")), ("{0:d}" , _("Pure minutes (90)"))]
+movie_length_format_choice = [("{2:d}:{3:02d}:{1:02d}" , _("Hours (1:30:01)")), ("{0:d}:{1:02d}" , _("Minutes and seconds (90:01)")), ("{0:d} %s" % (_("Min.")) , _("Minutes (90 Min.)")), ("{0:d}" , _("Pure minutes (90)"))]
 config.AdvancedMovieSelection.movie_length_format = ConfigSelection(default=movie_length_format_choice[1][0], choices=movie_length_format_choice)
 
 DEFAULT_MOVIE_PATH = "/media/hdd/movie/"
