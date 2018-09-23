@@ -24,6 +24,7 @@ from LocaleInit import _
 from Tools.Directories import resolveFilename, SCOPE_HDD
 from Components.config import config, ConfigSubsection, ConfigText, ConfigYesNo, ConfigInteger, ConfigSelection, ConfigClock, ConfigLocations, ConfigBoolean, ConfigPIN
 from Globals import printStackTrace
+from enigma import eEnv
 
 # configurations from enigma2 /Components/UsageConfig.py !!!don't edit default values from source!!!
 config.usage.load_length_of_movies_in_moviellist = ConfigYesNo(default=True)
@@ -214,7 +215,12 @@ config.AdvancedMovieSelection.stop_before_end_time = ConfigInteger(default=5, li
 config.AdvancedMovieSelection.debug = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.hotplug = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.show_picon = ConfigYesNo(default=True)
-#config.AdvancedMovieSelection.piconpath = ConfigText(default=("/usr/share/enigma2/picon"), visible_width=50, fixed_size=False)
+config.AdvancedMovieSelection.piconpath = ConfigSelection(default = eEnv.resolve('${datadir}/enigma2/picon_50x30/'), choices = [
+            (eEnv.resolve('${datadir}/enigma2/picon_50x30/'), eEnv.resolve('${datadir}/enigma2/picon_50x30')),
+            (eEnv.resolve('${datadir}/enigma2/picon/'), eEnv.resolve('${datadir}/enigma2/picon')),
+            (eEnv.resolve('/data/picon_50x30/'), eEnv.resolve('/data/picon_50x30')),
+            (eEnv.resolve('/data/picon/'), eEnv.resolve('/data/picon')),
+            ])
 try:
     test = config.usage.configselection_piconspath.value
 except:
