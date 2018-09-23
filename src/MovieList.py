@@ -180,7 +180,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
         self.textRenderer.hide()
         
         self.textRenderer.setFont(self.list2_Font1)
-        self.textRenderer.setText(str.format(config.AdvancedMovieSelection.movie_length_format.value, 999, 0))
+        self.textRenderer.setText(str.format(config.AdvancedMovieSelection.movie_length_format.value, 30, 15, 1, 90))
         self.list2_length_width = self.getTextRendererWidth()
         
         self.textRenderer.setText("Äg")
@@ -452,10 +452,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                     perc = getPercentSeen(serviceref)
                     movie_info.percent = perc # update percent
 
-            if length > 0:
-                length_text = str.format(config.AdvancedMovieSelection.movie_length_format.value, length / 60, length % 60)
-            else:
-                length_text = str.format(config.AdvancedMovieSelection.movie_length_format.value, 0, 0)
+            length_text = str.format(config.AdvancedMovieSelection.movie_length_format.value, length / 60, length % 60, length / 3600, (length / 60) % 60)
             
             recording = False
             if NavigationInstance.instance.getRecordings():
@@ -571,7 +568,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                     elif serviceref.getPath().endswith(".ts") and config.AdvancedMovieSelection.show_picon.value:
                         # picon, make sure only ts files goes here
                         picon = getServiceInfoValue(serviceref, iServiceInformation.sServiceref).rstrip(':').replace(':', '_') + ".png"
-                        piconpath = os.path.join(config.usage.configselection_piconspath.value, picon)
+                        piconpath = os.path.join(config.AdvancedMovieSelection.piconpath.value, picon)
                         if os.path.exists(piconpath):
                             png1 = self.picloader.load(piconpath)
                     if png1 is None:
