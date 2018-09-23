@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-20 19:36+0200\n"
-"PO-Revision-Date: 2018-09-20 19:42+0200\n"
+"POT-Creation-Date: 2018-09-23 19:13+0200\n"
+"PO-Revision-Date: 2018-09-23 19:14+0200\n"
 "Last-Translator: cmikula\n"
 "Language-Team: IhaD\n"
 "Language: it_IT\n"
@@ -131,7 +131,7 @@ msgid "Error creating settings backup!"
 msgstr "Errore durante la creazione del backup impostazioni!"
 
 #: ../../../AdvancedMovieSelectionSetup.py:110
-#: ../../../AdvancedMovieSelectionSetup.py:537 ../../../MovieSelection.py:1020
+#: ../../../AdvancedMovieSelectionSetup.py:537 ../../../MovieSelection.py:1017
 msgid ""
 "Some settings changes require close/reopen the movielist to take effect."
 msgstr ""
@@ -492,6 +492,17 @@ msgstr "Mostrare il Logo del Provider:"
 #: ../../../AdvancedMovieSelectionSetup.py:352
 msgid "Displays the Provider Logo when no Cover available."
 msgstr "Visualizza il logo del provider quando non è disponibile la cover."
+
+#: ../../../AdvancedMovieSelectionSetup.py:354
+msgid "Provider Logo path:"
+msgstr "Percorso per il Logo del Provider:"
+
+#: ../../../AdvancedMovieSelectionSetup.py:354
+msgid ""
+"Where to look for the provider logos? (Default is /usr/share/enigma2/picon)"
+msgstr ""
+"Dove cercare i logos dei provider? (Il percorso predefinito è /usr/share/"
+"enigma2/picon)"
 
 #: ../../../AdvancedMovieSelectionSetup.py:357
 msgid "FEATURES"
@@ -1661,7 +1672,7 @@ msgid "Job failed"
 msgstr "Operazione fallita!"
 
 #: ../../../MoveCopy.py:39 ../../../MoveCopy.py:115 ../../../MoveCopy.py:247
-#: ../../../MovieSelection.py:1195
+#: ../../../MovieSelection.py:1192
 msgid "Error"
 msgstr "Errore"
 
@@ -1829,7 +1840,7 @@ msgstr "a:"
 msgid "Source and destination path must be different."
 msgstr "Il percorso di origine deve essere diverso da quello di destinazione."
 
-#: ../../../MoveCopy.py:346 ../../../MovieSelection.py:1444
+#: ../../../MoveCopy.py:346 ../../../MovieSelection.py:1441
 #, python-format
 msgid "Directory %s nonexistent."
 msgstr "Cartella  %s inesistente."
@@ -1906,21 +1917,21 @@ msgstr "TMDb Info (AMS)"
 msgid "Outdated EPG"
 msgstr "EPG obsoleta"
 
-#: ../../../MovieList.py:533
+#: ../../../MovieList.py:530
 msgid "REC"
 msgstr "REC"
 
-#: ../../../MovieList.py:535
+#: ../../../MovieList.py:532
 msgid "Records"
 msgstr "Registrazioni"
 
-#: ../../../MovieList.py:1056 ../../../MovieList.py:1134
-#: ../../../MovieSelection.py:1376
+#: ../../../MovieList.py:1053 ../../../MovieList.py:1131
+#: ../../../MovieSelection.py:1373
 msgid "Movie library"
 msgstr "Libreria dei film"
 
-#: ../../../MovieList.py:1108 ../../../MovieSelection.py:1269
-#: ../../../MovieSelection.py:1371 ../../../QuickButton.py:453
+#: ../../../MovieList.py:1105 ../../../MovieSelection.py:1266
+#: ../../../MovieSelection.py:1368 ../../../QuickButton.py:453
 msgid "VSR"
 msgstr "VSR"
 
@@ -1976,12 +1987,12 @@ msgstr "No, ma ripartire dall'inizio"
 msgid "Stop playing this movie?"
 msgstr "Fermare la riproduzione di questo film?"
 
-#: ../../../MoviePlayer.py:345 ../../../MovieSelection.py:912
+#: ../../../MoviePlayer.py:345 ../../../MovieSelection.py:909
 msgid "this recording"
 msgstr "questa registrazione"
 
 #: ../../../MoviePlayer.py:350 ../../../MoviePlayer.py:357
-#: ../../../MovieSelection.py:863 ../../../Wastebasket.py:238
+#: ../../../MovieSelection.py:860 ../../../Wastebasket.py:238
 #, python-format
 msgid "Do you really want to delete %s?"
 msgstr "Confermi di voler cancellare %s?"
@@ -2387,24 +2398,24 @@ msgstr "Saltare l'anteprima del film"
 msgid "Video preview jump backward"
 msgstr "Tornare all anteprima del film"
 
-#: ../../../MovieSelection.py:826
+#: ../../../MovieSelection.py:823
 msgid "Jump to next marker"
 msgstr "Vai all'indicatore successivo"
 
-#: ../../../MovieSelection.py:827
+#: ../../../MovieSelection.py:824
 msgid "Jump to previous marker"
 msgstr "Vai all'indicatore precedente"
 
-#: ../../../MovieSelection.py:831
+#: ../../../MovieSelection.py:828
 msgid "Start/Stop video preview"
 msgstr "Start/Stop anteprima del film"
 
-#: ../../../MovieSelection.py:856 ../../../MovieSelection.py:861
+#: ../../../MovieSelection.py:853 ../../../MovieSelection.py:858
 #, python-format
 msgid "%s is currently recording!"
 msgstr "%s è in registrazione!"
 
-#: ../../../MovieSelection.py:856
+#: ../../../MovieSelection.py:853
 #, python-format
 msgid ""
 "\n"
@@ -2421,12 +2432,12 @@ msgstr ""
 "\n"
 "Vuoi continuare veramente?"
 
-#: ../../../MovieSelection.py:858
+#: ../../../MovieSelection.py:855
 #, python-format
 msgid "Do you really want to move %s to trashcan?"
 msgstr "Veramente vuoi spostare %s nel cestino?"
 
-#: ../../../MovieSelection.py:861
+#: ../../../MovieSelection.py:858
 #, python-format
 msgid ""
 "\n"
@@ -2443,45 +2454,45 @@ msgstr ""
 "\n"
 "Vuoi continuare veramente?"
 
-#: ../../../MovieSelection.py:865
+#: ../../../MovieSelection.py:862
 msgid "Recordings are active, the timer(s) will also be deleted!\n"
 msgstr "Le registrazioni sono attive, anche il timer sarà cancellato!\n"
 
-#: ../../../MovieSelection.py:867
+#: ../../../MovieSelection.py:864
 msgid "Do you really want to move selected movies to trashcan?"
 msgstr "Vuoi veramente spostare i film selezionati nel cestino?"
 
-#: ../../../MovieSelection.py:869
+#: ../../../MovieSelection.py:866
 msgid "Do you really want to delete selected movies?"
 msgstr "Vuoi veramente cancellare i film selezionati?"
 
-#: ../../../MovieSelection.py:883 ../../../MovieSelection.py:956
+#: ../../../MovieSelection.py:880 ../../../MovieSelection.py:953
 #: ../../../Wastebasket.py:271
 msgid "Delete failed!"
 msgstr "Cancellazione non riuscita!"
 
-#: ../../../MovieSelection.py:895
+#: ../../../MovieSelection.py:892
 msgid "This cannot deleted, please select a movie for!"
 msgstr "Questo non può essere cancellato, si prega di selezionare un film!"
 
-#: ../../../MovieSelection.py:900
+#: ../../../MovieSelection.py:897
 msgid "The required PIN code is not set!"
 msgstr "Il codice PIN richiesto non e impostato!"
 
-#: ../../../MovieSelection.py:902
+#: ../../../MovieSelection.py:899
 msgid "Enter PIN code"
 msgstr "Inserire il codice PIN"
 
-#: ../../../MovieSelection.py:902
+#: ../../../MovieSelection.py:899
 msgid "The PIN code is required to delete the directory"
 msgstr "Il codice PIN e necessario per eliminare la directory"
 
-#: ../../../MovieSelection.py:1006 ../../../plugin.py:122
+#: ../../../MovieSelection.py:1003 ../../../plugin.py:122
 #: ../../../plugin.py:123 ../../../plugin.py:124
 msgid "Advanced Movie Selection"
 msgstr "Advanced Movie Selection"
 
-#: ../../../MovieSelection.py:1227
+#: ../../../MovieSelection.py:1224
 msgid ""
 "Load Length of Movies in Movielist has been disabled.\n"
 "Close and reopen Movielist is required to apply the setting."
@@ -2490,39 +2501,39 @@ msgstr ""
 "disabilitata.\n"
 "E' necessario chiudere e riaprire l'Elenco Film per applicare l'impostazione."
 
-#: ../../../MovieSelection.py:1289
+#: ../../../MovieSelection.py:1286
 msgid "Tag 1"
 msgstr "Tag 1"
 
-#: ../../../MovieSelection.py:1294
+#: ../../../MovieSelection.py:1291
 msgid "Tag 2"
 msgstr "Tag 2"
 
-#: ../../../MovieSelection.py:1374
+#: ../../../MovieSelection.py:1371
 msgid "Movie location:"
 msgstr "Posizione del film:"
 
-#: ../../../MovieSelection.py:1391
+#: ../../../MovieSelection.py:1388
 msgid "[Library update in progress]"
 msgstr "[Caricamento libreria in avanzamento]"
 
-#: ../../../MovieSelection.py:1415
+#: ../../../MovieSelection.py:1412
 msgid "Please select the movie path..."
 msgstr "Si prega di selezionare il percorso del film…"
 
-#: ../../../MovieSelection.py:1493
+#: ../../../MovieSelection.py:1490
 msgid "Please select tag to filter..."
 msgstr "Si prega di selezionare il tag per filtrare..."
 
-#: ../../../MovieSelection.py:1496
+#: ../../../MovieSelection.py:1493
 msgid "No tags are set on these movies."
 msgstr "Non sono impostati tags in questo film."
 
-#: ../../../MovieSelection.py:1503
+#: ../../../MovieSelection.py:1500
 msgid "Please select the search path(s) for movies..."
 msgstr "Si prega di selezionare i percorsi per i film…"
 
-#: ../../../MovieSelection.py:1526
+#: ../../../MovieSelection.py:1523
 msgid ""
 "Use direction keys to move the Moviebar.\n"
 "Press OK button for save or the EXIT button to cancel.\n"
@@ -3232,294 +3243,298 @@ msgstr "Salta manualmente a:"
 msgid "Select sort functions"
 msgstr "Selezionare le funzioni per ordinare"
 
-#: ../../../Source/Config.py:30 ../../../Source/Config.py:31
-#: ../../../Source/Config.py:32
+#: ../../../Source/Config.py:31 ../../../Source/Config.py:32
+#: ../../../Source/Config.py:33
 msgid "Ask user"
 msgstr "Chiedere all'utente"
 
-#: ../../../Source/Config.py:30
+#: ../../../Source/Config.py:31
 msgid "Resume from last position"
 msgstr "Riprendere dall'ultima posizione"
 
-#: ../../../Source/Config.py:30
+#: ../../../Source/Config.py:31
 msgid "Start from the beginning"
 msgstr "Avviare dall'inizio"
 
-#: ../../../Source/Config.py:31 ../../../Source/Config.py:32
+#: ../../../Source/Config.py:32 ../../../Source/Config.py:33
 msgid "Return to movie list"
 msgstr "Tornare all'elenco film"
 
-#: ../../../Source/Config.py:31 ../../../Source/Config.py:32
+#: ../../../Source/Config.py:32 ../../../Source/Config.py:33
 msgid "Return to previous service"
 msgstr "Tornare al canale precedente"
 
-#: ../../../Source/Config.py:32
+#: ../../../Source/Config.py:33
 msgid "Pause movie at end"
 msgstr "Mettere in pausa alla fine del film"
 
-#: ../../../Source/Config.py:32
+#: ../../../Source/Config.py:33
 msgid "Standby"
 msgstr "Standby"
 
-#: ../../../Source/Config.py:32
+#: ../../../Source/Config.py:33
 msgid "Shutdown"
 msgstr "Spegnere"
 
-#: ../../../Source/Config.py:36
+#: ../../../Source/Config.py:37
 msgid "Only current location"
 msgstr "Solo l'attuale posizione"
 
-#: ../../../Source/Config.py:36
+#: ../../../Source/Config.py:37
 msgid "Current location and all subdirectories"
 msgstr "Posizione attuale e tutte le sottocartelle"
 
-#: ../../../Source/Config.py:36
+#: ../../../Source/Config.py:37
 msgid "All directorys below '/media'"
 msgstr "Tutte le cartelle sotto '/media'"
 
-#: ../../../Source/Config.py:52
+#: ../../../Source/Config.py:53
 msgid "German (without Year)"
 msgstr "Tedesco (senza Anno)"
 
-#: ../../../Source/Config.py:52
+#: ../../../Source/Config.py:53
 msgid "German (with Year)"
 msgstr "Tedesco (con Anno)"
 
-#: ../../../Source/Config.py:52
+#: ../../../Source/Config.py:53
 msgid "German (with Starttime)"
 msgstr "Tedesco (con l'ora di inizio)"
 
-#: ../../../Source/Config.py:52
+#: ../../../Source/Config.py:53
 msgid "Enigma 2 default"
 msgstr "Predefinito Enigma 2"
 
-#: ../../../Source/Config.py:52
+#: ../../../Source/Config.py:53
 msgid "English (without Year)"
 msgstr "Inglese (senza Anno)"
 
-#: ../../../Source/Config.py:52
+#: ../../../Source/Config.py:53
 msgid "English (with Year)"
 msgstr "Inglese (con Anno)"
 
-#: ../../../Source/Config.py:52
+#: ../../../Source/Config.py:53
 msgid "English (with Starttime)"
 msgstr "Inglese (con l'ora di inizio)"
 
-#: ../../../Source/Config.py:53
+#: ../../../Source/Config.py:54
+msgid "Hours (1:30:01)"
+msgstr "Ore (1:30:01)"
+
+#: ../../../Source/Config.py:54
 msgid "Minutes and seconds (90:01)"
 msgstr "Minuti e secondi (90:01)"
 
-#: ../../../Source/Config.py:53
+#: ../../../Source/Config.py:54
 msgid "Min."
 msgstr "Min."
 
-#: ../../../Source/Config.py:53
+#: ../../../Source/Config.py:54
 msgid "Minutes (90 Min.)"
 msgstr "Minuti (90 Min.)"
 
-#: ../../../Source/Config.py:53
+#: ../../../Source/Config.py:54
 msgid "Pure minutes (90)"
 msgstr "Minuti (90)"
 
-#: ../../../Source/Config.py:59
+#: ../../../Source/Config.py:60
 msgid "Skin default"
 msgstr "Skin default "
 
-#: ../../../Source/Config.py:60
+#: ../../../Source/Config.py:61
 msgid "Yellow"
 msgstr "Giallo"
 
-#: ../../../Source/Config.py:61
+#: ../../../Source/Config.py:62
 msgid "Green"
 msgstr "Verde"
 
-#: ../../../Source/Config.py:62
+#: ../../../Source/Config.py:63
 msgid "Red"
 msgstr "Rosso"
 
-#: ../../../Source/Config.py:63
+#: ../../../Source/Config.py:64
 msgid "Grey"
 msgstr "Grigio"
 
-#: ../../../Source/Config.py:64
+#: ../../../Source/Config.py:65
 msgid "White"
 msgstr "Bianco"
 
-#: ../../../Source/Config.py:65
+#: ../../../Source/Config.py:66
 msgid "Black"
 msgstr "Nero"
 
-#: ../../../Source/Config.py:66
+#: ../../../Source/Config.py:67
 msgid "Orange"
 msgstr "Arancio"
 
-#: ../../../Source/Config.py:67
+#: ../../../Source/Config.py:68
 msgid "Blue"
 msgstr "Blu"
 
-#: ../../../Source/Config.py:145
+#: ../../../Source/Config.py:146
 msgid "Homebutton"
 msgstr "Pulsante Home"
 
-#: ../../../Source/Config.py:146
+#: ../../../Source/Config.py:147
 msgid "Own text 1"
 msgstr "Testo personale 1"
 
-#: ../../../Source/Config.py:147
+#: ../../../Source/Config.py:148
 msgid "Own text 2"
 msgstr "Testo personale 2"
 
-#: ../../../Source/Config.py:148
+#: ../../../Source/Config.py:149
 msgid "Own text 3"
 msgstr "Testo personale 3"
 
-#: ../../../Source/Config.py:149
+#: ../../../Source/Config.py:150
 msgid "Own text 4"
 msgstr "Testo personale 4"
 
-#: ../../../Source/Config.py:150
+#: ../../../Source/Config.py:151
 msgid "Own text 5"
 msgstr "Testo personale 5"
 
-#: ../../../Source/Config.py:151
+#: ../../../Source/Config.py:152
 msgid "Own text 6"
 msgstr "Testo personale 6"
 
-#: ../../../Source/Config.py:152
+#: ../../../Source/Config.py:153
 msgid "Own text 7"
 msgstr "Testo personale 7"
 
-#: ../../../Source/Config.py:154
+#: ../../../Source/Config.py:155
 msgid "No override"
 msgstr "Non sovrascrivere"
 
-#: ../../../Source/Config.py:155
+#: ../../../Source/Config.py:156
 msgid "Video-button"
 msgstr "Pulsante Video"
 
-#: ../../../Source/Config.py:156
+#: ../../../Source/Config.py:157
 msgid "TV-button"
 msgstr "Pulsante TV"
 
-#: ../../../Source/Config.py:157
+#: ../../../Source/Config.py:158
 msgid "Radio-button"
 msgstr "Pulsante Radio"
 
-#: ../../../Source/Config.py:158
+#: ../../../Source/Config.py:159
 msgid "Timeshift-button"
 msgstr "Pulsante Timeshift"
 
-#: ../../../Source/Config.py:164 ../../../Source/Config.py:165
-#: ../../../Source/Config.py:166 ../../../Source/Config.py:167
-#: ../../../Source/Config.py:168 ../../../Source/Config.py:169
-#: ../../../Source/Config.py:170
+#: ../../../Source/Config.py:165 ../../../Source/Config.py:166
+#: ../../../Source/Config.py:167 ../../../Source/Config.py:168
+#: ../../../Source/Config.py:169 ../../../Source/Config.py:170
+#: ../../../Source/Config.py:171
 msgid "Advanced Movie Selection info"
 msgstr "Info su AMS"
 
-#: ../../../Source/Config.py:164 ../../../Source/Config.py:167
-#: ../../../Source/Config.py:168 ../../../Source/Config.py:169
+#: ../../../Source/Config.py:165 ../../../Source/Config.py:168
+#: ../../../Source/Config.py:169 ../../../Source/Config.py:170
 msgid "TMDb info"
 msgstr "Info su TMDb"
 
-#: ../../../Source/Config.py:164 ../../../Source/Config.py:165
-#: ../../../Source/Config.py:168 ../../../Source/Config.py:170
+#: ../../../Source/Config.py:165 ../../../Source/Config.py:166
+#: ../../../Source/Config.py:169 ../../../Source/Config.py:171
 msgid "IMDb info"
 msgstr "Info su IMDb"
 
-#: ../../../Source/Config.py:164 ../../../Source/Config.py:166
-#: ../../../Source/Config.py:169 ../../../Source/Config.py:170
+#: ../../../Source/Config.py:165 ../../../Source/Config.py:167
+#: ../../../Source/Config.py:170 ../../../Source/Config.py:171
 msgid "OFDb info"
 msgstr "Info su OFDb"
 
-#: ../../../Source/Config.py:189
+#: ../../../Source/Config.py:190
 msgid "Thumb (92x138)"
 msgstr "Thumb (92x138)"
 
-#: ../../../Source/Config.py:190
+#: ../../../Source/Config.py:191
 msgid "Cover (185x278)"
 msgstr "Cover (185x278)"
 
-#: ../../../Source/Config.py:191
+#: ../../../Source/Config.py:192
 msgid "Mid (500x750)"
 msgstr "Media (500x750)"
 
-#: ../../../Source/Config.py:192
+#: ../../../Source/Config.py:193
 msgid "Original (1400x2100)"
 msgstr "Originale (1400x2100)"
 
-#: ../../../Source/Config.py:198
+#: ../../../Source/Config.py:199
 msgid "300x169"
 msgstr "300x169"
 
-#: ../../../Source/Config.py:199
+#: ../../../Source/Config.py:200
 msgid "780x439"
 msgstr "780x349"
 
-#: ../../../Source/Config.py:200
+#: ../../../Source/Config.py:201
 msgid "1280x720"
 msgstr "1280x720"
 
-#: ../../../Source/Config.py:201
+#: ../../../Source/Config.py:202
 msgid "Original (1920x1080)"
 msgstr "Originale (1920x1080)"
 
-#: ../../../Source/Config.py:224
+#: ../../../Source/Config.py:230
 msgid "Disabled"
 msgstr "Disabilitato"
 
-#: ../../../Source/Config.py:224
+#: ../../../Source/Config.py:230
 msgid "Daily"
 msgstr "Quotidiano"
 
-#: ../../../Source/Config.py:224
+#: ../../../Source/Config.py:230
 msgid "Every second day"
 msgstr "Ogni secondo giorno"
 
-#: ../../../Source/Config.py:224
+#: ../../../Source/Config.py:230
 msgid "Weekly"
 msgstr "Settimanale"
 
-#: ../../../Source/Config.py:224
+#: ../../../Source/Config.py:230
 msgid "Every two weeks"
 msgstr "Ogni due settimane"
 
-#: ../../../Source/Config.py:224
+#: ../../../Source/Config.py:230
 msgid "Monthly"
 msgstr "Mensile"
 
-#: ../../../Source/Config.py:246
+#: ../../../Source/Config.py:252
 msgid "Virtual and Numerical"
 msgstr "Virtuale e Numerica"
 
-#: ../../../Source/Config.py:246
+#: ../../../Source/Config.py:252
 msgid "Virtual"
 msgstr "Virtuale"
 
-#: ../../../Source/Config.py:246
+#: ../../../Source/Config.py:252
 msgid "Numerical"
 msgstr "Numerica"
 
-#: ../../../Source/Config.py:264 ../../../TimerEditEntry.py:32
+#: ../../../Source/Config.py:270 ../../../TimerEditEntry.py:32
 msgid "no"
 msgstr "no"
 
-#: ../../../Source/Config.py:264
+#: ../../../Source/Config.py:270
 msgid "(quantity)"
 msgstr "(quantita)"
 
-#: ../../../Source/Config.py:264
+#: ../../../Source/Config.py:270
 msgid "(new)"
 msgstr "(nuovo)"
 
-#: ../../../Source/Config.py:264
+#: ../../../Source/Config.py:270
 msgid "(seen)"
 msgstr "(visto)"
 
-#: ../../../Source/Config.py:264
+#: ../../../Source/Config.py:270
 msgid "(new/quantity)"
 msgstr "(nuovo/quantita)"
 
-#: ../../../Source/Config.py:264
+#: ../../../Source/Config.py:270
 msgid "(seen/quantity)"
 msgstr "(visto/quantita)"
 
@@ -3839,16 +3854,6 @@ msgstr "Seleziona il download della copertina dal db del film."
 #~ msgstr ""
 #~ "Visualizza il Logo del Provider nelle dimensioni originali. Altrimenti, "
 #~ "il Logo del Provider sarà mostrato nelle dimensioni della cover."
-
-#~ msgid "Provider Logo path:"
-#~ msgstr "Percorso per il Logo del Provider:"
-
-#~ msgid ""
-#~ "Where to look for the provider logos? (Default is /usr/share/enigma2/"
-#~ "picon)"
-#~ msgstr ""
-#~ "Dove cercare i logos dei provider? (Il percorso predefinito è /usr/share/"
-#~ "enigma2/picon)"
 
 #~ msgid "DM-600PVR"
 #~ msgstr "DM-600PVR"

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-20 19:42+0200\n"
-"PO-Revision-Date: 2018-09-20 19:46+0200\n"
+"POT-Creation-Date: 2018-09-23 19:14+0200\n"
+"PO-Revision-Date: 2018-09-23 19:15+0200\n"
 "Last-Translator: cmikula\n"
 "Language-Team: IhaD <JackDaniel@i-have-a-dreambox.com>\n"
 "Language: nl_AT\n"
@@ -130,7 +130,7 @@ msgid "Error creating settings backup!"
 msgstr "Fout bij het creëren van de backup!"
 
 #: ../../../AdvancedMovieSelectionSetup.py:110
-#: ../../../AdvancedMovieSelectionSetup.py:537 ../../../MovieSelection.py:1020
+#: ../../../AdvancedMovieSelectionSetup.py:537 ../../../MovieSelection.py:1017
 msgid ""
 "Some settings changes require close/reopen the movielist to take effect."
 msgstr "Sommige aanpassingen vereisen het stoppen/starten van de filmselectie."
@@ -491,6 +491,16 @@ msgstr "Kanaalpicon weergeven:"
 #: ../../../AdvancedMovieSelectionSetup.py:352
 msgid "Displays the Provider Logo when no Cover available."
 msgstr "Kanaalpicon weergeven indien geen cover beschikbaar."
+
+#: ../../../AdvancedMovieSelectionSetup.py:354
+msgid "Provider Logo path:"
+msgstr "Pad kanaallogo's:"
+
+#: ../../../AdvancedMovieSelectionSetup.py:354
+msgid ""
+"Where to look for the provider logos? (Default is /usr/share/enigma2/picon)"
+msgstr ""
+"Waar bevinden zich de kanaalpicons? (Standaard: /usr/share/enigma2/picon)"
 
 #: ../../../AdvancedMovieSelectionSetup.py:357
 msgid "FEATURES"
@@ -1684,7 +1694,7 @@ msgid "Job failed"
 msgstr "Actie mislukt"
 
 #: ../../../MoveCopy.py:39 ../../../MoveCopy.py:115 ../../../MoveCopy.py:247
-#: ../../../MovieSelection.py:1195
+#: ../../../MovieSelection.py:1192
 msgid "Error"
 msgstr "Fout"
 
@@ -1852,7 +1862,7 @@ msgstr "naar:"
 msgid "Source and destination path must be different."
 msgstr "Bron- en doelpad moeten verschillend zijn."
 
-#: ../../../MoveCopy.py:346 ../../../MovieSelection.py:1444
+#: ../../../MoveCopy.py:346 ../../../MovieSelection.py:1441
 #, python-format
 msgid "Directory %s nonexistent."
 msgstr "Map %s bestaat niet."
@@ -1929,21 +1939,21 @@ msgstr "TMDb Info (AMS)"
 msgid "Outdated EPG"
 msgstr "Verlopen EPG"
 
-#: ../../../MovieList.py:533
+#: ../../../MovieList.py:530
 msgid "REC"
 msgstr "REC"
 
-#: ../../../MovieList.py:535
+#: ../../../MovieList.py:532
 msgid "Records"
 msgstr "Opname loopt"
 
-#: ../../../MovieList.py:1056 ../../../MovieList.py:1134
-#: ../../../MovieSelection.py:1376
+#: ../../../MovieList.py:1053 ../../../MovieList.py:1131
+#: ../../../MovieSelection.py:1373
 msgid "Movie library"
 msgstr "Bibliotheek"
 
-#: ../../../MovieList.py:1108 ../../../MovieSelection.py:1269
-#: ../../../MovieSelection.py:1371 ../../../QuickButton.py:453
+#: ../../../MovieList.py:1105 ../../../MovieSelection.py:1266
+#: ../../../MovieSelection.py:1368 ../../../QuickButton.py:453
 msgid "VSR"
 msgstr "VZR"
 
@@ -1999,12 +2009,12 @@ msgstr "Nee, van begin herstarten"
 msgid "Stop playing this movie?"
 msgstr "Stoppen met afspelen?"
 
-#: ../../../MoviePlayer.py:345 ../../../MovieSelection.py:912
+#: ../../../MoviePlayer.py:345 ../../../MovieSelection.py:909
 msgid "this recording"
 msgstr "deze opname"
 
 #: ../../../MoviePlayer.py:350 ../../../MoviePlayer.py:357
-#: ../../../MovieSelection.py:863 ../../../Wastebasket.py:238
+#: ../../../MovieSelection.py:860 ../../../Wastebasket.py:238
 #, python-format
 msgid "Do you really want to delete %s?"
 msgstr "%s verwijderen?"
@@ -2409,24 +2419,24 @@ msgstr "Preview vooruitspringen"
 msgid "Video preview jump backward"
 msgstr "Preview terugspringen"
 
-#: ../../../MovieSelection.py:826
+#: ../../../MovieSelection.py:823
 msgid "Jump to next marker"
 msgstr "Naar volgende markeerpunt"
 
-#: ../../../MovieSelection.py:827
+#: ../../../MovieSelection.py:824
 msgid "Jump to previous marker"
 msgstr "Naar vorige markeerpunt"
 
-#: ../../../MovieSelection.py:831
+#: ../../../MovieSelection.py:828
 msgid "Start/Stop video preview"
 msgstr "Preview start/stop"
 
-#: ../../../MovieSelection.py:856 ../../../MovieSelection.py:861
+#: ../../../MovieSelection.py:853 ../../../MovieSelection.py:858
 #, python-format
 msgid "%s is currently recording!"
 msgstr "%s wordt momenteel opgenomen!"
 
-#: ../../../MovieSelection.py:856
+#: ../../../MovieSelection.py:853
 #, python-format
 msgid ""
 "\n"
@@ -2443,12 +2453,12 @@ msgstr ""
 "\n"
 "Bent u zeker?"
 
-#: ../../../MovieSelection.py:858
+#: ../../../MovieSelection.py:855
 #, python-format
 msgid "Do you really want to move %s to trashcan?"
 msgstr "Wilt u %s naar de prullemand verplaatsen?"
 
-#: ../../../MovieSelection.py:861
+#: ../../../MovieSelection.py:858
 #, python-format
 msgid ""
 "\n"
@@ -2465,45 +2475,45 @@ msgstr ""
 "\n"
 "Bent u zeker?"
 
-#: ../../../MovieSelection.py:865
+#: ../../../MovieSelection.py:862
 msgid "Recordings are active, the timer(s) will also be deleted!\n"
 msgstr "Opnames actief, de timer(s) worden ook verwijderd!\n"
 
-#: ../../../MovieSelection.py:867
+#: ../../../MovieSelection.py:864
 msgid "Do you really want to move selected movies to trashcan?"
 msgstr "Wilt u de geselecteerde filmen naar de prullemand verplaatsen?"
 
-#: ../../../MovieSelection.py:869
+#: ../../../MovieSelection.py:866
 msgid "Do you really want to delete selected movies?"
 msgstr "Wilt u de geselecteerde filmen verwijderen?"
 
-#: ../../../MovieSelection.py:883 ../../../MovieSelection.py:956
+#: ../../../MovieSelection.py:880 ../../../MovieSelection.py:953
 #: ../../../Wastebasket.py:271
 msgid "Delete failed!"
 msgstr "Verwijderen mislukt!"
 
-#: ../../../MovieSelection.py:895
+#: ../../../MovieSelection.py:892
 msgid "This cannot deleted, please select a movie for!"
 msgstr "Verwijderen niet mogelijk, gelieve een film te selecteren!"
 
-#: ../../../MovieSelection.py:900
+#: ../../../MovieSelection.py:897
 msgid "The required PIN code is not set!"
 msgstr "De vereiste PIN code is niet ingesteld!"
 
-#: ../../../MovieSelection.py:902
+#: ../../../MovieSelection.py:899
 msgid "Enter PIN code"
 msgstr "Voer de pincode in"
 
-#: ../../../MovieSelection.py:902
+#: ../../../MovieSelection.py:899
 msgid "The PIN code is required to delete the directory"
 msgstr "De PIN code is vereist om de map te verwijderen"
 
-#: ../../../MovieSelection.py:1006 ../../../plugin.py:122
+#: ../../../MovieSelection.py:1003 ../../../plugin.py:122
 #: ../../../plugin.py:123 ../../../plugin.py:124
 msgid "Advanced Movie Selection"
 msgstr "Geavanceerde Filmselectie"
 
-#: ../../../MovieSelection.py:1227
+#: ../../../MovieSelection.py:1224
 msgid ""
 "Load Length of Movies in Movielist has been disabled.\n"
 "Close and reopen Movielist is required to apply the setting."
@@ -2512,39 +2522,39 @@ msgstr ""
 "De Filmselectie moet gesloten en weer geopend worden om de instellingen te "
 "activeren."
 
-#: ../../../MovieSelection.py:1289
+#: ../../../MovieSelection.py:1286
 msgid "Tag 1"
 msgstr "Label 1"
 
-#: ../../../MovieSelection.py:1294
+#: ../../../MovieSelection.py:1291
 msgid "Tag 2"
 msgstr "Label 2"
 
-#: ../../../MovieSelection.py:1374
+#: ../../../MovieSelection.py:1371
 msgid "Movie location:"
 msgstr "Pad:"
 
-#: ../../../MovieSelection.py:1391
+#: ../../../MovieSelection.py:1388
 msgid "[Library update in progress]"
 msgstr "[Update bibliotheek actief]"
 
-#: ../../../MovieSelection.py:1415
+#: ../../../MovieSelection.py:1412
 msgid "Please select the movie path..."
 msgstr "Gelieve het filmpad te selecteren..."
 
-#: ../../../MovieSelection.py:1493
+#: ../../../MovieSelection.py:1490
 msgid "Please select tag to filter..."
 msgstr "Gelieve een label te kiezen om te filteren..."
 
-#: ../../../MovieSelection.py:1496
+#: ../../../MovieSelection.py:1493
 msgid "No tags are set on these movies."
 msgstr "Geen labels op deze films.."
 
-#: ../../../MovieSelection.py:1503
+#: ../../../MovieSelection.py:1500
 msgid "Please select the search path(s) for movies..."
 msgstr "Gelieve de filmmap(pen) voor de bibliotheek te selecteren..."
 
-#: ../../../MovieSelection.py:1526
+#: ../../../MovieSelection.py:1523
 msgid ""
 "Use direction keys to move the Moviebar.\n"
 "Press OK button for save or the EXIT button to cancel.\n"
@@ -3252,294 +3262,298 @@ msgstr "Manueel springen naar:"
 msgid "Select sort functions"
 msgstr "Selecteer sorteerfuncties"
 
-#: ../../../Source/Config.py:30 ../../../Source/Config.py:31
-#: ../../../Source/Config.py:32
+#: ../../../Source/Config.py:31 ../../../Source/Config.py:32
+#: ../../../Source/Config.py:33
 msgid "Ask user"
 msgstr "Vraag gebruiker"
 
-#: ../../../Source/Config.py:30
+#: ../../../Source/Config.py:31
 msgid "Resume from last position"
 msgstr "Vanaf laatste positie starten"
 
-#: ../../../Source/Config.py:30
+#: ../../../Source/Config.py:31
 msgid "Start from the beginning"
 msgstr "Vanaf begin starten"
 
-#: ../../../Source/Config.py:31 ../../../Source/Config.py:32
+#: ../../../Source/Config.py:32 ../../../Source/Config.py:33
 msgid "Return to movie list"
 msgstr "Terug naar de filmselectie"
 
-#: ../../../Source/Config.py:31 ../../../Source/Config.py:32
+#: ../../../Source/Config.py:32 ../../../Source/Config.py:33
 msgid "Return to previous service"
 msgstr "Terug naar het TV-kanaal"
 
-#: ../../../Source/Config.py:32
+#: ../../../Source/Config.py:33
 msgid "Pause movie at end"
 msgstr "Aan het einde pauzeren"
 
-#: ../../../Source/Config.py:32
+#: ../../../Source/Config.py:33
 msgid "Standby"
 msgstr "Standby"
 
-#: ../../../Source/Config.py:32
+#: ../../../Source/Config.py:33
 msgid "Shutdown"
 msgstr "Afsluiten"
 
-#: ../../../Source/Config.py:36
+#: ../../../Source/Config.py:37
 msgid "Only current location"
 msgstr "Enkel actuele locatie"
 
-#: ../../../Source/Config.py:36
+#: ../../../Source/Config.py:37
 msgid "Current location and all subdirectories"
 msgstr "Actuele locatie en alle submappen"
 
-#: ../../../Source/Config.py:36
+#: ../../../Source/Config.py:37
 msgid "All directorys below '/media'"
 msgstr "Alle mappen onder '/media'"
 
-#: ../../../Source/Config.py:52
+#: ../../../Source/Config.py:53
 msgid "German (without Year)"
 msgstr "Duits (zonder jaar)"
 
-#: ../../../Source/Config.py:52
+#: ../../../Source/Config.py:53
 msgid "German (with Year)"
 msgstr "Duits (met jaar)"
 
-#: ../../../Source/Config.py:52
+#: ../../../Source/Config.py:53
 msgid "German (with Starttime)"
 msgstr "Duits (met starttijd)"
 
-#: ../../../Source/Config.py:52
+#: ../../../Source/Config.py:53
 msgid "Enigma 2 default"
 msgstr "E2 Standaard"
 
-#: ../../../Source/Config.py:52
+#: ../../../Source/Config.py:53
 msgid "English (without Year)"
 msgstr "Engels (zonder jaar)"
 
-#: ../../../Source/Config.py:52
+#: ../../../Source/Config.py:53
 msgid "English (with Year)"
 msgstr "Engels (met jaar)"
 
-#: ../../../Source/Config.py:52
+#: ../../../Source/Config.py:53
 msgid "English (with Starttime)"
 msgstr "Engels (met starttijd)"
 
-#: ../../../Source/Config.py:53
+#: ../../../Source/Config.py:54
+msgid "Hours (1:30:01)"
+msgstr "Uren (1:30:01)"
+
+#: ../../../Source/Config.py:54
 msgid "Minutes and seconds (90:01)"
 msgstr "Minuten en seconden (90:01)"
 
-#: ../../../Source/Config.py:53
+#: ../../../Source/Config.py:54
 msgid "Min."
 msgstr "min."
 
-#: ../../../Source/Config.py:53
+#: ../../../Source/Config.py:54
 msgid "Minutes (90 Min.)"
 msgstr "Minuten (90 min.)"
 
-#: ../../../Source/Config.py:53
+#: ../../../Source/Config.py:54
 msgid "Pure minutes (90)"
 msgstr "Minuten (90)"
 
-#: ../../../Source/Config.py:59
+#: ../../../Source/Config.py:60
 msgid "Skin default"
 msgstr "Skin-kleur"
 
-#: ../../../Source/Config.py:60
+#: ../../../Source/Config.py:61
 msgid "Yellow"
 msgstr "Geel"
 
-#: ../../../Source/Config.py:61
+#: ../../../Source/Config.py:62
 msgid "Green"
 msgstr "Groen"
 
-#: ../../../Source/Config.py:62
+#: ../../../Source/Config.py:63
 msgid "Red"
 msgstr "Rood"
 
-#: ../../../Source/Config.py:63
+#: ../../../Source/Config.py:64
 msgid "Grey"
 msgstr "Grijs"
 
-#: ../../../Source/Config.py:64
+#: ../../../Source/Config.py:65
 msgid "White"
 msgstr "Wit"
 
-#: ../../../Source/Config.py:65
+#: ../../../Source/Config.py:66
 msgid "Black"
 msgstr "Zwart"
 
-#: ../../../Source/Config.py:66
+#: ../../../Source/Config.py:67
 msgid "Orange"
 msgstr "Oranje"
 
-#: ../../../Source/Config.py:67
+#: ../../../Source/Config.py:68
 msgid "Blue"
 msgstr "Blauw"
 
-#: ../../../Source/Config.py:145
+#: ../../../Source/Config.py:146
 msgid "Homebutton"
 msgstr "HOME-knop"
 
-#: ../../../Source/Config.py:146
+#: ../../../Source/Config.py:147
 msgid "Own text 1"
 msgstr "Eigen Tekst 1"
 
-#: ../../../Source/Config.py:147
+#: ../../../Source/Config.py:148
 msgid "Own text 2"
 msgstr "Eigen Tekst 2"
 
-#: ../../../Source/Config.py:148
+#: ../../../Source/Config.py:149
 msgid "Own text 3"
 msgstr "Eigen Tekst 3"
 
-#: ../../../Source/Config.py:149
+#: ../../../Source/Config.py:150
 msgid "Own text 4"
 msgstr "Eigen Tekst 4"
 
-#: ../../../Source/Config.py:150
+#: ../../../Source/Config.py:151
 msgid "Own text 5"
 msgstr "Eigen Tekst 5"
 
-#: ../../../Source/Config.py:151
+#: ../../../Source/Config.py:152
 msgid "Own text 6"
 msgstr "Eigen Tekst 6"
 
-#: ../../../Source/Config.py:152
+#: ../../../Source/Config.py:153
 msgid "Own text 7"
 msgstr "Eigen Tekst 7"
 
-#: ../../../Source/Config.py:154
+#: ../../../Source/Config.py:155
 msgid "No override"
 msgstr "Geen functie"
 
-#: ../../../Source/Config.py:155
+#: ../../../Source/Config.py:156
 msgid "Video-button"
 msgstr "Video-knop"
 
-#: ../../../Source/Config.py:156
+#: ../../../Source/Config.py:157
 msgid "TV-button"
 msgstr "TV-knop"
 
-#: ../../../Source/Config.py:157
+#: ../../../Source/Config.py:158
 msgid "Radio-button"
 msgstr "Radio-knop"
 
-#: ../../../Source/Config.py:158
+#: ../../../Source/Config.py:159
 msgid "Timeshift-button"
 msgstr "Timeshift-knop"
 
-#: ../../../Source/Config.py:164 ../../../Source/Config.py:165
-#: ../../../Source/Config.py:166 ../../../Source/Config.py:167
-#: ../../../Source/Config.py:168 ../../../Source/Config.py:169
-#: ../../../Source/Config.py:170
+#: ../../../Source/Config.py:165 ../../../Source/Config.py:166
+#: ../../../Source/Config.py:167 ../../../Source/Config.py:168
+#: ../../../Source/Config.py:169 ../../../Source/Config.py:170
+#: ../../../Source/Config.py:171
 msgid "Advanced Movie Selection info"
 msgstr "Info Geavanceerde Filmselectie"
 
-#: ../../../Source/Config.py:164 ../../../Source/Config.py:167
-#: ../../../Source/Config.py:168 ../../../Source/Config.py:169
+#: ../../../Source/Config.py:165 ../../../Source/Config.py:168
+#: ../../../Source/Config.py:169 ../../../Source/Config.py:170
 msgid "TMDb info"
 msgstr "Info TMDb"
 
-#: ../../../Source/Config.py:164 ../../../Source/Config.py:165
-#: ../../../Source/Config.py:168 ../../../Source/Config.py:170
+#: ../../../Source/Config.py:165 ../../../Source/Config.py:166
+#: ../../../Source/Config.py:169 ../../../Source/Config.py:171
 msgid "IMDb info"
 msgstr "Info IMDb"
 
-#: ../../../Source/Config.py:164 ../../../Source/Config.py:166
-#: ../../../Source/Config.py:169 ../../../Source/Config.py:170
+#: ../../../Source/Config.py:165 ../../../Source/Config.py:167
+#: ../../../Source/Config.py:170 ../../../Source/Config.py:171
 msgid "OFDb info"
 msgstr "Info OFDb"
 
-#: ../../../Source/Config.py:189
+#: ../../../Source/Config.py:190
 msgid "Thumb (92x138)"
 msgstr "Mini (92x138)"
 
-#: ../../../Source/Config.py:190
+#: ../../../Source/Config.py:191
 msgid "Cover (185x278)"
 msgstr "Cover (185x278)"
 
-#: ../../../Source/Config.py:191
+#: ../../../Source/Config.py:192
 msgid "Mid (500x750)"
 msgstr "Medium (500x750)"
 
-#: ../../../Source/Config.py:192
+#: ../../../Source/Config.py:193
 msgid "Original (1400x2100)"
 msgstr "Origineel (1400x1100)"
 
-#: ../../../Source/Config.py:198
+#: ../../../Source/Config.py:199
 msgid "300x169"
 msgstr "300x169"
 
-#: ../../../Source/Config.py:199
+#: ../../../Source/Config.py:200
 msgid "780x439"
 msgstr "780x439"
 
-#: ../../../Source/Config.py:200
+#: ../../../Source/Config.py:201
 msgid "1280x720"
 msgstr "1280x720"
 
-#: ../../../Source/Config.py:201
+#: ../../../Source/Config.py:202
 msgid "Original (1920x1080)"
 msgstr "Origineel (1920x1080)"
 
-#: ../../../Source/Config.py:224
+#: ../../../Source/Config.py:230
 msgid "Disabled"
 msgstr "Uitgeschakeld"
 
-#: ../../../Source/Config.py:224
+#: ../../../Source/Config.py:230
 msgid "Daily"
 msgstr "Dagelijks"
 
-#: ../../../Source/Config.py:224
+#: ../../../Source/Config.py:230
 msgid "Every second day"
 msgstr "Elke tweede dag"
 
-#: ../../../Source/Config.py:224
+#: ../../../Source/Config.py:230
 msgid "Weekly"
 msgstr "Wekelijks"
 
-#: ../../../Source/Config.py:224
+#: ../../../Source/Config.py:230
 msgid "Every two weeks"
 msgstr "Elke twee weken"
 
-#: ../../../Source/Config.py:224
+#: ../../../Source/Config.py:230
 msgid "Monthly"
 msgstr "Maandelijks"
 
-#: ../../../Source/Config.py:246
+#: ../../../Source/Config.py:252
 msgid "Virtual and Numerical"
 msgstr "Virtueel en numerisch"
 
-#: ../../../Source/Config.py:246
+#: ../../../Source/Config.py:252
 msgid "Virtual"
 msgstr "Virtueel"
 
-#: ../../../Source/Config.py:246
+#: ../../../Source/Config.py:252
 msgid "Numerical"
 msgstr "Numerisch"
 
-#: ../../../Source/Config.py:264 ../../../TimerEditEntry.py:32
+#: ../../../Source/Config.py:270 ../../../TimerEditEntry.py:32
 msgid "no"
 msgstr "Nee"
 
-#: ../../../Source/Config.py:264
+#: ../../../Source/Config.py:270
 msgid "(quantity)"
 msgstr "(aantal)"
 
-#: ../../../Source/Config.py:264
+#: ../../../Source/Config.py:270
 msgid "(new)"
 msgstr "(nieuw)"
 
-#: ../../../Source/Config.py:264
+#: ../../../Source/Config.py:270
 msgid "(seen)"
 msgstr "(gezien)"
 
-#: ../../../Source/Config.py:264
+#: ../../../Source/Config.py:270
 msgid "(new/quantity)"
 msgstr "(nieuw/aantal)"
 
-#: ../../../Source/Config.py:264
+#: ../../../Source/Config.py:270
 msgid "(seen/quantity)"
 msgstr "(gezien/aantal)"
 
@@ -3847,15 +3861,6 @@ msgstr "Voortgang kopie of verplaatsen weergeven"
 #: ../../../plugin.py:143
 msgid "Select cover download from movie db."
 msgstr "Selecteer hoes downloaden van film db."
-
-#~ msgid "Provider Logo path:"
-#~ msgstr "Pad kanaallogo's:"
-
-#~ msgid ""
-#~ "Where to look for the provider logos? (Default is /usr/share/enigma2/"
-#~ "picon)"
-#~ msgstr ""
-#~ "Waar bevinden zich de kanaalpicons? (Standaard: /usr/share/enigma2/picon)"
 
 #~ msgid "DM-600PVR"
 #~ msgstr "DM-600PVR"
