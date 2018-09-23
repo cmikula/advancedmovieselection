@@ -161,12 +161,12 @@ class MoviePlayerExtended(CutListSupport, PlayerBase, MoviePlayer):
         PlayerBase.__init__(self, session)
         self.skinName = ["MoviePlayerExtended", "MoviePlayer"]
         if config.AdvancedMovieSelection.exitkey.value and config.AdvancedMovieSelection.exitprompt.value:
-            self["closeactions"] = HelpableActionMap(self, "WizardActions",
+            self["closeactions"] = HelpableActionMap(self, "MoviePlayerActions",
                 {
                     "back": (self.leavePlayer, _("Leave movie player"))
                 })
         if config.AdvancedMovieSelection.exitkey.value and not config.AdvancedMovieSelection.exitprompt.value: 
-            self["closeactions"] = HelpableActionMap(self, "WizardActions",
+            self["closeactions"] = HelpableActionMap(self, "MoviePlayerActions",
                 {
                     "back": (self.close, _("Leave movie player"))
                 })
