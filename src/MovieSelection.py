@@ -67,6 +67,7 @@ from Source.AutoNetwork import autoNetwork
 from Source.MovieScanner import movieScanner
 from Source.ServiceDescriptor import DirectoryInfo
 from Source.StopWatch import StopWatch, clockit
+from FileBrowser import ScanLocationBox
 
 if pluginPresent.IMDb:
     from Plugins.Extensions.IMDb.plugin import IMDB
@@ -158,11 +159,6 @@ def getBeginTimeString(info, serviceref):
         desc = d.strftime("%d.%m.%Y - %H:%M")
     return desc
 
-from Screens.LocationBox import LocationBox
-def ScanLocationBox(session, text, dir, minFree=None):
-    inhibitDirs = ["/bin", "/boot", "/dev", "/etc", "/lib", "/proc", "/sbin", "/sys", "/usr", "/var"]
-    config.AdvancedMovieSelection.videodirs.load()
-    return LocationBox(session, text=text, currDir=dir, bookmarks=config.AdvancedMovieSelection.videodirs, autoAdd=False, editDir=False, inhibitDirs=inhibitDirs, minFree=minFree)
 
 class MovieContextMenu(Screen):
     MODE_NORMAL = 0
