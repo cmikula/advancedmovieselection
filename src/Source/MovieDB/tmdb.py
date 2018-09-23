@@ -21,6 +21,7 @@
 from TMDb.tmdbapi import tmdb
 from datetime import date
 from MovieDBI import MovieDBI
+import re
 try:
     from ..StopWatch import clockit  # @UnusedImport
 except:
@@ -75,7 +76,6 @@ def search(method, title, year=None):
     
         nt = nt.replace('.', ' ').rstrip()
         if year is None and title.count('.') > 1:
-            import re
             match = re.findall('\d{4}', nt)
             if len(match) > 0:
                 year = match[-1]
@@ -140,16 +140,37 @@ def searchSeason(title, season_name):
 
 @clockit
 def searchEpisode(title, episode_name):
+    season_number, episode_number = parseSeasonEpisodeInfo(episode_name)
+    if season_number > 0 and episode_number > 0:
+        print str.format("[tmdb.searchEpisode] {0} S{1} E{2}", title, season_number, episode_number)
     res = search(tmdb.searchSerie, title)
     result = TMDbSeriesInfo.parse(res)
     for serie in result:
         serie.update()
+        if season_number > 0 and episode_number > 0:
+            ep = tmdb.getEpisode(serie.ID, season_number, episode_number)
+            if ep:
+                episode = TMDbEpisodeInfo.parse([ep, ], serie.ID, serie)[0]
+                episode.update()
+                return episode
+            continue
+        
         for season in serie.seasons:
             season.update()
             for episode in season.episodes:
                 if episode.Title == episode_name:
                     episode.update()
                     return episode
+
+def parseSeasonEpisodeInfo(text):
+    if text:
+        match = re.findall('S\d+E\d+', text)
+        if len(match) == 1:
+            s = match[0].split('E')
+            S = int(s[0][1:])
+            E = int(s[1])
+            return S, E
+    return 0, 0
 
 class Parser():
     def __init__(self, data, def_str="N/A", def_int=0):
@@ -637,6 +658,7 @@ class TMDbEpisodeInfo(TMDbBase):
 
 def main():
     if True:
+        episode = searchEpisode('Castle', 'S08E14 Der Club der Meisterdetektive') 
         series = searchSerie('Blindspot')
         serie = series[0]
         serie.update()
