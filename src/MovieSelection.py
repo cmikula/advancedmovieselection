@@ -816,13 +816,10 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                 "cancel": (self.abort, _("Exit movielist")),
                 "ok": (self.movieSelected, _("Select movie")),
             })
-        self["EPGSelectActions"] = HelpableActionMap(self, "EPGSelectActions",
+        self["ChannelSelectBaseActions"] = HelpableActionMap(self, "ChannelSelectBaseActions",
             {
                 "nextBouquet": (self.nextBouquet, _("Video preview jump forward")),
                 "prevBouquet": (self.prevBouquet, _("Video preview jump backward")),
-            })
-        self["ChannelSelectBaseActions"] = HelpableActionMap(self, "ChannelSelectBaseActions",
-            {
                 "nextMarker": (self.nextMarker, _("Jump to next marker")),
                 "prevMarker": (self.prevMarker, _("Jump to previous marker")),
             })
