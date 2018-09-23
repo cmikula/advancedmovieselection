@@ -568,7 +568,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                         png1 = self.picloader.load(filename)
                     elif os.path.exists(series_path_plugin):
                         png1 = self.picloader.load(series_path_plugin)
-                    elif serviceref.getPath().endswith("ts"):
+                    elif serviceref.getPath().endswith(".ts") and config.AdvancedMovieSelection.show_picon.value:
                         # picon, make sure only ts files goes here
                         picon = getServiceInfoValue(serviceref, iServiceInformation.sServiceref).rstrip(':').replace(':', '_') + ".png"
                         piconpath = os.path.join(config.usage.configselection_piconspath.value, picon)

@@ -10,7 +10,7 @@
         <ePixmap alphatest="on" pixmap="skin_default/buttons/button_green.png" position="290,570" size="16,16"/>
         <widget backgroundColor="background" font="Regular;20" foregroundColor="foreground" halign="left" position="60,568" render="Label" size="200,30" source="key_red" transparent="1"/>
         <widget backgroundColor="background" font="Regular;20" foregroundColor="foreground" halign="left" position="320,568" render="Label" size="200,30" source="key_green" transparent="1"/>
-        <widget backgroundColor="background" enableWrapAround="1" itemHeight="25" name="config" position="30,70" scrollbarMode="showOnDemand" size="970,475" transparent="1"/>
+        <widget backgroundColor="background" enableWrapAround="1" name="config" position="30,70" scrollbarMode="showOnDemand" size="970,475" transparent="1"/>
     </screen>
 	<screen name="PinInputDialog" position="center,center" size="880,240" title=" ">
 		<widget font="Regular;28" name="description" position="20,10" size="840,35"/>
