@@ -259,6 +259,7 @@ config.AdvancedMovieSelection.movielibrary_show_mark_cnt = ConfigInteger(default
 config.AdvancedMovieSelection.hide_seen_movies = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.show_backdrop = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.show_directory_info = ConfigSelection(default="" , choices=[("" , _("no")), ("qty" , _("(quantity)")), ("new" , _("(new)")), ("seen" , _("(seen)")), ("new/qty" , _("(new/quantity)")), ("seen/qty" , _("(seen/quantity)"))])
+config.AdvancedMovieSelection.use_extended_player = ConfigYesNo(default=True)
 
 config.AdvancedMovieSelection.pincode = ConfigPIN(default = -1)
 config.AdvancedMovieSelection.retries = ConfigSubsection()
