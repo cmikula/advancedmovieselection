@@ -159,16 +159,15 @@ class MoviePlayerExtended(CutListSupport, PlayerBase, MoviePlayer):
         CutListSupport.__init__(self, service)
         MoviePlayer.__init__(self, session, service)
         PlayerBase.__init__(self, session)
-        self.skinName = ["MoviePlayerExtended", "MoviePlayer"]
-        if config.AdvancedMovieSelection.exitkey.value and config.AdvancedMovieSelection.exitprompt.value:
-            self["closeactions"] = HelpableActionMap(self, "MoviePlayerActions",
+        if config.AdvancedMovieSelection.use_extended_player.value:
+            self.skinName = ["MoviePlayerExtended", "MoviePlayer"]
+        else:
+            self.skinName = ["MoviePlayer", "MoviePlayerExtended"]
+        if config.AdvancedMovieSelection.exitkey.value:
+            exit_action = config.AdvancedMovieSelection.exitprompt.value and self.leavePlayer or self.close   
+            self["closeactions"] = HelpableActionMap(self, "WizardActions",
                 {
-                    "back": (self.leavePlayer, _("Leave movie player"))
-                })
-        if config.AdvancedMovieSelection.exitkey.value and not config.AdvancedMovieSelection.exitprompt.value: 
-            self["closeactions"] = HelpableActionMap(self, "MoviePlayerActions",
-                {
-                    "back": (self.close, _("Leave movie player"))
+                    "back": (exit_action, _("Leave movie player"))
                 })
         if config.AdvancedMovieSelection.use_original_movieplayer_summary.value == True: 
             self.__event_tracker = ServiceEventTracker(screen=self, eventmap=
@@ -413,7 +412,10 @@ if pluginPresent.DVDPlayer:
             DVDCutListSupport.__init__(self, service)
             eDVDPlayer.__init__(self, session, dvd_filelist=service.getDVD())
             PlayerBase.__init__(self, session)
-            self.skinName = ["DVDPlayerExtended", "DVDPlayer"]
+            if config.AdvancedMovieSelection.use_extended_player.value:
+                self.skinName = ["DVDPlayerExtended", "DVDPlayer"]
+            else:
+                self.skinName = ["DVDPlayer", "DVDPlayerExtended"]
             self.addPlayerEvents()
             self["EPGActions"] = HelpableActionMap(self, "InfobarEPGActions",
             {
