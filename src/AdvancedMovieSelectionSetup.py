@@ -386,6 +386,7 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         
         #section display and skin options
         self.list.append(getConfigListEntry(_("DISPLAY & SKIN")))
+        self.list.append(getConfigListEntry(_("Use extended player:"), config.AdvancedMovieSelection.use_extended_player, _("Use the original player or the extended player.")))
         if config.AdvancedMovieSelection.showcolorstatusinmovielist.value:
             self.list.append(getConfigListEntry(_("Color for movies:"), config.AdvancedMovieSelection.color5, _("With this option you can assign what color should displayed for the movies in movie list.")))
             self.list.append(getConfigListEntry(_("Color for not ready seen movies:"), config.AdvancedMovieSelection.color1, _("With this option you can assign what color should displayed for not ready seen movies in movie list.")))

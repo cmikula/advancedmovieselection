@@ -159,7 +159,10 @@ class MoviePlayerExtended(CutListSupport, PlayerBase, MoviePlayer):
         CutListSupport.__init__(self, service)
         MoviePlayer.__init__(self, session, service)
         PlayerBase.__init__(self, session)
-        self.skinName = ["MoviePlayerExtended", "MoviePlayer"]
+        if config.AdvancedMovieSelection.use_extended_player.value:
+            self.skinName = ["MoviePlayerExtended", "MoviePlayer"]
+        else:
+            self.skinName = ["MoviePlayer", "MoviePlayerExtended"]
         if config.AdvancedMovieSelection.exitkey.value:
             exit_action = config.AdvancedMovieSelection.exitprompt.value and self.leavePlayer or self.close   
             self["closeactions"] = HelpableActionMap(self, "WizardActions",
@@ -409,7 +412,10 @@ if pluginPresent.DVDPlayer:
             DVDCutListSupport.__init__(self, service)
             eDVDPlayer.__init__(self, session, dvd_filelist=service.getDVD())
             PlayerBase.__init__(self, session)
-            self.skinName = ["DVDPlayerExtended", "DVDPlayer"]
+            if config.AdvancedMovieSelection.use_extended_player.value:
+                self.skinName = ["DVDPlayerExtended", "DVDPlayer"]
+            else:
+                self.skinName = ["DVDPlayer", "DVDPlayerExtended"]
             self.addPlayerEvents()
             self["EPGActions"] = HelpableActionMap(self, "InfobarEPGActions",
             {
