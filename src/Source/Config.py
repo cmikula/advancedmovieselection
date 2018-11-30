@@ -22,9 +22,8 @@
 
 from LocaleInit import _
 from Tools.Directories import resolveFilename, SCOPE_HDD
-from Components.config import config, ConfigSubsection, ConfigText, ConfigYesNo, ConfigInteger, ConfigSelection, ConfigClock, ConfigLocations, ConfigBoolean, ConfigPIN, ConfigDirectory
+from Components.config import config, ConfigSubsection, ConfigText, ConfigYesNo, ConfigInteger, ConfigSelection, ConfigClock, ConfigLocations, ConfigBoolean, ConfigPIN
 from Globals import printStackTrace
-from enigma import eEnv
 
 # configurations from enigma2 /Components/UsageConfig.py !!!don't edit default values from source!!!
 config.usage.load_length_of_movies_in_moviellist = ConfigYesNo(default=True)
@@ -51,8 +50,8 @@ config.AdvancedMovieSelection.usefoldername = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.minitv = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.shownew = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.dateformat = ConfigSelection(default="6" , choices=[("6" , _("German (without Year)")), ("1" , _("German (with Year)")), ("3" , _("German (with Starttime)")), ("2" , _("Enigma 2 default")), ("7" , _("English (without Year)")), ("4" , _("English (with Year)")), ("5" , _("English (with Starttime)"))])
-movie_length_format_choice = [("{2:d}:{3:02d}:{1:02d}" , _("Hours (1:30:01)")), ("{0:d}:{1:02d}" , _("Minutes and seconds (90:01)")), ("{0:d} %s" % (_("Min.")) , _("Minutes (90 Min.)")), ("{0:d}" , _("Pure minutes (90)"))]
-config.AdvancedMovieSelection.movie_length_format = ConfigSelection(default=movie_length_format_choice[2][0], choices=movie_length_format_choice)
+movie_length_format_choice = [("{0:d}:{1:02d}" , _("Minutes and seconds (90:01)")), ("{0:d} %s" % (_("Min.")) , _("Minutes (90 Min.)")), ("{0:d}" , _("Pure minutes (90)"))]
+config.AdvancedMovieSelection.movie_length_format = ConfigSelection(default=movie_length_format_choice[1][0], choices=movie_length_format_choice)
 
 DEFAULT_MOVIE_PATH = "/media/hdd/movie/"
 
@@ -215,7 +214,11 @@ config.AdvancedMovieSelection.stop_before_end_time = ConfigInteger(default=5, li
 config.AdvancedMovieSelection.debug = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.hotplug = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.show_picon = ConfigYesNo(default=True)
-config.AdvancedMovieSelection.piconpath = ConfigDirectory(eEnv.resolve('${datadir}/enigma2/picon/'))
+#config.AdvancedMovieSelection.piconpath = ConfigText(default=("/usr/share/enigma2/picon"), visible_width=50, fixed_size=False)
+try:
+    test = config.usage.configselection_piconspath.value
+except:
+    config.usage.configselection_piconspath = ConfigText(default=("/usr/share/enigma2/picon"), visible_width=50, fixed_size=False)
 config.AdvancedMovieSelection.show_wastebasket = ConfigYesNo(default=True)
 config.AdvancedMovieSelection.use_original_movieplayer_summary = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.auto_empty_wastebasket = ConfigSelection(default="-1", choices=[("-1", _("Disabled")), ("1", _("Daily")), ("2", _("Every second day")), ("7", _("Weekly")), ("14", _("Every two weeks")), ("30", _("Monthly"))])
@@ -259,7 +262,6 @@ config.AdvancedMovieSelection.movielibrary_show_mark_cnt = ConfigInteger(default
 config.AdvancedMovieSelection.hide_seen_movies = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.show_backdrop = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.show_directory_info = ConfigSelection(default="" , choices=[("" , _("no")), ("qty" , _("(quantity)")), ("new" , _("(new)")), ("seen" , _("(seen)")), ("new/qty" , _("(new/quantity)")), ("seen/qty" , _("(seen/quantity)"))])
-config.AdvancedMovieSelection.use_extended_player = ConfigYesNo(default=True)
 
 config.AdvancedMovieSelection.pincode = ConfigPIN(default = -1)
 config.AdvancedMovieSelection.retries = ConfigSubsection()

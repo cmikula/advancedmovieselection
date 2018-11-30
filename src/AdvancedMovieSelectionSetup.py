@@ -350,8 +350,8 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
             self.list.append(getConfigListEntry(_("Set cover size:"), config.AdvancedMovieSelection.tmdb_poster_size, _("Here you can determine the coverfile size for the download/save.")))
             self.list.append(getConfigListEntry(_("Download cover from TMDB after timer is finished:"), config.AdvancedMovieSelection.cover_auto_download, _("If this function is enabled the cover is automatically downloaded from TMDB after timer is finished.")))
             self.list.append(getConfigListEntry(_("Show Provider Logo:"), config.AdvancedMovieSelection.show_picon, _("Displays the Provider Logo when no Cover available.")))
-            if config.AdvancedMovieSelection.show_picon.value:   
-                self.list.append(getConfigListEntry(_("Provider Logo path:"), config.AdvancedMovieSelection.piconpath, _("Where to look for the provider logos? (Default is /usr/share/enigma2/picon)")))   
+            #if config.AdvancedMovieSelection.show_picon.value:   
+            #    self.list.append(getConfigListEntry(_("Provider Logo path:"), config.usage.configselection_piconspath, _("Where to look for the provider logos? (Default is /usr/share/enigma2/picon)")))   
         
         # section features
         self.list.append(getConfigListEntry(_("FEATURES")))
@@ -386,7 +386,6 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
         
         #section display and skin options
         self.list.append(getConfigListEntry(_("DISPLAY & SKIN")))
-        self.list.append(getConfigListEntry(_("Use extended player:"), config.AdvancedMovieSelection.use_extended_player, _("Use the original player or the extended player.")))
         if config.AdvancedMovieSelection.showcolorstatusinmovielist.value:
             self.list.append(getConfigListEntry(_("Color for movies:"), config.AdvancedMovieSelection.color5, _("With this option you can assign what color should displayed for the movies in movie list.")))
             self.list.append(getConfigListEntry(_("Color for not ready seen movies:"), config.AdvancedMovieSelection.color1, _("With this option you can assign what color should displayed for not ready seen movies in movie list.")))
@@ -502,20 +501,11 @@ class AdvancedMovieSelectionSetup(ConfigListScreen, Screen):
 
     def keyOk(self):
         current = self["config"].l.getCurrentSelection()
-        if current and current[1] == config.AdvancedMovieSelection.piconpath:
-            from FileBrowser import PiconLocationBox
-            val = config.AdvancedMovieSelection.piconpath.value
-            self.session.openWithCallback(self.piconBrowserClosed, PiconLocationBox, val)
-            return
         if current and current[1] == self.pin_setup:
             self.openPinSetup()
         else:
             self.keySave()
-    
-    def piconBrowserClosed(self, path):
-        if path:
-            config.AdvancedMovieSelection.piconpath.value = path
-    
+
     def keySave(self):
         from Wastebasket import configChange
         configChange()
