@@ -29,7 +29,7 @@ def getTimerEditEntry():
     return TimerEditEntry()
 
 config.AdvancedMovieSelection.timer_download_type = ConfigSelection(default="tmdb_movie" ,
-                                                                    choices=[("" , _("no")),
+                                                                    choices=[("" , _("none")),
                                                                           ("tmdb_movie" , _("TMDb movie")),
                                                                           ("tmdb_serie" , _("TMDb serie")),
                                                                           ("tvdb_serie" , _("TVDb serie")),
@@ -53,27 +53,39 @@ class TimerEditEntrySetup(ConfigListScreen, Screen):
         self["key_red"] = StaticText(_("Close"))
         self["key_green"] = StaticText(_("Save"))
         self.list = []
-        self.list.append(self.getConfigListEntry())
+        self.list.append(self.getConfigListEntry(configentry))
         ConfigListScreen.__init__(self, self.list, session)
         self.onLayoutFinish.append(self.layoutFinished)
+        self.config_value = configentry and configentry.value or ""
 
     @staticmethod
-    def getConfigListEntry():
-        return getConfigListEntry(_("Cover download"), config.AdvancedMovieSelection.timer_download_type)
+    def getConfigListEntry(configentry=None):
+        if configentry is None:
+            conf = config.AdvancedMovieSelection.timer_download_type
+            configentry = ConfigSelection(default=conf.value , choices=conf.choices.choices)
+        return getConfigListEntry(_("Cover download"), configentry)
+        
 
     def layoutFinished(self):
         self.setTitle(_("AMS cover download after timer ended"))
 
     def keySave(self):
-        config.AdvancedMovieSelection.timer_download_type.save()
+        conf = self.list[0][1]
+        conf.save()
+        print "save", conf.value
         self.keyExit()
 
     def keyCancel(self):
-        config.AdvancedMovieSelection.timer_download_type.cancel()
+        conf = self.list[0][1]
+        conf.value = self.config_value
+        conf.save()
+        print "cancel", conf.value
         self.keyExit()
 
     def keyExit(self):
-        self.close(config.AdvancedMovieSelection.timer_download_type.value)
+        conf = self.list[0][1]
+        print "close", conf.value
+        self.close(conf.value)
 
 
 

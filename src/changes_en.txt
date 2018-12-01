@@ -434,4 +434,5 @@ version: 5.4
 version: 5.5
 * new: hour movie length format for movie list
 * change: selectable picon path
+* fix: timer movie db default settings
 * fix: keyboard support
