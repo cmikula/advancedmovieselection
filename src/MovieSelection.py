@@ -60,7 +60,7 @@ from time import localtime, strftime
 from datetime import datetime
 from Tools.FuzzyDate import FuzzyTime
 from MovieSearch import MovieSearch
-from Source.Globals import pluginPresent, SkinTools, printStackTrace
+from Source.Globals import pluginPresent, SkinTools, printStackTrace, isDreamOS
 from Source.ServiceProvider import ServiceEvent, ServiceCenter
 from Source.ServiceProvider import eServiceReferenceHotplug, eServiceReferenceBackDir, eServiceReferenceListAll, eServiceReferenceVDir, eServiceReferenceMarker
 from Source.AutoNetwork import autoNetwork 
@@ -824,6 +824,13 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                 "timeshiftStop": (self.stopButton, _("Start/Stop video preview")),
             })
         
+        # TODO: remove workaround
+        from Components.VideoWindow import VideoWindow
+        from enigma import getDesktop
+        desktopSize = getDesktop(0).size()
+        self["Video"] = VideoWindow(decoder=0, fb_width=desktopSize.width(), fb_height=desktopSize.height())
+        # ~remove workaround
+
         QuickButton.__init__(self)
         self.onShow.append(self.go)
         self.onLayoutFinish.append(self.saveListsize)
@@ -1197,6 +1204,16 @@ class MovieSelection(Screen, HelpableScreen, SelectionEventInfo, MoviePreview, Q
                 self.gotFilename(current.getPath())
             else:
                 self.saveconfig()
+
+                # TODO: remove workaround
+                if isDreamOS: #fix start video sometimes as mini-tv-window
+                    from enigma import getDesktop
+                    desktopSize = getDesktop(0).size()
+                    self.instance.resize(eSize(*(desktopSize.width(), desktopSize.height())))
+                    self["Video"].instance.resize(eSize(*(desktopSize.width(), desktopSize.height())))
+                    self["Video"].hide()
+                # ~remove workaround
+
                 self.close(current)
 
     def doContextPlugin(self):
