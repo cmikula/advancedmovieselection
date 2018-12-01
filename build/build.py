@@ -62,7 +62,7 @@ if (sys.version_info < (2, 6, 99) and sys.version_info > (2, 6, 0)):
 
 if (sys.version_info < (2, 7, 99) and sys.version_info > (2, 7, 0)):
     # sys.stderr.write("You need python 2.7 to build package compiled for opendreambox-2.0.0\n") 
-    ARCH = "mips32el"
+    ARCH = "all"
     py_version = 2.7
 
 PACKAGE_TYPE = "ipk"
@@ -87,7 +87,7 @@ PACKAGE_SECTION = "extra"
 PACKAGE_PRIORITY = "optional"
 PACKAGE_MAINTAINER = "JackDaniel, cmikula"
 PACKAGE_HOMEPAGE = "http://www.i-have-a-dreambox.com"
-PACKAGE_DEPENDS = "kernel-module-isofs, kernel-module-udf, python-json"  # TODO: check working enigma version
+PACKAGE_DEPENDS = "enigma2 (>= 4.3.1r24), kernel-module-isofs, kernel-module-udf, python-json"  # TODO: check working enigma version
 PACKAGE_SOURCE = "https://svn.code.sf.net/p/advancedmovieselection/code"
 
 SVN_REPOSITORY_EXPORT = "svn://svn.code.sf.net/p/advancedmovieselection/code/trunk/src"

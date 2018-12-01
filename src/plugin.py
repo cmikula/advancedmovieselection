@@ -116,12 +116,12 @@ def Plugins(**kwargs):
         print e
     
     descriptors = []
-    descriptors.append(PluginDescriptor(name=_("Setup Advanced Movie Selection"), where=PluginDescriptor.WHERE_PLUGINMENU, description=_("Alternate Movie Selection"), icon="images/setup.png", fnc=pluginMenu, needsRestart=True))
+    descriptors.append(PluginDescriptor(name=_("Setup Advanced Movie Selection"), where=PluginDescriptor.WHERE_PLUGINMENU, description=_("Alternate Movie Selection"), icon="images/setup.svg", fnc=pluginMenu, needsRestart=True))
     descriptors.append(PluginDescriptor(where=PluginDescriptor.WHERE_MENU, description=_("Alternate Movie Selection"), fnc=Setup, needsRestart=True))
     if not config.AdvancedMovieSelection.ml_disable.value:
         descriptors.append(PluginDescriptor(name=_("Advanced Movie Selection"), where=PluginDescriptor.WHERE_SESSIONSTART, description=_("Alternate Movie Selection"), fnc=sessionstart, needsRestart=True))
         descriptors.append(PluginDescriptor(name=_("Advanced Movie Selection"), where=PluginDescriptor.WHERE_EXTENSIONSMENU, description=_("Alternate Movie Selection"), fnc=pluginOpen))
-        descriptors.append(PluginDescriptor(name=_("Advanced Movie Selection"), where=PluginDescriptor.WHERE_PLUGINMENU, description=_("Alternate Movie Selection"), icon="images/plugin.png", fnc=pluginOpen))
+        descriptors.append(PluginDescriptor(name=_("Advanced Movie Selection"), where=PluginDescriptor.WHERE_PLUGINMENU, description=_("Alternate Movie Selection"), icon="images/plugin.svg", fnc=pluginOpen))
         descriptors.append(PluginDescriptor(name=_("Move Copy Progress"), where=PluginDescriptor.WHERE_EXTENSIONSMENU, description=_("Show progress of move or copy job"), fnc=openProgress))
     
         from MovieDBChannelContext import AMSEPGSelectionInit
