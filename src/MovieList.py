@@ -46,7 +46,7 @@ from Source.CueSheetSupport import hasLastPosition
 from Source.AutoNetwork import autoNetwork 
 from Source.Trashcan import TRASH_NAME
 from Source.EventInformationTable import EventInformationTable
-from Source.EITTools import appendShortDescriptionToMeta
+from Source.EITTools import appendShortDescriptionToMeta, writeEITFile2TextInfoFile
 from Source.AccessRestriction import accessRestriction
 from Source.MovieScanner import movieScanner
 from Source.Hotplug import hotplug
@@ -1222,6 +1222,21 @@ class MovieList(MovieListSkinParam, GUIListComponent):
             if os.path.exists(eit_file):
                 eit = EventInformationTable(eit_file)
                 appendShortDescriptionToMeta(serviceref.getPath(), eit.short_description)
+
+    def writeMovieInformationsToText(self):
+        for item in self.list:
+            serviceref = item[0].serviceref
+            file_name = serviceref.getPath()
+            if file_name.endswith(".ts"):
+                continue
+            if os.path.isfile(file_name):
+                eit_file = os.path.splitext(file_name)[0] + ".eit"
+                txt_file = os.path.splitext(file_name)[0] + ".txt"
+            else:
+                eit_file = file_name + ".eit"
+                txt_file = file_name + ".txt"
+            if os.path.exists(eit_file):
+                writeEITFile2TextInfoFile(eit_file, txt_file)
 
     def setAccess(self, access=18):
         accessRestriction.setAccess(access)
