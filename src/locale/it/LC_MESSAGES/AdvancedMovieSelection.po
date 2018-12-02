@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: AdvancedMovieSelection\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-01 10:53+0100\n"
-"PO-Revision-Date: 2018-12-01 10:55+0100\n"
+"POT-Creation-Date: 2018-12-02 15:16+0100\n"
+"PO-Revision-Date: 2018-12-02 15:16+0100\n"
 "Last-Translator: cmikula\n"
 "Language-Team: IhaD\n"
 "Language: it_IT\n"
@@ -131,7 +131,7 @@ msgid "Error creating settings backup!"
 msgstr "Errore durante la creazione del backup impostazioni!"
 
 #: ../../../AdvancedMovieSelectionSetup.py:110
-#: ../../../AdvancedMovieSelectionSetup.py:548 ../../../MovieSelection.py:1013
+#: ../../../AdvancedMovieSelectionSetup.py:548 ../../../MovieSelection.py:1019
 msgid ""
 "Some settings changes require close/reopen the movielist to take effect."
 msgstr ""
@@ -1697,7 +1697,7 @@ msgid "Job failed"
 msgstr "Operazione fallita!"
 
 #: ../../../MoveCopy.py:39 ../../../MoveCopy.py:115 ../../../MoveCopy.py:247
-#: ../../../MovieSelection.py:1188
+#: ../../../MovieSelection.py:1194
 msgid "Error"
 msgstr "Errore"
 
@@ -1865,7 +1865,7 @@ msgstr "a:"
 msgid "Source and destination path must be different."
 msgstr "Il percorso di origine deve essere diverso da quello di destinazione."
 
-#: ../../../MoveCopy.py:346 ../../../MovieSelection.py:1437
+#: ../../../MoveCopy.py:346 ../../../MovieSelection.py:1443
 #, python-format
 msgid "Directory %s nonexistent."
 msgstr "Cartella  %s inesistente."
@@ -1951,12 +1951,12 @@ msgid "Records"
 msgstr "Registrazioni"
 
 #: ../../../MovieList.py:1053 ../../../MovieList.py:1131
-#: ../../../MovieSelection.py:1369
+#: ../../../MovieSelection.py:1375
 msgid "Movie library"
 msgstr "Libreria dei film"
 
-#: ../../../MovieList.py:1105 ../../../MovieSelection.py:1262
-#: ../../../MovieSelection.py:1364 ../../../QuickButton.py:453
+#: ../../../MovieList.py:1105 ../../../MovieSelection.py:1268
+#: ../../../MovieSelection.py:1370 ../../../QuickButton.py:453
 msgid "VSR"
 msgstr "VSR"
 
@@ -2012,12 +2012,12 @@ msgstr "No, ma ripartire dall'inizio"
 msgid "Stop playing this movie?"
 msgstr "Fermare la riproduzione di questo film?"
 
-#: ../../../MoviePlayer.py:344 ../../../MovieSelection.py:905
+#: ../../../MoviePlayer.py:344 ../../../MovieSelection.py:911
 msgid "this recording"
 msgstr "questa registrazione"
 
 #: ../../../MoviePlayer.py:349 ../../../MoviePlayer.py:356
-#: ../../../MovieSelection.py:856 ../../../Wastebasket.py:238
+#: ../../../MovieSelection.py:862 ../../../Wastebasket.py:238
 #, python-format
 msgid "Do you really want to delete %s?"
 msgstr "Confermi di voler cancellare %s?"
@@ -2030,7 +2030,7 @@ msgstr "Il film è finito, ora il box andrà in standby. Lo faccio ora?"
 msgid "End of the movie is reached, the box now go to shut down. Shutdown now?"
 msgstr "Il film è finito, ora il box si spegnerà. Spegnere adesso?"
 
-#: ../../../MoviePlayer.py:422 ../../../MovieSelection.py:808
+#: ../../../MoviePlayer.py:422 ../../../MovieSelection.py:814
 msgid "Show event details"
 msgstr "Mostrare informazioni dell'evento"
 
@@ -2309,48 +2309,52 @@ msgid "Search Trailer on web"
 msgstr "Cercare il Trailer sul web"
 
 #: ../../../MovieSelection.py:308
+msgid "Write movie informations to text files"
+msgstr "Scrivi informazioni sul film in file di testo"
+
+#: ../../../MovieSelection.py:310
 msgid "Backup/Restore"
 msgstr "Backup/Ripristino"
 
-#: ../../../MovieSelection.py:310
+#: ../../../MovieSelection.py:312
 msgid "Select scan locations for movie library"
 msgstr "Selezionare le posizioni di scansione per la libreria dei film"
 
-#: ../../../MovieSelection.py:312
+#: ../../../MovieSelection.py:314
 msgid "Setup"
 msgstr "Impostazioni AMS"
 
-#: ../../../MovieSelection.py:315
+#: ../../../MovieSelection.py:317
 msgid "Advanced Movie Selection Menu"
 msgstr "Menu AMS"
 
-#: ../../../MovieSelection.py:318
+#: ../../../MovieSelection.py:320
 msgid "Available plugins"
 msgstr "Plugins disponibili"
 
-#: ../../../MovieSelection.py:345
+#: ../../../MovieSelection.py:351
 #, python-format
 msgid "The device '%s' can now removed!"
 msgstr "Ora la periferica '%s' può essere rimossa!"
 
-#: ../../../MovieSelection.py:349
+#: ../../../MovieSelection.py:355
 msgid "Error occurred during unmounting device!"
 msgstr "Errore durante la disinstallazione della periferica!"
 
-#: ../../../MovieSelection.py:371 ../../../SearchTMDb.py:506
+#: ../../../MovieSelection.py:377 ../../../SearchTMDb.py:506
 #: ../../../SearchTVDb.py:582
 msgid "No internet connection available!"
 msgstr "Connessione internet non disponibile!"
 
-#: ../../../MovieSelection.py:422
+#: ../../../MovieSelection.py:428
 msgid "Move/Copy not possible here!"
 msgstr "Qui non è possibile Spostare/Copiare!"
 
-#: ../../../MovieSelection.py:434
+#: ../../../MovieSelection.py:440
 msgid "Enter text to search for"
 msgstr "Inserire il testo da cercare"
 
-#: ../../../MovieSelection.py:586
+#: ../../../MovieSelection.py:592
 #, python-format
 msgid ""
 "Do you really want to delete info/cover from:\n"
@@ -2359,12 +2363,12 @@ msgstr ""
 "Vuoi veramente cancellare informazioni e cover di:\n"
 "%s?"
 
-#: ../../../MovieSelection.py:590 ../../../MovieSelection.py:616
-#: ../../../MovieSelection.py:648
+#: ../../../MovieSelection.py:596 ../../../MovieSelection.py:622
+#: ../../../MovieSelection.py:654
 msgid "You cannot delete this!"
 msgstr "Questo no può essere cancellato!"
 
-#: ../../../MovieSelection.py:612
+#: ../../../MovieSelection.py:618
 #, python-format
 msgid ""
 "Do you really want to delete cover from:\n"
@@ -2373,7 +2377,7 @@ msgstr ""
 "Vuoi veramente cancellare la cover di:\n"
 "%s?"
 
-#: ../../../MovieSelection.py:644
+#: ../../../MovieSelection.py:650
 #, python-format
 msgid ""
 "Do you really want to delete movie info from:\n"
@@ -2382,65 +2386,65 @@ msgstr ""
 "Vuoi veramente cancellare le informazioni di:\n"
 "%s?"
 
-#: ../../../MovieSelection.py:772
+#: ../../../MovieSelection.py:778
 msgid "Please wait... Loading list..."
 msgstr "Si prega di attendere… Elenco in caricamento"
 
-#: ../../../MovieSelection.py:777 ../../../Wastebasket.py:174
+#: ../../../MovieSelection.py:783 ../../../Wastebasket.py:174
 msgid "ATTENTION: Ask before delete is disabled!"
 msgstr ""
 "ATTENZIONE: E' disabilitata la richiesta di conferma prima di cancellare!"
 
-#: ../../../MovieSelection.py:801
+#: ../../../MovieSelection.py:807
 msgid "Select the movie path"
 msgstr "Selezionare il percorso del film"
 
-#: ../../../MovieSelection.py:802
+#: ../../../MovieSelection.py:808
 msgid "Multiselection"
 msgstr "Scelte multiple"
 
-#: ../../../MovieSelection.py:806
+#: ../../../MovieSelection.py:812
 msgid "Advanced movielist menu"
 msgstr "Menu avanzato elenco film"
 
-#: ../../../MovieSelection.py:807
+#: ../../../MovieSelection.py:813
 msgid "Available plugins menu"
 msgstr "Menu plugins disponibili"
 
-#: ../../../MovieSelection.py:812
+#: ../../../MovieSelection.py:818
 msgid "Exit movielist"
 msgstr "Uscire dall'elenco film"
 
-#: ../../../MovieSelection.py:813
+#: ../../../MovieSelection.py:819
 msgid "Select movie"
 msgstr "Selezionare il film"
 
-#: ../../../MovieSelection.py:817
+#: ../../../MovieSelection.py:823
 msgid "Video preview jump forward"
 msgstr "Saltare l'anteprima del film"
 
-#: ../../../MovieSelection.py:818
+#: ../../../MovieSelection.py:824
 msgid "Video preview jump backward"
 msgstr "Tornare all anteprima del film"
 
-#: ../../../MovieSelection.py:819
+#: ../../../MovieSelection.py:825
 msgid "Jump to next marker"
 msgstr "Vai all'indicatore successivo"
 
-#: ../../../MovieSelection.py:820
+#: ../../../MovieSelection.py:826
 msgid "Jump to previous marker"
 msgstr "Vai all'indicatore precedente"
 
-#: ../../../MovieSelection.py:824
+#: ../../../MovieSelection.py:830
 msgid "Start/Stop video preview"
 msgstr "Start/Stop anteprima del film"
 
-#: ../../../MovieSelection.py:849 ../../../MovieSelection.py:854
+#: ../../../MovieSelection.py:855 ../../../MovieSelection.py:860
 #, python-format
 msgid "%s is currently recording!"
 msgstr "%s è in registrazione!"
 
-#: ../../../MovieSelection.py:849
+#: ../../../MovieSelection.py:855
 #, python-format
 msgid ""
 "\n"
@@ -2457,12 +2461,12 @@ msgstr ""
 "\n"
 "Vuoi continuare veramente?"
 
-#: ../../../MovieSelection.py:851
+#: ../../../MovieSelection.py:857
 #, python-format
 msgid "Do you really want to move %s to trashcan?"
 msgstr "Veramente vuoi spostare %s nel cestino?"
 
-#: ../../../MovieSelection.py:854
+#: ../../../MovieSelection.py:860
 #, python-format
 msgid ""
 "\n"
@@ -2479,45 +2483,45 @@ msgstr ""
 "\n"
 "Vuoi continuare veramente?"
 
-#: ../../../MovieSelection.py:858
+#: ../../../MovieSelection.py:864
 msgid "Recordings are active, the timer(s) will also be deleted!\n"
 msgstr "Le registrazioni sono attive, anche il timer sarà cancellato!\n"
 
-#: ../../../MovieSelection.py:860
+#: ../../../MovieSelection.py:866
 msgid "Do you really want to move selected movies to trashcan?"
 msgstr "Vuoi veramente spostare i film selezionati nel cestino?"
 
-#: ../../../MovieSelection.py:862
+#: ../../../MovieSelection.py:868
 msgid "Do you really want to delete selected movies?"
 msgstr "Vuoi veramente cancellare i film selezionati?"
 
-#: ../../../MovieSelection.py:876 ../../../MovieSelection.py:949
+#: ../../../MovieSelection.py:882 ../../../MovieSelection.py:955
 #: ../../../Wastebasket.py:271
 msgid "Delete failed!"
 msgstr "Cancellazione non riuscita!"
 
-#: ../../../MovieSelection.py:888
+#: ../../../MovieSelection.py:894
 msgid "This cannot deleted, please select a movie for!"
 msgstr "Questo non può essere cancellato, si prega di selezionare un film!"
 
-#: ../../../MovieSelection.py:893
+#: ../../../MovieSelection.py:899
 msgid "The required PIN code is not set!"
 msgstr "Il codice PIN richiesto non e impostato!"
 
-#: ../../../MovieSelection.py:895
+#: ../../../MovieSelection.py:901
 msgid "Enter PIN code"
 msgstr "Inserire il codice PIN"
 
-#: ../../../MovieSelection.py:895
+#: ../../../MovieSelection.py:901
 msgid "The PIN code is required to delete the directory"
 msgstr "Il codice PIN e necessario per eliminare la directory"
 
-#: ../../../MovieSelection.py:999 ../../../plugin.py:122 ../../../plugin.py:123
-#: ../../../plugin.py:124
+#: ../../../MovieSelection.py:1005 ../../../plugin.py:122
+#: ../../../plugin.py:123 ../../../plugin.py:124
 msgid "Advanced Movie Selection"
 msgstr "Advanced Movie Selection"
 
-#: ../../../MovieSelection.py:1220
+#: ../../../MovieSelection.py:1226
 msgid ""
 "Load Length of Movies in Movielist has been disabled.\n"
 "Close and reopen Movielist is required to apply the setting."
@@ -2526,39 +2530,39 @@ msgstr ""
 "disabilitata.\n"
 "E' necessario chiudere e riaprire l'Elenco Film per applicare l'impostazione."
 
-#: ../../../MovieSelection.py:1282
+#: ../../../MovieSelection.py:1288
 msgid "Tag 1"
 msgstr "Tag 1"
 
-#: ../../../MovieSelection.py:1287
+#: ../../../MovieSelection.py:1293
 msgid "Tag 2"
 msgstr "Tag 2"
 
-#: ../../../MovieSelection.py:1367
+#: ../../../MovieSelection.py:1373
 msgid "Movie location:"
 msgstr "Posizione del film:"
 
-#: ../../../MovieSelection.py:1384
+#: ../../../MovieSelection.py:1390
 msgid "[Library update in progress]"
 msgstr "[Caricamento libreria in avanzamento]"
 
-#: ../../../MovieSelection.py:1408
+#: ../../../MovieSelection.py:1414
 msgid "Please select the movie path..."
 msgstr "Si prega di selezionare il percorso del film…"
 
-#: ../../../MovieSelection.py:1486
+#: ../../../MovieSelection.py:1492
 msgid "Please select tag to filter..."
 msgstr "Si prega di selezionare il tag per filtrare..."
 
-#: ../../../MovieSelection.py:1489
+#: ../../../MovieSelection.py:1495
 msgid "No tags are set on these movies."
 msgstr "Non sono impostati tags in questo film."
 
-#: ../../../MovieSelection.py:1496
+#: ../../../MovieSelection.py:1502
 msgid "Please select the search path(s) for movies..."
 msgstr "Si prega di selezionare i percorsi per i film…"
 
-#: ../../../MovieSelection.py:1519
+#: ../../../MovieSelection.py:1525
 msgid ""
 "Use direction keys to move the Moviebar.\n"
 "Press OK button for save or the EXIT button to cancel.\n"

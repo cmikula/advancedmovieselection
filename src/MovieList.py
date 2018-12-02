@@ -1223,7 +1223,7 @@ class MovieList(MovieListSkinParam, GUIListComponent):
                 eit = EventInformationTable(eit_file)
                 appendShortDescriptionToMeta(serviceref.getPath(), eit.short_description)
 
-    def writeTextFromEit(self):
+    def writeMovieInformationsToText(self):
         for item in self.list:
             serviceref = item[0].serviceref
             file_name = serviceref.getPath()
