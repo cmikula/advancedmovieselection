@@ -448,7 +448,7 @@ def writeEIT(file_name, eit_file, name, overview, genre, extended_info, released
             txt_file = os.path.splitext(file_name)[0] + ".txt"
         else:
             txt_file = file_name + ".txt"
-        writeTextInfoFile(txt_file, name, runtime, overview + "\r\n" + extended_info)
+        writeTextInfoFile(txt_file, name, int(runtime) * 60, overview + "\r\n" + extended_info)
 
     _file = None
     try:
