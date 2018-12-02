@@ -443,6 +443,13 @@ def convertToUnicode(text):
     return unicode(text)
 
 def writeEIT(file_name, eit_file, name, overview, genre, extended_info, released, runtime, language_code="DEU"):
+    if not file_name.endswith(".ts"):
+        if os.path.isfile(file_name):
+            txt_file = os.path.splitext(file_name)[0] + ".txt"
+        else:
+            txt_file = file_name + ".txt"
+        writeTextInfoFile(txt_file, name, runtime, overview + "\r\n" + extended_info)
+
     _file = None
     try:
         data = []
@@ -480,3 +487,20 @@ def writeEIT(file_name, eit_file, name, overview, genre, extended_info, released
         printStackTrace()
         return False
 
+def writeTextInfoFile(text_file, title, duration, description):
+    try:
+        delimiter = "\r\n"
+        with open(text_file, 'w') as f:
+            f.write("title=")
+            f.write(title)
+            f.write(delimiter)
+
+            f.write("duration=")
+            f.write(str(duration))
+            f.write(delimiter)
+            
+            f.write("long-description=")
+            f.write(description)
+            f.write(delimiter)
+    except:
+        printStackTrace()
