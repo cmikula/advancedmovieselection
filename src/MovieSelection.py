@@ -304,6 +304,8 @@ class MovieContextMenu(Screen):
             menu.append((_("Setup Moviebar position"), self.moviebarsetup))
         if pluginPresent.YTTrailer == True and config.AdvancedMovieSelection.showtrailer.value and not (self.service.flags & eServiceReference.mustDescent): 
             menu.append((_("Search Trailer on web"), boundFunction(self.showTrailer)))
+
+        menu.append((_("Write movie informations to text files"), self.writeMovieInformationsToText))
         if config.AdvancedMovieSelection.show_backup_restore.value:
             menu.append((_("Backup/Restore"), boundFunction(self.openBackupRestore)))
         if config.AdvancedMovieSelection.show_location_indexing.value:
@@ -337,6 +339,10 @@ class MovieContextMenu(Screen):
     def updateMetaFromEit(self):
         self.csel.list.updateMetaFromEit()
         self.csel.reloadList()
+        self.close()
+
+    def writeMovieInformationsToText(self):
+        self.csel.list.writeMovieInformationsToText()
         self.close()
         
     def unmount(self):

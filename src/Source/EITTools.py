@@ -32,7 +32,7 @@ Digital Video Broadcasting (DVB) Specification for Service Information (SI) in D
 '''
 
 import os, time
-from EventInformationTable import EventInformationTable, writeEIT, getLanguageCode, printStackTrace
+from EventInformationTable import EventInformationTable, writeEIT, getLanguageCode, printStackTrace, writeTextInfoFile
 from MovieDB import tmdb, tvdb, downloadCover
 from MovieDB.MovieDBI import MovieDBI
 
@@ -292,6 +292,13 @@ def createEITtvdb(file_name, title, serie=None, episode=None, overwrite_eit=Fals
     except:
         printStackTrace()
         return False
+
+def writeEIT2TextInfoFile(eit, text_file):
+    writeTextInfoFile(text_file, eit.getEventName(), eit.getDuration(), eit.getExtendedDescription())
+
+def writeEITFile2TextInfoFile(eit_file, text_file):
+    eit = EventInformationTable(eit_file)
+    writeEIT2TextInfoFile(eit, text_file)
 
 
 # Debug only 

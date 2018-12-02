@@ -64,18 +64,18 @@ class eServiceReferenceTrash():
     def __init__(self, path):
         self.path = path
         p = path.replace(TRASH_NAME, "")
-        if(p.endswith(".ts")):
+        if p.endswith(".ts"):
             meta_path = p[:-3] + ".ts.meta"
         else:
             meta_path = p + ".ts.meta"
         if os.path.exists(meta_path):
-            file = open(meta_path, "r")
-            file.readline()
-            self.setName(file.readline().rstrip("\r\n"))
+            f = open(meta_path, "r")
+            f.readline()
+            self.setName(f.readline().rstrip("\r\n"))
             if len(self.name) == 0:
                 self.setName(os.path.basename(p))
-            self.short_description = file.readline().rstrip("\r\n")
-            file.close()
+            self.short_description = f.readline().rstrip("\r\n")
+            f.close()
         else:
             self.setName(os.path.basename(p))
             self.short_description = ""
@@ -113,7 +113,7 @@ class Trashcan:
     @staticmethod
     def listAllMovies(root):
         resetInfo()
-        list = []
+        l = []
         for (path, dirs, files) in os.walk(root):
             # Skip excluded directories here
             sp = path.split("/")
@@ -124,26 +124,26 @@ class Trashcan:
             # This path detection is only for trashed DVD structures
             if path.endswith(TRASH_NAME):
                 service = eServiceReferenceTrash(path)
-                list.append(service)
+                l.append(service)
                 updateInfo(path)
 
             for filename in files:
                 if filename.endswith(TRASH_NAME):
                     f = os.path.join(path, filename)
                     service = eServiceReferenceTrash(f)
-                    list.append(service)
+                    l.append(service)
                     updateInfo(f)
-        return list
+        return l
 
     @staticmethod
     def listMovies(path):
         resetInfo()
-        list = []
+        l = []
         for filename in glob.glob(os.path.join(path, "*" + TRASH_NAME)):
             service = eServiceReferenceTrash(filename)
-            list.append(service)
+            l.append(service)
             updateInfo(filename)
-        return list
+        return l
     
     @staticmethod
     def trash(filename):
@@ -175,11 +175,13 @@ class Trashcan:
         if os.path.isfile(filename):
             file_extension = os.path.splitext(original_name)[-1]
             eit = os.path.splitext(original_name)[0] + ".eit"
+            txt = os.path.splitext(original_name)[0] + ".txt"
             jpg = os.path.splitext(original_name)[0] + ".jpg"
             backdrop = os.path.splitext(original_name)[0] + ".backdrop.jpg"
         else:
             file_extension = ""
             eit = original_name + ".eit"
+            txt = original_name + ".txt"
             jpg = original_name + ".jpg"
             backdrop = original_name + ".backdrop.jpg"
 
@@ -203,6 +205,9 @@ class Trashcan:
         if os.path.exists(eit):
             print eit
             os.remove(eit)
+        if os.path.exists(txt):
+            print txt
+            os.remove(txt)
 
         if os.path.exists(filename):
             if os.path.isfile(filename):
