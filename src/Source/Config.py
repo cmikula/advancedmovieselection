@@ -261,11 +261,19 @@ config.AdvancedMovieSelection.show_backdrop = ConfigYesNo(default=False)
 config.AdvancedMovieSelection.show_directory_info = ConfigSelection(default="" , choices=[("" , _("no")), ("qty" , _("(quantity)")), ("new" , _("(new)")), ("seen" , _("(seen)")), ("new/qty" , _("(new/quantity)")), ("seen/qty" , _("(seen/quantity)"))])
 config.AdvancedMovieSelection.use_extended_player = ConfigYesNo(default=True)
 
-config.AdvancedMovieSelection.pincode = ConfigPIN(default = -1)
+config.AdvancedMovieSelection.pincode = ConfigPIN(default= -1)
 config.AdvancedMovieSelection.retries = ConfigSubsection()
 config.AdvancedMovieSelection.retries.deletepin = ConfigSubsection()
-config.AdvancedMovieSelection.retries.deletepin.tries = ConfigInteger(default = 3)
-config.AdvancedMovieSelection.retries.deletepin.time = ConfigInteger(default = 3)    
+config.AdvancedMovieSelection.retries.deletepin.tries = ConfigInteger(default=3)
+config.AdvancedMovieSelection.retries.deletepin.time = ConfigInteger(default=3)    
+
+config.AdvancedMovieSelection.timer_download_type = ConfigSelection(default="tmdb_movie" ,
+                                                                    choices=[("" , _("none")),
+                                                                          ("tmdb_movie" , _("TMDb movie")),
+                                                                          ("tmdb_serie" , _("TMDb serie")),
+                                                                          ("tvdb_serie" , _("TVDb serie")),
+                                                                          ])
+
 
 class QuickButtons():
     def __init__(self):
