@@ -64,16 +64,22 @@ class CoverLoader():
         recordTimerEvent.appendCallback(self.timerStateChanged)
 
     def getTimerEntryDownloadType(self, timer):
-        download = "tmdb_movie"
         try:
             if hasattr(timer, 'plugins'):
                 ams_timer = timer.plugins.get("AMS_COVER_DOWNLOAD")
-                #print str(ams_timer)
+                print "timer.plugins", str(ams_timer)
                 if ams_timer is not None:
                     download = ams_timer[0];
+                    print download
+                    return download
+            
+            print "no timer.plugins!!!"
+            default = config.AdvancedMovieSelection.timer_download_type.value
+            if default:
+                print "timer_download_type:", str(default)
+            return default
         except:
-            pass
-        return download
+            printStackTrace()
     
     def timerStateChanged(self, timer):
         if not config.AdvancedMovieSelection.cover_auto_download.value:
