@@ -28,13 +28,6 @@ from Components.config import config, ConfigSelection, getConfigListEntry
 def getTimerEditEntry():
     return TimerEditEntry()
 
-config.AdvancedMovieSelection.timer_download_type = ConfigSelection(default="tmdb_movie" ,
-                                                                    choices=[("" , _("none")),
-                                                                          ("tmdb_movie" , _("TMDb movie")),
-                                                                          ("tmdb_serie" , _("TMDb serie")),
-                                                                          ("tvdb_serie" , _("TVDb serie")),
-                                                                          ])
-
 class TimerEditEntry(dict):
     def __init__(self):
         self["setupFnc"] = TimerEditEntrySetup
